@@ -18,17 +18,31 @@ package org.jmesa.limit;
 /**
  * @author Jeff Johnston
  */
-public enum ActionType {
+public enum Action {
 	FILTER,
 	SORT,
-	CLEAR;
-
-	public String toString() {
+	CLEAR,
+	PAGE,
+	MAX_ROWS;
+	
+	public String getCode() {
 		switch(this) {
+		case PAGE: return "p_";
+		case MAX_ROWS: return "mr_";
 		case FILTER: return "f_";
 		case CLEAR: return "c_";
 		case SORT: return "s_";
 		default: return "";
 		}
-	}	
+	}
+	
+	public Action getAction(String code) {
+		for(Action action: Action.values()) {
+			if (action.getCode().equals(code)) {
+				return action;
+			}
+		}
+		
+		return null;
+	}
 }

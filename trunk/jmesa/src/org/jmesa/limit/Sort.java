@@ -21,24 +21,17 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public final class Sort {
-    private final String alias;
     private final String property;
     private final Order order;
 
     public Sort() {
-        this.alias = null;
         this.property = null;
         this.order = Order.UNORDERED;
     }
 
-    public Sort(String alias, String property, Order order) {
-        this.alias = alias;
+    public Sort(String property, Order order) {
         this.property = property;
         this.order = order;
-    }
-
-    public String getAlias() {
-        return alias;
     }
 
     public String getProperty() {
@@ -53,13 +46,8 @@ public final class Sort {
         return order != null;
     }
     
-    public boolean isAliased() {
-        return !alias.equals(property);
-    }
-    
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("alias", alias);
         builder.append("property", property);
         builder.append("order", order);
         return builder.toString();

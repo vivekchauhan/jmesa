@@ -24,6 +24,9 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
+/**
+ * @author Jeff Johnston
+ */
 public class FilterSetTest {
 	@Test
 	public void isFiltered() {
@@ -61,8 +64,8 @@ public class FilterSetTest {
 
 	private FilterSet getFilterSet() {
 		HashSet<Filter> filters = new HashSet<Filter>();
-		filters.add(new Filter("name", "fullName", "George Washington"));
-		filters.add(new Filter("nickname", "nickname", "Father Of His Country"));
+		filters.add(new Filter("fullName", "George Washington"));
+		filters.add(new Filter("nickname", "Father Of His Country"));
 		return new FilterSet(filters);
 	}
 }

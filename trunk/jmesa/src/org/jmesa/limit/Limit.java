@@ -19,27 +19,25 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public interface Limit {
-	
 	public String getId();
-	
-	public RowSelect getRowSelect();
-	
-	public void setRowSelect();
-	
-	public FilterSet getFilterSet();
-	
-	public void addFilter(Filter filter);
-	
-	public SortSet getSortSet();
-	
-	public void addSort(Sort sort);
-	
-	public int getPage();
-	
-	public void setPage(int page);
-	
-	public boolean isExported();
-	
-	public ExportType getExportType();
 
+	public RowSelect getRowSelect();
+
+	public void setRowSelect();
+
+	public FilterSet getFilterSet();
+
+	public void addFilter(Filter filter);
+
+	public SortSet getSortSet();
+
+	public void addSort(Sort sort);
+
+	public int getPage();
+
+	public void setPage(int page);
+
+	public boolean isExported();
+
+	public ExportType getExportType();
 }

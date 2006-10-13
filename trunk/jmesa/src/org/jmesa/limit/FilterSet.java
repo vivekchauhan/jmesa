@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class FilterSet {
-	private Set<Filter> filters;
+	private Set<Filter> filters = new HashSet<Filter>();
 
 	public FilterSet() {
 		filters = new HashSet<Filter>();
@@ -54,10 +54,10 @@ public class FilterSet {
 	 *            The Filter alias
 	 * @return The Filter value
 	 */
-	public String getFilterValue(String alias) {
+	public String getFilterValue(String property) {
 		for (Iterator iter = filters.iterator(); iter.hasNext();) {
 			Filter filter = (Filter) iter.next();
-			if (filter.getAlias().equals(alias)) {
+			if (filter.getProperty().equals(property)) {
 				return filter.getValue();
 			}
 		}
@@ -72,15 +72,19 @@ public class FilterSet {
 	 *            The Filter alias
 	 * @return The Filter value
 	 */
-	public Filter getFilter(String alias) {
+	public Filter getFilter(String property) {
 		for (Iterator iter = filters.iterator(); iter.hasNext();) {
 			Filter filter = (Filter) iter.next();
-			if (filter.getAlias().equals(alias)) {
+			if (filter.getProperty().equals(property)) {
 				return filter;
 			}
 		}
 
 		return null;
+	}
+	
+	public void addFilter(Filter filter) {
+		filters.add(filter);
 	}
 
 	public String toString() {

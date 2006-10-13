@@ -15,6 +15,7 @@
  */
 package org.jmesa.limit;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class SortSet {
-    private Set<Sort> sorts;
+    private Set<Sort> sorts = new HashSet<Sort>();
     
     public SortSet() {
     }
@@ -47,10 +48,10 @@ public class SortSet {
      * @param alias The Filter alias
      * @return The Filter value
      */
-    public Order getSortOrder(String alias) {
+    public Order getSortOrder(String property) {
     	for (Iterator iter = sorts.iterator(); iter.hasNext();) {
     		Sort sort = (Sort) iter.next();
-            if (sort.getAlias().equals(alias)) {
+            if (sort.getProperty().equals(property)) {
                 return sort.getOrder();
             }
 		}
@@ -64,15 +65,19 @@ public class SortSet {
      * @param alias The Filter alias
      * @return The Filter value
      */
-    public Sort getSort(String alias) {
+    public Sort getSort(String property) {
     	for (Iterator iter = sorts.iterator(); iter.hasNext();) {
     		Sort sort = (Sort) iter.next();
-            if (sort.getAlias().equals(alias)) {
+            if (sort.getProperty().equals(property)) {
                 return sort;
             }
 		}
 
         return new Sort();
+    }
+    
+    public void addSort(Sort sort) {
+    	sorts.add(sort);
     }
     
     public String toString() {

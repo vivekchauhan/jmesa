@@ -19,14 +19,26 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum Order {
-	UNORDERED, ASC, DESC;
+	UNORDERED, 
+	ASC, 
+	DESC;
 	
-	public String toString() {
+	public String getCode() {
 		switch(this) {
 		case UNORDERED: return "unsorted";
 		case ASC: return "asc";
 		case DESC: return "desc";
 		default: return "";
 		}
-	}	
+	}
+	
+	public static Order getOrder(String code) {
+		for(Order order: Order.values()) {
+			if (order.getCode().equals(code)) {
+				return order;
+			}
+		}
+		
+		return null;
+	}
 }

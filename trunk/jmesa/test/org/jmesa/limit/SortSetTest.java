@@ -43,7 +43,7 @@ public class SortSetTest {
 		SortSet sortSet = getSortSet();
 		Order order = sortSet.getSortOrder("nickname");
 		assertNotNull(order);
-		assertEquals(order.toString(), "desc");
+		assertEquals(order.getCode(), "desc");
 		assertEquals(order, Order.DESC);
 	}
 
@@ -59,8 +59,8 @@ public class SortSetTest {
 	private SortSet getSortSet() {
 		HashSet<Sort> sortSet = new HashSet<Sort>();
 		
-		sortSet.add(new Sort("name", "fullName", Order.ASC));
-		sortSet.add(new Sort("nickname", "nickname", Order.DESC));
+		sortSet.add(new Sort("fullName", Order.ASC));
+		sortSet.add(new Sort("nickname", Order.DESC));
 		
 		return new SortSet(sortSet);
 	}

@@ -19,5 +19,15 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public interface LimitFactory {
+	public int getMaxRows();
 
+	public int getPage();
+	
+	public FilterSet getFilterSet();
+	
+	public SortSet getSortSet();
+	
+	public boolean isExported();
+	
+	public ExportType getExportType();
 }

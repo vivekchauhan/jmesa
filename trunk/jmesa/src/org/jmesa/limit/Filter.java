@@ -21,18 +21,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public final class Filter {
-    private final String alias;
     private final String property;
     private final String value;
 
-    public Filter(String alias, String property, String value) {
-        this.alias = alias;
+    public Filter(String property, String value) {
         this.property = property;
         this.value = value;
-    }
-
-    public String getAlias() {
-        return alias;
     }
 
     public String getProperty() {
@@ -41,10 +35,6 @@ public final class Filter {
 
     public String getValue() {
         return value;
-    }
-    
-    public boolean isAliased() {
-        return !alias.equals(property);
     }
     
     @Override
@@ -57,13 +47,13 @@ public final class Filter {
 
         Filter that = (Filter) o;
 
-        return that.getAlias().equals(this.getAlias());
+        return that.getProperty().equals(this.getProperty());
     }
     
     @Override
     public int hashCode() {
         int result = 17;
-        int alias = this.getAlias() == null ? 0 : this.getAlias().hashCode();
+        int alias = this.getProperty() == null ? 0 : this.getProperty().hashCode();
         result = result * 37 + alias;
         return result;
     }
@@ -71,7 +61,6 @@ public final class Filter {
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("alias", alias);
         builder.append("property", property);
         builder.append("value", value);
         return builder.toString();
