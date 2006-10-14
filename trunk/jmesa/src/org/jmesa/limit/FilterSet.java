@@ -39,10 +39,6 @@ public class FilterSet {
 		return filters != null && !filters.isEmpty();
 	}
 
-	public boolean isCleared() {
-		return filters == null || filters.isEmpty();
-	}
-
 	public Set<Filter> getFilters() {
 		return filters;
 	}

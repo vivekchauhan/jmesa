@@ -23,9 +23,9 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class NotifyToDefaultState implements State {
-	private HttpServletRequest request;
-	private String id;
-	private String stateAttr;
+	private final HttpServletRequest request;
+	private final String id;
+	private final String stateAttr;
 	
 	public NotifyToDefaultState(HttpServletRequest request, String id, String stateAttr) {
 		this.request = request;

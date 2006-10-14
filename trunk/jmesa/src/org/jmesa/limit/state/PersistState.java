@@ -23,8 +23,8 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class PersistState implements State {
-	private HttpServletRequest request;
-	private String id;
+	private final HttpServletRequest request;
+	private final String id;
 
 	public PersistState(HttpServletRequest request, String id) {
 		this.request = request;

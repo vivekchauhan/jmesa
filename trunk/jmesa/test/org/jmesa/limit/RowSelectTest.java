@@ -15,19 +15,29 @@
  */
 package org.jmesa.limit;
 
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 /**
  * @author Jeff Johnston
  */
-public interface RowSelect {
-	public int getRowStart();
+public class RowSelectTest {
 
-	public int getRowEnd();
+	@Test
+	public void createRowSelect() {
+		int maxRows = 2;
+		int totalRows = 5;
+		int page = 5;
 
-	public int getTotalRows();
+		BasicRowSelect rowSelect = new BasicRowSelect(page, maxRows, totalRows);
 
-	public int getMaxRows();
+		assertTrue("page", rowSelect.getPage() == 3);
+		assertTrue("max rows", rowSelect.getMaxRows() == 2);
 
-	public int getPage();
+		int rowStart = rowSelect.getRowStart();
+		int rowEnd = rowSelect.getRowEnd();
 
-	public void setPage(int page);
+		assertTrue("row end greater than row start", rowEnd >= rowStart);
+	}
 }

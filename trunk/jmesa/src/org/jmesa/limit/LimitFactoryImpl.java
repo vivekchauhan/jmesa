@@ -23,26 +23,41 @@ import org.apache.commons.lang.StringUtils;
 /**
  * @author Jeff Johnston
  */
-public class DefaultLimitFactory implements LimitFactory {
-	private Map<String, ?> parameters;
-	private String prefix;
-
-	public DefaultLimitFactory(Map<String, ?> parameters, String id) {
+public class LimitFactoryImpl implements LimitFactory {
+	private final Map<String, ?> parameters;
+	private final String id;
+	private final String prefixId;
+	
+	public LimitFactoryImpl(String id, Map<String, ?> parameters) {
+		this.id = id;
 		this.parameters = parameters;
-		this.prefix = id + "_";
+		this.prefixId = id + "_";
 	}
 
-	public int getMaxRows() {
-        String maxRows = getValue(parameters.get(prefix + Action.MAX_ROWS));
+	public String getId() {
+		return id; 
+	}
+
+
+	/**
+	 * @return The max rows based on what the user selected. A null returned implies the
+	 * default must be used.
+	 */
+	public Integer getMaxRows() {
+        String maxRows = getValue(parameters.get(prefixId + Action.MAX_ROWS));
         if (StringUtils.isNotBlank(maxRows)) {
             return Integer.parseInt(maxRows);
         }
 
-        return -1;
+        return null;
 	}
 
+	/**
+	 * @return The current page based on what the user selected. The default is to return
+	 * the first page.
+	 */
 	public int getPage() {
-        String page = getValue(parameters.get(prefix + Action.PAGE));
+        String page = getValue(parameters.get(prefixId + Action.PAGE));
         if (StringUtils.isNotBlank(page)) {
             return Integer.parseInt(page);
         }
@@ -53,11 +68,17 @@ public class DefaultLimitFactory implements LimitFactory {
 	public FilterSet getFilterSet() {
 		FilterSet filterSet = new FilterSet();
 		
+        String clear = getValue(parameters.get(prefixId + Action.CLEAR));
+        if (StringUtils.isNotEmpty(clear)) {
+            return filterSet;
+        }
+
+		
 		for (String parameter: parameters.keySet()) {
-			if (parameter.startsWith(prefix + Action.FILTER)) {
+			if (parameter.startsWith(prefixId + Action.FILTER)) {
 				String value = getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
-                    String property = StringUtils.substringAfter(parameter, prefix + Action.FILTER);
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER);
                     Filter filter = new Filter(property, value); 
                     filterSet.addFilter(filter);
                 }                    
@@ -71,10 +92,10 @@ public class DefaultLimitFactory implements LimitFactory {
 		SortSet sortSet = new SortSet();
 		
 		for (String parameter: parameters.keySet()) {
-			if (parameter.startsWith(prefix + Action.SORT)) {
+			if (parameter.startsWith(prefixId + Action.SORT)) {
 				String value = getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
-                    String property = StringUtils.substringAfter(parameter, prefix + Action.SORT);
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT);
                     Sort sort = new Sort(property, Order.getOrder(value));
                     sortSet.addSort(sort);
                 }                    
@@ -82,10 +103,6 @@ public class DefaultLimitFactory implements LimitFactory {
 		}
 		
 		return sortSet;
-	}
-
-	public boolean isExported() {
-		return false;
 	}
 
 	public ExportType getExportType() {
@@ -111,7 +128,11 @@ public class DefaultLimitFactory implements LimitFactory {
             	return String.valueOf(((List)valueList).get(0));
             }
         }
+        
+        if (value != null) {
+        	return String.valueOf(value); 
+        }
 
-        return String.valueOf(value);
+        return "";
     }
 }

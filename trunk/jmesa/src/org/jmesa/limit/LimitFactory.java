@@ -16,18 +16,20 @@
 package org.jmesa.limit;
 
 /**
+ * Used to identify how the user interacted with 
+ * 
  * @author Jeff Johnston
  */
 public interface LimitFactory {
-	public int getMaxRows();
+	public String getId();
+	
+	public Integer getMaxRows();
 
 	public int getPage();
 	
 	public FilterSet getFilterSet();
 	
 	public SortSet getSortSet();
-	
-	public boolean isExported();
 	
 	public ExportType getExportType();
 }

@@ -40,13 +40,6 @@ public class FilterSetTest {
 	}
 	
 	@Test
-	public void isCleared() {
-		FilterSet filterSet = new FilterSet();
-		boolean cleared = filterSet.isCleared();
-		assertTrue("cleared", cleared);
-	}
-
-	@Test
 	public void getFilterValue() {
 		FilterSet filterSet = getFilterSet();
 		String nickname = filterSet.getFilterValue("nickname");

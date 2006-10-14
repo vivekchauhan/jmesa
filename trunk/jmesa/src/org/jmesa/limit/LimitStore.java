@@ -15,19 +15,12 @@
  */
 package org.jmesa.limit;
 
+
 /**
  * @author Jeff Johnston
  */
-public interface RowSelect {
-	public int getRowStart();
-
-	public int getRowEnd();
-
-	public int getTotalRows();
-
-	public int getMaxRows();
-
-	public int getPage();
-
-	public void setPage(int page);
+public interface LimitStore {
+	public Limit createLimit();
+	
+	public RowSelect createRowSelect(int maxRows, int totalRows);
 }

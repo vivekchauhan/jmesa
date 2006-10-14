@@ -23,7 +23,7 @@ public interface Limit {
 
 	public RowSelect getRowSelect();
 
-	public void setRowSelect();
+	public void setRowSelect(RowSelect rowSelect);
 
 	public FilterSet getFilterSet();
 
@@ -32,10 +32,6 @@ public interface Limit {
 	public SortSet getSortSet();
 
 	public void addSort(Sort sort);
-
-	public int getPage();
-
-	public void setPage(int page);
 
 	public boolean isExported();
 
