@@ -18,11 +18,11 @@ package org.jmesa.limit;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.jmesa.test.MapParameters;
+import org.jmesa.test.ParametersBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,8 +31,7 @@ import org.junit.Test;
  */
 public class LimitFactoryTest {
 	private static final String ID = "pres";
-	private static final String PREFIX_ID = "pres_";
-	private static final int MAXROWS = 20;
+	private static final int MAX_ROWS = 20;
 	private static final int PAGE = 3;
 
 	private LimitFactoryImpl factory;
@@ -46,7 +45,7 @@ public class LimitFactoryTest {
 	@Test
 	public void getMaxRows() {
 		int maxRows = factory.getMaxRows();
-		assertTrue(maxRows == MAXROWS);
+		assertTrue(maxRows == MAX_ROWS);
 	}
 
 	@Test
@@ -70,30 +69,16 @@ public class LimitFactoryTest {
 	}
 
 	private Map<String, ?> getParameters() {
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		HashMap<String, Object> results = new HashMap<String, Object>();
+		ParametersBuilder builder = new ParametersBuilder(ID, new MapParameters(results));
+		
+		builder.setMaxRows(MAX_ROWS);
+		builder.setPage(PAGE);
+		builder.addFilter("name", "George Washington");
+		builder.addFilter("nickName", "Father of His Country");
+		builder.addSort("name", Order.ASC);
+		builder.addSort("nickName", Order.DESC);
 
-		String maxRows = PREFIX_ID + Action.MAX_ROWS;
-		parameters.put(maxRows, MAXROWS);
-
-		String page = PREFIX_ID + Action.PAGE;
-		parameters.put(page, new Integer[] { PAGE });
-
-		String filter = PREFIX_ID + Action.FILTER + "name";
-		List<String> filterList = new ArrayList<String>();
-		filterList.add(filter);
-		parameters.put(filter, filterList);
-
-		String filter2 = PREFIX_ID + Action.FILTER + "nickName";
-		List<String> filterList2 = new ArrayList<String>();
-		filterList.add(filter);
-		parameters.put(filter2, filterList2);
-
-		String sort = PREFIX_ID + Action.SORT + "name";
-		parameters.put(sort, new String[]{Order.ASC.getCode()});
-
-		String sort2 = PREFIX_ID + Action.SORT + "nickName";
-		parameters.put(sort2, new String[]{Order.DESC.getCode()});
-
-		return parameters;
+		return results;
 	}
 }

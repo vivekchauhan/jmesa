@@ -15,7 +15,6 @@
  */
 package org.jmesa.limit;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -44,7 +43,7 @@ public class LimitFactoryImpl implements LimitFactory {
 	 * default must be used.
 	 */
 	public Integer getMaxRows() {
-        String maxRows = getValue(parameters.get(prefixId + Action.MAX_ROWS));
+        String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS));
         if (StringUtils.isNotBlank(maxRows)) {
             return Integer.parseInt(maxRows);
         }
@@ -57,7 +56,7 @@ public class LimitFactoryImpl implements LimitFactory {
 	 * the first page.
 	 */
 	public int getPage() {
-        String page = getValue(parameters.get(prefixId + Action.PAGE));
+        String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE));
         if (StringUtils.isNotBlank(page)) {
             return Integer.parseInt(page);
         }
@@ -68,7 +67,7 @@ public class LimitFactoryImpl implements LimitFactory {
 	public FilterSet getFilterSet() {
 		FilterSet filterSet = new FilterSet();
 		
-        String clear = getValue(parameters.get(prefixId + Action.CLEAR));
+        String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR));
         if (StringUtils.isNotEmpty(clear)) {
             return filterSet;
         }
@@ -76,7 +75,7 @@ public class LimitFactoryImpl implements LimitFactory {
 		
 		for (String parameter: parameters.keySet()) {
 			if (parameter.startsWith(prefixId + Action.FILTER)) {
-				String value = getValue(parameters.get(parameter));
+				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER);
                     Filter filter = new Filter(property, value); 
@@ -93,7 +92,7 @@ public class LimitFactoryImpl implements LimitFactory {
 		
 		for (String parameter: parameters.keySet()) {
 			if (parameter.startsWith(prefixId + Action.SORT)) {
-				String value = getValue(parameters.get(parameter));
+				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT);
                     Sort sort = new Sort(property, Order.getOrder(value));
@@ -108,31 +107,4 @@ public class LimitFactoryImpl implements LimitFactory {
 	public ExportType getExportType() {
 		return null;
 	}
-	
-    /**
-     * The value needs to be a String. A String[] or List will be
-     * converted to a String. In addition it will attempt to do a String
-     * conversion for other object types.
-     * 
-     * @param value The value to convert to an String.
-     * @return A String[] value.
-     */
-    private String getValue(Object value) {
-        if (value instanceof Object[]) {
-        	if (((Object[])value).length == 1) {
-        		return String.valueOf(((Object[])value)[0]);
-        	}
-        } else if (value instanceof List) {
-            List<?> valueList = (List<?>) value;
-            if (((List)valueList).size() == 1) {
-            	return String.valueOf(((List)valueList).get(0));
-            }
-        }
-        
-        if (value != null) {
-        	return String.valueOf(value); 
-        }
-
-        return "";
-    }
 }
