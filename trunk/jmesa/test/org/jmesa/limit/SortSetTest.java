@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -57,7 +58,7 @@ public class SortSetTest {
 	}
 
 	private SortSet getSortSet() {
-		HashSet<Sort> sortSet = new HashSet<Sort>();
+		Set<Sort> sortSet = new HashSet<Sort>();
 		
 		sortSet.add(new Sort("fullName", Order.ASC));
 		sortSet.add(new Sort("nickname", Order.DESC));
