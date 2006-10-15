@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  * @author Jeff Johnston
  */
-public class LimitStoreTest {
+public class LimitFactoryTest {
 	private static final String ID = "pres";
 	private static final int MAX_ROWS = 20;
 	private static final int TOTAL_ROWS = 60;
@@ -36,14 +36,14 @@ public class LimitStoreTest {
 
 	@Test
 	public void createLimitAndRowSelect() {
-		LimitStore limitStore = new LimitStoreImpl(ID, getParameters());
-		Limit limit = limitStore.createLimit();
+		LimitFactory limitFactory = new LimitFactoryImpl(ID, getParameters());
+		Limit limit = limitFactory.createLimit();
 		
 		assertNotNull(limit);
 		assertTrue(limit.getFilterSet().getFilters().size() > 0);
 		assertTrue(limit.getSortSet().getSorts().size() > 0);
 		
-		RowSelect rowSelect = limitStore.createRowSelect(MAX_ROWS, TOTAL_ROWS);
+		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, TOTAL_ROWS);
 		limit.setRowSelect(rowSelect);
 
 		assertNotNull(rowSelect);

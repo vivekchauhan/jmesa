@@ -19,7 +19,7 @@ package org.jmesa.limit;
 /**
  * @author Jeff Johnston
  */
-public interface LimitStore {
+public interface LimitFactory {
 	public Limit createLimit();
 	
 	public RowSelect createRowSelect(int maxRows, int totalRows);

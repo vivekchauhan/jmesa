@@ -34,36 +34,36 @@ public class LimitActionFactoryTest {
 	private static final int MAX_ROWS = 20;
 	private static final int PAGE = 3;
 
-	private LimitActionFactoryImpl factory;
+	private LimitActionFactoryImpl limitActionFactory;
 	
 	@Before
 	public void setUp() {
 		Map<String, ?> parameters = getParameters();
-		factory = new LimitActionFactoryImpl(ID, parameters);
+		limitActionFactory = new LimitActionFactoryImpl(ID, parameters);
 	}
 
 	@Test
 	public void getMaxRows() {
-		int maxRows = factory.getMaxRows();
+		int maxRows = limitActionFactory.getMaxRows();
 		assertTrue(maxRows == MAX_ROWS);
 	}
 
 	@Test
 	public void getPage() {
-		int page = factory.getPage();
+		int page = limitActionFactory.getPage();
 		assertTrue(page == PAGE);
 	}
 
 	@Test
 	public void getFilterSet() {
-		FilterSet filterSet = factory.getFilterSet();
+		FilterSet filterSet = limitActionFactory.getFilterSet();
 		assertNotNull(filterSet);
 		assertTrue(filterSet.getFilters().size() == 2);
 	}
 
 	@Test
 	public void getSortSet() {
-		SortSet sortSet = factory.getSortSet();
+		SortSet sortSet = limitActionFactory.getSortSet();
 		assertNotNull(sortSet);
 		assertTrue(sortSet.getSorts().size() == 2);
 	}

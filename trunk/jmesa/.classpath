@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/easymock.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.2.jar"/>
 	<classpathentry kind="lib" path="lib/servletapi-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/spring-mock-1.2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,10 +3,10 @@ package org.jmesa.test;
 import org.jmesa.limit.LimitUtils;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-public class RequestParameters implements Parameters {
+public class SpringMockRequestParameters implements Parameters {
 	private final MockHttpServletRequest request;
 
-	public RequestParameters(MockHttpServletRequest request) {
+	public SpringMockRequestParameters(MockHttpServletRequest request) {
 		this.request = request;
 	}
 

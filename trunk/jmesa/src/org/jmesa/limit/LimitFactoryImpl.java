@@ -20,10 +20,10 @@ import java.util.Map;
 /**
  * @author Jeff Johnston
  */
-public class LimitStoreImpl implements LimitStore {
+public class LimitFactoryImpl implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
-	public LimitStoreImpl(String id, Map<String, ?> parameters) {
+	public LimitFactoryImpl(String id, Map<String, ?> parameters) {
 		this.limitActionFactory = new LimitActionFactoryImpl(id, parameters);
 	}
 

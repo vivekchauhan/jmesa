@@ -26,10 +26,14 @@ public interface Limit {
 	public void setRowSelect(RowSelect rowSelect);
 
 	public FilterSet getFilterSet();
+	
+	public void setFilterSet(FilterSet filterSet);
 
 	public void addFilter(Filter filter);
 
 	public SortSet getSortSet();
+	
+	public void setSortSet(SortSet sortSet);
 
 	public void addSort(Sort sort);
 
