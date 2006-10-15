@@ -15,40 +15,42 @@
  */
 package org.jmesa.limit;
 
+import java.util.Map;
+
 /**
  * @author Jeff Johnston
  */
 public class LimitStoreImpl implements LimitStore {
-	private final LimitFactory limitFactory;
+	private final LimitActionFactory limitActionFactory;
 
-	public LimitStoreImpl(LimitFactory limitFactory) {
-		this.limitFactory = limitFactory;
+	public LimitStoreImpl(String id, Map<String, ?> parameters) {
+		this.limitActionFactory = new LimitActionFactoryImpl(id, parameters);
 	}
 
 	public Limit createLimit() {
-		LimitImpl limit = new LimitImpl(limitFactory.getId());
+		LimitImpl limit = new LimitImpl(limitActionFactory.getId());
 
-		FilterSet filterSet = limitFactory.getFilterSet();
+		FilterSet filterSet = limitActionFactory.getFilterSet();
 		limit.setFilterSet(filterSet);
 
-		SortSet sortSet = limitFactory.getSortSet();
+		SortSet sortSet = limitActionFactory.getSortSet();
 		limit.setSortSet(sortSet);
 
-		ExportType exportType = limitFactory.getExportType();
+		ExportType exportType = limitActionFactory.getExportType();
 		limit.setExportType(exportType);
 
 		return limit;
 	}
 
 	public RowSelect createRowSelect(int maxRows, int totalRows) {
-		int page = limitFactory.getPage();
+		int page = limitActionFactory.getPage();
 		maxRows = getMaxRows(maxRows);
 
 		return new BasicRowSelect(page, maxRows, totalRows);
 	}
 
 	public int getMaxRows(int maxRows) {
-		Integer currentMaxRows = limitFactory.getMaxRows();
+		Integer currentMaxRows = limitActionFactory.getMaxRows();
 		if (currentMaxRows == null) {
 			return maxRows;
 		}

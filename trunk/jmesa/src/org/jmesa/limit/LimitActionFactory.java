@@ -16,11 +16,11 @@
 package org.jmesa.limit;
 
 /**
- * Used to identify how the user interacted with 
+ * An Abstract Factory used to identify how the user interacted with the table. 
  * 
  * @author Jeff Johnston
  */
-public interface LimitFactory {
+public interface LimitActionFactory {
 	public String getId();
 	
 	public Integer getMaxRows();

@@ -29,17 +29,17 @@ import org.junit.Test;
 /**
  * @author Jeff Johnston
  */
-public class LimitFactoryTest {
+public class LimitActionFactoryTest {
 	private static final String ID = "pres";
 	private static final int MAX_ROWS = 20;
 	private static final int PAGE = 3;
 
-	private LimitFactoryImpl factory;
+	private LimitActionFactoryImpl factory;
 	
 	@Before
 	public void setUp() {
 		Map<String, ?> parameters = getParameters();
-		factory = new LimitFactoryImpl(ID, parameters);
+		factory = new LimitActionFactoryImpl(ID, parameters);
 	}
 
 	@Test

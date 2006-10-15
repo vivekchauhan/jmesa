@@ -36,11 +36,7 @@ public class LimitStoreTest {
 
 	@Test
 	public void createLimitAndRowSelect() {
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, getParameters());
-
-		assertNotNull(limitFactory);
-
-		LimitStore limitStore = new LimitStoreImpl(limitFactory);
+		LimitStore limitStore = new LimitStoreImpl(ID, getParameters());
 		Limit limit = limitStore.createLimit();
 		
 		assertNotNull(limit);

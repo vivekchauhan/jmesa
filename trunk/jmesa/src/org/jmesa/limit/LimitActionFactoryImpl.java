@@ -22,12 +22,12 @@ import org.apache.commons.lang.StringUtils;
 /**
  * @author Jeff Johnston
  */
-public class LimitFactoryImpl implements LimitFactory {
+public class LimitActionFactoryImpl implements LimitActionFactory {
 	private final Map<String, ?> parameters;
 	private final String id;
 	private final String prefixId;
 	
-	public LimitFactoryImpl(String id, Map<String, ?> parameters) {
+	public LimitActionFactoryImpl(String id, Map<String, ?> parameters) {
 		this.id = id;
 		this.parameters = parameters;
 		this.prefixId = id + "_";
