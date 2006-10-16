@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jmesa.test.MapParameters;
+import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
 import org.junit.Test;
 
@@ -56,7 +56,7 @@ public class LimitFactoryTest {
 	
 	private Map<String, ?> getParameters() {
 		HashMap<String, Object> results = new HashMap<String, Object>();
-		ParametersBuilder builder = new ParametersBuilder(ID, new MapParameters(results));
+		ParametersBuilder builder = new ParametersBuilder(ID, new ParametersAdapter(results));
 		
 		builder.setMaxRows(MAX_ROWS);
 		builder.setPage(PAGE);
