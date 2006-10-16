@@ -20,10 +20,10 @@ import java.util.Map;
 /**
  * @author Jeff Johnston
  */
-public class MapParameters implements Parameters {
+public class ParametersAdapter implements Parameters {
 	private final Map<String, Object> parameters;
 
-	public MapParameters(Map<String, Object> parameters) {
+	public ParametersAdapter(Map<String, Object> parameters) {
 		this.parameters = parameters;
 	}
 
