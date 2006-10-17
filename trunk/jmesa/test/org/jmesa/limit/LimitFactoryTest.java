@@ -26,6 +26,7 @@ import org.jmesa.test.ParametersBuilder;
 import org.junit.Test;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class LimitFactoryTest {

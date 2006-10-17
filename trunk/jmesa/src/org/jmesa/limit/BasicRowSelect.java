@@ -16,6 +16,10 @@
 package org.jmesa.limit;
 
 /**
+ * Used to figure out the row information so the proper page of information 
+ * can be retrieved.
+ * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class BasicRowSelect implements RowSelect {

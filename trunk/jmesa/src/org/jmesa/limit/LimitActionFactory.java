@@ -16,8 +16,7 @@
 package org.jmesa.limit;
 
 /**
- * An Abstract Factory used to identify how the user interacted with the table. 
- * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public interface LimitActionFactory {

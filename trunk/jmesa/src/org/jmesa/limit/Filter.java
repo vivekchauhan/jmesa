@@ -15,12 +15,15 @@
  */
 package org.jmesa.limit;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
-public final class Filter {
+public final class Filter implements Serializable {
     private final String property;
     private final String value;
 

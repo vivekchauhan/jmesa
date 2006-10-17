@@ -18,6 +18,11 @@ package org.jmesa.limit.state;
 import org.jmesa.limit.Limit;
 
 /**
+ * <p>
+ * A Null Object used as a placeholder if not using a specific state.
+ * </p>
+ * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class DefaultState implements State {

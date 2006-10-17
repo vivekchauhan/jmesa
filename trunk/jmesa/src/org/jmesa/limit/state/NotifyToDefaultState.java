@@ -20,6 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.jmesa.limit.Limit;
 
 /**
+ * <p>
+ * Will persist the table state until you pass it a parameter telling it to go 
+ * back to the default state.
+ * </p>
+ * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class NotifyToDefaultState implements State {

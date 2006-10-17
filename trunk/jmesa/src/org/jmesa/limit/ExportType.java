@@ -16,6 +16,7 @@
 package org.jmesa.limit;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public enum ExportType {

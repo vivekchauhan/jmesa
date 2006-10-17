@@ -16,6 +16,9 @@
 package org.jmesa.limit;
 
 /**
+ * The available sort orders. 
+ * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public enum Order {

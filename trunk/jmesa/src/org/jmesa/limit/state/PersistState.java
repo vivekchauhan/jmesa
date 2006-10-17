@@ -20,6 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.jmesa.limit.Limit;
 
 /**
+ * <p>
+ * Will always persist the state of the table without having to pass any 
+ * additional parameters around.
+ * </p> 
+ * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class PersistState implements State {

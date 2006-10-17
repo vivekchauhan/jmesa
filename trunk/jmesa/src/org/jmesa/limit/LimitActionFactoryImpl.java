@@ -20,6 +20,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class LimitActionFactoryImpl implements LimitActionFactory {

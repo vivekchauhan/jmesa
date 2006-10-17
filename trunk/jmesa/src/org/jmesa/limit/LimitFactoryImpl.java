@@ -18,6 +18,7 @@ package org.jmesa.limit;
 import java.util.Map;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class LimitFactoryImpl implements LimitFactory {
@@ -49,7 +50,7 @@ public class LimitFactoryImpl implements LimitFactory {
 		return new BasicRowSelect(page, maxRows, totalRows);
 	}
 
-	public int getMaxRows(int maxRows) {
+	private int getMaxRows(int maxRows) {
 		Integer currentMaxRows = limitActionFactory.getMaxRows();
 		if (currentMaxRows == null) {
 			return maxRows;

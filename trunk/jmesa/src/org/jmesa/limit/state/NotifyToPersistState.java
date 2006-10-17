@@ -20,6 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.jmesa.limit.Limit;
 
 /**
+ * <p>
+ * Works like the current implementation in that you pass it a parameter 
+ * telling it to keep the persisted state.
+ * </p>
+ * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class NotifyToPersistState implements State {

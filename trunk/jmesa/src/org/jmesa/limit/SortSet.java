@@ -15,6 +15,7 @@
  */
 package org.jmesa.limit;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -22,9 +23,10 @@ import java.util.Set;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
-public class SortSet {
+public class SortSet implements Serializable {
     private Set<Sort> sorts = new HashSet<Sort>();
     
     public SortSet() {
@@ -45,7 +47,7 @@ public class SortSet {
     /**
      * For a given filter, referenced by the alias, retrieve the value. 
      * 
-     * @param alias The Filter alias
+     * @param property The Filter property
      * @return The Filter value
      */
     public Order getSortOrder(String property) {
@@ -62,7 +64,7 @@ public class SortSet {
     /**
      * For a given filter, referenced by the alias, retrieve the Filter. 
      * 
-     * @param alias The Filter alias
+     * @param property The Filter property
      * @return The Filter value
      */
     public Sort getSort(String property) {

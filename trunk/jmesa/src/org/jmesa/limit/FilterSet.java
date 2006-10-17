@@ -15,6 +15,7 @@
  */
 package org.jmesa.limit;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -22,9 +23,16 @@ import java.util.Set;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * <p>
+ * The FilterSet is an Collection of Filter objects. A Filter contains a bean 
+ * property and the filter value. Or, in other words it is simply the column 
+ * that the user is trying to filter and the value that they entered.
+ * </p>
+ * 
+ * @since 2.0
  * @author Jeff Johnston
  */
-public class FilterSet {
+public class FilterSet implements Serializable {
 	private Set<Filter> filters = new HashSet<Filter>();
 
 	public FilterSet() {
@@ -46,8 +54,7 @@ public class FilterSet {
 	/**
 	 * For a given filter, referenced by the alias, retrieve the value.
 	 * 
-	 * @param alias
-	 *            The Filter alias
+	 * @param property The Filter property
 	 * @return The Filter value
 	 */
 	public String getFilterValue(String property) {
@@ -64,8 +71,7 @@ public class FilterSet {
 	/**
 	 * For a given filter, referenced by the alias, retrieve the Filter.
 	 * 
-	 * @param alias
-	 *            The Filter alias
+	 * @param property The Filter property
 	 * @return The Filter value
 	 */
 	public Filter getFilter(String property) {
