@@ -20,6 +20,38 @@ import java.io.Serializable;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * <p>
+ * An immutable class that is used to reduce the rows that are returned for a 
+ * table. The property is the Bean (Or Map) attribute that will used to reduce 
+ * the results based on the value.  Or, in other words it is simply the column 
+ * that the user is trying to filter and the value that they entered.
+ * </p>
+ * 
+ * <p>
+ * The property can use dot (.) notation to access nested classes. For example
+ * if you have an object called President that is composed with another object called
+ * Name then your property would be name.firstName
+ * 
+ * <pre>
+ * public class President {
+ *    private Name name;
+ * 
+ *    public Name getName() {
+ *       return name;
+ *    }
+ * }
+ *
+ * public class Name {
+ *    private String firstName;
+ *
+ *    public String getFirstName() {
+ *       return firstName;
+ *    }
+ * }
+ * </pre>
+ * 
+ * </p>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
@@ -32,14 +64,24 @@ public final class Filter implements Serializable {
         this.value = value;
     }
 
+    /**
+     * @return The Bean (Or Map) attribute used to reduce the results.
+     */
     public String getProperty() {
         return property;
     }
 
+    /**
+     * @return Will be used to reduce the results. 
+     */
     public String getValue() {
         return value;
     }
     
+    /**
+     * Equality is based on the property. Or, in other words no two 
+     * Filter Objects can have the same property.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -56,8 +98,8 @@ public final class Filter implements Serializable {
     @Override
     public int hashCode() {
         int result = 17;
-        int alias = this.getProperty() == null ? 0 : this.getProperty().hashCode();
-        result = result * 37 + alias;
+        int property = this.getProperty() == null ? 0 : this.getProperty().hashCode();
+        result = result * 37 + property;
         return result;
     }
     

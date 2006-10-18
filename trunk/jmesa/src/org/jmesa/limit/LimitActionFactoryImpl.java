@@ -96,7 +96,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT);
-                    Sort sort = new Sort(property, Order.getOrder(value));
+                    Sort sort = new Sort(property, Order.getOrder(value), sortSet.getSorts().size()); //TODO: need to implement the sorting functionality
                     sortSet.addSort(sort);
                 }                    
 			}

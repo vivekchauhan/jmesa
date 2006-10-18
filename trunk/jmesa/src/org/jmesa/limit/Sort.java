@@ -20,39 +20,107 @@ import java.io.Serializable;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * <p>
+ * An immutable class that is used to sort the rows that are returned for a 
+ * table. The property is the Bean (Or Map) attribute that will used to reduce 
+ * the results based on the value. Or, in other words it is simply the column 
+ * that the user is trying to sort in the order specified.
+ * </p>
+ * 
+ * <p>
+ * The property can use dot (.) notation to access nested classes. For example
+ * if you have an object called President that is composed with another object called
+ * Name then your property would be name.firstName
+ * 
+ * <pre>
+ * public class President {
+ *    private Name name;
+ * 
+ *    public Name getName() {
+ *       return name;
+ *    }
+ * }
+ *
+ * public class Name {
+ *    private String firstName;
+ *
+ *    public String getFirstName() {
+ *       return firstName;
+ *    }
+ * }
+ * </pre>
+ * 
+ * </p>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public final class Sort implements Serializable {
     private final String property;
     private final Order order;
+    private final int position;
 
-    public Sort() {
-        this.property = null;
-        this.order = Order.UNORDERED;
-    }
-
-    public Sort(String property, Order order) {
+    public Sort(String property, Order order, int position) {
         this.property = property;
         this.order = order;
+        this.position = position;
     }
 
+    /**
+     * @return The Bean (Or Map) attribute used to reduce the results.
+     */
     public String getProperty() {
         return property;
     }
 
+    /**
+     * @return Will be used to sort the results. 
+     */
     public Order getOrder() {
         return order;
     }
 
-    public boolean isSorted() {
-        return order != null;
+    /**
+     * @return The placement of the Sort within the SortSet.  
+     */
+	public int getPosition() {
+		return position;
+	}
+
+	public boolean isSorted() {
+        return order != null && order != Order.UNORDERED;
     }
     
+    /**
+     * Equality is based on the property. Or, in other words no two 
+     * Sort Objects can have the same property.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Sort))
+            return false;
+
+        Sort that = (Sort) o;
+
+        return that.getProperty().equals(this.getProperty());
+    }
+    
+    @Override
+    public int hashCode() {
+        int result = 17;
+        int property = this.getProperty() == null ? 0 : this.getProperty().hashCode();
+        result = result * 37 + property;
+        return result;
+    }
+
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("property", property);
         builder.append("order", order);
+        builder.append("position", position);
         return builder.toString();
     }
 }

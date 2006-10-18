@@ -16,56 +16,51 @@
 package org.jmesa.limit;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.NullComparator;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * <p>
+ * The SortSet is an Collection of Sort objects. A Sort contains a bean 
+ * property and the sort order. Or, in other words it is simply the column 
+ * that the user is trying to sort in the correcct order.
+ * </p>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class SortSet implements Serializable {
-    private Set<Sort> sorts = new HashSet<Sort>();
+    private Set<Sort> sorts;
     
     public SortSet() {
+    	BeanComparator comparator = new BeanComparator("position", new NullComparator());
+    	sorts = new TreeSet<Sort>(comparator);
     }
-
-    public SortSet(Set<Sort> sorts) {
-        this.sorts = sorts;
-    }
-
+    
+    /**
+     * @return Is true if there are any columns that need to be sorted.
+     */
     public boolean isSorted() {
         return sorts != null && !sorts.isEmpty();
     }
 
+    /**
+     * @return The Set of Sort objects.
+     */
     public Set<Sort> getSorts() {
         return sorts;
     }
 
     /**
-     * For a given filter, referenced by the alias, retrieve the value. 
+     * For a given property, retrieve the Sort. 
      * 
-     * @param property The Filter property
-     * @return The Filter value
-     */
-    public Order getSortOrder(String property) {
-    	for (Iterator iter = sorts.iterator(); iter.hasNext();) {
-    		Sort sort = (Sort) iter.next();
-            if (sort.getProperty().equals(property)) {
-                return sort.getOrder();
-            }
-		}
-
-        return Order.UNORDERED;
-    }
-    
-    /**
-     * For a given filter, referenced by the alias, retrieve the Filter. 
-     * 
-     * @param property The Filter property
-     * @return The Filter value
+     * @param property The Sort property.
+     * @return The Sort object.
      */
     public Sort getSort(String property) {
     	for (Iterator iter = sorts.iterator(); iter.hasNext();) {
@@ -75,9 +70,22 @@ public class SortSet implements Serializable {
             }
 		}
 
-        return new Sort();
+        throw new RuntimeException("There is no Sort with the property [" + property + "]"); //TODO: pick a better exception
     }
     
+    /**
+     * For a given property, retrieve the Sort Order. 
+     * 
+     * @param property The Sort property.
+     * @return The Sort Order.
+     */
+    public Order getSortOrder(String property) {
+    	return getSort(property).getOrder();
+    }
+    
+    /**
+     * @param sort The Sort to add to the Set.  
+     */
     public void addSort(Sort sort) {
     	sorts.add(sort);
     }

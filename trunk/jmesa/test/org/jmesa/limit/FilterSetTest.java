@@ -20,8 +20,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashSet;
-
 import org.junit.Test;
 
 /**
@@ -56,9 +54,9 @@ public class FilterSetTest {
 	}
 
 	private FilterSet getFilterSet() {
-		HashSet<Filter> filters = new HashSet<Filter>();
-		filters.add(new Filter("fullName", "George Washington"));
-		filters.add(new Filter("nickname", "Father Of His Country"));
-		return new FilterSet(filters);
+		FilterSet filters = new FilterSet();
+		filters.addFilter(new Filter("fullName", "George Washington"));
+		filters.addFilter(new Filter("nickname", "Father Of His Country"));
+		return filters;
 	}
 }

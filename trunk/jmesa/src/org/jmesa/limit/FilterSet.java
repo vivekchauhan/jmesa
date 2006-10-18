@@ -33,16 +33,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class FilterSet implements Serializable {
-	private Set<Filter> filters = new HashSet<Filter>();
+	private Set<Filter> filters;
 
 	public FilterSet() {
 		filters = new HashSet<Filter>();
 	}
 
-	public FilterSet(Set<Filter> filters) {
-		this.filters = filters;
-	}
-
+    /**
+     * @return Is true if there are any columns that need to be filtered.
+     */
 	public boolean isFiltered() {
 		return filters != null && !filters.isEmpty();
 	}
@@ -52,27 +51,10 @@ public class FilterSet implements Serializable {
 	}
 
 	/**
-	 * For a given filter, referenced by the alias, retrieve the value.
+	 * For a given property, retrieve the Filter.
 	 * 
-	 * @param property The Filter property
-	 * @return The Filter value
-	 */
-	public String getFilterValue(String property) {
-		for (Iterator iter = filters.iterator(); iter.hasNext();) {
-			Filter filter = (Filter) iter.next();
-			if (filter.getProperty().equals(property)) {
-				return filter.getValue();
-			}
-		}
-
-		return "";
-	}
-
-	/**
-	 * For a given filter, referenced by the alias, retrieve the Filter.
-	 * 
-	 * @param property The Filter property
-	 * @return The Filter value
+	 * @param property The Filter property.
+	 * @return The Filter value.
 	 */
 	public Filter getFilter(String property) {
 		for (Iterator iter = filters.iterator(); iter.hasNext();) {
@@ -82,9 +64,22 @@ public class FilterSet implements Serializable {
 			}
 		}
 
-		return null;
+		throw new RuntimeException("There is no Filter with the property [" + property + "]"); //TODO: pick a better exception
 	}
 	
+	/**
+	 * For a given property, retrieve the Filter value.
+	 * 
+	 * @param property The Filter property.
+	 * @return The Filter value.
+	 */
+	public String getFilterValue(String property) {
+		return getFilter(property).getValue();
+	}
+
+    /**
+     * @param filter The Filter to add to the Set.  
+     */
 	public void addFilter(Filter filter) {
 		filters.add(filter);
 	}
