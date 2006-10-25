@@ -16,7 +16,7 @@
 package org.jmesa.limit;
 
 /**
- * The actions that are used to figure how the user interacted with the table. 
+ * The actions that are used to figure how the user interacted with the table.
  *  
  * @since 2.0
  * @author Jeff Johnston

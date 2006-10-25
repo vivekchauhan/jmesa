@@ -23,7 +23,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * <p>
  * An immutable class that is used to reduce the rows that are returned for a 
  * table. The property is the Bean (Or Map) attribute that will used to reduce 
- * the results based on the value.  Or, in other words it is simply the column 
+ * the results based on the value.  Or, in other words, it is simply the column 
  * that the user is trying to filter and the value that they entered.
  * </p>
  * 

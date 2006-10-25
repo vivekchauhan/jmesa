@@ -16,6 +16,8 @@
 package org.jmesa.limit;
 
 /**
+ * Figure out how the user interacted with the table.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */

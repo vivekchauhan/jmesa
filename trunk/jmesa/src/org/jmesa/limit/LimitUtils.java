@@ -23,12 +23,13 @@ import java.util.List;
  */
 public class LimitUtils {
     /**
-     * The value needs to be a String. A String[] or List will be
-     * converted to a String. In addition it will attempt to do a String
-     * conversion for other object types.
+     * Convert the input value to a String. A String[] or List will be 
+     * converted to a String by using the value in the first position. 
+     * In addition will attempt to do a String conversion for other object 
+     * types using the String.valueOf() method.
      * 
-     * @param value The value to convert to an String.
-     * @return A String[] value.
+     * @param value The input object to convert to a String.
+     * @return The converted value.
      */
     public static String getValue(Object value) {
         if (value instanceof Object[]) {

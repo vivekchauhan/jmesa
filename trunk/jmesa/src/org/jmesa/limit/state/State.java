@@ -32,12 +32,12 @@ public interface State {
 	/**
 	 * @return The Limit that will be used to render the table.
 	 */
-	public Limit getLimit();
+	public Limit retrieveLimit();
 
 	/**
 	 * @param limit The Limit that represents the current state of the table.
 	 *              Typically the Limit is persisted (long term or temporary)
 	 *              by being keyed with the table id.
 	 */
-	public void setLimit(Limit limit);
+	public void persistLimit(Limit limit);
 }

@@ -21,6 +21,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 public class SortSetTest {
@@ -59,7 +61,19 @@ public class SortSetTest {
 		
 		sortSet.addSort(new Sort("nickname", Order.DESC, 2));
 		sortSet.addSort(new Sort("fullName", Order.ASC, 1));
+		sortSet.addSort(new Sort("term", Order.ASC, 3));
 		
+		Iterator iterator = sortSet.getSorts().iterator();
+		
+		int position = ((Sort)iterator.next()).getPosition();
+		assertEquals(position, 1);
+
+		position = ((Sort)iterator.next()).getPosition();
+		assertEquals(position, 2);
+
+		position = ((Sort)iterator.next()).getPosition();
+		assertEquals(position, 3);
+
 		return sortSet;
 	}
 }

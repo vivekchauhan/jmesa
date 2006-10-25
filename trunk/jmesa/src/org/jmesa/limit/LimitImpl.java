@@ -15,7 +15,11 @@
  */
 package org.jmesa.limit;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
+ * The default implementation of the Limit interface.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
@@ -25,7 +29,11 @@ public class LimitImpl implements Limit {
 	private RowSelect rowSelect;
 	private FilterSet filterSet;
 	private SortSet sortSet;
+	
 
+	/**
+	 * @param id Uniquely identifies the table instance.
+	 */
 	public LimitImpl(String id) {
 		this.id = id;
 	}
@@ -77,4 +85,15 @@ public class LimitImpl implements Limit {
 	public void setRowSelect(RowSelect rowSelect) {
 		this.rowSelect = rowSelect;
 	}
+	
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("id", id);
+        builder.append("exportType", exportType);
+        builder.append("rowSelect", rowSelect);
+        builder.append("filterSet", filterSet);
+        builder.append("sortSet", sortSet);
+        return builder.toString();
+    }
 }

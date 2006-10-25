@@ -44,7 +44,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	 * default must be used.
 	 */
 	public Integer getMaxRows() {
-        String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS));
+        String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.getCode()));
         if (StringUtils.isNotBlank(maxRows)) {
             return Integer.parseInt(maxRows);
         }
@@ -57,7 +57,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	 * the first page.
 	 */
 	public int getPage() {
-        String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE));
+        String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.getCode()));
         if (StringUtils.isNotBlank(page)) {
             return Integer.parseInt(page);
         }
@@ -68,17 +68,17 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	public FilterSet getFilterSet() {
 		FilterSet filterSet = new FilterSet();
 		
-        String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR));
+        String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.getCode()));
         if (StringUtils.isNotEmpty(clear)) {
             return filterSet;
         }
 
 		
 		for (String parameter: parameters.keySet()) {
-			if (parameter.startsWith(prefixId + Action.FILTER)) {
+			if (parameter.startsWith(prefixId + Action.FILTER.getCode())) {
 				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
-                    String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER);
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER.getCode());
                     Filter filter = new Filter(property, value); 
                     filterSet.addFilter(filter);
                 }                    
@@ -92,11 +92,13 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 		SortSet sortSet = new SortSet();
 		
 		for (String parameter: parameters.keySet()) {
-			if (parameter.startsWith(prefixId + Action.SORT)) {
+			if (parameter.startsWith(prefixId + Action.SORT.getCode())) {
 				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
-                    String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT);
-                    Sort sort = new Sort(property, Order.getOrder(value), sortSet.getSorts().size()); //TODO: need to implement the sorting functionality
+                    String position = StringUtils.substringBetween(parameter, prefixId + Action.SORT.getCode(), "_");
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT.getCode() + position + "_");
+                    Order order = Order.getOrder(value);
+					Sort sort = new Sort(property, order, new Integer(position));
                     sortSet.addSort(sort);
                 }                    
 			}

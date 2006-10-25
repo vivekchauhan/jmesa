@@ -37,11 +37,11 @@ public class PersistState implements State {
 		this.id = id;
 	}
 
-	public Limit getLimit() {
+	public Limit retrieveLimit() {
 		return (Limit) request.getSession().getAttribute(id);
 	}
 
-	public void setLimit(Limit limit) {
+	public void persistLimit(Limit limit) {
 		request.getSession().setAttribute(id, limit);
 	}
 }

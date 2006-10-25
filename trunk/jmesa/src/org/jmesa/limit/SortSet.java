@@ -20,15 +20,13 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.comparators.NullComparator;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
  * The SortSet is an Collection of Sort objects. A Sort contains a bean 
- * property and the sort order. Or, in other words it is simply the column 
- * that the user is trying to sort in the correcct order.
+ * property and the sort order. Or, in other words, it is simply the column 
+ * that the user is trying to sort in the correct order.
  * </p>
  * 
  * @since 2.0
@@ -38,8 +36,7 @@ public class SortSet implements Serializable {
     private Set<Sort> sorts;
     
     public SortSet() {
-    	BeanComparator comparator = new BeanComparator("position", new NullComparator());
-    	sorts = new TreeSet<Sort>(comparator);
+    	sorts = new TreeSet<Sort>();
     }
     
     /**
@@ -70,7 +67,7 @@ public class SortSet implements Serializable {
             }
 		}
 
-        throw new RuntimeException("There is no Sort with the property [" + property + "]"); //TODO: pick a better exception
+        throw new IllegalArgumentException("There is no Sort with the property [" + property + "]");
     }
     
     /**

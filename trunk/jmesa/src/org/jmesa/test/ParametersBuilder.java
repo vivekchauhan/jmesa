@@ -36,17 +36,17 @@ public class ParametersBuilder {
 	}
 
 	public void setPage(int page) {
-		String key = prefixId + Action.PAGE;
+		String key = prefixId + Action.PAGE.getCode();
 		parameters.addParameter(key, new Integer[] { page });
 	}
 
 	public void setMaxRows(int maxRows) {
-		String key = prefixId + Action.MAX_ROWS;
+		String key = prefixId + Action.MAX_ROWS.getCode();
 		parameters.addParameter(key, maxRows);
 	}
 
 	public void addFilter(String property, String value) {
-		String key = prefixId + Action.FILTER + property;
+		String key = prefixId + Action.FILTER.getCode() + property;
 		List<String> filterList = new ArrayList<String>();
 		filterList.add(value);
 		parameters.addParameter(key, filterList);
@@ -57,8 +57,8 @@ public class ParametersBuilder {
 		parameters.addParameter(key, "true");
 	}
 
-	public void addSort(String property, Order order) {
-		String key = prefixId + Action.SORT + property;
+	public void addSort(String property, Order order, int position) {
+		String key = prefixId + Action.SORT.getCode() + position + "_" + property;
 		parameters.addParameter(key, new String[] { order.getCode() });
 	}
 }

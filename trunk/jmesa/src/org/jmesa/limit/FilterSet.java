@@ -19,13 +19,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
  * The FilterSet is an Collection of Filter objects. A Filter contains a bean 
- * property and the filter value. Or, in other words it is simply the column 
+ * property and the filter value. Or, in other words, it is simply the column 
  * that the user is trying to filter and the value that they entered.
  * </p>
  * 
@@ -33,6 +34,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class FilterSet implements Serializable {
+	private Logger logger = Logger.getLogger(FilterSet.class.getName());
 	private Set<Filter> filters;
 
 	public FilterSet() {
@@ -64,7 +66,7 @@ public class FilterSet implements Serializable {
 			}
 		}
 
-		throw new RuntimeException("There is no Filter with the property [" + property + "]"); //TODO: pick a better exception
+		throw new IllegalArgumentException("There is no Filter with the property [" + property + "]");
 	}
 	
 	/**
@@ -82,6 +84,7 @@ public class FilterSet implements Serializable {
      */
 	public void addFilter(Filter filter) {
 		filters.add(filter);
+		logger.fine("Added Filter: " + filter.toString());
 	}
 
 	public String toString() {

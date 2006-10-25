@@ -22,13 +22,11 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum Order {
-	UNORDERED, 
 	ASC, 
 	DESC;
 	
 	public String getCode() {
 		switch(this) {
-		case UNORDERED: return "unsorted";
 		case ASC: return "asc";
 		case DESC: return "desc";
 		default: return "";

@@ -26,10 +26,10 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class DefaultState implements State {
-    public void setLimit(Limit limit) {
+    public void persistLimit(Limit limit) {
     }
 
-    public Limit getLimit() {
+    public Limit retrieveLimit() {
         return null;
     }
 }

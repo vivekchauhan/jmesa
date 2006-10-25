@@ -22,8 +22,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 /**
  * <p>
  * An immutable class that is used to sort the rows that are returned for a 
- * table. The property is the Bean (Or Map) attribute that will used to reduce 
- * the results based on the value. Or, in other words it is simply the column 
+ * table. The property is the Bean (Or Map) attribute that will used to sort 
+ * the results based on the order. Or, in other words, it is simply the column 
  * that the user is trying to sort in the order specified.
  * </p>
  * 
@@ -55,7 +55,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public final class Sort implements Serializable {
+public final class Sort implements Serializable, Comparable {
     private final String property;
     private final Order order;
     private final int position;
@@ -87,9 +87,31 @@ public final class Sort implements Serializable {
 		return position;
 	}
 
-	public boolean isSorted() {
-        return order != null && order != Order.UNORDERED;
-    }
+	/**
+	 * A Sort is compared by its position. This follows the natural ordering 
+	 * because the assumption is that each Sort has a unique property with 
+	 * a unique order. Or, in other words, if two Sort objects have the same
+	 * property then they have to have the same position. And in the same manner
+	 * if two Sort objects have the same position they better have the same 
+	 * property.
+	 */
+	public int compareTo(Object o) {
+	    if (!(o instanceof Sort)) {
+	    	throw new ClassCastException("A Sort object expected.");
+	    }
+	    
+	    Sort sort = (Sort)o;
+
+	    if (this.getPosition() < sort.getPosition()) {
+	    	return -1;
+	    }
+	    
+	    if (this.getPosition() == sort.getPosition()) {
+	    	return 0;
+	    }
+	    
+	    return 1;
+	}
     
     /**
      * Equality is based on the property. Or, in other words no two 

@@ -39,7 +39,7 @@ public class NotifyToDefaultState implements State {
 		this.stateAttr = stateAttr;
 	}
 	
-	public Limit getLimit() {
+	public Limit retrieveLimit() {
         String stateAttrValue = request.getParameter(stateAttr);
         if ("true".equalsIgnoreCase(stateAttrValue)) {
             return null;
@@ -48,7 +48,7 @@ public class NotifyToDefaultState implements State {
         return (Limit)request.getSession().getAttribute(id);
     }
 
-    public void setLimit(Limit limit) {
+    public void persistLimit(Limit limit) {
 		request.getSession().setAttribute(id, limit);
     }
 }

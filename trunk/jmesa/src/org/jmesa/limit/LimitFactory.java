@@ -17,6 +17,8 @@ package org.jmesa.limit;
 
 
 /**
+ * Create a Limit and RowSelect.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
