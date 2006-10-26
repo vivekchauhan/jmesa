@@ -18,6 +18,40 @@ package org.jmesa.limit;
 import java.util.Map;
 
 /**
+ * <p>
+ * Uses the default implementation of the Limit and RowSelect to construct
+ * a LimitImpl and a BasicRowSelect object.
+ * </p>
+ * 
+ * <p>
+ * An example is as follows:
+ * </p>
+ * 
+ * <p>
+ * First you need to pass in a String id and Map of parameters to get a Limit.
+ * </p> 
+ * 
+ * <pre>
+ * String id = "pres";
+ * Map parameters = request.getParameterMap();
+ * 
+ * LimitFactory limitFactory = new LimitFactoryImpl(id, parameters);
+ * Limit limit = limitFactory.createLimit();
+ * </pre>
+ * 
+ * Once you have a Limit you can use the FilterSet on the Limit to figure out 
+ * the total rows. With the total rows you can now create a RowSelect. Lastly, 
+ * set the RowSelect on the Limit and your done!
+ * 
+ * <pre>
+ * int maxRows = 15;
+ * int totalRows = getTotalRows();
+ * 
+ * RowSelect rowSelect = limitFactory.createRowSelect(maxRows, totalRows);
+ * limit.setRowSelect(rowSelect);
+ * </pre>
+ * 
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */

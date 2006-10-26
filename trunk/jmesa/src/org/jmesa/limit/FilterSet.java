@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -84,7 +85,9 @@ public class FilterSet implements Serializable {
      */
 	public void addFilter(Filter filter) {
 		filters.add(filter);
-		logger.fine("Added Filter: " + filter.toString());
+		if (logger.isLoggable(Level.FINE)) {
+			logger.fine("Added Filter: " + filter.toString());
+		}
 	}
 
 	public String toString() {
