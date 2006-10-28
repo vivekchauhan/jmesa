@@ -23,7 +23,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class LimitImpl implements Limit {
+public class DefaultLimit implements Limit {
 	private final String id;
 	private ExportType exportType;
 	private RowSelect rowSelect;
@@ -34,7 +34,7 @@ public class LimitImpl implements Limit {
 	/**
 	 * @param id Uniquely identifies the table instance.
 	 */
-	public LimitImpl(String id) {
+	public DefaultLimit(String id) {
 		this.id = id;
 	}
 

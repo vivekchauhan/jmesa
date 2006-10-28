@@ -34,12 +34,12 @@ public class LimitActionFactoryTest {
 	private static final int MAX_ROWS = 20;
 	private static final int PAGE = 3;
 
-	private LimitActionFactoryImpl limitActionFactory;
+	private DefaultLimitActionFactory limitActionFactory;
 	
 	@Before
 	public void setUp() {
 		Map<String, ?> parameters = getParameters();
-		limitActionFactory = new LimitActionFactoryImpl(ID, parameters);
+		limitActionFactory = new DefaultLimitActionFactory(ID, parameters);
 	}
 
 	@Test

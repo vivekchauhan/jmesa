@@ -55,15 +55,15 @@ import java.util.Map;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class LimitFactoryImpl implements LimitFactory {
+public class DefaultLimitFactory implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
-	public LimitFactoryImpl(String id, Map<String, ?> parameters) {
-		this.limitActionFactory = new LimitActionFactoryImpl(id, parameters);
+	public DefaultLimitFactory(String id, Map<String, ?> parameters) {
+		this.limitActionFactory = new DefaultLimitActionFactory(id, parameters);
 	}
 
 	public Limit createLimit() {
-		LimitImpl limit = new LimitImpl(limitActionFactory.getId());
+		DefaultLimit limit = new DefaultLimit(limitActionFactory.getId());
 
 		FilterSet filterSet = limitActionFactory.getFilterSet();
 		limit.setFilterSet(filterSet);

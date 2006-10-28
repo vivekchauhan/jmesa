@@ -37,7 +37,7 @@ public class LimitFactoryTest {
 
 	@Test
 	public void createLimitAndRowSelect() {
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, getParameters());
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, getParameters());
 		Limit limit = limitFactory.createLimit();
 		
 		assertNotNull(limit);
