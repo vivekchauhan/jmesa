@@ -21,9 +21,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
+import org.jmesa.test.SpringParametersAdapter;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * @since 2.0
@@ -38,8 +41,18 @@ public class LimitFactoryTest {
 	@Test
 	public void createLimitAndRowSelect() {
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, getParameters());
+		checkAssertions(limitFactory);
+	}
+	
+	@Test
+	public void createLimitAndRowSelectWithSpringParameters() {
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, getSpringParameters());
+		checkAssertions(limitFactory);
+	}
+	
+	private void checkAssertions(LimitFactory limitFactory) {
 		Limit limit = limitFactory.createLimit();
-		
+
 		assertNotNull(limit);
 		assertTrue(limit.getFilterSet().getFilters().size() > 0);
 		assertTrue(limit.getSortSet().getSorts().size() > 0);
@@ -54,19 +67,28 @@ public class LimitFactoryTest {
 		assertTrue(rowSelect.getMaxRows() > 0);
 		assertTrue(rowSelect.getTotalRows() > 0);
 	}
-	
-	private Map<String, ?> getParameters() {
+
+	private Map<?, ?> getParameters() {
 		HashMap<String, Object> results = new HashMap<String, Object>();
-		ParametersBuilder builder = new ParametersBuilder(ID, new ParametersAdapter(results));
-		
+		ParametersAdapter parametersAdapter = new ParametersAdapter(results);
+		createBuilder(parametersAdapter);
+		return results;
+	}
+	
+	private Map<?, ?> getSpringParameters() {
+		MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+		SpringParametersAdapter springParametersAdapter = new SpringParametersAdapter(mockHttpServletRequest);
+		createBuilder(springParametersAdapter);
+		return mockHttpServletRequest.getParameterMap();
+	}	
+	
+	private void createBuilder(Parameters parameters) {
+		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
 		builder.setMaxRows(MAX_ROWS);
 		builder.setPage(PAGE);
 		builder.addFilter("name", "George Washington");
 		builder.addFilter("nickName", "Father of His Country");
 		builder.addSort("name", Order.ASC, 1);
 		builder.addSort("nickName", Order.DESC, 2);
-
-		return results;
-	}	
-	
+	}
 }

@@ -60,6 +60,7 @@ public final class Filter implements Serializable {
     private final String value;
 
     public Filter(String property, String value) {
+    	//TODO: rewrite all properties with underscores to be with dot notation.
         this.property = property;
         this.value = value;
     }

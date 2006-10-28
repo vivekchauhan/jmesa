@@ -58,7 +58,7 @@ import java.util.Map;
 public class DefaultLimitFactory implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
-	public DefaultLimitFactory(String id, Map<String, ?> parameters) {
+	public DefaultLimitFactory(String id, Map<?, ?> parameters) {
 		this.limitActionFactory = new DefaultLimitActionFactory(id, parameters);
 	}
 

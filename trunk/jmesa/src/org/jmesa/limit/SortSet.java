@@ -19,6 +19,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -33,6 +35,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class SortSet implements Serializable {
+	private Logger logger = Logger.getLogger(SortSet.class.getName());
     private Set<Sort> sorts;
     
     public SortSet() {
@@ -85,8 +88,12 @@ public class SortSet implements Serializable {
      */
     public void addSort(Sort sort) {
     	sorts.add(sort);
+		if (logger.isLoggable(Level.FINE)) {
+			logger.fine("Added Sort: " + sort.toString());
+		}
     }
     
+    @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         

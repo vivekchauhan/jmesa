@@ -15,6 +15,8 @@
  */
 package org.jmesa.limit;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * Used to figure out the row information so the proper page of information 
  * can be retrieved.
@@ -103,4 +105,15 @@ public class BasicRowSelect implements RowSelect {
         }
         return rowEnd > rowStart;
     }	
+    
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("page", page);
+        builder.append("maxRows", maxRows);
+        builder.append("rowEnd", rowEnd);
+        builder.append("rowStart", rowStart);
+        builder.append("totalRows", totalRows);
+        return builder.toString();
+    }
 }

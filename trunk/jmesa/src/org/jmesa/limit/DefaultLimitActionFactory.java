@@ -16,19 +16,23 @@
 package org.jmesa.limit;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class DefaultLimitActionFactory implements LimitActionFactory {
-	private final Map<String, ?> parameters;
+	private Logger logger = Logger.getLogger(DefaultLimitActionFactory.class.getName());
+	private final Map<?, ?> parameters;
 	private final String id;
 	private final String prefixId;
 	
-	public DefaultLimitActionFactory(String id, Map<String, ?> parameters) {
+	public DefaultLimitActionFactory(String id, Map<?, ?> parameters) {
 		this.id = id;
 		this.parameters = parameters;
 		this.prefixId = id + "_";
@@ -46,6 +50,7 @@ public class DefaultLimitActionFactory implements LimitActionFactory {
 	public Integer getMaxRows() {
         String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.getCode()));
         if (StringUtils.isNotBlank(maxRows)) {
+        	logger.log(Level.FINE, "Max Rows: {0}", maxRows);
             return Integer.parseInt(maxRows);
         }
 
@@ -59,10 +64,13 @@ public class DefaultLimitActionFactory implements LimitActionFactory {
 	public int getPage() {
         String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.getCode()));
         if (StringUtils.isNotBlank(page)) {
+        	logger.log(Level.FINE, "On Page: {0}", page);
             return Integer.parseInt(page);
         }
 
-        return 1;
+    	logger.fine("Defaulting to Page 1");
+
+    	return 1;
 	}
 
 	public FilterSet getFilterSet() {
@@ -70,11 +78,13 @@ public class DefaultLimitActionFactory implements LimitActionFactory {
 		
         String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.getCode()));
         if (StringUtils.isNotEmpty(clear)) {
+        	logger.fine("Cleared out the filters.");
             return filterSet;
         }
 
 		
-		for (String parameter: parameters.keySet()) {
+		for (Object param: parameters.keySet()) {
+			String parameter = (String)param;
 			if (parameter.startsWith(prefixId + Action.FILTER.getCode())) {
 				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
@@ -91,7 +101,8 @@ public class DefaultLimitActionFactory implements LimitActionFactory {
 	public SortSet getSortSet() {
 		SortSet sortSet = new SortSet();
 		
-		for (String parameter: parameters.keySet()) {
+		for (Object param: parameters.keySet()) {
+			String parameter = (String)param;
 			if (parameter.startsWith(prefixId + Action.SORT.getCode())) {
 				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
@@ -110,4 +121,15 @@ public class DefaultLimitActionFactory implements LimitActionFactory {
 	public ExportType getExportType() {
 		return null;
 	}
+	
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("id", id);
+        builder.append("prefixId", prefixId);
+        if (parameters != null) {
+        	parameters.toString();
+        }
+        return builder.toString();
+    }
 }

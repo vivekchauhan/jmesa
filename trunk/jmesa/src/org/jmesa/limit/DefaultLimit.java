@@ -29,7 +29,6 @@ public class DefaultLimit implements Limit {
 	private RowSelect rowSelect;
 	private FilterSet filterSet;
 	private SortSet sortSet;
-	
 
 	/**
 	 * @param id Uniquely identifies the table instance.
