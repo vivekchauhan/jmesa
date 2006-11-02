@@ -21,12 +21,20 @@ import java.util.Collection;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Items {
-	public Collection getAllItems();
-	
-	public Collection getPageItems();
-	
-	public Collection getFilteredItems();
-	
-	public Collection getSortedItems();
+public class DefaultItems implements Items {
+	public Collection getAllItems() {
+		return null;
+	}
+
+	public Collection getFilteredItems() {
+		return null;
+	}
+
+	public Collection getPageItems() {
+		return null;
+	}
+
+	public Collection getSortedItems() {
+		return null;
+	}
 }

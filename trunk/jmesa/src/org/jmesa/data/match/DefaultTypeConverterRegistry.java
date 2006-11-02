@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.data;
-
-import java.util.Collection;
+package org.jmesa.data.match;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Items {
-	public Collection getAllItems();
-	
-	public Collection getPageItems();
-	
-	public Collection getFilteredItems();
-	
-	public Collection getSortedItems();
+public class DefaultTypeConverterRegistry implements TypeConverterRegistry {
+	public void addTypeConverter() {
+	}
+
+	public Match getTypeConverter() {
+		return null;
+	}
 }
