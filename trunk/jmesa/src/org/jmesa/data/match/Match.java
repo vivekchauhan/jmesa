@@ -15,10 +15,12 @@
  */
 package org.jmesa.data.match;
 
+import org.jmesa.limit.Filter;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface TypeConverter {
-	public Object getValue();
+public interface Match {
+	public boolean evaluate(Filter filter, Object value);
 }

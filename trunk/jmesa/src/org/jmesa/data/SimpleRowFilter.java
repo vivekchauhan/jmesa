@@ -15,14 +15,37 @@
  */
 package org.jmesa.data;
 
+import java.util.ArrayList;
 import java.util.Collection;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.jmesa.data.match.MatchRegistry;
+import org.jmesa.limit.FilterSet;
+import org.jmesa.limit.Limit;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter {
-	public Collection filterRows() {
-		return null;
+	private MatchRegistry matchRegistry;
+	
+	public SimpleRowFilter(MatchRegistry matchRegistry) {
+		this.matchRegistry = matchRegistry;
+	}
+	
+	public Collection filterRows(Collection items, Limit limit) {
+        FilterSet filterSet = limit.getFilterSet();
+		boolean filtered = filterSet.isFiltered();
+
+        if (filtered) {
+            Collection collection = new ArrayList();
+            FilterPredicate filterPredicate = new FilterPredicate(filterSet, matchRegistry);
+            CollectionUtils.select(items, filterPredicate, collection);
+
+            return collection;
+        }
+
+        return items;
 	}
 }

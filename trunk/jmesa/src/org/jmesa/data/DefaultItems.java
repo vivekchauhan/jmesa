@@ -15,26 +15,87 @@
  */
 package org.jmesa.data;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jmesa.limit.Limit;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class DefaultItems implements Items {
+	private Logger logger = Logger.getLogger(DefaultItems.class.getName());
+	
+	private Collection allItems;
+	private Collection filteredItems;
+	private Collection pageItems;
+	private Collection sortedItems;
+	
+	public DefaultItems(Collection items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
+		init(items, limit, rowFilter, columnSort);
+	}
+	
 	public Collection getAllItems() {
-		return null;
+		return allItems;
 	}
 
 	public Collection getFilteredItems() {
-		return null;
+		return filteredItems;
 	}
 
 	public Collection getPageItems() {
-		return null;
+		return pageItems;
 	}
 
 	public Collection getSortedItems() {
-		return null;
+		return sortedItems;
 	}
+	
+	protected void init(Collection items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
+		this.allItems = new ArrayList(items); // copy for thread safety
+		
+		this.filteredItems = rowFilter.filterRows(allItems, limit);
+        
+		this.sortedItems = columnSort.sortColumns(filteredItems, limit);
+        
+        this.pageItems = getCurrentRows(sortedItems, limit);
+
+		if (logger.isLoggable(Level.FINE)) {
+            logger.fine(limit.toString());
+        }
+	}
+	
+	protected Collection getCurrentRows(Collection items, Limit limit) {
+        int rowStart = limit.getRowSelect().getRowStart();
+        int rowEnd = limit.getRowSelect().getRowEnd();
+
+        // Normal case. Using Limit and paginating for a specific set of rows.
+        if (rowStart >= items.size()) {
+            if (logger.isLoggable(Level.FINE)) {
+                logger.fine("The Limit row start is >= items.size(). Return the items available.");
+            }
+
+            return items;
+        }
+
+        if (rowEnd > items.size()) {
+        	if (logger.isLoggable(Level.FINE)) {
+                logger.fine("The Limit row end is > items.size(). Return as many items as possible.");
+            }
+
+            rowEnd = items.size();
+        }
+
+        Collection results = new ArrayList();
+        for (int i = rowStart; i < rowEnd; i++) {
+            Object bean = ((List) items).get(i);
+            results.add(bean);
+        }
+
+        return results;
+    }	
 }

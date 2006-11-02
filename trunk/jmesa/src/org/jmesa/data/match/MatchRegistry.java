@@ -19,8 +19,8 @@ package org.jmesa.data.match;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface TypeConverterRegistry {
-	public void addTypeConverter();
+public interface MatchRegistry {
+	public void addMatch();
 	
-	public Match getTypeConverter();
+	public Match getMatch();
 }

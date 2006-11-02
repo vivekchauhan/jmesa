@@ -19,11 +19,11 @@ package org.jmesa.data.match;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultTypeConverterRegistry implements TypeConverterRegistry {
-	public void addTypeConverter() {
+public class DefaultMatchRegistry implements MatchRegistry {
+	public void addMatch() {
 	}
 
-	public Match getTypeConverter() {
+	public Match getMatch() {
 		return null;
 	}
 }

@@ -17,12 +17,14 @@ package org.jmesa.data;
 
 import java.util.Collection;
 
+import org.jmesa.limit.Limit;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class SimpleColumnSort implements ColumnSort {
-	public Collection sortColumns() {
+	public Collection sortColumns(Collection items, Limit limit) {
 		return null;
 	}
 }
