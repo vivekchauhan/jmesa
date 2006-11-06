@@ -20,7 +20,9 @@ package org.jmesa.data.match;
  * @author Jeff Johnston
  */
 public interface MatchRegistry {
-	public void addMatch();
+	public void addMatch(MatchKey key, Match match);
 	
-	public Match getMatch();
+	public MatchKey getMatchKey(MatchKey key);
+	
+	public Match getMatch(MatchKey key);
 }

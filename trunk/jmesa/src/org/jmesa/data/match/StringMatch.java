@@ -15,37 +15,21 @@
  */
 package org.jmesa.data.match;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.limit.Filter;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultMatchRegistry implements MatchRegistry {
-	private Map<MatchKey, Match> matches = new HashMap<MatchKey, Match>();
-	
-	public void addMatch(MatchKey key, Match match) {
-		matches.put(key, match);
-	}
-	
-	public MatchKey getMatchKey(MatchKey key) {
-		Match match = matches.get(key);
-		
-		if (match == null) {
-			key.setId(null);
-			match = matches.get(key);
+public class StringMatch implements Match {
+	public boolean evaluate(Filter filter, Object value) {
+		String filterValue = filter.getValue();
+		String itemValue = StringUtils.lowerCase((String)value);
+		if (StringUtils.contains(itemValue, filterValue)) {
+			return true;
 		}
-		
-		if (match == null) {
-			key.setProperty(null);
-			match = matches.get(key);
-		}
-		
-		return key;
-	}
 
-	public Match getMatch(MatchKey key) {
-		return matches.get(key);
+		return false;
 	}
 }

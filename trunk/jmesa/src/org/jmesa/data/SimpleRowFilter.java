@@ -28,19 +28,19 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter {
-	private MatchRegistry matchRegistry;
+	private MatchRegistry registry;
 	
-	public SimpleRowFilter(MatchRegistry matchRegistry) {
-		this.matchRegistry = matchRegistry;
+	public SimpleRowFilter(MatchRegistry registry) {
+		this.registry = registry;
 	}
 	
-	public Collection filterRows(Collection items, Limit limit) {
+	public Collection filterRows(Limit limit, Collection items) {
         FilterSet filterSet = limit.getFilterSet();
 		boolean filtered = filterSet.isFiltered();
 
         if (filtered) {
             Collection collection = new ArrayList();
-            FilterPredicate filterPredicate = new FilterPredicate(filterSet, matchRegistry);
+            FilterPredicate filterPredicate = new FilterPredicate(registry, limit, filterSet);
             CollectionUtils.select(items, filterPredicate, collection);
 
             return collection;

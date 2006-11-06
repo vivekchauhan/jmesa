@@ -21,9 +21,11 @@ import java.util.logging.Logger;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
 import org.jmesa.data.match.Match;
+import org.jmesa.data.match.MatchKey;
 import org.jmesa.data.match.MatchRegistry;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
+import org.jmesa.limit.Limit;
 
 /**
  * Use the Jakarta Collections predicate pattern to filter out the table.
@@ -33,12 +35,15 @@ import org.jmesa.limit.FilterSet;
  */
 public final class FilterPredicate implements Predicate {
 	private Logger logger = Logger.getLogger(FilterPredicate.class.getName());
-	private MatchRegistry matchRegistry;
+	
+	private MatchRegistry registry;
 	private FilterSet filterSet;
+	private Limit limit;
 
-    public FilterPredicate(FilterSet filterSet, MatchRegistry matchRegistry) {
-        this.filterSet = filterSet;
-        this.matchRegistry = matchRegistry;
+    public FilterPredicate(MatchRegistry registry, Limit limit, FilterSet filterSet) {
+    	this.registry = registry;
+    	this.limit = limit;
+    	this.filterSet = filterSet;
     }
 
     /**
@@ -49,10 +54,15 @@ public final class FilterPredicate implements Predicate {
 
         try {
         	for (Filter filter : filterSet.getFilters()) {
-                Match match = matchRegistry.getMatch();
                 String property = filter.getProperty();
                 Object value = PropertyUtils.getProperty(bean, property);
-                result = match.evaluate(filter, value);
+                
+                if(value != null) {
+                    MatchKey key = new MatchKey(value.getClass().getName(), limit.getId(), property);
+                    key = registry.getMatchKey(key);
+                    Match match = registry.getMatch(key);
+                    result = match.evaluate(filter, value);
+                }
             }
         } catch (Exception e) {
         	logger.log(Level.SEVERE, "FilterPredicate.evaluate() had problems", e);

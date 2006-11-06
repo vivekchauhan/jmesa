@@ -16,6 +16,7 @@
 package org.jmesa.limit;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -52,7 +53,7 @@ public class SortSet implements Serializable {
     /**
      * @return The Set of Sort objects.
      */
-    public Set<Sort> getSorts() {
+    public Collection<Sort> getSorts() {
         return sorts;
     }
 

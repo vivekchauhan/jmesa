@@ -24,7 +24,7 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class SimpleColumnSort implements ColumnSort {
-	public Collection sortColumns(Collection items, Limit limit) {
+	public Collection sortColumns(Limit limit, Collection items) {
 		return null;
 	}
 }

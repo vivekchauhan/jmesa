@@ -16,6 +16,7 @@
 package org.jmesa.limit;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -49,7 +50,7 @@ public class FilterSet implements Serializable {
 		return filters != null && !filters.isEmpty();
 	}
 
-	public Set<Filter> getFilters() {
+	public Collection<Filter> getFilters() {
 		return filters;
 	}
 

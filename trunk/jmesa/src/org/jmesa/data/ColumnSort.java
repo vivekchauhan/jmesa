@@ -24,5 +24,5 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public interface ColumnSort {
-	public Collection sortColumns(Collection items, Limit limit);
+	public Collection sortColumns(Limit limit, Collection items);
 }

@@ -35,8 +35,8 @@ public class DefaultItems implements Items {
 	private Collection pageItems;
 	private Collection sortedItems;
 	
-	public DefaultItems(Collection items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
-		init(items, limit, rowFilter, columnSort);
+	public DefaultItems(Limit limit, RowFilter rowFilter, ColumnSort columnSort, Collection<Object> items) {
+		init(limit, rowFilter, columnSort, items);
 	}
 	
 	public Collection getAllItems() {
@@ -55,21 +55,21 @@ public class DefaultItems implements Items {
 		return sortedItems;
 	}
 	
-	protected void init(Collection items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
-		this.allItems = new ArrayList(items); // copy for thread safety
+	private void init(Limit limit, RowFilter rowFilter, ColumnSort columnSort, Collection<Object> items) {
+		this.allItems = new ArrayList<Object>(items); // copy for thread safety
 		
-		this.filteredItems = rowFilter.filterRows(allItems, limit);
+		this.filteredItems = rowFilter.filterRows(limit, allItems);
         
-		this.sortedItems = columnSort.sortColumns(filteredItems, limit);
+		this.sortedItems = columnSort.sortColumns(limit, filteredItems);
         
-        this.pageItems = getCurrentRows(sortedItems, limit);
+        this.pageItems = getPageItems(limit, sortedItems);
 
 		if (logger.isLoggable(Level.FINE)) {
             logger.fine(limit.toString());
         }
 	}
 	
-	protected Collection getCurrentRows(Collection items, Limit limit) {
+	private Collection getPageItems(Limit limit, Collection items) {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 
@@ -90,7 +90,7 @@ public class DefaultItems implements Items {
             rowEnd = items.size();
         }
 
-        Collection results = new ArrayList();
+        Collection<Object> results = new ArrayList<Object>();
         for (int i = rowStart; i < rowEnd; i++) {
             Object bean = ((List) items).get(i);
             results.add(bean);
