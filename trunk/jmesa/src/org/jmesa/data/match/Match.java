@@ -15,12 +15,40 @@
  */
 package org.jmesa.data.match;
 
-import org.jmesa.limit.Filter;
-
 /**
+ * <p>
+ * Used to filter out values.
+ * </p>
+ * 
+ * <p>
+ * The following is a String matching example:
+ * </p>
+ * 
+ * <pre>
+ *  public boolean evaluate(Object itemValue, String matchValue) {
+ *     String value = StringUtils.lowerCase((String)itemValue);
+ *     if (StringUtils.contains(value, matchValue)) {
+ *         return true;
+ *      }
+ *
+ *      return false;
+ *  }
+ * </pre>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface Match {
-	public boolean evaluate(Filter filter, Object value);
+	/**
+	 * <p>
+	 * Take the current item value and evaluate whether or not it is the same
+	 * as the match value.
+	 * </p>
+	 * 
+	 * @param itemValue The value that will be performing the match against.
+	 * @param matchValue The value to match with.
+	 * 
+	 * @return Is true if the itemValue and the matchValue are the same.
+	 */
+	public boolean evaluate(Object itemValue, String matchValue);
 }

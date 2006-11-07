@@ -44,7 +44,7 @@ public class RowFilterTest {
 	@Test
 	public void filterRows() {
 		MatchRegistry registry = new DefaultMatchRegistry();
-		MatchKey key = new MatchKey(String.class.getName());
+		MatchKey key = new MatchKey(String.class);
 		Match match = new StringMatch();
 		registry.addMatch(key, match);
 		

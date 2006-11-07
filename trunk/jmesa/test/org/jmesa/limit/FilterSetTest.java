@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class FilterSetTest {

@@ -16,17 +16,18 @@
 package org.jmesa.data.match;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.limit.Filter;
 
 /**
+ * Will do a case insensitive string match.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class StringMatch implements Match {
-	public boolean evaluate(Filter filter, Object value) {
-		String filterValue = filter.getValue();
-		String itemValue = StringUtils.lowerCase((String)value);
-		if (StringUtils.contains(itemValue, filterValue)) {
+	public boolean evaluate(Object itemValue, String matchValue) {
+		String item = StringUtils.lowerCase((String)itemValue);
+		String match = StringUtils.lowerCase((String)matchValue);
+		if (StringUtils.contains(item, match)) {
 			return true;
 		}
 

@@ -15,14 +15,30 @@
  */
 package org.jmesa.data.match;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 /**
- * Register and then retrive Match objects.
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface MatchRegistry {
-	public void addMatch(MatchKey key, Match match);
-	
-	public Match getMatch(MatchKey key);
+public class StringMatchTest {
+	@Test
+	public void evaluateTest() {
+		StringMatch match = new StringMatch();
+
+		boolean evaluate = match.evaluate(null, "geo");
+		assertFalse(evaluate);
+
+		evaluate = match.evaluate("george", null);
+		assertFalse(evaluate);
+
+		evaluate = match.evaluate("george", "geo");
+		assertTrue(evaluate);
+
+		evaluate = match.evaluate("George", "Geo");
+		assertTrue(evaluate);
+	}
 }

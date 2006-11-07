@@ -51,17 +51,16 @@ public final class FilterPredicate implements Predicate {
      */
     public boolean evaluate(Object bean) {
         boolean result = false;
-
+        
         try {
         	for (Filter filter : filterSet.getFilters()) {
                 String property = filter.getProperty();
                 Object value = PropertyUtils.getProperty(bean, property);
                 
                 if(value != null) {
-                    MatchKey key = new MatchKey(value.getClass().getName(), limit.getId(), property);
-                    key = registry.getMatchKey(key);
+                	MatchKey key = new MatchKey(value.getClass(), limit.getId(), property);
                     Match match = registry.getMatch(key);
-                    result = match.evaluate(filter, value);
+                    result = match.evaluate(value, filter.getValue());
                 }
             }
         } catch (Exception e) {

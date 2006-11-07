@@ -28,24 +28,26 @@ public class DefaultMatchRegistry implements MatchRegistry {
 	public void addMatch(MatchKey key, Match match) {
 		matches.put(key, match);
 	}
-	
-	public MatchKey getMatchKey(MatchKey key) {
+
+	public Match getMatch(MatchKey key) {
 		Match match = matches.get(key);
 		
 		if (match == null) {
-			key.setId(null);
+			// take off property and see if find match
+			key = new MatchKey(key.getType(), key.getId(), null); 
 			match = matches.get(key);
 		}
 		
 		if (match == null) {
-			key.setProperty(null);
+			// take off id and property and see if find match
+			key = new MatchKey(key.getType(), null, null);
 			match = matches.get(key);
 		}
-		
-		return key;
-	}
 
-	public Match getMatch(MatchKey key) {
-		return matches.get(key);
+		if (match != null) {
+			return match;
+		}
+
+		throw new IllegalArgumentException("There is no Match with the MatchKey [" + key.toString() + "]");
 	}
 }

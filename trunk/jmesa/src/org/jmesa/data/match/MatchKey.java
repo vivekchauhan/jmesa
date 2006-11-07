@@ -20,20 +20,34 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * <p>
+ * Able to match up values based on a class type, table id and column property.
+ * The class type is required. The table id is optional and is used to match up 
+ * to a more specific filter. The column property is optional and is also used 
+ * to match up to a more specific filter.
+ * </p>  
+ * 
+ * <p>
+ * For instance you could just register a class type, such as a Date, and use 
+ * that across all tables. However, if you have a custom date to handle for 
+ * a specific table and/or specific column property than you could specify 
+ * the id and/or property value. 
+ * </p>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class MatchKey {
-	private String type;
-	private String id;
-	private String property;
+	private final Class type;
+	private final String id;
+	private final String property;
 	
 	/**
 	 * The more generic constructor. 
 	 * 
 	 * @param type
 	 */
-	public MatchKey(String type) {
+	public MatchKey(Class type) {
 		this(type, null, null);
 	}
 	
@@ -43,7 +57,7 @@ public class MatchKey {
 	 * @param id
 	 * @param type
 	 */
-	public MatchKey(String type, String id) {
+	public MatchKey(Class type, String id) {
 		this(type, id, null);
 	}
 	
@@ -54,7 +68,7 @@ public class MatchKey {
 	 * @param property
 	 * @param type
 	 */
-	public MatchKey(String type, String id, String property) {
+	public MatchKey(Class type, String id, String property) {
 		this.type = type;
 		this.id = id;
 		this.property = property;
@@ -64,26 +78,14 @@ public class MatchKey {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getProperty() {
 		return property;
 	}
 
-	public void setProperty(String property) {
-		this.property = property;
-	}
-
-	public String getType() {
+	public Class getType() {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-	
     @Override
     public boolean equals(Object o) {
         if (o == this)
