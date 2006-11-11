@@ -1,4 +1,4 @@
-package org.jmesa.context;
+package org.jmesa.core;
 
 public interface Messages {
 
