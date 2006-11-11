@@ -15,8 +15,7 @@
  */
 package org.jmesa.limit.state;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.jmesa.context.Context;
 import org.jmesa.limit.Limit;
 
 /**
@@ -29,26 +28,26 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class NotifyToPersistState implements State {
-	private final HttpServletRequest request;
+	private final Context context;
 	private final String id;
 	private final String stateAttr;
 
-	public NotifyToPersistState(HttpServletRequest request, String id, String stateAttr) {
-		this.request = request;
+	public NotifyToPersistState(Context context, String id, String stateAttr) {
+		this.context = context;
 		this.id = id;
 		this.stateAttr = stateAttr;
 	}
 
 	public Limit retrieveLimit() {
-		String stateAttrValue = request.getParameter(stateAttr);
+		String stateAttrValue = context.getParameter(stateAttr);
 		if ("true".equalsIgnoreCase(stateAttrValue)) {
-			return (Limit) request.getSession().getAttribute(id);
+			return (Limit) context.getSessionAttribute(id);
 		}
 
 		return null;
 	}
 
 	public void persistLimit(Limit limit) {
-		request.getSession().setAttribute(id, limit);
+		context.setSessionAttribute(id, limit);
 	}
 }

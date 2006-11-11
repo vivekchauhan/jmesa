@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.jmesa.context.Context;
 
 /**
  * @since 2.0
@@ -32,9 +33,9 @@ public class DefaultLimitActionFactory implements LimitActionFactory {
 	private final String id;
 	private final String prefixId;
 	
-	public DefaultLimitActionFactory(String id, Map<?, ?> parameters) {
+	public DefaultLimitActionFactory(String id, Context context) {
 		this.id = id;
-		this.parameters = parameters;
+		this.parameters = context.getParameterMap();
 		this.prefixId = id + "_";
 	}
 

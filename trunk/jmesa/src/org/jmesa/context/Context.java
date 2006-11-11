@@ -20,10 +20,10 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public interface Context {
-
     public Object getApplicationInitParameter(String name);
 
     public Object getApplicationAttribute(String name);
@@ -61,5 +61,4 @@ public interface Context {
     public String getContextPath();
 
     public Object getContextObject();
-
 }

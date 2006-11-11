@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jmesa.context.Context;
+import org.jmesa.context.HttpServletRequestContext;
 import org.jmesa.data.match.DefaultMatchRegistry;
 import org.jmesa.data.match.Match;
 import org.jmesa.data.match.MatchKey;
@@ -33,6 +35,7 @@ import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * @since 2.0
@@ -50,7 +53,9 @@ public class RowFilterTest {
 		
 		SimpleRowFilter rowFilter = new SimpleRowFilter(registry);
 		
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, getParameters());
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		Context context = new HttpServletRequestContext(request, getParameters());
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		Limit limit = limitFactory.createLimit();
 		
 		PresidentsDao dao = new PresidentsDao();

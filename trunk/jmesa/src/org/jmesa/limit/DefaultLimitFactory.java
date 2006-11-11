@@ -15,7 +15,7 @@
  */
 package org.jmesa.limit;
 
-import java.util.Map;
+import org.jmesa.context.Context;
 
 /**
  * <p>
@@ -58,8 +58,8 @@ import java.util.Map;
 public class DefaultLimitFactory implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
-	public DefaultLimitFactory(String id, Map<?, ?> parameters) {
-		this.limitActionFactory = new DefaultLimitActionFactory(id, parameters);
+	public DefaultLimitFactory(String id, Context context) {
+		this.limitActionFactory = new DefaultLimitActionFactory(id, context);
 	}
 
 	public Limit createLimit() {

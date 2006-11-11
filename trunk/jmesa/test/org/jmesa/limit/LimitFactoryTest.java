@@ -21,6 +21,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.jmesa.context.Context;
+import org.jmesa.context.HttpServletRequestContext;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
@@ -40,13 +44,17 @@ public class LimitFactoryTest {
 
 	@Test
 	public void createLimitAndRowSelect() {
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, getParameters());
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		Context context = new HttpServletRequestContext(request, getParameters());
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		checkAssertions(limitFactory);
 	}
 	
 	@Test
 	public void createLimitAndRowSelectWithSpringParameters() {
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, getSpringParameters());
+		HttpServletRequest request = getSpringRequest();
+		Context context = new HttpServletRequestContext(request);
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		checkAssertions(limitFactory);
 	}
 	
@@ -75,11 +83,11 @@ public class LimitFactoryTest {
 		return results;
 	}
 	
-	private Map<?, ?> getSpringParameters() {
-		MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
-		SpringParametersAdapter springParametersAdapter = new SpringParametersAdapter(mockHttpServletRequest);
+	private HttpServletRequest getSpringRequest() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		SpringParametersAdapter springParametersAdapter = new SpringParametersAdapter(request);
 		createBuilder(springParametersAdapter);
-		return mockHttpServletRequest.getParameterMap();
+		return request;
 	}	
 	
 	private void createBuilder(Parameters parameters) {
