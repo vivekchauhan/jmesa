@@ -15,14 +15,21 @@
  */
 package org.jmesa.core;
 
-import org.jmesa.context.Context;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Preferences {
-    public void init(Context context, String preferencesLocation);
-
-    public String getPreference(String code);
+public class PreferencesTest {
+	@Test
+	public void getPreference() {
+		Preferences preferences = new PropertiesPreferences();
+		preferences.init(null, "/org/jmesa/core/test.properties");
+		String preference = preferences.getPreference("test.data");
+		assertNotNull(preference);
+		assertTrue(preference.equals("foo"));
+	}
 }

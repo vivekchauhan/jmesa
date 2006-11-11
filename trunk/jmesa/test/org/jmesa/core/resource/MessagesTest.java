@@ -13,16 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.resource;
 
-import org.jmesa.context.Context;
+import static org.junit.Assert.*;
+
+import java.util.Locale;
+
+import org.jmesa.core.Messages;
+import org.junit.Test;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Preferences {
-    public void init(Context context, String preferencesLocation);
-
-    public String getPreference(String code);
+public class MessagesTest {
+	@Test
+	public void getPreference() {
+		Messages messages = new ResourceBundleMessages();
+		messages.init(null, "org.jmesa.core.resource.testResourceBundle", Locale.US);
+		String message = messages.getMessage("test.normal");
+		assertNotNull(message);
+		assertTrue(message.equals("foo"));
+		
+		message = messages.getMessage("test.args", new String[] {"1"});
+		assertNotNull(message);
+		assertTrue(message.equals("foo 1"));
+	}
 }
