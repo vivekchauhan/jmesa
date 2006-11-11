@@ -15,17 +15,15 @@
  */
 package org.jmesa.data;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
 import org.jmesa.data.match.Match;
-import org.jmesa.data.match.MatchKey;
-import org.jmesa.data.match.MatchRegistry;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
-import org.jmesa.limit.Limit;
 
 /**
  * Use the Jakarta Collections predicate pattern to filter out the table.
@@ -35,38 +33,35 @@ import org.jmesa.limit.Limit;
  */
 public final class FilterPredicate implements Predicate {
 	private Logger logger = Logger.getLogger(FilterPredicate.class.getName());
-	
-	private MatchRegistry registry;
+
+	private Map<Filter, Match> matches;
 	private FilterSet filterSet;
-	private Limit limit;
 
-    public FilterPredicate(MatchRegistry registry, Limit limit, FilterSet filterSet) {
-    	this.registry = registry;
-    	this.limit = limit;
-    	this.filterSet = filterSet;
-    }
+	public FilterPredicate(Map<Filter, Match> matches, FilterSet filterSet) {
+		this.matches = matches;
+		this.filterSet = filterSet;
+	}
 
-    /**
-     * Use the filter parameters to filter out the table.
-     */
-    public boolean evaluate(Object bean) {
-        boolean result = false;
-        
-        try {
-        	for (Filter filter : filterSet.getFilters()) {
-                String property = filter.getProperty();
-                Object value = PropertyUtils.getProperty(bean, property);
-                
-                if(value != null) {
-                	MatchKey key = new MatchKey(value.getClass(), limit.getId(), property);
-                    Match match = registry.getMatch(key);
-                    result = match.evaluate(value, filter.getValue());
-                }
-            }
-        } catch (Exception e) {
-        	logger.log(Level.SEVERE, "FilterPredicate.evaluate() had problems", e);
-        }
+	/**
+	 * Use the filter parameters to filter out the table.
+	 */
+	public boolean evaluate(Object item) {
+		boolean result = false;
 
-        return result;
-    }
+		try {
+			for (Filter filter : filterSet.getFilters()) {
+				String property = filter.getProperty();
+				Object value = PropertyUtils.getProperty(item, property);
+
+				if (value != null) {
+					Match match = matches.get(filter);
+					result = match.evaluate(value, filter.getValue());
+				}
+			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Had problems evaluating the items.", e);
+		}
+
+		return result;
+	}
 }
