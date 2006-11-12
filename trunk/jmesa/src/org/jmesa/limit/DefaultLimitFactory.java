@@ -15,7 +15,7 @@
  */
 package org.jmesa.limit;
 
-import org.jmesa.context.Context;
+import org.jmesa.web.Context;
 
 /**
  * <p>

@@ -21,10 +21,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jmesa.context.Context;
-import org.jmesa.context.HttpServletRequestContext;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
+import org.jmesa.web.Context;
+import org.jmesa.web.HttpServletRequestContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;

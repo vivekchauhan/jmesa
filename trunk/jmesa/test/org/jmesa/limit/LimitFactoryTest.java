@@ -23,12 +23,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.jmesa.context.Context;
-import org.jmesa.context.HttpServletRequestContext;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
+import org.jmesa.web.Context;
+import org.jmesa.web.HttpServletRequestContext;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 

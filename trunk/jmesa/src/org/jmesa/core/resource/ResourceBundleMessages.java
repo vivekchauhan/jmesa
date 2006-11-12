@@ -23,8 +23,8 @@ import java.util.ResourceBundle;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jmesa.context.Context;
 import org.jmesa.core.Messages;
+import org.jmesa.web.Context;
 
 /**
  * @since 2.0

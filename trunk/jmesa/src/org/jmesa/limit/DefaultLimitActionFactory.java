@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.jmesa.context.Context;
+import org.jmesa.web.Context;
 
 /**
  * @since 2.0

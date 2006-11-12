@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.context.Context;
+import org.jmesa.web.Context;
 
 /**
  * @since 2.0

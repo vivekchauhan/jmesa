@@ -15,7 +15,7 @@
  */
 package org.jmesa.core;
 
-import org.jmesa.context.Context;
+import org.jmesa.web.Context;
 
 /**
  * @since 2.0
