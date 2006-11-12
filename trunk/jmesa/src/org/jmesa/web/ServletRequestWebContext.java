@@ -20,48 +20,33 @@ import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HttpServletRequestContext implements Context {
-    private HttpServletRequest request;
-    private Map parameterMap;
+public class ServletRequestWebContext implements WebContext {
+    private ServletRequest request;
 
-    public HttpServletRequestContext(HttpServletRequest request) {
+    public ServletRequestWebContext(ServletRequest request) {
         this.request = request;
     }
-    
-    /**
-     * Send in and use a custom map of parameters along with the normal
-     * HttpServletRequest.
-     * 
-     * @param request An instance of a HttpServletRequest.
-     * @param parameterMap A map of parameters to use. 
-     * 
-     * TODO: we may need this... Note: the parameter values need to be an Array String[]
-     */
-    public HttpServletRequestContext(HttpServletRequest request, Map parameterMap) {
-        this(request);
-        this.parameterMap = parameterMap;
-    }
-    
+
     public Object getApplicationInitParameter(String name) {
-        return request.getSession().getServletContext().getInitParameter(name);
+        throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
     public Object getApplicationAttribute(String name) {
-        return request.getSession().getServletContext().getAttribute(name);
+        throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
     public void setApplicationAttribute(String name, Object value) {
-        request.getSession().getServletContext().setAttribute(name, value);
+        throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
     public void removeApplicationAttribute(String name) {
-        request.getSession().getServletContext().removeAttribute(name);
+        throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
     public Object getPageAttribute(String name) {
@@ -77,21 +62,10 @@ public class HttpServletRequestContext implements Context {
     }
 
     public String getParameter(String name) {
-        if (parameterMap != null) {
-            String[] values = ContextUtils.getValueAsArray(parameterMap.get(name));
-            if (values != null && values.length > 0) {
-                return values[0];
-            }
-        }
-        
         return request.getParameter(name);
     }
 
     public Map getParameterMap() {
-        if (parameterMap != null) {
-            return parameterMap;
-        }
-
         return request.getParameterMap();
     }
 
@@ -108,19 +82,19 @@ public class HttpServletRequestContext implements Context {
     }
 
     public Object getSessionAttribute(String name) {
-        return request.getSession().getAttribute(name);
+        throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
     public void setSessionAttribute(String name, Object value) {
-        request.getSession().setAttribute(name, value);
+        throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
     public void removeSessionAttribute(String name) {
-        request.getSession().removeAttribute(name);
+        throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
     public Writer getWriter() {
-        return new StringWriter();
+        return new StringWriter();    
     }
 
     public Locale getLocale() {
@@ -128,7 +102,7 @@ public class HttpServletRequestContext implements Context {
     }
 
     public String getContextPath() {
-        return request.getContextPath();
+        throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
 
     public Object getContextObject() {

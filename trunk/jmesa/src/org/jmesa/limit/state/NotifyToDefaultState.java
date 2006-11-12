@@ -16,7 +16,7 @@
 package org.jmesa.limit.state;
 
 import org.jmesa.limit.Limit;
-import org.jmesa.web.Context;
+import org.jmesa.web.WebContext;
 
 /**
  * <p>
@@ -28,11 +28,11 @@ import org.jmesa.web.Context;
  * @author Jeff Johnston
  */
 public class NotifyToDefaultState implements State {
-	private final Context context;
+	private final WebContext context;
 	private final String id;
 	private final String stateAttr;
 	
-	public NotifyToDefaultState(Context context, String id, String stateAttr) {
+	public NotifyToDefaultState(WebContext context, String id, String stateAttr) {
 		this.context = context;
 		this.id = id;
 		this.stateAttr = stateAttr;

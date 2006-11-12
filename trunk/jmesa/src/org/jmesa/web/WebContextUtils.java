@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ContextUtils {
+public class WebContextUtils {
     /**
      * The value needs to be a String[]. A String, Null, or List will be
      * converted to a String[]. In addition it will attempt to do a String

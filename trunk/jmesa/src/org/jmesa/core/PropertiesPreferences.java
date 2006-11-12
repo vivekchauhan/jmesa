@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.web.Context;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
@@ -35,7 +35,7 @@ public class PropertiesPreferences implements Preferences {
 
     private Properties properties = new Properties();
 
-    public void init(Context context, String preferencesLocation) {
+    public void init(WebContext context, String preferencesLocation) {
         try {
             InputStream resourceAsStream = this.getClass().getResourceAsStream(JMESA_PROPERTIES);
 			properties.load(resourceAsStream);

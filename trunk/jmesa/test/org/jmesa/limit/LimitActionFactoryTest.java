@@ -23,8 +23,8 @@ import java.util.Map;
 
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
-import org.jmesa.web.Context;
-import org.jmesa.web.HttpServletRequestContext;
+import org.jmesa.web.WebContext;
+import org.jmesa.web.HttpServletRequestWebContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -42,7 +42,7 @@ public class LimitActionFactoryTest {
 	@Before
 	public void setUp() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		Context context = new HttpServletRequestContext(request, getParameters());
+		WebContext context = new HttpServletRequestWebContext(request, getParameters());
 		limitActionFactory = new DefaultLimitActionFactory(ID, context);
 	}
 

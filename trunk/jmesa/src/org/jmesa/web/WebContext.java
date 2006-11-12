@@ -23,7 +23,7 @@ import java.util.Map;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Context {
+public interface WebContext {
     public Object getApplicationInitParameter(String name);
 
     public Object getApplicationAttribute(String name);

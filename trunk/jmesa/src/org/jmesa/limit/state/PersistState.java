@@ -16,7 +16,7 @@
 package org.jmesa.limit.state;
 
 import org.jmesa.limit.Limit;
-import org.jmesa.web.Context;
+import org.jmesa.web.WebContext;
 
 /**
  * <p>
@@ -28,10 +28,10 @@ import org.jmesa.web.Context;
  * @author Jeff Johnston
  */
 public class PersistState implements State {
-	private final Context context;
+	private final WebContext context;
 	private final String id;
 
-	public PersistState(Context context, String id) {
+	public PersistState(WebContext context, String id) {
 		this.context = context;
 		this.id = id;
 	}

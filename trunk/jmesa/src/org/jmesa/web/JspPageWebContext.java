@@ -27,10 +27,10 @@ import javax.servlet.jsp.PageContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public final class JspPageContext implements Context {
+public final class JspPageWebContext implements WebContext {
     private PageContext pageContext;
 
-    public JspPageContext(PageContext pageContext) {
+    public JspPageWebContext(PageContext pageContext) {
         this.pageContext = pageContext;
     }
 

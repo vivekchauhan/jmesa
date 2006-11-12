@@ -32,8 +32,8 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
-import org.jmesa.web.Context;
-import org.jmesa.web.HttpServletRequestContext;
+import org.jmesa.web.WebContext;
+import org.jmesa.web.HttpServletRequestWebContext;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -54,7 +54,7 @@ public class RowFilterTest {
 		SimpleRowFilter rowFilter = new SimpleRowFilter(registry);
 		
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		Context context = new HttpServletRequestContext(request, getParameters());
+		WebContext context = new HttpServletRequestWebContext(request, getParameters());
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		Limit limit = limitFactory.createLimit();
 		

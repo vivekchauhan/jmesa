@@ -15,7 +15,7 @@
  */
 package org.jmesa.limit;
 
-import org.jmesa.web.Context;
+import org.jmesa.web.WebContext;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ import org.jmesa.web.Context;
 public class DefaultLimitFactory implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
-	public DefaultLimitFactory(String id, Context context) {
+	public DefaultLimitFactory(String id, WebContext context) {
 		this.limitActionFactory = new DefaultLimitActionFactory(id, context);
 	}
 

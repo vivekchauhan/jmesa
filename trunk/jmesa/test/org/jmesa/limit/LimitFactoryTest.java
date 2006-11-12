@@ -27,8 +27,8 @@ import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
-import org.jmesa.web.Context;
-import org.jmesa.web.HttpServletRequestContext;
+import org.jmesa.web.WebContext;
+import org.jmesa.web.HttpServletRequestWebContext;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -45,7 +45,7 @@ public class LimitFactoryTest {
 	@Test
 	public void createLimitAndRowSelect() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		Context context = new HttpServletRequestContext(request, getParameters());
+		WebContext context = new HttpServletRequestWebContext(request, getParameters());
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		checkAssertions(limitFactory);
 	}
@@ -53,7 +53,7 @@ public class LimitFactoryTest {
 	@Test
 	public void createLimitAndRowSelectWithSpringParameters() {
 		HttpServletRequest request = getSpringRequest();
-		Context context = new HttpServletRequestContext(request);
+		WebContext context = new HttpServletRequestWebContext(request);
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		checkAssertions(limitFactory);
 	}

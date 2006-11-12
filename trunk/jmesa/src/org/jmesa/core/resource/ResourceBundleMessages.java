@@ -24,7 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jmesa.core.Messages;
-import org.jmesa.web.Context;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
@@ -39,7 +39,7 @@ public class ResourceBundleMessages implements Messages {
     private ResourceBundle defaultResourceBundle;
     private Locale locale;
 
-    public void init(Context context, String messagesLocation, Locale locale) {
+    public void init(WebContext context, String messagesLocation, Locale locale) {
         this.locale = locale;
         defaultResourceBundle = findResourceBundle(JMESA_RESOURCE_BUNDLE, locale);
         if (StringUtils.isNotBlank(messagesLocation)) {
