@@ -44,7 +44,7 @@ public class SimpleRowFilter implements RowFilter {
 		this.registry = registry;
 	}
 	
-	public Collection filterRows(Limit limit, Collection items) {
+	public Collection filterItems(Limit limit, Collection items) {
         FilterSet filterSet = limit.getFilterSet();
 		boolean filtered = filterSet.isFiltered();
 
