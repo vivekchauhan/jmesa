@@ -35,7 +35,7 @@ public class PropertiesPreferences implements Preferences {
 
     private Properties properties = new Properties();
 
-    public void init(WebContext context, String preferencesLocation) {
+    public PropertiesPreferences(WebContext context, String preferencesLocation) {
         try {
             InputStream resourceAsStream = this.getClass().getResourceAsStream(JMESA_PROPERTIES);
 			properties.load(resourceAsStream);

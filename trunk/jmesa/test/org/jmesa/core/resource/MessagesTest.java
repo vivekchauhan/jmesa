@@ -29,8 +29,7 @@ import org.junit.Test;
 public class MessagesTest {
 	@Test
 	public void getPreference() {
-		Messages messages = new ResourceBundleMessages();
-		messages.init(null, "org.jmesa.core.resource.testResourceBundle", Locale.US);
+		Messages messages = new ResourceBundleMessages(null, "org.jmesa.core.resource.testResourceBundle", Locale.US);
 		String message = messages.getMessage("test.normal");
 		assertNotNull(message);
 		assertTrue(message.equals("foo"));

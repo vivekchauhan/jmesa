@@ -23,8 +23,8 @@ import org.jmesa.limit.Limit;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SimpleColumnSort implements ColumnSort {
-	public Collection sortColumns(Limit limit, Collection items) {
+public class SimpleItemsSort implements ColumnSort {
+	public Collection sortItems(Limit limit, Collection items) {
 		return null;
 	}
 }

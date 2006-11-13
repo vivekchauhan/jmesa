@@ -15,14 +15,11 @@
  */
 package org.jmesa.core;
 
-import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface Preferences {
-    public void init(WebContext context, String preferencesLocation);
-
     public String getPreference(String code);
 }

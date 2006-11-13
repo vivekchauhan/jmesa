@@ -58,9 +58,9 @@ public class DefaultItems implements Items {
 	private void init(Limit limit, RowFilter rowFilter, ColumnSort columnSort, Collection<Object> items) {
 		this.allItems = new ArrayList<Object>(items); // copy for thread safety
 		
-		this.filteredItems = rowFilter.filterRows(limit, allItems);
+		this.filteredItems = rowFilter.filterItems(limit, allItems);
         
-		this.sortedItems = columnSort.sortColumns(limit, filteredItems);
+		this.sortedItems = columnSort.sortItems(limit, filteredItems);
         
         this.pageItems = getPageItems(limit, sortedItems);
 

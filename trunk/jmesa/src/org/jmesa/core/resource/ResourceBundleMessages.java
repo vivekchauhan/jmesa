@@ -39,7 +39,7 @@ public class ResourceBundleMessages implements Messages {
     private ResourceBundle defaultResourceBundle;
     private Locale locale;
 
-    public void init(WebContext context, String messagesLocation, Locale locale) {
+    public ResourceBundleMessages(WebContext context, String messagesLocation, Locale locale) {
         this.locale = locale;
         defaultResourceBundle = findResourceBundle(JMESA_RESOURCE_BUNDLE, locale);
         if (StringUtils.isNotBlank(messagesLocation)) {

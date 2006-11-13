@@ -15,20 +15,39 @@
  */
 package org.jmesa.core;
 
-import static org.junit.Assert.*;
+import java.util.Locale;
 
-import org.junit.Test;
+import org.jmesa.data.Items;
+import org.jmesa.limit.ExportType;
+import org.jmesa.limit.FilterSet;
+import org.jmesa.limit.SortSet;
 
 /**
+ * @TODO add comment
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PreferencesTest {
-	@Test
-	public void getPreference() {
-		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/test.properties");
-		String preference = preferences.getPreference("test.data");
-		assertNotNull(preference);
-		assertTrue(preference.equals("foo"));
-	}
+public interface CoreContext extends Items, Messages, Preferences {
+	public String getId();
+	
+	public Locale getLocale();
+	
+	public FilterSet getFilterSet();
+
+	public SortSet getSortSet();
+
+	public ExportType getExportType();
+
+	public boolean isExported();
+	
+	public int getRowStart();
+
+	public int getRowEnd();
+
+	public int getTotalRows();
+
+	public int getMaxRows();
+
+	public int getPage();
 }

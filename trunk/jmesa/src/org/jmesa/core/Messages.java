@@ -15,17 +15,12 @@
  */
 package org.jmesa.core;
 
-import java.util.Locale;
-
-import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface Messages {
-    public void init(WebContext context, String messagesLocation, Locale locale);
-
     public String getMessage(String code);
     
     public String getMessage(String code, Object[] args);

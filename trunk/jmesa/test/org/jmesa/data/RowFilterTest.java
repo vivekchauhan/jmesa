@@ -45,13 +45,13 @@ public class RowFilterTest {
 	private static final String ID = "pres";
 	
 	@Test
-	public void filterRows() {
+	public void filterItems() {
 		MatchRegistry registry = new DefaultMatchRegistry();
 		MatchKey key = new MatchKey(String.class);
 		Match match = new StringMatch();
 		registry.addMatch(key, match);
 		
-		SimpleRowFilter rowFilter = new SimpleRowFilter(registry);
+		SimpleRowFilter itemsFilter = new SimpleRowFilter(registry);
 		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext context = new HttpServletRequestWebContext(request, getParameters());
@@ -60,7 +60,7 @@ public class RowFilterTest {
 		
 		PresidentsDao dao = new PresidentsDao();
 		Collection items = dao.getPresidents();
-		items = rowFilter.filterRows(limit, items);
+		items = itemsFilter.filterItems(limit, items);
 
 		assertTrue(items.size() == 3);
 	}
