@@ -35,8 +35,8 @@ public class DefaultItems implements Items {
 	private Collection pageItems;
 	private Collection sortedItems;
 	
-	public DefaultItems(Limit limit, RowFilter rowFilter, ColumnSort columnSort, Collection<Object> items) {
-		init(limit, rowFilter, columnSort, items);
+	public DefaultItems(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
+		init(items, limit, rowFilter, columnSort);
 	}
 	
 	public Collection getAllItems() {
@@ -55,12 +55,12 @@ public class DefaultItems implements Items {
 		return sortedItems;
 	}
 	
-	private void init(Limit limit, RowFilter rowFilter, ColumnSort columnSort, Collection<Object> items) {
+	private void init(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
 		this.allItems = new ArrayList<Object>(items); // copy for thread safety
 		
-		this.filteredItems = rowFilter.filterItems(limit, allItems);
+		this.filteredItems = rowFilter.filterItems(allItems, limit);
         
-		this.sortedItems = columnSort.sortItems(limit, filteredItems);
+		this.sortedItems = columnSort.sortItems(filteredItems, limit);
         
         this.pageItems = getPageItems(limit, sortedItems);
 

@@ -15,54 +15,54 @@
  */
 package org.jmesa.data;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-import org.jmesa.data.match.DefaultMatchRegistry;
-import org.jmesa.data.match.Match;
-import org.jmesa.data.match.MatchKey;
-import org.jmesa.data.match.MatchRegistry;
-import org.jmesa.data.match.StringMatch;
 import org.jmesa.limit.DefaultLimitFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
-import org.jmesa.web.WebContext;
 import org.jmesa.web.HttpServletRequestWebContext;
+import org.jmesa.web.WebContext;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.jmesa.limit.Order;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class RowFilterTest {
+public class ColumnSortTest {
 	private static final String ID = "pres";
-	
+
 	@Test
-	public void filterItems() {
-		MatchRegistry registry = new DefaultMatchRegistry();
-		MatchKey key = new MatchKey(String.class);
-		Match match = new StringMatch();
-		registry.addMatch(key, match);
-		
-		SimpleRowFilter itemsFilter = new SimpleRowFilter(registry);
-		
+	public void sortItems() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext context = new HttpServletRequestWebContext(request, getParameters());
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		Limit limit = limitFactory.createLimit();
 		
+		MultiColumnSort itemsSort = new MultiColumnSort();
+		
 		PresidentsDao dao = new PresidentsDao();
 		Collection items = dao.getPresidents();
-		items = itemsFilter.filterItems(items, limit);
+		items = itemsSort.sortItems(items, limit);
 
-		assertTrue(items.size() == 3);
+		assertNotNull(items);
+		
+		Iterator iterator = items.iterator();
+		
+		President asc = (President)iterator.next();
+		assertTrue("the asc sort order is wrong", asc.getFirstName().equals("Abraham"));
+		
+		President desc = (President)iterator.next();
+		assertTrue("the desc sort order is wrong", desc.getLastName().equals("Johnson"));
 	}
 	
 	private Map<?, ?> getParameters() {
@@ -74,6 +74,7 @@ public class RowFilterTest {
 	
 	private void createBuilder(Parameters parameters) {
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.addFilter("fullName", "george");
+		builder.addSort("firstName", Order.ASC, 1);
+		builder.addSort("lastName", Order.DESC, 2);
 	}
 }

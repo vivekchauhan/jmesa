@@ -24,5 +24,5 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public interface RowFilter {
-	public Collection filterItems(Limit limit, Collection items);
+	public Collection filterItems(Collection items, Limit limit);
 }
