@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
+import org.apache.commons.collections.comparators.NullComparator;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.Order;
 import org.jmesa.limit.Sort;
@@ -37,9 +38,9 @@ public class MultiColumnSort implements ColumnSort {
         SortSet sortSet = limit.getSortSet();
         for (Sort sort : sortSet.getSorts()) {
 			if (sort.getOrder() == Order.ASC) {
-				chain.addComparator(new BeanComparator(sort.getProperty()));
+				chain.addComparator(new BeanComparator(sort.getProperty(), new NullComparator()));
 			} else if (sort.getOrder() == Order.DESC) {
-				chain.addComparator(new BeanComparator(sort.getProperty()), true);
+				chain.addComparator(new BeanComparator(sort.getProperty(), new NullComparator()), true);
 			}
 		}
         

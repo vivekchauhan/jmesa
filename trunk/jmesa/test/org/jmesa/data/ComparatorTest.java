@@ -15,75 +15,61 @@
  */
 package org.jmesa.data;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.collections.comparators.NullComparator;
-import org.apache.commons.collections.comparators.ReverseComparator;
+import org.junit.Test;
 
 public class ComparatorTest {
 	@Test
 	public void go() {
-//		List<BeanComparator> sortFields = new ArrayList<BeanComparator>();
-//		sortFields.add(new NullSafeBeanComparator("name", new NullComparator()));
-//		sortFields.add(new NullSafeBeanComparator("zipCode", new ReverseComparator(new NullComparator())));
-//		ComparatorChain multiSort = new ComparatorChain(sortFields);
-		
+		List<BeanComparator> sortFields = new ArrayList<BeanComparator>();
+		sortFields.add(new BeanComparator("name", new NullComparator()));
+		sortFields.add(new BeanComparator("zipCode", new NullComparator()));
+		ComparatorChain multiSort = new ComparatorChain(sortFields);
+		multiSort.setReverseSort(1);
+
 		ComparatorChain compChain = new ComparatorChain();
 		compChain.addComparator(new BeanComparator("name"));
 		compChain.addComparator(new BeanComparator("zipCode"), true);
-		
-		
-        Vector entries = new Vector();
-        entries.add(new MyClass("Robert", 34547));
-        entries.add(new MyClass("Albert", 57334));
-        entries.add(new MyClass("Robert", 78425));
 
-        
-        Collections.sort(entries, compChain);
-        
-        assertNotNull(entries);
-		
-		
+		Vector entries = new Vector();
+		entries.add(new MyClass("Robert", 34547));
+		entries.add(new MyClass("Albert", 57334));
+		entries.add(new MyClass("Robert", 78425));
 
-//			ComparatorChain compChain = new ComparatorChain();
-//        compChain.addComparator(new MyClassNameComparator());
-//        compChain.addComparator(new MyClassZipCodeComparator(), true);
+		Collections.sort(entries, multiSort);
 
-        // let's sort a Vector
-
-        // this will sort the Vector by the chain comparator's order
-		
+		assertNotNull(entries);
 	}
-	
-	
+
 	public class MyClass {
-	    protected String name;
-	    protected int zipCode;
+		protected String name;
+		protected int zipCode;
 
-	    public MyClass(String name, int zipCode) {
-	        this.name = name;
-	        this.zipCode = zipCode;
-	    }
-	    public String getName() {
-	        return name;
-	    }
-	    public int getZipCode() {
-	        return zipCode;
-	    }
+		public MyClass(String name, int zipCode) {
+			this.name = name;
+			this.zipCode = zipCode;
+		}
 
-	    public String toString() {
-	        return name + ":" + zipCode;
-	    }
+		public String getName() {
+			return name;
+		}
+
+		public int getZipCode() {
+			return zipCode;
+		}
+
+		public String toString() {
+			return name + ":" + zipCode;
+		}
 
 	}
 }
