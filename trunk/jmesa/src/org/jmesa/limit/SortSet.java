@@ -16,10 +16,11 @@
 package org.jmesa.limit;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,10 +38,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class SortSet implements Serializable {
 	private Logger logger = Logger.getLogger(SortSet.class.getName());
-    private Set<Sort> sorts;
+    private List<Sort> sorts;
     
     public SortSet() {
-    	sorts = new TreeSet<Sort>();
+    	sorts = new ArrayList<Sort>();
     }
     
     /**
@@ -88,10 +89,13 @@ public class SortSet implements Serializable {
      * @param sort The Sort to add to the Set.  
      */
     public void addSort(Sort sort) {
-    	sorts.add(sort);
-		if (logger.isLoggable(Level.FINE)) {
-			logger.fine("Added Sort: " + sort.toString());
-		}
+    	if (!sorts.contains(sort)) {
+        	sorts.add(sort);
+        	Collections.sort(sorts);
+    		if (logger.isLoggable(Level.FINE)) {
+    			logger.fine("Added Sort: " + sort.toString());
+    		}
+    	}
     }
     
     @Override
