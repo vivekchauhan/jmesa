@@ -77,4 +77,6 @@ public interface Limit extends Serializable {
 	public boolean isExported();
 
 	public ExportType getExportType();
+	
+	public void setExportType(ExportType exportType);
 }

@@ -63,7 +63,7 @@ public class DefaultLimitFactory implements LimitFactory {
 	}
 
 	public Limit createLimit() {
-		LimitImpl limit = new LimitImpl(limitActionFactory.getId());
+		Limit limit = new LimitImpl(limitActionFactory.getId());
 
 		FilterSet filterSet = limitActionFactory.getFilterSet();
 		limit.setFilterSet(filterSet);
@@ -84,7 +84,7 @@ public class DefaultLimitFactory implements LimitFactory {
 		return new BasicRowSelect(page, maxRows, totalRows);
 	}
 
-	private int getMaxRows(int maxRows) {
+	protected int getMaxRows(int maxRows) {
 		Integer currentMaxRows = limitActionFactory.getMaxRows();
 		if (currentMaxRows == null) {
 			return maxRows;
