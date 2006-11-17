@@ -24,14 +24,14 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class BasicRowSelect implements RowSelect {
+public class RowSelectImpl implements RowSelect {
 	private int page;
 	private int maxRows;
 	private int rowEnd;
 	private int rowStart;
 	private int totalRows;
 
-	public BasicRowSelect(int page, int maxRows, int totalRows) {
+	public RowSelectImpl(int page, int maxRows, int totalRows) {
 		this.maxRows = maxRows;
 		this.totalRows = totalRows;
 		init(page);
