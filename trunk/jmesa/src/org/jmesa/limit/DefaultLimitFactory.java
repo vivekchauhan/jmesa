@@ -59,11 +59,11 @@ public class DefaultLimitFactory implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
 	public DefaultLimitFactory(String id, WebContext context) {
-		this.limitActionFactory = new DefaultLimitActionFactory(id, context);
+		this.limitActionFactory = new LimitActionFactoryImpl(id, context.getParameterMap());
 	}
 
 	public Limit createLimit() {
-		DefaultLimit limit = new DefaultLimit(limitActionFactory.getId());
+		LimitImpl limit = new LimitImpl(limitActionFactory.getId());
 
 		FilterSet filterSet = limitActionFactory.getFilterSet();
 		limit.setFilterSet(filterSet);

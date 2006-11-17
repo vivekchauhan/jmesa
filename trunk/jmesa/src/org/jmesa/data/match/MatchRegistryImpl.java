@@ -22,7 +22,7 @@ import java.util.Map;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultMatchRegistry implements MatchRegistry {
+public class MatchRegistryImpl implements MatchRegistry {
 	private Map<MatchKey, Match> matches = new HashMap<MatchKey, Match>();
 	
 	public void addMatch(MatchKey key, Match match) {

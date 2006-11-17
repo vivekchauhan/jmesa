@@ -21,21 +21,20 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultLimitActionFactory implements LimitActionFactory {
-	private Logger logger = Logger.getLogger(DefaultLimitActionFactory.class.getName());
+public class LimitActionFactoryImpl implements LimitActionFactory {
+	private Logger logger = Logger.getLogger(LimitActionFactoryImpl.class.getName());
 	private final Map<?, ?> parameters;
 	private final String id;
 	private final String prefixId;
 	
-	public DefaultLimitActionFactory(String id, WebContext context) {
+	public LimitActionFactoryImpl(String id, Map<?, ?> parameters) {
 		this.id = id;
-		this.parameters = context.getParameterMap();
+		this.parameters = parameters;
 		this.prefixId = id + "_";
 	}
 

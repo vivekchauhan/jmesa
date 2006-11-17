@@ -37,13 +37,13 @@ public class LimitActionFactoryTest {
 	private static final int MAX_ROWS = 20;
 	private static final int PAGE = 3;
 
-	private DefaultLimitActionFactory limitActionFactory;
+	private LimitActionFactoryImpl limitActionFactory;
 	
 	@Before
 	public void setUp() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext context = new HttpServletRequestWebContext(request, getParameters());
-		limitActionFactory = new DefaultLimitActionFactory(ID, context);
+		limitActionFactory = new LimitActionFactoryImpl(ID, context.getParameterMap());
 	}
 
 	@Test

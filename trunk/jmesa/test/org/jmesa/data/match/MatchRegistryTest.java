@@ -29,7 +29,7 @@ import org.junit.Test;
 public class MatchRegistryTest {
 	@Test
 	public void getMatch() {
-		MatchRegistry registry = new DefaultMatchRegistry();
+		MatchRegistry registry = new MatchRegistryImpl();
 		registry.addMatch(new MatchKey(String.class), new StringMatch());
 		MatchKey key = new MatchKey(String.class, "pres", "name");
 		Match result = registry.getMatch(key);
@@ -38,7 +38,7 @@ public class MatchRegistryTest {
 
 	@Test
 	public void getMatchWithId() {
-		MatchRegistry registry = new DefaultMatchRegistry();
+		MatchRegistry registry = new MatchRegistryImpl();
 		registry.addMatch(new MatchKey(String.class, "pres"), new StringMatch());
 		MatchKey key = new MatchKey(String.class, "pres", "name");
 		Match result = registry.getMatch(key);
@@ -47,7 +47,7 @@ public class MatchRegistryTest {
 
 	@Test
 	public void getMatchKeyWithIdAndProperty() {
-		MatchRegistry registry = new DefaultMatchRegistry();
+		MatchRegistry registry = new MatchRegistryImpl();
 		registry.addMatch(new MatchKey(String.class, "pres", "name"), new StringMatch());
 		MatchKey key = new MatchKey(String.class, "pres", "name");
 		Match result = registry.getMatch(key);
@@ -56,7 +56,7 @@ public class MatchRegistryTest {
 
 	@Test
 	public void getMatchKeyWithErrors() {
-		MatchRegistry registry = new DefaultMatchRegistry();
+		MatchRegistry registry = new MatchRegistryImpl();
 		registry.addMatch(new MatchKey(Date.class), new StringMatch());
 		MatchKey key = new MatchKey(String.class);
 		try {

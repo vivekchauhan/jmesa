@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jmesa.data.match.DefaultMatchRegistry;
+import org.jmesa.data.match.MatchRegistryImpl;
 import org.jmesa.data.match.Match;
 import org.jmesa.data.match.MatchKey;
 import org.jmesa.data.match.MatchRegistry;
@@ -46,7 +46,7 @@ public class RowFilterTest {
 	
 	@Test
 	public void filterItems() {
-		MatchRegistry registry = new DefaultMatchRegistry();
+		MatchRegistry registry = new MatchRegistryImpl();
 		MatchKey key = new MatchKey(String.class);
 		Match match = new StringMatch();
 		registry.addMatch(key, match);
