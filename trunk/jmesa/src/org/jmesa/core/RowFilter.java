@@ -15,38 +15,14 @@
  */
 package org.jmesa.core;
 
-import java.util.Locale;
+import java.util.Collection;
 
-import org.jmesa.limit.ExportType;
-import org.jmesa.limit.FilterSet;
-import org.jmesa.limit.SortSet;
+import org.jmesa.limit.Limit;
 
 /**
- * @TODO add comment
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface CoreContext extends Items, Messages, Preferences {
-	public String getId();
-	
-	public Locale getLocale();
-	
-	public FilterSet getFilterSet();
-
-	public SortSet getSortSet();
-
-	public ExportType getExportType();
-
-	public boolean isExported();
-	
-	public int getRowStart();
-
-	public int getRowEnd();
-
-	public int getTotalRows();
-
-	public int getMaxRows();
-
-	public int getPage();
+public interface RowFilter {
+	public Collection filterItems(Collection items, Limit limit);
 }

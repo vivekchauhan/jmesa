@@ -18,7 +18,6 @@ package org.jmesa.core;
 import java.util.Collection;
 import java.util.Locale;
 
-import org.jmesa.data.Items;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;

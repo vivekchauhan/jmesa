@@ -13,40 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
-
-import java.util.Locale;
-
-import org.jmesa.limit.ExportType;
-import org.jmesa.limit.FilterSet;
-import org.jmesa.limit.SortSet;
+package org.jmesa.core.match;
 
 /**
- * @TODO add comment
+ * Register and then retrive Match objects.
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface CoreContext extends Items, Messages, Preferences {
-	public String getId();
+public interface MatchRegistry {
+	public void addMatch(MatchKey key, Match match);
 	
-	public Locale getLocale();
-	
-	public FilterSet getFilterSet();
-
-	public SortSet getSortSet();
-
-	public ExportType getExportType();
-
-	public boolean isExported();
-	
-	public int getRowStart();
-
-	public int getRowEnd();
-
-	public int getTotalRows();
-
-	public int getMaxRows();
-
-	public int getPage();
+	public Match getMatch(MatchKey key);
 }

@@ -13,40 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.match;
 
-import java.util.Locale;
-
-import org.jmesa.limit.ExportType;
-import org.jmesa.limit.FilterSet;
-import org.jmesa.limit.SortSet;
+import org.apache.commons.lang.StringUtils;
 
 /**
- * @TODO add comment
+ * Will do a case insensitive string match.
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface CoreContext extends Items, Messages, Preferences {
-	public String getId();
-	
-	public Locale getLocale();
-	
-	public FilterSet getFilterSet();
+public class StringMatch implements Match {
+	public boolean evaluate(Object itemValue, String matchValue) {
+		String item = StringUtils.lowerCase((String)itemValue);
+		String match = StringUtils.lowerCase((String)matchValue);
+		if (StringUtils.contains(item, match)) {
+			return true;
+		}
 
-	public SortSet getSortSet();
-
-	public ExportType getExportType();
-
-	public boolean isExported();
-	
-	public int getRowStart();
-
-	public int getRowEnd();
-
-	public int getTotalRows();
-
-	public int getMaxRows();
-
-	public int getPage();
+		return false;
+	}
 }
