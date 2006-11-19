@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.data.match;
+package org.jmesa.core.match;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
+import org.jmesa.core.match.Match;
+import org.jmesa.core.match.MatchKey;
+import org.jmesa.core.match.MatchRegistry;
+import org.jmesa.core.match.MatchRegistryImpl;
+import org.jmesa.core.match.StringMatch;
 import org.junit.Test;
 
 /**
@@ -63,7 +68,4 @@ public class MatchRegistryTest {
 			Match result = registry.getMatch(key);
 			assertTrue(key.equals(result));
 		} catch (IllegalArgumentException e) {
-			// pass
-		}
-	}
-}
+			// pa

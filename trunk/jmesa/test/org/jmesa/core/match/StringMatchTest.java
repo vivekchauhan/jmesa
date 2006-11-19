@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.data.match;
+package org.jmesa.core.match;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.jmesa.core.match.StringMatch;
 import org.junit.Test;
 
 /**
