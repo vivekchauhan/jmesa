@@ -58,7 +58,7 @@ import org.jmesa.web.WebContext;
 public class DefaultLimitFactory implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
-	public DefaultLimitFactory(WebContext context, String id) {
+	public DefaultLimitFactory(String id, WebContext context) {
 		this.limitActionFactory = new LimitActionFactoryImpl(id, context.getParameterMap());
 	}
 

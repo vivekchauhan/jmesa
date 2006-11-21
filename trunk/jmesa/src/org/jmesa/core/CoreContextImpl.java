@@ -35,6 +35,14 @@ public class CoreContextImpl implements CoreContext {
 	private Preferences preferences;
 	private Messages messages;
 	private Locale locale;
+
+	public CoreContextImpl(Items items, Limit limit, Preferences preferences, Messages messages, Locale locale) {
+		this.items = items;
+		this.limit = limit;
+		this.preferences = preferences;
+		this.messages = messages;
+		this.locale = locale;
+	}
 	
 	public String getId() {
 		return limit.getId();

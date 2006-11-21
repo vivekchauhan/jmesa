@@ -46,7 +46,7 @@ public class ColumnSortTest {
 	public void sortItems() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext context = new HttpServletRequestWebContext(request, getParameters());
-		LimitFactory limitFactory = new DefaultLimitFactory(context, ID);
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
 		Limit limit = limitFactory.createLimit();
 		
 		MultiColumnSort itemsSort = new MultiColumnSort();

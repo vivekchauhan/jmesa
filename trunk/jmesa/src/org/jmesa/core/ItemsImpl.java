@@ -27,15 +27,15 @@ import org.jmesa.limit.Limit;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultItems implements Items {
-	private Logger logger = Logger.getLogger(DefaultItems.class.getName());
+public class ItemsImpl implements Items {
+	private Logger logger = Logger.getLogger(ItemsImpl.class.getName());
 	
 	private Collection allItems;
 	private Collection filteredItems;
 	private Collection pageItems;
 	private Collection sortedItems;
 	
-	public DefaultItems(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
+	public ItemsImpl(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
 		this.allItems = new ArrayList<Object>(items); // copy for thread safety
 		
 		this.filteredItems = rowFilter.filterItems(allItems, limit);
