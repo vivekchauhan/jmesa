@@ -42,8 +42,9 @@ public class LimitActionFactoryTest {
 	@Before
 	public void setUp() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		WebContext context = new HttpServletRequestWebContext(request, getParameters());
-		limitActionFactory = new LimitActionFactoryImpl(ID, context.getParameterMap());
+		WebContext webContext = new HttpServletRequestWebContext(request);
+		webContext.setParameterMap(getParameters());
+		limitActionFactory = new LimitActionFactoryImpl(ID, webContext.getParameterMap());
 	}
 
 	@Test

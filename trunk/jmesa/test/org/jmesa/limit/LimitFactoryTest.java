@@ -45,8 +45,9 @@ public class LimitFactoryTest {
 	@Test
 	public void createLimitAndRowSelect() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		WebContext context = new HttpServletRequestWebContext(request, getParameters());
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
+		WebContext webContext = new HttpServletRequestWebContext(request);
+		webContext.setParameterMap(getParameters());
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
 		checkAssertions(limitFactory);
 	}
 	

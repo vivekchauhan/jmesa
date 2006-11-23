@@ -29,6 +29,8 @@ import javax.servlet.jsp.PageContext;
  */
 public final class JspPageWebContext implements WebContext {
     private PageContext pageContext;
+    private Map parameterMap;
+    private Locale locale;
 
     public JspPageWebContext(PageContext pageContext) {
         this.pageContext = pageContext;
@@ -67,10 +69,18 @@ public final class JspPageWebContext implements WebContext {
     }
 
     public Map getParameterMap() {
+        if (parameterMap != null) {
+            return parameterMap;
+        }
+
         return pageContext.getRequest().getParameterMap();
     }
 
-    public Object getRequestAttribute(String name) {
+	public void setParameterMap(Map parameterMap) {
+		this.parameterMap = parameterMap;
+	}
+
+	public Object getRequestAttribute(String name) {
         return pageContext.getRequest().getAttribute(name);
     }
 
@@ -99,8 +109,16 @@ public final class JspPageWebContext implements WebContext {
     }
 
     public Locale getLocale() {
-        return pageContext.getRequest().getLocale();
+    	if (locale != null) {
+    		return locale;
+    	}
+
+    	return pageContext.getRequest().getLocale();
     }
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
 
     public String getContextPath() {
         ServletRequest request = pageContext.getRequest();

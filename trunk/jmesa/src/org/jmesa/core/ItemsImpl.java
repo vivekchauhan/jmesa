@@ -34,7 +34,7 @@ public class ItemsImpl implements Items {
 	private Collection filteredItems;
 	private Collection pageItems;
 	private Collection sortedItems;
-	
+
 	public ItemsImpl(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
 		this.allItems = new ArrayList<Object>(items); // copy for thread safety
 		
@@ -42,7 +42,7 @@ public class ItemsImpl implements Items {
         
 		this.sortedItems = columnSort.sortItems(filteredItems, limit);
         
-        this.pageItems = getPageItems(limit, sortedItems);
+        this.pageItems = getPageItems(sortedItems, limit);
 
 		if (logger.isLoggable(Level.FINE)) {
             logger.fine(limit.toString());
@@ -65,7 +65,7 @@ public class ItemsImpl implements Items {
 		return sortedItems;
 	}
 	
-	private Collection getPageItems(Limit limit, Collection items) {
+	private Collection getPageItems(Collection items, Limit limit) {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 

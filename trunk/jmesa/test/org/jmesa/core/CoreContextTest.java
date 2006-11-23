@@ -17,19 +17,68 @@ package org.jmesa.core;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.jmesa.core.resource.ResourceBundleMessages;
+import org.jmesa.limit.DefaultLimitFactory;
+import org.jmesa.limit.Limit;
+import org.jmesa.limit.LimitFactory;
+import org.jmesa.limit.Order;
+import org.jmesa.limit.RowSelect;
+import org.jmesa.test.Parameters;
+import org.jmesa.test.ParametersAdapter;
+import org.jmesa.test.ParametersBuilder;
+import org.jmesa.web.HttpServletRequestWebContext;
+import org.jmesa.web.WebContext;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 public class CoreContextTest {
+	private static final String ID = "pres";
+	private static final int MAX_ROWS = 20;
+	private static final int TOTAL_ROWS = 60;
 	
 	@Test
 	public void createCoreContext() {
 		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/test.properties");
 		Messages messages = new ResourceBundleMessages(null, "org.jmesa.core.resource.testResourceBundle", Locale.US);
 		
-		//CoreContextImpl coreContext = new CoreContextImpl();
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		WebContext webContext = new HttpServletRequestWebContext(request);
+		webContext.setParameterMap(getParameters());
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
+		Limit limit = limitFactory.createLimit();
+		
+		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, TOTAL_ROWS);
+		limit.setRowSelect(rowSelect);
+
+		RowFilter rowFilter = new DefaultRowFilter();
+		ColumnSort columnSort = new DefaultColumnSort();
+		
+		List data = new ArrayList();
+		
+		Items items = new ItemsImpl(data, limit, rowFilter, columnSort);
+		
+		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages, webContext.getLocale());
+		
+		assertNotNull(coreContext);
+	}
+	
+	private Map<?, ?> getParameters() {
+		HashMap<String, Object> results = new HashMap<String, Object>();
+		ParametersAdapter parametersAdapter = new ParametersAdapter(results);
+		createBuilder(parametersAdapter);
+		return results;
+	}
+	
+	private void createBuilder(Parameters parameters) {
+		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
+		builder.addSort("firstName", Order.ASC, 1);
+		builder.addSort("lastName", Order.DESC, 2);
 	}
 
 }

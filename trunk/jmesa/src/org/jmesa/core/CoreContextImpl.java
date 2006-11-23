@@ -18,10 +18,7 @@ package org.jmesa.core;
 import java.util.Collection;
 import java.util.Locale;
 
-import org.jmesa.limit.ExportType;
-import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
-import org.jmesa.limit.SortSet;
 
 /**
  * @TODO add comment
@@ -44,14 +41,6 @@ public class CoreContextImpl implements CoreContext {
 		this.locale = locale;
 	}
 	
-	public String getId() {
-		return limit.getId();
-	}
-	
-	public Locale getLocale() {
-		return locale;
-	}
-
 	public Collection getAllItems() {
 		return items.getAllItems();
 	}
@@ -80,39 +69,12 @@ public class CoreContextImpl implements CoreContext {
 		return preferences.getPreference(code);
 	}
 
-	public FilterSet getFilterSet() {
-		return limit.getFilterSet();
+	public Locale getLocale() {
+		return locale;
 	}
-
-	public SortSet getSortSet() {
-		return limit.getSortSet();
+	
+	public Limit getLimit() {
+		return limit;
 	}
-
-	public ExportType getExportType() {
-		return limit.getExportType();
-	}
-
-	public boolean isExported() {
-		return limit.isExported();
-	}
-
-	public int getRowEnd() {
-		return limit.getRowSelect().getRowEnd();
-	}
-
-	public int getRowStart() {
-		return limit.getRowSelect().getRowStart();
-	}
-
-	public int getMaxRows() {
-		return limit.getRowSelect().getMaxRows();
-	}
-
-	public int getPage() {
-		return limit.getRowSelect().getPage();
-	}
-
-	public int getTotalRows() {
-		return limit.getRowSelect().getTotalRows();
-	}
+	
 }

@@ -15,18 +15,29 @@
  */
 package org.jmesa.core;
 
-import java.util.Locale;
+import java.util.Collection;
 
+import org.jmesa.core.match.Match;
+import org.jmesa.core.match.MatchKey;
+import org.jmesa.core.match.MatchRegistry;
 import org.jmesa.limit.Limit;
 
 /**
- * @TODO add comment
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface CoreContext extends Items, Messages, Preferences {
-	public Locale getLocale();
+public interface CoreContextFactory {
+	public void setMatchRegistry(MatchRegistry registry);
 	
-	public Limit getLimit();
+	public void addMatch(MatchKey key, Match match);
+	
+	public void setRowFilter(RowFilter rowFilter);
+	
+	public void setColumnSort(ColumnSort columnSort);
+	
+	public void setPreferences(Preferences preferences);
+	
+	public void setMessages(Messages messages);
+	
+	public CoreContext createCoreContext(Collection<Object> items, Limit limit);
 }

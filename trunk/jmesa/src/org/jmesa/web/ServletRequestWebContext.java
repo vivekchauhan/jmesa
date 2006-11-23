@@ -28,6 +28,8 @@ import javax.servlet.ServletRequest;
  */
 public class ServletRequestWebContext implements WebContext {
     private ServletRequest request;
+    private Map parameterMap;
+    private Locale locale;
 
     public ServletRequestWebContext(ServletRequest request) {
         this.request = request;
@@ -66,10 +68,18 @@ public class ServletRequestWebContext implements WebContext {
     }
 
     public Map getParameterMap() {
+        if (parameterMap != null) {
+            return parameterMap;
+        }
+
         return request.getParameterMap();
     }
 
-    public Object getRequestAttribute(String name) {
+	public void setParameterMap(Map parameterMap) {
+		this.parameterMap = parameterMap;
+	}
+
+	public Object getRequestAttribute(String name) {
         return request.getAttribute(name);
     }
 
@@ -98,10 +108,18 @@ public class ServletRequestWebContext implements WebContext {
     }
 
     public Locale getLocale() {
-        return request.getLocale();
+    	if (locale != null) {
+    		return locale;
+    	}
+
+    	return request.getLocale();
     }
 
-    public String getContextPath() {
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+
+	public String getContextPath() {
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
 

@@ -52,11 +52,12 @@ public class RowFilterTest {
 		Match match = new StringMatch();
 		registry.addMatch(key, match);
 		
-		SimpleRowFilter itemsFilter = new SimpleRowFilter(registry);
+		RowFilter itemsFilter = new SimpleRowFilter(registry);
 		
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		WebContext context = new HttpServletRequestWebContext(request, getParameters());
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, context);
+		WebContext webContext = new HttpServletRequestWebContext(request);
+		webContext.setParameterMap(getParameters());
+		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		
 		PresidentsDao dao = new PresidentsDao();

@@ -29,23 +29,10 @@ import javax.servlet.http.HttpServletRequest;
 public class HttpServletRequestWebContext implements WebContext {
     private HttpServletRequest request;
     private Map parameterMap;
+    private Locale locale;
 
     public HttpServletRequestWebContext(HttpServletRequest request) {
         this.request = request;
-    }
-    
-    /**
-     * Send in and use a custom map of parameters along with the normal
-     * HttpServletRequest.
-     * 
-     * @param request An instance of a HttpServletRequest.
-     * @param parameterMap A map of parameters to use. 
-     * 
-     * TODO: we may need this... Note: the parameter values need to be an Array String[]
-     */
-    public HttpServletRequestWebContext(HttpServletRequest request, Map parameterMap) {
-        this(request);
-        this.parameterMap = parameterMap;
     }
     
     public Object getApplicationInitParameter(String name) {
@@ -95,7 +82,11 @@ public class HttpServletRequestWebContext implements WebContext {
         return request.getParameterMap();
     }
 
-    public Object getRequestAttribute(String name) {
+	public void setParameterMap(Map parameterMap) {
+		this.parameterMap = parameterMap;
+	}
+
+	public Object getRequestAttribute(String name) {
         return request.getAttribute(name);
     }
 
@@ -124,8 +115,16 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public Locale getLocale() {
+    	if (locale != null) {
+    		return locale;
+    	}
+    	
         return request.getLocale();
     }
+    
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
 
     public String getContextPath() {
         return request.getContextPath();

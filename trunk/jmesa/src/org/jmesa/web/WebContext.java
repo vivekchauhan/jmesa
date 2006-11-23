@@ -41,6 +41,8 @@ public interface WebContext {
     public String getParameter(String name);
 
     public Map getParameterMap();
+    
+    public void setParameterMap(Map parameterMap);
 
     public Object getRequestAttribute(String name);
 
@@ -57,6 +59,8 @@ public interface WebContext {
     public Writer getWriter();
 
     public Locale getLocale();
+    
+    public void setLocale(Locale locale);
 
     public String getContextPath();
 
