@@ -32,16 +32,22 @@ import org.jmesa.web.WebContext;
  */
 public class DefaultCoreContextFactory implements CoreContextFactory {
 	private WebContext webContext;
-	protected MatchRegistry registry;
-	protected RowFilter rowFilter;
-	protected ColumnSort columnSort;
-	protected Preferences preferences;
-	protected Messages messages;
+	private MatchRegistry registry;
+	private RowFilter rowFilter;
+	private ColumnSort columnSort;
+	private Preferences preferences;
+	private Messages messages;
+	private boolean enableFilterAndSort;
 	
 	public DefaultCoreContextFactory(WebContext webContext) {
 		this.webContext = webContext;
 	}
 	
+	public DefaultCoreContextFactory(WebContext webContext, boolean enableFilterAndSort) {
+		this.webContext = webContext;
+		this.enableFilterAndSort = enableFilterAndSort;
+	}
+
 	protected MatchRegistry getMatchRegistry() {
 		if (registry == null) {
 			registry = new MatchRegistryImpl();
@@ -112,11 +118,6 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 	}
 	
 	public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
-		CoreContext coreContextImpl = createCoreContext(items, limit, true);
-		return coreContextImpl;
-	}
-
-	public CoreContext createCoreContext(Collection<Object> items, Limit limit, boolean enableFilterAndSort) {
 		Items itemsImpl;
 		
 		if (enableFilterAndSort) {
