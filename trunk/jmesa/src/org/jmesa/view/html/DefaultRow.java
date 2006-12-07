@@ -13,12 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
+
+import org.jmesa.view.Row;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ViewResolver {
-	public void resolveView();
+public class DefaultRow implements Row {
+	private boolean highlighter;
+
+	public boolean isHighlighter() {
+		return highlighter;
+	}
+
+	public void setHighlighter(boolean highlighter) {
+		this.highlighter = highlighter;
+	}
 }

@@ -13,12 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
+
+import org.jmesa.view.Component;
+import org.jmesa.view.Renderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ViewResolver {
-	public void resolveView();
+public abstract class AbstractComponent implements Component {
+	private Renderer renderer;
+	
+	public Renderer getRenderer() {
+		return renderer;
+	}
+
+	public void setRenderer(Renderer renderer) {
+		this.renderer = renderer;
+	}
 }
