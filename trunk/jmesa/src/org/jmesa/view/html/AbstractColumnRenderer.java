@@ -13,12 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
+
+import org.jmesa.view.ColumnValue;
+import org.jmesa.view.Renderer;
+import org.jmesa.view.RowItem;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Renderer {
-	public Object render();
+public abstract class AbstractColumnRenderer implements Renderer, RowItem {
+	private Object item;
+	private ColumnValue columnValue;
+	
+	public Object getRowItem() {
+		return item;
+	}
+
+	public void setRowItem(Object item) {
+		this.item = item;
+	}
+	
+	public ColumnValue getColumnValue() {
+		return columnValue;
+	}
+	
+	public void setColumnValue(ColumnValue columnValue) {
+		this.columnValue = columnValue;
+	}
 }

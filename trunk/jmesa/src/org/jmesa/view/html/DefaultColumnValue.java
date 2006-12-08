@@ -13,12 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.jmesa.view.ColumnValue;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Renderer {
-	public Object render();
+public class DefaultColumnValue implements ColumnValue {
+	private String property;
+	
+	public DefaultColumnValue(String property) {
+		this.property = property;
+	}
+	
+	public Object getValue(Object item) {
+		Object itemValue = null; 
+			
+		try {
+			itemValue = PropertyUtils.getProperty(item, property);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return itemValue;
+	}
 }

@@ -19,6 +19,8 @@ package org.jmesa.view;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Renderer {
-	public Object render();
+public interface ColumnRenderer {
+	public ColumnValue getColumnValue();
+	
+	public void setColumnValue(ColumnValue columnValue);
 }
