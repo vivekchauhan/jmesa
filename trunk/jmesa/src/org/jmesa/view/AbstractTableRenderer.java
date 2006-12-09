@@ -15,12 +15,26 @@
  */
 package org.jmesa.view;
 
-/**
- * @since 2.0
- * @author Jeff Johnston
- */
-public interface Component {
-	public TableRenderer getRenderer();
+import org.jmesa.core.CoreContext;
+
+
+public abstract class AbstractTableRenderer implements TableRenderer {
+	private Table table;
+	private CoreContext coreContext;
 	
-	public void setRenderer(TableRenderer renderer);
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+
+	public CoreContext getCoreContext() {
+		return coreContext;
+	}
+
+	public void setCoreContext(CoreContext coreContext) {
+		this.coreContext = coreContext;
+	}
 }

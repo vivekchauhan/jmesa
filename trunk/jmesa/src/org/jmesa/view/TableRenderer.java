@@ -13,23 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html;
-
-import org.jmesa.view.Component;
-import org.jmesa.view.Renderer;
+package org.jmesa.view;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractComponent implements Component {
-	private Renderer renderer;
+public interface TableRenderer {
+	public Table getTable();
 	
-	public Renderer getRenderer() {
-		return renderer;
-	}
-
-	public void setRenderer(Renderer renderer) {
-		this.renderer = renderer;
-	}
+	public void setTable(Table table);
+	
+	public Object render();
 }

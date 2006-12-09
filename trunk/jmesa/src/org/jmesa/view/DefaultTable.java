@@ -15,12 +15,37 @@
  */
 package org.jmesa.view;
 
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Component {
-	public TableRenderer getRenderer();
+public class DefaultTable implements Table {
+	private Row row;
+	private String title;
+	private TableRenderer tableRenderer;
 	
-	public void setRenderer(TableRenderer renderer);
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public Row getRow() {
+		return row;
+	}
+
+	public void setRow(Row row) {
+		this.row = row;
+	}
+
+	public TableRenderer getTableRenderer() {
+		return tableRenderer;
+	}
+
+	public void setTableRenderer(TableRenderer tableRenderer) {
+		this.tableRenderer = tableRenderer;
+	}
 }

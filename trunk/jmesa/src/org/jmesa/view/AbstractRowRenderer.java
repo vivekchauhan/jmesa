@@ -13,14 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html;
+package org.jmesa.view;
 
-import org.jmesa.view.Table;
+import org.jmesa.core.CoreContext;
+
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultTable implements Table {
+public abstract class AbstractRowRenderer implements RowRenderer {
+	private Row row;
+	private CoreContext coreContext;
 
+	public Row getRow() {
+		return row;
+	}
+
+	public void setRow(Row row) {
+		this.row = row;
+		
+	}
+
+	public CoreContext getCoreContext() {
+		return coreContext;
+	}
+
+	public void setCoreContext(CoreContext coreContext) {
+		this.coreContext = coreContext;
+	}
 }

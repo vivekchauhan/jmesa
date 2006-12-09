@@ -20,5 +20,15 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public interface Table {
-
+	public String getTitle();
+	
+	public void setTitle(String title);
+	
+	public Row getRow();
+	
+	public void setRow(Row row);
+	
+	public TableRenderer getTableRenderer();
+	
+	public void setTableRenderer(TableRenderer tableRenderer);
 }

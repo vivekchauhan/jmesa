@@ -20,5 +20,5 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public interface ColumnValue {
-	public Object getValue(Object item);
+	public Object getValue(Object item, String property, int rowcount);
 }

@@ -15,12 +15,35 @@
  */
 package org.jmesa.view;
 
-/**
- * @since 2.0
- * @author Jeff Johnston
- */
-public interface Component {
-	public TableRenderer getRenderer();
+import org.jmesa.core.CoreContext;
+
+
+public abstract class AbstractColumnRenderer implements ColumnRenderer {
+	private Column column;
+	private ColumnValue columnValue;
+	private CoreContext coreContext;
+
+	public Column getColumn() {
+		return column;
+	}
+
+	public void setColumn(Column column) {
+		this.column = column;
+	}
+
+	public ColumnValue getColumnValue() {
+		return columnValue;
+	}
+
+	public void setColumnValue(ColumnValue columnValue) {
+		this.columnValue = columnValue;
+	}
 	
-	public void setRenderer(TableRenderer renderer);
+	public CoreContext getCoreContext() {
+		return coreContext;
+	}
+
+	public void setCoreContext(CoreContext coreContext) {
+		this.coreContext = coreContext;
+	}
 }

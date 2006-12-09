@@ -15,12 +15,15 @@
  */
 package org.jmesa.view;
 
-/**
- * @since 2.0
- * @author Jeff Johnston
- */
-public interface Component {
-	public TableRenderer getRenderer();
-	
-	public void setRenderer(TableRenderer renderer);
+
+public abstract class AbstractFilterRenderer implements FilterRenderer {
+	private Column column;
+
+	public Column getColumn() {
+		return column;
+	}
+
+	public void setColumn(Column column) {
+		this.column = column;
+	}
 }

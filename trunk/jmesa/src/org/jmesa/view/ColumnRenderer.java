@@ -20,7 +20,13 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public interface ColumnRenderer {
+	public Column getColumn();
+	
+	public void setColumn(Column column);
+	
 	public ColumnValue getColumnValue();
 	
 	public void setColumnValue(ColumnValue columnValue);
+	
+	public Object render(Object item, int rowcount);
 }

@@ -26,6 +26,10 @@ public interface Column {
 	
 	public void setProperty(String property);
 	
+	public String getTitle();
+	
+	public void setTitle(String title);
+	
 	public boolean isFilterable();
 	
 	public void setFilterable(boolean filterable);
@@ -34,15 +38,19 @@ public interface Column {
 	
 	public void setSortable(boolean sortable);
 	
-	public Renderer getHeaderRenderer();
+	public ColumnRenderer getColumnRenderer();
 	
-	public void setHeaderRenderer(Renderer renderer);
+	public void setColumnRenderer(ColumnRenderer columnRenderer);
+	
+	public HeaderRenderer getHeaderRenderer();
+	
+	public void setHeaderRenderer(HeaderRenderer headerRenderer);
 
-	public Renderer getFilterRenderer();
+	public FilterRenderer getFilterRenderer();
 	
-	public void setFilterRenderer(Renderer renderer);
+	public void setFilterRenderer(FilterRenderer filterRenderer);
 	
-	public List<Renderer> getCalcRenderers();
+	public List<CalcRenderer> getCalcRenderers();
 	
-	public void addCalcRenderer(Renderer renderer);
+	public void addCalcRenderer(CalcRenderer calcRenderer);
 }

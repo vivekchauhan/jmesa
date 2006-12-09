@@ -19,8 +19,10 @@ package org.jmesa.view;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Component {
-	public TableRenderer getRenderer();
+public interface CalcRenderer {
+	public Column getColumn();
 	
-	public void setRenderer(TableRenderer renderer);
+	public void setColumn(Column column);
+
+	public Object render();
 }

@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html;
+package org.jmesa.view;
 
 import java.util.List;
 
-import org.jmesa.view.Column;
-import org.jmesa.view.Renderer;
 
 /**
  * @since 2.0
@@ -26,11 +24,19 @@ import org.jmesa.view.Renderer;
  */
 public class DefaultColumn implements Column {
 	private String property;
+	private String title;
 	private boolean filterable;
 	private boolean sortable;
-	private Renderer filterRenderer;
-	private Renderer headerRenderer;
-	private List<Renderer> calcRenderers;
+	private ColumnRenderer columnRenderer;
+	private FilterRenderer filterRenderer;
+	private HeaderRenderer headerRenderer;
+	private List<CalcRenderer> calcRenderers;
+	
+	public DefaultColumn(){}
+	
+	public DefaultColumn(String property) {
+		this.property = property;
+	}
 
 	public String getProperty() {
 		return property;
@@ -38,6 +44,14 @@ public class DefaultColumn implements Column {
 
 	public void setProperty(String property) {
 		this.property = property;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public boolean isFilterable() {
@@ -56,27 +70,35 @@ public class DefaultColumn implements Column {
 		this.sortable = sortable;
 	}
 
-	public Renderer getFilterRenderer() {
+	public ColumnRenderer getColumnRenderer() {
+		return columnRenderer;
+	}
+
+	public void setColumnRenderer(ColumnRenderer columnRenderer) {
+		this.columnRenderer = columnRenderer;
+	}
+
+	public FilterRenderer getFilterRenderer() {
 		return filterRenderer;
 	}
 
-	public void setFilterRenderer(Renderer filterRenderer) {
+	public void setFilterRenderer(FilterRenderer filterRenderer) {
 		this.filterRenderer = filterRenderer;
 	}
 
-	public Renderer getHeaderRenderer() {
+	public HeaderRenderer getHeaderRenderer() {
 		return headerRenderer;
 	}
 
-	public void setHeaderRenderer(Renderer headerRenderer) {
+	public void setHeaderRenderer(HeaderRenderer headerRenderer) {
 		this.headerRenderer = headerRenderer;
 	}
 
-	public List<Renderer> getCalcRenderers() {
+	public List<CalcRenderer> getCalcRenderers() {
 		return calcRenderers;
 	}
 
-	public void addCalcRenderer(Renderer calcRenderer) {
+	public void addCalcRenderer(CalcRenderer calcRenderer) {
 		calcRenderers.add(calcRenderer);
 	}
 }

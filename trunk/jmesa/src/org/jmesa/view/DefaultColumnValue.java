@@ -13,33 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html;
+package org.jmesa.view;
 
-import org.jmesa.view.ColumnValue;
-import org.jmesa.view.Renderer;
-import org.jmesa.view.RowItem;
+import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractColumnRenderer implements Renderer, RowItem {
-	private Object item;
-	private ColumnValue columnValue;
-	
-	public Object getRowItem() {
-		return item;
-	}
-
-	public void setRowItem(Object item) {
-		this.item = item;
-	}
-	
-	public ColumnValue getColumnValue() {
-		return columnValue;
-	}
-	
-	public void setColumnValue(ColumnValue columnValue) {
-		this.columnValue = columnValue;
+public class DefaultColumnValue implements ColumnValue {
+	public Object getValue(Object item, String property, int rowcount) {
+		Object itemValue = null; 
+			
+		try {
+			itemValue = PropertyUtils.getProperty(item, property);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return itemValue;
 	}
 }

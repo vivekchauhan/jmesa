@@ -15,10 +15,15 @@
  */
 package org.jmesa.view;
 
-/**
- * @since 2.0
- * @author Jeff Johnston
- */
-public interface Renderer {
-	public Object render();
+
+public abstract class AbstractCalcRenderer implements CalcRenderer {
+	private Column column;
+
+	public Column getColumn() {
+		return column;
+	}
+
+	public void setColumn(Column column) {
+		this.column = column;
+	}
 }

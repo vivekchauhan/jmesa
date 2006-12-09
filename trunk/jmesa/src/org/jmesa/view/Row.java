@@ -15,12 +15,34 @@
  */
 package org.jmesa.view;
 
+import java.util.List;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface Row {
+	public List<Column> getColumns();
+	
+	public void addColumn(Column column);
+	
 	public boolean isHighlighter();
 	
 	public void setHighlighter(boolean highlighter);
+	
+	public String getOnclick();
+	
+	public void setOnclick(String onclick);
+	
+	public String getOnmouseover();
+	
+	public void setOnmouseover(String onmouseover);
+	
+	public String getOnmouseout();
+	
+	public void setOnmouseout(String onmouseout);
+	
+	public RowRenderer getRowRenderer();
+	
+	public void setRowRenderer(RowRenderer renderer);
 }
