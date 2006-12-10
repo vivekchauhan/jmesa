@@ -15,9 +15,11 @@
  */
 package org.jmesa.view.html;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractRowRenderer;
 import org.jmesa.view.Row;
+import org.jmesa.view.ViewUtils;
 
 /**
  * @since 2.0
@@ -26,6 +28,8 @@ import org.jmesa.view.Row;
 public class HtmlRowRenderer extends AbstractRowRenderer {
 	private String style;
 	private String styleClass;
+	private String highlightStyle;
+	private String highlightClass;
 	
 	public HtmlRowRenderer(Row row, CoreContext coreContext) {
 		setRow(row);
@@ -44,15 +48,74 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
 		return styleClass;
 	}
 
+	protected String getStyleClass(int rowcount) {
+        String styleClass = getStyleClass();
+        if (StringUtils.isNotBlank(styleClass)) {
+            return styleClass;
+        }
+
+        if (ViewUtils.isRowEven(rowcount)) {
+            return HtmlConstants.ROW_EVEN_CSS;
+        }
+
+        return HtmlConstants.ROW_ODD_CSS;
+	}
+
 	public void setStyleClass(String styleClass) {
 		this.styleClass = styleClass;
 	}
+	
+	public String getHighlightClass() {
+		return highlightClass;
+	}
+
+	public void setHighlightClass(String highlightClass) {
+		this.highlightClass = highlightClass;
+	}
+
+	public String getHighlightStyle() {
+		return highlightStyle;
+	}
+
+	public void setHighlightStyle(String highlightStyle) {
+		this.highlightStyle = highlightStyle;
+	}
+
+	protected String getOnmouseover() {
+        boolean highlightRow = getRow().isHighlighter();
+        if (highlightRow) {
+            String highlightClass = getHighlightClass();
+            if (StringUtils.isNotBlank(getRow().getOnmouseover())) {
+                return "this.className='" + highlightClass + "';" + getRow().getOnmouseover();
+            } else {
+                return "this.className='" + highlightClass + "'";
+            }
+        } else {
+            return getRow().getOnmouseover();
+        }
+    }
+
+	protected String getOnmouseout(int rowcount) {
+    	boolean highlightRow = getRow().isHighlighter();
+        if (highlightRow) {
+            String styleClass = getStyleClass(rowcount);
+            if (StringUtils.isNotBlank(getRow().getOnmouseout())) {
+                return "this.className='" + styleClass + "';" + getRow().getOnmouseout();
+            } else {
+                return "this.className='" + styleClass + "'";
+            }
+        } else {
+            return getRow().getOnmouseout();
+        }
+    }	
 
 	public Object render(Object item, int rowcount) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.tr(1);
 		html.style(style);
-		html.styleClass(styleClass);
+		html.styleClass(getStyleClass(rowcount));
+		html.onmouseover(getOnmouseover());
+		html.onmouseout(getOnmouseout(rowcount));
 		html.close();
 		
 		return html;

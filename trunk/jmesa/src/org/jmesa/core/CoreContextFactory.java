@@ -17,9 +17,6 @@ package org.jmesa.core;
 
 import java.util.Collection;
 
-import org.jmesa.core.match.Match;
-import org.jmesa.core.match.MatchKey;
-import org.jmesa.core.match.MatchRegistry;
 import org.jmesa.limit.Limit;
 
 /**
@@ -27,17 +24,5 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public interface CoreContextFactory {
-	public void setMatchRegistry(MatchRegistry registry);
-	
-	public void addMatch(MatchKey key, Match match);
-	
-	public void setRowFilter(RowFilter rowFilter);
-	
-	public void setColumnSort(ColumnSort columnSort);
-	
-	public void setPreferences(Preferences preferences);
-	
-	public void setMessages(Messages messages);
-	
 	public CoreContext createCoreContext(Collection<Object> items, Limit limit);
 }

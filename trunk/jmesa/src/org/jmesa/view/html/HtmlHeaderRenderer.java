@@ -15,27 +15,23 @@
  */
 package org.jmesa.view.html;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.AbstractColumnRenderer;
+import org.jmesa.view.AbstractHeaderRenderer;
 import org.jmesa.view.Column;
-import org.jmesa.view.ColumnValue;
-import org.jmesa.view.ViewUtils;
 
-public class HtmlColumnRenderer extends AbstractColumnRenderer {
+public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
 	private String style;
 	private String styleClass;
-	
-	public HtmlColumnRenderer(Column column, ColumnValue columnValue, CoreContext coreContext) {
+
+	public HtmlHeaderRenderer(Column column, CoreContext coreContext) {
 		setColumn(column);
-		setColumnValue(columnValue);
 		setCoreContext(coreContext);
 	}
-	
+
 	public String getStyle() {
 		return style;
 	}
-	
+
 	public void setStyle(String style) {
 		this.style = style;
 	}
@@ -48,19 +44,13 @@ public class HtmlColumnRenderer extends AbstractColumnRenderer {
 		this.styleClass = styleClass;
 	}
 
-	public Object render(Object item, int rowcount) {
+	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
 		html.td(2);
 		html.style(style);
 		html.styleClass(styleClass);
 		html.close();
-		
-		String property = getColumn().getProperty();
-		Object value = getColumnValue().getValue(item, property, rowcount);
-		if (value != null) {
-			html.append(value.toString());
-		}
-		
+		html.append(getTitle());
 		html.tdEnd();
 		
 		return html;

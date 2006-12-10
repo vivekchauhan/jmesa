@@ -40,7 +40,26 @@ public class HtmlView implements View {
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
 
+		html.div().styleClass(table.getTheme()).close();
+		
 		html.append(table.getTableRenderer().render());
+		
+		html.thead(1).close();
+		
+		Row row = table.getRow();
+		List<Column> columns = table.getRow().getColumns();
+		
+		html.tr(1).close();
+		
+		for (Column column : columns) {
+			html.append(column.getHeaderRenderer().render());
+		}
+		
+		html.trEnd(1);
+		
+		html.theadEnd(1);
+		
+		html.tbody(1).styleClass("tableBody").close();
 
 		int rowcount = 0;
 
@@ -48,19 +67,21 @@ public class HtmlView implements View {
 		for (Object item : items) {
 			rowcount++;
 			
-			Row row = table.getRow();
-			
 			html.append(row.getRowRenderer().render(item, rowcount));
 
-			List<Column> columns = table.getRow().getColumns();
 			for (Column column : columns) {
 				html.append(column.getColumnRenderer().render(item, rowcount));
 			}
 
 			html.trEnd(1);
 		}
+		
+		html.tbodyEnd(1);
 
 		html.tableEnd(0);
+		
+		html.newline();
+		html.divEnd();
 
 		return html;
 	}

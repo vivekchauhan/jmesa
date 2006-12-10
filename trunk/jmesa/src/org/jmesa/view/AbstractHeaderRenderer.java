@@ -15,9 +15,13 @@
  */
 package org.jmesa.view;
 
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.CoreContext;
+
 
 public abstract class AbstractHeaderRenderer implements HeaderRenderer {
 	private Column column;
+	private CoreContext coreContext;
 
 	public Column getColumn() {
 		return column;
@@ -25,5 +29,24 @@ public abstract class AbstractHeaderRenderer implements HeaderRenderer {
 
 	public void setColumn(Column column) {
 		this.column = column;
+	}
+	
+	public CoreContext getCoreContext() {
+		return coreContext;
+	}
+
+	public void setCoreContext(CoreContext coreContext) {
+		this.coreContext = coreContext;
+	}
+	
+	protected String getTitle() {
+		String title = column.getTitle();
+		if (StringUtils.isBlank(title)) {
+			return ViewUtils.camelCaseToWord(column.getProperty());	
+		} else {
+			
+		}
+		
+		return null;
 	}
 }

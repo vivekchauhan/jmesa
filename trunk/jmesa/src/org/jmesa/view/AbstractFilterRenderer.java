@@ -15,9 +15,12 @@
  */
 package org.jmesa.view;
 
+import org.jmesa.core.CoreContext;
+
 
 public abstract class AbstractFilterRenderer implements FilterRenderer {
 	private Column column;
+	private CoreContext coreContext;
 
 	public Column getColumn() {
 		return column;
@@ -25,5 +28,13 @@ public abstract class AbstractFilterRenderer implements FilterRenderer {
 
 	public void setColumn(Column column) {
 		this.column = column;
+	}
+	
+	public CoreContext getCoreContext() {
+		return coreContext;
+	}
+
+	public void setCoreContext(CoreContext coreContext) {
+		this.coreContext = coreContext;
 	}
 }

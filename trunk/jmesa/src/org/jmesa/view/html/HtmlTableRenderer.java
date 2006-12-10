@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractTableRenderer;
 import org.jmesa.view.Table;
@@ -23,6 +24,9 @@ import org.jmesa.view.Table;
 public class HtmlTableRenderer extends AbstractTableRenderer {
 	private String style;
 	private String styleClass;
+    private String border;
+    private String cellpadding;
+    private String cellspacing;
 	
 	public HtmlTableRenderer(Table table, CoreContext coreContext) {
 		setTable(table);
@@ -44,12 +48,49 @@ public class HtmlTableRenderer extends AbstractTableRenderer {
 	public void setStyleClass(String styleClass) {
 		this.styleClass = styleClass;
 	}
+	
+	public String getBorder() {
+		if (StringUtils.isBlank(border)) {
+			return "0";
+		}
+		
+		return border;
+	}
+
+	public void setBorder(String border) {
+		this.border = border;
+	}
+
+	public String getCellpadding() {
+		if (StringUtils.isBlank(cellpadding)) {
+			return "0";
+		}
+		
+		return cellpadding;
+	}
+
+	public void setCellpadding(String cellpadding) {
+		this.cellpadding = cellpadding;
+	}
+
+	public String getCellspacing() {
+		if (StringUtils.isBlank(cellspacing)) {
+			return "0";
+		}
+		
+		return cellspacing;
+	}
+
+	public void setCellspacing(String cellspacing) {
+		this.cellspacing = cellspacing;
+	}
 
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
 		html.table(0);
 		String id = getCoreContext().getLimit().getId();
 		html.id(id);
+		html.border(getBorder()).cellpadding(getCellpadding()).cellspacing(getCellspacing());
 		html.style(style);
 		html.styleClass(styleClass);
 		html.close();

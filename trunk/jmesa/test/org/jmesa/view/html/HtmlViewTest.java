@@ -49,7 +49,6 @@ import org.jmesa.view.DefaultTable;
 import org.jmesa.view.Row;
 import org.jmesa.view.RowRenderer;
 import org.jmesa.view.Table;
-import org.jmesa.view.TableRenderer;
 import org.jmesa.view.View;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
@@ -71,34 +70,50 @@ public class HtmlViewTest {
 		CoreContext coreContext = createCoreContext();
 		
 		Table table = new DefaultTable();
-		TableRenderer tableRenderer = new HtmlTableRenderer(table, coreContext);
+		table.setTheme("jmesa");
+		HtmlTableRenderer tableRenderer = new HtmlTableRenderer(table, coreContext);
+		tableRenderer.setStyleClass("tableRegion");
 		table.setTableRenderer(tableRenderer);
 		
 		Row row = new DefaultRow();
-		RowRenderer rowRenderer = new HtmlRowRenderer(row, coreContext);
+		row.setHighlighter(true);
+		HtmlRowRenderer rowRenderer = new HtmlRowRenderer(row, coreContext);
+		rowRenderer.setHighlightClass("highlight");
 		row.setRowRenderer(rowRenderer);
 		table.setRow(row);
 		
 		ColumnValue columnValue = new DefaultColumnValue();
 
 		Column firstNameColumn = new DefaultColumn("firstName");
-		ColumnRenderer firstNameRenderer = new HtmlColumnRenderer(firstNameColumn, columnValue, coreContext);
-		firstNameColumn.setColumnRenderer(firstNameRenderer);
+		ColumnRenderer firstNameColumnRenderer = new HtmlColumnRenderer(firstNameColumn, columnValue, coreContext);
+		HtmlHeaderRenderer firstNameHeaderRenderer = new HtmlHeaderRenderer(firstNameColumn, coreContext);
+		firstNameHeaderRenderer.setStyleClass("tableHeader");
+		firstNameColumn.setColumnRenderer(firstNameColumnRenderer);
+		firstNameColumn.setHeaderRenderer(firstNameHeaderRenderer);
 		row.addColumn(firstNameColumn);
 		
 		Column lastNameColumn = new DefaultColumn("lastName");
-		ColumnRenderer lastNameRenderer = new HtmlColumnRenderer(lastNameColumn, columnValue, coreContext);
-		lastNameColumn.setColumnRenderer(lastNameRenderer);
+		ColumnRenderer lastNameColumnRenderer = new HtmlColumnRenderer(lastNameColumn, columnValue, coreContext);
+		HtmlHeaderRenderer lastNameHeaderRenderer = new HtmlHeaderRenderer(lastNameColumn, coreContext);
+		lastNameHeaderRenderer.setStyleClass("tableHeader");
+		lastNameColumn.setColumnRenderer(lastNameColumnRenderer);
+		lastNameColumn.setHeaderRenderer(lastNameHeaderRenderer);
 		row.addColumn(lastNameColumn);
 
 		Column termColumn = new DefaultColumn("term");
-		ColumnRenderer termRenderer = new HtmlColumnRenderer(termColumn, columnValue, coreContext);
-		termColumn.setColumnRenderer(termRenderer);
+		ColumnRenderer termColumnRenderer = new HtmlColumnRenderer(termColumn, columnValue, coreContext);
+		HtmlHeaderRenderer termHeaderRenderer = new HtmlHeaderRenderer(termColumn, coreContext);
+		termHeaderRenderer.setStyleClass("tableHeader");
+		termColumn.setColumnRenderer(termColumnRenderer);
+		termColumn.setHeaderRenderer(termHeaderRenderer);
 		row.addColumn(termColumn);
 
 		Column careerColumn = new DefaultColumn("career");
-		ColumnRenderer careerRenderer = new HtmlColumnRenderer(careerColumn, columnValue, coreContext);
-		careerColumn.setColumnRenderer(careerRenderer);
+		ColumnRenderer careerColumnRenderer = new HtmlColumnRenderer(careerColumn, columnValue, coreContext);
+		HtmlHeaderRenderer careerHeaderRenderer = new HtmlHeaderRenderer(careerColumn, coreContext);
+		careerHeaderRenderer.setStyleClass("tableHeader");
+		careerColumn.setColumnRenderer(careerColumnRenderer);
+		careerColumn.setHeaderRenderer(careerHeaderRenderer);
 		row.addColumn(careerColumn);
 
 		View view = new HtmlView(table, coreContext);

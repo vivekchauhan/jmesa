@@ -23,6 +23,7 @@ package org.jmesa.view;
 public class DefaultTable implements Table {
 	private Row row;
 	private String title;
+	private String theme;
 	private TableRenderer tableRenderer;
 	
 	public String getTitle() {
@@ -33,6 +34,14 @@ public class DefaultTable implements Table {
 		this.title = title;
 	}
 	
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
 	public Row getRow() {
 		return row;
 	}
