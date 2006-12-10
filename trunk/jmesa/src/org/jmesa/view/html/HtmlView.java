@@ -36,15 +36,23 @@ public class HtmlView implements View {
 	public void setTable(Table table) {
 		this.table = table;
 	}
+	
+	protected Table getTable() {
+		return table;
+	}
 
+	protected CoreContext getCoreContext() {
+		return coreContext;
+	}
+	
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
 		Row row = table.getRow();
 		List<Column> columns = table.getRow().getColumns();
 
-		themeStart(html);
+		themeStart(html, table);
 		
-		tableStart(html);
+		tableStart(html, table);
 		
 		theadStart(html);
 		
@@ -65,7 +73,7 @@ public class HtmlView implements View {
 		return html;
 	}
 	
-	protected void themeStart(HtmlBuilder html) {
+	protected void themeStart(HtmlBuilder html, Table table) {
 		html.div().styleClass(table.getTheme()).close();
 	}
 	
@@ -74,7 +82,7 @@ public class HtmlView implements View {
 		html.divEnd();
 	}
 	
-	protected void tableStart(HtmlBuilder html) {
+	protected void tableStart(HtmlBuilder html, Table table) {
 		html.append(table.getTableRenderer().render(table));
 	}
 	
