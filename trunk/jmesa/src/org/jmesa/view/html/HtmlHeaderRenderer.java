@@ -23,8 +23,7 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
 	private String style;
 	private String styleClass;
 
-	public HtmlHeaderRenderer(Column column, CoreContext coreContext) {
-		setColumn(column);
+	public HtmlHeaderRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
 
@@ -44,13 +43,13 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
 		this.styleClass = styleClass;
 	}
 
-	public Object render() {
+	public Object render(Column column) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.td(2);
 		html.style(style);
 		html.styleClass(styleClass);
 		html.close();
-		html.append(getTitle());
+		html.append(getTitle(column.getTitle(), column.getProperty()));
 		html.tdEnd();
 		
 		return html;

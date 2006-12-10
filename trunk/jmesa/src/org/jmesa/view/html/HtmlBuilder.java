@@ -15,10 +15,6 @@
  */
 package org.jmesa.view.html;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -32,56 +28,24 @@ import org.apache.commons.lang.StringUtils;
  * @author Jeff Johnston
  */
 public class HtmlBuilder {
-    private Writer writer;
+    private StringBuilder builder;
 
     /**
      * Default constructor using a StringWriter, 
      * which is really just a StringBuffer. 
      */
     public HtmlBuilder() {
-        this.writer = new StringWriter();
-    }
-
-    /**
-     * A builder with the specified Writer.
-     * 
-     * @param writer The Writer to use.
-     */
-    public HtmlBuilder(Writer writer) {
-        this.writer = writer;
-    }
-
-    /**
-     * Flush the writer. 
-     */
-    public void flushWriter() {
-        try {
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Close the writer. 
-     */
-    public void closeWriter() {
-        try {
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.builder = new StringBuilder();
     }
 
     /**
      * Write out the content to the internal writer. 
      */
-    private HtmlBuilder write(String text) {
-        try {
-            writer.write(text);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public HtmlBuilder append(Object text) {
+        if (text != null) {
+        	builder.append(text);
         }
+
         return this;
     }
 
@@ -89,27 +53,7 @@ public class HtmlBuilder {
      * The length of the internal Writer. 
      */
     public int length() {
-        return writer.toString().length();
-    }
-
-    /**
-     * The Object to append. Will call the Object's toString() method.
-     */
-    public HtmlBuilder append(Object text) {
-        if (text != null) {
-            write(text.toString());
-        }
-
-        return this;
-    }
-
-    /**
-     * The String to append.
-     */
-    public HtmlBuilder append(String text) {
-        write(text);
-
-        return this;
+        return builder.toString().length();
     }
 
     /**
@@ -155,7 +99,7 @@ public class HtmlBuilder {
      * <p>Append tab [\t].</p>
      */
     public HtmlBuilder tab() {
-        write("\t");
+        append("\t");
 
         return this;
     }
@@ -164,7 +108,7 @@ public class HtmlBuilder {
      * <p>Append newline [\n].</p>
      */
     public HtmlBuilder newline() {
-        write("\n");
+        append("\n");
 
         return this;
     }
@@ -173,7 +117,7 @@ public class HtmlBuilder {
      * <p>Close the element [>]</p>
      */
     public HtmlBuilder close() {
-        write(">");
+        append(">");
         
         return this;
     }
@@ -182,7 +126,7 @@ public class HtmlBuilder {
      * <p>Close the element with a slash to comply with xhtml [/>]</p>
      */
     public HtmlBuilder end() {
-        write("/>");
+        append("/>");
 
         return this;
     }
@@ -201,7 +145,7 @@ public class HtmlBuilder {
     public HtmlBuilder table(int tabs) {
         newline();
         tabs(tabs);
-        write("<table");
+        append("<table");
 
         return this;
     }
@@ -220,7 +164,7 @@ public class HtmlBuilder {
     public HtmlBuilder tableEnd(int tabs) {
         newline();
         tabs(tabs);
-        write("</table>");
+        append("</table>");
 
         return this;
     }
@@ -230,7 +174,7 @@ public class HtmlBuilder {
      * <p>The start of the button element [<button].</p> 
      */
     public HtmlBuilder button() {
-        write("<button");
+        append("<button");
         return this;
     }
     
@@ -239,7 +183,7 @@ public class HtmlBuilder {
      * <p>The close tag of the button element [</button>].</p> 
      */
     public HtmlBuilder buttonEnd() {
-        write("</button>");
+        append("</button>");
 
         return this;
     }
@@ -258,7 +202,7 @@ public class HtmlBuilder {
     public HtmlBuilder tr(int tabs) {
         newline();
         tabs(tabs);
-        write("<tr");
+        append("<tr");
 
         return this;
     }
@@ -277,7 +221,7 @@ public class HtmlBuilder {
     public HtmlBuilder trEnd(int tabs) {
         newline();
         tabs(tabs);
-        write("</tr>");
+        append("</tr>");
 
         return this;
     }
@@ -296,7 +240,7 @@ public class HtmlBuilder {
     public HtmlBuilder th(int tabs) {
         newline();
         tabs(tabs);
-        write("<th");
+        append("<th");
 
         return this;
     }
@@ -306,7 +250,7 @@ public class HtmlBuilder {
      * <p>The close tag of the th element [</th>].</p> 
      */
     public HtmlBuilder thEnd() {
-        write("</th>");
+        append("</th>");
 
         return this;
     }
@@ -325,7 +269,7 @@ public class HtmlBuilder {
     public HtmlBuilder td(int tabs) {
         newline();
         tabs(tabs);
-        write("<td");
+        append("<td");
 
         return this;
     }
@@ -335,7 +279,7 @@ public class HtmlBuilder {
      * <p>The close tag of the td element [</td>].</p> 
      */
     public HtmlBuilder tdEnd() {
-        write("</td>");
+        append("</td>");
 
         return this;
     }
@@ -344,7 +288,7 @@ public class HtmlBuilder {
      * <p>The start of the input element [<input].</p> 
      */
     public HtmlBuilder input() {
-        write("<input");
+        append("<input");
 
         return this;
     }
@@ -354,7 +298,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder type(String type) {
         if (StringUtils.isNotBlank(type)) {
-            write(" type=\"").write(type).write("\" ");
+            append(" type=\"").append(type).append("\" ");
         }
 
         return this;
@@ -365,7 +309,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder name(String name) {
         if (StringUtils.isNotBlank(name)) {
-            write(" name=\"").write(name).write("\" ");
+            append(" name=\"").append(name).append("\" ");
         }
 
         return this;
@@ -379,9 +323,9 @@ public class HtmlBuilder {
      */
     public HtmlBuilder value(String value) {
         if (StringUtils.isNotBlank(value)) {
-            write(" value=\"").write(value).write("\" ");
+            append(" value=\"").append(value).append("\" ");
         } else {
-            write(" value=\"").write("\" ");
+            append(" value=\"").append("\" ");
         }
 
         return this;
@@ -391,7 +335,7 @@ public class HtmlBuilder {
      * <p>The start of the select element [<select].</p> 
      */
     public HtmlBuilder select() {
-        write("<select");
+        append("<select");
 
         return this;
     }
@@ -400,7 +344,7 @@ public class HtmlBuilder {
      * <p>The close tag of the select element [</select>].</p> 
      */
     public HtmlBuilder selectEnd() {
-        write("</select>");
+        append("</select>");
 
         return this;
     }
@@ -409,7 +353,7 @@ public class HtmlBuilder {
      * <p>The start of the option element [<option].</p> 
      */
     public HtmlBuilder option() {
-        write("<option");
+        append("<option");
 
         return this;
     }
@@ -418,7 +362,7 @@ public class HtmlBuilder {
      * <p>The close tag of the option element [</option>].</p> 
      */
     public HtmlBuilder optionEnd() {
-        write("</option>");
+        append("</option>");
 
         return this;
     }
@@ -430,7 +374,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder form() {
         newline();
-        write("<form");
+        append("<form");
 
         return this;
     }
@@ -442,7 +386,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder formEnd() {
         newline();
-        write("</form>");
+        append("</form>");
 
         return this;
     }
@@ -452,7 +396,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder title(String title) {
         if (StringUtils.isNotBlank(title)) {
-            write(" title=\"").write(title).write("\" ");
+            append(" title=\"").append(title).append("\" ");
         }
 
         return this;
@@ -462,11 +406,11 @@ public class HtmlBuilder {
      * <p>The action attribute [action=].</p> 
      */
     public HtmlBuilder action(String action) {
-        write(" action=\"");
+        append(" action=\"");
         if (StringUtils.isNotBlank(action)) {
-            write(action);
+            append(action);
         }
-        write("\" ");
+        append("\" ");
 
         return this;
     }
@@ -476,7 +420,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder method(String method) {
         if (StringUtils.isNotBlank(method)) {
-            write(" method=\"").write(method).write("\" ");
+            append(" method=\"").append(method).append("\" ");
         }
 
         return this;
@@ -487,7 +431,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder enctype(String enctype) {
         if (StringUtils.isNotBlank(enctype)) {
-            write(" enctype=\"").write(enctype).write("\" ");
+            append(" enctype=\"").append(enctype).append("\" ");
         }
 
         return this;
@@ -498,7 +442,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder onchange(String onchange) {
         if (StringUtils.isNotBlank(onchange)) {
-            write(" onchange=\"").write(onchange).write("\" ");
+            append(" onchange=\"").append(onchange).append("\" ");
         }
 
         return this;
@@ -509,7 +453,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder onsubmit(String onsubmit) {
         if (StringUtils.isNotBlank(onsubmit)) {
-            write(" onsubmit=\"").write(onsubmit).write("\" ");
+            append(" onsubmit=\"").append(onsubmit).append("\" ");
         }
 
         return this;
@@ -520,7 +464,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder onclick(String onclick) {
         if (StringUtils.isNotBlank(onclick)) {
-            write(" onclick=\"").write(onclick).write("\" ");
+            append(" onclick=\"").append(onclick).append("\" ");
         }
 
         return this;
@@ -531,7 +475,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder onmouseover(String onmouseover) {
         if (StringUtils.isNotBlank(onmouseover)) {
-            write(" onmouseover=\"").write(onmouseover).write("\" ");
+            append(" onmouseover=\"").append(onmouseover).append("\" ");
         }
 
         return this;
@@ -542,7 +486,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder onmouseout(String onmouseout) {
         if (StringUtils.isNotBlank(onmouseout)) {
-            write(" onmouseout=\"").write(onmouseout).write("\" ");
+            append(" onmouseout=\"").append(onmouseout).append("\" ");
         }
 
         return this;
@@ -553,7 +497,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder onkeypress(String onkeypress) {
         if (StringUtils.isNotBlank(onkeypress)) {
-            write(" onkeypress=\"").write(onkeypress).write("\" ");
+            append(" onkeypress=\"").append(onkeypress).append("\" ");
         }
 
         return this;
@@ -564,7 +508,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder id(String id) {
         if (StringUtils.isNotBlank(id)) {
-            write(" id=\"").write(id).write("\" ");
+            append(" id=\"").append(id).append("\" ");
         }
 
         return this;
@@ -575,7 +519,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder styleClass(String styleClass) {
         if (StringUtils.isNotBlank(styleClass)) {
-            write(" class=\"").write(styleClass).write("\" ");
+            append(" class=\"").append(styleClass).append("\" ");
         }
 
         return this;
@@ -586,7 +530,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder style(String style) {
         if (StringUtils.isNotBlank(style)) {
-            write(" style=\"").write(style).write("\" ");
+            append(" style=\"").append(style).append("\" ");
         }
 
         return this;
@@ -597,7 +541,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder width(String width) {
         if (StringUtils.isNotBlank(width)) {
-            write(" width=\"").write(width).write("\" ");
+            append(" width=\"").append(width).append("\" ");
         }
 
         return this;
@@ -608,7 +552,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder align(String align) {
         if (StringUtils.isNotBlank(align)) {
-            write(" align=\"").write(align).write("\" ");
+            append(" align=\"").append(align).append("\" ");
         }
 
         return this;
@@ -619,7 +563,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder valign(String valign) {
         if (StringUtils.isNotBlank(valign)) {
-            write(" valign=\"").write(valign).write("\" ");
+            append(" valign=\"").append(valign).append("\" ");
         }
 
         return this;
@@ -630,7 +574,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder border(String border) {
         if (StringUtils.isNotBlank(border)) {
-            write(" border=\"").write(border).write("\" ");
+            append(" border=\"").append(border).append("\" ");
         }
 
         return this;
@@ -641,7 +585,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder cellpadding(String cellPadding) {
         if (StringUtils.isNotBlank(cellPadding)) {
-            write(" cellpadding=\"").write(cellPadding).write("\" ");
+            append(" cellpadding=\"").append(cellPadding).append("\" ");
         }
 
         return this;
@@ -652,7 +596,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder cellspacing(String cellSpacing) {
         if (StringUtils.isNotBlank(cellSpacing)) {
-            write(" cellspacing=\"").write(cellSpacing).write("\" ");
+            append(" cellspacing=\"").append(cellSpacing).append("\" ");
         }
 
         return this;
@@ -663,7 +607,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder colspan(String colspan) {
         if (StringUtils.isNotBlank(colspan)) {
-            write(" colspan=\"").write(colspan).write("\" ");
+            append(" colspan=\"").append(colspan).append("\" ");
         }
 
         return this;
@@ -674,7 +618,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder rowspan(String rowspan) {
         if (StringUtils.isNotBlank(rowspan)) {
-            write(" rowspan=\"").write(rowspan).write("\" ");
+            append(" rowspan=\"").append(rowspan).append("\" ");
         }
 
         return this;
@@ -685,7 +629,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder size(String size) {
         if (StringUtils.isNotBlank(size)) {
-            write(" size=\"").write(size).write("\" ");
+            append(" size=\"").append(size).append("\" ");
         }
 
         return this;
@@ -695,7 +639,7 @@ public class HtmlBuilder {
      * <p>The start of the span element [<span].</p> 
      */
     public HtmlBuilder span() {
-        write("<span");
+        append("<span");
 
         return this;
     }
@@ -704,7 +648,7 @@ public class HtmlBuilder {
      * <p>The close tag of the span element [</span>].</p>
      */
     public HtmlBuilder spanEnd() {
-        write("</span>");
+        append("</span>");
 
         return this;
     }
@@ -713,7 +657,7 @@ public class HtmlBuilder {
      * <p>The start of the div element [<div].</p> 
      */
     public HtmlBuilder div() {
-        write("<div");
+        append("<div");
 
         return this;
     }
@@ -722,7 +666,7 @@ public class HtmlBuilder {
      * <p>The close tag of the div element [</div>].</p>
      */
     public HtmlBuilder divEnd() {
-        write("</div>");
+        append("</div>");
 
         return this;
     }
@@ -742,7 +686,7 @@ public class HtmlBuilder {
      * <p>The start of the a element plus the href attribute [<a href=].</p>
      */
     public HtmlBuilder a() {
-        write("<a href=");
+        append("<a href=");
 
         return this;
     }
@@ -751,7 +695,7 @@ public class HtmlBuilder {
      * <p>The close tag of the a element [</div>].</p>
      */
     public HtmlBuilder aEnd() {
-        write("</a>");
+        append("</a>");
 
         return this;
     }
@@ -760,7 +704,7 @@ public class HtmlBuilder {
      * <p>The bold element [<b>].</p> 
      */
     public HtmlBuilder bold() {
-        write("<b>");
+        append("<b>");
 
         return this;
     }
@@ -769,7 +713,7 @@ public class HtmlBuilder {
      * <p>The close tag of the bold element [</b>].</p>
      */
     public HtmlBuilder boldEnd() {
-        write("</b>");
+        append("</b>");
 
         return this;
     }
@@ -778,7 +722,7 @@ public class HtmlBuilder {
      * <p>A single quote ["].</p> 
      */
     public HtmlBuilder quote() {
-        write("\"");
+        append("\"");
 
         return this;
     }
@@ -787,7 +731,7 @@ public class HtmlBuilder {
      * <p>A single question mark [?].</p> 
      */
     public HtmlBuilder question() {
-        write("?");
+        append("?");
 
         return this;
     }
@@ -796,7 +740,7 @@ public class HtmlBuilder {
      * <p>A single equals [=].</p> 
      */
     public HtmlBuilder equals() {
-        write("=");
+        append("=");
 
         return this;
     }
@@ -805,7 +749,7 @@ public class HtmlBuilder {
      * <p>A single ampersand [&].</p> 
      */
     public HtmlBuilder ampersand() {
-        write("&");
+        append("&");
 
         return this;
     }
@@ -814,7 +758,7 @@ public class HtmlBuilder {
      * <p>The start of the img element [<img].</p> 
      */
     public HtmlBuilder img() {
-        write("<img");
+        append("<img");
 
         return this;
     }
@@ -824,7 +768,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder src(String src) {
         if (StringUtils.isNotBlank(src)) {
-            write(" src=\"").write(src).write("\" ");
+            append(" src=\"").append(src).append("\" ");
         }
 
         return this;
@@ -835,7 +779,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder alt(String alt) {
         if (StringUtils.isNotBlank(alt)) {
-            write(" alt=\"").write(alt).write("\" ");
+            append(" alt=\"").append(alt).append("\" ");
         }
 
         return this;
@@ -845,7 +789,7 @@ public class HtmlBuilder {
      * <p>The start of the textarea element [<textarea].</p> 
      */
     public HtmlBuilder textarea() {
-        write("<textarea");
+        append("<textarea");
 
         return this;
     }
@@ -854,7 +798,7 @@ public class HtmlBuilder {
      * <p>The close tag of the textarea element [</textarea>].</p>
      */
     public HtmlBuilder textareaEnd() {
-        write("</textarea>");
+        append("</textarea>");
 
         return this;
     }
@@ -864,7 +808,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder cols(String cols) {
         if (StringUtils.isNotBlank(cols)) {
-            write(" cols=\"").write(cols).write("\" ");
+            append(" cols=\"").append(cols).append("\" ");
         }
 
         return this;
@@ -875,7 +819,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder rows(String rows) {
         if (StringUtils.isNotBlank(rows)) {
-            write(" rows=\"").write(rows).write("\" ");
+            append(" rows=\"").append(rows).append("\" ");
         }
 
         return this;
@@ -885,7 +829,7 @@ public class HtmlBuilder {
      * <p>The checked attribute [checked="checked"].</p> 
      */
     public HtmlBuilder checked() {
-        write(" checked=\"checked\"");
+        append(" checked=\"checked\"");
 
         return this;
     }
@@ -894,7 +838,7 @@ public class HtmlBuilder {
      * <p>The selected attribute [selected="selected"].</p> 
      */
     public HtmlBuilder selected() {
-        write(" selected=\"selected\"");
+        append(" selected=\"selected\"");
 
         return this;
     }
@@ -903,7 +847,7 @@ public class HtmlBuilder {
      * <p>The readonly attribute [readonly="readonly"].</p> 
      */
     public HtmlBuilder readonly() {
-        write(" readonly=\"readonly\"");
+        append(" readonly=\"readonly\"");
 
         return this;
     }
@@ -912,7 +856,7 @@ public class HtmlBuilder {
      * <p>The non-breaking space [&nbsp;].</p> 
      */
     public HtmlBuilder nbsp() {
-        write("&#160;");
+        append("&#160;");
 
         return this;
     }
@@ -922,7 +866,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder comment(String comment) {
         if (StringUtils.isNotBlank(comment)) {
-            write(" <!-- ").write(comment).write(" -->");
+            append(" <!-- ").append(comment).append(" -->");
         }
 
         return this;
@@ -932,7 +876,7 @@ public class HtmlBuilder {
      * <p>The ul element [<ul>].</p> 
      */
     public HtmlBuilder ul() {
-        write("<ul>");
+        append("<ul>");
 
         return this;
     }
@@ -941,7 +885,7 @@ public class HtmlBuilder {
      * <p>The close tag of the ul element [</ul>].</p>
      */
     public HtmlBuilder ulEnd() {
-        write("</ul>");
+        append("</ul>");
 
         return this;
     }
@@ -950,7 +894,7 @@ public class HtmlBuilder {
      * <p>The li element [<li> ].</p> 
      */
     public HtmlBuilder li() {
-        write("<li>");
+        append("<li>");
 
         return this;
     }
@@ -959,7 +903,7 @@ public class HtmlBuilder {
      * <p>The li element [<li> ].</p> 
      */
     public HtmlBuilder liEnd() {
-        write("</li>");
+        append("</li>");
 
         return this;
     }
@@ -968,7 +912,7 @@ public class HtmlBuilder {
      * <p>The br element [<br/>].</p> 
      */
     public HtmlBuilder br() {
-        write("<br/>");
+        append("<br/>");
 
         return this;
     }
@@ -977,7 +921,7 @@ public class HtmlBuilder {
      * <p>The disabled attribute [disabled="disabled"].</p> 
      */
     public HtmlBuilder disabled() {
-        write(" disabled=\"disabled\" ");
+        append(" disabled=\"disabled\" ");
 
         return this;
     }
@@ -986,7 +930,7 @@ public class HtmlBuilder {
      * <p>The nowrap attribute [nowrap="nowrap"].</p> 
      */
     public HtmlBuilder nowrap() {
-        write(" nowrap=\"nowrap\" ");
+        append(" nowrap=\"nowrap\" ");
 
         return this;
     }
@@ -996,7 +940,7 @@ public class HtmlBuilder {
      */
     public HtmlBuilder maxlength(String maxlength) {
         if (StringUtils.isNotBlank(maxlength)) {
-            write(" maxlength=\"").write(maxlength).write("\" ");
+            append(" maxlength=\"").append(maxlength).append("\" ");
         }
 
         return this;
@@ -1008,7 +952,7 @@ public class HtmlBuilder {
     public HtmlBuilder tbody(int tabs) {
         newline();
         tabs(tabs);
-        write("<tbody");
+        append("<tbody");
 
         return this;
     }
@@ -1026,7 +970,7 @@ public class HtmlBuilder {
     public HtmlBuilder tbodyEnd(int tabs) {
         newline();
         tabs(tabs);
-        write("</tbody>");
+        append("</tbody>");
 
         return this;
     }
@@ -1037,7 +981,7 @@ public class HtmlBuilder {
     public HtmlBuilder thead(int tabs) {
         newline();
         tabs(tabs);
-        write("<thead");
+        append("<thead");
 
         return this;
     }
@@ -1055,7 +999,7 @@ public class HtmlBuilder {
     public HtmlBuilder theadEnd(int tabs) {
         newline();
         tabs(tabs);
-        write("</thead>");
+        append("</thead>");
 
         return this;
     }
@@ -1064,7 +1008,7 @@ public class HtmlBuilder {
      * <p>The start of the p element [<p].</p> 
      */
     public HtmlBuilder p() {
-        write("<p");
+        append("<p");
 
         return this;
     }
@@ -1073,7 +1017,7 @@ public class HtmlBuilder {
      * <p>The close tag of the p element [</p>].</p>
      */
     public HtmlBuilder pEnd() {
-        write("</p>");
+        append("</p>");
 
         return this;
     }
@@ -1082,7 +1026,7 @@ public class HtmlBuilder {
      * <p>The start of the h1 element [<h1].</p> 
      */
     public HtmlBuilder h1() {
-        write("<h1");
+        append("<h1");
 
         return this;
     }
@@ -1091,7 +1035,7 @@ public class HtmlBuilder {
      * <p>The close tag of the h1 element [</h1>].</p>
      */
     public HtmlBuilder h1End() {
-        write("</h1>");
+        append("</h1>");
 
         return this;
     }
@@ -1100,7 +1044,7 @@ public class HtmlBuilder {
      * <p>The start of the h2 element [<h2].</p> 
      */
     public HtmlBuilder h2() {
-        write("<h2");
+        append("<h2");
 
         return this;
     }
@@ -1109,7 +1053,7 @@ public class HtmlBuilder {
      * <p>The close tag of the h2 element [</h2>].</p>
      */
     public HtmlBuilder h2End() {
-        write("</h2>");
+        append("</h2>");
 
         return this;
     }
@@ -1118,7 +1062,7 @@ public class HtmlBuilder {
      * <p>The start of the h3 element [<h3].</p> 
      */
     public HtmlBuilder h3() {
-        write("<h3");
+        append("<h3");
 
         return this;
     }
@@ -1127,7 +1071,7 @@ public class HtmlBuilder {
      * <p>The close tag of the h3 element [</h3>].</p>
      */
     public HtmlBuilder h3End() {
-        write("</h3>");
+        append("</h3>");
 
         return this;
     }
@@ -1136,7 +1080,7 @@ public class HtmlBuilder {
      * <p>The start of the h4 element [<h4].</p> 
      */
     public HtmlBuilder h4() {
-        write("<h4");
+        append("<h4");
 
         return this;
     }
@@ -1145,7 +1089,7 @@ public class HtmlBuilder {
      * <p>The close tag of the h4 element [</h4>].</p>
      */
     public HtmlBuilder h4End() {
-        write("</h4>");
+        append("</h4>");
 
         return this;
     }
@@ -1154,7 +1098,7 @@ public class HtmlBuilder {
      * <p>The start of the h5 element [<h5].</p> 
      */
     public HtmlBuilder h5() {
-        write("<h5");
+        append("<h5");
 
         return this;
     }
@@ -1163,12 +1107,12 @@ public class HtmlBuilder {
      * <p>The close tag of the h5 element [</h5>].</p>
      */
     public HtmlBuilder h5End() {
-        write("</h5>");
+        append("</h5>");
 
         return this;
     }
 
     public String toString() {
-        return writer.toString();
+        return builder.toString();
     }
 }

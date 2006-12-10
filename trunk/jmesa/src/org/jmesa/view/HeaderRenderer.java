@@ -16,9 +16,5 @@
 package org.jmesa.view;
 
 public interface HeaderRenderer {
-	public Column getColumn();
-	
-	public void setColumn(Column column);
-
-	public Object render();
+	public Object render(Column column);
 }

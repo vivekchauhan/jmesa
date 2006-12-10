@@ -28,8 +28,7 @@ public class HtmlTableRenderer extends AbstractTableRenderer {
     private String cellpadding;
     private String cellspacing;
 	
-	public HtmlTableRenderer(Table table, CoreContext coreContext) {
-		setTable(table);
+	public HtmlTableRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
 	
@@ -85,7 +84,7 @@ public class HtmlTableRenderer extends AbstractTableRenderer {
 		this.cellspacing = cellspacing;
 	}
 
-	public Object render() {
+	public Object render(Table table) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.table(0);
 		String id = getCoreContext().getLimit().getId();

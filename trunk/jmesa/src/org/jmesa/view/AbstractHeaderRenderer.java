@@ -20,17 +20,8 @@ import org.jmesa.core.CoreContext;
 
 
 public abstract class AbstractHeaderRenderer implements HeaderRenderer {
-	private Column column;
 	private CoreContext coreContext;
 
-	public Column getColumn() {
-		return column;
-	}
-
-	public void setColumn(Column column) {
-		this.column = column;
-	}
-	
 	public CoreContext getCoreContext() {
 		return coreContext;
 	}
@@ -39,10 +30,9 @@ public abstract class AbstractHeaderRenderer implements HeaderRenderer {
 		this.coreContext = coreContext;
 	}
 	
-	protected String getTitle() {
-		String title = column.getTitle();
+	protected String getTitle(String title, String property) {
 		if (StringUtils.isBlank(title)) {
-			return ViewUtils.camelCaseToWord(column.getProperty());	
+			return ViewUtils.camelCaseToWord(property);	
 		} else {
 			
 		}

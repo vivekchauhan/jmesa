@@ -19,17 +19,8 @@ import org.jmesa.core.CoreContext;
 
 
 public abstract class AbstractTableRenderer implements TableRenderer {
-	private Table table;
 	private CoreContext coreContext;
 	
-	public Table getTable() {
-		return table;
-	}
-
-	public void setTable(Table table) {
-		this.table = table;
-	}
-
 	public CoreContext getCoreContext() {
 		return coreContext;
 	}

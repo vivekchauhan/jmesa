@@ -15,19 +15,16 @@
  */
 package org.jmesa.view.html;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractColumnRenderer;
 import org.jmesa.view.Column;
 import org.jmesa.view.ColumnValue;
-import org.jmesa.view.ViewUtils;
 
 public class HtmlColumnRenderer extends AbstractColumnRenderer {
 	private String style;
 	private String styleClass;
 	
-	public HtmlColumnRenderer(Column column, ColumnValue columnValue, CoreContext coreContext) {
-		setColumn(column);
+	public HtmlColumnRenderer(ColumnValue columnValue, CoreContext coreContext) {
 		setColumnValue(columnValue);
 		setCoreContext(coreContext);
 	}
@@ -48,14 +45,14 @@ public class HtmlColumnRenderer extends AbstractColumnRenderer {
 		this.styleClass = styleClass;
 	}
 
-	public Object render(Object item, int rowcount) {
+	public Object render(Column column, Object item, int rowcount) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.td(2);
 		html.style(style);
 		html.styleClass(styleClass);
 		html.close();
 		
-		String property = getColumn().getProperty();
+		String property = column.getProperty();
 		Object value = getColumnValue().getValue(item, property, rowcount);
 		if (value != null) {
 			html.append(value.toString());

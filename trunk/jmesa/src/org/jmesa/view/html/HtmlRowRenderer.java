@@ -31,8 +31,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
 	private String highlightStyle;
 	private String highlightClass;
 	
-	public HtmlRowRenderer(Row row, CoreContext coreContext) {
-		setRow(row);
+	public HtmlRowRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
 	
@@ -81,41 +80,39 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
 		this.highlightStyle = highlightStyle;
 	}
 
-	protected String getOnmouseover() {
-        boolean highlightRow = getRow().isHighlighter();
-        if (highlightRow) {
+	protected String getOnmouseover(boolean highlighter, String onmouseover) {
+        if (highlighter) {
             String highlightClass = getHighlightClass();
-            if (StringUtils.isNotBlank(getRow().getOnmouseover())) {
-                return "this.className='" + highlightClass + "';" + getRow().getOnmouseover();
+            if (StringUtils.isNotBlank(onmouseover)) {
+                return "this.className='" + highlightClass + "';" + onmouseover;
             } else {
                 return "this.className='" + highlightClass + "'";
             }
         } else {
-            return getRow().getOnmouseover();
+            return onmouseover;
         }
     }
 
-	protected String getOnmouseout(int rowcount) {
-    	boolean highlightRow = getRow().isHighlighter();
-        if (highlightRow) {
+	protected String getOnmouseout(boolean highlighter, String onmouseout, int rowcount) {
+        if (highlighter) {
             String styleClass = getStyleClass(rowcount);
-            if (StringUtils.isNotBlank(getRow().getOnmouseout())) {
-                return "this.className='" + styleClass + "';" + getRow().getOnmouseout();
+            if (StringUtils.isNotBlank(onmouseout)) {
+                return "this.className='" + styleClass + "';" + onmouseout;
             } else {
                 return "this.className='" + styleClass + "'";
             }
         } else {
-            return getRow().getOnmouseout();
+            return onmouseout;
         }
     }	
 
-	public Object render(Object item, int rowcount) {
+	public Object render(Row row, Object item, int rowcount) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.tr(1);
 		html.style(style);
 		html.styleClass(getStyleClass(rowcount));
-		html.onmouseover(getOnmouseover());
-		html.onmouseout(getOnmouseout(rowcount));
+		html.onmouseover(getOnmouseover(row.isHighlighter(), row.getOnmouseover()));
+		html.onmouseout(getOnmouseout(row.isHighlighter(), row.getOnmouseout(), rowcount));
 		html.close();
 		
 		return html;

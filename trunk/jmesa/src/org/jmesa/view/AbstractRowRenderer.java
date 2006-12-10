@@ -26,15 +26,6 @@ public abstract class AbstractRowRenderer implements RowRenderer {
 	private Row row;
 	private CoreContext coreContext;
 
-	public Row getRow() {
-		return row;
-	}
-
-	public void setRow(Row row) {
-		this.row = row;
-		
-	}
-
 	public CoreContext getCoreContext() {
 		return coreContext;
 	}

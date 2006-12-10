@@ -39,50 +39,94 @@ public class HtmlView implements View {
 
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
-
-		html.div().styleClass(table.getTheme()).close();
-		
-		html.append(table.getTableRenderer().render());
-		
-		html.thead(1).close();
-		
 		Row row = table.getRow();
 		List<Column> columns = table.getRow().getColumns();
+
+		themeStart(html);
 		
+		tableStart(html);
+		
+		theadStart(html);
+		
+		header(html, columns);
+		
+		theadEnd(html);
+		
+		tbodyStart(html);
+		
+		body(html, row, columns);
+		
+		tbodyEnd(html);
+
+		tableEnd(html);
+		
+		themeEnd(html);
+
+		return html;
+	}
+	
+	protected void themeStart(HtmlBuilder html) {
+		html.div().styleClass(table.getTheme()).close();
+	}
+	
+	protected void themeEnd(HtmlBuilder html) {
+		html.newline();
+		html.divEnd();
+	}
+	
+	protected void tableStart(HtmlBuilder html) {
+		html.append(table.getTableRenderer().render(table));
+	}
+	
+	protected void tableEnd(HtmlBuilder html) {
+		html.tableEnd(0);
+	}
+
+	protected void theadStart(HtmlBuilder html) {
+        html.thead(1).close();
+    }
+
+	protected void theadEnd(HtmlBuilder html) {
+        html.theadEnd(1);
+    }
+
+	protected void tbodyStart(HtmlBuilder html) {
+        html.tbody(1).styleClass(HtmlConstants.TABLE_BODY_CSS).close();
+    }
+
+	protected void tbodyEnd(HtmlBuilder html) {
+        html.tbodyEnd(1);
+    }
+	
+	protected void header(HtmlBuilder html, List<Column> columns) {
 		html.tr(1).close();
 		
 		for (Column column : columns) {
-			html.append(column.getHeaderRenderer().render());
+			html.append(column.getHeaderRenderer().render(column));
 		}
 		
 		html.trEnd(1);
-		
-		html.theadEnd(1);
-		
-		html.tbody(1).styleClass("tableBody").close();
-
+    }
+	
+	protected void body(HtmlBuilder html, Row row, List<Column> columns) {
 		int rowcount = 0;
-
 		Collection items = coreContext.getPageItems();
 		for (Object item : items) {
 			rowcount++;
 			
-			html.append(row.getRowRenderer().render(item, rowcount));
+			html.append(row.getRowRenderer().render(row, item, rowcount));
 
 			for (Column column : columns) {
-				html.append(column.getColumnRenderer().render(item, rowcount));
+				html.append(column.getColumnRenderer().render(column, item, rowcount));
 			}
 
 			html.trEnd(1);
 		}
-		
-		html.tbodyEnd(1);
-
-		html.tableEnd(0);
-		
-		html.newline();
-		html.divEnd();
-
-		return html;
 	}
+	
+    protected void toolbar(CoreContext coreContext) {
+    }
+
+    protected void statusBar(CoreContext coreContext) {
+    }
 }

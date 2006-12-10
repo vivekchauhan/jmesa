@@ -19,17 +19,8 @@ import org.jmesa.core.CoreContext;
 
 
 public abstract class AbstractColumnRenderer implements ColumnRenderer {
-	private Column column;
 	private ColumnValue columnValue;
 	private CoreContext coreContext;
-
-	public Column getColumn() {
-		return column;
-	}
-
-	public void setColumn(Column column) {
-		this.column = column;
-	}
 
 	public ColumnValue getColumnValue() {
 		return columnValue;
