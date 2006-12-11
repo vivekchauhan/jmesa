@@ -16,20 +16,12 @@
 package org.jmesa.view;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.core.CoreContext;
 
-
-public abstract class AbstractHeaderRenderer implements HeaderRenderer {
-	private CoreContext coreContext;
-
-	public CoreContext getCoreContext() {
-		return coreContext;
-	}
-
-	public void setCoreContext(CoreContext coreContext) {
-		this.coreContext = coreContext;
-	}
-	
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
+public abstract class AbstractHeaderRenderer extends AbstractRenderer implements HeaderRenderer {
 	protected String getTitle(String title, String property) {
 		if (StringUtils.isBlank(title)) {
 			return ViewUtils.camelCaseToWord(property);	

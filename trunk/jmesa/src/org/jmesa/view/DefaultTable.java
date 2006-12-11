@@ -15,7 +15,6 @@
  */
 package org.jmesa.view;
 
-
 /**
  * @since 2.0
  * @author Jeff Johnston

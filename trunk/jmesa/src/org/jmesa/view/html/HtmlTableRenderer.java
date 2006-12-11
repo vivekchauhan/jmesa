@@ -17,11 +17,15 @@ package org.jmesa.view.html;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.AbstractTableRenderer;
+import org.jmesa.view.AbstractRenderer;
 import org.jmesa.view.Table;
+import org.jmesa.view.TableRenderer;
 
-
-public class HtmlTableRenderer extends AbstractTableRenderer {
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
+public class HtmlTableRenderer extends AbstractRenderer implements TableRenderer {
 	private String style;
 	private String styleClass;
     private String border;

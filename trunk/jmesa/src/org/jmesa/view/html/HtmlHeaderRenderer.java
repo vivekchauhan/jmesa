@@ -19,6 +19,10 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractHeaderRenderer;
 import org.jmesa.view.Column;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
 	private String style;
 	private String styleClass;

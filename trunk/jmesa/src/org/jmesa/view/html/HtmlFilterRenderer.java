@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
 
-import org.jmesa.core.CoreContext;
+import org.jmesa.view.AbstractRenderer;
+import org.jmesa.view.FilterRenderer;
 
-
-public abstract class AbstractTableRenderer implements TableRenderer {
-	private CoreContext coreContext;
-	
-	public CoreContext getCoreContext() {
-		return coreContext;
-	}
-
-	public void setCoreContext(CoreContext coreContext) {
-		this.coreContext = coreContext;
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
+public class HtmlFilterRenderer extends AbstractRenderer implements FilterRenderer {
+	public Object render(String title) {
+		return null;
 	}
 }

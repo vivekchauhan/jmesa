@@ -24,6 +24,10 @@ import org.jmesa.view.Row;
 import org.jmesa.view.Table;
 import org.jmesa.view.View;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class HtmlView implements View {
 	private Table table;
 	private CoreContext coreContext;

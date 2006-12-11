@@ -17,15 +17,16 @@ package org.jmesa.view.html;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.AbstractRowRenderer;
+import org.jmesa.view.AbstractRenderer;
 import org.jmesa.view.Row;
+import org.jmesa.view.RowRenderer;
 import org.jmesa.view.ViewUtils;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlRowRenderer extends AbstractRowRenderer {
+public class HtmlRowRenderer extends AbstractRenderer implements RowRenderer {
 	private String style;
 	private String styleClass;
 	private String highlightStyle;

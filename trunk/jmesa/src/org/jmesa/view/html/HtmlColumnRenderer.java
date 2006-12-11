@@ -20,6 +20,10 @@ import org.jmesa.view.AbstractColumnRenderer;
 import org.jmesa.view.Column;
 import org.jmesa.view.ColumnValue;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class HtmlColumnRenderer extends AbstractColumnRenderer {
 	private String style;
 	private String styleClass;

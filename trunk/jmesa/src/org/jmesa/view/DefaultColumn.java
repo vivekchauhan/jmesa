@@ -17,7 +17,6 @@ package org.jmesa.view;
 
 import java.util.List;
 
-
 /**
  * @since 2.0
  * @author Jeff Johnston

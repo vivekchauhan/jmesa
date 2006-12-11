@@ -16,6 +16,7 @@
 package org.jmesa.view.html;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class HtmlConstants {

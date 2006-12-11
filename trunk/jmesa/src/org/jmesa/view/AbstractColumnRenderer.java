@@ -15,12 +15,12 @@
  */
 package org.jmesa.view;
 
-import org.jmesa.core.CoreContext;
-
-
-public abstract class AbstractColumnRenderer implements ColumnRenderer {
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
+public abstract class AbstractColumnRenderer extends AbstractRenderer implements ColumnRenderer {
 	private ColumnValue columnValue;
-	private CoreContext coreContext;
 
 	public ColumnValue getColumnValue() {
 		return columnValue;
@@ -28,13 +28,5 @@ public abstract class AbstractColumnRenderer implements ColumnRenderer {
 
 	public void setColumnValue(ColumnValue columnValue) {
 		this.columnValue = columnValue;
-	}
-	
-	public CoreContext getCoreContext() {
-		return coreContext;
-	}
-
-	public void setCoreContext(CoreContext coreContext) {
-		this.coreContext = coreContext;
 	}
 }

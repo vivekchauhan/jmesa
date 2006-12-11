@@ -15,15 +15,20 @@
  */
 package org.jmesa.view;
 
+import org.jmesa.core.CoreContext;
 
-public abstract class AbstractCalcRenderer implements CalcRenderer {
-	private Column column;
-
-	public Column getColumn() {
-		return column;
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
+public abstract class AbstractRenderer {
+	private CoreContext coreContext;
+	
+	public CoreContext getCoreContext() {
+		return coreContext;
 	}
 
-	public void setColumn(Column column) {
-		this.column = column;
+	public void setCoreContext(CoreContext coreContext) {
+		this.coreContext = coreContext;
 	}
 }

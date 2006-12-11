@@ -20,9 +20,5 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public interface CalcRenderer {
-	public Column getColumn();
-	
-	public void setColumn(Column column);
-
 	public Object render();
 }

@@ -15,6 +15,10 @@
  */
 package org.jmesa.view;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public interface HeaderRenderer {
 	public Object render(Column column);
 }
