@@ -107,7 +107,7 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 	protected Messages getMessages() {
 		if (messages == null) {
 			String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter("jmesaMessagesLocation");
-			messages = new ResourceBundleMessages(null, jmesaMessagesLocation, webContext.getLocale());
+			messages = new ResourceBundleMessages(webContext, jmesaMessagesLocation);
 		}
 		
 		return messages;
@@ -126,7 +126,7 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 			itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
 		}
 		
-		CoreContext coreContextImpl = new CoreContextImpl(itemsImpl, limit, getPreferences(), getMessages(), webContext.getLocale());
+		CoreContext coreContextImpl = new CoreContextImpl(itemsImpl, limit, getPreferences(), getMessages());
 		return coreContextImpl;
 	}
 }

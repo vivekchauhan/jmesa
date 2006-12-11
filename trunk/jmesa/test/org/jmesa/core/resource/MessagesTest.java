@@ -15,12 +15,16 @@
  */
 package org.jmesa.core.resource;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
 import org.jmesa.core.Messages;
+import org.jmesa.web.HttpServletRequestWebContext;
+import org.jmesa.web.WebContext;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * @since 2.0
@@ -29,7 +33,11 @@ import org.junit.Test;
 public class MessagesTest {
 	@Test
 	public void getPreference() {
-		Messages messages = new ResourceBundleMessages(null, "org.jmesa.core.resource.testResourceBundle", Locale.US);
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		WebContext webContext = new HttpServletRequestWebContext(request);
+		webContext.setLocale(Locale.US);
+
+		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.resource.testResourceBundle");
 		String message = messages.getMessage("test.normal");
 		assertNotNull(message);
 		assertTrue(message.equals("foo"));

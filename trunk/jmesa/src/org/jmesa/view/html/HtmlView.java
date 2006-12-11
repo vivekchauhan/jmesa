@@ -19,6 +19,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.limit.Limit;
+import org.jmesa.limit.RowSelect;
 import org.jmesa.view.Column;
 import org.jmesa.view.Row;
 import org.jmesa.view.Table;
@@ -59,6 +61,8 @@ public class HtmlView implements View {
 		tableStart(html, table);
 		
 		theadStart(html);
+		
+		statusBar(html, columns.size());
 		
 		header(html, columns);
 		
@@ -136,9 +140,27 @@ public class HtmlView implements View {
 		}
 	}
 	
-    protected void toolbar(CoreContext coreContext) {
+    protected void toolbar() {
     }
 
-    protected void statusBar(CoreContext coreContext) {
+    protected void statusBar(HtmlBuilder html, int columns) {
+        Limit limit = coreContext.getLimit();
+        RowSelect rowSelect = limit.getRowSelect();
+
+        html.tr(1).style("padding: 0px;").close();
+        html.td(2).colspan(String.valueOf(columns)).close();
+        
+        if (rowSelect.getTotalRows() == 0) {
+            html.append(coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND));
+        } else {
+            Integer total = new Integer(rowSelect.getTotalRows());
+            Integer from = new Integer(rowSelect.getRowStart() + 1);
+            Integer to = new Integer(rowSelect.getRowEnd());
+            Object[] messageArguments = { total, from, to };
+            html.append(coreContext.getMessage(HtmlConstants.STATUSBAR_RESULTS_FOUND, messageArguments));
+        }
+        
+        html.tdEnd();
+        html.trEnd(1);
     }
 }

@@ -15,8 +15,6 @@
  */
 package org.jmesa.core;
 
-import java.util.Locale;
-
 import org.jmesa.limit.Limit;
 
 /**
@@ -26,7 +24,5 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public interface CoreContext extends Items, Messages, Preferences {
-	public Locale getLocale();
-	
 	public Limit getLimit();
 }

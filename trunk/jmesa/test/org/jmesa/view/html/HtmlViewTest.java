@@ -61,8 +61,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  */
 public class HtmlViewTest {
 	private static final String ID = "pres";
-	private static final int MAX_ROWS = 20;
-	private static final int TOTAL_ROWS = 60;
+	private static final int MAX_ROWS = 15;
 	
 	@Test
 	public void render() {
@@ -119,26 +118,27 @@ public class HtmlViewTest {
 	}
 	
 	public CoreContext createCoreContext() {
-		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/test.properties");
-		Messages messages = new ResourceBundleMessages(null, "org.jmesa.core.resource.testResourceBundle", Locale.US);
-		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
+		webContext.setLocale(Locale.US);
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		
-		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, TOTAL_ROWS);
+		Collection data = new PresidentsDao().getPresidents();
+
+		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, data.size());
 		limit.setRowSelect(rowSelect);
 
 		RowFilter rowFilter = new DefaultRowFilter();
 		ColumnSort columnSort = new DefaultColumnSort();
 		
-		Collection data = new PresidentsDao().getPresidents();
-		
 		Items items = new ItemsImpl(data, limit, rowFilter, columnSort);
 		
-		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages, webContext.getLocale());
+		Preferences preferences = new PropertiesPreferences(webContext, "/org/jmesa/core/test.properties");
+		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.resource.testResourceBundle");
+		
+		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages);
 		
 		return coreContext;
 	}

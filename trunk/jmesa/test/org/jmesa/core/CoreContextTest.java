@@ -44,12 +44,10 @@ public class CoreContextTest {
 	
 	@Test
 	public void createCoreContext() {
-		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/test.properties");
-		Messages messages = new ResourceBundleMessages(null, "org.jmesa.core.resource.testResourceBundle", Locale.US);
-		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
+		webContext.setLocale(Locale.US);
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		
@@ -63,7 +61,10 @@ public class CoreContextTest {
 		
 		Items items = new ItemsImpl(data, limit, rowFilter, columnSort);
 		
-		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages, webContext.getLocale());
+		Preferences preferences = new PropertiesPreferences(webContext, "/org/jmesa/core/test.properties");
+		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.resource.testResourceBundle");
+
+		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages);
 		
 		assertNotNull(coreContext);
 	}
