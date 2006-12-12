@@ -24,10 +24,6 @@ public interface Table {
 	
 	public void setTitle(String title);
 	
-	public String getTheme();
-	
-	public void setTheme(String theme);
-	
 	public Row getRow();
 	
 	public void setRow(Row row);

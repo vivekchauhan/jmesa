@@ -13,32 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jmesa.view.Column;
+import org.jmesa.view.FilterRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultRow implements Row {
-	List<Column> columns = new ArrayList<Column>();
-	private RowRenderer rowRenderer;
-
-	public void addColumn(Column column) {
-		columns.add(column);
-	}
-
-	public List<Column> getColumns() {
-		return columns;
-	}
-
-	public RowRenderer getRowRenderer() {
-		return rowRenderer;
-	}
-
-	public void setRowRenderer(RowRenderer rowRenderer) {
-		this.rowRenderer = rowRenderer;
-	}
+public interface HtmlColumn extends Column {
+	public boolean isFilterable();
+	
+	public void setFilterable(boolean filterable);
+	
+	public boolean isSortable();
+	
+	public void setSortable(boolean sortable);
+	
+	public FilterRenderer getFilterRenderer();
+	
+	public void setFilterRenderer(FilterRenderer filterRenderer);
 }

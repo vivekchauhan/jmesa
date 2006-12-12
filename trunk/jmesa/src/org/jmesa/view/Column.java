@@ -30,14 +30,6 @@ public interface Column {
 	
 	public void setTitle(String title);
 	
-	public boolean isFilterable();
-	
-	public void setFilterable(boolean filterable);
-	
-	public boolean isSortable();
-	
-	public void setSortable(boolean sortable);
-	
 	public ColumnRenderer getColumnRenderer();
 	
 	public void setColumnRenderer(ColumnRenderer columnRenderer);
@@ -46,10 +38,6 @@ public interface Column {
 	
 	public void setHeaderRenderer(HeaderRenderer headerRenderer);
 
-	public FilterRenderer getFilterRenderer();
-	
-	public void setFilterRenderer(FilterRenderer filterRenderer);
-	
 	public List<CalcRenderer> getCalcRenderers();
 	
 	public void addCalcRenderer(CalcRenderer calcRenderer);

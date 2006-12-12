@@ -44,10 +44,6 @@ import org.jmesa.view.ColumnRenderer;
 import org.jmesa.view.ColumnValue;
 import org.jmesa.view.DefaultColumn;
 import org.jmesa.view.DefaultColumnValue;
-import org.jmesa.view.DefaultRow;
-import org.jmesa.view.DefaultTable;
-import org.jmesa.view.Row;
-import org.jmesa.view.Table;
 import org.jmesa.view.View;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
@@ -68,14 +64,14 @@ public class HtmlViewTest {
 		CoreContext coreContext = createCoreContext();
 		
 		// create the table
-		Table table = new DefaultTable();
+		HtmlTable table = new DefaultHtmlTable();
 		table.setTheme("jmesa");
 		HtmlTableRenderer tableRenderer = new HtmlTableRenderer(coreContext);
 		tableRenderer.setStyleClass("table");
 		table.setTableRenderer(tableRenderer);
 		
 		// create the row
-		Row row = new DefaultRow();
+		HtmlRow row = new DefaultHtmlRow();
 		row.setHighlighter(true);
 		HtmlRowRenderer rowRenderer = new HtmlRowRenderer(coreContext);
 		rowRenderer.setHighlightClass("highlight");
@@ -84,27 +80,27 @@ public class HtmlViewTest {
 		
 		// create some reusable objects
 		ColumnValue columnValue = new DefaultColumnValue();
-		ColumnRenderer columnRenderer = new HtmlColumnRenderer(columnValue, coreContext);
+		HtmlColumnRenderer columnRenderer = new HtmlColumnRenderer(columnValue, coreContext);
 		HtmlHeaderRenderer headerRenderer = new HtmlHeaderRenderer(coreContext);
 		headerRenderer.setStyleClass("header");
 
 		// create the columns
-		Column firstNameColumn = new DefaultColumn("firstName");
+		HtmlColumn firstNameColumn = new DefaultHtmlColumn("firstName");
 		firstNameColumn.setColumnRenderer(columnRenderer);
 		firstNameColumn.setHeaderRenderer(headerRenderer);
 		row.addColumn(firstNameColumn);
 		
-		Column lastNameColumn = new DefaultColumn("lastName");
+		HtmlColumn lastNameColumn = new DefaultHtmlColumn("lastName");
 		lastNameColumn.setColumnRenderer(columnRenderer);
 		lastNameColumn.setHeaderRenderer(headerRenderer);
 		row.addColumn(lastNameColumn);
 
-		Column termColumn = new DefaultColumn("term");
+		HtmlColumn termColumn = new DefaultHtmlColumn("term");
 		termColumn.setColumnRenderer(columnRenderer);
 		termColumn.setHeaderRenderer(headerRenderer);
 		row.addColumn(termColumn);
 
-		Column careerColumn = new DefaultColumn("career");
+		HtmlColumn careerColumn = new DefaultHtmlColumn("career");
 		careerColumn.setColumnRenderer(columnRenderer);
 		careerColumn.setHeaderRenderer(headerRenderer);
 		row.addColumn(careerColumn);

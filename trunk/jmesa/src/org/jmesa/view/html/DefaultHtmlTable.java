@@ -13,32 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jmesa.view.DefaultTable;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultRow implements Row {
-	List<Column> columns = new ArrayList<Column>();
-	private RowRenderer rowRenderer;
+public class DefaultHtmlTable extends DefaultTable implements HtmlTable {
+	private String theme;
 
-	public void addColumn(Column column) {
-		columns.add(column);
+	public String getTheme() {
+		return theme;
 	}
 
-	public List<Column> getColumns() {
-		return columns;
-	}
-
-	public RowRenderer getRowRenderer() {
-		return rowRenderer;
-	}
-
-	public void setRowRenderer(RowRenderer rowRenderer) {
-		this.rowRenderer = rowRenderer;
+	public void setTheme(String theme) {
+		this.theme = theme;
 	}
 }

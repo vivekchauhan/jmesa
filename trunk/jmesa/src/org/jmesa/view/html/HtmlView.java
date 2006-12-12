@@ -22,8 +22,6 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.view.Column;
-import org.jmesa.view.Row;
-import org.jmesa.view.Table;
 import org.jmesa.view.View;
 
 /**
@@ -31,19 +29,15 @@ import org.jmesa.view.View;
  * @author Jeff Johnston
  */
 public class HtmlView implements View {
-	private Table table;
+	private HtmlTable table;
 	private CoreContext coreContext;
 
-	public HtmlView(Table table, CoreContext coreContext) {
+	public HtmlView(HtmlTable table, CoreContext coreContext) {
 		this.table = table;
 		this.coreContext = coreContext;
 	}
 
-	public void setTable(Table table) {
-		this.table = table;
-	}
-	
-	protected Table getTable() {
+	protected HtmlTable getHtmlTable() {
 		return table;
 	}
 
@@ -53,7 +47,7 @@ public class HtmlView implements View {
 	
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
-		Row row = table.getRow();
+		HtmlRow row = (HtmlRow)table.getRow();
 		List<Column> columns = table.getRow().getColumns();
 
 		themeStart(html, table);
@@ -81,7 +75,7 @@ public class HtmlView implements View {
 		return html;
 	}
 	
-	protected void themeStart(HtmlBuilder html, Table table) {
+	protected void themeStart(HtmlBuilder html, HtmlTable table) {
 		html.div().styleClass(table.getTheme()).close();
 	}
 	
@@ -90,7 +84,7 @@ public class HtmlView implements View {
 		html.divEnd();
 	}
 	
-	protected void tableStart(HtmlBuilder html, Table table) {
+	protected void tableStart(HtmlBuilder html, HtmlTable table) {
 		html.append(table.getTableRenderer().render(table));
 	}
 	
@@ -124,7 +118,7 @@ public class HtmlView implements View {
 		html.trEnd(1);
     }
 	
-	protected void body(HtmlBuilder html, Row row, List<Column> columns) {
+	protected void body(HtmlBuilder html, HtmlRow row, List<Column> columns) {
 		int rowcount = 0;
 		Collection items = coreContext.getPageItems();
 		for (Object item : items) {

@@ -13,32 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jmesa.view.Row;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultRow implements Row {
-	List<Column> columns = new ArrayList<Column>();
-	private RowRenderer rowRenderer;
-
-	public void addColumn(Column column) {
-		columns.add(column);
-	}
-
-	public List<Column> getColumns() {
-		return columns;
-	}
-
-	public RowRenderer getRowRenderer() {
-		return rowRenderer;
-	}
-
-	public void setRowRenderer(RowRenderer rowRenderer) {
-		this.rowRenderer = rowRenderer;
-	}
+public interface HtmlRow extends Row {
+	public boolean isHighlighter();
+	
+	public void setHighlighter(boolean highlighter);
+	
+	public String getOnclick();
+	
+	public void setOnclick(String onclick);
+	
+	public String getOnmouseover();
+	
+	public void setOnmouseover(String onmouseover);
+	
+	public String getOnmouseout();
+	
+	public void setOnmouseout(String onmouseout);
 }

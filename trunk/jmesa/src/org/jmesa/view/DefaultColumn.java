@@ -24,10 +24,7 @@ import java.util.List;
 public class DefaultColumn implements Column {
 	private String property;
 	private String title;
-	private boolean filterable;
-	private boolean sortable;
 	private ColumnRenderer columnRenderer;
-	private FilterRenderer filterRenderer;
 	private HeaderRenderer headerRenderer;
 	private List<CalcRenderer> calcRenderers;
 	
@@ -53,36 +50,12 @@ public class DefaultColumn implements Column {
 		this.title = title;
 	}
 
-	public boolean isFilterable() {
-		return filterable;
-	}
-
-	public void setFilterable(boolean filterable) {
-		this.filterable = filterable;
-	}
-
-	public boolean isSortable() {
-		return sortable;
-	}
-
-	public void setSortable(boolean sortable) {
-		this.sortable = sortable;
-	}
-
 	public ColumnRenderer getColumnRenderer() {
 		return columnRenderer;
 	}
 
 	public void setColumnRenderer(ColumnRenderer columnRenderer) {
 		this.columnRenderer = columnRenderer;
-	}
-
-	public FilterRenderer getFilterRenderer() {
-		return filterRenderer;
-	}
-
-	public void setFilterRenderer(FilterRenderer filterRenderer) {
-		this.filterRenderer = filterRenderer;
 	}
 
 	public HeaderRenderer getHeaderRenderer() {

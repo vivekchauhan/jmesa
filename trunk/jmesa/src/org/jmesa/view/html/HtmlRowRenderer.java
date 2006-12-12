@@ -108,12 +108,14 @@ public class HtmlRowRenderer extends AbstractRenderer implements RowRenderer {
     }	
 
 	public Object render(Row row, Object item, int rowcount) {
+		HtmlRow htmlRow = (HtmlRow)row;
+		
 		HtmlBuilder html = new HtmlBuilder();
 		html.tr(1);
 		html.style(style);
 		html.styleClass(getStyleClass(rowcount));
-		html.onmouseover(getOnmouseover(row.isHighlighter(), row.getOnmouseover()));
-		html.onmouseout(getOnmouseout(row.isHighlighter(), row.getOnmouseout(), rowcount));
+		html.onmouseover(getOnmouseover(htmlRow.isHighlighter(), htmlRow.getOnmouseover()));
+		html.onmouseout(getOnmouseout(htmlRow.isHighlighter(), htmlRow.getOnmouseout(), rowcount));
 		html.close();
 		
 		return html;

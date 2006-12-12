@@ -20,7 +20,5 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public interface View {
-	public void setTable(Table table);
-
 	public Object render();
 }
