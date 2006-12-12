@@ -22,27 +22,15 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.jmesa.core.ColumnSort;
 import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextImpl;
-import org.jmesa.core.DefaultColumnSort;
-import org.jmesa.core.DefaultRowFilter;
-import org.jmesa.core.Items;
-import org.jmesa.core.ItemsImpl;
-import org.jmesa.core.Messages;
-import org.jmesa.core.Preferences;
+import org.jmesa.core.CoreContextFactory;
+import org.jmesa.core.DefaultCoreContextFactory;
 import org.jmesa.core.PresidentsDao;
-import org.jmesa.core.PropertiesPreferences;
-import org.jmesa.core.RowFilter;
-import org.jmesa.core.resource.ResourceBundleMessages;
 import org.jmesa.limit.DefaultLimitFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.RowSelect;
-import org.jmesa.view.Column;
-import org.jmesa.view.ColumnRenderer;
 import org.jmesa.view.ColumnValue;
-import org.jmesa.view.DefaultColumn;
 import org.jmesa.view.DefaultColumnValue;
 import org.jmesa.view.View;
 import org.jmesa.web.HttpServletRequestWebContext;
@@ -114,27 +102,20 @@ public class HtmlViewTest {
 	}
 	
 	public CoreContext createCoreContext() {
+		Collection data = new PresidentsDao().getPresidents();
+
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
 		webContext.setLocale(Locale.US);
+		
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
 		Limit limit = limitFactory.createLimit();
-		
-		Collection data = new PresidentsDao().getPresidents();
-
 		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, data.size());
 		limit.setRowSelect(rowSelect);
 
-		RowFilter rowFilter = new DefaultRowFilter();
-		ColumnSort columnSort = new DefaultColumnSort();
-		
-		Items items = new ItemsImpl(data, limit, rowFilter, columnSort);
-		
-		Preferences preferences = new PropertiesPreferences(webContext, "/org/jmesa/core/test.properties");
-		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.resource.testResourceBundle");
-		
-		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages);
+		CoreContextFactory factory = new DefaultCoreContextFactory(webContext);
+		CoreContext coreContext = factory.createCoreContext(data, limit);
 		
 		return coreContext;
 	}
