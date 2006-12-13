@@ -101,7 +101,7 @@ public class HtmlViewTest {
 	}
 	
 	public CoreContext createCoreContext() {
-		Collection data = new PresidentsDao().getPresidents();
+		Collection items = new PresidentsDao().getPresidents();
 
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
@@ -110,11 +110,11 @@ public class HtmlViewTest {
 		
 		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
 		Limit limit = limitFactory.createLimit();
-		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, data.size());
+		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, items.size());
 		limit.setRowSelect(rowSelect);
 
 		CoreContextFactory factory = new DefaultCoreContextFactory(webContext);
-		CoreContext coreContext = factory.createCoreContext(data, limit);
+		CoreContext coreContext = factory.createCoreContext(items, limit);
 		
 		return coreContext;
 	}
