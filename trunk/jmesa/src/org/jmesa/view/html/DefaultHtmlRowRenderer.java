@@ -26,6 +26,7 @@ public class DefaultHtmlRowRenderer extends AbstractHtmlRowRenderer {
 		setCoreContext(coreContext);
 	}
 	
+	@Override
 	public Object render(HtmlRow row, Object item, int rowcount) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.tr(1);

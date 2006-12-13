@@ -25,7 +25,8 @@ public class DefaultHtmlHeaderRenderer extends AbstractHtmlHeaderRenderer {
 	public DefaultHtmlHeaderRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
-
+	
+	@Override
 	public Object render(HtmlColumn column) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.td(2);

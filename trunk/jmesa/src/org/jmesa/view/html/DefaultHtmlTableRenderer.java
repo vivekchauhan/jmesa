@@ -26,6 +26,7 @@ public class DefaultHtmlTableRenderer extends AbstractHtmlTableRenderer {
 		setCoreContext(coreContext);
 	}
 	
+	@Override
 	public Object render(HtmlTable table) {
 		HtmlBuilder html = new HtmlBuilder();
 		html.table(0);
