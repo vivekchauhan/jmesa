@@ -15,15 +15,11 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.view.AbstractRenderer;
 import org.jmesa.view.FilterRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlFilterRenderer extends AbstractRenderer implements FilterRenderer {
-	public Object render(String title) {
-		return null;
-	}
+public interface HtmlFilterRenderer extends FilterRenderer {
 }

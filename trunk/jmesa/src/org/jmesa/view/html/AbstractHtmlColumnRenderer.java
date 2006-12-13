@@ -15,18 +15,36 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.view.ColumnRenderer;
+import org.jmesa.view.AbstractColumnRenderer;
+import org.jmesa.view.Column;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlColumnRenderer extends ColumnRenderer {
-	public String getStyle();
+public abstract class AbstractHtmlColumnRenderer extends AbstractColumnRenderer implements HtmlColumnRenderer {
+	private String style;
+	private String styleClass;
 	
-	public void setStyle(String style);
+	public String getStyle() {
+		return style;
+	}
+	
+	public void setStyle(String style) {
+		this.style = style;
+	}
 
-	public String getStyleClass();
+	public String getStyleClass() {
+		return styleClass;
+	}
 
-	public void setStyleClass(String styleClass);
+	public void setStyleClass(String styleClass) {
+		this.styleClass = styleClass;
+	}
+
+	public Object render(Column column, Object item, int rowcount) {
+		return render((HtmlColumn)column, item, rowcount);
+	}
+	
+	public abstract Object render(HtmlColumn column, Object item, int rowcount);
 }

@@ -48,7 +48,7 @@ public class HtmlView implements View {
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
 		HtmlRow row = (HtmlRow)table.getRow();
-		List<Column> columns = table.getRow().getColumns();
+		List columns = table.getRow().getColumns();
 
 		themeStart(html, table);
 		
@@ -108,7 +108,7 @@ public class HtmlView implements View {
         html.tbodyEnd(1);
     }
 	
-	protected void header(HtmlBuilder html, List<Column> columns) {
+	protected void header(HtmlBuilder html, List<HtmlColumn> columns) {
 		html.tr(1).close();
 		
 		for (Column column : columns) {
@@ -118,7 +118,7 @@ public class HtmlView implements View {
 		html.trEnd(1);
     }
 	
-	protected void body(HtmlBuilder html, HtmlRow row, List<Column> columns) {
+	protected void body(HtmlBuilder html, HtmlRow row, List<HtmlColumn> columns) {
 		int rowcount = 0;
 		Collection items = coreContext.getPageItems();
 		for (Object item : items) {

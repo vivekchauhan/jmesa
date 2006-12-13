@@ -13,12 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.html;
+
+import org.jmesa.core.CoreContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface CalcRenderer {
-	public Object render();
+public class DefaultHtmlHeaderRenderer extends AbstractHtmlHeaderRenderer {
+	public DefaultHtmlHeaderRenderer(CoreContext coreContext) {
+		setCoreContext(coreContext);
+	}
+
+	public Object render(HtmlColumn column) {
+		HtmlBuilder html = new HtmlBuilder();
+		html.td(2);
+		html.style(getStyle());
+		html.styleClass(getStyleClass());
+		html.close();
+		html.append(getTitle(column.getTitle(), column.getProperty()));
+		html.tdEnd();
+		
+		return html;
+	}
 }

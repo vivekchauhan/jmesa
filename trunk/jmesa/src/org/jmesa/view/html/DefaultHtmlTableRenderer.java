@@ -15,18 +15,27 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.view.HeaderRenderer;
+import org.jmesa.core.CoreContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlHeaderRenderer extends HeaderRenderer {
-	public String getStyle();
+public class DefaultHtmlTableRenderer extends AbstractHtmlTableRenderer {
+	public DefaultHtmlTableRenderer(CoreContext coreContext) {
+		setCoreContext(coreContext);
+	}
+	
+	public Object render(HtmlTable table) {
+		HtmlBuilder html = new HtmlBuilder();
+		html.table(0);
+		String id = getCoreContext().getLimit().getId();
+		html.id(id);
+		html.border(getBorder()).cellpadding(getCellpadding()).cellspacing(getCellspacing());
+		html.style(getStyle());
+		html.styleClass(getStyleClass());
+		html.close();
 
-	public void setStyle(String style);
-
-	public String getStyleClass();
-
-	public void setStyleClass(String styleClass);
+		return html;
+	}
 }

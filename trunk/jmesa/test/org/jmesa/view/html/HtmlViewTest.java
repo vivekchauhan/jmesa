@@ -38,7 +38,6 @@ import org.jmesa.web.WebContext;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-
 /**
  * @since 2.0
  * @author Jeff Johnston
@@ -54,22 +53,22 @@ public class HtmlViewTest {
 		// create the table
 		HtmlTable table = new DefaultHtmlTable();
 		table.setTheme("jmesa");
-		HtmlTableRenderer tableRenderer = new HtmlTableRenderer(coreContext);
+		HtmlTableRenderer tableRenderer = new DefaultHtmlTableRenderer(coreContext);
 		tableRenderer.setStyleClass("table");
 		table.setTableRenderer(tableRenderer);
 		
 		// create the row
 		HtmlRow row = new DefaultHtmlRow();
 		row.setHighlighter(true);
-		HtmlRowRenderer rowRenderer = new HtmlRowRenderer(coreContext);
+		HtmlRowRenderer rowRenderer = new DefaultHtmlRowRenderer(coreContext);
 		rowRenderer.setHighlightClass("highlight");
 		row.setRowRenderer(rowRenderer);
 		table.setRow(row);
 		
 		// create some reusable objects
 		ColumnValue columnValue = new DefaultColumnValue();
-		HtmlColumnRenderer columnRenderer = new HtmlColumnRenderer(columnValue, coreContext);
-		HtmlHeaderRenderer headerRenderer = new HtmlHeaderRenderer(coreContext);
+		HtmlColumnRenderer columnRenderer = new DefaultHtmlColumnRenderer(columnValue, coreContext);
+		HtmlHeaderRenderer headerRenderer = new DefaultHtmlHeaderRenderer(coreContext);
 		headerRenderer.setStyleClass("header");
 
 		// create the columns

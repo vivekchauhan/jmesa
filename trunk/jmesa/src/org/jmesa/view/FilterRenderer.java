@@ -20,5 +20,5 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public interface FilterRenderer {
-	public Object render(String title);
+	public Object render(Column column);
 }

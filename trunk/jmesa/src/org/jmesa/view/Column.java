@@ -15,7 +15,6 @@
  */
 package org.jmesa.view;
 
-import java.util.List;
 
 /**
  * @since 2.0
@@ -37,8 +36,4 @@ public interface Column {
 	public HeaderRenderer getHeaderRenderer();
 	
 	public void setHeaderRenderer(HeaderRenderer headerRenderer);
-
-	public List<CalcRenderer> getCalcRenderers();
-	
-	public void addCalcRenderer(CalcRenderer calcRenderer);
 }

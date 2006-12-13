@@ -15,18 +15,36 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.view.HeaderRenderer;
+import org.jmesa.view.AbstractHeaderRenderer;
+import org.jmesa.view.Column;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlHeaderRenderer extends HeaderRenderer {
-	public String getStyle();
+public abstract class AbstractHtmlHeaderRenderer extends AbstractHeaderRenderer implements HtmlHeaderRenderer {
+	private String style;
+	private String styleClass;
 
-	public void setStyle(String style);
+	public String getStyle() {
+		return style;
+	}
 
-	public String getStyleClass();
+	public void setStyle(String style) {
+		this.style = style;
+	}
 
-	public void setStyleClass(String styleClass);
+	public String getStyleClass() {
+		return styleClass;
+	}
+
+	public void setStyleClass(String styleClass) {
+		this.styleClass = styleClass;
+	}
+
+	public Object render(Column column) {
+		return render((HtmlColumn)column);
+	}
+	
+	public abstract Object render(HtmlColumn column);
 }

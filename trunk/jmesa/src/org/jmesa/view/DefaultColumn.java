@@ -15,8 +15,6 @@
  */
 package org.jmesa.view;
 
-import java.util.List;
-
 /**
  * @since 2.0
  * @author Jeff Johnston
@@ -26,7 +24,6 @@ public class DefaultColumn implements Column {
 	private String title;
 	private ColumnRenderer columnRenderer;
 	private HeaderRenderer headerRenderer;
-	private List<CalcRenderer> calcRenderers;
 	
 	public DefaultColumn(){}
 	
@@ -64,13 +61,5 @@ public class DefaultColumn implements Column {
 
 	public void setHeaderRenderer(HeaderRenderer headerRenderer) {
 		this.headerRenderer = headerRenderer;
-	}
-
-	public List<CalcRenderer> getCalcRenderers() {
-		return calcRenderers;
-	}
-
-	public void addCalcRenderer(CalcRenderer calcRenderer) {
-		calcRenderers.add(calcRenderer);
 	}
 }

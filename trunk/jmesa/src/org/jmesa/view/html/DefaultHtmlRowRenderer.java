@@ -15,18 +15,26 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.view.HeaderRenderer;
+import org.jmesa.core.CoreContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlHeaderRenderer extends HeaderRenderer {
-	public String getStyle();
-
-	public void setStyle(String style);
-
-	public String getStyleClass();
-
-	public void setStyleClass(String styleClass);
+public class DefaultHtmlRowRenderer extends AbstractHtmlRowRenderer {
+	public DefaultHtmlRowRenderer(CoreContext coreContext) {
+		setCoreContext(coreContext);
+	}
+	
+	public Object render(HtmlRow row, Object item, int rowcount) {
+		HtmlBuilder html = new HtmlBuilder();
+		html.tr(1);
+		html.style(getStyle());
+		html.styleClass(getStyleClass(rowcount));
+		html.onmouseover(getOnmouseover(row.isHighlighter(), row.getOnmouseover()));
+		html.onmouseout(getOnmouseout(row.isHighlighter(), row.getOnmouseout(), rowcount));
+		html.close();
+		
+		return html;
+	}
 }

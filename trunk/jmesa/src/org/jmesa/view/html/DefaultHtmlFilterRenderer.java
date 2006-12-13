@@ -15,18 +15,19 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.view.HeaderRenderer;
+import org.jmesa.core.CoreContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlHeaderRenderer extends HeaderRenderer {
-	public String getStyle();
+public class DefaultHtmlFilterRenderer extends AbstractHtmlFilterRenderer {
+	public DefaultHtmlFilterRenderer(CoreContext coreContext) {
+		setCoreContext(coreContext);
+	}
 
-	public void setStyle(String style);
-
-	public String getStyleClass();
-
-	public void setStyleClass(String styleClass);
+	@Override
+	public Object render(HtmlColumn column) {
+		return null;
+	}
 }
