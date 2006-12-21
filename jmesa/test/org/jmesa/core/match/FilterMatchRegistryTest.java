@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 
 import org.jmesa.core.match.FilterMatch;
-import org.jmesa.core.match.FilterMatchKey;
+import org.jmesa.core.match.MatchKey;
 import org.jmesa.core.match.FilterMatchRegistry;
 import org.jmesa.core.match.FilterMatchRegistryImpl;
 import org.jmesa.core.match.StringMatch;
@@ -35,8 +35,8 @@ public class FilterMatchRegistryTest {
 	@Test
 	public void getMatch() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new FilterMatchKey(String.class), new StringMatch());
-		FilterMatchKey key = new FilterMatchKey(String.class, "pres", "name");
+		registry.addFilterMatch(new MatchKey(String.class), new StringMatch());
+		MatchKey key = new MatchKey(String.class, "pres", "name");
 		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
@@ -44,8 +44,8 @@ public class FilterMatchRegistryTest {
 	@Test
 	public void getMatchWithId() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new FilterMatchKey(String.class, "pres"), new StringMatch());
-		FilterMatchKey key = new FilterMatchKey(String.class, "pres", "name");
+		registry.addFilterMatch(new MatchKey(String.class, "pres"), new StringMatch());
+		MatchKey key = new MatchKey(String.class, "pres", "name");
 		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
@@ -53,8 +53,8 @@ public class FilterMatchRegistryTest {
 	@Test
 	public void getMatchKeyWithIdAndProperty() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new FilterMatchKey(String.class, "pres", "name"), new StringMatch());
-		FilterMatchKey key = new FilterMatchKey(String.class, "pres", "name");
+		registry.addFilterMatch(new MatchKey(String.class, "pres", "name"), new StringMatch());
+		MatchKey key = new MatchKey(String.class, "pres", "name");
 		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
@@ -62,8 +62,8 @@ public class FilterMatchRegistryTest {
 	@Test
 	public void getMatchKeyWithErrors() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new FilterMatchKey(Date.class), new StringMatch());
-		FilterMatchKey key = new FilterMatchKey(String.class);
+		registry.addFilterMatch(new MatchKey(Date.class), new StringMatch());
+		MatchKey key = new MatchKey(String.class);
 		try {
 			FilterMatch result = registry.getFilterMatch(key);
 			assertTrue(key.equals(result));

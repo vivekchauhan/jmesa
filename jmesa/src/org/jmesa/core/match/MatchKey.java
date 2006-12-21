@@ -37,7 +37,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FilterMatchKey {
+public class MatchKey {
 	private final Class type;
 	private final String id;
 	private final String property;
@@ -47,7 +47,7 @@ public class FilterMatchKey {
 	 * 
 	 * @param type
 	 */
-	public FilterMatchKey(Class type) {
+	public MatchKey(Class type) {
 		this(type, null, null);
 	}
 	
@@ -57,7 +57,7 @@ public class FilterMatchKey {
 	 * @param id
 	 * @param type
 	 */
-	public FilterMatchKey(Class type, String id) {
+	public MatchKey(Class type, String id) {
 		this(type, id, null);
 	}
 	
@@ -68,7 +68,7 @@ public class FilterMatchKey {
 	 * @param property
 	 * @param type
 	 */
-	public FilterMatchKey(Class type, String id, String property) {
+	public MatchKey(Class type, String id, String property) {
 		this.type = type;
 		this.id = id;
 		this.property = property;
@@ -91,10 +91,10 @@ public class FilterMatchKey {
         if (o == this)
             return true;
 
-        if (!(o instanceof FilterMatchKey))
+        if (!(o instanceof MatchKey))
             return false;
 
-        FilterMatchKey that = (FilterMatchKey) o;
+        MatchKey that = (MatchKey) o;
         
         return new EqualsBuilder()
         			.append(getType(), that.getType())

@@ -18,7 +18,7 @@ package org.jmesa.core;
 import java.util.Collection;
 
 import org.jmesa.core.match.FilterMatch;
-import org.jmesa.core.match.FilterMatchKey;
+import org.jmesa.core.match.MatchKey;
 import org.jmesa.core.match.FilterMatchRegistry;
 import org.jmesa.core.match.FilterMatchRegistryImpl;
 import org.jmesa.core.match.StringMatch;
@@ -51,7 +51,7 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 	protected FilterMatchRegistry getFilterMatchRegistry() {
 		if (registry == null) {
 			registry = new FilterMatchRegistryImpl();
-			FilterMatchKey key = new FilterMatchKey(String.class);
+			MatchKey key = new MatchKey(String.class);
 			FilterMatch match = new StringMatch();
 			registry.addFilterMatch(key, match);
 		}
@@ -63,7 +63,7 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 		this.registry = registry;
 	}
 	
-	public void addFilterMatch(FilterMatchKey key, FilterMatch match) {
+	public void addFilterMatch(MatchKey key, FilterMatch match) {
 		getFilterMatchRegistry().addFilterMatch(key, match);
 	}
 	
