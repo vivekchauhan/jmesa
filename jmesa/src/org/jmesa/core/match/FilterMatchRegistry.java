@@ -22,7 +22,7 @@ package org.jmesa.core.match;
  * @author Jeff Johnston
  */
 public interface FilterMatchRegistry {
-	public void addMatch(FilterMatchKey key, FilterMatch match);
+	public void addFilterMatch(FilterMatchKey key, FilterMatch match);
 	
-	public FilterMatch getMatch(FilterMatchKey key);
+	public FilterMatch getFilterMatch(FilterMatchKey key);
 }

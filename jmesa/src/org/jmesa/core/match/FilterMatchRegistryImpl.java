@@ -25,11 +25,11 @@ import java.util.Map;
 public class FilterMatchRegistryImpl implements FilterMatchRegistry {
 	private Map<FilterMatchKey, FilterMatch> matches = new HashMap<FilterMatchKey, FilterMatch>();
 	
-	public void addMatch(FilterMatchKey key, FilterMatch match) {
+	public void addFilterMatch(FilterMatchKey key, FilterMatch match) {
 		matches.put(key, match);
 	}
 
-	public FilterMatch getMatch(FilterMatchKey key) {
+	public FilterMatch getFilterMatch(FilterMatchKey key) {
 		FilterMatch match = matches.get(key);
 		
 		if (match == null) {

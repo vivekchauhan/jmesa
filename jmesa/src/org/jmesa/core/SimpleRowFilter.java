@@ -76,7 +76,7 @@ public class SimpleRowFilter implements RowFilter {
                 
                 if(value != null) {
                 	FilterMatchKey key = new FilterMatchKey(value.getClass(), limit.getId(), property);
-                    FilterMatch match = registry.getMatch(key);
+                    FilterMatch match = registry.getFilterMatch(key);
                     matches.put(filter, match);
                 }
             }
