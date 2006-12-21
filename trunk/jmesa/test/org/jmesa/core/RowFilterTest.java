@@ -50,7 +50,7 @@ public class RowFilterTest {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
 		FilterMatchKey key = new FilterMatchKey(String.class);
 		FilterMatch match = new StringMatch();
-		registry.addMatch(key, match);
+		registry.addFilterMatch(key, match);
 		
 		RowFilter itemsFilter = new SimpleRowFilter(registry);
 		

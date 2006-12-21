@@ -48,28 +48,28 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 		this.enableFilterAndSort = enableFilterAndSort;
 	}
 
-	protected FilterMatchRegistry getMatchRegistry() {
+	protected FilterMatchRegistry getFilterMatchRegistry() {
 		if (registry == null) {
 			registry = new FilterMatchRegistryImpl();
 			FilterMatchKey key = new FilterMatchKey(String.class);
 			FilterMatch match = new StringMatch();
-			registry.addMatch(key, match);
+			registry.addFilterMatch(key, match);
 		}
 
 		return registry;
 	}
 	
-	public void setMatchRegistry(FilterMatchRegistry registry) {
+	public void setFilterMatchRegistry(FilterMatchRegistry registry) {
 		this.registry = registry;
 	}
 	
-	public void addMatch(FilterMatchKey key, FilterMatch match) {
-		getMatchRegistry().addMatch(key, match);
+	public void addFilterMatch(FilterMatchKey key, FilterMatch match) {
+		getFilterMatchRegistry().addFilterMatch(key, match);
 	}
 	
 	protected RowFilter getRowFilter() {
 		if (rowFilter == null) {
-			rowFilter = new SimpleRowFilter(getMatchRegistry());
+			rowFilter = new SimpleRowFilter(getFilterMatchRegistry());
 		}
 		
 		return rowFilter;

@@ -35,37 +35,37 @@ public class FilterMatchRegistryTest {
 	@Test
 	public void getMatch() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addMatch(new FilterMatchKey(String.class), new StringMatch());
+		registry.addFilterMatch(new FilterMatchKey(String.class), new StringMatch());
 		FilterMatchKey key = new FilterMatchKey(String.class, "pres", "name");
-		FilterMatch result = registry.getMatch(key);
+		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
 
 	@Test
 	public void getMatchWithId() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addMatch(new FilterMatchKey(String.class, "pres"), new StringMatch());
+		registry.addFilterMatch(new FilterMatchKey(String.class, "pres"), new StringMatch());
 		FilterMatchKey key = new FilterMatchKey(String.class, "pres", "name");
-		FilterMatch result = registry.getMatch(key);
+		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
 
 	@Test
 	public void getMatchKeyWithIdAndProperty() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addMatch(new FilterMatchKey(String.class, "pres", "name"), new StringMatch());
+		registry.addFilterMatch(new FilterMatchKey(String.class, "pres", "name"), new StringMatch());
 		FilterMatchKey key = new FilterMatchKey(String.class, "pres", "name");
-		FilterMatch result = registry.getMatch(key);
+		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
 
 	@Test
 	public void getMatchKeyWithErrors() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addMatch(new FilterMatchKey(Date.class), new StringMatch());
+		registry.addFilterMatch(new FilterMatchKey(Date.class), new StringMatch());
 		FilterMatchKey key = new FilterMatchKey(String.class);
 		try {
-			FilterMatch result = registry.getMatch(key);
+			FilterMatch result = registry.getFilterMatch(key);
 			assertTrue(key.equals(result));
 		} catch (IllegalArgumentException e) {
 			// pass
