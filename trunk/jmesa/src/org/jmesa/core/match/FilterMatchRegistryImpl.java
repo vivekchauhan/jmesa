@@ -23,24 +23,24 @@ import java.util.Map;
  * @author Jeff Johnston
  */
 public class FilterMatchRegistryImpl implements FilterMatchRegistry {
-	private Map<FilterMatchKey, FilterMatch> matches = new HashMap<FilterMatchKey, FilterMatch>();
+	private Map<MatchKey, FilterMatch> matches = new HashMap<MatchKey, FilterMatch>();
 	
-	public void addFilterMatch(FilterMatchKey key, FilterMatch match) {
+	public void addFilterMatch(MatchKey key, FilterMatch match) {
 		matches.put(key, match);
 	}
 
-	public FilterMatch getFilterMatch(FilterMatchKey key) {
+	public FilterMatch getFilterMatch(MatchKey key) {
 		FilterMatch match = matches.get(key);
 		
 		if (match == null) {
 			// take off property and see if find match
-			key = new FilterMatchKey(key.getType(), key.getId(), null); 
+			key = new MatchKey(key.getType(), key.getId(), null); 
 			match = matches.get(key);
 		}
 		
 		if (match == null) {
 			// take off id and property and see if find match
-			key = new FilterMatchKey(key.getType(), null, null);
+			key = new MatchKey(key.getType(), null, null);
 			match = matches.get(key);
 		}
 

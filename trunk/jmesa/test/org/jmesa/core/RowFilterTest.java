@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.jmesa.core.SimpleRowFilter;
 import org.jmesa.core.match.FilterMatch;
-import org.jmesa.core.match.FilterMatchKey;
+import org.jmesa.core.match.MatchKey;
 import org.jmesa.core.match.FilterMatchRegistry;
 import org.jmesa.core.match.FilterMatchRegistryImpl;
 import org.jmesa.core.match.StringMatch;
@@ -48,7 +48,7 @@ public class RowFilterTest {
 	@Test
 	public void filterItems() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		FilterMatchKey key = new FilterMatchKey(String.class);
+		MatchKey key = new MatchKey(String.class);
 		FilterMatch match = new StringMatch();
 		registry.addFilterMatch(key, match);
 		
