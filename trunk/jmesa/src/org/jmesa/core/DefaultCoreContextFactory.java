@@ -40,7 +40,7 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 	private boolean enableFilterAndSort;
 	
 	public DefaultCoreContextFactory(WebContext webContext) {
-		this.webContext = webContext;
+		this(webContext, true);
 	}
 	
 	public DefaultCoreContextFactory(WebContext webContext, boolean enableFilterAndSort) {
