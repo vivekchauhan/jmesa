@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.match;
+package org.jmesa.core.item;
+
+import java.util.Collection;
 
 /**
- * Register and then retrive Match objects.
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface FilterMatchRegistry {
-	public void addFilterMatch(MatchKey key, FilterMatch match);
+public interface Items {
+	public Collection getAllItems();
 	
-	public FilterMatch getFilterMatch(MatchKey key);
+	public Collection getPageItems();
+	
+	public Collection getFilteredItems();
+	
+	public Collection getSortedItems();
 }

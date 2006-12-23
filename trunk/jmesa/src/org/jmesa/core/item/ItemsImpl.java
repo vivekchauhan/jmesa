@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.item;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jmesa.core.filter.RowFilter;
+import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
 
 /**

@@ -13,16 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.preference;
 
-import java.util.Collection;
+import static org.junit.Assert.*;
 
-import org.jmesa.limit.Limit;
+import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.preference.PropertiesPreferences;
+import org.junit.Test;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ColumnSort {
-	public Collection sortItems(Collection items, Limit limit);
+public class PreferencesTest {
+	@Test
+	public void getPreference() {
+		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/test.properties");
+		String preference = preferences.getPreference("test.data");
+		assertNotNull(preference);
+		assertTrue(preference.equals("foo"));
+	}
 }

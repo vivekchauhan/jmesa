@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.filter;
 
 import java.util.Map;
 import java.util.logging.Level;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
-import org.jmesa.core.match.FilterMatch;
+import org.jmesa.core.filter.match.FilterMatch;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 

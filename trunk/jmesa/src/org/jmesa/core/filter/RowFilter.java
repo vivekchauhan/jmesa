@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.filter;
 
+import java.util.Collection;
+
+import org.jmesa.limit.Limit;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Messages {
-    public String getMessage(String code);
-    
-    public String getMessage(String code, Object[] args);
+public interface RowFilter {
+	public Collection filterItems(Collection items, Limit limit);
 }

@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
-
-import java.util.Collection;
-
-import org.jmesa.limit.Limit;
+package org.jmesa.core.filter.match;
 
 /**
+ * Register and then retrive Match objects.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultRowFilter implements RowFilter {
-	public Collection filterItems(Collection items, Limit limit) {
-		return items;
-	}
+public interface FilterMatchRegistry {
+	public void addFilterMatch(MatchKey key, FilterMatch match);
+	
+	public FilterMatch getFilterMatch(MatchKey key);
 }

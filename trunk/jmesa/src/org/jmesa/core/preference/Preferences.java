@@ -13,22 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.preference;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PreferencesTest {
-	@Test
-	public void getPreference() {
-		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/test.properties");
-		String preference = preferences.getPreference("test.data");
-		assertNotNull(preference);
-		assertTrue(preference.equals("foo"));
-	}
+public interface Preferences {
+    public String getPreference(String code);
 }
