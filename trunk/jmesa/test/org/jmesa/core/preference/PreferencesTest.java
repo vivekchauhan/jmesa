@@ -28,7 +28,7 @@ import org.junit.Test;
 public class PreferencesTest {
 	@Test
 	public void getPreference() {
-		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/test.properties");
+		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/preference/test.properties");
 		String preference = preferences.getPreference("test.data");
 		assertNotNull(preference);
 		assertTrue(preference.equals("foo"));
