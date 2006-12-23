@@ -20,7 +20,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
-import org.jmesa.core.Messages;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.message.resource.ResourceBundleMessages;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;

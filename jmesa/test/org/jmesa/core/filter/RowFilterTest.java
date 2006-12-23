@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.filter;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,12 +21,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jmesa.core.SimpleRowFilter;
-import org.jmesa.core.match.FilterMatch;
-import org.jmesa.core.match.MatchKey;
-import org.jmesa.core.match.FilterMatchRegistry;
-import org.jmesa.core.match.FilterMatchRegistryImpl;
-import org.jmesa.core.match.StringMatch;
+import org.jmesa.core.PresidentsDao;
+import org.jmesa.core.filter.RowFilter;
+import org.jmesa.core.filter.SimpleRowFilter;
+import org.jmesa.core.filter.match.FilterMatch;
+import org.jmesa.core.filter.match.FilterMatchRegistry;
+import org.jmesa.core.filter.match.FilterMatchRegistryImpl;
+import org.jmesa.core.filter.match.MatchKey;
+import org.jmesa.core.filter.match.StringMatch;
 import org.jmesa.limit.DefaultLimitFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;

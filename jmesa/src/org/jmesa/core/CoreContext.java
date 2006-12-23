@@ -15,6 +15,9 @@
  */
 package org.jmesa.core;
 
+import org.jmesa.core.item.Items;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
 
 /**

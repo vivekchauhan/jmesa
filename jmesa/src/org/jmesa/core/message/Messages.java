@@ -13,24 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.match;
+package org.jmesa.core.message;
 
-import org.apache.commons.lang.StringUtils;
 
 /**
- * Will do a case insensitive string match.
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public class StringMatch implements FilterMatch {
-	public boolean evaluate(Object itemValue, String matchValue) {
-		String item = StringUtils.lowerCase((String)itemValue);
-		String match = StringUtils.lowerCase((String)matchValue);
-		if (StringUtils.contains(item, match)) {
-			return true;
-		}
-
-		return false;
-	}
+public interface Messages {
+    public String getMessage(String code);
+    
+    public String getMessage(String code, Object[] args);
 }

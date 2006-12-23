@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.resource;
+package org.jmesa.core.message.resource;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jmesa.core.Messages;
+import org.jmesa.core.message.Messages;
 import org.jmesa.web.WebContext;
 
 /**

@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.sort;
 
+import java.util.Collection;
+
+import org.jmesa.limit.Limit;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Preferences {
-    public String getPreference(String code);
+public interface ColumnSort {
+	public Collection sortItems(Collection items, Limit limit);
 }

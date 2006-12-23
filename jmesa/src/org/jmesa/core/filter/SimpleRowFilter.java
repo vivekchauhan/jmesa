@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.filter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,9 +24,9 @@ import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.jmesa.core.match.FilterMatch;
-import org.jmesa.core.match.MatchKey;
-import org.jmesa.core.match.FilterMatchRegistry;
+import org.jmesa.core.filter.match.FilterMatch;
+import org.jmesa.core.filter.match.FilterMatchRegistry;
+import org.jmesa.core.filter.match.MatchKey;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;

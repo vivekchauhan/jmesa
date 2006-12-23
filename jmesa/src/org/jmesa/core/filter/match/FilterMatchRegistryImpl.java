@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.match;
+package org.jmesa.core.filter.match;
 
 import java.util.HashMap;
 import java.util.Map;

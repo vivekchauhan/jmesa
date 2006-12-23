@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.sort;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +22,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.jmesa.core.MultiColumnSort;
+import org.jmesa.core.President;
+import org.jmesa.core.PresidentsDao;
+import org.jmesa.core.sort.MultiColumnSort;
 import org.jmesa.limit.DefaultLimitFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;

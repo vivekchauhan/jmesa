@@ -13,16 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core;
+package org.jmesa.core.filter.match;
 
-import java.util.Collection;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.jmesa.limit.Limit;
+import org.jmesa.core.filter.match.StringMatch;
+import org.junit.Test;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface RowFilter {
-	public Collection filterItems(Collection items, Limit limit);
+public class StringMatchTest {
+	@Test
+	public void evaluateTest() {
+		StringMatch match = new StringMatch();
+
+		boolean evaluate = match.evaluate(null, "geo");
+		assertFalse(evaluate);
+
+		evaluate = match.evaluate("george", null);
+		assertFalse(evaluate);
+
+		evaluate = match.evaluate("george", "geo");
+		assertTrue(evaluate);
+
+		evaluate = match.evaluate("George", "Geo");
+		assertTrue(evaluate);
+	}
 }

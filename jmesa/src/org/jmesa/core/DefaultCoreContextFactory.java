@@ -17,12 +17,23 @@ package org.jmesa.core;
 
 import java.util.Collection;
 
-import org.jmesa.core.match.FilterMatch;
-import org.jmesa.core.match.MatchKey;
-import org.jmesa.core.match.FilterMatchRegistry;
-import org.jmesa.core.match.FilterMatchRegistryImpl;
-import org.jmesa.core.match.StringMatch;
-import org.jmesa.core.resource.ResourceBundleMessages;
+import org.jmesa.core.filter.DefaultRowFilter;
+import org.jmesa.core.filter.RowFilter;
+import org.jmesa.core.filter.SimpleRowFilter;
+import org.jmesa.core.filter.match.FilterMatch;
+import org.jmesa.core.filter.match.FilterMatchRegistry;
+import org.jmesa.core.filter.match.FilterMatchRegistryImpl;
+import org.jmesa.core.filter.match.MatchKey;
+import org.jmesa.core.filter.match.StringMatch;
+import org.jmesa.core.item.Items;
+import org.jmesa.core.item.ItemsImpl;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.message.resource.ResourceBundleMessages;
+import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.preference.PropertiesPreferences;
+import org.jmesa.core.sort.ColumnSort;
+import org.jmesa.core.sort.DefaultColumnSort;
+import org.jmesa.core.sort.MultiColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.web.WebContext;
 
