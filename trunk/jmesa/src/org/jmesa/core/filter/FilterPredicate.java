@@ -21,7 +21,6 @@ import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
-import org.jmesa.core.filter.match.FilterMatch;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 

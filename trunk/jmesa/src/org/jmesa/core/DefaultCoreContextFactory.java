@@ -18,13 +18,13 @@ package org.jmesa.core;
 import java.util.Collection;
 
 import org.jmesa.core.filter.DefaultRowFilter;
+import org.jmesa.core.filter.FilterMatch;
+import org.jmesa.core.filter.FilterMatchRegistry;
+import org.jmesa.core.filter.FilterMatchRegistryImpl;
+import org.jmesa.core.filter.MatchKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.filter.SimpleRowFilter;
-import org.jmesa.core.filter.match.FilterMatch;
-import org.jmesa.core.filter.match.FilterMatchRegistry;
-import org.jmesa.core.filter.match.FilterMatchRegistryImpl;
-import org.jmesa.core.filter.match.MatchKey;
-import org.jmesa.core.filter.match.StringMatch;
+import org.jmesa.core.filter.StringMatch;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.ResourceBundleMessages;
 import org.jmesa.core.preference.Preferences;
