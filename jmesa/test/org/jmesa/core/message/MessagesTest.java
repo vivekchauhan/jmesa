@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.resource;
+package org.jmesa.core.message;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -21,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Locale;
 
 import org.jmesa.core.message.Messages;
-import org.jmesa.core.message.resource.ResourceBundleMessages;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -38,7 +37,7 @@ public class MessagesTest {
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setLocale(Locale.US);
 
-		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.resource.testResourceBundle");
+		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.message.testResourceBundle");
 		String message = messages.getMessage("test.normal");
 		assertNotNull(message);
 		assertTrue(message.equals("foo"));

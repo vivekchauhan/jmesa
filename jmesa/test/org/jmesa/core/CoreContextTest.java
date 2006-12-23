@@ -28,7 +28,7 @@ import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.item.Items;
 import org.jmesa.core.item.ItemsImpl;
 import org.jmesa.core.message.Messages;
-import org.jmesa.core.message.resource.ResourceBundleMessages;
+import org.jmesa.core.message.ResourceBundleMessages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.core.sort.ColumnSort;
@@ -71,7 +71,7 @@ public class CoreContextTest {
 		Items items = new ItemsImpl(data, limit, rowFilter, columnSort);
 		
 		Preferences preferences = new PropertiesPreferences(webContext, "/org/jmesa/core/test.properties");
-		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.resource.testResourceBundle");
+		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.message.testResourceBundle");
 
 		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages);
 		

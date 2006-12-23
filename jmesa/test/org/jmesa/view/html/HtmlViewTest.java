@@ -110,7 +110,7 @@ public class HtmlViewTest {
 		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, items.size());
 		limit.setRowSelect(rowSelect);
 
-		CoreContextFactory factory = new DefaultCoreContextFactory(webContext);
+		CoreContextFactory factory = new DefaultCoreContextFactory(webContext, false);
 		CoreContext coreContext = factory.createCoreContext(items, limit);
 		
 		return coreContext;

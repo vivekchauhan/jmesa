@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.message.resource;
+package org.jmesa.core.message;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -23,7 +23,6 @@ import java.util.ResourceBundle;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jmesa.core.message.Messages;
 import org.jmesa.web.WebContext;
 
 /**
@@ -33,7 +32,7 @@ import org.jmesa.web.WebContext;
 public class ResourceBundleMessages implements Messages {
     private static Log logger = LogFactory.getLog(ResourceBundleMessages.class);
 
-    private final static String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/resource/jmesaResourceBundle";
+    private final static String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/resource/jmesaResourceBundle";
 
     private ResourceBundle customResourceBundle;
     private ResourceBundle defaultResourceBundle;
