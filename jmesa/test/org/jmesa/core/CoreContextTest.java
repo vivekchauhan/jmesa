@@ -25,8 +25,6 @@ import java.util.Map;
 
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.RowFilter;
-import org.jmesa.core.item.Items;
-import org.jmesa.core.item.ItemsImpl;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.ResourceBundleMessages;
 import org.jmesa.core.preference.Preferences;
