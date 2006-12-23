@@ -13,24 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.filter.match;
+package org.jmesa.core.filter;
 
-import org.apache.commons.lang.StringUtils;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.jmesa.core.filter.StringMatch;
+import org.junit.Test;
 
 /**
- * Will do a case insensitive string match.
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public class StringMatch implements FilterMatch {
-	public boolean evaluate(Object itemValue, String matchValue) {
-		String item = StringUtils.lowerCase((String)itemValue);
-		String match = StringUtils.lowerCase((String)matchValue);
-		if (StringUtils.contains(item, match)) {
-			return true;
-		}
+public class StringMatchTest {
+	@Test
+	public void evaluateTest() {
+		StringMatch match = new StringMatch();
 
-		return false;
+		boolean evaluate = match.evaluate(null, "geo");
+		assertFalse(evaluate);
+
+		evaluate = match.evaluate("george", null);
+		assertFalse(evaluate);
+
+		evaluate = match.evaluate("george", "geo");
+		assertTrue(evaluate);
+
+		evaluate = match.evaluate("George", "Geo");
+		assertTrue(evaluate);
 	}
 }

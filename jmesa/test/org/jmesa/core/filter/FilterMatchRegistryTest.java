@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.core.filter.match;
+package org.jmesa.core.filter;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.jmesa.core.filter.match.FilterMatch;
-import org.jmesa.core.filter.match.FilterMatchRegistry;
-import org.jmesa.core.filter.match.FilterMatchRegistryImpl;
-import org.jmesa.core.filter.match.MatchKey;
-import org.jmesa.core.filter.match.StringMatch;
+import org.jmesa.core.filter.FilterMatch;
+import org.jmesa.core.filter.FilterMatchRegistry;
+import org.jmesa.core.filter.FilterMatchRegistryImpl;
+import org.jmesa.core.filter.MatchKey;
+import org.jmesa.core.filter.StringMatch;
 import org.junit.Test;
 
 /**
