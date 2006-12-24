@@ -15,8 +15,6 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * @author Jeff Johnston
@@ -46,7 +44,7 @@ public interface ToolbarItem {
 
     public void setStyleClass(String styleClass);
 
-    public void disabled(HtmlBuilder html);
+    public String disabled();
 
-    public void enabled(HtmlBuilder html, CoreContext coreContext);
+    public String enabled();
 }

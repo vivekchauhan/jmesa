@@ -15,7 +15,7 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import org.jmesa.core.CoreContext;
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
@@ -42,14 +42,6 @@ public class ImageItem extends AbstractItem implements ToolbarItem {
         this.image = image;
     }
 
-    public void setImage() {
-
-    }
-
-    public void disabled(HtmlBuilder html) {
-        html.img().src(getDisabledImage()).style(getStyle()).alt(getAlt()).end();
-    }
-
     public String getAlt() {
         return alt;
     }
@@ -58,19 +50,27 @@ public class ImageItem extends AbstractItem implements ToolbarItem {
         this.alt = alt;
     }
 
-    public void enabled(HtmlBuilder html, CoreContext coreContext) {
+    public String disabled() {
+    	HtmlBuilder html = new HtmlBuilder();
+        html.img().src(getDisabledImage()).style(getStyle()).alt(getAlt()).end();
+        return html.toString();
+    }
+
+    public String enabled() {
+    	HtmlBuilder html = new HtmlBuilder();
         html.a();
         html.quote();
         html.append(getAction());
         html.quote().close();
 
-//        boolean showTooltips = model.getTableHandler().getTable().isShowTooltips();
-//        if (showTooltips) {
+        if (StringUtils.isBlank(getTooltip())) {
             html.img().src(getImage()).style(getStyle()).title(getTooltip()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
-//        } else {
-//            html.img().src(getImage()).style(getStyle()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).xclose();
-//        }
+        } else {
+            html.img().src(getImage()).style(getStyle()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
+        }
 
         html.aEnd();
+        
+        return html.toString();
     }
 }

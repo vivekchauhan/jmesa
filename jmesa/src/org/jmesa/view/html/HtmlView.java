@@ -28,7 +28,12 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.ToolbarBuilder;
+import org.jmesa.view.html.toolbar.FirstPageItemRenderer;
+import org.jmesa.view.html.toolbar.LastPageItemRenderer;
+import org.jmesa.view.html.toolbar.NextPageItemRenderer;
+import org.jmesa.view.html.toolbar.PrevPageItemRenderer;
+import org.jmesa.view.html.toolbar.ToolbarItem;
+import org.jmesa.view.html.toolbar.ToolbarItemFactory;
 
 /**
  * @since 2.0
@@ -172,30 +177,38 @@ public class HtmlView implements View {
 
         // end of title
 
-        html.td(2).align("right").close();
-
         // start of toolbar
+
+        html.td(2).align("right").close();
 
         html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(HtmlConstants.TOOLBAR_CSS).close();
 
         html.tr(3).close();
         
-        ToolbarBuilder toolbarBuilder = new ToolbarBuilder(html, coreContext, imagePath);
+        ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagePath, coreContext);
 
         html.td(4).close();
-        toolbarBuilder.firstPageItemAsImage();
+        ToolbarItem firstPageItem = toolbarItemFactory.createFirstPageItemAsImage();
+        FirstPageItemRenderer firstPageItemRenderer = new FirstPageItemRenderer(coreContext);
+        html.append(firstPageItemRenderer.render(firstPageItem));
         html.tdEnd();
 
         html.td(4).close();
-        toolbarBuilder.prevPageItemAsImage();
+        ToolbarItem prevPageItem = toolbarItemFactory.createPrevPageItemAsImage();
+        PrevPageItemRenderer prevPageItemRenderer = new PrevPageItemRenderer(coreContext);
+        html.append(prevPageItemRenderer.render(prevPageItem));
         html.tdEnd();
 
         html.td(4).close();
-        toolbarBuilder.nextPageItemAsImage();
+        ToolbarItem nextPageItem = toolbarItemFactory.createNextPageItemAsImage();
+        NextPageItemRenderer nextPageItemRenderer = new NextPageItemRenderer(coreContext);
+        html.append(nextPageItemRenderer.render(nextPageItem));
         html.tdEnd();
 
         html.td(4).close();
-        toolbarBuilder.lastPageItemAsImage();
+        ToolbarItem lastPageItem = toolbarItemFactory.createLastPageItemAsImage();
+        LastPageItemRenderer lastPageItemRenderer = new LastPageItemRenderer(coreContext);
+        html.append(lastPageItemRenderer.render(lastPageItem));
         html.tdEnd();
 
         html.trEnd(3);
@@ -248,20 +261,20 @@ public class HtmlView implements View {
         
         if (ViewUtils.isFilterable(columns)) {
             html.img();
-            html.src(HtmlUtils.getImage(imagePath, HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE));
+            //html.src(HtmlUtils.getImage(imagePath, HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE));
             html.style("border:0");
             html.alt("Arrow");
             html.end();
 
             html.nbsp();
 
-            ToolbarBuilder toolbarBuilder = new ToolbarBuilder(html, coreContext, imagePath);
+            //ToolbarBuilder toolbarBuilder = new ToolbarBuilder(html, coreContext, imagePath);
             
-            toolbarBuilder.filterItemAsImage();
+            //toolbarBuilder.filterItemAsImage();
 
             html.nbsp();
 
-            toolbarBuilder.clearItemAsImage();
+            //toolbarBuilder.clearItemAsImage();
         }
 
         html.tdEnd();
