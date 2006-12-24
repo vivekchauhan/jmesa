@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.html;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 
 /**
@@ -77,14 +76,5 @@ public class HtmlUtils {
         }
 
         return totalPages;
-    }	
-	
-	public static String getImage(String imagePath, String imageName) {
-        if (StringUtils.isNotBlank(imagePath)) {
-            int index = imagePath.indexOf("*.");
-            return imagePath.substring(0, index) + imageName + imagePath.substring(index + 1);
-        }
-
-        return null;
-    }	
+    }
 }

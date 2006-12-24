@@ -47,21 +47,21 @@ public class HtmlConstants {
     public final static String TOOLBAR_CSS = "toolbar";
 
     // image names
-    public final static String TOOLBAR_CLEAR_IMAGE = "clear";
-    public final static String TOOLBAR_FIRST_PAGE_IMAGE = "firstPage";
-    public final static String TOOLBAR_FIRST_PAGE_DISABLED_IMAGE = "firstPageDisabled";
-    public final static String TOOLBAR_LAST_PAGE_IMAGE = "lastPage";
-    public final static String TOOLBAR_LAST_PAGE_DISABLED_IMAGE = "lastPageDisabled";
-    public final static String TOOLBAR_NEXT_PAGE_IMAGE = "nextPage";
-    public final static String TOOLBAR_NEXT_PAGE_DISABLED_IMAGE = "nextPageDisabled";
-    public final static String TOOLBAR_PREV_PAGE_IMAGE = "prevPage";
-    public final static String TOOLBAR_PREV_PAGE_DISABLED_IMAGE = "prevPageDisabled";
-    public final static String TOOLBAR_ROWS_DISPLAYED_IMAGE = "rowsDisplayed";
-    public final static String TOOLBAR_FILTER_ARROW_IMAGE = "filterArrow";
-    public final static String TOOLBAR_FILTER_IMAGE = "filter";
-    public final static String TOOLBAR_SEPARATOR_IMAGE = "separator";
-    public final static String SORT_ASC_IMAGE = "sortAsc";
-    public final static String SORT_DESC_IMAGE = "sortDesc";
+    public final static String TOOLBAR_CLEAR_IMAGE = "clear.gif";
+    public final static String TOOLBAR_FIRST_PAGE_IMAGE = "firstPage.gif";
+    public final static String TOOLBAR_FIRST_PAGE_DISABLED_IMAGE = "firstPageDisabled.gif";
+    public final static String TOOLBAR_LAST_PAGE_IMAGE = "lastPage.gif";
+    public final static String TOOLBAR_LAST_PAGE_DISABLED_IMAGE = "lastPageDisabled.gif";
+    public final static String TOOLBAR_NEXT_PAGE_IMAGE = "nextPage.gif";
+    public final static String TOOLBAR_NEXT_PAGE_DISABLED_IMAGE = "nextPageDisabled.gif";
+    public final static String TOOLBAR_PREV_PAGE_IMAGE = "prevPage.gif";
+    public final static String TOOLBAR_PREV_PAGE_DISABLED_IMAGE = "prevPageDisabled.gif";
+    public final static String TOOLBAR_ROWS_DISPLAYED_IMAGE = "rowsDisplayed.gif";
+    public final static String TOOLBAR_FILTER_ARROW_IMAGE = "filterArrow.gif";
+    public final static String TOOLBAR_FILTER_IMAGE = "filter.gif";
+    public final static String TOOLBAR_SEPARATOR_IMAGE = "separator.gif";
+    public final static String SORT_ASC_IMAGE = "sortAsc.gif";
+    public final static String SORT_DESC_IMAGE = "sortDesc.gif";
 
     // text tooltip messages
     public final static String TOOLBAR_FIRST_PAGE_TOOLTIP = "toolbar.tooltip.firstPage";

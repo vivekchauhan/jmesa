@@ -15,8 +15,6 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * @author Jeff Johnston
@@ -77,7 +75,7 @@ public abstract class AbstractItem {
         this.styleClass = styleClass;
     }
 
-    protected abstract void disabled(HtmlBuilder html);
+    protected abstract String disabled();
 
-    protected abstract void enabled(HtmlBuilder html, CoreContext coreContext);
+    protected abstract String enabled();
 }

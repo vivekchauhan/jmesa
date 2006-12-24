@@ -15,10 +15,11 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import org.jmesa.core.CoreContext;
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class TextItem extends AbstractItem implements ToolbarItem {
@@ -32,33 +33,37 @@ public class TextItem extends AbstractItem implements ToolbarItem {
         this.text = text;
     }
 
-    public void disabled(HtmlBuilder html) {
+    public String disabled() {
+    	HtmlBuilder html = new HtmlBuilder();
         html.span().close().append(getText()).spanEnd();
+        return html.toString();
     }
 
-    public void enabled(HtmlBuilder html, CoreContext model) {
+    public String enabled() {
+    	HtmlBuilder html = new HtmlBuilder();
         html.a();
         html.quote();
         html.append(getAction());
         html.quote().close();
 
-//        boolean showTooltips = model.getTableHandler().getTable().isShowTooltips();
-//        if (showTooltips) {
+        if (StringUtils.isBlank(getTooltip())) {        
             html.span().title(getTooltip());
             html.styleClass(getStyleClass()).style(getStyle());
             html.onmouseover(getOnmouseover()).onmouseout(getOnmouseout());
             html.close();
             html.append(getText());
             html.spanEnd();
-//        } else {
-//            html.span();
-//            html.styleClass(getStyleClass()).style(getStyle());
-//            html.onmouseover(getOnmouseover()).onmouseout(getOnmouseout());
-//            html.close();
-//            html.append(getText());
-//            html.spanEnd();
-//        }
+        } else {
+            html.span();
+            html.styleClass(getStyleClass()).style(getStyle());
+            html.onmouseover(getOnmouseover()).onmouseout(getOnmouseout());
+            html.close();
+            html.append(getText());
+            html.spanEnd();
+        }
 
         html.aEnd();
+        
+        return html.toString();
     }
 }
