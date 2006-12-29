@@ -34,7 +34,7 @@ public class FirstPageItemRenderer extends ContextSupport implements ToolbarItem
 		int page = limit.getRowSelect().getPage();
 
         StringBuffer action = new StringBuffer("javascript:");
-        action.append("LimitManager.getLimit('" + limit.getId() + "').setPage('1');onInvokeAction()");
+        action.append("setPageToLimit('" + limit.getId() + "','" + 1 + "');onInvokeAction('" + limit.getId() + "')");
         item.setAction(action.toString());
 
         if (!HtmlUtils.isFirstPageEnabled(page)) {

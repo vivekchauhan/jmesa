@@ -20,7 +20,9 @@ import java.util.List;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
+import org.jmesa.limit.Order;
 import org.jmesa.limit.RowSelect;
+import org.jmesa.limit.Sort;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
@@ -34,6 +36,7 @@ import org.jmesa.view.html.toolbar.NextPageItemRenderer;
 import org.jmesa.view.html.toolbar.PrevPageItemRenderer;
 import org.jmesa.view.html.toolbar.ToolbarItem;
 import org.jmesa.view.html.toolbar.ToolbarItemFactory;
+import org.jmesa.view.html.toolbar.ToolbarItemRenderer;
 
 /**
  * @since 2.0
@@ -97,8 +100,26 @@ public class HtmlView implements View {
 		tableEnd(html);
 		
 		themeEnd(html);
+		
+		script(html);
 
 		return html;
+	}
+	
+	protected void script(HtmlBuilder html) {
+		Limit limit = coreContext.getLimit();
+		html.newline();
+		html.script();
+		html.newline();
+		html.append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
+		html.append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+		
+		for(Sort sort: limit.getSortSet().getSorts()) {
+			html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().getCode() + "','" + sort.getPosition() + "')").semicolon().newline();
+		}
+		
+		
+		html.scriptEnd();
 	}
 	
 	protected void themeStart(HtmlBuilder html, HtmlTable table) {
@@ -189,25 +210,25 @@ public class HtmlView implements View {
 
         html.td(4).close();
         ToolbarItem firstPageItem = toolbarItemFactory.createFirstPageItemAsImage();
-        FirstPageItemRenderer firstPageItemRenderer = new FirstPageItemRenderer(coreContext);
+        ToolbarItemRenderer firstPageItemRenderer = new FirstPageItemRenderer(coreContext);
         html.append(firstPageItemRenderer.render(firstPageItem));
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem prevPageItem = toolbarItemFactory.createPrevPageItemAsImage();
-        PrevPageItemRenderer prevPageItemRenderer = new PrevPageItemRenderer(coreContext);
+        ToolbarItemRenderer prevPageItemRenderer = new PrevPageItemRenderer(coreContext);
         html.append(prevPageItemRenderer.render(prevPageItem));
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem nextPageItem = toolbarItemFactory.createNextPageItemAsImage();
-        NextPageItemRenderer nextPageItemRenderer = new NextPageItemRenderer(coreContext);
+        ToolbarItemRenderer nextPageItemRenderer = new NextPageItemRenderer(coreContext);
         html.append(nextPageItemRenderer.render(nextPageItem));
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem lastPageItem = toolbarItemFactory.createLastPageItemAsImage();
-        LastPageItemRenderer lastPageItemRenderer = new LastPageItemRenderer(coreContext);
+        ToolbarItemRenderer lastPageItemRenderer = new LastPageItemRenderer(coreContext);
         html.append(lastPageItemRenderer.render(lastPageItem));
         html.tdEnd();
 

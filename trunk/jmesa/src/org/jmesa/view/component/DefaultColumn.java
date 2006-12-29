@@ -30,6 +30,7 @@ public class DefaultColumn extends ContextSupport implements Column {
 	private String title;
 	private ColumnRenderer columnRenderer;
 	private HeaderRenderer headerRenderer;
+	private Row row;
 	
 	public DefaultColumn(){}
 	
@@ -73,5 +74,13 @@ public class DefaultColumn extends ContextSupport implements Column {
 
 	public void setHeaderRenderer(HeaderRenderer headerRenderer) {
 		this.headerRenderer = headerRenderer;
+	}
+
+	public Row getRow() {
+		return row;
+	}
+
+	public void setRow(Row row) {
+		this.row = row;
 	}
 }

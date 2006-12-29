@@ -30,6 +30,7 @@ public class DefaultRow extends ContextSupport implements Row {
 	private RowRenderer rowRenderer;
 
 	public void addColumn(Column column) {
+		column.setRow(this);
 		columns.add(column);
 	}
 

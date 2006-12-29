@@ -71,8 +71,8 @@ public class SortSet implements Serializable {
                 return sort;
             }
 		}
-
-        throw new IllegalArgumentException("There is no Sort with the property [" + property + "]");
+    	
+    	return null;
     }
     
     /**

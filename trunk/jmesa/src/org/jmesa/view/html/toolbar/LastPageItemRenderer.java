@@ -35,7 +35,7 @@ public class LastPageItemRenderer extends ContextSupport implements ToolbarItemR
         int totalPages = HtmlUtils.getTotalPages(getCoreContext());
 
         StringBuffer action = new StringBuffer("javascript:");
-        action.append("LimitManager.getLimit('" + limit.getId() + "').setPage('" + (totalPages) + "');onInvokeAction()");
+        action.append("setPageToLimit('" + limit.getId() + "','" + totalPages + "');onInvokeAction('" + limit.getId() + "')");
         item.setAction(action.toString());
 
         if (!HtmlUtils.isLastPageEnabled(page, totalPages)) {
