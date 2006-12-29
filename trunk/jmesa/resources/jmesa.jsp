@@ -10,19 +10,15 @@
 
 <body>
 
-	<form name="presidentsForm">
+	<form id="foo" name="presidentsForm">
 	
 	${presidents}
 
 	</form>
 
 <script>
-var limit = new Limit('pres');
-LimitManager.addLimit(limit);
-	
-function onInvokeAction() {
-	LimitManager.getLimit('pres').createHiddenInputFields(document.presidentsForm);
-	document.presidentsForm.submit();
+function onInvokeAction(id) {
+	createHiddenInputFieldsForLimitAndSubmit(id);
 }
 </script>
 
