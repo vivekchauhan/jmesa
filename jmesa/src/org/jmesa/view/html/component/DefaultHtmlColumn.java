@@ -25,8 +25,8 @@ import org.jmesa.view.renderer.FilterRenderer;
  * @author Jeff Johnston
  */
 public class DefaultHtmlColumn extends DefaultColumn implements HtmlColumn {
-	private boolean filterable;
-	private boolean sortable;
+	private boolean filterable = true;
+	private boolean sortable = true;
 	private FilterRenderer filterRenderer;
 
 	public DefaultHtmlColumn(){}

@@ -39,9 +39,9 @@ public class HtmlConstants {
     public final static String TOOLBAR_SEPARATOR_CSS = "separator";
     public final static String STATUS_BAR_CSS = "statusBar";
     public final static String TABLE_BODY_CSS = "tableBody";
-    public final static String TABLE_HEADER_CSS = "tableHeader";
-    public final static String TABLE_HEADER_SORT_CSS = "tableHeaderSort";
-    public final static String TABLE_REGION_CSS = "tableRegion";
+    public final static String TABLE_HEADER_CSS = "header";
+    public final static String TABLE_HEADER_SORT_CSS = "headerSort";
+    public final static String TABLE_REGION_CSS = "table";
     public final static String TITLE_CSS = "title";
     public final static String TITLE_ROW_CSS = "titleRow";
     public final static String TOOLBAR_CSS = "toolbar";

@@ -1111,6 +1111,24 @@ public class HtmlBuilder {
 
         return this;
     }
+    
+    public HtmlBuilder script() {
+        append("<script>");
+
+        return this;
+    }
+    
+    public HtmlBuilder scriptEnd() {
+        append("</script>");
+
+        return this;
+    }
+
+    public HtmlBuilder semicolon() {
+        append(";");
+
+        return this;
+    }
 
     public String toString() {
         return builder.toString();

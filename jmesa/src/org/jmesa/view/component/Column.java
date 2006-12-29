@@ -39,4 +39,8 @@ public interface Column {
 	public HeaderRenderer getHeaderRenderer();
 	
 	public void setHeaderRenderer(HeaderRenderer headerRenderer);
+	
+	public Row getRow();
+	
+	public void setRow(Row row);
 }

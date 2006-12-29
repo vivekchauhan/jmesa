@@ -68,7 +68,7 @@ public class FilterSet implements Serializable {
 			}
 		}
 
-		throw new IllegalArgumentException("There is no Filter with the property [" + property + "]");
+		return null;
 	}
 	
 	/**
