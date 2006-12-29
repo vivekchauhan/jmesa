@@ -8,7 +8,7 @@ LimitManager.addLimit = function(limit) {
 }
 
 LimitManager.getLimit = function(id) {
- 	return LimitManager.limits[limit.id];
+ 	return LimitManager.limits[id];
 }
 
 function Limit(id) {
@@ -59,7 +59,7 @@ Limit.prototype.getSortSet = function() {
 }
 
 Limit.prototype.addSort = function(sort) {
- 	this.sortSet[sortSet.length] = sort;
+ 	this.sortSet[this.sortSet.length] = sort;
  }
 
 Limit.prototype.setSortSet = function(sortSet) {
@@ -71,7 +71,7 @@ Limit.prototype.getFilterSet = function() {
 }
 
 Limit.prototype.addFilter = function(filter) {
- 	this.filterSet[filterSet.length] = filter;
+ 	this.filterSet[this.filterSet.length] = filter;
  }
 
 Limit.prototype.setFilterSet = function(filterSet) {
@@ -86,6 +86,75 @@ Limit.prototype.createHiddenInputFields = function(form) {
 	input.name = this.id + '_' + 'p_';
 	input.value = this.page;
 	form.appendChild(input);
+	
+	for (var i = 0; i < this.sortSet.length; i++) {
+		var sort = this.sortSet[i];
+
+		var input = document.createElement('input');
+		input.type = 'hidden';
+		input.name = this.id + '_' + 's_' + sort.position + '_' + sort.property;
+		input.value = sort.order;
+		form.appendChild(input);
+	}
+}
+
+/* convenience methods so do not have to manually work with the api */
+
+function addLimitToManager(id) {
+	var limit = new Limit(id);
+	LimitManager.addLimit(limit);	
+}
+
+function setPageToLimit(id, page) {
+	LimitManager.getLimit(id).setPage(page);
 }
  
- 
+function addSortToLimit(id, property, order, position) {
+	/*First remove the sort if it is set on the limit, 
+		and then set the page back to the first one.*/
+	removeSortFromLimit(id, property, position);
+	setPageToLimit(id, '1');
+
+	var limit = LimitManager.getLimit(id);
+	var sort = new Sort(property, order, position); 
+	limit.addSort(sort);
+}
+
+function removeSortFromLimit(id, property, position) {
+	var limit = LimitManager.getLimit(id);
+	var sortSet = limit.getSortSet();
+	
+	for (var i = 0; i < sortSet.length; i++) {
+		var sort = sortSet[i];
+		if (sort.property == property) {
+			sortSet.splice(i, 1);
+		}
+	}
+}
+
+function createHiddenInputFieldsForLimit(id) {
+	var limit = LimitManager.getLimit(id);
+	var form = getFormByTableId(id);
+	limit.createHiddenInputFields(form);
+}
+
+function createHiddenInputFieldsForLimitAndSubmit(id) {
+	var limit = LimitManager.getLimit(id);
+	var form = getFormByTableId(id);
+	limit.createHiddenInputFields(form);
+	form.submit();
+}
+
+function getFormByTableId(id) {
+	var node = document.getElementById(id);
+	var found = false;
+	while (!found) {
+		node = node.parentNode;
+		if (node.nodeName == 'FORM') {
+			found = true;
+			return node;
+		}
+	}
+}
+
+
