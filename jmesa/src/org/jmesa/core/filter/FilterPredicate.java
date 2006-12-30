@@ -56,6 +56,12 @@ public final class FilterPredicate implements Predicate {
 					FilterMatch match = matches.get(filter);
 					result = match.evaluate(value, filter.getValue());
 				}
+				
+				// short circuit if does not match
+				if (result == false) {
+					return false;
+				}
+				
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Had problems evaluating the items.", e);
