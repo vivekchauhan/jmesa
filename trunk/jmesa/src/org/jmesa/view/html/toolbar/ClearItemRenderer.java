@@ -30,7 +30,7 @@ public class ClearItemRenderer extends ContextSupport implements ToolbarItemRend
 
 	public Object render(ToolbarItem item) {
         Limit limit = getCoreContext().getLimit();
-        StringBuffer action = new StringBuffer("javascript:removeFiltersFromLimit('" + limit.getId() + "');onInvokeAction('" + limit.getId() + "')");
+        StringBuffer action = new StringBuffer("javascript:removeAllFiltersFromLimit('" + limit.getId() + "');onInvokeAction('" + limit.getId() + "')");
         item.setAction(action.toString());
         return item.enabled();
 	}
