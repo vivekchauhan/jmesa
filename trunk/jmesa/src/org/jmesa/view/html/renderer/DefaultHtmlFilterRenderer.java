@@ -15,6 +15,9 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.limit.Filter;
+import org.jmesa.limit.Limit;
+import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractFilterRenderer;
 
@@ -51,6 +54,40 @@ public class DefaultHtmlFilterRenderer extends AbstractFilterRenderer implements
 	}
 	
 	public Object render() {
-		return null;
+        HtmlBuilder html = new HtmlBuilder();
+
+        Limit limit = getCoreContext().getLimit();
+        HtmlColumn column = getColumn();
+		String property = column.getProperty();
+        Filter filter = limit.getFilterSet().getFilter(property);
+
+		html.td(2);
+		html.style(getStyle());
+		html.styleClass(getStyleClass());
+
+        html.input().type("text");
+		html.name(property);
+        
+		if (filter != null) {
+            html.value(filter.getValue());
+		}
+		
+        StringBuffer onkeypress = new StringBuffer();
+        onkeypress.append("if (event.keyCode == 13) {");
+        onkeypress.append("onInvokeAction('" + limit.getId() + "');");
+        onkeypress.append("}");
+        html.onkeypress(onkeypress.toString());
+
+        StringBuffer onkeyup = new StringBuffer();
+        onkeyup.append("if (event.keyCode != 13) {");
+        onkeyup.append("addFilterToLimit('" + limit.getId() + "','" + column.getProperty() + "',this.value)");
+        onkeyup.append("}");
+        html.onkeyup(onkeyup.toString());
+
+        html.end();
+        
+        html.tdEnd();
+
+        return html.toString();
 	}
 }
