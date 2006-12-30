@@ -94,7 +94,7 @@ public class HtmlViewTest {
 		row.addColumn(careerColumn);
 
 		// create the view
-		HtmlView view = new HtmlView(table, coreContext);
+		ClassicView view = new ClassicView(table, coreContext);
 		view.setImagePath("images/table/*.gif");
 
 		Object html = view.render();
