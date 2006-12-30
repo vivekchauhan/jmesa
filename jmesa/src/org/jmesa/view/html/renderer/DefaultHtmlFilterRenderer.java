@@ -64,6 +64,7 @@ public class DefaultHtmlFilterRenderer extends AbstractFilterRenderer implements
 		html.td(2);
 		html.style(getStyle());
 		html.styleClass(getStyleClass());
+		html.close();
 
         html.input().type("text");
 		html.name(property);

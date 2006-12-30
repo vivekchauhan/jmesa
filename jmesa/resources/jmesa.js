@@ -81,12 +81,21 @@ Limit.prototype.setFilterSet = function(filterSet) {
  /*other helper methods*/
 
 Limit.prototype.createHiddenInputFields = function(form) {
+	/* the current page */
 	var input = document.createElement('input');
 	input.type = 'hidden';
 	input.name = this.id + '_' + 'p_';
 	input.value = this.page;
 	form.appendChild(input);
+
+	/* the max rows */
+	var input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = this.id + '_' + 'mr_';
+	input.value = this.maxRows;
+	form.appendChild(input);
 	
+	/* the sort objects */
 	for (var i = 0; i < this.sortSet.length; i++) {
 		var sort = this.sortSet[i];
 		var input = document.createElement('input');
@@ -96,6 +105,7 @@ Limit.prototype.createHiddenInputFields = function(form) {
 		form.appendChild(input);
 	}
 
+	/* the filter objects */
 	for (var i = 0; i < this.filterSet.length; i++) {
 		var filter = this.filterSet[i];
 		var input = document.createElement('input');
@@ -115,6 +125,10 @@ function addLimitToManager(id) {
 
 function setPageToLimit(id, page) {
 	LimitManager.getLimit(id).setPage(page);
+}
+
+function setMaxRowsToLimit(id, maxRows) {
+	LimitManager.getLimit(id).setMaxRows(maxRows);
 }
  
 function addSortToLimit(id, property, order, position) {
