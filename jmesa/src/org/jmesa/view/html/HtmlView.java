@@ -19,8 +19,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
-import org.jmesa.limit.Order;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.Sort;
 import org.jmesa.view.View;
@@ -30,6 +30,8 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.toolbar.ClearItemRenderer;
+import org.jmesa.view.html.toolbar.FilterItemRenderer;
 import org.jmesa.view.html.toolbar.FirstPageItemRenderer;
 import org.jmesa.view.html.toolbar.LastPageItemRenderer;
 import org.jmesa.view.html.toolbar.NextPageItemRenderer;
@@ -89,6 +91,8 @@ public class HtmlView implements View {
 		
 		header(html, columns);
 		
+		filter(html, columns);
+		
 		theadEnd(html);
 		
 		tbodyStart(html);
@@ -117,7 +121,10 @@ public class HtmlView implements View {
 		for(Sort sort: limit.getSortSet().getSorts()) {
 			html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().getCode() + "','" + sort.getPosition() + "')").semicolon().newline();
 		}
-		
+
+		for(Filter filter: limit.getFilterSet().getFilters()) {
+			html.append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + filter.getValue() + "')").semicolon().newline();
+		}
 		
 		html.scriptEnd();
 	}
@@ -155,6 +162,16 @@ public class HtmlView implements View {
         html.tbodyEnd(1);
     }
 	
+	protected void filter(HtmlBuilder html, List<HtmlColumn> columns) {
+		html.tr(1).styleClass("filter").close();
+		
+		for (HtmlColumn column : columns) {
+			html.append(column.getFilterRenderer().render());
+		}
+		
+		html.trEnd(1);
+	}
+
 	protected void header(HtmlBuilder html, List<HtmlColumn> columns) {
 		html.tr(1).close();
 		
@@ -282,20 +299,24 @@ public class HtmlView implements View {
         
         if (ViewUtils.isFilterable(columns)) {
             html.img();
-            //html.src(HtmlUtils.getImage(imagePath, HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE));
+            html.src(imagePath + HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE);
             html.style("border:0");
             html.alt("Arrow");
             html.end();
 
             html.nbsp();
-
-            //ToolbarBuilder toolbarBuilder = new ToolbarBuilder(html, coreContext, imagePath);
             
-            //toolbarBuilder.filterItemAsImage();
+            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagePath, coreContext);
+
+            ToolbarItem filterItem = toolbarItemFactory.createFilterItemAsImage();
+            ToolbarItemRenderer filterItemRenderer = new FilterItemRenderer(coreContext);
+            html.append(filterItemRenderer.render(filterItem));
 
             html.nbsp();
 
-            //toolbarBuilder.clearItemAsImage();
+            ToolbarItem clearItem = toolbarItemFactory.createClearItemAsImage();
+            ToolbarItemRenderer clearItemRenderer = new ClearItemRenderer(coreContext);
+            html.append(clearItemRenderer.render(clearItem));
         }
 
         html.tdEnd();

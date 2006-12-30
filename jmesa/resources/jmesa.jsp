@@ -10,7 +10,7 @@
 
 <body>
 
-	<form id="foo" name="presidentsForm">
+	<form name="presidentsForm">
 	
 	${presidents}
 

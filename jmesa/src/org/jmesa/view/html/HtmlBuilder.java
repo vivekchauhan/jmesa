@@ -504,6 +504,17 @@ public class HtmlBuilder {
     }
 
     /**
+     * <p>The onkeyup attribute [onkeyup=].</p> 
+     */
+    public HtmlBuilder onkeyup(String onkeyup) {
+        if (StringUtils.isNotBlank(onkeyup)) {
+            append(" onkeyup=\"").append(onkeyup).append("\" ");
+        }
+
+        return this;
+    }
+
+    /**
      * <p>The id attribute [id=].</p> 
      */
     public HtmlBuilder id(String id) {
