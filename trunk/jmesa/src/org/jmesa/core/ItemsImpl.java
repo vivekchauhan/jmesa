@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
+import org.jmesa.limit.RowSelect;
+import org.jmesa.limit.RowSelectImpl;
 
 /**
  * @since 2.0
@@ -41,11 +43,15 @@ public class ItemsImpl implements Items {
 		this.allItems = new ArrayList<Object>(items); // copy for thread safety
 		
 		this.filteredItems = rowFilter.filterItems(allItems, limit);
+		
+		if (filteredItems.size() != allItems.size()) {
+			recalculateRowSelect(filteredItems, limit);
+		}
         
 		this.sortedItems = columnSort.sortItems(filteredItems, limit);
         
         this.pageItems = getPageItems(sortedItems, limit);
-
+        
 		if (logger.isLoggable(Level.FINE)) {
             logger.fine(limit.toString());
         }
@@ -65,6 +71,20 @@ public class ItemsImpl implements Items {
 
 	public Collection getSortedItems() {
 		return sortedItems;
+	}
+	
+	/**
+	 * Need to recalculate the RowSelect object if the items needed to be filtered.
+	 * 
+	 * @param filteredItems
+	 * @param limit
+	 */
+	private void recalculateRowSelect(Collection filteredItems, Limit limit) {
+        RowSelect rowSelect = limit.getRowSelect();
+        int page = rowSelect.getPage();
+		int maxRows = rowSelect.getMaxRows();
+		RowSelect recalcRowSelect = new RowSelectImpl(page, maxRows, filteredItems.size());
+        limit.setRowSelect(recalcRowSelect);
 	}
 	
 	private Collection getPageItems(Collection items, Limit limit) {
@@ -90,8 +110,8 @@ public class ItemsImpl implements Items {
 
         Collection<Object> results = new ArrayList<Object>();
         for (int i = rowStart; i < rowEnd; i++) {
-            Object bean = ((List) items).get(i);
-            results.add(bean);
+            Object item = ((List) items).get(i);
+            results.add(item);
         }
 
         return results;
