@@ -140,10 +140,22 @@ function removeSortFromLimit(id, property) {
 	}
 }
 
-function removeSortsFromLimit(id) {
+function removeAllSortsFromLimit(id) {
 	var limit = LimitManager.getLimit(id);
 	limit.setSortSet(new Array());
 	setPageToLimit(id, '1');
+}
+
+function getSortFromLimit(id, property) {
+	var limit = LimitManager.getLimit(id);
+	var sortSet = limit.getSortSet();
+	
+	for (var i = 0; i < sortSet.length; i++) {
+		var sort = sortSet[i];
+		if (sort.property == property) {
+			return sort;
+		}
+	}
 }
 
 function addFilterToLimit(id, property, value) {
@@ -169,7 +181,7 @@ function removeFilterFromLimit(id, property) {
 	}
 }
 
-function removeFiltersFromLimit(id) {
+function removeAllFiltersFromLimit(id) {
 	var limit = LimitManager.getLimit(id);
 	limit.setFilterSet(new Array());
 	setPageToLimit(id, '1');
