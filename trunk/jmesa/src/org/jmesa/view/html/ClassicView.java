@@ -44,12 +44,12 @@ import org.jmesa.view.html.toolbar.ToolbarItemRenderer;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlView implements View {
+public class ClassicView implements View {
 	private Table table;
 	private CoreContext coreContext;
 	private String imagePath;
 
-	public HtmlView(HtmlTable table, CoreContext coreContext) {
+	public ClassicView(HtmlTable table, CoreContext coreContext) {
 		this.table = table;
 		this.coreContext = coreContext;
 	}
