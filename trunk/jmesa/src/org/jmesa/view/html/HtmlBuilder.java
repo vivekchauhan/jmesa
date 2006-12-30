@@ -1124,7 +1124,7 @@ public class HtmlBuilder {
     }
     
     public HtmlBuilder script() {
-        append("<script>");
+        append("<script");
 
         return this;
     }

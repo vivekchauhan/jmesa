@@ -10,13 +10,13 @@
 
 <body>
 
-	<form name="presidentsForm">
+	<form name="presidentsForm" action="${pageContext.request.contextPath}/presidents.run">
 	
 	${presidents}
 
 	</form>
 
-<script>
+<script type="text/javascript">
 function onInvokeAction(id) {
 	createHiddenInputFieldsForLimitAndSubmit(id);
 }

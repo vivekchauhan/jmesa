@@ -113,10 +113,11 @@ public class ClassicView implements View {
 	protected void script(HtmlBuilder html) {
 		Limit limit = coreContext.getLimit();
 		html.newline();
-		html.script();
+		html.script().type("text/javascript").close();
 		html.newline();
 		html.append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
 		html.append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+		html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 		
 		for(Sort sort: limit.getSortSet().getSorts()) {
 			html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().getCode() + "','" + sort.getPosition() + "')").semicolon().newline();
@@ -248,7 +249,28 @@ public class ClassicView implements View {
         ToolbarItemRenderer lastPageItemRenderer = new LastPageItemRenderer(coreContext);
         html.append(lastPageItemRenderer.render(lastPageItem));
         html.tdEnd();
+        
+        // separator 
+        
+        html.td(4).close();
+        html.img();
+        html.src(imagePath + HtmlConstants.TOOLBAR_SEPARATOR_IMAGE);
+        html.style("border:0");
+        html.alt("Separator");
+        html.end();
+        html.tdEnd();
 
+        // rows displayed
+        
+        html.td(4).style("width:20px").close();
+        rowsDisplayedDroplist(html);
+        html.img();
+        html.src(imagePath + HtmlConstants.TOOLBAR_ROWS_DISPLAYED_IMAGE);
+        html.style("border:0");
+        html.alt("Rows Displayed");
+        html.end();
+        html.tdEnd();
+        
         html.trEnd(3);
 
         html.tableEnd(2);
@@ -331,4 +353,55 @@ public class ClassicView implements View {
         html.tdEnd();
         html.trEnd(1);
     }
+    
+    protected void rowsDisplayedDroplist(HtmlBuilder html) {
+        Limit limit = coreContext.getLimit();
+    	
+    	int rowsDisplayed = 12;
+        int medianRowsDisplayed = 24;
+        int maxRowsDisplayed = 36;
+        int currentRowsDisplayed = limit.getRowSelect().getMaxRows();
+
+        html.select().name("maxRows");
+
+        StringBuffer onchange = new StringBuffer();
+        onchange.append("setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);onInvokeAction('" + limit.getId() + "')");
+        html.onchange(onchange.toString());
+
+        html.close();
+
+        html.newline();
+        html.tabs(4);
+
+        // default rows
+        html.option().value(String.valueOf(rowsDisplayed));
+        if (currentRowsDisplayed == rowsDisplayed) {
+            html.selected();
+        }
+        html.close();
+        html.append(String.valueOf(rowsDisplayed));
+        html.optionEnd();
+
+        // median rows
+        html.option().value(String.valueOf(medianRowsDisplayed));
+        if (currentRowsDisplayed == medianRowsDisplayed) {
+            html.selected();
+        }
+        html.close();
+        html.append(String.valueOf(medianRowsDisplayed));
+        html.optionEnd();
+
+        // max rows
+        html.option().value(String.valueOf(maxRowsDisplayed));
+        if (currentRowsDisplayed == maxRowsDisplayed) {
+            html.selected();
+        }
+        html.close();
+        html.append(String.valueOf(maxRowsDisplayed));
+        html.optionEnd();
+
+        html.newline();
+        html.tabs(4);
+        html.selectEnd();
+    }    
 }
