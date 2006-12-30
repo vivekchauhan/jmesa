@@ -43,7 +43,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlViewTest {
+public class ClassicViewTest {
 	private static final String ID = "pres";
 	private static final int MAX_ROWS = 15;
 	
