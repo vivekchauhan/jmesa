@@ -82,7 +82,7 @@ public class DefaultLimitFactory implements LimitFactory {
 
 		maxRows = getMaxRows(maxRows);
 
-		return new RowSelectImpl(page, maxRows, totalRows);
+		return new DefaultRowSelect(page, maxRows, totalRows);
 	}
 
 	protected int getMaxRows(int maxRows) {
