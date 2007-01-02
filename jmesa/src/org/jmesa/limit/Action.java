@@ -26,15 +26,17 @@ public enum Action {
 	SORT,
 	CLEAR,
 	PAGE,
-	MAX_ROWS;
+	MAX_ROWS,
+	EXPORT;
 	
 	public String getCode() {
 		switch(this) {
+		case FILTER: return "f_";
+		case SORT: return "s_";
+		case CLEAR: return "c_";
 		case PAGE: return "p_";
 		case MAX_ROWS: return "mr_";
-		case FILTER: return "f_";
-		case CLEAR: return "c_";
-		case SORT: return "s_";
+		case EXPORT: return "e_";
 		default: return "";
 		}
 	}

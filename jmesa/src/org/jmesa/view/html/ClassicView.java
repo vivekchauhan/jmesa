@@ -31,6 +31,8 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.ClearItemRenderer;
+import org.jmesa.view.html.toolbar.ExportItemRenderer;
+import org.jmesa.view.html.toolbar.ToolbarExport;
 import org.jmesa.view.html.toolbar.FilterItemRenderer;
 import org.jmesa.view.html.toolbar.FirstPageItemRenderer;
 import org.jmesa.view.html.toolbar.LastPageItemRenderer;
@@ -47,7 +49,7 @@ import org.jmesa.view.html.toolbar.ToolbarItemRenderer;
 public class ClassicView implements View {
 	private Table table;
 	private CoreContext coreContext;
-	private String imagePath;
+	private String imagesPath;
 
 	public ClassicView(HtmlTable table, CoreContext coreContext) {
 		this.table = table;
@@ -66,12 +68,12 @@ public class ClassicView implements View {
 		return coreContext;
 	}
 	
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setImagesPath(String imagesPath) {
+		this.imagesPath = imagesPath;
 	}
 	
-	protected String getImagePath() {
-		return imagePath;
+	protected String getImagesPath() {
+		return imagesPath;
 	}
 	
 	public Object render() {
@@ -224,7 +226,7 @@ public class ClassicView implements View {
 
         html.tr(3).close();
         
-        ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagePath, coreContext);
+        ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagesPath, coreContext);
 
         html.td(4).close();
         ToolbarItem firstPageItem = toolbarItemFactory.createFirstPageItemAsImage();
@@ -254,7 +256,7 @@ public class ClassicView implements View {
         
         html.td(4).close();
         html.img();
-        html.src(imagePath + HtmlConstants.TOOLBAR_SEPARATOR_IMAGE);
+        html.src(imagesPath + HtmlConstants.TOOLBAR_SEPARATOR_IMAGE);
         html.style("border:0");
         html.alt("Separator");
         html.end();
@@ -265,10 +267,28 @@ public class ClassicView implements View {
         html.td(4).style("width:20px").close();
         rowsDisplayedDroplist(html);
         html.img();
-        html.src(imagePath + HtmlConstants.TOOLBAR_ROWS_DISPLAYED_IMAGE);
+        html.src(imagesPath + HtmlConstants.TOOLBAR_ROWS_DISPLAYED_IMAGE);
         html.style("border:0");
         html.alt("Rows Displayed");
         html.end();
+        html.tdEnd();
+        
+        // separator 
+        
+        html.td(4).close();
+        html.img();
+        html.src(imagesPath + HtmlConstants.TOOLBAR_SEPARATOR_IMAGE);
+        html.style("border:0");
+        html.alt("Separator");
+        html.end();
+        html.tdEnd();
+        
+        html.td(4).close();
+        ToolbarExport export = new ToolbarExport("csv");
+        export.setImageName("csv.gif");
+        ToolbarItem exportItem = toolbarItemFactory.createExportItemAsImage(export);
+        ToolbarItemRenderer exportItemRenderer = new ExportItemRenderer(export, coreContext);
+        html.append(exportItemRenderer.render(exportItem));
         html.tdEnd();
         
         html.trEnd(3);
@@ -321,14 +341,14 @@ public class ClassicView implements View {
         
         if (ViewUtils.isFilterable(columns)) {
             html.img();
-            html.src(imagePath + HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE);
+            html.src(imagesPath + HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE);
             html.style("border:0");
             html.alt("Arrow");
             html.end();
 
             html.nbsp();
             
-            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagePath, coreContext);
+            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagesPath, coreContext);
 
             ToolbarItem filterItem = toolbarItemFactory.createFilterItemAsImage();
             ToolbarItemRenderer filterItemRenderer = new FilterItemRenderer(coreContext);

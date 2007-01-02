@@ -132,19 +132,19 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public void exportItemAsImage(Object export) {
+    public ImageItem createExportItemAsImage(ToolbarExport export) {
         ImageItem item = new ImageItem();
-//        item.setTooltip(export.getTooltip());
-//        item.setImage(model, export.getImageName()));
-//        item.setAlt(export.getText());
-//        item.setStyle("border:0");
-//        ToolbarItemUtils.buildExport(html, model, item, export);
+        item.setTooltip(export.getTooltip());
+        item.setImage(imagePath + export.getImageName());
+        item.setAlt(export.getText());
+        item.setStyle("border:0");
+        return item;
     }
 
-    public void exportItemAsText(Object export) {
+    public TextItem createExportItemAsText(ToolbarExport export) {
         TextItem item = new TextItem();
-//        item.setTooltip(export.getTooltip());
-//        item.setText(export.getText());
-//        ToolbarItemUtils.buildExport(html, model, item, export);
+        item.setTooltip(export.getTooltip());
+        item.setText(export.getText());
+        return item;
     }
 }

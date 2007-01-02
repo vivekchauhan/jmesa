@@ -71,14 +71,15 @@ public class DefaultLimitFactory implements LimitFactory {
 		SortSet sortSet = limitActionFactory.getSortSet();
 		limit.setSortSet(sortSet);
 
-		ExportType exportType = limitActionFactory.getExportType();
-		limit.setExportType(exportType);
+		Export export = limitActionFactory.getExport();
+		limit.setExport(export);
 
 		return limit;
 	}
 
 	public RowSelect createRowSelect(int maxRows, int totalRows) {
 		int page = limitActionFactory.getPage();
+
 		maxRows = getMaxRows(maxRows);
 
 		return new RowSelectImpl(page, maxRows, totalRows);

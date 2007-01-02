@@ -17,6 +17,7 @@ function Limit(id) {
 	this.maxRows;
 	this.sortSet = new Array();
 	this.filterSet = new Array();
+	this.exportName;
 }
 
 function Sort(property, order, position) {
@@ -36,7 +37,7 @@ Limit.prototype.getId = function() {
 
 Limit.prototype.setId = function(id) {
  	this.id = id;
- }
+}
 
 Limit.prototype.getPage = function() {
 	return this.page;
@@ -44,7 +45,7 @@ Limit.prototype.getPage = function() {
 
 Limit.prototype.setPage = function(page) {
  	this.page = page;
- }
+}
 
 Limit.prototype.getMaxRows = function() {
 	return this.maxRows;
@@ -52,7 +53,7 @@ Limit.prototype.getMaxRows = function() {
 
 Limit.prototype.setMaxRows = function(maxRows) {
  	this.maxRows = maxRows;
- }
+}
 
 Limit.prototype.getSortSet = function() {
 	return this.sortSet;
@@ -60,11 +61,11 @@ Limit.prototype.getSortSet = function() {
 
 Limit.prototype.addSort = function(sort) {
  	this.sortSet[this.sortSet.length] = sort;
- }
+}
 
 Limit.prototype.setSortSet = function(sortSet) {
  	this.sortSet = sortSet;
- }
+}
 
 Limit.prototype.getFilterSet = function() {
 	return this.filterSet;
@@ -72,12 +73,20 @@ Limit.prototype.getFilterSet = function() {
 
 Limit.prototype.addFilter = function(filter) {
  	this.filterSet[this.filterSet.length] = filter;
- }
+}
 
 Limit.prototype.setFilterSet = function(filterSet) {
  	this.filterSet = filterSet;
- }
+}
+ 
+Limit.prototype.getExport = function() {
+	return this.exportName;
+}
 
+Limit.prototype.setExport = function(exportName) {
+ 	this.exportName = exportName;
+}
+ 
  /*other helper methods*/
 
 Limit.prototype.createHiddenInputFields = function(form) {
@@ -114,6 +123,35 @@ Limit.prototype.createHiddenInputFields = function(form) {
 		input.value = filter.value;
 		form.appendChild(input);
 	}
+}
+
+Limit.prototype.createParameterString = function(form) {
+	var url = '';
+
+	/* the current page */
+	url += this.id + '_' + 'p_=' + this.page;
+
+	/* the max rows */
+	url += '&' + this.id + '_' + 'mr_=' + this.maxRows;
+	
+	/* the sort objects */
+	for (var i = 0; i < this.sortSet.length; i++) {
+		var sort = this.sortSet[i];
+		url += '&' + this.id + '_' + 's_' + sort.position + '_' + sort.property + '=' + sort.order;
+	}
+
+	/* the filter objects */
+	for (var i = 0; i < this.filterSet.length; i++) {
+		var filter = this.filterSet[i];
+		url += '&' + this.id + '_' + 'f_' + filter.property + '=' + filter.value;
+	}
+	
+	/* the export */
+	if (this.exportName) {
+		url += '&' + this.id + '_' + 'e_=' + this.exportName;
+	}
+	
+	return url;
 }
 
 /* convenience methods so do not have to manually work with the api */
@@ -213,6 +251,10 @@ function getFilterFromLimit(id, property) {
 	}
 }
 
+function setExportToLimit(id, exportName) {
+	LimitManager.getLimit(id).setExport(exportName);
+}
+
 function createHiddenInputFieldsForLimit(id) {
 	var limit = LimitManager.getLimit(id);
 	var form = getFormByTableId(id);
@@ -224,6 +266,11 @@ function createHiddenInputFieldsForLimitAndSubmit(id) {
 	var form = getFormByTableId(id);
 	limit.createHiddenInputFields(form);
 	form.submit();
+}
+
+function createParameterStringForLimit(id) {
+	var limit = LimitManager.getLimit(id);
+	return limit.createParameterString();
 }
 
 function getFormByTableId(id) {

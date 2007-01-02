@@ -16,8 +16,8 @@
 package org.jmesa.view.html;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.editor.ColumnEditor;
-import org.jmesa.view.editor.DefaultColumnEditor;
 import org.jmesa.view.html.component.DefaultHtmlColumn;
 import org.jmesa.view.html.component.DefaultHtmlRow;
 import org.jmesa.view.html.component.DefaultHtmlTable;
@@ -35,23 +35,20 @@ import org.jmesa.web.WebContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlComponentFactory {
-	private WebContext webContext;
-	private CoreContext coreContext;
-	
+public class HtmlComponentFactory extends AbstractComponentFactory {
 	public HtmlComponentFactory(WebContext webContext, CoreContext coreContext) {
-		this.webContext = webContext;
-		this.coreContext = coreContext;
+		setWebContext(webContext);
+		setCoreContext(coreContext);
 	}
 	
 	public HtmlTable createHtmlTable() {
 		DefaultHtmlTable table = new DefaultHtmlTable();
-		table.setWebContext(webContext);
-		table.setCoreContext(coreContext);
+		table.setWebContext(getWebContext());
+		table.setCoreContext(getCoreContext());
 		
 		DefaultHtmlTableRenderer tableRenderer = new DefaultHtmlTableRenderer(table);
-		tableRenderer.setWebContext(webContext);
-		tableRenderer.setCoreContext(coreContext);
+		tableRenderer.setWebContext(getWebContext());
+		tableRenderer.setCoreContext(getCoreContext());
 		table.setTableRenderer(tableRenderer);
 		
 		return table;
@@ -59,12 +56,12 @@ public class HtmlComponentFactory {
 
 	public HtmlRow createHtmlRow() {
 		DefaultHtmlRow row = new DefaultHtmlRow();
-		row.setWebContext(webContext);
-		row.setCoreContext(coreContext);
+		row.setWebContext(getWebContext());
+		row.setCoreContext(getCoreContext());
 		
 		DefaultHtmlRowRenderer rowRenderer = new DefaultHtmlRowRenderer(row);
-		rowRenderer.setWebContext(webContext);
-		rowRenderer.setCoreContext(coreContext);
+		rowRenderer.setWebContext(getWebContext());
+		rowRenderer.setCoreContext(getCoreContext());
 		row.setRowRenderer(rowRenderer);
 		
 		return row;
@@ -72,31 +69,24 @@ public class HtmlComponentFactory {
 
 	public HtmlColumn createHtmlColumn(String property, ColumnEditor editor) {
 		DefaultHtmlColumn column = new DefaultHtmlColumn(property);
-		column.setWebContext(webContext);
-		column.setCoreContext(coreContext);
+		column.setWebContext(getWebContext());
+		column.setCoreContext(getCoreContext());
 		
 		DefaultHtmlColumnRenderer columnRenderer = new DefaultHtmlColumnRenderer(column, editor);
-		columnRenderer.setWebContext(webContext);
-		columnRenderer.setCoreContext(coreContext);
+		columnRenderer.setWebContext(getWebContext());
+		columnRenderer.setCoreContext(getCoreContext());
 		column.setColumnRenderer(columnRenderer);
 		
 		DefaultHtmlHeaderRenderer headerRenderer = new DefaultHtmlHeaderRenderer(column);
-		headerRenderer.setWebContext(webContext);
-		headerRenderer.setCoreContext(coreContext);
+		headerRenderer.setWebContext(getWebContext());
+		headerRenderer.setCoreContext(getCoreContext());
 		column.setHeaderRenderer(headerRenderer);
 
 		DefaultHtmlFilterRenderer filterRenderer = new DefaultHtmlFilterRenderer(column);
-		filterRenderer.setWebContext(webContext);
-		filterRenderer.setCoreContext(coreContext);
+		filterRenderer.setWebContext(getWebContext());
+		filterRenderer.setCoreContext(getCoreContext());
 		column.setFilterRenderer(filterRenderer);
 
 		return column;
-	}
-
-	public ColumnEditor createDefaultColumnEditor() {
-		DefaultColumnEditor editor = new DefaultColumnEditor();
-		editor.setWebContext(webContext);
-		editor.setCoreContext(coreContext);
-		return editor;
 	}
 }

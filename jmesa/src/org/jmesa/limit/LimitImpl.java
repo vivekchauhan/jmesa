@@ -25,10 +25,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class LimitImpl implements Limit {
 	private final String id;
-	private ExportType exportType;
 	private RowSelect rowSelect;
 	private FilterSet filterSet;
 	private SortSet sortSet;
+	private Export export;
 
 	/**
 	 * @param id Uniquely identifies the table instance.
@@ -39,18 +39,6 @@ public class LimitImpl implements Limit {
 
 	public String getId() {
 		return id;
-	}
-
-	public boolean isExported() {
-		return getExportType() != null;
-	}
-
-	public ExportType getExportType() {
-		return exportType;
-	}
-
-	public void setExportType(ExportType exportType) {
-		this.exportType = exportType;
 	}
 
 	public FilterSet getFilterSet() {
@@ -85,14 +73,26 @@ public class LimitImpl implements Limit {
 		this.rowSelect = rowSelect;
 	}
 	
+	public boolean isExported() {
+		return getExport() != null;
+	}
+
+	public Export getExport() {
+		return export;
+	}
+
+	public void setExport(Export export) {
+		this.export = export;
+	}
+	
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("id", id);
-        builder.append("exportType", exportType);
-        builder.append("rowSelect", rowSelect);
-        builder.append("filterSet", filterSet);
-        builder.append("sortSet", sortSet);
+        builder.append("id", getId());
+        builder.append("export", getExport());
+        builder.append("rowSelect", getRowSelect());
+        builder.append("filterSet", getFilterSet());
+        builder.append("sortSet", getSortSet());
         return builder.toString();
     }
 }
