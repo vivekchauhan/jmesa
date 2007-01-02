@@ -1,0 +1,55 @@
+/*
+ * Copyright 2004 original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.jmesa.view.csv;
+
+import org.jmesa.core.CoreContext;
+import org.jmesa.view.AbstractComponentFactory;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.DefaultColumn;
+import org.jmesa.view.csv.renderer.DefaultCsvColumnRenderer;
+import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.web.WebContext;
+
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
+public class CsvComponentFactory extends AbstractComponentFactory {
+	private final String DEFAULT_DELIMITER = ",";
+	
+	public CsvComponentFactory(WebContext webContext, CoreContext coreContext) {
+		setWebContext(webContext);
+		setCoreContext(coreContext);
+	}
+
+	public Column createCsvColumn(String property, ColumnEditor editor) {
+		return createCsvColumn(property, editor, DEFAULT_DELIMITER);
+	}
+	
+	public Column createCsvColumn(String property, ColumnEditor editor, String delimiter) {
+		DefaultColumn column = new DefaultColumn(property);
+		column.setWebContext(getWebContext());
+		column.setCoreContext(getCoreContext());
+		
+		DefaultCsvColumnRenderer columnRenderer = new DefaultCsvColumnRenderer(column, editor);
+		columnRenderer.setWebContext(getWebContext());
+		columnRenderer.setCoreContext(getCoreContext());
+		columnRenderer.setDelimiter(delimiter);
+		column.setColumnRenderer(columnRenderer);
+		
+		return column;
+	}
+}
