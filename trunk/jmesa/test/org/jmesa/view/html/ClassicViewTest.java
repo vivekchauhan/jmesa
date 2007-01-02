@@ -95,7 +95,7 @@ public class ClassicViewTest {
 
 		// create the view
 		ClassicView view = new ClassicView(table, coreContext);
-		view.setImagePath("images/table/*.gif");
+		view.setImagesPath("images/table/*.gif");
 
 		Object html = view.render();
 		

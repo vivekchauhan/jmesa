@@ -32,5 +32,5 @@ public interface LimitActionFactory {
 	
 	public SortSet getSortSet();
 	
-	public ExportType getExportType();
+	public Export getExport();
 }

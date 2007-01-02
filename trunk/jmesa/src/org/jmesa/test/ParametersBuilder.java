@@ -61,4 +61,9 @@ public class ParametersBuilder {
 		String key = prefixId + Action.SORT.getCode() + position + "_" + property;
 		parameters.addParameter(key, new String[] { order.getCode() });
 	}
+	
+	public void setExport(String export) {
+		String key = prefixId + Action.EXPORT.getCode();
+		parameters.addParameter(key, export);
+	}
 }
