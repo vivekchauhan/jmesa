@@ -43,7 +43,7 @@ public class SortSetTest {
 		SortSet sortSet = getSortSet();
 		Order order = sortSet.getSortOrder("nickname");
 		assertNotNull(order);
-		assertEquals(order.getCode(), "desc");
+		assertEquals(order.toParam(), "desc");
 		assertEquals(order, Order.DESC);
 	}
 

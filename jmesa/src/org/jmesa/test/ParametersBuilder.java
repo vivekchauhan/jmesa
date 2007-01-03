@@ -36,34 +36,34 @@ public class ParametersBuilder {
 	}
 
 	public void setPage(int page) {
-		String key = prefixId + Action.PAGE.getCode();
+		String key = prefixId + Action.PAGE.toParam();
 		parameters.addParameter(key, new Integer[] { page });
 	}
 
 	public void setMaxRows(int maxRows) {
-		String key = prefixId + Action.MAX_ROWS.getCode();
+		String key = prefixId + Action.MAX_ROWS.toParam();
 		parameters.addParameter(key, maxRows);
 	}
 
 	public void addFilter(String property, String value) {
-		String key = prefixId + Action.FILTER.getCode() + property;
+		String key = prefixId + Action.FILTER.toParam() + property;
 		List<String> filterList = new ArrayList<String>();
 		filterList.add(value);
 		parameters.addParameter(key, filterList);
 	}
 
 	public void setClearFilter() {
-		String key = prefixId + Action.CLEAR.getCode();
+		String key = prefixId + Action.CLEAR.toParam();
 		parameters.addParameter(key, "true");
 	}
 
 	public void addSort(String property, Order order, int position) {
-		String key = prefixId + Action.SORT.getCode() + position + "_" + property;
-		parameters.addParameter(key, new String[] { order.getCode() });
+		String key = prefixId + Action.SORT.toParam() + position + "_" + property;
+		parameters.addParameter(key, new String[] { order.toParam() });
 	}
 	
 	public void setExport(String export) {
-		String key = prefixId + Action.EXPORT.getCode();
+		String key = prefixId + Action.EXPORT.toParam();
 		parameters.addParameter(key, export);
 	}
 }

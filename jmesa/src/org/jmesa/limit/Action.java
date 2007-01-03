@@ -29,7 +29,7 @@ public enum Action {
 	MAX_ROWS,
 	EXPORT;
 	
-	public String getCode() {
+	public String toParam() {
 		switch(this) {
 		case FILTER: return "f_";
 		case SORT: return "s_";
@@ -41,9 +41,9 @@ public enum Action {
 		}
 	}
 	
-	public Action getAction(String code) {
+	public static Action valueOfParam(String param) {
 		for(Action action: Action.values()) {
-			if (action.getCode().equals(code)) {
+			if (action.toParam().equals(param)) {
 				return action;
 			}
 		}
