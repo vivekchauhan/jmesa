@@ -16,7 +16,6 @@
 package org.jmesa.core;
 
 import java.util.Collection;
-import java.util.Locale;
 
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
