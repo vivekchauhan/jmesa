@@ -18,17 +18,17 @@ package org.jmesa.view.html;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.editor.ColumnEditor;
-import org.jmesa.view.html.component.DefaultHtmlColumn;
-import org.jmesa.view.html.component.DefaultHtmlRow;
-import org.jmesa.view.html.component.DefaultHtmlTable;
+import org.jmesa.view.html.component.HtmlColumnImpl;
+import org.jmesa.view.html.component.HtmlRowImpl;
+import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.renderer.DefaultHtmlColumnRenderer;
-import org.jmesa.view.html.renderer.DefaultHtmlFilterRenderer;
-import org.jmesa.view.html.renderer.DefaultHtmlHeaderRenderer;
-import org.jmesa.view.html.renderer.DefaultHtmlRowRenderer;
-import org.jmesa.view.html.renderer.DefaultHtmlTableRenderer;
+import org.jmesa.view.html.renderer.HtmlColumnRendererImpl;
+import org.jmesa.view.html.renderer.HtmlFilterRendererImpl;
+import org.jmesa.view.html.renderer.HtmlHeaderRendererImpl;
+import org.jmesa.view.html.renderer.HtmlRowRendererImpl;
+import org.jmesa.view.html.renderer.HtmlTableRendererImpl;
 import org.jmesa.web.WebContext;
 
 /**
@@ -42,11 +42,11 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 	}
 	
 	public HtmlTable createHtmlTable() {
-		DefaultHtmlTable table = new DefaultHtmlTable();
+		HtmlTableImpl table = new HtmlTableImpl();
 		table.setWebContext(getWebContext());
 		table.setCoreContext(getCoreContext());
 		
-		DefaultHtmlTableRenderer tableRenderer = new DefaultHtmlTableRenderer(table);
+		HtmlTableRendererImpl tableRenderer = new HtmlTableRendererImpl(table);
 		tableRenderer.setWebContext(getWebContext());
 		tableRenderer.setCoreContext(getCoreContext());
 		table.setTableRenderer(tableRenderer);
@@ -55,11 +55,11 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 	}
 
 	public HtmlRow createHtmlRow() {
-		DefaultHtmlRow row = new DefaultHtmlRow();
+		HtmlRowImpl row = new HtmlRowImpl();
 		row.setWebContext(getWebContext());
 		row.setCoreContext(getCoreContext());
 		
-		DefaultHtmlRowRenderer rowRenderer = new DefaultHtmlRowRenderer(row);
+		HtmlRowRendererImpl rowRenderer = new HtmlRowRendererImpl(row);
 		rowRenderer.setWebContext(getWebContext());
 		rowRenderer.setCoreContext(getCoreContext());
 		row.setRowRenderer(rowRenderer);
@@ -68,21 +68,21 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 	}
 
 	public HtmlColumn createHtmlColumn(String property, ColumnEditor editor) {
-		DefaultHtmlColumn column = new DefaultHtmlColumn(property);
+		HtmlColumnImpl column = new HtmlColumnImpl(property);
 		column.setWebContext(getWebContext());
 		column.setCoreContext(getCoreContext());
 		
-		DefaultHtmlColumnRenderer columnRenderer = new DefaultHtmlColumnRenderer(column, editor);
+		HtmlColumnRendererImpl columnRenderer = new HtmlColumnRendererImpl(column, editor);
 		columnRenderer.setWebContext(getWebContext());
 		columnRenderer.setCoreContext(getCoreContext());
 		column.setColumnRenderer(columnRenderer);
 		
-		DefaultHtmlHeaderRenderer headerRenderer = new DefaultHtmlHeaderRenderer(column);
+		HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
 		headerRenderer.setWebContext(getWebContext());
 		headerRenderer.setCoreContext(getCoreContext());
 		column.setHeaderRenderer(headerRenderer);
 
-		DefaultHtmlFilterRenderer filterRenderer = new DefaultHtmlFilterRenderer(column);
+		HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
 		filterRenderer.setWebContext(getWebContext());
 		filterRenderer.setCoreContext(getCoreContext());
 		column.setFilterRenderer(filterRenderer);

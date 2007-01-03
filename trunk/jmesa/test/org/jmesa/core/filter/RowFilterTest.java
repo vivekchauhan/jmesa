@@ -24,7 +24,7 @@ import java.util.Map;
 import org.jmesa.core.PresidentsDao;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.filter.SimpleRowFilter;
-import org.jmesa.limit.DefaultLimitFactory;
+import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.test.Parameters;
@@ -54,7 +54,7 @@ public class RowFilterTest {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
+		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		
 		PresidentsDao dao = new PresidentsDao();

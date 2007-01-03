@@ -20,7 +20,7 @@ import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.renderer.AbstractTableRenderer;
 
-public class DefaultHtmlTableRenderer extends AbstractTableRenderer implements HtmlTableRenderer {
+public class HtmlTableRendererImpl extends AbstractTableRenderer implements HtmlTableRenderer {
 	private String style;
 	private String styleClass;
     private String border;
@@ -28,7 +28,7 @@ public class DefaultHtmlTableRenderer extends AbstractTableRenderer implements H
     private String cellspacing;
 	private String width;
 	
-	public DefaultHtmlTableRenderer(HtmlTable table) {
+	public HtmlTableRendererImpl(HtmlTable table) {
 		setTable(table);
 	}
 

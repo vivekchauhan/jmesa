@@ -25,7 +25,7 @@ import java.util.Map;
 import org.jmesa.core.President;
 import org.jmesa.core.PresidentsDao;
 import org.jmesa.core.sort.MultiColumnSort;
-import org.jmesa.limit.DefaultLimitFactory;
+import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.test.Parameters;
@@ -49,7 +49,7 @@ public class ColumnSortTest {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
+		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		
 		MultiColumnSort itemsSort = new MultiColumnSort();

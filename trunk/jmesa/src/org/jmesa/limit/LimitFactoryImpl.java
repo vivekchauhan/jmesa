@@ -55,10 +55,10 @@ import org.jmesa.web.WebContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultLimitFactory implements LimitFactory {
+public class LimitFactoryImpl implements LimitFactory {
 	private final LimitActionFactory limitActionFactory;
 
-	public DefaultLimitFactory(String id, WebContext context) {
+	public LimitFactoryImpl(String id, WebContext context) {
 		this.limitActionFactory = new LimitActionFactoryImpl(id, context.getParameterMap());
 	}
 
@@ -82,7 +82,7 @@ public class DefaultLimitFactory implements LimitFactory {
 
 		maxRows = getMaxRows(maxRows);
 
-		return new DefaultRowSelect(page, maxRows, totalRows);
+		return new RowSelectImpl(page, maxRows, totalRows);
 	}
 
 	protected int getMaxRows(int maxRows) {

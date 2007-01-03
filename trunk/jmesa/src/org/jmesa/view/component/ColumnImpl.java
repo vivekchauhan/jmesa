@@ -25,16 +25,16 @@ import org.jmesa.view.renderer.HeaderRenderer;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultColumn extends ContextSupport implements Column {
+public class ColumnImpl extends ContextSupport implements Column {
 	private String property;
 	private String title;
 	private ColumnRenderer columnRenderer;
 	private HeaderRenderer headerRenderer;
 	private Row row;
 	
-	public DefaultColumn(){}
+	public ColumnImpl(){}
 	
-	public DefaultColumn(String property) {
+	public ColumnImpl(String property) {
 		this.property = property;
 	}
 

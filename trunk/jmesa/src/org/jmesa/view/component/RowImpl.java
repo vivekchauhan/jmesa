@@ -13,28 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.component;
+package org.jmesa.view.component;
 
-import org.jmesa.view.component.DefaultTable;
-import org.jmesa.view.html.renderer.HtmlTableRenderer;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jmesa.view.ContextSupport;
+import org.jmesa.view.renderer.RowRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultHtmlTable extends DefaultTable implements HtmlTable {
-	private String theme;
+public class RowImpl extends ContextSupport implements Row {
+	List<Column> columns = new ArrayList<Column>();
+	private RowRenderer rowRenderer;
 
-	public String getTheme() {
-		return theme;
+	public void addColumn(Column column) {
+		column.setRow(this);
+		columns.add(column);
 	}
 
-	public void setTheme(String theme) {
-		this.theme = theme;
+	public List<Column> getColumns() {
+		return columns;
 	}
-	
-	@Override
-	public HtmlTableRenderer getTableRenderer() {
-		return (HtmlTableRenderer)super.getTableRenderer();
+
+	public RowRenderer getRowRenderer() {
+		return rowRenderer;
+	}
+
+	public void setRowRenderer(RowRenderer rowRenderer) {
+		this.rowRenderer = rowRenderer;
 	}
 }

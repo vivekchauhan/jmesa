@@ -13,41 +13,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.csv.renderer;
+package org.jmesa.view.html.renderer;
 
-import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractColumnRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultCsvColumnRenderer extends AbstractColumnRenderer implements CsvColumnRenderer {
-	private String delimiter;
-
-	public DefaultCsvColumnRenderer(Column column, ColumnEditor editor) {
+public class HtmlColumnRendererImpl extends AbstractColumnRenderer implements HtmlColumnRenderer {
+	private String style;
+	private String styleClass;
+	
+	public HtmlColumnRendererImpl(HtmlColumn column, ColumnEditor editor) {
 		setColumn(column);
 		setColumnEditor(editor);
 	}
-
-	public String getDelimiter() {
-		return delimiter;
+	
+	public HtmlColumn getColumn() {
+		return (HtmlColumn)super.getColumn();
+	}
+	
+	public String getStyle() {
+		return style;
+	}
+	
+	public void setStyle(String style) {
+		this.style = style;
 	}
 
-	public void setDelimiter(String delimiter) {
-		this.delimiter = delimiter;
+	public String getStyleClass() {
+		return styleClass;
 	}
 
+	public void setStyleClass(String styleClass) {
+		this.styleClass = styleClass;
+	}
+	
 	public Object render(Object item, int rowcount) {
-		StringBuilder data = new StringBuilder();
-
+		HtmlBuilder html = new HtmlBuilder();
+		html.td(2);
+		html.style(getStyle());
+		html.styleClass(getStyleClass());
+		html.close();
+		
 		String property = getColumn().getProperty();
 		Object value = getColumnEditor().getValue(item, property, rowcount);
-
-		data.append(value);
-		data.append(delimiter);
-
-		return data.toString();
+		if (value != null) {
+			html.append(value.toString());
+		}
+		
+		html.tdEnd();
+		
+		return html;
 	}
 }

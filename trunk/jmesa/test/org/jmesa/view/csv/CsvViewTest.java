@@ -25,9 +25,9 @@ import java.util.Map;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
-import org.jmesa.core.DefaultCoreContextFactory;
+import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.PresidentsDao;
-import org.jmesa.limit.DefaultLimitFactory;
+import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.RowSelect;
@@ -63,15 +63,15 @@ public class CsvViewTest {
 		CsvComponentFactory factory = new CsvComponentFactory(webContext, coreContext);
 		
 		// create the table
-		Table table = factory.createDefaultTable();
+		Table table = factory.createTable();
 		
 		// create the row
-		Row row = factory.createDefaultRow();
+		Row row = factory.createRow();
 		table.setRow(row);
 		
 		// create some reusable objects
 
-		ColumnEditor editor = factory.createDefaultColumnEditor();
+		ColumnEditor editor = factory.createBasicColumnEditor();
 		
 		// create the columns
 		Column firstNameColumn = factory.createCsvColumn("firstName", editor, ",");
@@ -97,12 +97,12 @@ public class CsvViewTest {
 	public CoreContext createCoreContext(WebContext webContext) {
 		Collection items = new PresidentsDao().getPresidents();
 
-		LimitFactory limitFactory = new DefaultLimitFactory(ID, webContext);
+		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		RowSelect rowSelect = limitFactory.createRowSelect(items.size(), items.size());
 		limit.setRowSelect(rowSelect);
 
-		CoreContextFactory factory = new DefaultCoreContextFactory(webContext, false);
+		CoreContextFactory factory = new CoreContextFactoryImpl(webContext, false);
 		CoreContext coreContext = factory.createCoreContext(items, limit);
 		
 		assertTrue(limit.isExported());
