@@ -194,7 +194,7 @@ public class ClassicView implements View {
 			html.append(row.getRowRenderer().render(item, rowcount));
 
 			for (Column column : columns) {
-				html.append(column.getColumnRenderer().render(item, rowcount));
+				html.append(column.getCellRenderer().render(item, rowcount));
 			}
 
 			html.trEnd(1);

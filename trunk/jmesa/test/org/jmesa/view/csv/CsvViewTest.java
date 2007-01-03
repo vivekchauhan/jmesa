@@ -37,7 +37,7 @@ import org.jmesa.test.ParametersBuilder;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.view.editor.CellEditor;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -71,7 +71,7 @@ public class CsvViewTest {
 		
 		// create some reusable objects
 
-		ColumnEditor editor = factory.createBasicColumnEditor();
+		CellEditor editor = factory.createBasicCellEditor();
 		
 		// create the columns
 		Column firstNameColumn = factory.createCsvColumn("firstName", editor, ",");

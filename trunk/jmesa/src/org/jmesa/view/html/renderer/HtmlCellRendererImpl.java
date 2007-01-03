@@ -15,22 +15,22 @@
  */
 package org.jmesa.view.html.renderer;
 
-import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.renderer.AbstractColumnRenderer;
+import org.jmesa.view.renderer.AbstractCellRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlColumnRendererImpl extends AbstractColumnRenderer implements HtmlColumnRenderer {
+public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCellRenderer {
 	private String style;
 	private String styleClass;
 	
-	public HtmlColumnRendererImpl(HtmlColumn column, ColumnEditor editor) {
+	public HtmlCellRendererImpl(HtmlColumn column, CellEditor editor) {
 		setColumn(column);
-		setColumnEditor(editor);
+		setCellEditor(editor);
 	}
 	
 	public HtmlColumn getColumn() {
@@ -61,7 +61,7 @@ public class HtmlColumnRendererImpl extends AbstractColumnRenderer implements Ht
 		html.close();
 		
 		String property = getColumn().getProperty();
-		Object value = getColumnEditor().getValue(item, property, rowcount);
+		Object value = getCellEditor().getValue(item, property, rowcount);
 		if (value != null) {
 			html.append(value.toString());
 		}

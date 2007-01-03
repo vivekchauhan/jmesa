@@ -16,20 +16,20 @@
 package org.jmesa.view.renderer;
 
 import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.view.editor.CellEditor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ColumnRenderer {
+public interface CellRenderer {
 	public Column getColumn();
 	
 	public void setColumn(Column column);
 	
-	public ColumnEditor getColumnEditor();
+	public CellEditor getCellEditor();
 	
-	public void setColumnEditor(ColumnEditor editor);
+	public void setCellEditor(CellEditor editor);
 	
 	public Object render(Object item, int rowcount);
 }

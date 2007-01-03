@@ -16,7 +16,7 @@
 package org.jmesa.view.html.component;
 
 import org.jmesa.view.component.ColumnImpl;
-import org.jmesa.view.html.renderer.HtmlColumnRenderer;
+import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 
@@ -60,8 +60,8 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 	}
 	
 	@Override
-	public HtmlColumnRenderer getColumnRenderer() {
-		return (HtmlColumnRenderer)super.getColumnRenderer();
+	public HtmlCellRenderer getCellRenderer() {
+		return (HtmlCellRenderer)super.getCellRenderer();
 	}
 	
 	@Override

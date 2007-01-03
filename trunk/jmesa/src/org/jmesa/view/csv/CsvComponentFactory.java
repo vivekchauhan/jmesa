@@ -19,8 +19,8 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnImpl;
-import org.jmesa.view.csv.renderer.CsvColumnRendererImpl;
-import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.view.csv.renderer.CsvCellRendererImpl;
+import org.jmesa.view.editor.CellEditor;
 import org.jmesa.web.WebContext;
 
 /**
@@ -35,20 +35,20 @@ public class CsvComponentFactory extends AbstractComponentFactory {
 		setCoreContext(coreContext);
 	}
 
-	public Column createCsvColumn(String property, ColumnEditor editor) {
+	public Column createCsvColumn(String property, CellEditor editor) {
 		return createCsvColumn(property, editor, DEFAULT_DELIMITER);
 	}
 	
-	public Column createCsvColumn(String property, ColumnEditor editor, String delimiter) {
+	public Column createCsvColumn(String property, CellEditor editor, String delimiter) {
 		ColumnImpl column = new ColumnImpl(property);
 		column.setWebContext(getWebContext());
 		column.setCoreContext(getCoreContext());
 		
-		CsvColumnRendererImpl columnRenderer = new CsvColumnRendererImpl(column, editor);
+		CsvCellRendererImpl columnRenderer = new CsvCellRendererImpl(column, editor);
 		columnRenderer.setWebContext(getWebContext());
 		columnRenderer.setCoreContext(getCoreContext());
 		columnRenderer.setDelimiter(delimiter);
-		column.setColumnRenderer(columnRenderer);
+		column.setCellRenderer(columnRenderer);
 		
 		return column;
 	}

@@ -18,7 +18,7 @@ package org.jmesa.view.component;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.ContextSupport;
 import org.jmesa.view.ViewUtils;
-import org.jmesa.view.renderer.ColumnRenderer;
+import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 
 /**
@@ -28,7 +28,7 @@ import org.jmesa.view.renderer.HeaderRenderer;
 public class ColumnImpl extends ContextSupport implements Column {
 	private String property;
 	private String title;
-	private ColumnRenderer columnRenderer;
+	private CellRenderer columnRenderer;
 	private HeaderRenderer headerRenderer;
 	private Row row;
 	
@@ -60,11 +60,11 @@ public class ColumnImpl extends ContextSupport implements Column {
 		this.title = title;
 	}
 
-	public ColumnRenderer getColumnRenderer() {
+	public CellRenderer getCellRenderer() {
 		return columnRenderer;
 	}
 
-	public void setColumnRenderer(ColumnRenderer columnRenderer) {
+	public void setCellRenderer(CellRenderer columnRenderer) {
 		this.columnRenderer = columnRenderer;
 	}
 

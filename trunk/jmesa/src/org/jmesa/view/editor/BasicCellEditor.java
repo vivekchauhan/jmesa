@@ -13,20 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.renderer;
+package org.jmesa.view.editor;
 
-import org.jmesa.view.renderer.ColumnRenderer;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.jmesa.view.ContextSupport;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlColumnRenderer extends ColumnRenderer {
-	public String getStyle();
-	
-	public void setStyle(String style);
-
-	public String getStyleClass();
-
-	public void setStyleClass(String styleClass);
+public class BasicCellEditor extends ContextSupport implements CellEditor {
+	public Object getValue(Object item, String property, int rowcount) {
+		Object itemValue = null; 
+			
+		try {
+			itemValue = PropertyUtils.getProperty(item, property);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return itemValue;
+	}
 }

@@ -19,8 +19,8 @@ import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.component.TableImpl;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.editor.ColumnEditor;
-import org.jmesa.view.editor.BasicColumnEditor;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.BasicCellEditor;
 
 /**
  * @since 2.0
@@ -44,8 +44,8 @@ public class AbstractComponentFactory extends ContextSupport {
 	}	
 	
 	
-	public ColumnEditor createBasicColumnEditor() {
-		BasicColumnEditor editor = new BasicColumnEditor();
+	public CellEditor createBasicCellEditor() {
+		BasicCellEditor editor = new BasicCellEditor();
 		editor.setWebContext(getWebContext());
 		editor.setCoreContext(getCoreContext());
 		return editor;

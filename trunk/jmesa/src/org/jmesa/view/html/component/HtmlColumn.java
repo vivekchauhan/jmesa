@@ -16,7 +16,7 @@
 package org.jmesa.view.html.component;
 
 import org.jmesa.view.component.Column;
-import org.jmesa.view.html.renderer.HtmlColumnRenderer;
+import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 
@@ -37,7 +37,7 @@ public interface HtmlColumn extends Column {
 	
 	public void setFilterRenderer(FilterRenderer filterRenderer);
 	
-	public HtmlColumnRenderer getColumnRenderer();
+	public HtmlCellRenderer getCellRenderer();
 	
 	public HtmlHeaderRenderer getHeaderRenderer();
 }

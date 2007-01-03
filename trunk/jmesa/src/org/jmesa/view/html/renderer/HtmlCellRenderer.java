@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.csv.renderer;
+package org.jmesa.view.html.renderer;
 
-import org.jmesa.view.renderer.ColumnRenderer;
+import org.jmesa.view.renderer.CellRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface CsvColumnRenderer extends ColumnRenderer {
-	public String getDelimiter();
+public interface HtmlCellRenderer extends CellRenderer {
+	public String getStyle();
 	
-	public void setDelimiter(String delimiter);
+	public void setStyle(String style);
+
+	public String getStyleClass();
+
+	public void setStyleClass(String styleClass);
 }

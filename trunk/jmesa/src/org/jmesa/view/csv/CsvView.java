@@ -55,7 +55,7 @@ public class CsvView implements View {
 			rowcount++;
 			
 			for (Column column : columns) {
-				data.append(column.getColumnRenderer().render(item, rowcount));
+				data.append(column.getCellRenderer().render(item, rowcount));
 			}
 
 			data.append("\r\n");

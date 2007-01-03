@@ -16,19 +16,19 @@
 package org.jmesa.view.csv.renderer;
 
 import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.ColumnEditor;
-import org.jmesa.view.renderer.AbstractColumnRenderer;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.renderer.AbstractCellRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class CsvColumnRendererImpl extends AbstractColumnRenderer implements CsvColumnRenderer {
+public class CsvCellRendererImpl extends AbstractCellRenderer implements CsvCellRenderer {
 	private String delimiter;
 
-	public CsvColumnRendererImpl(Column column, ColumnEditor editor) {
+	public CsvCellRendererImpl(Column column, CellEditor editor) {
 		setColumn(column);
-		setColumnEditor(editor);
+		setCellEditor(editor);
 	}
 
 	public String getDelimiter() {
@@ -43,7 +43,7 @@ public class CsvColumnRendererImpl extends AbstractColumnRenderer implements Csv
 		StringBuilder data = new StringBuilder();
 
 		String property = getColumn().getProperty();
-		Object value = getColumnEditor().getValue(item, property, rowcount);
+		Object value = getCellEditor().getValue(item, property, rowcount);
 
 		data.append(value);
 		data.append(delimiter);
