@@ -30,7 +30,7 @@ import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.RowSelect;
-import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -74,7 +74,7 @@ public class ClassicViewTest {
 		
 		// create some reusable objects
 
-		ColumnEditor editor = factory.createBasicColumnEditor();
+		CellEditor editor = factory.createBasicCellEditor();
 		
 		// create the columns
 		HtmlColumn firstNameColumn = factory.createHtmlColumn("firstName", editor);

@@ -17,14 +17,14 @@ package org.jmesa.view.html;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractComponentFactory;
-import org.jmesa.view.editor.ColumnEditor;
+import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumnImpl;
 import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.renderer.HtmlColumnRendererImpl;
+import org.jmesa.view.html.renderer.HtmlCellRendererImpl;
 import org.jmesa.view.html.renderer.HtmlFilterRendererImpl;
 import org.jmesa.view.html.renderer.HtmlHeaderRendererImpl;
 import org.jmesa.view.html.renderer.HtmlRowRendererImpl;
@@ -67,15 +67,15 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 		return row;
 	}
 
-	public HtmlColumn createHtmlColumn(String property, ColumnEditor editor) {
+	public HtmlColumn createHtmlColumn(String property, CellEditor editor) {
 		HtmlColumnImpl column = new HtmlColumnImpl(property);
 		column.setWebContext(getWebContext());
 		column.setCoreContext(getCoreContext());
 		
-		HtmlColumnRendererImpl columnRenderer = new HtmlColumnRendererImpl(column, editor);
+		HtmlCellRendererImpl columnRenderer = new HtmlCellRendererImpl(column, editor);
 		columnRenderer.setWebContext(getWebContext());
 		columnRenderer.setCoreContext(getCoreContext());
-		column.setColumnRenderer(columnRenderer);
+		column.setCellRenderer(columnRenderer);
 		
 		HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
 		headerRenderer.setWebContext(getWebContext());

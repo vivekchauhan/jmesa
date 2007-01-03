@@ -13,33 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.renderer;
-
-import org.jmesa.view.ContextSupport;
-import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.ColumnEditor;
+package org.jmesa.view.editor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractColumnRenderer extends ContextSupport implements ColumnRenderer {
-	private Column column;
-	private ColumnEditor editor;
-
-	public Column getColumn() {
-		return column;
-	}
-	
-	public void setColumn(Column column) {
-		this.column = column;
-	}
-	
-	public ColumnEditor getColumnEditor() {
-		return editor;
-	}
-
-	public void setColumnEditor(ColumnEditor editor) {
-		this.editor = editor;
-	}
+public interface CellEditor {
+	public Object getValue(Object item, String property, int rowcount);
 }

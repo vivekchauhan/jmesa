@@ -13,25 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.editor;
+package org.jmesa.view.renderer;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.jmesa.view.ContextSupport;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.CellEditor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class BasicColumnEditor extends ContextSupport implements ColumnEditor {
-	public Object getValue(Object item, String property, int rowcount) {
-		Object itemValue = null; 
-			
-		try {
-			itemValue = PropertyUtils.getProperty(item, property);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-		return itemValue;
+public abstract class AbstractCellRenderer extends ContextSupport implements CellRenderer {
+	private Column column;
+	private CellEditor editor;
+
+	public Column getColumn() {
+		return column;
+	}
+	
+	public void setColumn(Column column) {
+		this.column = column;
+	}
+	
+	public CellEditor getCellEditor() {
+		return editor;
+	}
+
+	public void setCellEditor(CellEditor editor) {
+		this.editor = editor;
 	}
 }

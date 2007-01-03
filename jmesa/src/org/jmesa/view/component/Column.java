@@ -15,7 +15,7 @@
  */
 package org.jmesa.view.component;
 
-import org.jmesa.view.renderer.ColumnRenderer;
+import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 
 
@@ -32,9 +32,9 @@ public interface Column {
 	
 	public void setTitle(String title);
 	
-	public ColumnRenderer getColumnRenderer();
+	public CellRenderer getCellRenderer();
 	
-	public void setColumnRenderer(ColumnRenderer columnRenderer);
+	public void setCellRenderer(CellRenderer cellRenderer);
 	
 	public HeaderRenderer getHeaderRenderer();
 	
