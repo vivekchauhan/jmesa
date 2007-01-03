@@ -13,15 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.csv;
 
 import javax.servlet.http.HttpServletResponse;
+
+import org.jmesa.view.ViewResolver;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ViewResolver {
+public class CsvViewResolver implements ViewResolver {
 	public void resolve(HttpServletResponse response, Object viewData, String fileName) 
-		throws Exception;
+		throws Exception {
+		byte[] contents = ((String) viewData).getBytes();
+		response.setContentType("text/plain");
+		response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+		response.setHeader("Pragma", "public");
+		response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
+		response.setContentLength(contents.length);
+		response.getOutputStream().write(contents);
+	}
 }
