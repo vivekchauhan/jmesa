@@ -20,6 +20,10 @@
 function onInvokeAction(id) {
 	createHiddenInputFieldsForLimitAndSubmit(id);
 }
+function onInvokeExportAction(id) {
+	var parameterString = createParameterStringForLimit(id);
+	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+}
 </script>
 
 </body>

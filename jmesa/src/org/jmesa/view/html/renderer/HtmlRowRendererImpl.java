@@ -26,13 +26,13 @@ import org.jmesa.view.renderer.AbstractRowRenderer;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultHtmlRowRenderer extends AbstractRowRenderer implements HtmlRowRenderer {
+public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowRenderer {
 	private String style;
 	private String styleClass;
 	private String highlightStyle;
 	private String highlightClass;
 	
-	public DefaultHtmlRowRenderer(HtmlRow row) {
+	public HtmlRowRendererImpl(HtmlRow row) {
 		setRow(row);
 	}
 	

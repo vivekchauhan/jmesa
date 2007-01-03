@@ -15,28 +15,28 @@
  */
 package org.jmesa.view;
 
-import org.jmesa.view.component.DefaultRow;
-import org.jmesa.view.component.DefaultTable;
+import org.jmesa.view.component.RowImpl;
+import org.jmesa.view.component.TableImpl;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.ColumnEditor;
-import org.jmesa.view.editor.DefaultColumnEditor;
+import org.jmesa.view.editor.BasicColumnEditor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class AbstractComponentFactory extends ContextSupport {
-	public Table createDefaultTable() {
-		DefaultTable table = new DefaultTable();
+	public Table createTable() {
+		TableImpl table = new TableImpl();
 		table.setWebContext(getWebContext());
 		table.setCoreContext(getCoreContext());
 		
 		return table;
 	}
 
-	public Row createDefaultRow() {
-		DefaultRow row = new DefaultRow();
+	public Row createRow() {
+		RowImpl row = new RowImpl();
 		row.setWebContext(getWebContext());
 		row.setCoreContext(getCoreContext());
 		
@@ -44,8 +44,8 @@ public class AbstractComponentFactory extends ContextSupport {
 	}	
 	
 	
-	public ColumnEditor createDefaultColumnEditor() {
-		DefaultColumnEditor editor = new DefaultColumnEditor();
+	public ColumnEditor createBasicColumnEditor() {
+		BasicColumnEditor editor = new BasicColumnEditor();
 		editor.setWebContext(getWebContext());
 		editor.setCoreContext(getCoreContext());
 		return editor;

@@ -18,8 +18,8 @@ package org.jmesa.view.csv;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.component.DefaultColumn;
-import org.jmesa.view.csv.renderer.DefaultCsvColumnRenderer;
+import org.jmesa.view.component.ColumnImpl;
+import org.jmesa.view.csv.renderer.CsvColumnRendererImpl;
 import org.jmesa.view.editor.ColumnEditor;
 import org.jmesa.web.WebContext;
 
@@ -40,11 +40,11 @@ public class CsvComponentFactory extends AbstractComponentFactory {
 	}
 	
 	public Column createCsvColumn(String property, ColumnEditor editor, String delimiter) {
-		DefaultColumn column = new DefaultColumn(property);
+		ColumnImpl column = new ColumnImpl(property);
 		column.setWebContext(getWebContext());
 		column.setCoreContext(getCoreContext());
 		
-		DefaultCsvColumnRenderer columnRenderer = new DefaultCsvColumnRenderer(column, editor);
+		CsvColumnRendererImpl columnRenderer = new CsvColumnRendererImpl(column, editor);
 		columnRenderer.setWebContext(getWebContext());
 		columnRenderer.setCoreContext(getCoreContext());
 		columnRenderer.setDelimiter(delimiter);

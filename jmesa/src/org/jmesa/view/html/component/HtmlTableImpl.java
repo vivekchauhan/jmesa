@@ -13,25 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.editor;
+package org.jmesa.view.html.component;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.component.TableImpl;
+import org.jmesa.view.html.renderer.HtmlTableRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultColumnEditor extends ContextSupport implements ColumnEditor {
-	public Object getValue(Object item, String property, int rowcount) {
-		Object itemValue = null; 
-			
-		try {
-			itemValue = PropertyUtils.getProperty(item, property);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-		return itemValue;
+public class HtmlTableImpl extends TableImpl implements HtmlTable {
+	private String theme;
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	
+	@Override
+	public HtmlTableRenderer getTableRenderer() {
+		return (HtmlTableRenderer)super.getTableRenderer();
 	}
 }

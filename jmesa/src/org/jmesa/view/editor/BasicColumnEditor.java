@@ -13,41 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.component;
+package org.jmesa.view.editor;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.jmesa.view.ContextSupport;
-import org.jmesa.view.renderer.TableRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultTable extends ContextSupport implements Table {
-	private Row row;
-	private String title;
-	private TableRenderer tableRenderer;
-	
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public Row getRow() {
-		return row;
-	}
-
-	public void setRow(Row row) {
-		this.row = row;
-	}
-
-	public TableRenderer getTableRenderer() {
-		return tableRenderer;
-	}
-
-	public void setTableRenderer(TableRenderer tableRenderer) {
-		this.tableRenderer = tableRenderer;
+public class BasicColumnEditor extends ContextSupport implements ColumnEditor {
+	public Object getValue(Object item, String property, int rowcount) {
+		Object itemValue = null; 
+			
+		try {
+			itemValue = PropertyUtils.getProperty(item, property);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return itemValue;
 	}
 }

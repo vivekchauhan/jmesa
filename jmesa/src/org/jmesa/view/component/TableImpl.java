@@ -15,34 +15,39 @@
  */
 package org.jmesa.view.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jmesa.view.ContextSupport;
-import org.jmesa.view.renderer.RowRenderer;
+import org.jmesa.view.renderer.TableRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultRow extends ContextSupport implements Row {
-	List<Column> columns = new ArrayList<Column>();
-	private RowRenderer rowRenderer;
-
-	public void addColumn(Column column) {
-		column.setRow(this);
-		columns.add(column);
+public class TableImpl extends ContextSupport implements Table {
+	private Row row;
+	private String title;
+	private TableRenderer tableRenderer;
+	
+	public String getTitle() {
+		return title;
 	}
 
-	public List<Column> getColumns() {
-		return columns;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public Row getRow() {
+		return row;
 	}
 
-	public RowRenderer getRowRenderer() {
-		return rowRenderer;
+	public void setRow(Row row) {
+		this.row = row;
 	}
 
-	public void setRowRenderer(RowRenderer rowRenderer) {
-		this.rowRenderer = rowRenderer;
+	public TableRenderer getTableRenderer() {
+		return tableRenderer;
+	}
+
+	public void setTableRenderer(TableRenderer tableRenderer) {
+		this.tableRenderer = tableRenderer;
 	}
 }

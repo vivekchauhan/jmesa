@@ -15,10 +15,10 @@
  */
 package org.jmesa.view.html.component;
 
-import org.jmesa.view.component.DefaultRow;
+import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
-public class DefaultHtmlRow extends DefaultRow implements HtmlRow {
+public class HtmlRowImpl extends RowImpl implements HtmlRow {
 	private boolean highlighter;
 	private String onclick;
 	private String onmouseout;

@@ -39,7 +39,7 @@ import org.jmesa.web.WebContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultCoreContextFactory implements CoreContextFactory {
+public class CoreContextFactoryImpl implements CoreContextFactory {
 	private WebContext webContext;
 	private FilterMatchRegistry registry;
 	private RowFilter rowFilter;
@@ -48,11 +48,11 @@ public class DefaultCoreContextFactory implements CoreContextFactory {
 	private Messages messages;
 	private boolean enableFilterAndSort;
 	
-	public DefaultCoreContextFactory(WebContext webContext) {
+	public CoreContextFactoryImpl(WebContext webContext) {
 		this(webContext, true);
 	}
 	
-	public DefaultCoreContextFactory(WebContext webContext, boolean enableFilterAndSort) {
+	public CoreContextFactoryImpl(WebContext webContext, boolean enableFilterAndSort) {
 		this.webContext = webContext;
 		this.enableFilterAndSort = enableFilterAndSort;
 	}

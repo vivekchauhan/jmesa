@@ -25,11 +25,11 @@ import org.jmesa.view.renderer.AbstractFilterRenderer;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultHtmlFilterRenderer extends AbstractFilterRenderer implements HtmlFilterRenderer {
+public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements HtmlFilterRenderer {
 	private String style;
 	private String styleClass;
 	
-	public DefaultHtmlFilterRenderer(HtmlColumn column) {
+	public HtmlFilterRendererImpl(HtmlColumn column) {
 		setColumn(column);
 	}
 

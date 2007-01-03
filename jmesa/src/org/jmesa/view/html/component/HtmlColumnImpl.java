@@ -15,7 +15,7 @@
  */
 package org.jmesa.view.html.component;
 
-import org.jmesa.view.component.DefaultColumn;
+import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.html.renderer.HtmlColumnRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
@@ -24,14 +24,14 @@ import org.jmesa.view.renderer.FilterRenderer;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DefaultHtmlColumn extends DefaultColumn implements HtmlColumn {
+public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 	private boolean filterable = true;
 	private boolean sortable = true;
 	private FilterRenderer filterRenderer;
 
-	public DefaultHtmlColumn(){}
+	public HtmlColumnImpl(){}
 	
-	public DefaultHtmlColumn(String property) {
+	public HtmlColumnImpl(String property) {
 		setProperty(property);
 	}
 
