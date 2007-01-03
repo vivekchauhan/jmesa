@@ -48,7 +48,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	 * default must be used.
 	 */
 	public Integer getMaxRows() {
-        String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.getCode()));
+        String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.toParam()));
         if (StringUtils.isNotBlank(maxRows)) {
         	logger.log(Level.FINE, "Max Rows: {0}", maxRows);
             return Integer.parseInt(maxRows);
@@ -62,7 +62,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	 * the first page.
 	 */
 	public int getPage() {
-        String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.getCode()));
+        String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.toParam()));
         if (StringUtils.isNotBlank(page)) {
         	logger.log(Level.FINE, "On Page: {0}", page);
             return Integer.parseInt(page);
@@ -76,7 +76,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	public FilterSet getFilterSet() {
 		FilterSet filterSet = new FilterSet();
 		
-        String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.getCode()));
+        String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.toParam()));
         if (StringUtils.isNotEmpty(clear)) {
         	logger.fine("Cleared out the filters.");
             return filterSet;
@@ -85,10 +85,10 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 		
 		for (Object param: parameters.keySet()) {
 			String parameter = (String)param;
-			if (parameter.startsWith(prefixId + Action.FILTER.getCode())) {
+			if (parameter.startsWith(prefixId + Action.FILTER.toParam())) {
 				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
-                    String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER.getCode());
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER.toParam());
                     Filter filter = new Filter(property, value); 
                     filterSet.addFilter(filter);
                 }                    
@@ -103,12 +103,12 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 		
 		for (Object param: parameters.keySet()) {
 			String parameter = (String)param;
-			if (parameter.startsWith(prefixId + Action.SORT.getCode())) {
+			if (parameter.startsWith(prefixId + Action.SORT.toParam())) {
 				String value = LimitUtils.getValue(parameters.get(parameter));
 				if (StringUtils.isNotBlank(value)) {
-                    String position = StringUtils.substringBetween(parameter, prefixId + Action.SORT.getCode(), "_");
-                    String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT.getCode() + position + "_");
-                    Order order = Order.getOrder(value);
+                    String position = StringUtils.substringBetween(parameter, prefixId + Action.SORT.toParam(), "_");
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT.toParam() + position + "_");
+                    Order order = Order.valueOfParam(value);
 					Sort sort = new Sort(property, order, new Integer(position));
                     sortSet.addSort(sort);
                 }                    
@@ -119,7 +119,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	}
 
 	public Export getExport() {
-        String export = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.getCode()));
+        String export = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
         if (StringUtils.isNotBlank(export)) {
         	logger.log(Level.FINE, "Export: {0}", export);
             return new Export(export);

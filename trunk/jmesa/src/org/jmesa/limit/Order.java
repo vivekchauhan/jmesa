@@ -25,7 +25,7 @@ public enum Order {
 	ASC, 
 	DESC;
 	
-	public String getCode() {
+	public String toParam() {
 		switch(this) {
 		case ASC: return "asc";
 		case DESC: return "desc";
@@ -33,9 +33,9 @@ public enum Order {
 		}
 	}
 	
-	public static Order getOrder(String code) {
+	public static Order valueOfParam(String param) {
 		for(Order order: Order.values()) {
-			if (order.getCode().equals(code)) {
+			if (order.toParam().equals(param)) {
 				return order;
 			}
 		}

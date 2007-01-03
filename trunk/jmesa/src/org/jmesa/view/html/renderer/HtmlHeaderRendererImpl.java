@@ -77,7 +77,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
                         html.onmouseout("this.className='" + HtmlConstants.TABLE_HEADER_CSS + "';this.style.cursor='default'");
                     }
             		int position = column.getRow().getColumns().indexOf(column);
-                    html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" + Order.DESC.getCode() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
+                    html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" + Order.DESC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
         		} else if (sort.getOrder() == Order.DESC) {
             		int position = column.getRow().getColumns().indexOf(column);
                     html.onmouseover("this.style.cursor='pointer'");
@@ -88,7 +88,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
         		int position = column.getRow().getColumns().indexOf(column);
                 html.onmouseover("this.style.cursor='pointer'");
                 html.onmouseout("this.style.cursor='default'");
-                html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" + Order.ASC.getCode() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
+                html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" + Order.ASC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
         	}
         }
         
