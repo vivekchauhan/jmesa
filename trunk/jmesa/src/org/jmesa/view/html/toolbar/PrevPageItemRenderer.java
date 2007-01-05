@@ -17,14 +17,13 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
-import org.jmesa.view.ContextSupport;
 import org.jmesa.view.html.HtmlUtils;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PrevPageItemRenderer extends ContextSupport implements ToolbarItemRenderer {
+public class PrevPageItemRenderer extends AbstractItemRenderer {
 	public PrevPageItemRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
@@ -34,7 +33,7 @@ public class PrevPageItemRenderer extends ContextSupport implements ToolbarItemR
 		int page = limit.getRowSelect().getPage();
 
         StringBuffer action = new StringBuffer("javascript:");
-        action.append("setPageToLimit('" + limit.getId() + "','" + (page - 1) + "');onInvokeAction('" + limit.getId() + "')");
+        action.append("setPageToLimit('" + limit.getId() + "','" + (page - 1) + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         item.setAction(action.toString());
 
         if (!HtmlUtils.isPrevPageEnabled(page)) {

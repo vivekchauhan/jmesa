@@ -31,6 +31,8 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 	private String styleClass;
 	private String highlightStyle;
 	private String highlightClass;
+	private String evenClass;
+	private String oddClass;
 	
 	public HtmlRowRendererImpl(HtmlRow row) {
 		setRow(row);
@@ -52,6 +54,30 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 		return styleClass;
 	}
 
+	public String getEvenClass() {
+		if (StringUtils.isBlank(evenClass)) {
+			return getCoreContext().getPreference("view.html.renderer.htmlRowRenderer.evenClass");
+		}
+
+		return evenClass;
+	}
+
+	public void setEvenClass(String evenClass) {
+		this.evenClass = evenClass;
+	}
+
+	public String getOddClass() {
+		if (StringUtils.isBlank(oddClass)) {
+			return getCoreContext().getPreference("view.html.renderer.htmlRowRenderer.oddClass");
+		}
+
+		return oddClass;
+	}
+
+	public void setOddClass(String oddClass) {
+		this.oddClass = oddClass;
+	}
+
 	protected String getStyleClass(int rowcount) {
         String styleClass = getStyleClass();
         if (StringUtils.isNotBlank(styleClass)) {
@@ -59,10 +85,10 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
         }
 
         if (ViewUtils.isRowEven(rowcount)) {
-            return HtmlConstants.ROW_EVEN_CSS;
+        	return getEvenClass();
         }
 
-        return HtmlConstants.ROW_ODD_CSS;
+        return getOddClass();
 	}
 
 	public void setStyleClass(String styleClass) {
@@ -70,6 +96,10 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 	}
 	
 	public String getHighlightClass() {
+		if (StringUtils.isBlank(highlightClass)) {
+			return getCoreContext().getPreference("view.html.renderer.htmlRowRenderer.highlightClass");
+		}
+
 		return highlightClass;
 	}
 

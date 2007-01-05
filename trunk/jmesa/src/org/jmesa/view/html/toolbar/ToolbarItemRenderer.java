@@ -20,5 +20,9 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarItemRenderer {
+	public String getOnInvokeAction();
+
+	public void setOnInvokeAction(String onInvokeAction);
+	
 	public Object render(ToolbarItem item);
 }
