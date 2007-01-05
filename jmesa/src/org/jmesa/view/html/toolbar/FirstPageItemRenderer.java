@@ -17,14 +17,13 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
-import org.jmesa.view.ContextSupport;
 import org.jmesa.view.html.HtmlUtils;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FirstPageItemRenderer extends ContextSupport implements ToolbarItemRenderer {
+public class FirstPageItemRenderer extends AbstractItemRenderer {
 	public FirstPageItemRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
@@ -34,7 +33,7 @@ public class FirstPageItemRenderer extends ContextSupport implements ToolbarItem
 		int page = limit.getRowSelect().getPage();
 
         StringBuffer action = new StringBuffer("javascript:");
-        action.append("setPageToLimit('" + limit.getId() + "','" + 1 + "');onInvokeAction('" + limit.getId() + "')");
+        action.append("setPageToLimit('" + limit.getId() + "','" + 1 + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         item.setAction(action.toString());
 
         if (!HtmlUtils.isFirstPageEnabled(page)) {

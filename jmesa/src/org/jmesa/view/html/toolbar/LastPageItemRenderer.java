@@ -17,14 +17,13 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
-import org.jmesa.view.ContextSupport;
 import org.jmesa.view.html.HtmlUtils;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class LastPageItemRenderer extends ContextSupport implements ToolbarItemRenderer {
+public class LastPageItemRenderer extends AbstractItemRenderer {
 	public LastPageItemRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
@@ -35,7 +34,7 @@ public class LastPageItemRenderer extends ContextSupport implements ToolbarItemR
         int totalPages = HtmlUtils.getTotalPages(getCoreContext());
 
         StringBuffer action = new StringBuffer("javascript:");
-        action.append("setPageToLimit('" + limit.getId() + "','" + totalPages + "');onInvokeAction('" + limit.getId() + "')");
+        action.append("setPageToLimit('" + limit.getId() + "','" + totalPages + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         item.setAction(action.toString());
 
         if (!HtmlUtils.isLastPageEnabled(page, totalPages)) {

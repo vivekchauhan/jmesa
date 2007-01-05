@@ -49,6 +49,10 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
 	}
 
 	public String getStyleClass() {
+		if (StringUtils.isBlank(styleClass)) {
+			return getCoreContext().getPreference("view.html.renderer.htmlHeaderRenderer.styleClass");
+		}
+		
 		return styleClass;
 	}
 
@@ -70,12 +74,16 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
             Sort sort = limit.getSortSet().getSort(column.getProperty());
         	if (sort != null) {
         		if (sort.getOrder() == Order.ASC) {
-                    html.onmouseover("this.className='" + HtmlConstants.TABLE_HEADER_SORT_CSS + "';this.style.cursor='pointer'");
-                    if (StringUtils.isNotEmpty(getStyleClass())) {
-                        html.onmouseout("this.className='" + getStyleClass() + "';this.style.cursor='default'");
-                    } else {
-                        html.onmouseout("this.className='" + HtmlConstants.TABLE_HEADER_CSS + "';this.style.cursor='default'");
-                    }
+//                    html.onmouseover("this.className='" + HtmlConstants.TABLE_HEADER_SORT_CSS + "';this.style.cursor='pointer'");
+//                    if (StringUtils.isNotEmpty(getStyleClass())) {
+//                        html.onmouseout("this.className='" + getStyleClass() + "';this.style.cursor='default'");
+//                    } else {
+//                        html.onmouseout("this.className='" + HtmlConstants.TABLE_HEADER_CSS + "';this.style.cursor='default'");
+//                    }
+
+                    html.onmouseover("this.style.cursor='pointer'");
+                    html.onmouseout("this.style.cursor='default'");
+
             		int position = column.getRow().getColumns().indexOf(column);
                     html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" + Order.DESC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
         		} else if (sort.getOrder() == Order.DESC) {

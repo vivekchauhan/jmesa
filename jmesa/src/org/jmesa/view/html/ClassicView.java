@@ -158,7 +158,8 @@ public class ClassicView implements View {
     }
 
 	protected void tbodyStart(HtmlBuilder html) {
-        html.tbody(1).styleClass(HtmlConstants.TABLE_BODY_CSS).close();
+        String tbodyStyleClass = getCoreContext().getPreference("view.html.tbodyClass");
+		html.tbody(1).styleClass(tbodyStyleClass).close();
     }
 
 	protected void tbodyEnd(HtmlBuilder html) {
@@ -222,7 +223,8 @@ public class ClassicView implements View {
 
         html.td(2).align("right").close();
 
-        html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(HtmlConstants.TOOLBAR_CSS).close();
+        String toolbarStyleClass = getCoreContext().getPreference("view.html.toolbarClass");
+		html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarStyleClass).close();
 
         html.tr(3).close();
         
@@ -231,24 +233,28 @@ public class ClassicView implements View {
         html.td(4).close();
         ToolbarItem firstPageItem = toolbarItemFactory.createFirstPageItemAsImage();
         ToolbarItemRenderer firstPageItemRenderer = new FirstPageItemRenderer(coreContext);
+        firstPageItemRenderer.setOnInvokeAction("onInvokeAction");
         html.append(firstPageItemRenderer.render(firstPageItem));
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem prevPageItem = toolbarItemFactory.createPrevPageItemAsImage();
         ToolbarItemRenderer prevPageItemRenderer = new PrevPageItemRenderer(coreContext);
+        prevPageItemRenderer.setOnInvokeAction("onInvokeAction");
         html.append(prevPageItemRenderer.render(prevPageItem));
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem nextPageItem = toolbarItemFactory.createNextPageItemAsImage();
         ToolbarItemRenderer nextPageItemRenderer = new NextPageItemRenderer(coreContext);
+        nextPageItemRenderer.setOnInvokeAction("onInvokeAction");
         html.append(nextPageItemRenderer.render(nextPageItem));
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem lastPageItem = toolbarItemFactory.createLastPageItemAsImage();
         ToolbarItemRenderer lastPageItemRenderer = new LastPageItemRenderer(coreContext);
+        lastPageItemRenderer.setOnInvokeAction("onInvokeAction");
         html.append(lastPageItemRenderer.render(lastPageItem));
         html.tdEnd();
         
@@ -288,6 +294,7 @@ public class ClassicView implements View {
         export.setImageName("csv.gif");
         ToolbarItem exportItem = toolbarItemFactory.createExportItemAsImage(export);
         ToolbarItemRenderer exportItemRenderer = new ExportItemRenderer(export, coreContext);
+        exportItemRenderer.setOnInvokeAction("onInvokeExportAction");
         html.append(exportItemRenderer.render(exportItem));
         html.tdEnd();
         
@@ -319,7 +326,8 @@ public class ClassicView implements View {
         
         // start of status bar
         
-        html.td(4).styleClass(HtmlConstants.STATUS_BAR_CSS).close();
+        String statusBarClass = getCoreContext().getPreference("view.html.statusBarClass");
+		html.td(4).styleClass(statusBarClass).close();
         
         if (rowSelect.getTotalRows() == 0) {
             html.append(coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND));
@@ -337,7 +345,8 @@ public class ClassicView implements View {
         
         // start of filter buttons
         
-        html.td(4).styleClass(HtmlConstants.FILTER_BUTTONS_CSS).close();
+        String filterButtonsClass = getCoreContext().getPreference("view.html.filterButtonsClass");
+		html.td(4).styleClass(filterButtonsClass).close();
         
         if (ViewUtils.isFilterable(columns)) {
             html.img();
@@ -352,12 +361,14 @@ public class ClassicView implements View {
 
             ToolbarItem filterItem = toolbarItemFactory.createFilterItemAsImage();
             ToolbarItemRenderer filterItemRenderer = new FilterItemRenderer(coreContext);
+            filterItemRenderer.setOnInvokeAction("onInvokeAction");
             html.append(filterItemRenderer.render(filterItem));
 
             html.nbsp();
 
             ToolbarItem clearItem = toolbarItemFactory.createClearItemAsImage();
             ToolbarItemRenderer clearItemRenderer = new ClearItemRenderer(coreContext);
+            clearItemRenderer.setOnInvokeAction("onInvokeAction");
             html.append(clearItemRenderer.render(clearItem));
         }
 

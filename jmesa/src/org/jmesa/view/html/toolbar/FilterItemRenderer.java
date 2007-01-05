@@ -17,20 +17,19 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
-import org.jmesa.view.ContextSupport;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FilterItemRenderer extends ContextSupport implements ToolbarItemRenderer {
+public class FilterItemRenderer extends AbstractItemRenderer {
 	public FilterItemRenderer(CoreContext coreContext) {
 		setCoreContext(coreContext);
 	}
 
 	public Object render(ToolbarItem item) {
         Limit limit = getCoreContext().getLimit();
-        StringBuffer action = new StringBuffer("javascript:onInvokeAction('" + limit.getId() + "')");
+        StringBuffer action = new StringBuffer("javascript:" + getOnInvokeAction() + "('" + limit.getId() + "')");
         item.setAction(action.toString());
         return item.enabled();
 	}

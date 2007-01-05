@@ -23,30 +23,7 @@ public class HtmlConstants {
     private HtmlConstants() {
     }
     
-    // id attributes
-    public final static String TABLE = "table";
-
-    // style sheet attributes
-    public final static String CALC_ROW_CSS = "calcRow";
-    public final static String CALC_TITLE_CSS = "calcTitle";
-    public final static String CALC_RESULT_CSS = "calcResult";
-    public final static String COMPACT_TOOLBAR_CSS = "compactToolbar";
-    public final static String FILTER_CSS = "filter";
-    public final static String FILTER_BUTTONS_CSS = "filterButtons";
-    public final static String ROW_EVEN_CSS = "even";
-    public final static String ROW_HIGHLIGHT_CSS = "highlight";
-    public final static String ROW_ODD_CSS = "odd";
-    public final static String TOOLBAR_SEPARATOR_CSS = "separator";
-    public final static String STATUS_BAR_CSS = "statusBar";
-    public final static String TABLE_BODY_CSS = "tableBody";
-    public final static String TABLE_HEADER_CSS = "header";
-    public final static String TABLE_HEADER_SORT_CSS = "headerSort";
-    public final static String TABLE_REGION_CSS = "table";
-    public final static String TITLE_CSS = "title";
-    public final static String TITLE_ROW_CSS = "titleRow";
-    public final static String TOOLBAR_CSS = "toolbar";
-
-    // image names
+    // toolbar image names
     public final static String TOOLBAR_CLEAR_IMAGE = "clear.gif";
     public final static String TOOLBAR_FIRST_PAGE_IMAGE = "firstPage.gif";
     public final static String TOOLBAR_FIRST_PAGE_DISABLED_IMAGE = "firstPageDisabled.gif";
@@ -63,7 +40,7 @@ public class HtmlConstants {
     public final static String SORT_ASC_IMAGE = "sortAsc.gif";
     public final static String SORT_DESC_IMAGE = "sortDesc.gif";
 
-    // text tooltip messages
+    // toolbar text tooltip messages
     public final static String TOOLBAR_FIRST_PAGE_TOOLTIP = "toolbar.tooltip.firstPage";
     public final static String TOOLBAR_LAST_PAGE_TOOLTIP = "toolbar.tooltip.lastPage";
     public final static String TOOLBAR_PREV_PAGE_TOOLTIP = "toolbar.tooltip.prevPage";
@@ -75,7 +52,7 @@ public class HtmlConstants {
     public final static String TOOLBAR_CSV_TOOLTIP = "toolbar.tooltip.csv";
     public final static String TOOLBAR_XML_TOOLTIP = "toolbar.tooltip.xml";
 
-    // text messages
+    // toolbar text messages
     public final static String TOOLBAR_FIRST_PAGE_TEXT = "toolbar.text.firstPage";
     public final static String TOOLBAR_LAST_PAGE_TEXT = "toolbar.text.lastPage";
     public final static String TOOLBAR_NEXT_PAGE_TEXT = "toolbar.text.nextPage";
@@ -87,7 +64,7 @@ public class HtmlConstants {
     public final static String TOOLBAR_CSV_TEXT = "toolbar.text.csv";
     public final static String TOOLBAR_XML_TEXT = "toolbar.text.xml";
 
-    // text statusbar messages
+    // statusbar text messages
     public final static String STATUSBAR_RESULTS_FOUND = "statusbar.resultsFound";
     public final static String STATUSBAR_NO_RESULTS_FOUND = "statusbar.noResultsFound";
 }

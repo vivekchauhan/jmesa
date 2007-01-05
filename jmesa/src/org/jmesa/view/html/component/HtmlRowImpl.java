@@ -19,7 +19,7 @@ import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
 public class HtmlRowImpl extends RowImpl implements HtmlRow {
-	private boolean highlighter;
+	private boolean highlighter = true;
 	private String onclick;
 	private String onmouseout;
 	private String onmouseover;

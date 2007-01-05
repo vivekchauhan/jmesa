@@ -45,6 +45,10 @@ public class HtmlTableRendererImpl extends AbstractTableRenderer implements Html
 	}
 
 	public String getStyleClass() {
+		if (StringUtils.isBlank(styleClass)) {
+			return getCoreContext().getPreference("view.html.renderer.htmlTableRenderer.styleClass");
+		}
+
 		return styleClass;
 	}
 
