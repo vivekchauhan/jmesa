@@ -25,6 +25,10 @@ import org.jmesa.view.html.renderer.HtmlTableRenderer;
  */
 public class HtmlTableImpl extends TableImpl implements HtmlTable {
 	private String theme;
+	
+	public HtmlRow getRow() {
+		return (HtmlRow)super.getRow();
+	}
 
 	public String getTheme() {
 		if (StringUtils.isBlank(theme)) {
