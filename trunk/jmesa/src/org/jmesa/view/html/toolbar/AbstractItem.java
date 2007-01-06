@@ -19,13 +19,14 @@ package org.jmesa.view.html.toolbar;
 /**
  * @author Jeff Johnston
  */
-public abstract class AbstractItem {
+public abstract class AbstractItem implements ToolbarItem {
     private String action;
     private String onmouseover;
     private String onmouseout;
     private String styleClass;
     private String style;
     private String tooltip;
+    private ToolbarItemRenderer renderer;
 
     public String getAction() {
         return action;
@@ -74,8 +75,16 @@ public abstract class AbstractItem {
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
     }
+    
+    public ToolbarItemRenderer getToolbarItemRenderer() {
+    	return renderer;
+    }
+    
+    public void setToolbarItemRenderer(ToolbarItemRenderer renderer) {
+    	this.renderer = renderer;
+    }
 
-    protected abstract String disabled();
+    public abstract String disabled();
 
-    protected abstract String enabled();
+    public abstract String enabled();
 }

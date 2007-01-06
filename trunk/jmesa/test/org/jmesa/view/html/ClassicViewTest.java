@@ -94,7 +94,7 @@ public class ClassicViewTest {
 		row.addColumn(careerColumn);
 
 		// create the view
-		ClassicView view = new ClassicView(table, coreContext, "images/table/*.gif");
+		ClassicView view = new ClassicView(table, webContext, coreContext, "csv");
 		Object html = view.render();
 		
 		assertNotNull(html);

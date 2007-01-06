@@ -21,6 +21,7 @@ import org.jmesa.limit.Order;
 import org.jmesa.limit.Sort;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
+import org.jmesa.view.html.HtmlViewUtils;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractHeaderRenderer;
 
@@ -104,19 +105,20 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
 		html.append(column.getTitle());
 		
         if (column.isSortable()) {
+        	String imagesPath = HtmlViewUtils.imagesPath(getWebContext(), getCoreContext());
             Sort sort = limit.getSortSet().getSort(column.getProperty());
         	if (sort != null) {
         		if (sort.getOrder() == Order.ASC) {
                     html.nbsp();
                     html.img();
-                    html.src("images/table/" + HtmlConstants.SORT_ASC_IMAGE);
+                    html.src(imagesPath + HtmlViewUtils.toolbarImage(HtmlConstants.SORT_ASC_IMAGE, getCoreContext()));
                     html.style("border:0");
                     html.alt("Arrow");
                     html.end();
         		} else if (sort.getOrder() == Order.DESC) {
                     html.nbsp();
                     html.img();
-                    html.src("images/table/" + HtmlConstants.SORT_DESC_IMAGE);
+                    html.src(imagesPath + HtmlViewUtils.toolbarImage(HtmlConstants.SORT_DESC_IMAGE, getCoreContext()));
                     html.style("border:0");
                     html.alt("Arrow");
                     html.end();

@@ -23,14 +23,15 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class ClearItemRenderer extends AbstractItemRenderer {
-	public ClearItemRenderer(CoreContext coreContext) {
+	public ClearItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		setToolbarItem(item);
 		setCoreContext(coreContext);
 	}
 
-	public Object render(ToolbarItem item) {
+	public Object render() {
         Limit limit = getCoreContext().getLimit();
         StringBuffer action = new StringBuffer("javascript:removeAllFiltersFromLimit('" + limit.getId() + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
-        item.setAction(action.toString());
-        return item.enabled();
+        getToolbarItem().setAction(action.toString());
+        return getToolbarItem().enabled();
 	}
 }

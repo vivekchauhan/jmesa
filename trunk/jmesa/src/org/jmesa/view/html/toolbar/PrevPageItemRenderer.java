@@ -24,16 +24,18 @@ import org.jmesa.view.html.HtmlUtils;
  * @author Jeff Johnston
  */
 public class PrevPageItemRenderer extends AbstractItemRenderer {
-	public PrevPageItemRenderer(CoreContext coreContext) {
+	public PrevPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		setToolbarItem(item);
 		setCoreContext(coreContext);
 	}
 
-	public Object render(ToolbarItem item) {
+	public Object render() {
         Limit limit = getCoreContext().getLimit();
 		int page = limit.getRowSelect().getPage();
 
         StringBuffer action = new StringBuffer("javascript:");
         action.append("setPageToLimit('" + limit.getId() + "','" + (page - 1) + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
+        ToolbarItem item = getToolbarItem();
         item.setAction(action.toString());
 
         if (!HtmlUtils.isPrevPageEnabled(page)) {

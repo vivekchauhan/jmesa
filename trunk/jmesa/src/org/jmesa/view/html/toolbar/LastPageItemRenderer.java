@@ -24,17 +24,19 @@ import org.jmesa.view.html.HtmlUtils;
  * @author Jeff Johnston
  */
 public class LastPageItemRenderer extends AbstractItemRenderer {
-	public LastPageItemRenderer(CoreContext coreContext) {
+	public LastPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		setToolbarItem(item);
 		setCoreContext(coreContext);
 	}
 
-	public Object render(ToolbarItem item) {
+	public Object render() {
         Limit limit = getCoreContext().getLimit();
 		int page = limit.getRowSelect().getPage();
-        int totalPages = HtmlUtils.getTotalPages(getCoreContext());
+        int totalPages = HtmlUtils.totalPages(getCoreContext());
 
         StringBuffer action = new StringBuffer("javascript:");
         action.append("setPageToLimit('" + limit.getId() + "','" + totalPages + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
+        ToolbarItem item = getToolbarItem();
         item.setAction(action.toString());
 
         if (!HtmlUtils.isLastPageEnabled(page, totalPages)) {

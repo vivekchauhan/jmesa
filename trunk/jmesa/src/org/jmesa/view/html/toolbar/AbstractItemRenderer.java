@@ -23,6 +23,7 @@ import org.jmesa.view.ContextSupport;
  */
 public abstract class AbstractItemRenderer extends ContextSupport implements ToolbarItemRenderer {
 	private String onInvokeAction;
+	private ToolbarItem toolbarItem;
 
 	public String getOnInvokeAction() {
 		return onInvokeAction;
@@ -30,5 +31,13 @@ public abstract class AbstractItemRenderer extends ContextSupport implements Too
 
 	public void setOnInvokeAction(String onInvokeAction) {
 		this.onInvokeAction = onInvokeAction;
+	}
+	
+	public ToolbarItem getToolbarItem() {
+		return toolbarItem;
+	}
+	
+	public void setToolbarItem(ToolbarItem toolbarItem) {
+		this.toolbarItem = toolbarItem;
 	}
 }

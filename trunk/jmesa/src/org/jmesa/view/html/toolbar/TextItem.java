@@ -22,7 +22,7 @@ import org.jmesa.view.html.HtmlBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class TextItem extends AbstractItem implements ToolbarItem {
+public class TextItem extends AbstractItem {
     private String text;
 
     public String getText() {
