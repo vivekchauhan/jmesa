@@ -24,20 +24,22 @@ import org.jmesa.view.html.HtmlUtils;
  * @author Jeff Johnston
  */
 public class NextPageItemRenderer extends AbstractItemRenderer {
-	public NextPageItemRenderer(CoreContext coreContext) {
+	public NextPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		setToolbarItem(item);
 		setCoreContext(coreContext);
 	}
 	
-	public String render(ToolbarItem item) {
+	public String render() {
         Limit limit = getCoreContext().getLimit();
 		int page = limit.getRowSelect().getPage();
         
         StringBuffer action = new StringBuffer("javascript:");
         action.append("setPageToLimit('" + limit.getId() + "','" + (page + 1) + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         
+        ToolbarItem item = getToolbarItem();
         item.setAction(action.toString());
 
-        int totalPages = HtmlUtils.getTotalPages(getCoreContext());
+        int totalPages = HtmlUtils.totalPages(getCoreContext());
         if (!HtmlUtils.isNextPageEnabled(page, totalPages)) {
             return item.disabled();
         } 

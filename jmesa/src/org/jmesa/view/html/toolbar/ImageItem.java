@@ -21,7 +21,7 @@ import org.jmesa.view.html.HtmlBuilder;
 /**
  * @author Jeff Johnston
  */
-public class ImageItem extends AbstractItem implements ToolbarItem {
+public class ImageItem extends AbstractItem {
     String image;
     String disabledImage;
     String alt;

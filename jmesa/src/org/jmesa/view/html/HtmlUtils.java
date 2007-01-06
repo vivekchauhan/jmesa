@@ -56,7 +56,7 @@ public class HtmlUtils {
         return true;
     }
 
-    public static int getTotalPages(CoreContext coreContext) {
+    public static int totalPages(CoreContext coreContext) {
         int maxRows = coreContext.getLimit().getRowSelect().getMaxRows();
 
         if (maxRows == 0) {

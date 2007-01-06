@@ -13,26 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.toolbar;
+package org.jmesa.view.csv;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Limit;
+import org.jmesa.view.AbstractTableFactory;
+import org.jmesa.view.ComponentFactory;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FilterItemRenderer extends AbstractItemRenderer {
-	public FilterItemRenderer(ToolbarItem item, CoreContext coreContext) {
-		setToolbarItem(item);
+public class CsvTableFactory extends AbstractTableFactory {
+	public CsvTableFactory(WebContext webContext, CoreContext coreContext) {
+		setWebContext(webContext);
 		setCoreContext(coreContext);
 	}
-
-	public Object render() {
-        Limit limit = getCoreContext().getLimit();
-        StringBuffer action = new StringBuffer("javascript:" + getOnInvokeAction() + "('" + limit.getId() + "')");
-        ToolbarItem item = getToolbarItem();
-        item.setAction(action.toString());
-        return item.enabled();
+	
+	@Override
+	protected ComponentFactory getComponentFactory() {
+		return new CsvComponentFactory(getWebContext(), getCoreContext());
 	}
 }

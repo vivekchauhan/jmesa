@@ -47,5 +47,6 @@ public interface ToolbarItemFactory {
 	public ImageItem createExportItemAsImage(ToolbarExport export);
 
 	public TextItem createExportItemAsText(ToolbarExport export);
-
+	
+	public String createSeparatorImage();
 }

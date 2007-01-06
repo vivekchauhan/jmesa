@@ -47,4 +47,8 @@ public interface ToolbarItem {
     public String disabled();
 
     public String enabled();
+    
+    public ToolbarItemRenderer getToolbarItemRenderer();
+    
+    public void setToolbarItemRenderer(ToolbarItemRenderer renderer);    
 }

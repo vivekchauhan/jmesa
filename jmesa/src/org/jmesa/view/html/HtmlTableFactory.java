@@ -26,12 +26,9 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class HtmlTableFactory extends AbstractTableFactory {
-	private ComponentFactory componentFactory;
-	
 	public HtmlTableFactory(WebContext webContext, CoreContext coreContext) {
 		setWebContext(webContext);
 		setCoreContext(coreContext);
-		componentFactory = new HtmlComponentFactory(webContext, coreContext);
 	}
 	
 	@Override
@@ -41,6 +38,6 @@ public class HtmlTableFactory extends AbstractTableFactory {
 
 	@Override
 	protected ComponentFactory getComponentFactory() {
-		return componentFactory;
+		return new HtmlComponentFactory(getWebContext(), getCoreContext());
 	}
 }

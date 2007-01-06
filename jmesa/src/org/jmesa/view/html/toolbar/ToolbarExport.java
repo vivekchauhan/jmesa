@@ -25,13 +25,18 @@ import org.jmesa.limit.Export;
 public class ToolbarExport extends Export {
 	private String text;
 	private String tooltip;
-	private String imageName;
+	private String image;
 	private String action;
 	
 	public ToolbarExport(String type) {
 		super(type);
 	}
-	
+
+	public ToolbarExport(String type, String image) {
+		super(type);
+		this.image = image;
+	}
+
 	/**
 	 * If used for an image then this can be used for the alt option. Otherwise
 	 * it is used as straight text to display.
@@ -58,12 +63,12 @@ public class ToolbarExport extends Export {
 		this.tooltip = tooltip;
 	}
 
-	public String getImageName() {
-		return imageName;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public void setImage(String imageName) {
+		this.image = imageName;
 	}
 
 	public String getAction() {

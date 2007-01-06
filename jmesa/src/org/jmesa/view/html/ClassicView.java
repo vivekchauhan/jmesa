@@ -19,10 +19,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
-import org.jmesa.limit.Sort;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
@@ -30,18 +28,11 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.ClearItemRenderer;
-import org.jmesa.view.html.toolbar.ExportItemRenderer;
 import org.jmesa.view.html.toolbar.ToolbarExport;
-import org.jmesa.view.html.toolbar.FilterItemRenderer;
-import org.jmesa.view.html.toolbar.FirstPageItemRenderer;
-import org.jmesa.view.html.toolbar.LastPageItemRenderer;
-import org.jmesa.view.html.toolbar.NextPageItemRenderer;
-import org.jmesa.view.html.toolbar.PrevPageItemRenderer;
 import org.jmesa.view.html.toolbar.ToolbarItem;
 import org.jmesa.view.html.toolbar.ToolbarItemFactory;
 import org.jmesa.view.html.toolbar.ToolbarItemFactoryImpl;
-import org.jmesa.view.html.toolbar.ToolbarItemRenderer;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
@@ -49,13 +40,17 @@ import org.jmesa.view.html.toolbar.ToolbarItemRenderer;
  */
 public class ClassicView implements View {
 	private Table table;
+	private WebContext webContext;
 	private CoreContext coreContext;
+	private String[] exportTypes;
 	private String imagesPath;
 
-	public ClassicView(Table table, CoreContext coreContext, String imagesPath) {
+	public ClassicView(Table table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
 		this.table = table;
+		this.webContext = webContext;
 		this.coreContext = coreContext;
-		this.imagesPath = imagesPath;
+		this.exportTypes = exportTypes;
+		imagesPath = HtmlViewUtils.imagesPath(webContext, coreContext);
 	}
 
 	public HtmlTable getTable() {
@@ -66,12 +61,12 @@ public class ClassicView implements View {
 		this.table = table;
 	}
 
+	protected WebContext getWebContext() {
+		return webContext;
+	}
+
 	protected CoreContext getCoreContext() {
 		return coreContext;
-	}
-	
-	protected String getImagesPath() {
-		return imagesPath;
 	}
 	
 	public Object render() {
@@ -109,27 +104,12 @@ public class ClassicView implements View {
 
 		return html;
 	}
-	
+
 	protected void script(HtmlBuilder html) {
 		Limit limit = coreContext.getLimit();
-		html.newline();
-		html.script().type("text/javascript").close();
-		html.newline();
-		html.append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
-		html.append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
-		html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
-		
-		for(Sort sort: limit.getSortSet().getSorts()) {
-			html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() + "','" + sort.getPosition() + "')").semicolon().newline();
-		}
-
-		for(Filter filter: limit.getFilterSet().getFilters()) {
-			html.append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + filter.getValue() + "')").semicolon().newline();
-		}
-		
-		html.scriptEnd();
+		html.append(HtmlViewUtils.initJavascriptLimit(limit));
 	}
-	
+
 	protected void themeStart(HtmlBuilder html, HtmlTable table) {
 		html.div().styleClass(table.getTheme()).close();
 	}
@@ -211,7 +191,8 @@ public class ClassicView implements View {
         
         // start of title
         
-        html.span().styleClass("title").close().append(table.getTitle()).spanEnd();
+        String titleClass = getCoreContext().getPreference("view.html.titleClass");
+        html.span().styleClass(titleClass).close().append(table.getTitle()).spanEnd();
         
         html.tdEnd();
 
@@ -221,8 +202,8 @@ public class ClassicView implements View {
 
         html.td(2).align("right").close();
 
-        String toolbarStyleClass = getCoreContext().getPreference("view.html.toolbarClass");
-		html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarStyleClass).close();
+        String toolbarClass = getCoreContext().getPreference("view.html.toolbarClass");
+		html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarClass).close();
 
         html.tr(3).close();
         
@@ -230,40 +211,28 @@ public class ClassicView implements View {
 
         html.td(4).close();
         ToolbarItem firstPageItem = toolbarItemFactory.createFirstPageItemAsImage();
-        ToolbarItemRenderer firstPageItemRenderer = new FirstPageItemRenderer(coreContext);
-        firstPageItemRenderer.setOnInvokeAction("onInvokeAction");
-        html.append(firstPageItemRenderer.render(firstPageItem));
+        html.append(firstPageItem.getToolbarItemRenderer().render());
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem prevPageItem = toolbarItemFactory.createPrevPageItemAsImage();
-        ToolbarItemRenderer prevPageItemRenderer = new PrevPageItemRenderer(coreContext);
-        prevPageItemRenderer.setOnInvokeAction("onInvokeAction");
-        html.append(prevPageItemRenderer.render(prevPageItem));
+        html.append(prevPageItem.getToolbarItemRenderer().render());
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem nextPageItem = toolbarItemFactory.createNextPageItemAsImage();
-        ToolbarItemRenderer nextPageItemRenderer = new NextPageItemRenderer(coreContext);
-        nextPageItemRenderer.setOnInvokeAction("onInvokeAction");
-        html.append(nextPageItemRenderer.render(nextPageItem));
+        html.append(nextPageItem.getToolbarItemRenderer().render());
         html.tdEnd();
 
         html.td(4).close();
         ToolbarItem lastPageItem = toolbarItemFactory.createLastPageItemAsImage();
-        ToolbarItemRenderer lastPageItemRenderer = new LastPageItemRenderer(coreContext);
-        lastPageItemRenderer.setOnInvokeAction("onInvokeAction");
-        html.append(lastPageItemRenderer.render(lastPageItem));
+        html.append(lastPageItem.getToolbarItemRenderer().render());
         html.tdEnd();
         
         // separator 
         
         html.td(4).close();
-        html.img();
-        html.src(imagesPath + HtmlConstants.TOOLBAR_SEPARATOR_IMAGE);
-        html.style("border:0");
-        html.alt("Separator");
-        html.end();
+        html.append(toolbarItemFactory.createSeparatorImage());
         html.tdEnd();
 
         // rows displayed
@@ -271,7 +240,7 @@ public class ClassicView implements View {
         html.td(4).style("width:20px").close();
         rowsDisplayedDroplist(html);
         html.img();
-        html.src(imagesPath + HtmlConstants.TOOLBAR_ROWS_DISPLAYED_IMAGE);
+        html.src(imagesPath + HtmlViewUtils.toolbarImage("rowsDisplayed", coreContext));
         html.style("border:0");
         html.alt("Rows Displayed");
         html.end();
@@ -280,21 +249,17 @@ public class ClassicView implements View {
         // separator 
         
         html.td(4).close();
-        html.img();
-        html.src(imagesPath + HtmlConstants.TOOLBAR_SEPARATOR_IMAGE);
-        html.style("border:0");
-        html.alt("Separator");
-        html.end();
+        html.append(toolbarItemFactory.createSeparatorImage());
         html.tdEnd();
         
-        html.td(4).close();
-        ToolbarExport export = new ToolbarExport("csv");
-        export.setImageName("csv.gif");
-        ToolbarItem exportItem = toolbarItemFactory.createExportItemAsImage(export);
-        ToolbarItemRenderer exportItemRenderer = new ExportItemRenderer(export, coreContext);
-        exportItemRenderer.setOnInvokeAction("onInvokeExportAction");
-        html.append(exportItemRenderer.render(exportItem));
-        html.tdEnd();
+        for (int i = 0; i < exportTypes.length; i++) {
+        	String exportType = exportTypes[i];
+            html.td(4).close();
+            ToolbarExport export = new ToolbarExport(exportType);
+            ToolbarItem exportItem = toolbarItemFactory.createExportItemAsImage(export);
+            html.append(exportItem.getToolbarItemRenderer().render());
+            html.tdEnd();
+		}
         
         html.trEnd(3);
 
@@ -348,7 +313,7 @@ public class ClassicView implements View {
         
         if (ViewUtils.isFilterable(columns)) {
             html.img();
-            html.src(imagesPath + HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE);
+            html.src(imagesPath + HtmlViewUtils.toolbarImage(HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE, coreContext));
             html.style("border:0");
             html.alt("Arrow");
             html.end();
@@ -358,16 +323,12 @@ public class ClassicView implements View {
             ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
 
             ToolbarItem filterItem = toolbarItemFactory.createFilterItemAsImage();
-            ToolbarItemRenderer filterItemRenderer = new FilterItemRenderer(coreContext);
-            filterItemRenderer.setOnInvokeAction("onInvokeAction");
-            html.append(filterItemRenderer.render(filterItem));
+            html.append(filterItem.getToolbarItemRenderer().render());
 
             html.nbsp();
 
             ToolbarItem clearItem = toolbarItemFactory.createClearItemAsImage();
-            ToolbarItemRenderer clearItemRenderer = new ClearItemRenderer(coreContext);
-            clearItemRenderer.setOnInvokeAction("onInvokeAction");
-            html.append(clearItemRenderer.render(clearItem));
+            html.append(clearItem.getToolbarItemRenderer().render());
         }
 
         html.tdEnd();

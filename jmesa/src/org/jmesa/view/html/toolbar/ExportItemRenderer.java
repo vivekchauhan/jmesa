@@ -21,14 +21,16 @@ import org.jmesa.limit.Limit;
 public class ExportItemRenderer extends AbstractItemRenderer {
 	private ToolbarExport export;
 	
-	public ExportItemRenderer(ToolbarExport export, CoreContext coreContext) {
+	public ExportItemRenderer(ToolbarItem item, ToolbarExport export, CoreContext coreContext) {
+		setToolbarItem(item);
 		this.export = export;
 		setCoreContext(coreContext);
 	}
 
-	public Object render(ToolbarItem item) {
+	public Object render() {
         Limit limit = getCoreContext().getLimit();
         StringBuffer action = new StringBuffer("javascript:setExportToLimit('" + limit.getId() + "','" + export.getType() + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
+        ToolbarItem item = getToolbarItem();
         item.setAction(action.toString());
         return item.enabled();
 	}

@@ -24,5 +24,9 @@ public interface ToolbarItemRenderer {
 
 	public void setOnInvokeAction(String onInvokeAction);
 	
-	public Object render(ToolbarItem item);
+	public ToolbarItem getToolbarItem();
+	
+	public void setToolbarItem(ToolbarItem toolbarItem);
+	
+	public Object render();
 }
