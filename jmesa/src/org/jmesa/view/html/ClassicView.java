@@ -51,9 +51,10 @@ public class ClassicView implements View {
 	private CoreContext coreContext;
 	private String imagesPath;
 
-	public ClassicView(HtmlTable table, CoreContext coreContext) {
+	public ClassicView(Table table, CoreContext coreContext, String imagesPath) {
 		this.table = table;
 		this.coreContext = coreContext;
+		this.imagesPath = imagesPath;
 	}
 
 	public HtmlTable getTable() {
@@ -66,10 +67,6 @@ public class ClassicView implements View {
 
 	protected CoreContext getCoreContext() {
 		return coreContext;
-	}
-	
-	public void setImagesPath(String imagesPath) {
-		this.imagesPath = imagesPath;
 	}
 	
 	protected String getImagesPath() {

@@ -41,7 +41,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 		setCoreContext(coreContext);
 	}
 	
-	public HtmlTable createHtmlTable() {
+	public HtmlTable createTable() {
 		HtmlTableImpl table = new HtmlTableImpl();
 		table.setWebContext(getWebContext());
 		table.setCoreContext(getCoreContext());
@@ -54,7 +54,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 		return table;
 	}
 
-	public HtmlRow createHtmlRow() {
+	public HtmlRow createRow() {
 		HtmlRowImpl row = new HtmlRowImpl();
 		row.setWebContext(getWebContext());
 		row.setCoreContext(getCoreContext());
@@ -67,7 +67,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 		return row;
 	}
 
-	public HtmlColumn createHtmlColumn(String property, CellEditor editor) {
+	public HtmlColumn createColumn(String property, CellEditor editor) {
 		HtmlColumnImpl column = new HtmlColumnImpl(property);
 		column.setWebContext(getWebContext());
 		column.setCoreContext(getCoreContext());

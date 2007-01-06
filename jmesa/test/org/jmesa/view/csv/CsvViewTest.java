@@ -27,9 +27,9 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.PresidentsDao;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
+import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
@@ -74,16 +74,16 @@ public class CsvViewTest {
 		CellEditor editor = factory.createBasicCellEditor();
 		
 		// create the columns
-		Column firstNameColumn = factory.createCsvColumn("firstName", editor, ",");
+		Column firstNameColumn = factory.createColumn("firstName", editor);
 		row.addColumn(firstNameColumn);
 		
-		Column lastNameColumn = factory.createCsvColumn("lastName", editor, ",");
+		Column lastNameColumn = factory.createColumn("lastName", editor);
 		row.addColumn(lastNameColumn);
 
-		Column termColumn = factory.createCsvColumn("term", editor, ",");
+		Column termColumn = factory.createColumn("term", editor);
 		row.addColumn(termColumn);
 
-		Column careerColumn = factory.createCsvColumn("career", editor, ",");
+		Column careerColumn = factory.createColumn("career", editor);
 		row.addColumn(careerColumn);
 
 		// create the view

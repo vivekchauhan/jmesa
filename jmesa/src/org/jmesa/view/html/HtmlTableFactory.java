@@ -13,36 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.renderer;
+package org.jmesa.view.html;
 
-import org.jmesa.view.renderer.RowRenderer;
+import org.jmesa.core.CoreContext;
+import org.jmesa.view.AbstractTableFactory;
+import org.jmesa.view.ComponentFactory;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlRowRenderer extends RowRenderer {
-	public String getStyle();
-
-	public void setStyle(String style);
-
-	public String getStyleClass();
-
-	public void setStyleClass(String styleClass);
+public class HtmlTableFactory extends AbstractTableFactory {
+	private ComponentFactory componentFactory;
 	
-	public String getHighlightClass();
+	public HtmlTableFactory(WebContext webContext, CoreContext coreContext) {
+		setWebContext(webContext);
+		setCoreContext(coreContext);
+		componentFactory = new HtmlComponentFactory(webContext, coreContext);
+	}
 
-	public void setHighlightClass(String highlightClass);
-
-	public String getHighlightStyle();
-
-	public void setHighlightStyle(String highlightStyle);
-	
-	public String getEvenClass();
-
-	public void setEvenClass(String evenClass);
-
-	public String getOddClass();
-	
-	public void setOddClass(String oddClass);
+	@Override
+	protected ComponentFactory getComponentFactory() {
+		return componentFactory;
+	}
 }
