@@ -18,6 +18,7 @@ package org.jmesa.view.html;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractTableFactory;
 import org.jmesa.view.ComponentFactory;
+import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.web.WebContext;
 
 /**
@@ -31,6 +32,11 @@ public class HtmlTableFactory extends AbstractTableFactory {
 		setWebContext(webContext);
 		setCoreContext(coreContext);
 		componentFactory = new HtmlComponentFactory(webContext, coreContext);
+	}
+	
+	@Override
+	public HtmlTable createTable(String... columnNames) {
+		return (HtmlTable)super.createTable(columnNames);
 	}
 
 	@Override
