@@ -15,136 +15,37 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.view.html.HtmlConstants;
-
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ToolbarItemFactory {
-	private String imagePath;
-	private CoreContext coreContext;
+public interface ToolbarItemFactory {
+	public ImageItem createFirstPageItemAsImage();
 
-	public ToolbarItemFactory(String imagePath, CoreContext coreContext) {
-		this.imagePath = imagePath;
-		this.coreContext = coreContext;
-	}
-	
-    public ImageItem createFirstPageItemAsImage() {
-        ImageItem item = new ImageItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_FIRST_PAGE_TOOLTIP));
-        item.setDisabledImage(imagePath + HtmlConstants.TOOLBAR_FIRST_PAGE_DISABLED_IMAGE);
-        item.setImage(imagePath + HtmlConstants.TOOLBAR_FIRST_PAGE_IMAGE);
-        item.setAlt(coreContext.getMessage(HtmlConstants.TOOLBAR_FIRST_PAGE_TEXT));
-        item.setStyle("border:0");
-        return item;
-    }
+	public TextItem createFirstPageItemAsText();
 
-    public TextItem createFirstPageItemAsText() {
-        TextItem item = new TextItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_FIRST_PAGE_TOOLTIP));
-        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_FIRST_PAGE_TEXT));
-        return item;
-    }
+	public ImageItem createPrevPageItemAsImage();
 
-    public ImageItem createPrevPageItemAsImage() {
-        ImageItem item = new ImageItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_PREV_PAGE_TOOLTIP));
-        item.setDisabledImage(imagePath + HtmlConstants.TOOLBAR_PREV_PAGE_DISABLED_IMAGE);
-        item.setImage(imagePath + HtmlConstants.TOOLBAR_PREV_PAGE_IMAGE);
-        item.setAlt(coreContext.getMessage(HtmlConstants.TOOLBAR_PREV_PAGE_TEXT));
-        item.setStyle("border:0");
-        return item;
-    }
+	public TextItem createPrevPageItemAsText();
 
-    public TextItem createPrevPageItemAsText() {
-        TextItem item = new TextItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_PREV_PAGE_TOOLTIP));
-        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_PREV_PAGE_TEXT));
-        return item;
-    }
+	public ImageItem createNextPageItemAsImage();
 
-    public ImageItem createNextPageItemAsImage() {
-        ImageItem item = new ImageItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_NEXT_PAGE_TOOLTIP));
-        item.setDisabledImage(imagePath + HtmlConstants.TOOLBAR_NEXT_PAGE_DISABLED_IMAGE);
-        item.setImage(imagePath + HtmlConstants.TOOLBAR_NEXT_PAGE_IMAGE);
-        item.setAlt(coreContext.getMessage(HtmlConstants.TOOLBAR_NEXT_PAGE_TEXT));
-        item.setStyle("border:0");
-        
-        return item;
-    }
-    
-    public TextItem createNextPageItemAsText() {
-        TextItem item = new TextItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_NEXT_PAGE_TOOLTIP));
-        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_NEXT_PAGE_TEXT));
-        return item;
-    }
+	public TextItem createNextPageItemAsText();
 
-    public ImageItem createLastPageItemAsImage() {
-        ImageItem item = new ImageItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_LAST_PAGE_TOOLTIP));
-        item.setDisabledImage(imagePath + HtmlConstants.TOOLBAR_LAST_PAGE_DISABLED_IMAGE);
-        item.setImage(imagePath + HtmlConstants.TOOLBAR_LAST_PAGE_IMAGE);
-        item.setAlt(coreContext.getMessage(HtmlConstants.TOOLBAR_LAST_PAGE_TEXT));
-        item.setStyle("border:0");
-        return item;
-    }
+	public ImageItem createLastPageItemAsImage();
 
-    public TextItem createLastPageItemAsText() {
-        TextItem item = new TextItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_LAST_PAGE_TOOLTIP));
-        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_LAST_PAGE_TEXT));
-        return item;
-    }
+	public TextItem createLastPageItemAsText();
 
-    public ImageItem createFilterItemAsImage() {
-        ImageItem item = new ImageItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_FILTER_TOOLTIP));
-        item.setImage(imagePath + HtmlConstants.TOOLBAR_FILTER_IMAGE);
-        item.setAlt(coreContext.getMessage(HtmlConstants.TOOLBAR_FILTER_TEXT));
-        item.setStyle("border:0");
-        return item;
-    }
+	public ImageItem createFilterItemAsImage();
 
-    public TextItem createFilterItemAsText() {
-        TextItem item = new TextItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_FILTER_TOOLTIP));
-        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_FILTER_TEXT));
-        return item;
-    }
+	public TextItem createFilterItemAsText();
 
-    public ImageItem createClearItemAsImage() {
-        ImageItem item = new ImageItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_CLEAR_TOOLTIP));
-        item.setImage(imagePath + HtmlConstants.TOOLBAR_CLEAR_IMAGE);
-        item.setAlt(coreContext.getMessage(HtmlConstants.TOOLBAR_CLEAR_TEXT));
-        item.setStyle("border:0");
-        return item;
-    }
+	public ImageItem createClearItemAsImage();
 
-    public TextItem createClearItemAsText() {
-        TextItem item = new TextItem();
-        item.setTooltip(coreContext.getMessage(HtmlConstants.TOOLBAR_CLEAR_TOOLTIP));
-        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_CLEAR_TEXT));
-        return item;
-    }
+	public TextItem createClearItemAsText();
 
-    public ImageItem createExportItemAsImage(ToolbarExport export) {
-        ImageItem item = new ImageItem();
-        item.setTooltip(export.getTooltip());
-        item.setImage(imagePath + export.getImageName());
-        item.setAlt(export.getText());
-        item.setStyle("border:0");
-        return item;
-    }
+	public ImageItem createExportItemAsImage(ToolbarExport export);
 
-    public TextItem createExportItemAsText(ToolbarExport export) {
-        TextItem item = new TextItem();
-        item.setTooltip(export.getTooltip());
-        item.setText(export.getText());
-        return item;
-    }
+	public TextItem createExportItemAsText(ToolbarExport export);
+
 }
