@@ -23,6 +23,8 @@ import org.jmesa.view.html.renderer.HtmlTableRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlTable extends Table {
+	public HtmlRow getRow();
+
 	public String getTheme();
 	
 	public void setTheme(String theme);

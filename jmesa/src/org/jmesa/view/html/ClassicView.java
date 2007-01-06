@@ -40,6 +40,7 @@ import org.jmesa.view.html.toolbar.NextPageItemRenderer;
 import org.jmesa.view.html.toolbar.PrevPageItemRenderer;
 import org.jmesa.view.html.toolbar.ToolbarItem;
 import org.jmesa.view.html.toolbar.ToolbarItemFactory;
+import org.jmesa.view.html.toolbar.ToolbarItemFactoryImpl;
 import org.jmesa.view.html.toolbar.ToolbarItemRenderer;
 
 /**
@@ -75,8 +76,8 @@ public class ClassicView implements View {
 	
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
-		HtmlRow row = (HtmlRow)table.getRow();
-		List columns = table.getRow().getColumns();
+		HtmlRow row = getTable().getRow();
+		List columns = row.getColumns();
 
 		themeStart(html, getTable());
 		
@@ -225,7 +226,7 @@ public class ClassicView implements View {
 
         html.tr(3).close();
         
-        ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagesPath, coreContext);
+        ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
 
         html.td(4).close();
         ToolbarItem firstPageItem = toolbarItemFactory.createFirstPageItemAsImage();
@@ -354,7 +355,7 @@ public class ClassicView implements View {
 
             html.nbsp();
             
-            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactory(imagesPath, coreContext);
+            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
 
             ToolbarItem filterItem = toolbarItemFactory.createFilterItemAsImage();
             ToolbarItemRenderer filterItemRenderer = new FilterItemRenderer(coreContext);
