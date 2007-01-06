@@ -15,38 +15,40 @@
  */
 package org.jmesa.view;
 
+import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
-import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.component.TableImpl;
-import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractComponentFactory extends ContextSupport implements ComponentFactory {
-	public Table createTable() {
-		TableImpl table = new TableImpl();
-		table.setWebContext(getWebContext());
-		table.setCoreContext(getCoreContext());
+public abstract class AbstractTableFactory extends ContextSupport implements TableFactory {
+	public Table createTable(String... columnNames) {
+		ComponentFactory factory = getComponentFactory();
+		
+		// create the table
+		Table table = factory.createTable();
+		
+		// create the row
+		Row row = factory.createRow();
+		table.setRow(row);
+		
+		// create some reusable objects
+
+		CellEditor editor = factory.createBasicCellEditor();
+		
+		// create the columns
+
+		for (int i = 0; i < columnNames.length; i++) {
+			String columnName  = columnNames[i];
+			Column firstNameColumn = factory.createColumn(columnName, editor);
+			row.addColumn(firstNameColumn);
+		}
 		
 		return table;
 	}
-
-	public Row createRow() {
-		RowImpl row = new RowImpl();
-		row.setWebContext(getWebContext());
-		row.setCoreContext(getCoreContext());
-		
-		return row;
-	}
-
-	public CellEditor createBasicCellEditor() {
-		BasicCellEditor editor = new BasicCellEditor();
-		editor.setWebContext(getWebContext());
-		editor.setCoreContext(getCoreContext());
-		return editor;
-	}
+	
+	protected abstract ComponentFactory getComponentFactory();
 }

@@ -60,14 +60,14 @@ public class ClassicViewTest {
 		HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
 		
 		// create the table
-		HtmlTable table = factory.createHtmlTable();
+		HtmlTable table = factory.createTable();
 		table.setTheme("jmesa");
 		table.setTitle("Presidents");
 		table.getTableRenderer().setWidth("500px");
 		table.getTableRenderer().setStyleClass("table");
 		
 		// create the row
-		HtmlRow row = factory.createHtmlRow();
+		HtmlRow row = factory.createRow();
 		row.setHighlighter(true);
 		row.getRowRenderer().setHighlightClass("highlight");
 		table.setRow(row);
@@ -77,26 +77,24 @@ public class ClassicViewTest {
 		CellEditor editor = factory.createBasicCellEditor();
 		
 		// create the columns
-		HtmlColumn firstNameColumn = factory.createHtmlColumn("firstName", editor);
+		HtmlColumn firstNameColumn = factory.createColumn("firstName", editor);
 		firstNameColumn.getHeaderRenderer().setStyleClass("header"); //TODO: this should default
 		row.addColumn(firstNameColumn);
 		
-		HtmlColumn lastNameColumn = factory.createHtmlColumn("lastName", editor);
+		HtmlColumn lastNameColumn = factory.createColumn("lastName", editor);
 		lastNameColumn.getHeaderRenderer().setStyleClass("header");
 		row.addColumn(lastNameColumn);
 
-		HtmlColumn termColumn = factory.createHtmlColumn("term", editor);
+		HtmlColumn termColumn = factory.createColumn("term", editor);
 		termColumn.getHeaderRenderer().setStyleClass("header");
 		row.addColumn(termColumn);
 
-		HtmlColumn careerColumn = factory.createHtmlColumn("career", editor);
+		HtmlColumn careerColumn = factory.createColumn("career", editor);
 		careerColumn.getHeaderRenderer().setStyleClass("header");
 		row.addColumn(careerColumn);
 
 		// create the view
-		ClassicView view = new ClassicView(table, coreContext);
-		view.setImagesPath("images/table/*.gif");
-
+		ClassicView view = new ClassicView(table, coreContext, "images/table/*.gif");
 		Object html = view.render();
 		
 		assertNotNull(html);

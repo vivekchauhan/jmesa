@@ -30,16 +30,19 @@ import org.jmesa.web.WebContext;
 public class CsvComponentFactory extends AbstractComponentFactory {
 	private final String DEFAULT_DELIMITER = ",";
 	
+	private String delimiter = DEFAULT_DELIMITER;
+	
+	public CsvComponentFactory(String delimiter, WebContext webContext, CoreContext coreContext) {
+		this(webContext, coreContext);
+		this.delimiter = delimiter;
+	}
+
 	public CsvComponentFactory(WebContext webContext, CoreContext coreContext) {
 		setWebContext(webContext);
 		setCoreContext(coreContext);
 	}
 
-	public Column createCsvColumn(String property, CellEditor editor) {
-		return createCsvColumn(property, editor, DEFAULT_DELIMITER);
-	}
-	
-	public Column createCsvColumn(String property, CellEditor editor, String delimiter) {
+	public Column createColumn(String property, CellEditor editor) {
 		ColumnImpl column = new ColumnImpl(property);
 		column.setWebContext(getWebContext());
 		column.setCoreContext(getCoreContext());

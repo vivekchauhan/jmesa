@@ -13,36 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.renderer;
+package org.jmesa.view;
 
-import org.jmesa.view.renderer.RowRenderer;
+import org.jmesa.view.component.Table;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlRowRenderer extends RowRenderer {
-	public String getStyle();
-
-	public void setStyle(String style);
-
-	public String getStyleClass();
-
-	public void setStyleClass(String styleClass);
-	
-	public String getHighlightClass();
-
-	public void setHighlightClass(String highlightClass);
-
-	public String getHighlightStyle();
-
-	public void setHighlightStyle(String highlightStyle);
-	
-	public String getEvenClass();
-
-	public void setEvenClass(String evenClass);
-
-	public String getOddClass();
-	
-	public void setOddClass(String oddClass);
+public interface TableFactory {
+	public Table createTable(String... columnNames);
 }
