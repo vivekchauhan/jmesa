@@ -23,39 +23,65 @@ public class HtmlConstants {
     private HtmlConstants() {
     }
     
-    // toolbar image names
-    public final static String TOOLBAR_CLEAR_IMAGE = "clear";
-    public final static String TOOLBAR_FIRST_PAGE_IMAGE = "firstPage";
-    public final static String TOOLBAR_FIRST_PAGE_DISABLED_IMAGE = "firstPageDisabled";
-    public final static String TOOLBAR_LAST_PAGE_IMAGE = "lastPage";
-    public final static String TOOLBAR_LAST_PAGE_DISABLED_IMAGE = "lastPageDisabled";
-    public final static String TOOLBAR_NEXT_PAGE_IMAGE = "nextPage";
-    public final static String TOOLBAR_NEXT_PAGE_DISABLED_IMAGE = "nextPageDisabled";
-    public final static String TOOLBAR_PREV_PAGE_IMAGE = "prevPage";
-    public final static String TOOLBAR_PREV_PAGE_DISABLED_IMAGE = "prevPageDisabled";
-    public final static String TOOLBAR_FILTER_ARROW_IMAGE = "filterArrow";
-    public final static String TOOLBAR_FILTER_IMAGE = "filter";
-    public final static String TOOLBAR_SEPARATOR_IMAGE = "separator";
-    public final static String SORT_ASC_IMAGE = "sortAsc";
-    public final static String SORT_DESC_IMAGE = "sortDesc";
+    public final static String IMAGES_PATH = "html.imagesPath";
+    public final static String TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS = "html.toolbar.maxRowsDroplist.increments";
 
+    // table
+    public final static String TABLE_RENDERER_STYLE_CLASS = "html.table.renderer.styleClass";
+    public final static String TABLE_COMPONENT_THEME = "html.table.component.theme";
+    
+    // row
+    public final static String ROW_RENDERER_HIGHLIGHT_CLASS = "html.row.renderer.highlightClass";
+    public final static String ROW_RENDERER_EVEN_CLASS = "html.row.renderer.evenClass";
+    public final static String ROW_RENDERER_ODD_CLASS = "html.row.renderer.oddClass";
+    
+    // column 
+    public final static String COLUMN_RENDERER_HEADER_STYLE_CLASS = "html.column.header.renderer.styleClass";
+    
+    public final static String SORT_ASC_IMAGE = "html.column.header.renderer.image.sortAsc";
+    public final static String SORT_DESC_IMAGE = "html.column.header.renderer.image.sortDesc";
+    
+    // css names
+    public final static String TBODY_CLASS = "html.tbodyClass";
+    public final static String TITLE_CLASS = "html.titleClass";
+    public final static String FILTER_CLASS = "html.filterClass";
+    public final static String TOOLBAR_CLASS = "html.toolbarClass";
+    public final static String STATUS_BAR_CLASS = "html.statusBarClass";
+    
+    // toolbar image names
+    public final static String TOOLBAR_IMAGE = "html.toolbar.image.";
+    public final static String TOOLBAR_IMAGE_CLEAR = "html.toolbar.image.clear";
+    public final static String TOOLBAR_IMAGE_FIRST_PAGE = "html.toolbar.image.firstPage";
+    public final static String TOOLBAR_IMAGE_FIRST_PAGE_DISABLED = "html.toolbar.image.firstPageDisabled";
+    public final static String TOOLBAR_IMAGE_LAST_PAGE = "html.toolbar.image.lastPage";
+    public final static String TOOLBAR_IMAGE_LAST_PAGE_DISABLED = "html.toolbar.image.lastPageDisabled";
+    public final static String TOOLBAR_IMAGE_MAX_ROWS = "html.toolbar.image.maxRows";
+    public final static String TOOLBAR_IMAGE_NEXT_PAGE = "html.toolbar.image.nextPage";
+    public final static String TOOLBAR_IMAGE_NEXT_PAGE_DISABLED = "html.toolbar.image.nextPageDisabled";
+    public final static String TOOLBAR_IMAGE_PREV_PAGE = "html.toolbar.image.prevPage";
+    public final static String TOOLBAR_IMAGE_PREV_PAGE_DISABLED = "html.toolbar.image.prevPageDisabled";
+    public final static String TOOLBAR_IMAGE_FILTER_ARROW = "html.toolbar.image.filterArrow";
+    public final static String TOOLBAR_IMAGE_FILTER = "html.toolbar.image.filter";
+    public final static String TOOLBAR_IMAGE_SEPARATOR = "html.toolbar.image.separator";
+    
     // toolbar text tooltip messages
-    public final static String TOOLBAR_FIRST_PAGE_TOOLTIP = "toolbar.tooltip.firstPage";
-    public final static String TOOLBAR_LAST_PAGE_TOOLTIP = "toolbar.tooltip.lastPage";
-    public final static String TOOLBAR_PREV_PAGE_TOOLTIP = "toolbar.tooltip.prevPage";
-    public final static String TOOLBAR_NEXT_PAGE_TOOLTIP = "toolbar.tooltip.nextPage";
-    public final static String TOOLBAR_FILTER_TOOLTIP = "toolbar.tooltip.filter";
-    public final static String TOOLBAR_CLEAR_TOOLTIP = "toolbar.tooltip.clear";
+    public final static String TOOLBAR_TOOLTIP = "html.toolbar.tooltip.";
+    public final static String TOOLBAR_TOOLTIP_FIRST_PAGE = "html.toolbar.tooltip.firstPage";
+    public final static String TOOLBAR_TOOLTIP_LAST_PAGE = "html.toolbar.tooltip.lastPage";
+    public final static String TOOLBAR_TOOLTIP_PREV_PAGE = "html.toolbar.tooltip.prevPage";
+    public final static String TOOLBAR_TOOLTIP_NEXT_PAGE = "html.toolbar.tooltip.nextPage";
+    public final static String TOOLBAR_TOOLTIP_FILTER = "html.toolbar.tooltip.filter";
+    public final static String TOOLBAR_TOOLTIP_CLEAR = "html.toolbar.tooltip.clear";
 
     // toolbar text messages
-    public final static String TOOLBAR_FIRST_PAGE_TEXT = "toolbar.text.firstPage";
-    public final static String TOOLBAR_LAST_PAGE_TEXT = "toolbar.text.lastPage";
-    public final static String TOOLBAR_NEXT_PAGE_TEXT = "toolbar.text.nextPage";
-    public final static String TOOLBAR_PREV_PAGE_TEXT = "toolbar.text.prevPage";
-    public final static String TOOLBAR_FILTER_TEXT = "toolbar.text.filter";
-    public final static String TOOLBAR_CLEAR_TEXT = "toolbar.text.clear";
+    public final static String TOOLBAR_TEXT_FIRST_PAGE = "html.toolbar.text.firstPage";
+    public final static String TOOLBAR_TEXT_LAST_PAGE = "html.toolbar.text.lastPage";
+    public final static String TOOLBAR_TEXT_NEXT_PAGE = "html.toolbar.text.nextPage";
+    public final static String TOOLBAR_TEXT_PREV_PAGE = "html.toolbar.text.prevPage";
+    public final static String TOOLBAR_TEXT_FILTER = "html.toolbar.text.filter";
+    public final static String TOOLBAR_TEXT_CLEAR = "html.toolbar.text.clear";
 
     // statusbar text messages
-    public final static String STATUSBAR_RESULTS_FOUND = "statusbar.resultsFound";
-    public final static String STATUSBAR_NO_RESULTS_FOUND = "statusbar.noResultsFound";
+    public final static String STATUSBAR_RESULTS_FOUND = "html.statusbar.resultsFound";
+    public final static String STATUSBAR_NO_RESULTS_FOUND = "html.statusbar.noResultsFound";
 }

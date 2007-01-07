@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.html.toolbar;
 
-
 /**
  * @author Jeff Johnston
  */

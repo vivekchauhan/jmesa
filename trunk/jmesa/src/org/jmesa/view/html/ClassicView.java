@@ -50,7 +50,7 @@ public class ClassicView implements View {
 		this.webContext = webContext;
 		this.coreContext = coreContext;
 		this.exportTypes = exportTypes;
-		imagesPath = HtmlViewUtils.imagesPath(webContext, coreContext);
+		imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
 	}
 
 	public HtmlTable getTable() {
@@ -107,7 +107,7 @@ public class ClassicView implements View {
 
 	protected void script(HtmlBuilder html) {
 		Limit limit = coreContext.getLimit();
-		html.append(HtmlViewUtils.initJavascriptLimit(limit));
+		html.append(HtmlUtils.initJavascriptLimit(limit));
 	}
 
 	protected void themeStart(HtmlBuilder html, HtmlTable table) {
@@ -136,8 +136,8 @@ public class ClassicView implements View {
     }
 
 	protected void tbodyStart(HtmlBuilder html) {
-        String tbodyStyleClass = getCoreContext().getPreference("view.html.tbodyClass");
-		html.tbody(1).styleClass(tbodyStyleClass).close();
+        String tbodyClass = getCoreContext().getPreference(HtmlConstants.TBODY_CLASS);
+		html.tbody(1).styleClass(tbodyClass).close();
     }
 
 	protected void tbodyEnd(HtmlBuilder html) {
@@ -145,7 +145,8 @@ public class ClassicView implements View {
     }
 	
 	protected void filter(HtmlBuilder html, List<HtmlColumn> columns) {
-		html.tr(1).styleClass("filter").close();
+        String filterClass = getCoreContext().getPreference(HtmlConstants.FILTER_CLASS);
+		html.tr(1).styleClass(filterClass).close();
 		
 		for (HtmlColumn column : columns) {
 			html.append(column.getFilterRenderer().render());
@@ -187,11 +188,11 @@ public class ClassicView implements View {
 
         html.tr(1).close();
 
+        // start of title
+
         html.td(2).close();
         
-        // start of title
-        
-        String titleClass = getCoreContext().getPreference("view.html.titleClass");
+        String titleClass = getCoreContext().getPreference(HtmlConstants.TITLE_CLASS);
         html.span().styleClass(titleClass).close().append(table.getTitle()).spanEnd();
         
         html.tdEnd();
@@ -202,7 +203,7 @@ public class ClassicView implements View {
 
         html.td(2).align("right").close();
 
-        String toolbarClass = getCoreContext().getPreference("view.html.toolbarClass");
+        String toolbarClass = getCoreContext().getPreference(HtmlConstants.TOOLBAR_CLASS);
 		html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarClass).close();
 
         html.tr(3).close();
@@ -238,12 +239,9 @@ public class ClassicView implements View {
         // rows displayed
         
         html.td(4).style("width:20px").close();
-        rowsDisplayedDroplist(html);
-        html.img();
-        html.src(imagesPath + HtmlViewUtils.toolbarImage("rowsDisplayed", coreContext));
-        html.style("border:0");
-        html.alt("Rows Displayed");
-        html.end();
+        ToolbarItem maxRowsItem = toolbarItemFactory.createMaxRowsItem();
+        html.append(maxRowsItem.getToolbarItemRenderer().render());
+        html.append(toolbarItemFactory.createMaxRowsImage());
         html.tdEnd();
         
         // separator 
@@ -285,12 +283,14 @@ public class ClassicView implements View {
         html.td(2).colspan(String.valueOf(columns.size())).close();
         
         html.table(2).border("0").cellpadding("0").cellspacing("0").width("100%").close();
-        html.tr(3).close();
+
+        String statusBarClass = getCoreContext().getPreference(HtmlConstants.STATUS_BAR_CLASS);
+        
+        html.tr(3).styleClass(statusBarClass).close();
         
         // start of status bar
         
-        String statusBarClass = getCoreContext().getPreference("view.html.statusBarClass");
-		html.td(4).styleClass(statusBarClass).close();
+		html.td(4).close();
         
         if (rowSelect.getTotalRows() == 0) {
             html.append(coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND));
@@ -304,24 +304,19 @@ public class ClassicView implements View {
         
         html.tdEnd();
         
-        //end of status bar
+        // end of status bar
         
         // start of filter buttons
         
-        String filterButtonsClass = getCoreContext().getPreference("view.html.filterButtonsClass");
-		html.td(4).styleClass(filterButtonsClass).close();
+		html.td(4).align("right").close();
         
         if (ViewUtils.isFilterable(columns)) {
-            html.img();
-            html.src(imagesPath + HtmlViewUtils.toolbarImage(HtmlConstants.TOOLBAR_FILTER_ARROW_IMAGE, coreContext));
-            html.style("border:0");
-            html.alt("Arrow");
-            html.end();
+            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
+
+            html.append(toolbarItemFactory.createFilterArrowImage());
 
             html.nbsp();
             
-            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
-
             ToolbarItem filterItem = toolbarItemFactory.createFilterItemAsImage();
             html.append(filterItem.getToolbarItemRenderer().render());
 
@@ -343,55 +338,4 @@ public class ClassicView implements View {
         html.tdEnd();
         html.trEnd(1);
     }
-    
-    protected void rowsDisplayedDroplist(HtmlBuilder html) {
-        Limit limit = coreContext.getLimit();
-    	
-    	int rowsDisplayed = 12;
-        int medianRowsDisplayed = 24;
-        int maxRowsDisplayed = 36;
-        int currentRowsDisplayed = limit.getRowSelect().getMaxRows();
-
-        html.select().name("maxRows");
-
-        StringBuffer onchange = new StringBuffer();
-        onchange.append("setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);onInvokeAction('" + limit.getId() + "')");
-        html.onchange(onchange.toString());
-
-        html.close();
-
-        html.newline();
-        html.tabs(4);
-
-        // default rows
-        html.option().value(String.valueOf(rowsDisplayed));
-        if (currentRowsDisplayed == rowsDisplayed) {
-            html.selected();
-        }
-        html.close();
-        html.append(String.valueOf(rowsDisplayed));
-        html.optionEnd();
-
-        // median rows
-        html.option().value(String.valueOf(medianRowsDisplayed));
-        if (currentRowsDisplayed == medianRowsDisplayed) {
-            html.selected();
-        }
-        html.close();
-        html.append(String.valueOf(medianRowsDisplayed));
-        html.optionEnd();
-
-        // max rows
-        html.option().value(String.valueOf(maxRowsDisplayed));
-        if (currentRowsDisplayed == maxRowsDisplayed) {
-            html.selected();
-        }
-        html.close();
-        html.append(String.valueOf(maxRowsDisplayed));
-        html.optionEnd();
-
-        html.newline();
-        html.tabs(4);
-        html.selectEnd();
-    }    
 }

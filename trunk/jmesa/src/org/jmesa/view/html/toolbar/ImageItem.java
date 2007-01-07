@@ -63,7 +63,7 @@ public class ImageItem extends AbstractItem {
         html.append(getAction());
         html.quote().close();
 
-        if (StringUtils.isBlank(getTooltip())) {
+        if (StringUtils.isNotBlank(getTooltip())) {
             html.img().src(getImage()).style(getStyle()).title(getTooltip()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
         } else {
             html.img().src(getImage()).style(getStyle()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();

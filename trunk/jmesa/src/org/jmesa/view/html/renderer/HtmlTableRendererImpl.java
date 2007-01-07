@@ -17,6 +17,7 @@ package org.jmesa.view.html.renderer;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.renderer.AbstractTableRenderer;
 
@@ -46,7 +47,7 @@ public class HtmlTableRendererImpl extends AbstractTableRenderer implements Html
 
 	public String getStyleClass() {
 		if (StringUtils.isBlank(styleClass)) {
-			return getCoreContext().getPreference("view.html.renderer.htmlTableRenderer.styleClass");
+			return getCoreContext().getPreference(HtmlConstants.TABLE_RENDERER_STYLE_CLASS);
 		}
 
 		return styleClass;

@@ -32,7 +32,7 @@ public class HtmlBuilder {
 
     /**
      * Default constructor using a StringWriter, 
-     * which is really just a StringBuffer. 
+     * which is really just a StringBuilder. 
      */
     public HtmlBuilder() {
         this.builder = new StringBuilder();
