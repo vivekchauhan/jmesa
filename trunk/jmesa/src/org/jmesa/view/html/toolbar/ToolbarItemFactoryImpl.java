@@ -212,17 +212,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return html.toString();
     }
 
-    public String createMaxRowsImage() {
-    	HtmlBuilder html = new HtmlBuilder();
-        html.img();
-        html.src(getImage(TOOLBAR_IMAGE_MAX_ROWS));
-        html.style("border:0");
-        html.alt("Max Rows");
-        html.end();
-        return html.toString();
-    }
-
-    
     public MaxRowsItem createMaxRowsItem() {
     	MaxRowsItem item = new MaxRowsItem();
 
