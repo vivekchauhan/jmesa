@@ -33,7 +33,7 @@ public class NextPageItemRenderer extends AbstractItemRenderer {
         Limit limit = getCoreContext().getLimit();
 		int page = limit.getRowSelect().getPage();
         
-        StringBuffer action = new StringBuffer("javascript:");
+		StringBuilder action = new StringBuilder("javascript:");
         action.append("setPageToLimit('" + limit.getId() + "','" + (page + 1) + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         
         ToolbarItem item = getToolbarItem();

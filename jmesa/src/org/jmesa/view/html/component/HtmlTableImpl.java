@@ -17,6 +17,7 @@ package org.jmesa.view.html.component;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.component.TableImpl;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 
 /**
@@ -32,7 +33,7 @@ public class HtmlTableImpl extends TableImpl implements HtmlTable {
 
 	public String getTheme() {
 		if (StringUtils.isBlank(theme)) {
-			return getCoreContext().getPreference("view.html.component.htmlTable.theme");
+			return getCoreContext().getPreference(HtmlConstants.TABLE_COMPONENT_THEME);
 		}
 
 		return theme;

@@ -73,13 +73,13 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
             html.value(filter.getValue());
 		}
 		
-        StringBuffer onkeypress = new StringBuffer();
+        StringBuilder onkeypress = new StringBuilder();
         onkeypress.append("if (event.keyCode == 13) {");
         onkeypress.append("onInvokeAction('" + limit.getId() + "');");
         onkeypress.append("}");
         html.onkeypress(onkeypress.toString());
 
-        StringBuffer onkeyup = new StringBuffer();
+        StringBuilder onkeyup = new StringBuilder();
         onkeyup.append("if (event.keyCode != 13) {");
         onkeyup.append("addFilterToLimit('" + limit.getId() + "','" + column.getProperty() + "',this.value)");
         onkeyup.append("}");

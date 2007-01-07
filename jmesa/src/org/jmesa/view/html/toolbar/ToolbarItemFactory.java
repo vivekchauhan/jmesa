@@ -49,4 +49,10 @@ public interface ToolbarItemFactory {
 	public TextItem createExportItemAsText(ToolbarExport export);
 	
 	public String createSeparatorImage();
+	
+	public String createFilterArrowImage();
+	
+	public String createMaxRowsImage();
+	
+	public MaxRowsItem createMaxRowsItem();
 }

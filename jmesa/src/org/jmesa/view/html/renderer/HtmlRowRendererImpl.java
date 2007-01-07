@@ -56,7 +56,7 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 
 	public String getEvenClass() {
 		if (StringUtils.isBlank(evenClass)) {
-			return getCoreContext().getPreference("view.html.renderer.htmlRowRenderer.evenClass");
+			return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_EVEN_CLASS);
 		}
 
 		return evenClass;
@@ -68,7 +68,7 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 
 	public String getOddClass() {
 		if (StringUtils.isBlank(oddClass)) {
-			return getCoreContext().getPreference("view.html.renderer.htmlRowRenderer.oddClass");
+			return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_ODD_CLASS);
 		}
 
 		return oddClass;
@@ -97,7 +97,7 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 	
 	public String getHighlightClass() {
 		if (StringUtils.isBlank(highlightClass)) {
-			return getCoreContext().getPreference("view.html.renderer.htmlRowRenderer.highlightClass");
+			return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_HIGHLIGHT_CLASS);
 		}
 
 		return highlightClass;
