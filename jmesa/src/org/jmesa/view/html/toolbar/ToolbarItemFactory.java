@@ -52,7 +52,5 @@ public interface ToolbarItemFactory {
 	
 	public String createFilterArrowImage();
 	
-	public String createMaxRowsImage();
-	
 	public MaxRowsItem createMaxRowsItem();
 }

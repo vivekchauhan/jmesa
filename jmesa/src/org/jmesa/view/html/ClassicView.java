@@ -238,10 +238,9 @@ public class ClassicView implements View {
 
         // rows displayed
         
-        html.td(4).style("width:20px").close();
+        html.td(4).close();
         ToolbarItem maxRowsItem = toolbarItemFactory.createMaxRowsItem();
         html.append(maxRowsItem.getToolbarItemRenderer().render());
-        html.append(toolbarItemFactory.createMaxRowsImage());
         html.tdEnd();
         
         // separator 

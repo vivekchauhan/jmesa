@@ -55,7 +55,6 @@ public class HtmlConstants {
     public final static String TOOLBAR_IMAGE_FIRST_PAGE_DISABLED = "html.toolbar.image.firstPageDisabled";
     public final static String TOOLBAR_IMAGE_LAST_PAGE = "html.toolbar.image.lastPage";
     public final static String TOOLBAR_IMAGE_LAST_PAGE_DISABLED = "html.toolbar.image.lastPageDisabled";
-    public final static String TOOLBAR_IMAGE_MAX_ROWS = "html.toolbar.image.maxRows";
     public final static String TOOLBAR_IMAGE_NEXT_PAGE = "html.toolbar.image.nextPage";
     public final static String TOOLBAR_IMAGE_NEXT_PAGE_DISABLED = "html.toolbar.image.nextPageDisabled";
     public final static String TOOLBAR_IMAGE_PREV_PAGE = "html.toolbar.image.prevPage";

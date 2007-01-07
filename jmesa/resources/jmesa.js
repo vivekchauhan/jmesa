@@ -17,7 +17,7 @@ function Limit(id) {
 	this.maxRows;
 	this.sortSet = new Array();
 	this.filterSet = new Array();
-	this.exportName;
+	this.exportType;
 }
 
 function Sort(property, order, position) {
@@ -80,11 +80,11 @@ Limit.prototype.setFilterSet = function(filterSet) {
 }
  
 Limit.prototype.getExport = function() {
-	return this.exportName;
+	return this.exportType;
 }
 
-Limit.prototype.setExport = function(exportName) {
- 	this.exportName = exportName;
+Limit.prototype.setExport = function(exportType) {
+ 	this.exportType = exportType;
 }
  
  /*other helper methods*/
@@ -147,8 +147,8 @@ Limit.prototype.createParameterString = function(form) {
 	}
 	
 	/* the export */
-	if (this.exportName) {
-		url += '&' + this.id + '_' + 'e_=' + this.exportName;
+	if (this.exportType) {
+		url += '&' + this.id + '_' + 'e_=' + this.exportType;
 	}
 	
 	return url;
@@ -251,8 +251,8 @@ function getFilterFromLimit(id, property) {
 	}
 }
 
-function setExportToLimit(id, exportName) {
-	LimitManager.getLimit(id).setExport(exportName);
+function setExportToLimit(id, exportType) {
+	LimitManager.getLimit(id).setExport(exportType);
 }
 
 function createHiddenInputFieldsForLimit(id) {
