@@ -22,7 +22,7 @@ import org.jmesa.view.html.HtmlBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ImageItemImpl extends AbstractItem {
+public class ImageItemImpl extends AbstractItem implements ImageItem {
     String image;
     String disabledImage;
     String alt;
