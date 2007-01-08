@@ -28,10 +28,13 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarExport;
+import org.jmesa.view.html.toolbar.ToolbarImpl;
 import org.jmesa.view.html.toolbar.ToolbarItem;
 import org.jmesa.view.html.toolbar.ToolbarItemFactory;
 import org.jmesa.view.html.toolbar.ToolbarItemFactoryImpl;
+import org.jmesa.view.html.toolbar.ToolbarItemType;
 import org.jmesa.web.WebContext;
 
 /**
@@ -205,65 +208,16 @@ public class ClassicView implements View {
 
         String toolbarClass = getCoreContext().getPreference(HtmlConstants.TOOLBAR_CLASS);
         
-        html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarClass).close();
-
-        html.tr(3).close();
-        
-        ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
-
-        html.td(4).close();
-        ToolbarItem firstPageItem = toolbarItemFactory.createFirstPageItemAsImage();
-        html.append(firstPageItem.getToolbarItemRenderer().render());
-        html.tdEnd();
-
-        html.td(4).close();
-        ToolbarItem prevPageItem = toolbarItemFactory.createPrevPageItemAsImage();
-        html.append(prevPageItem.getToolbarItemRenderer().render());
-        html.tdEnd();
-
-        html.td(4).close();
-        ToolbarItem nextPageItem = toolbarItemFactory.createNextPageItemAsImage();
-        html.append(nextPageItem.getToolbarItemRenderer().render());
-        html.tdEnd();
-
-        html.td(4).close();
-        ToolbarItem lastPageItem = toolbarItemFactory.createLastPageItemAsImage();
-        html.append(lastPageItem.getToolbarItemRenderer().render());
-        html.tdEnd();
-        
-        // separator 
-        
-        html.td(4).close();
-        html.append(toolbarItemFactory.createSeparatorImage());
-        html.tdEnd();
-
-        // rows displayed
-        
-        html.td(4).close();
-        ToolbarItem maxRowsItem = toolbarItemFactory.createMaxRowsItem();
-        html.append(maxRowsItem.getToolbarItemRenderer().render());
-        html.tdEnd();
-        
-        // separator 
-        
-        html.td(4).close();
-        html.append(toolbarItemFactory.createSeparatorImage());
-        html.tdEnd();
-        
-        for (int i = 0; i < exportTypes.length; i++) {
-        	String exportType = exportTypes[i];
-            html.td(4).close();
-            ToolbarExport export = new ToolbarExport(exportType);
-            ToolbarItem exportItem = toolbarItemFactory.createExportItemAsImage(export);
-            html.append(exportItem.getToolbarItemRenderer().render());
-            html.tdEnd();
-		}
-        
-        html.trEnd(3);
-
-        html.tableEnd(2);
-        html.newline();
-        html.tabs(2);
+        ToolbarImpl toolbar = new ToolbarImpl(toolbarClass, imagesPath, coreContext);
+        toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
+        toolbar.addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
+        toolbar.addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
+        toolbar.addToolbarItem(ToolbarItemType.LAST_PAGE_ITEM);
+        toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
+        toolbar.addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
+        toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
+        toolbar.addExportItemTypes(exportTypes);
+        html.append(toolbar.render());
         
         html.tdEnd();
 
@@ -317,12 +271,12 @@ public class ClassicView implements View {
 
             html.nbsp();
             
-            ToolbarItem filterItem = toolbarItemFactory.createFilterItemAsImage();
+            ToolbarItem filterItem = toolbarItemFactory.createFilterItem();
             html.append(filterItem.getToolbarItemRenderer().render());
 
             html.nbsp();
 
-            ToolbarItem clearItem = toolbarItemFactory.createClearItemAsImage();
+            ToolbarItem clearItem = toolbarItemFactory.createClearItem();
             html.append(clearItem.getToolbarItemRenderer().render());
         }
 

@@ -19,8 +19,6 @@ package org.jmesa.view.html.toolbar;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface TextItem extends ToolbarItem  {
-	public String getText();
-
-	public void setText(String text);
+public interface Toolbar {
+	public String render();
 }
