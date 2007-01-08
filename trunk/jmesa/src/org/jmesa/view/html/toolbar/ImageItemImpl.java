@@ -19,9 +19,10 @@ import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
-public class ImageItem extends AbstractItem {
+public class ImageItemImpl extends AbstractItem {
     String image;
     String disabledImage;
     String alt;

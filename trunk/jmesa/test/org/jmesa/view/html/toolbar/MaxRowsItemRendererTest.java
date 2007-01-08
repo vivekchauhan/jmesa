@@ -53,7 +53,7 @@ public class MaxRowsItemRendererTest {
 		
 		CoreContext coreContext = createCoreContext(webContext);
 		
-    	MaxRowsItem item = new MaxRowsItem();
+    	MaxRowsItemImpl item = new MaxRowsItemImpl();
 
         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
