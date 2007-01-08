@@ -39,7 +39,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 		this.coreContext = coreContext;
 	}
 	
-    public ImageItemImpl createFirstPageItemAsImage() {
+    public ImageItem createFirstPageItemAsImage() {
         ImageItemImpl item = new ImageItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FIRST_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE_DISABLED));
@@ -54,14 +54,14 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public TextItemImpl createFirstPageItemAsText() {
+    public TextItem createFirstPageItemAsText() {
         TextItemImpl item = new TextItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FIRST_PAGE));
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_FIRST_PAGE));
         return item;
     }
 
-    public ImageItemImpl createPrevPageItemAsImage() {
+    public ImageItem createPrevPageItemAsImage() {
         ImageItemImpl item = new ImageItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_PREV_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_PREV_PAGE_DISABLED));
@@ -76,14 +76,14 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public TextItemImpl createPrevPageItemAsText() {
+    public TextItem createPrevPageItemAsText() {
         TextItemImpl item = new TextItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_PREV_PAGE));
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_PREV_PAGE));
         return item;
     }
 
-    public ImageItemImpl createNextPageItemAsImage() {
+    public ImageItem createNextPageItemAsImage() {
         ImageItemImpl item = new ImageItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_NEXT_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE_DISABLED));
@@ -98,14 +98,14 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
     
-    public TextItemImpl createNextPageItemAsText() {
+    public TextItem createNextPageItemAsText() {
         TextItemImpl item = new TextItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_NEXT_PAGE));
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_NEXT_PAGE));
         return item;
     }
 
-    public ImageItemImpl createLastPageItemAsImage() {
+    public ImageItem createLastPageItemAsImage() {
         ImageItemImpl item = new ImageItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_LAST_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_LAST_PAGE_DISABLED));
@@ -120,14 +120,14 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public TextItemImpl createLastPageItemAsText() {
+    public TextItem createLastPageItemAsText() {
         TextItemImpl item = new TextItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_LAST_PAGE));
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_LAST_PAGE));
         return item;
     }
 
-    public ImageItemImpl createFilterItemAsImage() {
+    public ImageItem createFilterItemAsImage() {
         ImageItemImpl item = new ImageItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER));
         item.setImage(getImage(TOOLBAR_IMAGE_FILTER));
@@ -141,14 +141,14 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public TextItemImpl createFilterItemAsText() {
+    public TextItem createFilterItemAsText() {
         TextItemImpl item = new TextItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER));
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_FILTER));
         return item;
     }
 
-    public ImageItemImpl createClearItemAsImage() {
+    public ImageItem createClearItemAsImage() {
         ImageItemImpl item = new ImageItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR));
         item.setImage(getImage(TOOLBAR_IMAGE_CLEAR));
@@ -162,14 +162,14 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public TextItemImpl createClearItemAsText() {
+    public TextItem createClearItemAsText() {
         TextItemImpl item = new TextItemImpl();
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR));
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_CLEAR));
         return item;
     }
 
-    public ImageItemImpl createExportItemAsImage(ToolbarExport export) {
+    public ImageItem createExportItemAsImage(ToolbarExport export) {
         ImageItemImpl item = new ImageItemImpl();
         
         item.setTooltip(getExportTooltip(export));
@@ -185,7 +185,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public TextItemImpl createExportItemAsText(ToolbarExport export) {
+    public TextItem createExportItemAsText(ToolbarExport export) {
         TextItemImpl item = new TextItemImpl();
         item.setTooltip(export.getTooltip());
         item.setText(export.getText());
@@ -212,7 +212,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return html.toString();
     }
 
-    public MaxRowsItemImpl createMaxRowsItem() {
+    public MaxRowsItem createMaxRowsItem() {
     	MaxRowsItemImpl item = new MaxRowsItemImpl();
 
         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);

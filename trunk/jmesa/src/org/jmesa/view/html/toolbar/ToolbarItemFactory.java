@@ -20,37 +20,37 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarItemFactory {
-	public ImageItemImpl createFirstPageItemAsImage();
+	public ImageItem createFirstPageItemAsImage();
 
-	public TextItemImpl createFirstPageItemAsText();
+	public TextItem createFirstPageItemAsText();
 
-	public ImageItemImpl createPrevPageItemAsImage();
+	public ImageItem createPrevPageItemAsImage();
 
-	public TextItemImpl createPrevPageItemAsText();
+	public TextItem createPrevPageItemAsText();
 
-	public ImageItemImpl createNextPageItemAsImage();
+	public ImageItem createNextPageItemAsImage();
 
-	public TextItemImpl createNextPageItemAsText();
+	public TextItem createNextPageItemAsText();
 
-	public ImageItemImpl createLastPageItemAsImage();
+	public ImageItem createLastPageItemAsImage();
 
-	public TextItemImpl createLastPageItemAsText();
+	public TextItem createLastPageItemAsText();
 
-	public ImageItemImpl createFilterItemAsImage();
+	public ImageItem createFilterItemAsImage();
 
-	public TextItemImpl createFilterItemAsText();
+	public TextItem createFilterItemAsText();
 
-	public ImageItemImpl createClearItemAsImage();
+	public ImageItem createClearItemAsImage();
 
-	public TextItemImpl createClearItemAsText();
+	public TextItem createClearItemAsText();
 
-	public ImageItemImpl createExportItemAsImage(ToolbarExport export);
+	public ImageItem createExportItemAsImage(ToolbarExport export);
 
-	public TextItemImpl createExportItemAsText(ToolbarExport export);
+	public TextItem createExportItemAsText(ToolbarExport export);
 	
 	public String createSeparatorImage();
 	
 	public String createFilterArrowImage();
 	
-	public MaxRowsItemImpl createMaxRowsItem();
+	public MaxRowsItem createMaxRowsItem();
 }
