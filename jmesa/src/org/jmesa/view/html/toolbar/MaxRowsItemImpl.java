@@ -21,7 +21,7 @@ import org.jmesa.view.html.HtmlBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class MaxRowsItem extends AbstractItem {
+public class MaxRowsItemImpl extends AbstractItem {
 	private int maxRows;
 	private int[] increments = new int[0];
 	

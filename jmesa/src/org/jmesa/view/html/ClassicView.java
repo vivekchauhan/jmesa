@@ -204,7 +204,8 @@ public class ClassicView implements View {
         html.td(2).align("right").close();
 
         String toolbarClass = getCoreContext().getPreference(HtmlConstants.TOOLBAR_CLASS);
-		html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarClass).close();
+        
+        html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarClass).close();
 
         html.tr(3).close();
         
@@ -263,7 +264,7 @@ public class ClassicView implements View {
         html.tableEnd(2);
         html.newline();
         html.tabs(2);
-
+        
         html.tdEnd();
 
         // end of toolbar
