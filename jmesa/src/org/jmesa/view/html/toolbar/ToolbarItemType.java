@@ -15,28 +15,12 @@
  */
 package org.jmesa.view.html.toolbar;
 
-/**
- * @since 2.0
- * @author Jeff Johnston
- */
-public interface ToolbarItemFactory {
-	public ImageItem createFirstPageItem();
-
-	public ImageItem createPrevPageItem();
-
-	public ImageItem createNextPageItem();
-
-	public ImageItem createLastPageItem();
-
-	public ImageItem createFilterItem();
-
-	public ImageItem createClearItem();
-
-	public ImageItem createExportItem(ToolbarExport export);
-
-	public MaxRowsItem createMaxRowsItem();
-
-	public String createSeparatorImage();
-	
-	public String createFilterArrowImage();
+public enum ToolbarItemType {
+	FIRST_PAGE_ITEM,
+	PREV_PAGE_ITEM,
+	NEXT_PAGE_ITEM,
+	LAST_PAGE_ITEM,
+	MAX_ROWS_ITEM,
+	SEPARATOR
+	;
 }
