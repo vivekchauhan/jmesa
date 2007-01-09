@@ -29,7 +29,7 @@ public class PrevPageItemRenderer extends AbstractItemRenderer {
 		setCoreContext(coreContext);
 	}
 
-	public Object render() {
+	public String render() {
         Limit limit = getCoreContext().getLimit();
 		int page = limit.getRowSelect().getPage();
 

@@ -29,11 +29,7 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarExport;
 import org.jmesa.view.html.toolbar.ToolbarImpl;
-import org.jmesa.view.html.toolbar.ToolbarItem;
-import org.jmesa.view.html.toolbar.ToolbarItemFactory;
-import org.jmesa.view.html.toolbar.ToolbarItemFactoryImpl;
 import org.jmesa.view.html.toolbar.ToolbarItemType;
 import org.jmesa.web.WebContext;
 
@@ -208,7 +204,8 @@ public class ClassicView implements View {
 
         String toolbarClass = getCoreContext().getPreference(HtmlConstants.TOOLBAR_CLASS);
         
-        ToolbarImpl toolbar = new ToolbarImpl(toolbarClass, imagesPath, coreContext);
+        Toolbar toolbar = new ToolbarImpl(imagesPath, coreContext);
+        toolbar.setToolbarClass(toolbarClass);
         toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
@@ -216,7 +213,7 @@ public class ClassicView implements View {
         toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
         toolbar.addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
-        toolbar.addExportItemTypes(exportTypes);
+        toolbar.addExportToolbarItems(exportTypes);
         html.append(toolbar.render());
         
         html.tdEnd();
@@ -265,19 +262,10 @@ public class ClassicView implements View {
 		html.td(4).align("right").close();
         
         if (ViewUtils.isFilterable(columns)) {
-            ToolbarItemFactory toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
-
-            html.append(toolbarItemFactory.createFilterArrowImage());
-
-            html.nbsp();
-            
-            ToolbarItem filterItem = toolbarItemFactory.createFilterItem();
-            html.append(filterItem.getToolbarItemRenderer().render());
-
-            html.nbsp();
-
-            ToolbarItem clearItem = toolbarItemFactory.createClearItem();
-            html.append(clearItem.getToolbarItemRenderer().render());
+            Toolbar toolbar = new ToolbarImpl(imagesPath, coreContext);
+            toolbar.addToolbarItem(ToolbarItemType.FILTER_ITEM);
+            toolbar.addToolbarItem(ToolbarItemType.CLEAR_ITEM);
+            html.append(toolbar.render());
         }
 
         html.tdEnd();

@@ -15,12 +15,35 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_LAST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_LAST_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SEPARATOR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FIRST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_LAST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_NEXT_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_PREV_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FIRST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_LAST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_NEXT_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
+
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.html.HtmlBuilder;
-import static org.jmesa.view.html.HtmlConstants.*;
-import org.jmesa.view.html.HtmlUtils;
-import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
@@ -30,10 +53,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 	private String imagesPath;
 	private CoreContext coreContext;
 
-	public ToolbarItemFactoryImpl(WebContext webContext, CoreContext coreContext) {
-		this(HtmlUtils.imagesPath(webContext, coreContext), coreContext);
-	}
-	
 	public ToolbarItemFactoryImpl(String imagesPath, CoreContext coreContext) {
 		this.imagesPath = imagesPath;
 		this.coreContext = coreContext;
@@ -127,6 +146,16 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
+    public MaxRowsItem createMaxRowsItem() {
+    	MaxRowsItemImpl item = new MaxRowsItemImpl();
+
+        MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction("onInvokeAction");
+        item.setToolbarItemRenderer(renderer);
+        
+        return item;
+    }
+
     public ImageItem createExportItem(ToolbarExport export) {
         ImageItemImpl item = new ImageItemImpl();
         
@@ -143,32 +172,12 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public MaxRowsItem createMaxRowsItem() {
-    	MaxRowsItemImpl item = new MaxRowsItemImpl();
-
-        MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
-        item.setToolbarItemRenderer(renderer);
-        
-        return item;
-    }
-
     public String createSeparatorImage() {
     	HtmlBuilder html = new HtmlBuilder();
         html.img();
         html.src(getImage(TOOLBAR_IMAGE_SEPARATOR));
         html.style("border:0");
         html.alt("Separator");
-        html.end();
-        return html.toString();
-    }
-
-    public String createFilterArrowImage() {
-    	HtmlBuilder html = new HtmlBuilder();
-        html.img();
-        html.src(getImage(TOOLBAR_IMAGE_FILTER_ARROW));
-        html.style("border:0");
-        html.alt("Arrow");
         html.end();
         return html.toString();
     }

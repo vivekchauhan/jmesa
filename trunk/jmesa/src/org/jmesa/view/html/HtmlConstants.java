@@ -59,7 +59,6 @@ public class HtmlConstants {
     public final static String TOOLBAR_IMAGE_NEXT_PAGE_DISABLED = "html.toolbar.image.nextPageDisabled";
     public final static String TOOLBAR_IMAGE_PREV_PAGE = "html.toolbar.image.prevPage";
     public final static String TOOLBAR_IMAGE_PREV_PAGE_DISABLED = "html.toolbar.image.prevPageDisabled";
-    public final static String TOOLBAR_IMAGE_FILTER_ARROW = "html.toolbar.image.filterArrow";
     public final static String TOOLBAR_IMAGE_FILTER = "html.toolbar.image.filter";
     public final static String TOOLBAR_IMAGE_SEPARATOR = "html.toolbar.image.separator";
     

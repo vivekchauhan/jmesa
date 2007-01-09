@@ -15,12 +15,20 @@
  */
 package org.jmesa.view.html.toolbar;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public enum ToolbarItemType {
 	FIRST_PAGE_ITEM,
 	PREV_PAGE_ITEM,
 	NEXT_PAGE_ITEM,
 	LAST_PAGE_ITEM,
 	MAX_ROWS_ITEM,
+	FILTER_ITEM,
+	CLEAR_ITEM,
+	EXPORT_ITEMS,
+	CUSTOM_ITEMS,
 	SEPARATOR
 	;
 }
