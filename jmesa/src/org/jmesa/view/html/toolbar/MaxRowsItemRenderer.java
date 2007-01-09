@@ -36,7 +36,7 @@ public class MaxRowsItemRenderer extends AbstractItemRenderer {
 		return (MaxRowsItemImpl)super.getToolbarItem();
 	}
 
-	public Object render() {
+	public String render() {
 		MaxRowsItemImpl item = getToolbarItem();
         
 		if (item.getIncrements().length == 0) {

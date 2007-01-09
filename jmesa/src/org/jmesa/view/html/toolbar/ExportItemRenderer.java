@@ -27,7 +27,7 @@ public class ExportItemRenderer extends AbstractItemRenderer {
 		setCoreContext(coreContext);
 	}
 
-	public Object render() {
+	public String render() {
         Limit limit = getCoreContext().getLimit();
         StringBuilder action = new StringBuilder("javascript:setExportToLimit('" + limit.getId() + "','" + export.getType() + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         ToolbarItem item = getToolbarItem();

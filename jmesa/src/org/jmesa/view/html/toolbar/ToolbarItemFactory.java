@@ -32,11 +32,9 @@ public interface ToolbarItemFactory {
 
 	public ImageItem createClearItem();
 
-	public ImageItem createExportItem(ToolbarExport export);
-
 	public MaxRowsItem createMaxRowsItem();
 
+	public ImageItem createExportItem(ToolbarExport export);
+
 	public String createSeparatorImage();
-	
-	public String createFilterArrowImage();
 }

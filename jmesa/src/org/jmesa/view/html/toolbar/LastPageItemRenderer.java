@@ -29,7 +29,7 @@ public class LastPageItemRenderer extends AbstractItemRenderer {
 		setCoreContext(coreContext);
 	}
 
-	public Object render() {
+	public String render() {
         Limit limit = getCoreContext().getLimit();
 		int page = limit.getRowSelect().getPage();
         int totalPages = HtmlUtils.totalPages(getCoreContext());
