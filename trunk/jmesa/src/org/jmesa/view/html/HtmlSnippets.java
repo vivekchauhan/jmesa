@@ -13,28 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.toolbar;
+package org.jmesa.view.html;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ToolbarItemFactory {
-	public ImageItem createFirstPageItem();
+public interface HtmlSnippets {
 
-	public ImageItem createPrevPageItem();
+	public String themeStart();
 
-	public ImageItem createNextPageItem();
+	public String themeEnd();
 
-	public ImageItem createLastPageItem();
+	public String tableStart();
 
-	public ImageItem createFilterItem();
+	public String tableEnd();
 
-	public ImageItem createClearItem();
+	public String theadStart();
 
-	public MaxRowsItem createMaxRowsItem();
+	public String theadEnd();
 
-	public ImageItem createExportItem(ToolbarExport export);
+	public String tbodyStart();
 
-	public ImageItem createSeparatorItem();
+	public String tbodyEnd();
+
+	public String filter();
+
+	public String header();
+
+	public String body();
+
+	public String initJavascriptLimit();
+
 }

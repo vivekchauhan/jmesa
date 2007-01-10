@@ -43,7 +43,6 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * @since 2.0
@@ -172,14 +171,14 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         return item;
     }
 
-    public String createSeparatorImage() {
-    	HtmlBuilder html = new HtmlBuilder();
-        html.img();
-        html.src(getImage(TOOLBAR_IMAGE_SEPARATOR));
-        html.style("border:0");
-        html.alt("Separator");
-        html.end();
-        return html.toString();
+    public ImageItem createSeparatorItem() {
+    	ImageItemImpl item = new SeparatorItem();
+    	
+    	item.setImage(getImage(TOOLBAR_IMAGE_SEPARATOR));
+        item.setAlt("Separator");
+        item.setStyle("border:0");
+
+        return item;
     }
 
     protected String getImage(String image) {
