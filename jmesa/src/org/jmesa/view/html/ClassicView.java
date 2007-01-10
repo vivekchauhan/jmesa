@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.html;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
@@ -23,9 +22,7 @@ import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewUtils;
-import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
@@ -70,118 +67,44 @@ public class ClassicView implements View {
 	
 	public Object render() {
 		HtmlBuilder html = new HtmlBuilder();
-		HtmlRow row = getTable().getRow();
-		List columns = row.getColumns();
+		
+		HtmlSnippets snippets = new HtmlSnippetsImpl(getTable(), getCoreContext());
 
-		themeStart(html, getTable());
+		html.append(snippets.themeStart());
 		
-		toolbar(html, getTable());
+		html.append(toolbar());
 		
-		tableStart(html, getTable());
+		html.append(snippets.tableStart());
 		
-		theadStart(html);
+		html.append(snippets.theadStart());
 		
-		statusBar(html, columns);
+		html.append(statusBar());
 		
-		header(html, columns);
+		html.append(snippets.header());
 		
-		filter(html, columns);
+		html.append(snippets.filter());
 		
-		theadEnd(html);
+		html.append(snippets.theadEnd());
 		
-		tbodyStart(html);
+		html.append(snippets.tbodyStart());
 		
-		body(html, row, columns);
+		html.append(snippets.body());
 		
-		tbodyEnd(html);
+		html.append(snippets.tbodyEnd());
 
-		tableEnd(html);
+		html.append(snippets.tableEnd());
 		
-		themeEnd(html);
+		html.append(snippets.themeEnd());
 		
-		script(html);
+		html.append(snippets.initJavascriptLimit());
 
 		return html;
 	}
 
-	protected void script(HtmlBuilder html) {
-		Limit limit = coreContext.getLimit();
-		html.append(HtmlUtils.initJavascriptLimit(limit));
-	}
+    protected String toolbar() {
+		HtmlBuilder html = new HtmlBuilder();
 
-	protected void themeStart(HtmlBuilder html, HtmlTable table) {
-		html.div().styleClass(table.getTheme()).close();
-	}
-	
-	protected void themeEnd(HtmlBuilder html) {
-		html.newline();
-		html.divEnd();
-	}
-	
-	protected void tableStart(HtmlBuilder html, HtmlTable table) {
-		html.append(table.getTableRenderer().render());
-	}
-	
-	protected void tableEnd(HtmlBuilder html) {
-		html.tableEnd(0);
-	}
-
-	protected void theadStart(HtmlBuilder html) {
-        html.thead(1).close();
-    }
-
-	protected void theadEnd(HtmlBuilder html) {
-        html.theadEnd(1);
-    }
-
-	protected void tbodyStart(HtmlBuilder html) {
-        String tbodyClass = getCoreContext().getPreference(HtmlConstants.TBODY_CLASS);
-		html.tbody(1).styleClass(tbodyClass).close();
-    }
-
-	protected void tbodyEnd(HtmlBuilder html) {
-        html.tbodyEnd(1);
-    }
-	
-	protected void filter(HtmlBuilder html, List<HtmlColumn> columns) {
-        String filterClass = getCoreContext().getPreference(HtmlConstants.FILTER_CLASS);
-		html.tr(1).styleClass(filterClass).close();
-		
-		for (HtmlColumn column : columns) {
-			html.append(column.getFilterRenderer().render());
-		}
-		
-		html.trEnd(1);
-	}
-
-	protected void header(HtmlBuilder html, List<HtmlColumn> columns) {
-		html.tr(1).close();
-		
-		for (HtmlColumn column : columns) {
-			html.append(column.getHeaderRenderer().render());
-		}
-		
-		html.trEnd(1);
-    }
-	
-	protected void body(HtmlBuilder html, HtmlRow row, List<HtmlColumn> columns) {
-		int rowcount = 0;
-		Collection items = coreContext.getPageItems();
-		for (Object item : items) {
-			rowcount++;
-			
-			html.append(row.getRowRenderer().render(item, rowcount));
-
-			for (Column column : columns) {
-				html.append(column.getCellRenderer().render(item, rowcount));
-			}
-
-			html.trEnd(1);
-		}
-	}
-	
-    protected void toolbar(HtmlBuilder html, HtmlTable table) {
-        html.table(0).border("0").cellpadding("0").cellspacing("0");
+		html.table(0).border("0").cellpadding("0").cellspacing("0");
         
         html.width(table.getTableRenderer().getWidth()).close();
 
@@ -224,11 +147,18 @@ public class ClassicView implements View {
 
         html.tableEnd(0);
         html.newline();
+        
+        return html.toString();
     }
 
-    protected void statusBar(HtmlBuilder html, List<HtmlColumn> columns) {
-        Limit limit = coreContext.getLimit();
+    protected String statusBar() {
+		HtmlBuilder html = new HtmlBuilder();
+
+		Limit limit = coreContext.getLimit();
         RowSelect rowSelect = limit.getRowSelect();
+        
+		HtmlRow row = getTable().getRow();
+		List columns = row.getColumns();
 
         html.tr(1).style("padding: 0px;").close();
         html.td(2).colspan(String.valueOf(columns.size())).close();
@@ -279,5 +209,7 @@ public class ClassicView implements View {
         
         html.tdEnd();
         html.trEnd(1);
+        
+        return html.toString();
     }
 }

@@ -15,8 +15,6 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import java.util.List;
-
 /**
  * @since 2.0
  * @author Jeff Johnston
@@ -24,13 +22,9 @@ import java.util.List;
 public interface Toolbar {
 	public void setToolbarClass(String toolbarClass);
 	
-	public List<ToolbarItemType> getToolbarItemTypes();	
+	public void addToolbarItem(ToolbarItem item);
 	
-	public ToolbarItem getToolbarItem(ToolbarItemType type);
-
 	public void addToolbarItem(ToolbarItemType type);
-	
-	public List<ToolbarItem> getExportToolbarItems();
 	
 	public void addExportToolbarItems(String... exportTypes);
 	

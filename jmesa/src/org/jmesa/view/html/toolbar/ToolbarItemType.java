@@ -27,8 +27,5 @@ public enum ToolbarItemType {
 	MAX_ROWS_ITEM,
 	FILTER_ITEM,
 	CLEAR_ITEM,
-	EXPORT_ITEMS,
-	CUSTOM_ITEMS,
-	SEPARATOR
-	;
+	SEPARATOR;
 }
