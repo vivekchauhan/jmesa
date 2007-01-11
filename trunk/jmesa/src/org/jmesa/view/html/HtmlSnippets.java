@@ -45,7 +45,11 @@ public interface HtmlSnippets {
 
 	public String body();
 	
+	public String toolbar(Toolbar toolbar);
+	
 	public String statusBarText();
+	
+	public String statusBar();
 	
 	public String statusBar(Toolbar toolbar);
 

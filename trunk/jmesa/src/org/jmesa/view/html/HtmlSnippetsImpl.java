@@ -172,9 +172,11 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         html.tr(1).close();
         
-        html.td(2).colspan(String.valueOf(columns.size())).close();
+        html.td(2).align("left").colspan(String.valueOf(columns.size())).close();
 
 		html.div().close();
+        String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
+        toolbar.setToolbarClass(toolbarClass);
 		html.append(toolbar.render());
         html.divEnd();
         
@@ -204,8 +206,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         // status bar text
         String statusBarClass = coreContext.getPreference(HtmlConstants.STATUS_BAR_CLASS);
-        html.td(4).close();
-        html.span().styleClass(statusBarClass).close();
+        html.td(4).styleClass(statusBarClass).close();
+        html.span().close();
         html.append(statusBarText());
         html.spanEnd();
         html.tdEnd();

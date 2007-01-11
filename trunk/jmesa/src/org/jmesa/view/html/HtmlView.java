@@ -91,12 +91,12 @@ public class HtmlView implements View {
             toolbar.addToolbarItem(ToolbarItemType.FILTER_ITEM);
             toolbar.addToolbarItem(ToolbarItemType.CLEAR_ITEM);
         }
-		
-		builder.append(snippets.statusBar(toolbar));
-		
-		builder.append(snippets.header());
+
+        builder.append(snippets.toolbar(toolbar));
 		
 		builder.append(snippets.filter());
+
+		builder.append(snippets.header());
 		
 		builder.append(snippets.theadEnd());
 		
@@ -105,6 +105,8 @@ public class HtmlView implements View {
 		builder.append(snippets.body());
 		
 		builder.append(snippets.tbodyEnd());
+
+		builder.append(snippets.statusBar());
 
 		builder.append(snippets.tableEnd());
 		
