@@ -32,14 +32,14 @@ import org.jmesa.web.WebContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ClassicView implements View {
+public class HtmlView implements View {
 	private Table table;
 	private WebContext webContext;
 	private CoreContext coreContext;
 	private String[] exportTypes;
 	private String imagesPath;
 
-	public ClassicView(Table table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
+	public HtmlView(Table table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
 		this.table = table;
 		this.webContext = webContext;
 		this.coreContext = coreContext;
