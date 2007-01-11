@@ -22,10 +22,12 @@ import java.util.List;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
+import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.Sort;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.toolbar.Toolbar;
 
 /**
  * @since 2.0
@@ -144,6 +146,87 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 		}
 		return html.toString();
 	}
+	
+	public String statusBarText() {
+		Limit limit = coreContext.getLimit();
+        RowSelect rowSelect = limit.getRowSelect();
+		
+        if (rowSelect.getTotalRows() == 0) {
+             return coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND);
+        } 
+        
+        else {
+            Integer total = new Integer(rowSelect.getTotalRows());
+            Integer from = new Integer(rowSelect.getRowStart() + 1);
+            Integer to = new Integer(rowSelect.getRowEnd());
+            Object[] messageArguments = { total, from, to };
+            return coreContext.getMessage(HtmlConstants.STATUSBAR_RESULTS_FOUND, messageArguments);
+        }
+	}
+	
+    public String toolbar(Toolbar toolbar) {
+		HtmlBuilder html = new HtmlBuilder();
+
+		HtmlRow row = table.getRow();
+		List columns = row.getColumns();
+
+        html.tr(1).close();
+        
+        html.td(2).colspan(String.valueOf(columns.size())).close();
+
+		html.div().close();
+		html.append(toolbar.render());
+        html.divEnd();
+        
+        html.tdEnd();
+        html.trEnd(1);
+        
+        return html.toString();
+    }
+
+    public String statusBar() {
+    	return statusBar(null);
+    }
+	
+    public String statusBar(Toolbar toolbar) {
+		HtmlBuilder html = new HtmlBuilder();
+
+		HtmlRow row = table.getRow();
+		List columns = row.getColumns();
+
+        html.tr(1).close();
+        
+        html.td(2).colspan(String.valueOf(columns.size())).close();
+        
+        html.table(2).border("0").cellpadding("0").cellspacing("0").width("100%").close();
+
+        html.tr(3).close();
+
+        // status bar text
+        String statusBarClass = coreContext.getPreference(HtmlConstants.STATUS_BAR_CLASS);
+        html.td(4).close();
+        html.span().styleClass(statusBarClass).close();
+        html.append(statusBarText());
+        html.spanEnd();
+        html.tdEnd();
+		
+		// toolbar
+		if (toolbar != null) {
+			html.td(4).align("right").close();
+	        String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
+	        toolbar.setToolbarClass(toolbarClass);
+			html.append(toolbar.render());
+			html.tdEnd();
+		}
+		
+		html.trEnd(3);
+        html.tableEnd(2);
+        
+        html.tdEnd();
+        html.trEnd(1);
+        
+        return html.toString();
+    }
 	
 	public String initJavascriptLimit() {
 		HtmlBuilder html = new HtmlBuilder();

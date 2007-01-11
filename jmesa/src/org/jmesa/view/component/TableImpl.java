@@ -24,15 +24,15 @@ import org.jmesa.view.renderer.TableRenderer;
  */
 public class TableImpl extends ContextSupport implements Table {
 	private Row row;
-	private String title;
+	private String caption;
 	private TableRenderer tableRenderer;
 	
-	public String getTitle() {
-		return title;
+	public String getCaption() {
+		return caption;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setCaption(String caption) {
+		this.caption = caption;
 	}
 	
 	public Row getRow() {

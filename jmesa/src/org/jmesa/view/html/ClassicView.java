@@ -18,8 +18,6 @@ package org.jmesa.view.html;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Limit;
-import org.jmesa.limit.RowSelect;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Table;
@@ -66,69 +64,17 @@ public class ClassicView implements View {
 	}
 	
 	public Object render() {
-		HtmlBuilder html = new HtmlBuilder();
+		StringBuilder builder = new StringBuilder();
 		
 		HtmlSnippets snippets = new HtmlSnippetsImpl(getTable(), getCoreContext());
 
-		html.append(snippets.themeStart());
+		builder.append(snippets.themeStart());
 		
-		html.append(toolbar());
+		builder.append(snippets.tableStart());
 		
-		html.append(snippets.tableStart());
+		builder.append(snippets.theadStart());
 		
-		html.append(snippets.theadStart());
-		
-		html.append(statusBar());
-		
-		html.append(snippets.header());
-		
-		html.append(snippets.filter());
-		
-		html.append(snippets.theadEnd());
-		
-		html.append(snippets.tbodyStart());
-		
-		html.append(snippets.body());
-		
-		html.append(snippets.tbodyEnd());
-
-		html.append(snippets.tableEnd());
-		
-		html.append(snippets.themeEnd());
-		
-		html.append(snippets.initJavascriptLimit());
-
-		return html;
-	}
-
-    protected String toolbar() {
-		HtmlBuilder html = new HtmlBuilder();
-
-		html.table(0).border("0").cellpadding("0").cellspacing("0");
-        
-        html.width(table.getTableRenderer().getWidth()).close();
-
-        html.tr(1).close();
-
-        // start of title
-
-        html.td(2).close();
-        
-        String titleClass = getCoreContext().getPreference(HtmlConstants.TITLE_CLASS);
-        html.span().styleClass(titleClass).close().append(table.getTitle()).spanEnd();
-        
-        html.tdEnd();
-
-        // end of title
-
-        // start of toolbar
-
-        html.td(2).align("right").close();
-
-        String toolbarClass = getCoreContext().getPreference(HtmlConstants.TOOLBAR_CLASS);
-        
         Toolbar toolbar = new ToolbarImpl(imagesPath, coreContext);
-        toolbar.setToolbarClass(toolbarClass);
         toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
@@ -137,79 +83,35 @@ public class ClassicView implements View {
         toolbar.addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
         toolbar.addExportToolbarItems(exportTypes);
-        html.append(toolbar.render());
-        
-        html.tdEnd();
+        toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
 
-        // end of toolbar
-
-        html.trEnd(1);
-
-        html.tableEnd(0);
-        html.newline();
-        
-        return html.toString();
-    }
-
-    protected String statusBar() {
-		HtmlBuilder html = new HtmlBuilder();
-
-		Limit limit = coreContext.getLimit();
-        RowSelect rowSelect = limit.getRowSelect();
-        
 		HtmlRow row = getTable().getRow();
 		List columns = row.getColumns();
-
-        html.tr(1).style("padding: 0px;").close();
-        html.td(2).colspan(String.valueOf(columns.size())).close();
-        
-        html.table(2).border("0").cellpadding("0").cellspacing("0").width("100%").close();
-
-        String statusBarClass = getCoreContext().getPreference(HtmlConstants.STATUS_BAR_CLASS);
-        
-        html.tr(3).styleClass(statusBarClass).close();
-        
-        // start of status bar
-        
-		html.td(4).close();
-        
-        if (rowSelect.getTotalRows() == 0) {
-            html.append(coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND));
-        } else {
-            Integer total = new Integer(rowSelect.getTotalRows());
-            Integer from = new Integer(rowSelect.getRowStart() + 1);
-            Integer to = new Integer(rowSelect.getRowEnd());
-            Object[] messageArguments = { total, from, to };
-            html.append(coreContext.getMessage(HtmlConstants.STATUSBAR_RESULTS_FOUND, messageArguments));
-        }
-        
-        html.tdEnd();
-        
-        // end of status bar
-        
-        // start of filter buttons
-        
-		html.td(4).align("right").close();
-        
         if (ViewUtils.isFilterable(columns)) {
-            Toolbar toolbar = new ToolbarImpl(imagesPath, coreContext);
             toolbar.addToolbarItem(ToolbarItemType.FILTER_ITEM);
             toolbar.addToolbarItem(ToolbarItemType.CLEAR_ITEM);
-            html.append(toolbar.render());
         }
+		
+		builder.append(snippets.statusBar(toolbar));
+		
+		builder.append(snippets.header());
+		
+		builder.append(snippets.filter());
+		
+		builder.append(snippets.theadEnd());
+		
+		builder.append(snippets.tbodyStart());
+		
+		builder.append(snippets.body());
+		
+		builder.append(snippets.tbodyEnd());
 
-        html.tdEnd();
-        
-        // end of filter buttons
-        
-        html.trEnd(3);
-        html.tableEnd(2);
-        html.newline();
-        html.tabs(2);
-        
-        html.tdEnd();
-        html.trEnd(1);
-        
-        return html.toString();
-    }
+		builder.append(snippets.tableEnd());
+		
+		builder.append(snippets.themeEnd());
+		
+		builder.append(snippets.initJavascriptLimit());
+
+		return builder;
+	}
 }
