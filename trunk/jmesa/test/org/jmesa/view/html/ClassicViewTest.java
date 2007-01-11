@@ -62,7 +62,7 @@ public class ClassicViewTest {
 		// create the table
 		HtmlTable table = factory.createTable();
 		table.setTheme("jmesa");
-		table.setTitle("Presidents");
+		table.setCaption("Presidents");
 		table.getTableRenderer().setWidth("500px");
 		table.getTableRenderer().setStyleClass("table");
 		

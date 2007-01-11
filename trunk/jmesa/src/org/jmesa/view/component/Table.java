@@ -22,9 +22,9 @@ import org.jmesa.view.renderer.TableRenderer;
  * @author Jeff Johnston
  */
 public interface Table {
-	public String getTitle();
+	public String getCaption();
 	
-	public void setTitle(String title);
+	public void setCaption(String caption);
 	
 	public Row getRow();
 	

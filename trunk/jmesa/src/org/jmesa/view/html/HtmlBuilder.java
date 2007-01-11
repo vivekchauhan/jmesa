@@ -1140,6 +1140,18 @@ public class HtmlBuilder {
 
         return this;
     }
+    
+    public HtmlBuilder caption() {
+        append("<caption");
+
+        return this;
+    }
+    
+    public HtmlBuilder captionEnd() {
+        append("</caption>");
+
+        return this;
+    }
 
     public String toString() {
         return builder.toString();
