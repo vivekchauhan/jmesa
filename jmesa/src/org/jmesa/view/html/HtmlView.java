@@ -26,11 +26,11 @@ import org.jmesa.view.html.toolbar.Toolbar;
  * @author Jeff Johnston
  */
 public class HtmlView implements View {
-	private Table table;
+	private HtmlTable table;
 	private Toolbar toolbar;
 	private CoreContext coreContext;
 
-	public HtmlView(Table table, Toolbar toolbar, CoreContext coreContext) {
+	public HtmlView(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
 		this.table = table;
 		this.toolbar = toolbar;
 		this.coreContext = coreContext;
@@ -41,13 +41,13 @@ public class HtmlView implements View {
 	}
 
 	public void setTable(Table table) {
-		this.table = table;
+		this.table = (HtmlTable)table;
 	}
 
 	public Object render() {
 		StringBuilder builder = new StringBuilder();
 		
-		HtmlSnippets snippets = new HtmlSnippetsImpl(getTable(), coreContext);
+		HtmlSnippets snippets = new HtmlSnippetsImpl(table, coreContext);
 
 		builder.append(snippets.themeStart());
 		
