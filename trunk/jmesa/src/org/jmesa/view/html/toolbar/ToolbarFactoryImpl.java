@@ -20,7 +20,7 @@ import java.util.List;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Row;
-import org.jmesa.view.component.Table;
+import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.web.WebContext;
 
 /**
@@ -28,20 +28,20 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ToolbarFactoryImpl implements ToolbarFactory {
-	Table table;
-	int[] maxRowsIncrements;
-	String[] exportTypes;
-	WebContext webContext; 
-	CoreContext coreContext;
+	private HtmlTable table;
+	private int[] maxRowsIncrements;
+	private String[] exportTypes;
+	private WebContext webContext; 
+	private CoreContext coreContext;
 	
-	public ToolbarFactoryImpl(Table table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
+	public ToolbarFactoryImpl(HtmlTable table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
 		this.table = table;
 		this.webContext = webContext;
 		this.coreContext = coreContext;
 		this.exportTypes = exportTypes;
 	}
 
-	public ToolbarFactoryImpl(Table table, int[] maxRowsIncrements, WebContext webContext, CoreContext coreContext, String... exportTypes) {
+	public ToolbarFactoryImpl(HtmlTable table, int[] maxRowsIncrements, WebContext webContext, CoreContext coreContext, String... exportTypes) {
 		this.table = table;
 		this.maxRowsIncrements = maxRowsIncrements;
 		this.webContext = webContext;
