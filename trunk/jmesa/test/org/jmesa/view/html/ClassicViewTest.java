@@ -30,10 +30,14 @@ import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.RowSelect;
+import org.jmesa.view.View;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.toolbar.Toolbar;
+import org.jmesa.view.html.toolbar.ToolbarFactory;
+import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -94,7 +98,9 @@ public class ClassicViewTest {
 		row.addColumn(careerColumn);
 
 		// create the view
-		HtmlView view = new HtmlView(table, webContext, coreContext, "csv");
+		ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
+		Toolbar toolbar = toolbarFactory.createToolbar();
+		View view = new HtmlView(table, toolbar, coreContext);
 		Object html = view.render();
 		
 		assertNotNull(html);

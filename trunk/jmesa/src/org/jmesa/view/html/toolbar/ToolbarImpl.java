@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
@@ -30,54 +31,71 @@ public class ToolbarImpl implements Toolbar {
 	private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
 	private String toolbarClass;
 	
-	public ToolbarImpl(String imagesPath, CoreContext coreContext) {
-		this.toolbarItemFactory = new ToolbarItemFactoryImpl(imagesPath, coreContext);
+	public ToolbarImpl(WebContext webContext, CoreContext coreContext) {
+		this.toolbarItemFactory = new ToolbarItemFactoryImpl(webContext, coreContext);
 	}
 	
 	public void addToolbarItem(ToolbarItem item) {
 		toolbarItems.add(item);
 	}
 	
-	public void addToolbarItem(ToolbarItemType type) {
+	public ToolbarItem addToolbarItem(ToolbarItemType type) {
+		ToolbarItem item = null;
+		
 		switch (type) {
 		case FIRST_PAGE_ITEM:
-			addToolbarItem(toolbarItemFactory.createFirstPageItem());
+			item = toolbarItemFactory.createFirstPageItem();
 			break;
 		case PREV_PAGE_ITEM:
-			addToolbarItem(toolbarItemFactory.createPrevPageItem());
+			item = toolbarItemFactory.createPrevPageItem();
 			break;
 		case NEXT_PAGE_ITEM:
-			addToolbarItem(toolbarItemFactory.createNextPageItem());
+			item = toolbarItemFactory.createNextPageItem();
 			break;
 		case LAST_PAGE_ITEM:
-			addToolbarItem(toolbarItemFactory.createLastPageItem());
+			item = toolbarItemFactory.createLastPageItem();
 			break;
 		case MAX_ROWS_ITEM:
-			addToolbarItem(toolbarItemFactory.createMaxRowsItem()); 
+			item = toolbarItemFactory.createMaxRowsItem(); 
 			break;
 		case FILTER_ITEM:
-			addToolbarItem(toolbarItemFactory.createFilterItem());
+			item = toolbarItemFactory.createFilterItem();
 			break;
 		case CLEAR_ITEM:
-			addToolbarItem(toolbarItemFactory.createClearItem());
+			item = toolbarItemFactory.createClearItem();
 			break;
 		case SEPARATOR:
-			addToolbarItem(toolbarItemFactory.createSeparatorItem());
+			item = toolbarItemFactory.createSeparatorItem();
 			break;
 		}
+		
+		if (item != null) {
+			toolbarItems.add(item);
+		}
+		
+		return item;
 	}
 	
-	public void addExportToolbarItems(String... exportTypes) {
+	public List<ToolbarItem> addExportToolbarItems(String... exportTypes) {
+		List<ToolbarItem> items = new ArrayList<ToolbarItem>();
+		
 		if (exportTypes == null || exportTypes.length == 0) {
-			return;
+			return items;
 		}
 		
 		for (int i = 0; i < exportTypes.length; i++) {
         	String exportType = exportTypes[i];
-            ToolbarExport export = new ToolbarExport(exportType);
-            ToolbarItem item = toolbarItemFactory.createExportItem(export);
-            addToolbarItem(item);
+        	items.add(addExportToolbarItem(exportType));
         }
+		
+		return items;
+	}
+	
+	public ToolbarItem addExportToolbarItem(String exportType) {
+        ToolbarExport export = new ToolbarExport(exportType);
+        ToolbarItem item = toolbarItemFactory.createExportItem(export);
+        toolbarItems.add(item);
+        return item;
 	}
 	
 	public void setToolbarClass(String toolbarClass) {

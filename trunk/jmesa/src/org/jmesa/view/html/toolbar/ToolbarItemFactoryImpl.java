@@ -43,6 +43,8 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
+import org.jmesa.view.html.HtmlUtils;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
@@ -52,8 +54,8 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 	private String imagesPath;
 	private CoreContext coreContext;
 
-	public ToolbarItemFactoryImpl(String imagesPath, CoreContext coreContext) {
-		this.imagesPath = imagesPath;
+	public ToolbarItemFactoryImpl(WebContext webContext, CoreContext coreContext) {
+		this.imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
 		this.coreContext = coreContext;
 	}
 	
@@ -147,7 +149,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public MaxRowsItem createMaxRowsItem() {
     	MaxRowsItemImpl item = new MaxRowsItemImpl();
-
+    	
         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
         item.setToolbarItemRenderer(renderer);
