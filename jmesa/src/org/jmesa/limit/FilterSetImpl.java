@@ -35,7 +35,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FilterSetImpl implements Serializable {
+public class FilterSetImpl implements Serializable, FilterSet {
 	private Logger logger = Logger.getLogger(FilterSetImpl.class.getName());
 	private Set<Filter> filters;
 
