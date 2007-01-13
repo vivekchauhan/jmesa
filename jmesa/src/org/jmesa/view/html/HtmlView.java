@@ -26,57 +26,57 @@ import org.jmesa.view.html.toolbar.Toolbar;
  * @author Jeff Johnston
  */
 public class HtmlView implements View {
-	private HtmlTable table;
-	private Toolbar toolbar;
-	private CoreContext coreContext;
+    private HtmlTable table;
+    private Toolbar toolbar;
+    private CoreContext coreContext;
 
-	public HtmlView(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
-		this.table = table;
-		this.toolbar = toolbar;
-		this.coreContext = coreContext;
-	}
+    public HtmlView(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
+        this.table = table;
+        this.toolbar = toolbar;
+        this.coreContext = coreContext;
+    }
 
-	public HtmlTable getTable() {
-		return (HtmlTable)table;
-	}
+    public HtmlTable getTable() {
+        return (HtmlTable) table;
+    }
 
-	public void setTable(Table table) {
-		this.table = (HtmlTable)table;
-	}
+    public void setTable(Table table) {
+        this.table = (HtmlTable) table;
+    }
 
-	public Object render() {
-		StringBuilder builder = new StringBuilder();
-		
-		HtmlSnippets snippets = new HtmlSnippetsImpl(table, coreContext);
+    public Object render() {
+        StringBuilder builder = new StringBuilder();
 
-		builder.append(snippets.themeStart());
-		
-		builder.append(snippets.tableStart());
-		
-		builder.append(snippets.theadStart());
+        HtmlSnippets snippets = new HtmlSnippetsImpl(table, coreContext);
+
+        builder.append(snippets.themeStart());
+
+        builder.append(snippets.tableStart());
+
+        builder.append(snippets.theadStart());
 
         builder.append(snippets.toolbar(toolbar));
-		
-		builder.append(snippets.filter());
 
-		builder.append(snippets.header());
-		
-		builder.append(snippets.theadEnd());
-		
-		builder.append(snippets.tbodyStart());
-		
-		builder.append(snippets.body());
-		
-		builder.append(snippets.tbodyEnd());
+        builder.append(snippets.filter());
 
-		builder.append(snippets.statusBar());
+        builder.append(snippets.header());
 
-		builder.append(snippets.tableEnd());
-		
-		builder.append(snippets.themeEnd());
-		
-		builder.append(snippets.initJavascriptLimit());
+        builder.append(snippets.theadEnd());
 
-		return builder;
-	}
+        builder.append(snippets.tbodyStart());
+
+        builder.append(snippets.body());
+
+        builder.append(snippets.tbodyEnd());
+
+        builder.append(snippets.statusBar());
+
+        builder.append(snippets.tableEnd());
+
+        builder.append(snippets.themeEnd());
+
+        builder.append(snippets.initJavascriptLimit());
+
+        return builder;
+    }
 }
