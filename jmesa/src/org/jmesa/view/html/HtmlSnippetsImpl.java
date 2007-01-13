@@ -34,127 +34,127 @@ import org.jmesa.view.html.toolbar.Toolbar;
  * @author Jeff Johnston
  */
 public class HtmlSnippetsImpl implements HtmlSnippets {
-	private HtmlTable table;
-	private CoreContext coreContext;
-	
-	public HtmlSnippetsImpl(HtmlTable table, CoreContext coreContext) {
-		this.table = table;
-		this.coreContext = coreContext;
-	}
-	
-	public String themeStart() {
-		HtmlBuilder html = new HtmlBuilder();
-		html.div().styleClass(table.getTheme()).close();
-		return html.toString();
-	}
-	
-	public String themeEnd() {
-		HtmlBuilder html = new HtmlBuilder();
-		html.newline();
-		html.divEnd();
-		return html.toString();
-	}
-	
-	public String tableStart() {
-		HtmlBuilder html = new HtmlBuilder();
-		html.append(table.getTableRenderer().render());
-		return html.toString();
-	}
-	
-	public String tableEnd() {
-		HtmlBuilder html = new HtmlBuilder();
-		html.tableEnd(0);
-		return html.toString();
-	}
+    private HtmlTable table;
+    private CoreContext coreContext;
 
-	public String theadStart() {
-		HtmlBuilder html = new HtmlBuilder();
+    public HtmlSnippetsImpl(HtmlTable table, CoreContext coreContext) {
+        this.table = table;
+        this.coreContext = coreContext;
+    }
+
+    public String themeStart() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.div().styleClass(table.getTheme()).close();
+        return html.toString();
+    }
+
+    public String themeEnd() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.newline();
+        html.divEnd();
+        return html.toString();
+    }
+
+    public String tableStart() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.append(table.getTableRenderer().render());
+        return html.toString();
+    }
+
+    public String tableEnd() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.tableEnd(0);
+        return html.toString();
+    }
+
+    public String theadStart() {
+        HtmlBuilder html = new HtmlBuilder();
         html.thead(1).close();
-		return html.toString();
+        return html.toString();
     }
 
-	public String theadEnd() {
-		HtmlBuilder html = new HtmlBuilder();
+    public String theadEnd() {
+        HtmlBuilder html = new HtmlBuilder();
         html.theadEnd(1);
-		return html.toString();
+        return html.toString();
     }
 
-	public String tbodyStart() {
-		HtmlBuilder html = new HtmlBuilder();
+    public String tbodyStart() {
+        HtmlBuilder html = new HtmlBuilder();
         String tbodyClass = coreContext.getPreference(HtmlConstants.TBODY_CLASS);
-		html.tbody(1).styleClass(tbodyClass).close();
-		return html.toString();
+        html.tbody(1).styleClass(tbodyClass).close();
+        return html.toString();
     }
 
-	public String tbodyEnd() {
-		HtmlBuilder html = new HtmlBuilder();
+    public String tbodyEnd() {
+        HtmlBuilder html = new HtmlBuilder();
         html.tbodyEnd(1);
-		return html.toString();
+        return html.toString();
     }
-	
-	public String filter() {
-		HtmlBuilder html = new HtmlBuilder();
+
+    public String filter() {
+        HtmlBuilder html = new HtmlBuilder();
         String filterClass = coreContext.getPreference(HtmlConstants.FILTER_CLASS);
-		html.tr(1).styleClass(filterClass).close();
-		
-		HtmlRow row = table.getRow();
-		List columns = row.getColumns();
-		
-		for (Iterator iter = columns.iterator(); iter.hasNext();) {
-			HtmlColumn column = (HtmlColumn) iter.next();
-			html.append(column.getFilterRenderer().render());
-		}
-		
-		html.trEnd(1);
-		return html.toString();
-	}
+        html.tr(1).styleClass(filterClass).close();
 
-	public String header() {
-		HtmlBuilder html = new HtmlBuilder();
-		html.tr(1).close();
-		
-		HtmlRow row = table.getRow();
-		List columns = row.getColumns();
-		
-		for (Iterator iter = columns.iterator(); iter.hasNext();) {
-			HtmlColumn column = (HtmlColumn) iter.next();
-			html.append(column.getHeaderRenderer().render());
-		}
-		
-		html.trEnd(1);
-		return html.toString();
+        HtmlRow row = table.getRow();
+        List columns = row.getColumns();
+
+        for (Iterator iter = columns.iterator(); iter.hasNext();) {
+            HtmlColumn column = (HtmlColumn) iter.next();
+            html.append(column.getFilterRenderer().render());
+        }
+
+        html.trEnd(1);
+        return html.toString();
     }
-	
-	public String body() {
-		HtmlBuilder html = new HtmlBuilder();
-		int rowcount = 0;
-		Collection items = coreContext.getPageItems();
-		for (Object item : items) {
-			rowcount++;
-			
-			HtmlRow row = table.getRow();
-			List columns = row.getColumns();
-			
-			html.append(row.getRowRenderer().render(item, rowcount));
 
-			for (Iterator iter = columns.iterator(); iter.hasNext();) {
-				HtmlColumn column = (HtmlColumn) iter.next();
-				html.append(column.getCellRenderer().render(item, rowcount));
-			}
+    public String header() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.tr(1).close();
 
-			html.trEnd(1);
-		}
-		return html.toString();
-	}
-	
-	public String statusBarText() {
-		Limit limit = coreContext.getLimit();
+        HtmlRow row = table.getRow();
+        List columns = row.getColumns();
+
+        for (Iterator iter = columns.iterator(); iter.hasNext();) {
+            HtmlColumn column = (HtmlColumn) iter.next();
+            html.append(column.getHeaderRenderer().render());
+        }
+
+        html.trEnd(1);
+        return html.toString();
+    }
+
+    public String body() {
+        HtmlBuilder html = new HtmlBuilder();
+        int rowcount = 0;
+        Collection items = coreContext.getPageItems();
+        for (Object item : items) {
+            rowcount++;
+
+            HtmlRow row = table.getRow();
+            List columns = row.getColumns();
+
+            html.append(row.getRowRenderer().render(item, rowcount));
+
+            for (Iterator iter = columns.iterator(); iter.hasNext();) {
+                HtmlColumn column = (HtmlColumn) iter.next();
+                html.append(column.getCellRenderer().render(item, rowcount));
+            }
+
+            html.trEnd(1);
+        }
+        return html.toString();
+    }
+
+    public String statusBarText() {
+        Limit limit = coreContext.getLimit();
         RowSelect rowSelect = limit.getRowSelect();
-		
+
         if (rowSelect.getTotalRows() == 0) {
-             return coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND);
-        } 
-        
+            return coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND);
+        }
+
         else {
             Integer total = new Integer(rowSelect.getTotalRows());
             Integer from = new Integer(rowSelect.getRowStart() + 1);
@@ -162,45 +162,45 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             Object[] messageArguments = { total, from, to };
             return coreContext.getMessage(HtmlConstants.STATUSBAR_RESULTS_FOUND, messageArguments);
         }
-	}
-	
-    public String toolbar(Toolbar toolbar) {
-		HtmlBuilder html = new HtmlBuilder();
+    }
 
-		HtmlRow row = table.getRow();
-		List columns = row.getColumns();
+    public String toolbar(Toolbar toolbar) {
+        HtmlBuilder html = new HtmlBuilder();
+
+        HtmlRow row = table.getRow();
+        List columns = row.getColumns();
 
         html.tr(1).close();
-        
+
         String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
         toolbar.setToolbarClass(toolbarClass);
 
         html.td(2).align("left").styleClass(toolbarClass).colspan(String.valueOf(columns.size())).close();
 
-		html.div().close();
-		html.append(toolbar.render());
+        html.div().close();
+        html.append(toolbar.render());
         html.divEnd();
-        
+
         html.tdEnd();
         html.trEnd(1);
-        
+
         return html.toString();
     }
 
     public String statusBar() {
-    	return statusBar(null);
+        return statusBar(null);
     }
-	
-    public String statusBar(Toolbar toolbar) {
-		HtmlBuilder html = new HtmlBuilder();
 
-		HtmlRow row = table.getRow();
-		List columns = row.getColumns();
+    public String statusBar(Toolbar toolbar) {
+        HtmlBuilder html = new HtmlBuilder();
+
+        HtmlRow row = table.getRow();
+        List columns = row.getColumns();
 
         html.tr(1).close();
-        
+
         html.td(2).colspan(String.valueOf(columns.size())).close();
-        
+
         html.table(2).border("0").cellpadding("0").cellspacing("0").width("100%").close();
 
         html.tr(3).close();
@@ -212,50 +212,51 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.append(statusBarText());
         html.spanEnd();
         html.tdEnd();
-		
-		// toolbar
-		if (toolbar != null) {
-			html.td(4).align("right").close();
-	        String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
-	        toolbar.setToolbarClass(toolbarClass);
-			html.append(toolbar.render());
-			html.tdEnd();
-		}
-		
-		html.trEnd(3);
+
+        // toolbar
+        if (toolbar != null) {
+            html.td(4).align("right").close();
+            String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
+            toolbar.setToolbarClass(toolbarClass);
+            html.append(toolbar.render());
+            html.tdEnd();
+        }
+
+        html.trEnd(3);
         html.tableEnd(2);
-        
+
         html.tdEnd();
         html.trEnd(1);
-        
+
         return html.toString();
     }
-	
-	public String initJavascriptLimit() {
-		HtmlBuilder html = new HtmlBuilder();
-		
-		html.newline();
-		html.script().type("text/javascript").close();
-		html.newline();
-		
-		Limit limit = coreContext.getLimit();
-		
-		html.append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
-		
-		html.append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
-		
-		html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
-		
-		for(Sort sort: limit.getSortSet().getSorts()) {
-			html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() + "','" + sort.getPosition() + "')").semicolon().newline();
-		}
 
-		for(Filter filter: limit.getFilterSet().getFilters()) {
-			html.append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + filter.getValue() + "')").semicolon().newline();
-		}
-		
-		html.scriptEnd();
-		
-		return html.toString();
-	}
+    public String initJavascriptLimit() {
+        HtmlBuilder html = new HtmlBuilder();
+
+        html.newline();
+        html.script().type("text/javascript").close();
+        html.newline();
+
+        Limit limit = coreContext.getLimit();
+
+        html.append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
+
+        html.append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+
+        html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
+
+        for (Sort sort : limit.getSortSet().getSorts()) {
+            html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
+                    + "','" + sort.getPosition() + "')").semicolon().newline();
+        }
+
+        for (Filter filter : limit.getFilterSet().getFilters()) {
+            html.append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + filter.getValue() + "')").semicolon().newline();
+        }
+
+        html.scriptEnd();
+
+        return html.toString();
+    }
 }
