@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.html.toolbar;
 
-
 /**
  * @author Jeff Johnston
  */
@@ -47,8 +46,8 @@ public interface ToolbarItem {
     public String disabled();
 
     public String enabled();
-    
+
     public ToolbarItemRenderer getToolbarItemRenderer();
-    
-    public void setToolbarItemRenderer(ToolbarItemRenderer renderer);    
+
+    public void setToolbarItemRenderer(ToolbarItemRenderer renderer);
 }

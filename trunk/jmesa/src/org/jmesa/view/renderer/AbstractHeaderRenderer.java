@@ -23,13 +23,13 @@ import org.jmesa.view.component.Column;
  * @author Jeff Johnston
  */
 public abstract class AbstractHeaderRenderer extends ContextSupport implements HeaderRenderer {
-	private Column column;
+    private Column column;
 
-	public Column getColumn() {
-		return column;
-	}
-	
-	public void setColumn(Column column) {
-		this.column = column;
-	}
+    public Column getColumn() {
+        return column;
+    }
+
+    public void setColumn(Column column) {
+        this.column = column;
+    }
 }

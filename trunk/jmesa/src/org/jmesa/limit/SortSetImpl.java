@@ -28,22 +28,22 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>
- * The SortSet is an Collection of Sort objects. A Sort contains a bean 
- * property and the sort order. Or, in other words, it is simply the column 
- * that the user is trying to sort in the correct order.
+ * The SortSet is an Collection of Sort objects. A Sort contains a bean property
+ * and the sort order. Or, in other words, it is simply the column that the user
+ * is trying to sort in the correct order.
  * </p>
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class SortSetImpl implements Serializable, SortSet {
-	private static Log logger = LogFactory.getLog(SortSetImpl.class);
+    private static Log logger = LogFactory.getLog(SortSetImpl.class);
     private List<Sort> sorts;
-    
+
     public SortSetImpl() {
-    	sorts = new ArrayList<Sort>();
+        sorts = new ArrayList<Sort>();
     }
-    
+
     /**
      * @return Is true if there are any columns that need to be sorted.
      */
@@ -59,88 +59,95 @@ public class SortSetImpl implements Serializable, SortSet {
     }
 
     /**
-     * For a given property, retrieve the Sort. 
+     * For a given property, retrieve the Sort.
      * 
-     * @param property The Sort property.
+     * @param property
+     *            The Sort property.
      * @return The Sort object.
      */
     public Sort getSort(String property) {
-    	for (Iterator iter = sorts.iterator(); iter.hasNext();) {
-    		Sort sort = (Sort) iter.next();
+        for (Iterator iter = sorts.iterator(); iter.hasNext();) {
+            Sort sort = (Sort) iter.next();
             if (sort.getProperty().equals(property)) {
                 return sort;
             }
-		}
-    	
-    	return null;
+        }
+
+        return null;
     }
-    
+
     /**
-     * For a given property, retrieve the Sort Order. 
+     * For a given property, retrieve the Sort Order.
      * 
-     * @param property The Sort property.
+     * @param property
+     *            The Sort property.
      * @return The Sort Order.
      */
     public Order getSortOrder(String property) {
-    	return getSort(property).getOrder();
+        return getSort(property).getOrder();
     }
-    
+
     /**
      * <p>
      * The Sort to add to the set in the given postion.
      * </p>
      * 
-     * @param property The column property to sort.
-     * @param order The order to sort the column.
+     * @param property
+     *            The column property to sort.
+     * @param order
+     *            The order to sort the column.
      */
     public void addSort(int position, String property, Order order) {
-    	addSort(new Sort(position, property, order));
+        addSort(new Sort(position, property, order));
     }
 
     /**
      * <p>
-     * The Sort to add to the set. Will also set the sort
-     * position to be when the sort was added.
-     * </p> 
-     *  
-     *  <p>
-     * For example if there is already a Sort in the set then
-     * calling this method will add a Sort to the end. If you need
-     * to include a Sort in a given position of the Set then call
-     * the other convenience method that includes the position.
-     * </p>   
+     * The Sort to add to the set. Will also set the sort position to be when
+     * the sort was added.
+     * </p>
      * 
-     * @param property The column property to sort.
-     * @param order The order to sort the column.
+     * <p>
+     * For example if there is already a Sort in the set then calling this
+     * method will add a Sort to the end. If you need to include a Sort in a
+     * given position of the Set then call the other convenience method that
+     * includes the position.
+     * </p>
+     * 
+     * @param property
+     *            The column property to sort.
+     * @param order
+     *            The order to sort the column.
      */
     public void addSort(String property, Order order) {
-    	addSort(new Sort(sorts.size(), property, order));
+        addSort(new Sort(sorts.size(), property, order));
     }
-    
+
     /**
-     * @param sort The Sort to add to the set.  
+     * @param sort
+     *            The Sort to add to the set.
      */
     public void addSort(Sort sort) {
-    	if (!sorts.contains(sort)) {
-        	sorts.add(sort);
-        	Collections.sort(sorts);
-    		if (logger.isDebugEnabled()) {
-    			logger.debug("Added Sort: " + sort.toString());
-    		}
-    	}
+        if (!sorts.contains(sort)) {
+            sorts.add(sort);
+            Collections.sort(sorts);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Added Sort: " + sort.toString());
+            }
+        }
     }
-    
+
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        
+
         if (sorts != null) {
-        	for (Iterator iter = sorts.iterator(); iter.hasNext();) {
-        		Sort sort = (Sort) iter.next();
+            for (Iterator iter = sorts.iterator(); iter.hasNext();) {
+                Sort sort = (Sort) iter.next();
                 builder.append(sort.toString());
             }
         }
-        
+
         return builder.toString();
     }
 }

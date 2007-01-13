@@ -26,53 +26,53 @@ import org.jmesa.view.renderer.AbstractFilterRenderer;
  * @author Jeff Johnston
  */
 public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements HtmlFilterRenderer {
-	private String style;
-	private String styleClass;
-	
-	public HtmlFilterRendererImpl(HtmlColumn column) {
-		setColumn(column);
-	}
+    private String style;
+    private String styleClass;
 
-	public HtmlColumn getColumn() {
-		return (HtmlColumn)super.getColumn();
-	}
-	
-	public String getStyle() {
-		return style;
-	}
+    public HtmlFilterRendererImpl(HtmlColumn column) {
+        setColumn(column);
+    }
 
-	public void setStyle(String style) {
-		this.style = style;
-	}
+    public HtmlColumn getColumn() {
+        return (HtmlColumn) super.getColumn();
+    }
 
-	public String getStyleClass() {
-		return styleClass;
-	}
+    public String getStyle() {
+        return style;
+    }
 
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
-	
-	public Object render() {
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
         Limit limit = getCoreContext().getLimit();
         HtmlColumn column = getColumn();
-		String property = column.getProperty();
+        String property = column.getProperty();
         Filter filter = limit.getFilterSet().getFilter(property);
 
-		html.td(2);
-		html.style(getStyle());
-		html.styleClass(getStyleClass());
-		html.close();
+        html.td(2);
+        html.style(getStyle());
+        html.styleClass(getStyleClass());
+        html.close();
 
         html.input().type("text");
-		html.name(property);
-        
-		if (filter != null) {
+        html.name(property);
+
+        if (filter != null) {
             html.value(filter.getValue());
-		}
-		
+        }
+
         StringBuilder onkeypress = new StringBuilder();
         onkeypress.append("if (event.keyCode == 13) {");
         onkeypress.append("onInvokeAction('" + limit.getId() + "');");
@@ -86,9 +86,9 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
         html.onkeyup(onkeyup.toString());
 
         html.end();
-        
+
         html.tdEnd();
 
         return html.toString();
-	}
+    }
 }

@@ -15,7 +15,6 @@
  */
 package org.jmesa.limit;
 
-
 /**
  * Create a Limit and RowSelect.
  * 
@@ -23,7 +22,7 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public interface LimitFactory {
-	public Limit createLimit();
-	
-	public RowSelect createRowSelect(int maxRows, int totalRows);
+    public Limit createLimit();
+
+    public RowSelect createRowSelect(int maxRows, int totalRows);
 }

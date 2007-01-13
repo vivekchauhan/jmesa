@@ -17,37 +17,39 @@ package org.jmesa.limit;
 
 /**
  * The actions that are used to figure how the user interacted with the table.
- *  
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public enum Action {
-	FILTER,
-	SORT,
-	CLEAR,
-	PAGE,
-	MAX_ROWS,
-	EXPORT;
-	
-	public String toParam() {
-		switch(this) {
-		case FILTER: return "f_";
-		case SORT: return "s_";
-		case CLEAR: return "c_";
-		case PAGE: return "p_";
-		case MAX_ROWS: return "mr_";
-		case EXPORT: return "e_";
-		default: return "";
-		}
-	}
-	
-	public static Action valueOfParam(String param) {
-		for(Action action: Action.values()) {
-			if (action.toParam().equals(param)) {
-				return action;
-			}
-		}
-		
-		return null;
-	}
+    FILTER, SORT, CLEAR, PAGE, MAX_ROWS, EXPORT;
+
+    public String toParam() {
+        switch (this) {
+        case FILTER:
+            return "f_";
+        case SORT:
+            return "s_";
+        case CLEAR:
+            return "c_";
+        case PAGE:
+            return "p_";
+        case MAX_ROWS:
+            return "mr_";
+        case EXPORT:
+            return "e_";
+        default:
+            return "";
+        }
+    }
+
+    public static Action valueOfParam(String param) {
+        for (Action action : Action.values()) {
+            if (action.toParam().equals(param)) {
+                return action;
+            }
+        }
+
+        return null;
+    }
 }

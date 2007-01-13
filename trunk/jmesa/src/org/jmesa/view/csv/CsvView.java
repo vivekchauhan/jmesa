@@ -28,39 +28,39 @@ import org.jmesa.view.component.Table;
  * @author Jeff Johnston
  */
 public class CsvView implements View {
-	private Table table;
-	private CoreContext coreContext;
-	
-	public CsvView(Table table, CoreContext coreContext) {
-		this.table = table;
-		this.coreContext = coreContext;
-	}
+    private Table table;
+    private CoreContext coreContext;
 
-	public Table getTable() {
-		return table;
-	}
+    public CsvView(Table table, CoreContext coreContext) {
+        this.table = table;
+        this.coreContext = coreContext;
+    }
 
-	public void setTable(Table table) {
-		this.table = table;
-	}
+    public Table getTable() {
+        return table;
+    }
 
-	public Object render() {
-		StringBuilder data = new StringBuilder();
-		
-		List<Column> columns = table.getRow().getColumns();
-		
-		int rowcount = 0;
-		Collection items = coreContext.getPageItems();
-		for (Object item : items) {
-			rowcount++;
-			
-			for (Column column : columns) {
-				data.append(column.getCellRenderer().render(item, rowcount));
-			}
+    public void setTable(Table table) {
+        this.table = table;
+    }
 
-			data.append("\r\n");
-		}
-		
-		return data.toString();
-	}
+    public Object render() {
+        StringBuilder data = new StringBuilder();
+
+        List<Column> columns = table.getRow().getColumns();
+
+        int rowcount = 0;
+        Collection items = coreContext.getPageItems();
+        for (Object item : items) {
+            rowcount++;
+
+            for (Column column : columns) {
+                data.append(column.getCellRenderer().render(item, rowcount));
+            }
+
+            data.append("\r\n");
+        }
+
+        return data.toString();
+    }
 }

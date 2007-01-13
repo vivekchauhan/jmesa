@@ -22,27 +22,27 @@ import org.jmesa.view.renderer.RowRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlRowRenderer extends RowRenderer {
-	public String getStyle();
+    public String getStyle();
 
-	public void setStyle(String style);
+    public void setStyle(String style);
 
-	public String getStyleClass();
+    public String getStyleClass();
 
-	public void setStyleClass(String styleClass);
-	
-	public String getHighlightClass();
+    public void setStyleClass(String styleClass);
 
-	public void setHighlightClass(String highlightClass);
+    public String getHighlightClass();
 
-	public String getHighlightStyle();
+    public void setHighlightClass(String highlightClass);
 
-	public void setHighlightStyle(String highlightStyle);
-	
-	public String getEvenClass();
+    public String getHighlightStyle();
 
-	public void setEvenClass(String evenClass);
+    public void setHighlightStyle(String highlightStyle);
 
-	public String getOddClass();
-	
-	public void setOddClass(String oddClass);
+    public String getEvenClass();
+
+    public void setEvenClass(String evenClass);
+
+    public String getOddClass();
+
+    public void setOddClass(String oddClass);
 }

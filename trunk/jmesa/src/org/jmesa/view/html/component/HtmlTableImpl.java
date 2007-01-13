@@ -25,26 +25,26 @@ import org.jmesa.view.html.renderer.HtmlTableRenderer;
  * @author Jeff Johnston
  */
 public class HtmlTableImpl extends TableImpl implements HtmlTable {
-	private String theme;
-	
-	public HtmlRow getRow() {
-		return (HtmlRow)super.getRow();
-	}
+    private String theme;
 
-	public String getTheme() {
-		if (StringUtils.isBlank(theme)) {
-			return getCoreContext().getPreference(HtmlConstants.TABLE_COMPONENT_THEME);
-		}
+    public HtmlRow getRow() {
+        return (HtmlRow) super.getRow();
+    }
 
-		return theme;
-	}
+    public String getTheme() {
+        if (StringUtils.isBlank(theme)) {
+            return getCoreContext().getPreference(HtmlConstants.TABLE_COMPONENT_THEME);
+        }
 
-	public void setTheme(String theme) {
-		this.theme = theme;
-	}
-	
-	@Override
-	public HtmlTableRenderer getTableRenderer() {
-		return (HtmlTableRenderer)super.getTableRenderer();
-	}
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    @Override
+    public HtmlTableRenderer getTableRenderer() {
+        return (HtmlTableRenderer) super.getTableRenderer();
+    }
 }

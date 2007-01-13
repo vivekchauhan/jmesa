@@ -15,12 +15,12 @@
  */
 package org.jmesa.test;
 
-
 /**
- * Use as an Adaptor to abstract out how to add parameters to the backing object.
+ * Use as an Adaptor to abstract out how to add parameters to the backing
+ * object.
  * 
  * @author Jeff Johnston
  */
 public interface Parameters {
-	public void addParameter(String parameter, Object value);
+    public void addParameter(String parameter, Object value);
 }

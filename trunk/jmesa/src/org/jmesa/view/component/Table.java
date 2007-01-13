@@ -22,15 +22,15 @@ import org.jmesa.view.renderer.TableRenderer;
  * @author Jeff Johnston
  */
 public interface Table {
-	public String getCaption();
-	
-	public void setCaption(String caption);
-	
-	public Row getRow();
-	
-	public void setRow(Row row);
-	
-	public TableRenderer getTableRenderer();
-	
-	public void setTableRenderer(TableRenderer tableRenderer);
+    public String getCaption();
+
+    public void setCaption(String caption);
+
+    public Row getRow();
+
+    public void setRow(Row row);
+
+    public TableRenderer getTableRenderer();
+
+    public void setTableRenderer(TableRenderer tableRenderer);
 }

@@ -20,7 +20,7 @@ import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * Will persist the table state until you pass it a parameter telling it to go 
+ * Will persist the table state until you pass it a parameter telling it to go
  * back to the default state.
  * </p>
  * 
@@ -28,26 +28,26 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class NotifyToDefaultState implements State {
-	private final WebContext context;
-	private final String id;
-	private final String stateAttr;
-	
-	public NotifyToDefaultState(WebContext context, String id, String stateAttr) {
-		this.context = context;
-		this.id = id;
-		this.stateAttr = stateAttr;
-	}
-	
-	public Limit retrieveLimit() {
+    private final WebContext context;
+    private final String id;
+    private final String stateAttr;
+
+    public NotifyToDefaultState(WebContext context, String id, String stateAttr) {
+        this.context = context;
+        this.id = id;
+        this.stateAttr = stateAttr;
+    }
+
+    public Limit retrieveLimit() {
         String stateAttrValue = context.getParameter(stateAttr);
         if ("true".equalsIgnoreCase(stateAttrValue)) {
             return null;
-        } 
-        
-        return (Limit)context.getSessionAttribute(id);
+        }
+
+        return (Limit) context.getSessionAttribute(id);
     }
 
     public void persistLimit(Limit limit) {
-    	context.setSessionAttribute(id, limit);
+        context.setSessionAttribute(id, limit);
     }
 }

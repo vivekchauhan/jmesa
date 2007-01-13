@@ -23,8 +23,9 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class HtmlUtils {
-	private HtmlUtils(){}
-	
+    private HtmlUtils() {
+    }
+
     public static boolean isFirstPageEnabled(int page) {
         if (page == 1) {
             return false;
@@ -78,14 +79,14 @@ public class HtmlUtils {
 
         return totalPages;
     }
-    
-	public static String imagesPath(WebContext webContext, CoreContext coreContext) {
-		String contextPath = webContext.getContextPath();
-		String imagesPath = coreContext.getMessage(HtmlConstants.IMAGES_PATH);
-		if (imagesPath == null) {
-			imagesPath = coreContext.getPreference(HtmlConstants.IMAGES_PATH);
-		}
-		
-		return contextPath + imagesPath;
-	}    
+
+    public static String imagesPath(WebContext webContext, CoreContext coreContext) {
+        String contextPath = webContext.getContextPath();
+        String imagesPath = coreContext.getMessage(HtmlConstants.IMAGES_PATH);
+        if (imagesPath == null) {
+            imagesPath = coreContext.getPreference(HtmlConstants.IMAGES_PATH);
+        }
+
+        return contextPath + imagesPath;
+    }
 }

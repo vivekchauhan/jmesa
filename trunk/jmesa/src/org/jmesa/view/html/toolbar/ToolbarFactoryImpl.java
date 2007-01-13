@@ -28,51 +28,51 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ToolbarFactoryImpl implements ToolbarFactory {
-	private HtmlTable table;
-	private int[] maxRowsIncrements;
-	private String[] exportTypes;
-	private WebContext webContext; 
-	private CoreContext coreContext;
-	
-	public ToolbarFactoryImpl(HtmlTable table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
-		this.table = table;
-		this.webContext = webContext;
-		this.coreContext = coreContext;
-		this.exportTypes = exportTypes;
-	}
+    private HtmlTable table;
+    private int[] maxRowsIncrements;
+    private String[] exportTypes;
+    private WebContext webContext;
+    private CoreContext coreContext;
 
-	public ToolbarFactoryImpl(HtmlTable table, int[] maxRowsIncrements, WebContext webContext, CoreContext coreContext, String... exportTypes) {
-		this.table = table;
-		this.maxRowsIncrements = maxRowsIncrements;
-		this.webContext = webContext;
-		this.coreContext = coreContext;
-		this.exportTypes = exportTypes;
-	}
+    public ToolbarFactoryImpl(HtmlTable table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
+        this.table = table;
+        this.webContext = webContext;
+        this.coreContext = coreContext;
+        this.exportTypes = exportTypes;
+    }
 
-	public Toolbar createToolbar() {
+    public ToolbarFactoryImpl(HtmlTable table, int[] maxRowsIncrements, WebContext webContext, CoreContext coreContext, String... exportTypes) {
+        this.table = table;
+        this.maxRowsIncrements = maxRowsIncrements;
+        this.webContext = webContext;
+        this.coreContext = coreContext;
+        this.exportTypes = exportTypes;
+    }
+
+    public Toolbar createToolbar() {
         Toolbar toolbar = new ToolbarImpl(webContext, coreContext);
         toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.LAST_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
-        
-        MaxRowsItem maxRowsItem = (MaxRowsItem)toolbar.addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
+
+        MaxRowsItem maxRowsItem = (MaxRowsItem) toolbar.addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
         if (maxRowsIncrements != null) {
             maxRowsItem.setIncrements(maxRowsIncrements);
         }
-        
+
         toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
         toolbar.addExportToolbarItems(exportTypes);
         toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
 
-		Row row = table.getRow();
-		List columns = row.getColumns();
+        Row row = table.getRow();
+        List columns = row.getColumns();
         if (ViewUtils.isFilterable(columns)) {
             toolbar.addToolbarItem(ToolbarItemType.FILTER_ITEM);
             toolbar.addToolbarItem(ToolbarItemType.CLEAR_ITEM);
         }
-		
-		return toolbar;
-	}
+
+        return toolbar;
+    }
 }

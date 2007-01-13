@@ -247,8 +247,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 
         for (Sort sort : limit.getSortSet().getSorts()) {
-            html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
-                    + "','" + sort.getPosition() + "')").semicolon().newline();
+            html.append(
+                    "addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() + "','" + sort.getPosition()
+                            + "')").semicolon().newline();
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {

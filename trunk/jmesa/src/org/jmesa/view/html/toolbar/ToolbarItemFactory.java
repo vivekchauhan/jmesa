@@ -20,21 +20,21 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarItemFactory {
-	public ImageItem createFirstPageItem();
+    public ImageItem createFirstPageItem();
 
-	public ImageItem createPrevPageItem();
+    public ImageItem createPrevPageItem();
 
-	public ImageItem createNextPageItem();
+    public ImageItem createNextPageItem();
 
-	public ImageItem createLastPageItem();
+    public ImageItem createLastPageItem();
 
-	public ImageItem createFilterItem();
+    public ImageItem createFilterItem();
 
-	public ImageItem createClearItem();
+    public ImageItem createClearItem();
 
-	public MaxRowsItem createMaxRowsItem();
+    public MaxRowsItem createMaxRowsItem();
 
-	public ImageItem createExportItem(ToolbarExport export);
+    public ImageItem createExportItem(ToolbarExport export);
 
-	public ImageItem createSeparatorItem();
+    public ImageItem createSeparatorItem();
 }

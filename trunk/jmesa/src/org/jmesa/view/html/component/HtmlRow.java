@@ -23,21 +23,21 @@ import org.jmesa.view.html.renderer.HtmlRowRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlRow extends Row {
-	public boolean isHighlighter();
-	
-	public void setHighlighter(boolean highlighter);
-	
-	public String getOnclick();
-	
-	public void setOnclick(String onclick);
-	
-	public String getOnmouseover();
-	
-	public void setOnmouseover(String onmouseover);
-	
-	public String getOnmouseout();
-	
-	public void setOnmouseout(String onmouseout);
-	
-	public HtmlRowRenderer getRowRenderer();
+    public boolean isHighlighter();
+
+    public void setHighlighter(boolean highlighter);
+
+    public String getOnclick();
+
+    public void setOnclick(String onclick);
+
+    public String getOnmouseover();
+
+    public void setOnmouseover(String onmouseover);
+
+    public String getOnmouseout();
+
+    public void setOnmouseout(String onmouseout);
+
+    public HtmlRowRenderer getRowRenderer();
 }

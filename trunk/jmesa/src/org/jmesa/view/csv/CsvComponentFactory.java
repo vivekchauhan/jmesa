@@ -28,31 +28,31 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class CsvComponentFactory extends AbstractComponentFactory {
-	private final String DEFAULT_DELIMITER = ",";
-	
-	private String delimiter = DEFAULT_DELIMITER;
-	
-	public CsvComponentFactory(String delimiter, WebContext webContext, CoreContext coreContext) {
-		this(webContext, coreContext);
-		this.delimiter = delimiter;
-	}
+    private final String DEFAULT_DELIMITER = ",";
 
-	public CsvComponentFactory(WebContext webContext, CoreContext coreContext) {
-		setWebContext(webContext);
-		setCoreContext(coreContext);
-	}
+    private String delimiter = DEFAULT_DELIMITER;
 
-	public Column createColumn(String property, CellEditor editor) {
-		ColumnImpl column = new ColumnImpl(property);
-		column.setWebContext(getWebContext());
-		column.setCoreContext(getCoreContext());
-		
-		CsvCellRendererImpl columnRenderer = new CsvCellRendererImpl(column, editor);
-		columnRenderer.setWebContext(getWebContext());
-		columnRenderer.setCoreContext(getCoreContext());
-		columnRenderer.setDelimiter(delimiter);
-		column.setCellRenderer(columnRenderer);
-		
-		return column;
-	}
+    public CsvComponentFactory(String delimiter, WebContext webContext, CoreContext coreContext) {
+        this(webContext, coreContext);
+        this.delimiter = delimiter;
+    }
+
+    public CsvComponentFactory(WebContext webContext, CoreContext coreContext) {
+        setWebContext(webContext);
+        setCoreContext(coreContext);
+    }
+
+    public Column createColumn(String property, CellEditor editor) {
+        ColumnImpl column = new ColumnImpl(property);
+        column.setWebContext(getWebContext());
+        column.setCoreContext(getCoreContext());
+
+        CsvCellRendererImpl columnRenderer = new CsvCellRendererImpl(column, editor);
+        columnRenderer.setWebContext(getWebContext());
+        columnRenderer.setCoreContext(getCoreContext());
+        columnRenderer.setDelimiter(delimiter);
+        column.setCellRenderer(columnRenderer);
+
+        return column;
+    }
 }

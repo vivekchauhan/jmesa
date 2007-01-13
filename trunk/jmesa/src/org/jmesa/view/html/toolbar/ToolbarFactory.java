@@ -20,5 +20,5 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarFactory {
-	public Toolbar createToolbar();
+    public Toolbar createToolbar();
 }

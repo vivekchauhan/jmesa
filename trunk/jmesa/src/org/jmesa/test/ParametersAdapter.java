@@ -21,13 +21,13 @@ import java.util.Map;
  * @author Jeff Johnston
  */
 public class ParametersAdapter implements Parameters {
-	private final Map<String, Object> parameters;
+    private final Map<String, Object> parameters;
 
-	public ParametersAdapter(Map<String, Object> parameters) {
-		this.parameters = parameters;
-	}
+    public ParametersAdapter(Map<String, Object> parameters) {
+        this.parameters = parameters;
+    }
 
-	public void addParameter(String parameter, Object value) {
-		parameters.put(parameter, value);
-	}
+    public void addParameter(String parameter, Object value) {
+        parameters.put(parameter, value);
+    }
 }

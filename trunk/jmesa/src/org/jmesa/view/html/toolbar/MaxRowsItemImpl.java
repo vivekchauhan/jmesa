@@ -22,35 +22,35 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jeff Johnston
  */
 public class MaxRowsItemImpl extends AbstractItem implements MaxRowsItem {
-	private int maxRows;
-	private int[] increments = new int[0];
-	
-	public int getMaxRows() {
-		return maxRows;
-	}
+    private int maxRows;
+    private int[] increments = new int[0];
 
-	public void setMaxRows(int maxRows) {
-		this.maxRows = maxRows;
-	}
+    public int getMaxRows() {
+        return maxRows;
+    }
 
-	public int[] getIncrements() {
-		return increments;
-	}
+    public void setMaxRows(int maxRows) {
+        this.maxRows = maxRows;
+    }
 
-	public void setIncrements(int[] increments) {
-		this.increments = increments;
-	}
+    public int[] getIncrements() {
+        return increments;
+    }
 
-	@Override
-	public String disabled() {
-    	HtmlBuilder html = new HtmlBuilder();
+    public void setIncrements(int[] increments) {
+        this.increments = increments;
+    }
+
+    @Override
+    public String disabled() {
+        HtmlBuilder html = new HtmlBuilder();
         return html.toString();
-	}
+    }
 
-	@Override
-	public String enabled() {
-    	HtmlBuilder html = new HtmlBuilder();
-    	
+    @Override
+    public String enabled() {
+        HtmlBuilder html = new HtmlBuilder();
+
         html.select().name("maxRows");
         html.onchange(getAction());
         html.close();
@@ -59,21 +59,21 @@ public class MaxRowsItemImpl extends AbstractItem implements MaxRowsItem {
         html.tabs(4);
 
         int[] increments = getIncrements();
-		for (int i = 0; i < increments.length; i++) {
-			int increment = increments[i];
-	        html.option().value(String.valueOf(increment));
-	        if (increment == maxRows) {
-	            html.selected();
-	        }
-	        html.close();
-	        html.append(String.valueOf(increment));
-	        html.optionEnd();
-		}
+        for (int i = 0; i < increments.length; i++) {
+            int increment = increments[i];
+            html.option().value(String.valueOf(increment));
+            if (increment == maxRows) {
+                html.selected();
+            }
+            html.close();
+            html.append(String.valueOf(increment));
+            html.optionEnd();
+        }
 
         html.newline();
         html.tabs(4);
-        html.selectEnd();    	
-    	
+        html.selectEnd();
+
         return html.toString();
-	}
+    }
 }

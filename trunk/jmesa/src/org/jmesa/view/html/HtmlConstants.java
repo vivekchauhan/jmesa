@@ -22,32 +22,32 @@ package org.jmesa.view.html;
 public class HtmlConstants {
     private HtmlConstants() {
     }
-    
+
     public final static String IMAGES_PATH = "html.imagesPath";
     public final static String TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS = "html.toolbar.maxRowsDroplist.increments";
 
     // table
     public final static String TABLE_RENDERER_STYLE_CLASS = "html.table.renderer.styleClass";
     public final static String TABLE_COMPONENT_THEME = "html.table.component.theme";
-    
+
     // row
     public final static String ROW_RENDERER_HIGHLIGHT_CLASS = "html.row.renderer.highlightClass";
     public final static String ROW_RENDERER_EVEN_CLASS = "html.row.renderer.evenClass";
     public final static String ROW_RENDERER_ODD_CLASS = "html.row.renderer.oddClass";
-    
-    // column 
+
+    // column
     public final static String COLUMN_RENDERER_HEADER_STYLE_CLASS = "html.column.header.renderer.styleClass";
-    
+
     public final static String SORT_ASC_IMAGE = "html.column.header.renderer.image.sortAsc";
     public final static String SORT_DESC_IMAGE = "html.column.header.renderer.image.sortDesc";
-    
+
     // css names
     public final static String TBODY_CLASS = "html.tbodyClass";
     public final static String TITLE_CLASS = "html.titleClass";
     public final static String FILTER_CLASS = "html.filterClass";
     public final static String TOOLBAR_CLASS = "html.toolbarClass";
     public final static String STATUS_BAR_CLASS = "html.statusBarClass";
-    
+
     // toolbar image names
     public final static String TOOLBAR_IMAGE = "html.toolbar.image.";
     public final static String TOOLBAR_IMAGE_CLEAR = "html.toolbar.image.clear";
@@ -61,7 +61,7 @@ public class HtmlConstants {
     public final static String TOOLBAR_IMAGE_PREV_PAGE_DISABLED = "html.toolbar.image.prevPageDisabled";
     public final static String TOOLBAR_IMAGE_FILTER = "html.toolbar.image.filter";
     public final static String TOOLBAR_IMAGE_SEPARATOR = "html.toolbar.image.separator";
-    
+
     // toolbar text tooltip messages
     public final static String TOOLBAR_TOOLTIP = "html.toolbar.tooltip.";
     public final static String TOOLBAR_TOOLTIP_FIRST_PAGE = "html.toolbar.tooltip.firstPage";

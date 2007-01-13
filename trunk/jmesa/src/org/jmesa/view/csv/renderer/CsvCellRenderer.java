@@ -22,7 +22,7 @@ import org.jmesa.view.renderer.CellRenderer;
  * @author Jeff Johnston
  */
 public interface CsvCellRenderer extends CellRenderer {
-	public String getDelimiter();
-	
-	public void setDelimiter(String delimiter);
+    public String getDelimiter();
+
+    public void setDelimiter(String delimiter);
 }

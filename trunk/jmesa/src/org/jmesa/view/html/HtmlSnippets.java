@@ -22,37 +22,35 @@ import org.jmesa.view.html.toolbar.Toolbar;
  * @author Jeff Johnston
  */
 public interface HtmlSnippets {
+    public String themeStart();
 
-	public String themeStart();
+    public String themeEnd();
 
-	public String themeEnd();
+    public String tableStart();
 
-	public String tableStart();
+    public String tableEnd();
 
-	public String tableEnd();
+    public String theadStart();
 
-	public String theadStart();
+    public String theadEnd();
 
-	public String theadEnd();
+    public String tbodyStart();
 
-	public String tbodyStart();
+    public String tbodyEnd();
 
-	public String tbodyEnd();
+    public String filter();
 
-	public String filter();
+    public String header();
 
-	public String header();
+    public String body();
 
-	public String body();
-	
-	public String toolbar(Toolbar toolbar);
-	
-	public String statusBarText();
-	
-	public String statusBar();
-	
-	public String statusBar(Toolbar toolbar);
+    public String toolbar(Toolbar toolbar);
 
-	public String initJavascriptLimit();
+    public String statusBarText();
 
+    public String statusBar();
+
+    public String statusBar(Toolbar toolbar);
+
+    public String initJavascriptLimit();
 }

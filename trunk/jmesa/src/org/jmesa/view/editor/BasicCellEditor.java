@@ -23,15 +23,15 @@ import org.jmesa.view.ContextSupport;
  * @author Jeff Johnston
  */
 public class BasicCellEditor extends ContextSupport implements CellEditor {
-	public Object getValue(Object item, String property, int rowcount) {
-		Object itemValue = null; 
-			
-		try {
-			itemValue = PropertyUtils.getProperty(item, property);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-		return itemValue;
-	}
+    public Object getValue(Object item, String property, int rowcount) {
+        Object itemValue = null;
+
+        try {
+            itemValue = PropertyUtils.getProperty(item, property);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return itemValue;
+    }
 }

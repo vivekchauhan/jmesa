@@ -26,18 +26,18 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class HtmlTableFactory extends AbstractTableFactory {
-	public HtmlTableFactory(WebContext webContext, CoreContext coreContext) {
-		setWebContext(webContext);
-		setCoreContext(coreContext);
-	}
-	
-	@Override
-	public HtmlTable createTable(String... columnNames) {
-		return (HtmlTable)super.createTable(columnNames);
-	}
+    public HtmlTableFactory(WebContext webContext, CoreContext coreContext) {
+        setWebContext(webContext);
+        setCoreContext(coreContext);
+    }
 
-	@Override
-	protected ComponentFactory getComponentFactory() {
-		return new HtmlComponentFactory(getWebContext(), getCoreContext());
-	}
+    @Override
+    public HtmlTable createTable(String... columnNames) {
+        return (HtmlTable) super.createTable(columnNames);
+    }
+
+    @Override
+    protected ComponentFactory getComponentFactory() {
+        return new HtmlComponentFactory(getWebContext(), getCoreContext());
+    }
 }

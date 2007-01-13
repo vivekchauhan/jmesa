@@ -18,50 +18,50 @@ package org.jmesa.limit;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * Used to figure out the row information so the proper page of information 
- * can be retrieved.
+ * Used to figure out the row information so the proper page of information can
+ * be retrieved.
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class RowSelectImpl implements RowSelect {
-	private int page;
-	private int maxRows;
-	private int rowEnd;
-	private int rowStart;
-	private int totalRows;
+    private int page;
+    private int maxRows;
+    private int rowEnd;
+    private int rowStart;
+    private int totalRows;
 
-	public RowSelectImpl(int page, int maxRows, int totalRows) {
-		this.maxRows = maxRows;
-		this.totalRows = totalRows;
-		init(page);
-	}
-	
-	public int getPage() {
-		return page;
-	}
+    public RowSelectImpl(int page, int maxRows, int totalRows) {
+        this.maxRows = maxRows;
+        this.totalRows = totalRows;
+        init(page);
+    }
 
-	public void setPage(int page) {
-		init(page);
-	}
-	
-	public int getMaxRows() {
-		return maxRows;
-	}
+    public int getPage() {
+        return page;
+    }
 
-	public int getRowEnd() {
-		return rowEnd;
-	}
+    public void setPage(int page) {
+        init(page);
+    }
 
-	public int getRowStart() {
-		return rowStart;
-	}
+    public int getMaxRows() {
+        return maxRows;
+    }
 
-	public int getTotalRows() {
-		return totalRows;
-	}
-	
-	private void init(int page) {
+    public int getRowEnd() {
+        return rowEnd;
+    }
+
+    public int getRowStart() {
+        return rowStart;
+    }
+
+    public int getTotalRows() {
+        return totalRows;
+    }
+
+    private void init(int page) {
         page = getValidPage(page, maxRows, totalRows);
 
         int rowStart = (page - 1) * maxRows;
@@ -75,7 +75,7 @@ public class RowSelectImpl implements RowSelect {
         this.page = page;
         this.rowStart = rowStart;
         this.rowEnd = rowEnd;
-	}
+    }
 
     /**
      * The page returned that is not greater than the pages that can display.
@@ -97,15 +97,15 @@ public class RowSelectImpl implements RowSelect {
         if (page == 1) {
             return true;
         }
-        
+
         int rowStart = (page - 1) * maxRows;
         int rowEnd = rowStart + maxRows;
         if (rowEnd > totalRows) {
             rowEnd = totalRows;
         }
         return rowEnd > rowStart;
-    }	
-    
+    }
+
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);

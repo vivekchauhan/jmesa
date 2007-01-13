@@ -16,30 +16,33 @@
 package org.jmesa.limit;
 
 /**
- * The available sort orders. 
+ * The available sort orders.
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public enum Order {
-	ASC, 
-	DESC;
-	
-	public String toParam() {
-		switch(this) {
-		case ASC: return "asc";
-		case DESC: return "desc";
-		default: return "";
-		}
-	}
-	
-	public static Order valueOfParam(String param) {
-		for(Order order: Order.values()) {
-			if (order.toParam().equals(param)) {
-				return order;
-			}
-		}
-		
-		return null;
-	}
+    ASC, 
+    DESC;
+
+    public String toParam() {
+        switch (this) {
+        case ASC:
+            return "asc";
+        case DESC:
+            return "desc";
+        default:
+            return "";
+        }
+    }
+
+    public static Order valueOfParam(String param) {
+        for (Order order : Order.values()) {
+            if (order.toParam().equals(param)) {
+                return order;
+            }
+        }
+
+        return null;
+    }
 }

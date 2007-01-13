@@ -27,26 +27,26 @@ import org.jmesa.view.editor.CellEditor;
  * @author Jeff Johnston
  */
 public abstract class AbstractComponentFactory extends ContextSupport implements ComponentFactory {
-	public Table createTable() {
-		TableImpl table = new TableImpl();
-		table.setWebContext(getWebContext());
-		table.setCoreContext(getCoreContext());
-		
-		return table;
-	}
+    public Table createTable() {
+        TableImpl table = new TableImpl();
+        table.setWebContext(getWebContext());
+        table.setCoreContext(getCoreContext());
 
-	public Row createRow() {
-		RowImpl row = new RowImpl();
-		row.setWebContext(getWebContext());
-		row.setCoreContext(getCoreContext());
-		
-		return row;
-	}
+        return table;
+    }
 
-	public CellEditor createBasicCellEditor() {
-		BasicCellEditor editor = new BasicCellEditor();
-		editor.setWebContext(getWebContext());
-		editor.setCoreContext(getCoreContext());
-		return editor;
-	}
+    public Row createRow() {
+        RowImpl row = new RowImpl();
+        row.setWebContext(getWebContext());
+        row.setCoreContext(getCoreContext());
+
+        return row;
+    }
+
+    public CellEditor createBasicCellEditor() {
+        BasicCellEditor editor = new BasicCellEditor();
+        editor.setWebContext(getWebContext());
+        editor.setCoreContext(getCoreContext());
+        return editor;
+    }
 }

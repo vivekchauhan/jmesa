@@ -25,13 +25,13 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class CsvTableFactory extends AbstractTableFactory {
-	public CsvTableFactory(WebContext webContext, CoreContext coreContext) {
-		setWebContext(webContext);
-		setCoreContext(coreContext);
-	}
-	
-	@Override
-	protected ComponentFactory getComponentFactory() {
-		return new CsvComponentFactory(getWebContext(), getCoreContext());
-	}
+    public CsvTableFactory(WebContext webContext, CoreContext coreContext) {
+        setWebContext(webContext);
+        setCoreContext(coreContext);
+    }
+
+    @Override
+    protected ComponentFactory getComponentFactory() {
+        return new CsvComponentFactory(getWebContext(), getCoreContext());
+    }
 }

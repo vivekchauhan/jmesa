@@ -28,48 +28,47 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class CoreContextImpl implements CoreContext {
-	private Items items;
-	private Limit limit;
-	private Preferences preferences;
-	private Messages messages;
+    private Items items;
+    private Limit limit;
+    private Preferences preferences;
+    private Messages messages;
 
-	public CoreContextImpl(Items items, Limit limit, Preferences preferences, Messages messages) {
-		this.items = items;
-		this.limit = limit;
-		this.preferences = preferences;
-		this.messages = messages;
-	}
-	
-	public Collection getAllItems() {
-		return items.getAllItems();
-	}
+    public CoreContextImpl(Items items, Limit limit, Preferences preferences, Messages messages) {
+        this.items = items;
+        this.limit = limit;
+        this.preferences = preferences;
+        this.messages = messages;
+    }
 
-	public Collection getFilteredItems() {
-		return items.getFilteredItems();
-	}
+    public Collection getAllItems() {
+        return items.getAllItems();
+    }
 
-	public Collection getSortedItems() {
-		return items.getSortedItems();
-	}
+    public Collection getFilteredItems() {
+        return items.getFilteredItems();
+    }
 
-	public Collection getPageItems() {
-		return items.getPageItems();
-	}
+    public Collection getSortedItems() {
+        return items.getSortedItems();
+    }
 
-	public String getMessage(String code) {
-		return messages.getMessage(code);
-	}
+    public Collection getPageItems() {
+        return items.getPageItems();
+    }
 
-	public String getMessage(String code, Object[] args) {
-		return messages.getMessage(code, args);
-	}
+    public String getMessage(String code) {
+        return messages.getMessage(code);
+    }
 
-	public String getPreference(String code) {
-		return preferences.getPreference(code);
-	}
+    public String getMessage(String code, Object[] args) {
+        return messages.getMessage(code, args);
+    }
 
-	public Limit getLimit() {
-		return limit;
-	}
-	
+    public String getPreference(String code) {
+        return preferences.getPreference(code);
+    }
+
+    public Limit getLimit() {
+        return limit;
+    }
 }

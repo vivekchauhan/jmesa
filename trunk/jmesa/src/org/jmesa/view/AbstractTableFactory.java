@@ -25,30 +25,30 @@ import org.jmesa.view.editor.CellEditor;
  * @author Jeff Johnston
  */
 public abstract class AbstractTableFactory extends ContextSupport implements TableFactory {
-	public Table createTable(String... columnNames) {
-		ComponentFactory factory = getComponentFactory();
-		
-		// create the table
-		Table table = factory.createTable();
-		
-		// create the row
-		Row row = factory.createRow();
-		table.setRow(row);
-		
-		// create some reusable objects
+    public Table createTable(String... columnNames) {
+        ComponentFactory factory = getComponentFactory();
 
-		CellEditor editor = factory.createBasicCellEditor();
-		
-		// create the columns
+        // create the table
+        Table table = factory.createTable();
 
-		for (int i = 0; i < columnNames.length; i++) {
-			String columnName  = columnNames[i];
-			Column firstNameColumn = factory.createColumn(columnName, editor);
-			row.addColumn(firstNameColumn);
-		}
-		
-		return table;
-	}
-	
-	protected abstract ComponentFactory getComponentFactory();
+        // create the row
+        Row row = factory.createRow();
+        table.setRow(row);
+
+        // create some reusable objects
+
+        CellEditor editor = factory.createBasicCellEditor();
+
+        // create the columns
+
+        for (int i = 0; i < columnNames.length; i++) {
+            String columnName = columnNames[i];
+            Column firstNameColumn = factory.createColumn(columnName, editor);
+            row.addColumn(firstNameColumn);
+        }
+
+        return table;
+    }
+
+    protected abstract ComponentFactory getComponentFactory();
 }

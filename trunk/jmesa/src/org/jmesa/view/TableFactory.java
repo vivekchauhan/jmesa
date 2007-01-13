@@ -22,5 +22,5 @@ import org.jmesa.view.component.Table;
  * @author Jeff Johnston
  */
 public interface TableFactory {
-	public Table createTable(String... columnNames);
+    public Table createTable(String... columnNames);
 }

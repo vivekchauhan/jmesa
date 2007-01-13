@@ -24,59 +24,60 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class LimitImpl implements Limit {
-	private final String id;
-	private RowSelect rowSelect;
-	private FilterSet filterSet;
-	private SortSet sortSet;
-	private Export export;
+    private final String id;
+    private RowSelect rowSelect;
+    private FilterSet filterSet;
+    private SortSet sortSet;
+    private Export export;
 
-	/**
-	 * @param id Uniquely identifies the table instance.
-	 */
-	public LimitImpl(String id) {
-		this.id = id;
-	}
+    /**
+     * @param id
+     *            Uniquely identifies the table instance.
+     */
+    public LimitImpl(String id) {
+        this.id = id;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public FilterSet getFilterSet() {
-		return filterSet;
-	}
+    public FilterSet getFilterSet() {
+        return filterSet;
+    }
 
-	public void setFilterSet(FilterSet filterSet) {
-		this.filterSet = filterSet;
-	}
+    public void setFilterSet(FilterSet filterSet) {
+        this.filterSet = filterSet;
+    }
 
-	public SortSet getSortSet() {
-		return sortSet;
-	}
+    public SortSet getSortSet() {
+        return sortSet;
+    }
 
-	public void setSortSet(SortSet sortSet) {
-		this.sortSet = sortSet;
-	}
+    public void setSortSet(SortSet sortSet) {
+        this.sortSet = sortSet;
+    }
 
-	public RowSelect getRowSelect() {
-		return rowSelect;
-	}
+    public RowSelect getRowSelect() {
+        return rowSelect;
+    }
 
-	public void setRowSelect(RowSelect rowSelect) {
-		this.rowSelect = rowSelect;
-	}
-	
-	public boolean isExported() {
-		return getExport() != null;
-	}
+    public void setRowSelect(RowSelect rowSelect) {
+        this.rowSelect = rowSelect;
+    }
 
-	public Export getExport() {
-		return export;
-	}
+    public boolean isExported() {
+        return getExport() != null;
+    }
 
-	public void setExport(Export export) {
-		this.export = export;
-	}
-	
+    public Export getExport() {
+        return export;
+    }
+
+    public void setExport(Export export) {
+        this.export = export;
+    }
+
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);

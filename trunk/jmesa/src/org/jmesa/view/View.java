@@ -22,9 +22,9 @@ import org.jmesa.view.component.Table;
  * @author Jeff Johnston
  */
 public interface View {
-	public Table getTable();
+    public Table getTable();
 
-	public void setTable(Table table);
+    public void setTable(Table table);
 
-	public Object render();
+    public Object render();
 }

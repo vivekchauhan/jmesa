@@ -74,13 +74,13 @@ public abstract class AbstractItem implements ToolbarItem {
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
     }
-    
+
     public ToolbarItemRenderer getToolbarItemRenderer() {
-    	return renderer;
+        return renderer;
     }
-    
+
     public void setToolbarItemRenderer(ToolbarItemRenderer renderer) {
-    	this.renderer = renderer;
+        this.renderer = renderer;
     }
 
     public abstract String disabled();

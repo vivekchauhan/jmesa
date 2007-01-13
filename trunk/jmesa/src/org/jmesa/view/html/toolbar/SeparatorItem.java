@@ -18,41 +18,41 @@ package org.jmesa.view.html.toolbar;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
- * To be able to work with the Toolbar the separator image needs to actually be a
- * ToolbarItem.
+ * To be able to work with the Toolbar the separator image needs to actually be
+ * a ToolbarItem.
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class SeparatorItem extends ImageItemImpl {
-	@Override
-	public String disabled() {
-		return null;
-	}
+    @Override
+    public String disabled() {
+        return null;
+    }
 
-	@Override
-	public String enabled() {
-		HtmlBuilder html = new HtmlBuilder();
-		html.img();
-		html.src(getImage());
-		html.style(getStyle());
-		html.alt(getAlt());
-		html.end();
-		return html.toString();
-	}
+    @Override
+    public String enabled() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.img();
+        html.src(getImage());
+        html.style(getStyle());
+        html.alt(getAlt());
+        html.end();
+        return html.toString();
+    }
 
-	@Override
-	public ToolbarItemRenderer getToolbarItemRenderer() {
-		return new SeparatorRenderer(this);
-	}
+    @Override
+    public ToolbarItemRenderer getToolbarItemRenderer() {
+        return new SeparatorRenderer(this);
+    }
 
-	private class SeparatorRenderer extends AbstractItemRenderer {
-		public SeparatorRenderer(SeparatorItem item) {
-			setToolbarItem(item);
-		}
+    private class SeparatorRenderer extends AbstractItemRenderer {
+        public SeparatorRenderer(SeparatorItem item) {
+            setToolbarItem(item);
+        }
 
-		public String render() {
-			return getToolbarItem().enabled();
-		}
-	}
+        public String render() {
+            return getToolbarItem().enabled();
+        }
+    }
 }

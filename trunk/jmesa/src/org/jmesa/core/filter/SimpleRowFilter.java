@@ -33,17 +33,17 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter {
-	private static Log logger = LogFactory.getLog(SimpleRowFilter.class);
-	
-	private FilterMatchRegistry registry;
-	
-	public SimpleRowFilter(FilterMatchRegistry registry) {
-		this.registry = registry;
-	}
-	
-	public Collection filterItems(Collection items, Limit limit) {
+    private static Log logger = LogFactory.getLog(SimpleRowFilter.class);
+
+    private FilterMatchRegistry registry;
+
+    public SimpleRowFilter(FilterMatchRegistry registry) {
+        this.registry = registry;
+    }
+
+    public Collection filterItems(Collection items, Limit limit) {
         FilterSet filterSet = limit.getFilterSet();
-		boolean filtered = filterSet.isFiltered();
+        boolean filtered = filterSet.isFiltered();
 
         if (filtered) {
             Collection collection = new ArrayList();
@@ -55,32 +55,32 @@ public class SimpleRowFilter implements RowFilter {
         }
 
         return items;
-	}
-	
-	private Map<Filter, FilterMatch> getMatches(Limit limit, FilterSet filterSet, Collection items) {
-		Map<Filter, FilterMatch> matches = new HashMap<Filter, FilterMatch>();
-		
-		if (items == null || !items.iterator().hasNext()) {
-			return matches;
-		}
-		
-        try {
-    		Object item = items.iterator().next();
+    }
 
-    		for (Filter filter : filterSet.getFilters()) {
+    private Map<Filter, FilterMatch> getMatches(Limit limit, FilterSet filterSet, Collection items) {
+        Map<Filter, FilterMatch> matches = new HashMap<Filter, FilterMatch>();
+
+        if (items == null || !items.iterator().hasNext()) {
+            return matches;
+        }
+
+        try {
+            Object item = items.iterator().next();
+
+            for (Filter filter : filterSet.getFilters()) {
                 String property = filter.getProperty();
                 Object value = PropertyUtils.getProperty(item, property);
-                
-                if(value != null) {
-                	MatchKey key = new MatchKey(value.getClass(), limit.getId(), property);
+
+                if (value != null) {
+                    MatchKey key = new MatchKey(value.getClass(), limit.getId(), property);
                     FilterMatch match = registry.getFilterMatch(key);
                     matches.put(filter, match);
                 }
             }
         } catch (Exception e) {
-        	logger.error("Had problems getting the Filter / Match values.", e);
+            logger.error("Had problems getting the Filter / Match values.", e);
         }
-    	
-    	return matches;
-	}
+
+        return matches;
+    }
 }

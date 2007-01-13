@@ -27,121 +27,119 @@ import org.apache.commons.logging.LogFactory;
  * @author Jeff Johnston
  */
 public class LimitActionFactoryImpl implements LimitActionFactory {
-	private static Log logger = LogFactory.getLog(LimitActionFactoryImpl.class);
+    private static Log logger = LogFactory.getLog(LimitActionFactoryImpl.class);
 
-	private final Map<?, ?> parameters;
-	private final String id;
-	private final String prefixId;
-	
-	public LimitActionFactoryImpl(String id, Map<?, ?> parameters) {
-		this.id = id;
-		this.parameters = parameters;
-		this.prefixId = id + "_";
-	}
+    private final Map<?, ?> parameters;
+    private final String id;
+    private final String prefixId;
 
-	public String getId() {
-		return id; 
-	}
+    public LimitActionFactoryImpl(String id, Map<?, ?> parameters) {
+        this.id = id;
+        this.parameters = parameters;
+        this.prefixId = id + "_";
+    }
 
+    public String getId() {
+        return id;
+    }
 
-	/**
-	 * @return The max rows based on what the user selected. A null returned implies the
-	 * default must be used.
-	 */
-	public Integer getMaxRows() {
+    /**
+     * @return The max rows based on what the user selected. A null returned
+     *         implies the default must be used.
+     */
+    public Integer getMaxRows() {
         String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.toParam()));
         if (StringUtils.isNotBlank(maxRows)) {
-        	logger.debug("Max Rows:" + maxRows);
+            logger.debug("Max Rows:" + maxRows);
             return Integer.parseInt(maxRows);
         }
 
         return null;
-	}
+    }
 
-	/**
-	 * @return The current page based on what the user selected. The default is to return
-	 * the first page.
-	 */
-	public int getPage() {
+    /**
+     * @return The current page based on what the user selected. The default is
+     *         to return the first page.
+     */
+    public int getPage() {
         String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.toParam()));
         if (StringUtils.isNotBlank(page)) {
-        	if (logger.isDebugEnabled()) {
-        		logger.debug("On Page :" + page);
-        	}
+            if (logger.isDebugEnabled()) {
+                logger.debug("On Page :" + page);
+            }
             return Integer.parseInt(page);
         }
-        
-    	logger.debug("Defaulting to Page 1");
 
-    	return 1;
-	}
+        logger.debug("Defaulting to Page 1");
 
-	public FilterSet getFilterSet() {
-		FilterSet filterSet = new FilterSetImpl();
-		
+        return 1;
+    }
+
+    public FilterSet getFilterSet() {
+        FilterSet filterSet = new FilterSetImpl();
+
         String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.toParam()));
         if (StringUtils.isNotEmpty(clear)) {
-        	if (logger.isDebugEnabled()) {
-        		logger.debug("Cleared out the filters.");
-        	}
+            if (logger.isDebugEnabled()) {
+                logger.debug("Cleared out the filters.");
+            }
             return filterSet;
         }
 
-		
-		for (Object param: parameters.keySet()) {
-			String parameter = (String)param;
-			if (parameter.startsWith(prefixId + Action.FILTER.toParam())) {
-				String value = LimitUtils.getValue(parameters.get(parameter));
-				if (StringUtils.isNotBlank(value)) {
+        for (Object param : parameters.keySet()) {
+            String parameter = (String) param;
+            if (parameter.startsWith(prefixId + Action.FILTER.toParam())) {
+                String value = LimitUtils.getValue(parameters.get(parameter));
+                if (StringUtils.isNotBlank(value)) {
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER.toParam());
-                    Filter filter = new Filter(property, value); 
+                    Filter filter = new Filter(property, value);
                     filterSet.addFilter(filter);
-                }                    
-			}
-		}
-		
-		return filterSet;
-	}
+                }
+            }
+        }
 
-	public SortSet getSortSet() {
-		SortSet sortSet = new SortSetImpl();
-		
-		for (Object param: parameters.keySet()) {
-			String parameter = (String)param;
-			if (parameter.startsWith(prefixId + Action.SORT.toParam())) {
-				String value = LimitUtils.getValue(parameters.get(parameter));
-				if (StringUtils.isNotBlank(value)) {
+        return filterSet;
+    }
+
+    public SortSet getSortSet() {
+        SortSet sortSet = new SortSetImpl();
+
+        for (Object param : parameters.keySet()) {
+            String parameter = (String) param;
+            if (parameter.startsWith(prefixId + Action.SORT.toParam())) {
+                String value = LimitUtils.getValue(parameters.get(parameter));
+                if (StringUtils.isNotBlank(value)) {
                     String position = StringUtils.substringBetween(parameter, prefixId + Action.SORT.toParam(), "_");
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT.toParam() + position + "_");
                     Order order = Order.valueOfParam(value);
-					Sort sort = new Sort(new Integer(position), property, order);
+                    Sort sort = new Sort(new Integer(position), property, order);
                     sortSet.addSort(sort);
-                }                    
-			}
-		}
-		
-		return sortSet;
-	}
+                }
+            }
+        }
 
-	public Export getExport() {
+        return sortSet;
+    }
+
+    public Export getExport() {
         String export = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
         if (StringUtils.isNotBlank(export)) {
-        	if (logger.isDebugEnabled()) {
-        		logger.debug("Export: " +  export);
-        	}
+            if (logger.isDebugEnabled()) {
+                logger.debug("Export: " + export);
+            }
             return new Export(export);
         }
 
         return null;
-	}
-	
+    }
+
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("id", id);
         builder.append("prefixId", prefixId);
         if (parameters != null) {
-        	parameters.toString();
+            parameters.toString();
         }
         return builder.toString();
     }

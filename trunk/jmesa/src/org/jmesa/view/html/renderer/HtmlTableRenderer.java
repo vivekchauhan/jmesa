@@ -22,23 +22,23 @@ import org.jmesa.view.renderer.TableRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlTableRenderer extends TableRenderer {
-	public String getStyle();
+    public String getStyle();
 
-	public void setStyle(String style);
+    public void setStyle(String style);
 
-	public String getStyleClass();
+    public String getStyleClass();
 
-	public void setStyleClass(String styleClass);
-	
-	public String getBorder();
+    public void setStyleClass(String styleClass);
 
-	public void setBorder(String border);
+    public String getBorder();
 
-	public String getCellpadding();
+    public void setBorder(String border);
 
-	public void setCellpadding(String cellpadding);
+    public String getCellpadding();
 
-	public String getCellspacing();
+    public void setCellpadding(String cellpadding);
 
-	public void setCellspacing(String cellspacing);
+    public String getCellspacing();
+
+    public void setCellspacing(String cellspacing);
 }

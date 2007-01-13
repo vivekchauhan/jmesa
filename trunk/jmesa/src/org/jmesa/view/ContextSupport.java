@@ -23,22 +23,22 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ContextSupport {
-	private CoreContext coreContext;
-	private WebContext webContext;
+    private CoreContext coreContext;
+    private WebContext webContext;
 
-	public CoreContext getCoreContext() {
-		return coreContext;
-	}
+    public CoreContext getCoreContext() {
+        return coreContext;
+    }
 
-	public void setCoreContext(CoreContext coreContext) {
-		this.coreContext = coreContext;
-	}
+    public void setCoreContext(CoreContext coreContext) {
+        this.coreContext = coreContext;
+    }
 
-	public WebContext getWebContext() {
-		return webContext;
-	}
+    public WebContext getWebContext() {
+        return webContext;
+    }
 
-	public void setWebContext(WebContext webContext) {
-		this.webContext = webContext;
-	}
+    public void setWebContext(WebContext webContext) {
+        this.webContext = webContext;
+    }
 }

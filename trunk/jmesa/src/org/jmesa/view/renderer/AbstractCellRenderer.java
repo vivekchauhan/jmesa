@@ -24,22 +24,22 @@ import org.jmesa.view.editor.CellEditor;
  * @author Jeff Johnston
  */
 public abstract class AbstractCellRenderer extends ContextSupport implements CellRenderer {
-	private Column column;
-	private CellEditor editor;
+    private Column column;
+    private CellEditor editor;
 
-	public Column getColumn() {
-		return column;
-	}
-	
-	public void setColumn(Column column) {
-		this.column = column;
-	}
-	
-	public CellEditor getCellEditor() {
-		return editor;
-	}
+    public Column getColumn() {
+        return column;
+    }
 
-	public void setCellEditor(CellEditor editor) {
-		this.editor = editor;
-	}
+    public void setColumn(Column column) {
+        this.column = column;
+    }
+
+    public CellEditor getCellEditor() {
+        return editor;
+    }
+
+    public void setCellEditor(CellEditor editor) {
+        this.editor = editor;
+    }
 }

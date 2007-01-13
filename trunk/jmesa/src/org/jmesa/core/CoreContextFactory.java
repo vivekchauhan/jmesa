@@ -24,5 +24,5 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public interface CoreContextFactory {
-	public CoreContext createCoreContext(Collection<Object> items, Limit limit);
+    public CoreContext createCoreContext(Collection<Object> items, Limit limit);
 }

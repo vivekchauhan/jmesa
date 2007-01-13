@@ -19,19 +19,20 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
 
 public class ExportItemRenderer extends AbstractItemRenderer {
-	private ToolbarExport export;
-	
-	public ExportItemRenderer(ToolbarItem item, ToolbarExport export, CoreContext coreContext) {
-		setToolbarItem(item);
-		this.export = export;
-		setCoreContext(coreContext);
-	}
+    private ToolbarExport export;
 
-	public String render() {
+    public ExportItemRenderer(ToolbarItem item, ToolbarExport export, CoreContext coreContext) {
+        setToolbarItem(item);
+        this.export = export;
+        setCoreContext(coreContext);
+    }
+
+    public String render() {
         Limit limit = getCoreContext().getLimit();
-        StringBuilder action = new StringBuilder("javascript:setExportToLimit('" + limit.getId() + "','" + export.getType() + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
+        StringBuilder action = new StringBuilder("javascript:setExportToLimit('" + limit.getId() + "','" + export.getType() + "');"
+                + getOnInvokeAction() + "('" + limit.getId() + "')");
         ToolbarItem item = getToolbarItem();
         item.setAction(action.toString());
         return item.enabled();
-	}
+    }
 }

@@ -18,40 +18,43 @@ package org.jmesa.limit;
 import java.util.Collection;
 
 public interface FilterSet {
+    /**
+     * @return Is true if there are any columns that need to be filtered.
+     */
+    public boolean isFiltered();
 
-	/**
-	 * @return Is true if there are any columns that need to be filtered.
-	 */
-	public boolean isFiltered();
+    public Collection<Filter> getFilters();
 
-	public Collection<Filter> getFilters();
+    /**
+     * For a given property, retrieve the Filter.
+     * 
+     * @param property
+     *            The Filter property.
+     * @return The Filter value.
+     */
+    public Filter getFilter(String property);
 
-	/**
-	 * For a given property, retrieve the Filter.
-	 * 
-	 * @param property The Filter property.
-	 * @return The Filter value.
-	 */
-	public Filter getFilter(String property);
+    /**
+     * For a given property, retrieve the Filter value.
+     * 
+     * @param property
+     *            The Filter property.
+     * @return The Filter value.
+     */
+    public String getFilterValue(String property);
 
-	/**
-	 * For a given property, retrieve the Filter value.
-	 * 
-	 * @param property The Filter property.
-	 * @return The Filter value.
-	 */
-	public String getFilterValue(String property);
+    /**
+     * 
+     * @param property
+     *            The column property to filter.
+     * @param value
+     *            The value to filter the column.
+     */
+    public void addFilter(String property, String value);
 
-	/**
-	 * 
-	 * @param property The column property to filter.
-	 * @param value The value to filter the column.
-	 */
-	public void addFilter(String property, String value);
-
-	/**
-	 * @param filter The Filter to add to the Set.  
-	 */
-	public void addFilter(Filter filter);
-
+    /**
+     * @param filter
+     *            The Filter to add to the Set.
+     */
+    public void addFilter(Filter filter);
 }

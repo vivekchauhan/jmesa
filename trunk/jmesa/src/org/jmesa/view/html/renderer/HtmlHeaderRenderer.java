@@ -22,11 +22,11 @@ import org.jmesa.view.renderer.HeaderRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlHeaderRenderer extends HeaderRenderer {
-	public String getStyle();
+    public String getStyle();
 
-	public void setStyle(String style);
+    public void setStyle(String style);
 
-	public String getStyleClass();
+    public String getStyleClass();
 
-	public void setStyleClass(String styleClass);
+    public void setStyleClass(String styleClass);
 }

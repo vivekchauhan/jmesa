@@ -27,8 +27,8 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>
- * The FilterSet is an Collection of Filter objects. A Filter contains a bean 
- * property and the filter value. Or, in other words, it is simply the column 
+ * The FilterSet is an Collection of Filter objects. A Filter contains a bean
+ * property and the filter value. Or, in other words, it is simply the column
  * that the user is trying to filter and the value that they entered.
  * </p>
  * 
@@ -36,80 +36,85 @@ import org.apache.commons.logging.LogFactory;
  * @author Jeff Johnston
  */
 public class FilterSetImpl implements Serializable, FilterSet {
-	private static Log logger = LogFactory.getLog(FilterSetImpl.class);
+    private static Log logger = LogFactory.getLog(FilterSetImpl.class);
 
-	private Set<Filter> filters;
+    private Set<Filter> filters;
 
-	public FilterSetImpl() {
-		filters = new HashSet<Filter>();
-	}
+    public FilterSetImpl() {
+        filters = new HashSet<Filter>();
+    }
 
     /**
      * @return Is true if there are any columns that need to be filtered.
      */
-	public boolean isFiltered() {
-		return filters != null && !filters.isEmpty();
-	}
+    public boolean isFiltered() {
+        return filters != null && !filters.isEmpty();
+    }
 
-	public Collection<Filter> getFilters() {
-		return filters;
-	}
+    public Collection<Filter> getFilters() {
+        return filters;
+    }
 
-	/**
-	 * For a given property, retrieve the Filter.
-	 * 
-	 * @param property The Filter property.
-	 * @return The Filter value.
-	 */
-	public Filter getFilter(String property) {
-		for (Iterator iter = filters.iterator(); iter.hasNext();) {
-			Filter filter = (Filter) iter.next();
-			if (filter.getProperty().equals(property)) {
-				return filter;
-			}
-		}
-
-		return null;
-	}
-	
-	/**
-	 * For a given property, retrieve the Filter value.
-	 * 
-	 * @param property The Filter property.
-	 * @return The Filter value.
-	 */
-	public String getFilterValue(String property) {
-		return getFilter(property).getValue();
-	}
-
-	/**
-	 * 
-	 * @param property The column property to filter.
-	 * @param value The value to filter the column.
-	 */
-	public void addFilter(String property, String value) {
-		addFilter(new Filter(property, value));
-	}
-	
     /**
-     * @param filter The Filter to add to the Set.  
+     * For a given property, retrieve the Filter.
+     * 
+     * @param property
+     *            The Filter property.
+     * @return The Filter value.
      */
-	public void addFilter(Filter filter) {
-		filters.add(filter);
-		if (logger.isDebugEnabled()) {
-			logger.debug("Added Filter: " + filter.toString());
-		}
-	}
+    public Filter getFilter(String property) {
+        for (Iterator iter = filters.iterator(); iter.hasNext();) {
+            Filter filter = (Filter) iter.next();
+            if (filter.getProperty().equals(property)) {
+                return filter;
+            }
+        }
 
-	@Override
-	public String toString() {
-		ToStringBuilder builder = new ToStringBuilder(this);
+        return null;
+    }
 
-		for (Iterator iter = filters.iterator(); iter.hasNext();) {
-			Filter filter = (Filter) iter.next();
-			builder.append(filter.toString());
-		}
+    /**
+     * For a given property, retrieve the Filter value.
+     * 
+     * @param property
+     *            The Filter property.
+     * @return The Filter value.
+     */
+    public String getFilterValue(String property) {
+        return getFilter(property).getValue();
+    }
 
-		return builder.toString();
-	}
+    /**
+     * 
+     * @param property
+     *            The column property to filter.
+     * @param value
+     *            The value to filter the column.
+     */
+    public void addFilter(String property, String value) {
+        addFilter(new Filter(property, value));
+    }
+
+    /**
+     * @param filter
+     *            The Filter to add to the Set.
+     */
+    public void addFilter(Filter filter) {
+        filters.add(filter);
+        if (logger.isDebugEnabled()) {
+            logger.debug("Added Filter: " + filter.toString());
+        }
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+
+        for (Iterator iter = filters.iterator(); iter.hasNext();) {
+            Filter filter = (Filter) iter.next();
+            builder.append(filter.toString());
+        }
+
+        return builder.toString();
+    }
 }

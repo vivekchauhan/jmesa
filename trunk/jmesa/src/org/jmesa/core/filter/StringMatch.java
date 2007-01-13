@@ -24,13 +24,13 @@ import org.apache.commons.lang.StringUtils;
  * @author Jeff Johnston
  */
 public class StringMatch implements FilterMatch {
-	public boolean evaluate(Object itemValue, String matchValue) {
-		String item = StringUtils.lowerCase((String)itemValue);
-		String match = StringUtils.lowerCase((String)matchValue);
-		if (StringUtils.contains(item, match)) {
-			return true;
-		}
+    public boolean evaluate(Object itemValue, String matchValue) {
+        String item = StringUtils.lowerCase((String) itemValue);
+        String match = StringUtils.lowerCase((String) matchValue);
+        if (StringUtils.contains(item, match)) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

@@ -25,19 +25,19 @@ import org.jmesa.view.renderer.FilterRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlColumn extends Column {
-	public boolean isFilterable();
-	
-	public void setFilterable(boolean filterable);
-	
-	public boolean isSortable();
-	
-	public void setSortable(boolean sortable);
-	
-	public FilterRenderer getFilterRenderer();
-	
-	public void setFilterRenderer(FilterRenderer filterRenderer);
-	
-	public HtmlCellRenderer getCellRenderer();
-	
-	public HtmlHeaderRenderer getHeaderRenderer();
+    public boolean isFilterable();
+
+    public void setFilterable(boolean filterable);
+
+    public boolean isSortable();
+
+    public void setSortable(boolean sortable);
+
+    public FilterRenderer getFilterRenderer();
+
+    public void setFilterRenderer(FilterRenderer filterRenderer);
+
+    public HtmlCellRenderer getCellRenderer();
+
+    public HtmlHeaderRenderer getHeaderRenderer();
 }

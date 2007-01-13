@@ -19,45 +19,45 @@ import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
 public class HtmlRowImpl extends RowImpl implements HtmlRow {
-	private boolean highlighter = true;
-	private String onclick;
-	private String onmouseout;
-	private String onmouseover;
-	
-	public boolean isHighlighter() {
-		return highlighter;
-	}
+    private boolean highlighter = true;
+    private String onclick;
+    private String onmouseout;
+    private String onmouseover;
 
-	public void setHighlighter(boolean highlighter) {
-		this.highlighter = highlighter;
-	}
-	
-	public String getOnclick() {
-		return onclick;
-	}
+    public boolean isHighlighter() {
+        return highlighter;
+    }
 
-	public void setOnclick(String onclick) {
-		this.onclick = onclick;
-	}
+    public void setHighlighter(boolean highlighter) {
+        this.highlighter = highlighter;
+    }
 
-	public String getOnmouseout() {
-		return onmouseout;
-	}
+    public String getOnclick() {
+        return onclick;
+    }
 
-	public void setOnmouseout(String onmouseout) {
-		this.onmouseout = onmouseout;
-	}
+    public void setOnclick(String onclick) {
+        this.onclick = onclick;
+    }
 
-	public String getOnmouseover() {
-		return onmouseover;
-	}
+    public String getOnmouseout() {
+        return onmouseout;
+    }
 
-	public void setOnmouseover(String onmouseover) {
-		this.onmouseover = onmouseover;
-	}
-	
-	@Override
-	public HtmlRowRenderer getRowRenderer() {
-		return (HtmlRowRenderer)super.getRowRenderer();
-	}
+    public void setOnmouseout(String onmouseout) {
+        this.onmouseout = onmouseout;
+    }
+
+    public String getOnmouseover() {
+        return onmouseover;
+    }
+
+    public void setOnmouseover(String onmouseover) {
+        this.onmouseover = onmouseover;
+    }
+
+    @Override
+    public HtmlRowRenderer getRowRenderer() {
+        return (HtmlRowRenderer) super.getRowRenderer();
+    }
 }
