@@ -62,13 +62,13 @@ public interface Limit extends Serializable {
 	 */
 	public void setRowSelect(RowSelect rowSelect);
 
-	public FilterSetImpl getFilterSet();
+	public FilterSet getFilterSet();
 	
-	public void setFilterSet(FilterSetImpl filterSet);
+	public void setFilterSet(FilterSet filterSet);
 
-	public SortSetImpl getSortSet();
+	public SortSet getSortSet();
 	
-	public void setSortSet(SortSetImpl sortSet);
+	public void setSortSet(SortSet sortSet);
 
 	public boolean isExported();
 

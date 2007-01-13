@@ -28,9 +28,9 @@ public interface LimitActionFactory {
 
 	public int getPage();
 	
-	public FilterSetImpl getFilterSet();
+	public FilterSet getFilterSet();
 	
-	public SortSetImpl getSortSet();
+	public SortSet getSortSet();
 	
 	public Export getExport();
 }

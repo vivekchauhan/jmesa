@@ -61,14 +61,14 @@ public class LimitActionFactoryTest {
 
 	@Test
 	public void getFilterSet() {
-		FilterSetImpl filterSet = limitActionFactory.getFilterSet();
+		FilterSet filterSet = limitActionFactory.getFilterSet();
 		assertNotNull(filterSet);
 		assertTrue(filterSet.getFilters().size() == 2);
 	}
 
 	@Test
 	public void getSortSet() {
-		SortSetImpl sortSet = limitActionFactory.getSortSet();
+		SortSet sortSet = limitActionFactory.getSortSet();
 		assertNotNull(sortSet);
 		assertTrue(sortSet.getSorts().size() == 2);
 	}

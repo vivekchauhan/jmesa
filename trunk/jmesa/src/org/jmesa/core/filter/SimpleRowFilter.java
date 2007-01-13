@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.jmesa.limit.Filter;
-import org.jmesa.limit.FilterSetImpl;
+import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
 
 /**
@@ -42,7 +42,7 @@ public class SimpleRowFilter implements RowFilter {
 	}
 	
 	public Collection filterItems(Collection items, Limit limit) {
-        FilterSetImpl filterSet = limit.getFilterSet();
+        FilterSet filterSet = limit.getFilterSet();
 		boolean filtered = filterSet.isFiltered();
 
         if (filtered) {
@@ -57,7 +57,7 @@ public class SimpleRowFilter implements RowFilter {
         return items;
 	}
 	
-	private Map<Filter, FilterMatch> getMatches(Limit limit, FilterSetImpl filterSet, Collection items) {
+	private Map<Filter, FilterMatch> getMatches(Limit limit, FilterSet filterSet, Collection items) {
 		Map<Filter, FilterMatch> matches = new HashMap<Filter, FilterMatch>();
 		
 		if (items == null || !items.iterator().hasNext()) {

@@ -65,10 +65,10 @@ public class LimitFactoryImpl implements LimitFactory {
 	public Limit createLimit() {
 		Limit limit = new LimitImpl(limitActionFactory.getId());
 
-		FilterSetImpl filterSet = limitActionFactory.getFilterSet();
+		FilterSet filterSet = limitActionFactory.getFilterSet();
 		limit.setFilterSet(filterSet);
 
-		SortSetImpl sortSet = limitActionFactory.getSortSet();
+		SortSet sortSet = limitActionFactory.getSortSet();
 		limit.setSortSet(sortSet);
 
 		Export export = limitActionFactory.getExport();

@@ -36,7 +36,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SortSetImpl implements Serializable {
+public class SortSetImpl implements Serializable, SortSet {
 	private Logger logger = Logger.getLogger(SortSetImpl.class.getName());
     private List<Sort> sorts;
     
