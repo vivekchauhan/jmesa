@@ -141,9 +141,9 @@ public final class Sort implements Serializable, Comparable {
 
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("position", position);
         builder.append("property", property);
         builder.append("order", order);
-        builder.append("position", position);
         return builder.toString();
     }
 }

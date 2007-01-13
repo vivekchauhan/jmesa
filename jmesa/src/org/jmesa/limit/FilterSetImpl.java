@@ -20,10 +20,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>
@@ -36,7 +36,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class FilterSetImpl implements Serializable, FilterSet {
-	private Logger logger = Logger.getLogger(FilterSetImpl.class.getName());
+	private static Log logger = LogFactory.getLog(FilterSetImpl.class);
+
 	private Set<Filter> filters;
 
 	public FilterSetImpl() {
@@ -95,8 +96,8 @@ public class FilterSetImpl implements Serializable, FilterSet {
      */
 	public void addFilter(Filter filter) {
 		filters.add(filter);
-		if (logger.isLoggable(Level.FINE)) {
-			logger.fine("Added Filter: " + filter.toString());
+		if (logger.isDebugEnabled()) {
+			logger.debug("Added Filter: " + filter.toString());
 		}
 	}
 

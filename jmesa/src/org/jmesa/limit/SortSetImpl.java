@@ -21,10 +21,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>
@@ -37,7 +37,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class SortSetImpl implements Serializable, SortSet {
-	private Logger logger = Logger.getLogger(SortSetImpl.class.getName());
+	private static Log logger = LogFactory.getLog(SortSetImpl.class);
     private List<Sort> sorts;
     
     public SortSetImpl() {
@@ -124,8 +124,8 @@ public class SortSetImpl implements Serializable, SortSet {
     	if (!sorts.contains(sort)) {
         	sorts.add(sort);
         	Collections.sort(sorts);
-    		if (logger.isLoggable(Level.FINE)) {
-    			logger.fine("Added Sort: " + sort.toString());
+    		if (logger.isDebugEnabled()) {
+    			logger.debug("Added Sort: " + sort.toString());
     		}
     	}
     }
