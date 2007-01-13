@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
 import org.jmesa.limit.Filter;
-import org.jmesa.limit.FilterSet;
+import org.jmesa.limit.FilterSetImpl;
 
 /**
  * Use the Jakarta Collections predicate pattern to filter out the table.
@@ -34,9 +34,9 @@ public final class FilterPredicate implements Predicate {
 	private Logger logger = Logger.getLogger(FilterPredicate.class.getName());
 
 	private Map<Filter, FilterMatch> matches;
-	private FilterSet filterSet;
+	private FilterSetImpl filterSet;
 
-	public FilterPredicate(Map<Filter, FilterMatch> matches, FilterSet filterSet) {
+	public FilterPredicate(Map<Filter, FilterMatch> matches, FilterSetImpl filterSet) {
 		this.matches = matches;
 		this.filterSet = filterSet;
 	}

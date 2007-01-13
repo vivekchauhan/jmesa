@@ -26,8 +26,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class LimitImpl implements Limit {
 	private final String id;
 	private RowSelect rowSelect;
-	private FilterSet filterSet;
-	private SortSet sortSet;
+	private FilterSetImpl filterSet;
+	private SortSetImpl sortSet;
 	private Export export;
 
 	/**
@@ -41,28 +41,20 @@ public class LimitImpl implements Limit {
 		return id;
 	}
 
-	public FilterSet getFilterSet() {
+	public FilterSetImpl getFilterSet() {
 		return filterSet;
 	}
 
-	public void setFilterSet(FilterSet filterSet) {
+	public void setFilterSet(FilterSetImpl filterSet) {
 		this.filterSet = filterSet;
 	}
 
-	public void addFilter(Filter filter) {
-		filterSet.addFilter(filter);
-	}
-
-	public SortSet getSortSet() {
+	public SortSetImpl getSortSet() {
 		return sortSet;
 	}
 
-	public void setSortSet(SortSet sortSet) {
+	public void setSortSet(SortSetImpl sortSet) {
 		this.sortSet = sortSet;
-	}
-
-	public void addSort(Sort sort) {
-		sortSet.addSort(sort);
 	}
 
 	public RowSelect getRowSelect() {

@@ -56,15 +56,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public final class Sort implements Serializable, Comparable {
+	private final int position;
     private final String property;
     private final Order order;
-    private final int position;
 
-    public Sort(String property, Order order, int position) {
+    public Sort(int position, String property, Order order) {
     	//TODO: rewrite all properties with underscores to be with dot notation.
+    	this.position = position;
         this.property = property;
         this.order = order;
-        this.position = position;
     }
 
     /**

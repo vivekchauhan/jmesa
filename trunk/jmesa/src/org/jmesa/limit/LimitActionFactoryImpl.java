@@ -73,8 +73,8 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
     	return 1;
 	}
 
-	public FilterSet getFilterSet() {
-		FilterSet filterSet = new FilterSet();
+	public FilterSetImpl getFilterSet() {
+		FilterSetImpl filterSet = new FilterSetImpl();
 		
         String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.toParam()));
         if (StringUtils.isNotEmpty(clear)) {
@@ -98,8 +98,8 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 		return filterSet;
 	}
 
-	public SortSet getSortSet() {
-		SortSet sortSet = new SortSet();
+	public SortSetImpl getSortSet() {
+		SortSetImpl sortSet = new SortSetImpl();
 		
 		for (Object param: parameters.keySet()) {
 			String parameter = (String)param;
@@ -109,7 +109,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
                     String position = StringUtils.substringBetween(parameter, prefixId + Action.SORT.toParam(), "_");
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT.toParam() + position + "_");
                     Order order = Order.valueOfParam(value);
-					Sort sort = new Sort(property, order, new Integer(position));
+					Sort sort = new Sort(new Integer(position), property, order);
                     sortSet.addSort(sort);
                 }                    
 			}

@@ -35,11 +35,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FilterSet implements Serializable {
-	private Logger logger = Logger.getLogger(FilterSet.class.getName());
+public class FilterSetImpl implements Serializable {
+	private Logger logger = Logger.getLogger(FilterSetImpl.class.getName());
 	private Set<Filter> filters;
 
-	public FilterSet() {
+	public FilterSetImpl() {
 		filters = new HashSet<Filter>();
 	}
 
@@ -81,6 +81,15 @@ public class FilterSet implements Serializable {
 		return getFilter(property).getValue();
 	}
 
+	/**
+	 * 
+	 * @param property The column property to filter.
+	 * @param value The value to filter the column.
+	 */
+	public void addFilter(String property, String value) {
+		addFilter(new Filter(property, value));
+	}
+	
     /**
      * @param filter The Filter to add to the Set.  
      */
