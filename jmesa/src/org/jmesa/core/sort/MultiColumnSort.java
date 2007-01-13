@@ -25,7 +25,7 @@ import org.apache.commons.collections.comparators.NullComparator;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.Order;
 import org.jmesa.limit.Sort;
-import org.jmesa.limit.SortSet;
+import org.jmesa.limit.SortSetImpl;
 
 /**
  * @since 2.0
@@ -35,7 +35,7 @@ public class MultiColumnSort implements ColumnSort {
 	public Collection sortItems(Collection items, Limit limit) {
 		ComparatorChain chain = new ComparatorChain();
         
-        SortSet sortSet = limit.getSortSet();
+        SortSetImpl sortSet = limit.getSortSet();
         for (Sort sort : sortSet.getSorts()) {
 			if (sort.getOrder() == Order.ASC) {
 				chain.addComparator(new BeanComparator(sort.getProperty(), new NullComparator()));

@@ -29,7 +29,7 @@ public class SortSetTest {
 	
 	@Test
 	public void isSorted() {
-		SortSet sortSet = new SortSet();
+		SortSetImpl sortSet = new SortSetImpl();
 		boolean sorted = sortSet.isSorted();
 		assertFalse("default constructor", sorted);
 
@@ -40,7 +40,7 @@ public class SortSetTest {
 	
 	@Test
 	public void getSortOrder() {
-		SortSet sortSet = getSortSet();
+		SortSetImpl sortSet = getSortSet();
 		Order order = sortSet.getSortOrder("nickname");
 		assertNotNull(order);
 		assertEquals(order.toParam(), "desc");
@@ -49,19 +49,19 @@ public class SortSetTest {
 
 	@Test
 	public void getSort() {
-		SortSet sortSet = getSortSet();
+		SortSetImpl sortSet = getSortSet();
 		Sort sort = sortSet.getSort("nickname");
 		assertNotNull(sort);
 		assertEquals(sort.getOrder(), Order.DESC);
 		assertEquals(sort.getProperty(), "nickname");
 	}
 
-	private SortSet getSortSet() {
-		SortSet sortSet = new SortSet();
+	private SortSetImpl getSortSet() {
+		SortSetImpl sortSet = new SortSetImpl();
 		
-		sortSet.addSort(new Sort("nickname", Order.DESC, 2));
-		sortSet.addSort(new Sort("fullName", Order.ASC, 1));
-		sortSet.addSort(new Sort("term", Order.ASC, 3));
+		sortSet.addSort(new Sort(2, "nickname", Order.DESC));
+		sortSet.addSort(new Sort(1, "fullName", Order.ASC));
+		sortSet.addSort(new Sort(3, "term", Order.ASC));
 		
 		Iterator iterator = sortSet.getSorts().iterator();
 		

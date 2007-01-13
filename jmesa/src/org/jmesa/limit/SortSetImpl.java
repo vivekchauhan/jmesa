@@ -36,11 +36,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SortSet implements Serializable {
-	private Logger logger = Logger.getLogger(SortSet.class.getName());
+public class SortSetImpl implements Serializable {
+	private Logger logger = Logger.getLogger(SortSetImpl.class.getName());
     private List<Sort> sorts;
     
-    public SortSet() {
+    public SortSetImpl() {
     	sorts = new ArrayList<Sort>();
     }
     
@@ -86,7 +86,39 @@ public class SortSet implements Serializable {
     }
     
     /**
-     * @param sort The Sort to add to the Set.  
+     * <p>
+     * The Sort to add to the set in the given postion.
+     * </p>
+     * 
+     * @param property The column property to sort.
+     * @param order The order to sort the column.
+     */
+    public void addSort(int position, String property, Order order) {
+    	addSort(new Sort(position, property, order));
+    }
+
+    /**
+     * <p>
+     * The Sort to add to the set. Will also set the sort
+     * position to be when the sort was added.
+     * </p> 
+     *  
+     *  <p>
+     * For example if there is already a Sort in the set then
+     * calling this method will add a Sort to the end. If you need
+     * to include a Sort in a given position of the Set then call
+     * the other convenience method that includes the position.
+     * </p>   
+     * 
+     * @param property The column property to sort.
+     * @param order The order to sort the column.
+     */
+    public void addSort(String property, Order order) {
+    	addSort(new Sort(sorts.size(), property, order));
+    }
+    
+    /**
+     * @param sort The Sort to add to the set.  
      */
     public void addSort(Sort sort) {
     	if (!sorts.contains(sort)) {
