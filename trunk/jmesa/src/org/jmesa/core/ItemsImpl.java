@@ -18,9 +18,9 @@ package org.jmesa.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
@@ -32,7 +32,7 @@ import org.jmesa.limit.RowSelectImpl;
  * @author Jeff Johnston
  */
 public class ItemsImpl implements Items {
-	private Logger logger = Logger.getLogger(ItemsImpl.class.getName());
+	private static Log logger = LogFactory.getLog(ItemsImpl.class);
 	
 	private Collection allItems;
 	private Collection filteredItems;
@@ -52,8 +52,8 @@ public class ItemsImpl implements Items {
         
         this.pageItems = getPageItems(sortedItems, limit);
         
-		if (logger.isLoggable(Level.FINE)) {
-            logger.fine(limit.toString());
+		if (logger.isDebugEnabled()) {
+            logger.debug(limit.toString());
         }
 	}
 	
@@ -93,16 +93,16 @@ public class ItemsImpl implements Items {
 
         // Normal case. Using Limit and paginating for a specific set of rows.
         if (rowStart >= items.size()) {
-            if (logger.isLoggable(Level.FINE)) {
-                logger.fine("The Limit row start is >= items.size(). Return the items available.");
+            if (logger.isDebugEnabled()) {
+                logger.debug("The Limit row start is >= items.size(). Return the items available.");
             }
 
             return items;
         }
 
         if (rowEnd > items.size()) {
-        	if (logger.isLoggable(Level.FINE)) {
-                logger.fine("The Limit row end is > items.size(). Return as many items as possible.");
+        	if (logger.isDebugEnabled()) {
+                logger.debug("The Limit row end is > items.size(). Return as many items as possible.");
             }
 
             rowEnd = items.size();

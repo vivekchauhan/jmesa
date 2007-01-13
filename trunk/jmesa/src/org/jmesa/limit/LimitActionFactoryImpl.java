@@ -16,18 +16,19 @@
 package org.jmesa.limit;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class LimitActionFactoryImpl implements LimitActionFactory {
-	private Logger logger = Logger.getLogger(LimitActionFactoryImpl.class.getName());
+	private static Log logger = LogFactory.getLog(LimitActionFactoryImpl.class);
+
 	private final Map<?, ?> parameters;
 	private final String id;
 	private final String prefixId;
@@ -50,7 +51,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	public Integer getMaxRows() {
         String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.toParam()));
         if (StringUtils.isNotBlank(maxRows)) {
-        	logger.log(Level.FINE, "Max Rows: {0}", maxRows);
+        	logger.debug("Max Rows:" + maxRows);
             return Integer.parseInt(maxRows);
         }
 
@@ -64,11 +65,13 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	public int getPage() {
         String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.toParam()));
         if (StringUtils.isNotBlank(page)) {
-        	logger.log(Level.FINE, "On Page: {0}", page);
+        	if (logger.isDebugEnabled()) {
+        		logger.debug("On Page :" + page);
+        	}
             return Integer.parseInt(page);
         }
-
-    	logger.fine("Defaulting to Page 1");
+        
+    	logger.debug("Defaulting to Page 1");
 
     	return 1;
 	}
@@ -78,7 +81,9 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 		
         String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.toParam()));
         if (StringUtils.isNotEmpty(clear)) {
-        	logger.fine("Cleared out the filters.");
+        	if (logger.isDebugEnabled()) {
+        		logger.debug("Cleared out the filters.");
+        	}
             return filterSet;
         }
 
@@ -121,7 +126,9 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
 	public Export getExport() {
         String export = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
         if (StringUtils.isNotBlank(export)) {
-        	logger.log(Level.FINE, "Export: {0}", export);
+        	if (logger.isDebugEnabled()) {
+        		logger.debug("Export: " +  export);
+        	}
             return new Export(export);
         }
 

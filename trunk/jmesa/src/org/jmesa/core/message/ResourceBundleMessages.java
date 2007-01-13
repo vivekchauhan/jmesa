@@ -30,7 +30,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ResourceBundleMessages implements Messages {
-    private static Log logger = LogFactory.getLog(ResourceBundleMessages.class);
+	private static Log logger = LogFactory.getLog(ResourceBundleMessages.class);
 
     private final static String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/jmesaResourceBundle";
 

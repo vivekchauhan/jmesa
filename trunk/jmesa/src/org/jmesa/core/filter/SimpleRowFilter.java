@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
@@ -33,7 +33,7 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter {
-	private Logger logger = Logger.getLogger(SimpleRowFilter.class.getName());
+	private static Log logger = LogFactory.getLog(SimpleRowFilter.class);
 	
 	private FilterMatchRegistry registry;
 	
@@ -78,7 +78,7 @@ public class SimpleRowFilter implements RowFilter {
                 }
             }
         } catch (Exception e) {
-        	logger.log(Level.SEVERE, "Had problems getting the Filter / Match values.", e);
+        	logger.error("Had problems getting the Filter / Match values.", e);
         }
     	
     	return matches;

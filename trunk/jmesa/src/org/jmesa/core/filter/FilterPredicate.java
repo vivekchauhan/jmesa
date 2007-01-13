@@ -16,11 +16,11 @@
 package org.jmesa.core.filter;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 
@@ -31,7 +31,7 @@ import org.jmesa.limit.FilterSet;
  * @author Jeff Johnston
  */
 public final class FilterPredicate implements Predicate {
-	private Logger logger = Logger.getLogger(FilterPredicate.class.getName());
+	private static Log logger = LogFactory.getLog(FilterPredicate.class);
 
 	private Map<Filter, FilterMatch> matches;
 	private FilterSet filterSet;
@@ -64,7 +64,7 @@ public final class FilterPredicate implements Predicate {
 				
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Had problems evaluating the items.", e);
+			logger.error("Had problems evaluating the items.", e);
 		}
 
 		return result;
