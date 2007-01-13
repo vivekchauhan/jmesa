@@ -29,7 +29,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class PropertiesPreferences implements Preferences {
-	private Logger logger = Logger.getLogger(PropertiesPreferences.class.getName());
+    private Logger logger = Logger.getLogger(PropertiesPreferences.class.getName());
 
     private final static String JMESA_PROPERTIES = "jmesa.properties";
 
@@ -38,7 +38,7 @@ public class PropertiesPreferences implements Preferences {
     public PropertiesPreferences(WebContext context, String preferencesLocation) {
         try {
             InputStream resourceAsStream = this.getClass().getResourceAsStream(JMESA_PROPERTIES);
-			properties.load(resourceAsStream);
+            properties.load(resourceAsStream);
             if (StringUtils.isNotBlank(preferencesLocation)) {
                 InputStream input = this.getClass().getResourceAsStream(preferencesLocation);
                 if (input != null) {

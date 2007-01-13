@@ -20,9 +20,10 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Will build up an Html String piece by piece.
  * 
- * Note: unless otherwise noted if the parameter used for any of the methods is 
- * null or empty then that html element will not be appended. The advantage of this
- * is you do not have to do any null or empty string checking to use this class.
+ * Note: unless otherwise noted if the parameter used for any of the methods is
+ * null or empty then that html element will not be appended. The advantage of
+ * this is you do not have to do any null or empty string checking to use this
+ * class.
  * 
  * @since 2.0
  * @author Jeff Johnston
@@ -31,36 +32,40 @@ public class HtmlBuilder {
     private StringBuilder builder;
 
     /**
-     * Default constructor using a StringWriter, 
-     * which is really just a StringBuilder. 
+     * Default constructor using a StringWriter, which is really just a
+     * StringBuilder.
      */
     public HtmlBuilder() {
         this.builder = new StringBuilder();
     }
 
     /**
-     * Write out the content to the internal writer. 
+     * Write out the content to the internal writer.
      */
     public HtmlBuilder append(Object text) {
         if (text != null) {
-        	builder.append(text);
+            builder.append(text);
         }
 
         return this;
     }
 
     /**
-     * The length of the internal Writer. 
+     * The length of the internal Writer.
      */
     public int length() {
         return builder.toString().length();
     }
 
     /**
-     * <p>Append tabs [\t] and newlines [\n].</p>
+     * <p>
+     * Append tabs [\t] and newlines [\n].
+     * </p>
      * 
-     * @param tabs The number of tab spaces \t to put in.
-     * @param newlines The number of newlines \n to put in.
+     * @param tabs
+     *            The number of tab spaces \t to put in.
+     * @param newlines
+     *            The number of newlines \n to put in.
      */
     public HtmlBuilder format(int tabs, int newlines) {
         tabs(tabs);
@@ -70,9 +75,12 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>Append tabs.</p>
+     * <p>
+     * Append tabs.
+     * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tabs(int tabs) {
         for (int i = 0; i < tabs; i++) {
@@ -83,9 +91,12 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>Append newlines [\n].</p>
+     * <p>
+     * Append newlines [\n].
+     * </p>
      * 
-     * @param newlines The number of newlines \n to put in.
+     * @param newlines
+     *            The number of newlines \n to put in.
      */
     public HtmlBuilder newlines(int newlines) {
         for (int i = 0; i < newlines; i++) {
@@ -96,7 +107,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>Append tab [\t].</p>
+     * <p>
+     * Append tab [\t].
+     * </p>
      */
     public HtmlBuilder tab() {
         append("\t");
@@ -105,7 +118,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>Append newline [\n].</p>
+     * <p>
+     * Append newline [\n].
+     * </p>
      */
     public HtmlBuilder newline() {
         append("\n");
@@ -114,33 +129,39 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>Close the element [>]</p>
+     * <p>
+     * Close the element [>]
+     * </p>
      */
     public HtmlBuilder close() {
         append(">");
-        
+
         return this;
     }
-    
+
     /**
-     * <p>Close the element with a slash to comply with xhtml [/>]</p>
+     * <p>
+     * Close the element with a slash to comply with xhtml [/>]
+     * </p>
      */
     public HtmlBuilder end() {
         append("/>");
 
         return this;
     }
-    
 
     /**
-     * <p>The start of the table element [<table].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the table.
+     * The start of the table element [<table].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the table.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder table(int tabs) {
         newline();
@@ -149,17 +170,19 @@ public class HtmlBuilder {
 
         return this;
     }
-    
 
     /**
-     * <p>The close tag of the table element [</table>].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the table ends.
+     * The close tag of the table element [</table>].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the table ends.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tableEnd(int tabs) {
         newline();
@@ -168,36 +191,40 @@ public class HtmlBuilder {
 
         return this;
     }
-    
 
     /**
-     * <p>The start of the button element [<button].</p> 
+     * <p>
+     * The start of the button element [<button].
+     * </p>
      */
     public HtmlBuilder button() {
         append("<button");
         return this;
     }
-    
 
     /**
-     * <p>The close tag of the button element [</button>].</p> 
+     * <p>
+     * The close tag of the button element [</button>].
+     * </p>
      */
     public HtmlBuilder buttonEnd() {
         append("</button>");
 
         return this;
     }
-    
 
     /**
-     * <p>The start of the tr element [<tr].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the tr.
+     * The start of the tr element [<tr].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the tr.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tr(int tabs) {
         newline();
@@ -206,17 +233,19 @@ public class HtmlBuilder {
 
         return this;
     }
-    
 
     /**
-     * <p>The close tag of the tr element [</tr>].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the tr ends.
+     * The close tag of the tr element [</tr>].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the tr ends.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder trEnd(int tabs) {
         newline();
@@ -225,17 +254,19 @@ public class HtmlBuilder {
 
         return this;
     }
-    
 
     /**
-     * <p>The start of the th element [<th].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the th.
+     * The start of the th element [<th].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the th.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder th(int tabs) {
         newline();
@@ -244,27 +275,30 @@ public class HtmlBuilder {
 
         return this;
     }
-    
 
     /**
-     * <p>The close tag of the th element [</th>].</p> 
+     * <p>
+     * The close tag of the th element [</th>].
+     * </p>
      */
     public HtmlBuilder thEnd() {
         append("</th>");
 
         return this;
     }
-    
 
     /**
-     * <p>The start of the td element [<td].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the td.
+     * The start of the td element [<td].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the td.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder td(int tabs) {
         newline();
@@ -273,10 +307,11 @@ public class HtmlBuilder {
 
         return this;
     }
-    
 
     /**
-     * <p>The close tag of the td element [</td>].</p> 
+     * <p>
+     * The close tag of the td element [</td>].
+     * </p>
      */
     public HtmlBuilder tdEnd() {
         append("</td>");
@@ -285,16 +320,20 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the input element [<input].</p> 
+     * <p>
+     * The start of the input element [<input].
+     * </p>
      */
     public HtmlBuilder input() {
         append("<input");
 
         return this;
     }
-    
+
     /**
-     * <p>The type attribute [type=].</p> 
+     * <p>
+     * The type attribute [type=].
+     * </p>
      */
     public HtmlBuilder type(String type) {
         if (StringUtils.isNotBlank(type)) {
@@ -305,7 +344,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The name attribute [name=].</p> 
+     * <p>
+     * The name attribute [name=].
+     * </p>
      */
     public HtmlBuilder name(String name) {
         if (StringUtils.isNotBlank(name)) {
@@ -316,10 +357,14 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The value attribute [value=].</p>
-     *  
-     * <p>If the value parameter is null or empty then
-     * will append a empty value element.</p>
+     * <p>
+     * The value attribute [value=].
+     * </p>
+     * 
+     * <p>
+     * If the value parameter is null or empty then will append a empty value
+     * element.
+     * </p>
      */
     public HtmlBuilder value(String value) {
         if (StringUtils.isNotBlank(value)) {
@@ -332,7 +377,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the select element [<select].</p> 
+     * <p>
+     * The start of the select element [<select].
+     * </p>
      */
     public HtmlBuilder select() {
         append("<select");
@@ -341,7 +388,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the select element [</select>].</p> 
+     * <p>
+     * The close tag of the select element [</select>].
+     * </p>
      */
     public HtmlBuilder selectEnd() {
         append("</select>");
@@ -350,7 +399,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the option element [<option].</p> 
+     * <p>
+     * The start of the option element [<option].
+     * </p>
      */
     public HtmlBuilder option() {
         append("<option");
@@ -359,7 +410,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the option element [</option>].</p> 
+     * <p>
+     * The close tag of the option element [</option>].
+     * </p>
      */
     public HtmlBuilder optionEnd() {
         append("</option>");
@@ -368,9 +421,13 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the form element [<form].</p> 
+     * <p>
+     * The start of the form element [<form].
+     * </p>
      * 
-     * <p>Also appends a newline [\n] before the form.</p>
+     * <p>
+     * Also appends a newline [\n] before the form.
+     * </p>
      */
     public HtmlBuilder form() {
         newline();
@@ -380,9 +437,13 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the form element [</form>].</p>
-     *  
-     * <p>Also appends a newline [\n] before the end.</p>
+     * <p>
+     * The close tag of the form element [</form>].
+     * </p>
+     * 
+     * <p>
+     * Also appends a newline [\n] before the end.
+     * </p>
      */
     public HtmlBuilder formEnd() {
         newline();
@@ -392,7 +453,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The title attribute [title=].</p> 
+     * <p>
+     * The title attribute [title=].
+     * </p>
      */
     public HtmlBuilder title(String title) {
         if (StringUtils.isNotBlank(title)) {
@@ -403,7 +466,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The action attribute [action=].</p> 
+     * <p>
+     * The action attribute [action=].
+     * </p>
      */
     public HtmlBuilder action(String action) {
         append(" action=\"");
@@ -416,7 +481,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The method attribute [method=].</p> 
+     * <p>
+     * The method attribute [method=].
+     * </p>
      */
     public HtmlBuilder method(String method) {
         if (StringUtils.isNotBlank(method)) {
@@ -427,7 +494,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The enctype attribute [enctype=].</p> 
+     * <p>
+     * The enctype attribute [enctype=].
+     * </p>
      */
     public HtmlBuilder enctype(String enctype) {
         if (StringUtils.isNotBlank(enctype)) {
@@ -438,7 +507,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The onchange attribute [onchange=].</p> 
+     * <p>
+     * The onchange attribute [onchange=].
+     * </p>
      */
     public HtmlBuilder onchange(String onchange) {
         if (StringUtils.isNotBlank(onchange)) {
@@ -449,7 +520,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The onsubmit attribute [onsubmit=].</p> 
+     * <p>
+     * The onsubmit attribute [onsubmit=].
+     * </p>
      */
     public HtmlBuilder onsubmit(String onsubmit) {
         if (StringUtils.isNotBlank(onsubmit)) {
@@ -460,7 +533,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The onclick attribute [onclick=].</p> 
+     * <p>
+     * The onclick attribute [onclick=].
+     * </p>
      */
     public HtmlBuilder onclick(String onclick) {
         if (StringUtils.isNotBlank(onclick)) {
@@ -471,7 +546,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The onmouseover attribute [onmouseover=].</p> 
+     * <p>
+     * The onmouseover attribute [onmouseover=].
+     * </p>
      */
     public HtmlBuilder onmouseover(String onmouseover) {
         if (StringUtils.isNotBlank(onmouseover)) {
@@ -482,7 +559,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The onmouseout attribute [onmouseout=].</p> 
+     * <p>
+     * The onmouseout attribute [onmouseout=].
+     * </p>
      */
     public HtmlBuilder onmouseout(String onmouseout) {
         if (StringUtils.isNotBlank(onmouseout)) {
@@ -493,7 +572,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The onkeypress attribute [onkeypress=].</p> 
+     * <p>
+     * The onkeypress attribute [onkeypress=].
+     * </p>
      */
     public HtmlBuilder onkeypress(String onkeypress) {
         if (StringUtils.isNotBlank(onkeypress)) {
@@ -504,7 +585,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The onkeyup attribute [onkeyup=].</p> 
+     * <p>
+     * The onkeyup attribute [onkeyup=].
+     * </p>
      */
     public HtmlBuilder onkeyup(String onkeyup) {
         if (StringUtils.isNotBlank(onkeyup)) {
@@ -515,7 +598,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The id attribute [id=].</p> 
+     * <p>
+     * The id attribute [id=].
+     * </p>
      */
     public HtmlBuilder id(String id) {
         if (StringUtils.isNotBlank(id)) {
@@ -526,7 +611,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The class attribute [class=].</p> 
+     * <p>
+     * The class attribute [class=].
+     * </p>
      */
     public HtmlBuilder styleClass(String styleClass) {
         if (StringUtils.isNotBlank(styleClass)) {
@@ -537,7 +624,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The style attribute [style=].</p> 
+     * <p>
+     * The style attribute [style=].
+     * </p>
      */
     public HtmlBuilder style(String style) {
         if (StringUtils.isNotBlank(style)) {
@@ -548,7 +637,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The width attribute [width=].</p> 
+     * <p>
+     * The width attribute [width=].
+     * </p>
      */
     public HtmlBuilder width(String width) {
         if (StringUtils.isNotBlank(width)) {
@@ -559,7 +650,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The align attribute [align=].</p> 
+     * <p>
+     * The align attribute [align=].
+     * </p>
      */
     public HtmlBuilder align(String align) {
         if (StringUtils.isNotBlank(align)) {
@@ -570,7 +663,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The valign attribute [valign=].</p> 
+     * <p>
+     * The valign attribute [valign=].
+     * </p>
      */
     public HtmlBuilder valign(String valign) {
         if (StringUtils.isNotBlank(valign)) {
@@ -581,7 +676,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The border attribute [border=].</p> 
+     * <p>
+     * The border attribute [border=].
+     * </p>
      */
     public HtmlBuilder border(String border) {
         if (StringUtils.isNotBlank(border)) {
@@ -592,7 +689,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The cellpadding attribute [cellpadding=].</p> 
+     * <p>
+     * The cellpadding attribute [cellpadding=].
+     * </p>
      */
     public HtmlBuilder cellpadding(String cellPadding) {
         if (StringUtils.isNotBlank(cellPadding)) {
@@ -603,7 +702,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The cellspacing attribute [cellspacing=].</p> 
+     * <p>
+     * The cellspacing attribute [cellspacing=].
+     * </p>
      */
     public HtmlBuilder cellspacing(String cellSpacing) {
         if (StringUtils.isNotBlank(cellSpacing)) {
@@ -614,7 +715,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The colspan attribute [colspan=].</p> 
+     * <p>
+     * The colspan attribute [colspan=].
+     * </p>
      */
     public HtmlBuilder colspan(String colspan) {
         if (StringUtils.isNotBlank(colspan)) {
@@ -625,7 +728,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The rowspan attribute [rowspan=].</p> 
+     * <p>
+     * The rowspan attribute [rowspan=].
+     * </p>
      */
     public HtmlBuilder rowspan(String rowspan) {
         if (StringUtils.isNotBlank(rowspan)) {
@@ -636,7 +741,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The size attribute [size=].</p> 
+     * <p>
+     * The size attribute [size=].
+     * </p>
      */
     public HtmlBuilder size(String size) {
         if (StringUtils.isNotBlank(size)) {
@@ -647,7 +754,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the span element [<span].</p> 
+     * <p>
+     * The start of the span element [<span].
+     * </p>
      */
     public HtmlBuilder span() {
         append("<span");
@@ -656,7 +765,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the span element [</span>].</p>
+     * <p>
+     * The close tag of the span element [</span>].
+     * </p>
      */
     public HtmlBuilder spanEnd() {
         append("</span>");
@@ -665,7 +776,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the div element [<div].</p> 
+     * <p>
+     * The start of the div element [<div].
+     * </p>
      */
     public HtmlBuilder div() {
         append("<div");
@@ -674,7 +787,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the div element [</div>].</p>
+     * <p>
+     * The close tag of the div element [</div>].
+     * </p>
      */
     public HtmlBuilder divEnd() {
         append("</div>");
@@ -683,7 +798,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>A URL parameter name/value [name=value]</p> 
+     * <p>
+     * A URL parameter name/value [name=value]
+     * </p>
      */
     public HtmlBuilder param(String name, String value) {
         append(name);
@@ -694,7 +811,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the a element plus the href attribute [<a href=].</p>
+     * <p>
+     * The start of the a element plus the href attribute [<a href=].
+     * </p>
      */
     public HtmlBuilder a() {
         append("<a href=");
@@ -703,7 +822,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the a element [</div>].</p>
+     * <p>
+     * The close tag of the a element [</div>].
+     * </p>
      */
     public HtmlBuilder aEnd() {
         append("</a>");
@@ -712,7 +833,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The bold element [<b>].</p> 
+     * <p>
+     * The bold element [<b>].
+     * </p>
      */
     public HtmlBuilder bold() {
         append("<b>");
@@ -721,7 +844,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the bold element [</b>].</p>
+     * <p>
+     * The close tag of the bold element [</b>].
+     * </p>
      */
     public HtmlBuilder boldEnd() {
         append("</b>");
@@ -730,7 +855,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>A single quote ["].</p> 
+     * <p>
+     * A single quote ["].
+     * </p>
      */
     public HtmlBuilder quote() {
         append("\"");
@@ -739,7 +866,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>A single question mark [?].</p> 
+     * <p>
+     * A single question mark [?].
+     * </p>
      */
     public HtmlBuilder question() {
         append("?");
@@ -748,7 +877,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>A single equals [=].</p> 
+     * <p>
+     * A single equals [=].
+     * </p>
      */
     public HtmlBuilder equals() {
         append("=");
@@ -757,7 +888,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>A single ampersand [&].</p> 
+     * <p>
+     * A single ampersand [&].
+     * </p>
      */
     public HtmlBuilder ampersand() {
         append("&");
@@ -766,7 +899,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the img element [<img].</p> 
+     * <p>
+     * The start of the img element [<img].
+     * </p>
      */
     public HtmlBuilder img() {
         append("<img");
@@ -775,7 +910,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The src attribute [src=].</p> 
+     * <p>
+     * The src attribute [src=].
+     * </p>
      */
     public HtmlBuilder src(String src) {
         if (StringUtils.isNotBlank(src)) {
@@ -784,9 +921,11 @@ public class HtmlBuilder {
 
         return this;
     }
-    
+
     /**
-     * <p>The alt attribute [alt=].</p> 
+     * <p>
+     * The alt attribute [alt=].
+     * </p>
      */
     public HtmlBuilder alt(String alt) {
         if (StringUtils.isNotBlank(alt)) {
@@ -797,7 +936,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the textarea element [<textarea].</p> 
+     * <p>
+     * The start of the textarea element [<textarea].
+     * </p>
      */
     public HtmlBuilder textarea() {
         append("<textarea");
@@ -806,7 +947,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the textarea element [</textarea>].</p>
+     * <p>
+     * The close tag of the textarea element [</textarea>].
+     * </p>
      */
     public HtmlBuilder textareaEnd() {
         append("</textarea>");
@@ -815,7 +958,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The cols attribute [cols=].</p> 
+     * <p>
+     * The cols attribute [cols=].
+     * </p>
      */
     public HtmlBuilder cols(String cols) {
         if (StringUtils.isNotBlank(cols)) {
@@ -826,7 +971,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The rows attribute [rows=].</p> 
+     * <p>
+     * The rows attribute [rows=].
+     * </p>
      */
     public HtmlBuilder rows(String rows) {
         if (StringUtils.isNotBlank(rows)) {
@@ -837,16 +984,20 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The checked attribute [checked="checked"].</p> 
+     * <p>
+     * The checked attribute [checked="checked"].
+     * </p>
      */
     public HtmlBuilder checked() {
         append(" checked=\"checked\"");
 
         return this;
     }
-    
+
     /**
-     * <p>The selected attribute [selected="selected"].</p> 
+     * <p>
+     * The selected attribute [selected="selected"].
+     * </p>
      */
     public HtmlBuilder selected() {
         append(" selected=\"selected\"");
@@ -855,7 +1006,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The readonly attribute [readonly="readonly"].</p> 
+     * <p>
+     * The readonly attribute [readonly="readonly"].
+     * </p>
      */
     public HtmlBuilder readonly() {
         append(" readonly=\"readonly\"");
@@ -864,7 +1017,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The non-breaking space [&nbsp;].</p> 
+     * <p>
+     * The non-breaking space [&nbsp;].
+     * </p>
      */
     public HtmlBuilder nbsp() {
         append("&#160;");
@@ -873,7 +1028,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The comment [<!-- -->].</p> 
+     * <p>
+     * The comment [<!-- -->].
+     * </p>
      */
     public HtmlBuilder comment(String comment) {
         if (StringUtils.isNotBlank(comment)) {
@@ -884,7 +1041,10 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The ul element [<ul>].</p> 
+     * <p>
+     * The ul element [
+     * <ul>].
+     * </p>
      */
     public HtmlBuilder ul() {
         append("<ul>");
@@ -893,7 +1053,10 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the ul element [</ul>].</p>
+     * <p>
+     * The close tag of the ul element [
+     * </ul>].
+     * </p>
      */
     public HtmlBuilder ulEnd() {
         append("</ul>");
@@ -902,7 +1065,10 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The li element [<li> ].</p> 
+     * <p>
+     * The li element [
+     * <li> ].
+     * </p>
      */
     public HtmlBuilder li() {
         append("<li>");
@@ -911,7 +1077,10 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The li element [<li> ].</p> 
+     * <p>
+     * The li element [
+     * <li> ].
+     * </p>
      */
     public HtmlBuilder liEnd() {
         append("</li>");
@@ -920,7 +1089,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The br element [<br/>].</p> 
+     * <p>
+     * The br element [<br/>].
+     * </p>
      */
     public HtmlBuilder br() {
         append("<br/>");
@@ -929,7 +1100,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The disabled attribute [disabled="disabled"].</p> 
+     * <p>
+     * The disabled attribute [disabled="disabled"].
+     * </p>
      */
     public HtmlBuilder disabled() {
         append(" disabled=\"disabled\" ");
@@ -938,7 +1111,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The nowrap attribute [nowrap="nowrap"].</p> 
+     * <p>
+     * The nowrap attribute [nowrap="nowrap"].
+     * </p>
      */
     public HtmlBuilder nowrap() {
         append(" nowrap=\"nowrap\" ");
@@ -947,7 +1122,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The maxlength attribute [maxlength=].</p> 
+     * <p>
+     * The maxlength attribute [maxlength=].
+     * </p>
      */
     public HtmlBuilder maxlength(String maxlength) {
         if (StringUtils.isNotBlank(maxlength)) {
@@ -958,7 +1135,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the tbody element [<tbody].</p> 
+     * <p>
+     * The start of the tbody element [<tbody].
+     * </p>
      */
     public HtmlBuilder tbody(int tabs) {
         newline();
@@ -969,14 +1148,17 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The end tag of the tbody element [</tbody>].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the </tbody>.
+     * The end tag of the tbody element [</tbody>].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the </tbody>.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tbodyEnd(int tabs) {
         newline();
@@ -987,7 +1169,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the thead element [<thead].</p> 
+     * <p>
+     * The start of the thead element [<thead].
+     * </p>
      */
     public HtmlBuilder thead(int tabs) {
         newline();
@@ -998,14 +1182,17 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The end tag of the thead element [</thead>].</p> 
-     * 
      * <p>
-     * Also appends a newline [\n] and the specified number of tabs [\t]
-     * before the </thead>.
+     * The end tag of the thead element [</thead>].
      * </p>
      * 
-     * @param tabs The number of tab spaces [\t] to put in.
+     * <p>
+     * Also appends a newline [\n] and the specified number of tabs [\t] before
+     * the </thead>.
+     * </p>
+     * 
+     * @param tabs
+     *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder theadEnd(int tabs) {
         newline();
@@ -1014,9 +1201,11 @@ public class HtmlBuilder {
 
         return this;
     }
-    
+
     /**
-     * <p>The start of the p element [<p].</p> 
+     * <p>
+     * The start of the p element [<p].
+     * </p>
      */
     public HtmlBuilder p() {
         append("<p");
@@ -1025,7 +1214,10 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the p element [</p>].</p>
+     * <p>
+     * The close tag of the p element [
+     * </p>].
+     * </p>
      */
     public HtmlBuilder pEnd() {
         append("</p>");
@@ -1034,7 +1226,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the h1 element [<h1].</p> 
+     * <p>
+     * The start of the h1 element [<h1].
+     * </p>
      */
     public HtmlBuilder h1() {
         append("<h1");
@@ -1043,7 +1237,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the h1 element [</h1>].</p>
+     * <p>
+     * The close tag of the h1 element [</h1>].
+     * </p>
      */
     public HtmlBuilder h1End() {
         append("</h1>");
@@ -1052,7 +1248,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the h2 element [<h2].</p> 
+     * <p>
+     * The start of the h2 element [<h2].
+     * </p>
      */
     public HtmlBuilder h2() {
         append("<h2");
@@ -1061,7 +1259,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the h2 element [</h2>].</p>
+     * <p>
+     * The close tag of the h2 element [</h2>].
+     * </p>
      */
     public HtmlBuilder h2End() {
         append("</h2>");
@@ -1070,7 +1270,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the h3 element [<h3].</p> 
+     * <p>
+     * The start of the h3 element [<h3].
+     * </p>
      */
     public HtmlBuilder h3() {
         append("<h3");
@@ -1079,7 +1281,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the h3 element [</h3>].</p>
+     * <p>
+     * The close tag of the h3 element [</h3>].
+     * </p>
      */
     public HtmlBuilder h3End() {
         append("</h3>");
@@ -1088,7 +1292,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the h4 element [<h4].</p> 
+     * <p>
+     * The start of the h4 element [<h4].
+     * </p>
      */
     public HtmlBuilder h4() {
         append("<h4");
@@ -1097,7 +1303,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the h4 element [</h4>].</p>
+     * <p>
+     * The close tag of the h4 element [</h4>].
+     * </p>
      */
     public HtmlBuilder h4End() {
         append("</h4>");
@@ -1106,7 +1314,9 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The start of the h5 element [<h5].</p> 
+     * <p>
+     * The start of the h5 element [<h5].
+     * </p>
      */
     public HtmlBuilder h5() {
         append("<h5");
@@ -1115,20 +1325,22 @@ public class HtmlBuilder {
     }
 
     /**
-     * <p>The close tag of the h5 element [</h5>].</p>
+     * <p>
+     * The close tag of the h5 element [</h5>].
+     * </p>
      */
     public HtmlBuilder h5End() {
         append("</h5>");
 
         return this;
     }
-    
+
     public HtmlBuilder script() {
         append("<script");
 
         return this;
     }
-    
+
     public HtmlBuilder scriptEnd() {
         append("</script>");
 
@@ -1140,13 +1352,13 @@ public class HtmlBuilder {
 
         return this;
     }
-    
+
     public HtmlBuilder caption() {
         append("<caption");
 
         return this;
     }
-    
+
     public HtmlBuilder captionEnd() {
         append("</caption>");
 

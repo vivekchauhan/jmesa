@@ -24,24 +24,24 @@ import org.jmesa.view.html.HtmlUtils;
  * @author Jeff Johnston
  */
 public class FirstPageItemRenderer extends AbstractItemRenderer {
-	public FirstPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
-		setToolbarItem(item);
-		setCoreContext(coreContext);
-	}
+    public FirstPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
+        setToolbarItem(item);
+        setCoreContext(coreContext);
+    }
 
-	public String render() {
+    public String render() {
         Limit limit = getCoreContext().getLimit();
-		int page = limit.getRowSelect().getPage();
+        int page = limit.getRowSelect().getPage();
 
-		StringBuilder action = new StringBuilder("javascript:");
+        StringBuilder action = new StringBuilder("javascript:");
         action.append("setPageToLimit('" + limit.getId() + "','" + 1 + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         ToolbarItem item = getToolbarItem();
         item.setAction(action.toString());
 
         if (!HtmlUtils.isFirstPageEnabled(page)) {
             return item.disabled();
-        } 
-        
+        }
+
         return item.enabled();
-	}
+    }
 }

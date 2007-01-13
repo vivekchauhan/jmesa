@@ -22,11 +22,11 @@ import org.jmesa.view.renderer.FilterRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlFilterRenderer extends FilterRenderer {
-	public String getStyle();
+    public String getStyle();
 
-	public void setStyle(String style);
+    public void setStyle(String style);
 
-	public String getStyleClass();
+    public String getStyleClass();
 
-	public void setStyleClass(String styleClass);
+    public void setStyleClass(String styleClass);
 }

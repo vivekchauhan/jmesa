@@ -24,30 +24,30 @@ import org.jmesa.view.renderer.AbstractCellRenderer;
  * @author Jeff Johnston
  */
 public class CsvCellRendererImpl extends AbstractCellRenderer implements CsvCellRenderer {
-	private String delimiter;
+    private String delimiter;
 
-	public CsvCellRendererImpl(Column column, CellEditor editor) {
-		setColumn(column);
-		setCellEditor(editor);
-	}
+    public CsvCellRendererImpl(Column column, CellEditor editor) {
+        setColumn(column);
+        setCellEditor(editor);
+    }
 
-	public String getDelimiter() {
-		return delimiter;
-	}
+    public String getDelimiter() {
+        return delimiter;
+    }
 
-	public void setDelimiter(String delimiter) {
-		this.delimiter = delimiter;
-	}
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
 
-	public Object render(Object item, int rowcount) {
-		StringBuilder data = new StringBuilder();
+    public Object render(Object item, int rowcount) {
+        StringBuilder data = new StringBuilder();
 
-		String property = getColumn().getProperty();
-		Object value = getCellEditor().getValue(item, property, rowcount);
+        String property = getColumn().getProperty();
+        Object value = getCellEditor().getValue(item, property, rowcount);
 
-		data.append(value);
-		data.append(delimiter);
+        data.append(value);
+        data.append(delimiter);
 
-		return data.toString();
-	}
+        return data.toString();
+    }
 }

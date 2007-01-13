@@ -32,22 +32,22 @@ import org.jmesa.limit.SortSet;
  * @author Jeff Johnston
  */
 public class MultiColumnSort implements ColumnSort {
-	public Collection sortItems(Collection items, Limit limit) {
-		ComparatorChain chain = new ComparatorChain();
-        
+    public Collection sortItems(Collection items, Limit limit) {
+        ComparatorChain chain = new ComparatorChain();
+
         SortSet sortSet = limit.getSortSet();
         for (Sort sort : sortSet.getSorts()) {
-			if (sort.getOrder() == Order.ASC) {
-				chain.addComparator(new BeanComparator(sort.getProperty(), new NullComparator()));
-			} else if (sort.getOrder() == Order.DESC) {
-				chain.addComparator(new BeanComparator(sort.getProperty(), new NullComparator()), true);
-			}
-		}
-        
+            if (sort.getOrder() == Order.ASC) {
+                chain.addComparator(new BeanComparator(sort.getProperty(), new NullComparator()));
+            } else if (sort.getOrder() == Order.DESC) {
+                chain.addComparator(new BeanComparator(sort.getProperty(), new NullComparator()), true);
+            }
+        }
+
         if (chain.size() > 0) {
-            Collections.sort((List)items, chain);
+            Collections.sort((List) items, chain);
         }
 
         return items;
-	}
+    }
 }

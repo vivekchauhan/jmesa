@@ -27,7 +27,8 @@ public class WebContextUtils {
      * converted to a String[]. In addition it will attempt to do a String
      * conversion for other object types.
      * 
-     * @param value The value to convert to an String[]
+     * @param value
+     *            The value to convert to an String[]
      * @return A String[] value.
      */
     public static String[] getValueAsArray(Object value) {

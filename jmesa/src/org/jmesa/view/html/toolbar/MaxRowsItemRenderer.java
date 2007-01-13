@@ -26,35 +26,36 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class MaxRowsItemRenderer extends AbstractItemRenderer {
-	public MaxRowsItemRenderer(ToolbarItem item, CoreContext coreContext) {
-		setToolbarItem(item);
-		setCoreContext(coreContext);
-	}
-	
-	@Override
-	public MaxRowsItemImpl getToolbarItem() {
-		return (MaxRowsItemImpl)super.getToolbarItem();
-	}
+    public MaxRowsItemRenderer(ToolbarItem item, CoreContext coreContext) {
+        setToolbarItem(item);
+        setCoreContext(coreContext);
+    }
 
-	public String render() {
-		MaxRowsItemImpl item = getToolbarItem();
-        
-		if (item.getIncrements().length == 0) {
-    		String increments[] = StringUtils.split(getCoreContext().getPreference(TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS), ",");
-    		int[] values = new int[increments.length]; 
-    		for (int i = 0; i < increments.length; i++) {
-				values[i] = Integer.valueOf(increments[i]);
-			}
-        	item.setIncrements(values);
+    @Override
+    public MaxRowsItemImpl getToolbarItem() {
+        return (MaxRowsItemImpl) super.getToolbarItem();
+    }
+
+    public String render() {
+        MaxRowsItemImpl item = getToolbarItem();
+
+        if (item.getIncrements().length == 0) {
+            String increments[] = StringUtils.split(getCoreContext().getPreference(TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS), ",");
+            int[] values = new int[increments.length];
+            for (int i = 0; i < increments.length; i++) {
+                values[i] = Integer.valueOf(increments[i]);
+            }
+            item.setIncrements(values);
         }
-		
+
         Limit limit = getCoreContext().getLimit();
         int maxRows = limit.getRowSelect().getMaxRows();
         item.setMaxRows(maxRows);
-        
-        StringBuilder action = new StringBuilder("setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);onInvokeAction('" + limit.getId() + "')");
+
+        StringBuilder action = new StringBuilder("setMaxRowsToLimit('" + limit.getId()
+                + "', this.options[this.selectedIndex].value);onInvokeAction('" + limit.getId() + "')");
         item.setAction(action.toString());
-        
+
         return item.enabled();
-	}
+    }
 }

@@ -15,7 +15,6 @@
  */
 package org.jmesa.core.preference;
 
-
 /**
  * @since 2.0
  * @author Jeff Johnston

@@ -19,12 +19,12 @@ package org.jmesa.view.html.toolbar;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface MaxRowsItem extends ToolbarItem  {
-	public int getMaxRows();
+public interface MaxRowsItem extends ToolbarItem {
+    public int getMaxRows();
 
-	public void setMaxRows(int maxRows);
+    public void setMaxRows(int maxRows);
 
-	public int[] getIncrements();
+    public int[] getIncrements();
 
-	public void setIncrements(int[] increments);
+    public void setIncrements(int[] increments);
 }

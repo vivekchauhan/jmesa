@@ -23,11 +23,11 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public interface Renderer {
-	public CoreContext getCoreContext();
+    public CoreContext getCoreContext();
 
-	public void setCoreContext(CoreContext coreContext);
-	
-	public WebContext getWebContext();
+    public void setCoreContext(CoreContext coreContext);
 
-	public void setWebContext(WebContext sebContext);
+    public WebContext getWebContext();
+
+    public void setWebContext(WebContext sebContext);
 }

@@ -22,6 +22,5 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jeff Johnston
  */
 public interface ViewResolver {
-	public void resolve(HttpServletResponse response, Object viewData, String fileName) 
-		throws Exception;
+    public void resolve(HttpServletResponse response, Object viewData, String fileName) throws Exception;
 }

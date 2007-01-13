@@ -20,15 +20,15 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ImageItem extends ToolbarItem {
-	public String getDisabledImage();
+    public String getDisabledImage();
 
-	public void setDisabledImage(String disabledImage);
+    public void setDisabledImage(String disabledImage);
 
-	public String getImage();
+    public String getImage();
 
-	public void setImage(String image);
+    public void setImage(String image);
 
-	public String getAlt();
+    public String getAlt();
 
-	public void setAlt(String alt);
+    public void setAlt(String alt);
 }

@@ -22,98 +22,98 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.renderer.AbstractTableRenderer;
 
 public class HtmlTableRendererImpl extends AbstractTableRenderer implements HtmlTableRenderer {
-	private String style;
-	private String styleClass;
+    private String style;
+    private String styleClass;
     private String border;
     private String cellpadding;
     private String cellspacing;
-	private String width;
-	
-	public HtmlTableRendererImpl(HtmlTable table) {
-		setTable(table);
-	}
+    private String width;
 
-	public HtmlTable getTable() {
-		return (HtmlTable)super.getTable();
-	}
+    public HtmlTableRendererImpl(HtmlTable table) {
+        setTable(table);
+    }
 
-	public String getStyle() {
-		return style;
-	}
+    public HtmlTable getTable() {
+        return (HtmlTable) super.getTable();
+    }
 
-	public void setStyle(String style) {
-		this.style = style;
-	}
+    public String getStyle() {
+        return style;
+    }
 
-	public String getStyleClass() {
-		if (StringUtils.isBlank(styleClass)) {
-			return getCoreContext().getPreference(HtmlConstants.TABLE_RENDERER_STYLE_CLASS);
-		}
+    public void setStyle(String style) {
+        this.style = style;
+    }
 
-		return styleClass;
-	}
+    public String getStyleClass() {
+        if (StringUtils.isBlank(styleClass)) {
+            return getCoreContext().getPreference(HtmlConstants.TABLE_RENDERER_STYLE_CLASS);
+        }
 
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
-	
-	public String getBorder() {
-		if (StringUtils.isBlank(border)) {
-			return "0";
-		}
-		
-		return border;
-	}
+        return styleClass;
+    }
 
-	public void setBorder(String border) {
-		this.border = border;
-	}
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
 
-	public String getCellpadding() {
-		if (StringUtils.isBlank(cellpadding)) {
-			return "0";
-		}
-		
-		return cellpadding;
-	}
+    public String getBorder() {
+        if (StringUtils.isBlank(border)) {
+            return "0";
+        }
 
-	public void setCellpadding(String cellpadding) {
-		this.cellpadding = cellpadding;
-	}
+        return border;
+    }
 
-	public String getCellspacing() {
-		if (StringUtils.isBlank(cellspacing)) {
-			return "0";
-		}
-		
-		return cellspacing;
-	}
+    public void setBorder(String border) {
+        this.border = border;
+    }
 
-	public void setCellspacing(String cellspacing) {
-		this.cellspacing = cellspacing;
-	}
-	
-	public String getWidth() {
-		return width;
-	}
+    public String getCellpadding() {
+        if (StringUtils.isBlank(cellpadding)) {
+            return "0";
+        }
 
-	public void setWidth(String width) {
-		this.width = width;
-	}
+        return cellpadding;
+    }
 
-	public Object render() {
-		HtmlBuilder html = new HtmlBuilder();
-		html.table(0);
-		String id = getCoreContext().getLimit().getId();
-		html.id(id);
-		html.border(getBorder()).cellpadding(getCellpadding()).cellspacing(getCellspacing());
-		html.style(getStyle());
-		html.styleClass(getStyleClass());
-		html.width(getWidth());
-		html.close();
-		
-		html.caption().close().append(getTable().getCaption()).captionEnd();
+    public void setCellpadding(String cellpadding) {
+        this.cellpadding = cellpadding;
+    }
 
-		return html;
-	}
+    public String getCellspacing() {
+        if (StringUtils.isBlank(cellspacing)) {
+            return "0";
+        }
+
+        return cellspacing;
+    }
+
+    public void setCellspacing(String cellspacing) {
+        this.cellspacing = cellspacing;
+    }
+
+    public String getWidth() {
+        return width;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
+    }
+
+    public Object render() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.table(0);
+        String id = getCoreContext().getLimit().getId();
+        html.id(id);
+        html.border(getBorder()).cellpadding(getCellpadding()).cellspacing(getCellspacing());
+        html.style(getStyle());
+        html.styleClass(getStyleClass());
+        html.width(getWidth());
+        html.close();
+
+        html.caption().close().append(getTable().getCaption()).captionEnd();
+
+        return html;
+    }
 }

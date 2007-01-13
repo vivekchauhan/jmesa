@@ -20,5 +20,5 @@ package org.jmesa.view.renderer;
  * @author Jeff Johnston
  */
 public interface FilterRenderer {
-	public Object render();
+    public Object render();
 }

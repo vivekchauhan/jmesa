@@ -23,13 +23,13 @@ import org.jmesa.view.component.Table;
  * @author Jeff Johnston
  */
 public abstract class AbstractTableRenderer extends ContextSupport implements TableRenderer {
-	private Table table;
-	
-	public Table getTable() {
-		return table;
-	}
+    private Table table;
 
-	public void setTable(Table table) {
-		this.table = table;
-	}
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
+    }
 }

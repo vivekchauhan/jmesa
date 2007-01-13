@@ -18,29 +18,28 @@ package org.jmesa.view.component;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 
-
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface Column {
-	public String getProperty();
-	
-	public void setProperty(String property);
-	
-	public String getTitle();
-	
-	public void setTitle(String title);
-	
-	public CellRenderer getCellRenderer();
-	
-	public void setCellRenderer(CellRenderer cellRenderer);
-	
-	public HeaderRenderer getHeaderRenderer();
-	
-	public void setHeaderRenderer(HeaderRenderer headerRenderer);
-	
-	public Row getRow();
-	
-	public void setRow(Row row);
+    public String getProperty();
+
+    public void setProperty(String property);
+
+    public String getTitle();
+
+    public void setTitle(String title);
+
+    public CellRenderer getCellRenderer();
+
+    public void setCellRenderer(CellRenderer cellRenderer);
+
+    public HeaderRenderer getHeaderRenderer();
+
+    public void setHeaderRenderer(HeaderRenderer headerRenderer);
+
+    public Row getRow();
+
+    public void setRow(Row row);
 }

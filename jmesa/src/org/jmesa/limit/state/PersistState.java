@@ -20,27 +20,27 @@ import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * Will always persist the state of the table without having to pass any 
+ * Will always persist the state of the table without having to pass any
  * additional parameters around.
- * </p> 
+ * </p>
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class PersistState implements State {
-	private final WebContext context;
-	private final String id;
+    private final WebContext context;
+    private final String id;
 
-	public PersistState(WebContext context, String id) {
-		this.context = context;
-		this.id = id;
-	}
+    public PersistState(WebContext context, String id) {
+        this.context = context;
+        this.id = id;
+    }
 
-	public Limit retrieveLimit() {
-		return (Limit) context.getSessionAttribute(id);
-	}
+    public Limit retrieveLimit() {
+        return (Limit) context.getSessionAttribute(id);
+    }
 
-	public void persistLimit(Limit limit) {
-		context.setSessionAttribute(id, limit);
-	}
+    public void persistLimit(Limit limit) {
+        context.setSessionAttribute(id, limit);
+    }
 }

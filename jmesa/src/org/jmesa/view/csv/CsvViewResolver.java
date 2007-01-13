@@ -24,15 +24,14 @@ import org.jmesa.view.ViewResolver;
  * @author Jeff Johnston
  */
 public class CsvViewResolver implements ViewResolver {
-	public void resolve(HttpServletResponse response, Object viewData, String fileName) 
-		throws Exception {
-		byte[] contents = ((String) viewData).getBytes();
-		response.setContentType("text/plain");
-		response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-		response.setHeader("Pragma", "public");
-		response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
-		response.setContentLength(contents.length);
-		response.getOutputStream().write(contents);
-	}
+    public void resolve(HttpServletResponse response, Object viewData, String fileName) throws Exception {
+        byte[] contents = ((String) viewData).getBytes();
+        response.setContentType("text/plain");
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+        response.setHeader("Pragma", "public");
+        response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
+        response.setContentLength(contents.length);
+        response.getOutputStream().write(contents);
+    }
 }

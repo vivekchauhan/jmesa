@@ -21,32 +21,32 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
- * An immutable class that is used to sort the rows that are returned for a 
- * table. The property is the Bean (Or Map) attribute that will used to sort 
- * the results based on the order. Or, in other words, it is simply the column 
- * that the user is trying to sort in the order specified.
+ * An immutable class that is used to sort the rows that are returned for a
+ * table. The property is the Bean (Or Map) attribute that will used to sort the
+ * results based on the order. Or, in other words, it is simply the column that
+ * the user is trying to sort in the order specified.
  * </p>
  * 
  * <p>
  * The property can use dot (.) notation to access nested classes. For example
- * if you have an object called President that is composed with another object called
- * Name then your property would be name.firstName
+ * if you have an object called President that is composed with another object
+ * called Name then your property would be name.firstName
  * 
  * <pre>
  * public class President {
- *    private Name name;
+ *     private Name name;
  * 
- *    public Name getName() {
- *       return name;
- *    }
+ *     public Name getName() {
+ *         return name;
+ *     }
  * }
- *
+ * 
  * public class Name {
- *    private String firstName;
- *
- *    public String getFirstName() {
- *       return firstName;
- *    }
+ *     private String firstName;
+ * 
+ *     public String getFirstName() {
+ *         return firstName;
+ *     }
  * }
  * </pre>
  * 
@@ -56,13 +56,14 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public final class Sort implements Serializable, Comparable {
-	private final int position;
+    private final int position;
     private final String property;
     private final Order order;
 
     public Sort(int position, String property, Order order) {
-    	//TODO: rewrite all properties with underscores to be with dot notation.
-    	this.position = position;
+        // TODO: rewrite all properties with underscores to be with dot
+        // notation.
+        this.position = position;
         this.property = property;
         this.order = order;
     }
@@ -75,48 +76,48 @@ public final class Sort implements Serializable, Comparable {
     }
 
     /**
-     * @return Will be used to sort the results. 
+     * @return Will be used to sort the results.
      */
     public Order getOrder() {
         return order;
     }
 
     /**
-     * @return The placement of the Sort within the SortSet.  
+     * @return The placement of the Sort within the SortSet.
      */
-	public int getPosition() {
-		return position;
-	}
+    public int getPosition() {
+        return position;
+    }
 
-	/**
-	 * A Sort is compared by its position. This follows the natural ordering 
-	 * because the assumption is that each Sort has a unique property with 
-	 * a unique order. Or, in other words, if two Sort objects have the same
-	 * property then they have to have the same position. And in the same manner
-	 * if two Sort objects have the same position they better have the same 
-	 * property.
-	 */
-	public int compareTo(Object o) {
-	    if (!(o instanceof Sort)) {
-	    	throw new ClassCastException("A Sort object expected.");
-	    }
-	    
-	    Sort sort = (Sort)o;
-
-	    if (this.getPosition() < sort.getPosition()) {
-	    	return -1;
-	    }
-	    
-	    if (this.getPosition() == sort.getPosition()) {
-	    	return 0;
-	    }
-	    
-	    return 1;
-	}
-    
     /**
-     * Equality is based on the property. Or, in other words no two 
-     * Sort Objects can have the same property.
+     * A Sort is compared by its position. This follows the natural ordering
+     * because the assumption is that each Sort has a unique property with a
+     * unique order. Or, in other words, if two Sort objects have the same
+     * property then they have to have the same position. And in the same manner
+     * if two Sort objects have the same position they better have the same
+     * property.
+     */
+    public int compareTo(Object o) {
+        if (!(o instanceof Sort)) {
+            throw new ClassCastException("A Sort object expected.");
+        }
+
+        Sort sort = (Sort) o;
+
+        if (this.getPosition() < sort.getPosition()) {
+            return -1;
+        }
+
+        if (this.getPosition() == sort.getPosition()) {
+            return 0;
+        }
+
+        return 1;
+    }
+
+    /**
+     * Equality is based on the property. Or, in other words no two Sort Objects
+     * can have the same property.
      */
     @Override
     public boolean equals(Object o) {
@@ -130,7 +131,7 @@ public final class Sort implements Serializable, Comparable {
 
         return that.getProperty().equals(this.getProperty());
     }
-    
+
     @Override
     public int hashCode() {
         int result = 17;

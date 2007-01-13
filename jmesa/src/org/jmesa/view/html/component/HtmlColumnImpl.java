@@ -25,47 +25,48 @@ import org.jmesa.view.renderer.FilterRenderer;
  * @author Jeff Johnston
  */
 public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
-	private boolean filterable = true;
-	private boolean sortable = true;
-	private FilterRenderer filterRenderer;
+    private boolean filterable = true;
+    private boolean sortable = true;
+    private FilterRenderer filterRenderer;
 
-	public HtmlColumnImpl(){}
-	
-	public HtmlColumnImpl(String property) {
-		setProperty(property);
-	}
+    public HtmlColumnImpl() {
+    }
 
-	public boolean isFilterable() {
-		return filterable;
-	}
+    public HtmlColumnImpl(String property) {
+        setProperty(property);
+    }
 
-	public void setFilterable(boolean filterable) {
-		this.filterable = filterable;
-	}
+    public boolean isFilterable() {
+        return filterable;
+    }
 
-	public boolean isSortable() {
-		return sortable;
-	}
+    public void setFilterable(boolean filterable) {
+        this.filterable = filterable;
+    }
 
-	public void setSortable(boolean sortable) {
-		this.sortable = sortable;
-	}
+    public boolean isSortable() {
+        return sortable;
+    }
 
-	public FilterRenderer getFilterRenderer() {
-		return filterRenderer;
-	}
+    public void setSortable(boolean sortable) {
+        this.sortable = sortable;
+    }
 
-	public void setFilterRenderer(FilterRenderer filterRenderer) {
-		this.filterRenderer = filterRenderer;
-	}
-	
-	@Override
-	public HtmlCellRenderer getCellRenderer() {
-		return (HtmlCellRenderer)super.getCellRenderer();
-	}
-	
-	@Override
-	public HtmlHeaderRenderer getHeaderRenderer() {
-		return (HtmlHeaderRenderer)super.getHeaderRenderer();
-	}
+    public FilterRenderer getFilterRenderer() {
+        return filterRenderer;
+    }
+
+    public void setFilterRenderer(FilterRenderer filterRenderer) {
+        this.filterRenderer = filterRenderer;
+    }
+
+    @Override
+    public HtmlCellRenderer getCellRenderer() {
+        return (HtmlCellRenderer) super.getCellRenderer();
+    }
+
+    @Override
+    public HtmlHeaderRenderer getHeaderRenderer() {
+        return (HtmlHeaderRenderer) super.getHeaderRenderer();
+    }
 }

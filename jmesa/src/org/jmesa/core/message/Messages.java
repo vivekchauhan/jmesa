@@ -15,13 +15,12 @@
  */
 package org.jmesa.core.message;
 
-
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface Messages {
     public String getMessage(String code);
-    
+
     public String getMessage(String code, Object[] args);
 }

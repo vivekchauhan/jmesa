@@ -26,5 +26,5 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public interface CoreContext extends Items, Messages, Preferences {
-	public Limit getLimit();
+    public Limit getLimit();
 }

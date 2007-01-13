@@ -31,42 +31,42 @@ import org.jmesa.limit.FilterSet;
  * @author Jeff Johnston
  */
 public final class FilterPredicate implements Predicate {
-	private static Log logger = LogFactory.getLog(FilterPredicate.class);
+    private static Log logger = LogFactory.getLog(FilterPredicate.class);
 
-	private Map<Filter, FilterMatch> matches;
-	private FilterSet filterSet;
+    private Map<Filter, FilterMatch> matches;
+    private FilterSet filterSet;
 
-	public FilterPredicate(Map<Filter, FilterMatch> matches, FilterSet filterSet) {
-		this.matches = matches;
-		this.filterSet = filterSet;
-	}
+    public FilterPredicate(Map<Filter, FilterMatch> matches, FilterSet filterSet) {
+        this.matches = matches;
+        this.filterSet = filterSet;
+    }
 
-	/**
-	 * Use the filter parameters to filter out the table.
-	 */
-	public boolean evaluate(Object item) {
-		boolean result = false;
+    /**
+     * Use the filter parameters to filter out the table.
+     */
+    public boolean evaluate(Object item) {
+        boolean result = false;
 
-		try {
-			for (Filter filter : filterSet.getFilters()) {
-				String property = filter.getProperty();
-				Object value = PropertyUtils.getProperty(item, property);
+        try {
+            for (Filter filter : filterSet.getFilters()) {
+                String property = filter.getProperty();
+                Object value = PropertyUtils.getProperty(item, property);
 
-				if (value != null) {
-					FilterMatch match = matches.get(filter);
-					result = match.evaluate(value, filter.getValue());
-				}
-				
-				// short circuit if does not match
-				if (result == false) {
-					return false;
-				}
-				
-			}
-		} catch (Exception e) {
-			logger.error("Had problems evaluating the items.", e);
-		}
+                if (value != null) {
+                    FilterMatch match = matches.get(filter);
+                    result = match.evaluate(value, filter.getValue());
+                }
 
-		return result;
-	}
+                // short circuit if does not match
+                if (result == false) {
+                    return false;
+                }
+
+            }
+        } catch (Exception e) {
+            logger.error("Had problems evaluating the items.", e);
+        }
+
+        return result;
+    }
 }

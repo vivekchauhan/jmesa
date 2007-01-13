@@ -23,31 +23,31 @@ import java.util.Map;
  * @author Jeff Johnston
  */
 public class FilterMatchRegistryImpl implements FilterMatchRegistry {
-	private Map<MatchKey, FilterMatch> matches = new HashMap<MatchKey, FilterMatch>();
-	
-	public void addFilterMatch(MatchKey key, FilterMatch match) {
-		matches.put(key, match);
-	}
+    private Map<MatchKey, FilterMatch> matches = new HashMap<MatchKey, FilterMatch>();
 
-	public FilterMatch getFilterMatch(MatchKey key) {
-		FilterMatch match = matches.get(key);
-		
-		if (match == null) {
-			// take off property and see if find match
-			key = new MatchKey(key.getType(), key.getId(), null); 
-			match = matches.get(key);
-		}
-		
-		if (match == null) {
-			// take off id and property and see if find match
-			key = new MatchKey(key.getType(), null, null);
-			match = matches.get(key);
-		}
+    public void addFilterMatch(MatchKey key, FilterMatch match) {
+        matches.put(key, match);
+    }
 
-		if (match != null) {
-			return match;
-		}
+    public FilterMatch getFilterMatch(MatchKey key) {
+        FilterMatch match = matches.get(key);
 
-		throw new IllegalArgumentException("There is no Match with the MatchKey [" + key.toString() + "]");
-	}
+        if (match == null) {
+            // take off property and see if find match
+            key = new MatchKey(key.getType(), key.getId(), null);
+            match = matches.get(key);
+        }
+
+        if (match == null) {
+            // take off id and property and see if find match
+            key = new MatchKey(key.getType(), null, null);
+            match = matches.get(key);
+        }
+
+        if (match != null) {
+            return match;
+        }
+
+        throw new IllegalArgumentException("There is no Match with the MatchKey [" + key.toString() + "]");
+    }
 }

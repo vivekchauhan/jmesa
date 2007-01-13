@@ -34,7 +34,7 @@ public class HttpServletRequestWebContext implements WebContext {
     public HttpServletRequestWebContext(HttpServletRequest request) {
         this.request = request;
     }
-    
+
     public Object getApplicationInitParameter(String name) {
         return request.getSession().getServletContext().getInitParameter(name);
     }
@@ -70,7 +70,7 @@ public class HttpServletRequestWebContext implements WebContext {
                 return values[0];
             }
         }
-        
+
         return request.getParameter(name);
     }
 
@@ -82,11 +82,11 @@ public class HttpServletRequestWebContext implements WebContext {
         return request.getParameterMap();
     }
 
-	public void setParameterMap(Map parameterMap) {
-		this.parameterMap = parameterMap;
-	}
+    public void setParameterMap(Map parameterMap) {
+        this.parameterMap = parameterMap;
+    }
 
-	public Object getRequestAttribute(String name) {
+    public Object getRequestAttribute(String name) {
         return request.getAttribute(name);
     }
 
@@ -115,16 +115,16 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public Locale getLocale() {
-    	if (locale != null) {
-    		return locale;
-    	}
-    	
+        if (locale != null) {
+            return locale;
+        }
+
         return request.getLocale();
     }
-    
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
     public String getContextPath() {
         return request.getContextPath();

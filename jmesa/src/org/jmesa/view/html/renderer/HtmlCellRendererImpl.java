@@ -25,49 +25,49 @@ import org.jmesa.view.renderer.AbstractCellRenderer;
  * @author Jeff Johnston
  */
 public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCellRenderer {
-	private String style;
-	private String styleClass;
-	
-	public HtmlCellRendererImpl(HtmlColumn column, CellEditor editor) {
-		setColumn(column);
-		setCellEditor(editor);
-	}
-	
-	public HtmlColumn getColumn() {
-		return (HtmlColumn)super.getColumn();
-	}
-	
-	public String getStyle() {
-		return style;
-	}
-	
-	public void setStyle(String style) {
-		this.style = style;
-	}
+    private String style;
+    private String styleClass;
 
-	public String getStyleClass() {
-		return styleClass;
-	}
+    public HtmlCellRendererImpl(HtmlColumn column, CellEditor editor) {
+        setColumn(column);
+        setCellEditor(editor);
+    }
 
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
-	
-	public Object render(Object item, int rowcount) {
-		HtmlBuilder html = new HtmlBuilder();
-		html.td(2);
-		html.style(getStyle());
-		html.styleClass(getStyleClass());
-		html.close();
-		
-		String property = getColumn().getProperty();
-		Object value = getCellEditor().getValue(item, property, rowcount);
-		if (value != null) {
-			html.append(value.toString());
-		}
-		
-		html.tdEnd();
-		
-		return html;
-	}
+    public HtmlColumn getColumn() {
+        return (HtmlColumn) super.getColumn();
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    public Object render(Object item, int rowcount) {
+        HtmlBuilder html = new HtmlBuilder();
+        html.td(2);
+        html.style(getStyle());
+        html.styleClass(getStyleClass());
+        html.close();
+
+        String property = getColumn().getProperty();
+        Object value = getCellEditor().getValue(item, property, rowcount);
+        if (value != null) {
+            html.append(value.toString());
+        }
+
+        html.tdEnd();
+
+        return html;
+    }
 }

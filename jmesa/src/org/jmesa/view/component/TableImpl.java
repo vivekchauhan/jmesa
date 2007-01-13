@@ -23,31 +23,31 @@ import org.jmesa.view.renderer.TableRenderer;
  * @author Jeff Johnston
  */
 public class TableImpl extends ContextSupport implements Table {
-	private Row row;
-	private String caption;
-	private TableRenderer tableRenderer;
-	
-	public String getCaption() {
-		return caption;
-	}
+    private Row row;
+    private String caption;
+    private TableRenderer tableRenderer;
 
-	public void setCaption(String caption) {
-		this.caption = caption;
-	}
-	
-	public Row getRow() {
-		return row;
-	}
+    public String getCaption() {
+        return caption;
+    }
 
-	public void setRow(Row row) {
-		this.row = row;
-	}
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
 
-	public TableRenderer getTableRenderer() {
-		return tableRenderer;
-	}
+    public Row getRow() {
+        return row;
+    }
 
-	public void setTableRenderer(TableRenderer tableRenderer) {
-		this.tableRenderer = tableRenderer;
-	}
+    public void setRow(Row row) {
+        this.row = row;
+    }
+
+    public TableRenderer getTableRenderer() {
+        return tableRenderer;
+    }
+
+    public void setTableRenderer(TableRenderer tableRenderer) {
+        this.tableRenderer = tableRenderer;
+    }
 }

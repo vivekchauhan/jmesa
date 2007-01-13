@@ -36,57 +36,57 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class HtmlComponentFactory extends AbstractComponentFactory {
-	public HtmlComponentFactory(WebContext webContext, CoreContext coreContext) {
-		setWebContext(webContext);
-		setCoreContext(coreContext);
-	}
-	
-	public HtmlTable createTable() {
-		HtmlTableImpl table = new HtmlTableImpl();
-		table.setWebContext(getWebContext());
-		table.setCoreContext(getCoreContext());
-		
-		HtmlTableRendererImpl tableRenderer = new HtmlTableRendererImpl(table);
-		tableRenderer.setWebContext(getWebContext());
-		tableRenderer.setCoreContext(getCoreContext());
-		table.setTableRenderer(tableRenderer);
-		
-		return table;
-	}
+    public HtmlComponentFactory(WebContext webContext, CoreContext coreContext) {
+        setWebContext(webContext);
+        setCoreContext(coreContext);
+    }
 
-	public HtmlRow createRow() {
-		HtmlRowImpl row = new HtmlRowImpl();
-		row.setWebContext(getWebContext());
-		row.setCoreContext(getCoreContext());
-		
-		HtmlRowRendererImpl rowRenderer = new HtmlRowRendererImpl(row);
-		rowRenderer.setWebContext(getWebContext());
-		rowRenderer.setCoreContext(getCoreContext());
-		row.setRowRenderer(rowRenderer);
-		
-		return row;
-	}
+    public HtmlTable createTable() {
+        HtmlTableImpl table = new HtmlTableImpl();
+        table.setWebContext(getWebContext());
+        table.setCoreContext(getCoreContext());
 
-	public HtmlColumn createColumn(String property, CellEditor editor) {
-		HtmlColumnImpl column = new HtmlColumnImpl(property);
-		column.setWebContext(getWebContext());
-		column.setCoreContext(getCoreContext());
-		
-		HtmlCellRendererImpl columnRenderer = new HtmlCellRendererImpl(column, editor);
-		columnRenderer.setWebContext(getWebContext());
-		columnRenderer.setCoreContext(getCoreContext());
-		column.setCellRenderer(columnRenderer);
-		
-		HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
-		headerRenderer.setWebContext(getWebContext());
-		headerRenderer.setCoreContext(getCoreContext());
-		column.setHeaderRenderer(headerRenderer);
+        HtmlTableRendererImpl tableRenderer = new HtmlTableRendererImpl(table);
+        tableRenderer.setWebContext(getWebContext());
+        tableRenderer.setCoreContext(getCoreContext());
+        table.setTableRenderer(tableRenderer);
 
-		HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
-		filterRenderer.setWebContext(getWebContext());
-		filterRenderer.setCoreContext(getCoreContext());
-		column.setFilterRenderer(filterRenderer);
+        return table;
+    }
 
-		return column;
-	}
+    public HtmlRow createRow() {
+        HtmlRowImpl row = new HtmlRowImpl();
+        row.setWebContext(getWebContext());
+        row.setCoreContext(getCoreContext());
+
+        HtmlRowRendererImpl rowRenderer = new HtmlRowRendererImpl(row);
+        rowRenderer.setWebContext(getWebContext());
+        rowRenderer.setCoreContext(getCoreContext());
+        row.setRowRenderer(rowRenderer);
+
+        return row;
+    }
+
+    public HtmlColumn createColumn(String property, CellEditor editor) {
+        HtmlColumnImpl column = new HtmlColumnImpl(property);
+        column.setWebContext(getWebContext());
+        column.setCoreContext(getCoreContext());
+
+        HtmlCellRendererImpl columnRenderer = new HtmlCellRendererImpl(column, editor);
+        columnRenderer.setWebContext(getWebContext());
+        columnRenderer.setCoreContext(getCoreContext());
+        column.setCellRenderer(columnRenderer);
+
+        HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
+        headerRenderer.setWebContext(getWebContext());
+        headerRenderer.setCoreContext(getCoreContext());
+        column.setHeaderRenderer(headerRenderer);
+
+        HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
+        filterRenderer.setWebContext(getWebContext());
+        filterRenderer.setCoreContext(getCoreContext());
+        column.setFilterRenderer(filterRenderer);
+
+        return column;
+    }
 }

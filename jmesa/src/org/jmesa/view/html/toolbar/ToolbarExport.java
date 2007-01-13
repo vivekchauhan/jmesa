@@ -23,59 +23,59 @@ import org.jmesa.limit.Export;
  * @author Jeff Johnston
  */
 public class ToolbarExport extends Export {
-	private String text;
-	private String tooltip;
-	private String image;
-	private String action;
-	
-	public ToolbarExport(String type) {
-		super(type);
-	}
+    private String text;
+    private String tooltip;
+    private String image;
+    private String action;
 
-	public ToolbarExport(String type, String image) {
-		super(type);
-		this.image = image;
-	}
+    public ToolbarExport(String type) {
+        super(type);
+    }
 
-	/**
-	 * If used for an image then this can be used for the alt option. Otherwise
-	 * it is used as straight text to display.
-	 * 
-	 * @return
-	 */
-	public String getText() {
-		if (StringUtils.isBlank(text)) {
-			return getType();
-		}
-		
-		return text;
-	}
+    public ToolbarExport(String type, String image) {
+        super(type);
+        this.image = image;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    /**
+     * If used for an image then this can be used for the alt option. Otherwise
+     * it is used as straight text to display.
+     * 
+     * @return
+     */
+    public String getText() {
+        if (StringUtils.isBlank(text)) {
+            return getType();
+        }
 
-	public String getTooltip() {
-		return tooltip;
-	}
+        return text;
+    }
 
-	public void setTooltip(String tooltip) {
-		this.tooltip = tooltip;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public String getTooltip() {
+        return tooltip;
+    }
 
-	public void setImage(String imageName) {
-		this.image = imageName;
-	}
+    public void setTooltip(String tooltip) {
+        this.tooltip = tooltip;
+    }
 
-	public String getAction() {
-		return action;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public void setAction(String action) {
-		this.action = action;
-	}
+    public void setImage(String imageName) {
+        this.image = imageName;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 }

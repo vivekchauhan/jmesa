@@ -25,11 +25,11 @@ import org.jmesa.view.editor.CellEditor;
  * @author Jeff Johnston
  */
 public interface ComponentFactory {
-	public Table createTable();
-	
-	public Row createRow();
-	
-	public Column createColumn(String property, CellEditor editor);
-	
-	public CellEditor createBasicCellEditor();
+    public Table createTable();
+
+    public Row createRow();
+
+    public Column createColumn(String property, CellEditor editor);
+
+    public CellEditor createBasicCellEditor();
 }

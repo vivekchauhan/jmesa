@@ -30,7 +30,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ResourceBundleMessages implements Messages {
-	private static Log logger = LogFactory.getLog(ResourceBundleMessages.class);
+    private static Log logger = LogFactory.getLog(ResourceBundleMessages.class);
 
     private final static String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/jmesaResourceBundle";
 
@@ -51,7 +51,8 @@ public class ResourceBundleMessages implements Messages {
             return ResourceBundle.getBundle(resourceBundleLocation, locale, getClass().getClassLoader());
         } catch (MissingResourceException e) {
             if (logger.isErrorEnabled()) {
-                logger.error("The resource bundle [" + resourceBundleLocation + "] was not found. Make sure the path and resource name is correct.", e);
+                logger.error("The resource bundle [" + resourceBundleLocation + "] was not found. "
+                        + "Make sure the path and resource name is correct.", e);
             }
         }
 

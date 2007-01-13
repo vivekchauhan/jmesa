@@ -24,11 +24,11 @@ import org.jmesa.view.renderer.RowRenderer;
  * @author Jeff Johnston
  */
 public interface Row {
-	public List<Column> getColumns();
-	
-	public void addColumn(Column column);
-	
-	public RowRenderer getRowRenderer();
-	
-	public void setRowRenderer(RowRenderer renderer);
+    public List<Column> getColumns();
+
+    public void addColumn(Column column);
+
+    public RowRenderer getRowRenderer();
+
+    public void setRowRenderer(RowRenderer renderer);
 }

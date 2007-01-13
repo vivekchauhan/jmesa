@@ -52,26 +52,27 @@ public class ImageItemImpl extends AbstractItem implements ImageItem {
     }
 
     public String disabled() {
-    	HtmlBuilder html = new HtmlBuilder();
+        HtmlBuilder html = new HtmlBuilder();
         html.img().src(getDisabledImage()).style(getStyle()).alt(getAlt()).end();
         return html.toString();
     }
 
     public String enabled() {
-    	HtmlBuilder html = new HtmlBuilder();
+        HtmlBuilder html = new HtmlBuilder();
         html.a();
         html.quote();
         html.append(getAction());
         html.quote().close();
 
         if (StringUtils.isNotBlank(getTooltip())) {
-            html.img().src(getImage()).style(getStyle()).title(getTooltip()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
+            html.img().src(getImage()).style(getStyle()).title(getTooltip()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt())
+                    .end();
         } else {
             html.img().src(getImage()).style(getStyle()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
         }
 
         html.aEnd();
-        
+
         return html.toString();
     }
 }

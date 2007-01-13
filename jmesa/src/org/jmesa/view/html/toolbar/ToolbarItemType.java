@@ -20,12 +20,12 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public enum ToolbarItemType {
-	FIRST_PAGE_ITEM,
-	PREV_PAGE_ITEM,
-	NEXT_PAGE_ITEM,
-	LAST_PAGE_ITEM,
-	MAX_ROWS_ITEM,
-	FILTER_ITEM,
-	CLEAR_ITEM,
-	SEPARATOR;
+    FIRST_PAGE_ITEM, 
+    PREV_PAGE_ITEM, 
+    NEXT_PAGE_ITEM, 
+    LAST_PAGE_ITEM, 
+    MAX_ROWS_ITEM, 
+    FILTER_ITEM, 
+    CLEAR_ITEM, 
+    SEPARATOR;
 }

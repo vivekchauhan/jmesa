@@ -22,13 +22,13 @@ import org.jmesa.view.component.Table;
  * @author Jeff Johnston
  */
 public interface TableRenderer {
-	public Table getTable();
-	
-	public void setTable(Table table);
-	
-	public String getWidth();
-	
-	public void setWidth(String width);
-	
-	public Object render();
+    public Table getTable();
+
+    public void setTable(Table table);
+
+    public String getWidth();
+
+    public void setWidth(String width);
+
+    public Object render();
 }

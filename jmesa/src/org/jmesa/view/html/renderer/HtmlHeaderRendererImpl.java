@@ -30,96 +30,99 @@ import org.jmesa.view.renderer.AbstractHeaderRenderer;
  * @author Jeff Johnston
  */
 public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements HtmlHeaderRenderer {
-	private String style;
-	private String styleClass;
+    private String style;
+    private String styleClass;
 
-	public HtmlHeaderRendererImpl(HtmlColumn column) {
-		setColumn(column);
-	}
-	
-	public HtmlColumn getColumn() {
-		return (HtmlColumn)super.getColumn();
-	}
-	
-	public String getStyle() {
-		return style;
-	}
+    public HtmlHeaderRendererImpl(HtmlColumn column) {
+        setColumn(column);
+    }
 
-	public void setStyle(String style) {
-		this.style = style;
-	}
+    public HtmlColumn getColumn() {
+        return (HtmlColumn) super.getColumn();
+    }
 
-	public String getStyleClass() {
-		if (StringUtils.isBlank(styleClass)) {
-			return getCoreContext().getPreference(HtmlConstants.COLUMN_RENDERER_HEADER_STYLE_CLASS);
-		}
-		
-		return styleClass;
-	}
+    public String getStyle() {
+        return style;
+    }
 
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
-	
-	public Object render() {
-		HtmlBuilder html = new HtmlBuilder();
-		
-    	Limit limit = getCoreContext().getLimit();
-		HtmlColumn column = getColumn();
+    public void setStyle(String style) {
+        this.style = style;
+    }
 
-		html.td(2);
-		html.style(getStyle());
-		html.styleClass(getStyleClass());
-		
+    public String getStyleClass() {
+        if (StringUtils.isBlank(styleClass)) {
+            return getCoreContext().getPreference(HtmlConstants.COLUMN_RENDERER_HEADER_STYLE_CLASS);
+        }
+
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    public Object render() {
+        HtmlBuilder html = new HtmlBuilder();
+
+        Limit limit = getCoreContext().getLimit();
+        HtmlColumn column = getColumn();
+
+        html.td(2);
+        html.style(getStyle());
+        html.styleClass(getStyleClass());
+
         if (column.isSortable()) {
             Sort sort = limit.getSortSet().getSort(column.getProperty());
-        	if (sort != null) {
-        		if (sort.getOrder() == Order.ASC) {
-                    html.onmouseover("this.style.cursor='pointer'");
-                    html.onmouseout("this.style.cursor='default'");
-            		int position = column.getRow().getColumns().indexOf(column);
-                    html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" + Order.DESC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
-        		} else if (sort.getOrder() == Order.DESC) {
+            if (sort != null) {
+                if (sort.getOrder() == Order.ASC) {
                     html.onmouseover("this.style.cursor='pointer'");
                     html.onmouseout("this.style.cursor='default'");
                     int position = column.getRow().getColumns().indexOf(column);
-                    html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
-        		}
-        	} else {
+                    html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" 
+                            + Order.DESC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
+                } else if (sort.getOrder() == Order.DESC) {
+                    html.onmouseover("this.style.cursor='pointer'");
+                    html.onmouseout("this.style.cursor='default'");
+                    int position = column.getRow().getColumns().indexOf(column);
+                    html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "','" 
+                            + position + "');onInvokeAction('" + limit.getId() + "')");
+                }
+            } else {
                 html.onmouseover("this.style.cursor='pointer'");
                 html.onmouseout("this.style.cursor='default'");
                 int position = column.getRow().getColumns().indexOf(column);
-                html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" + Order.ASC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
-        	}
+                html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" 
+                        + Order.ASC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
+            }
         }
-        
-		html.close();
-		html.append(column.getTitle());
-		
+
+        html.close();
+        html.append(column.getTitle());
+
         if (column.isSortable()) {
-        	String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
+            String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
             Sort sort = limit.getSortSet().getSort(column.getProperty());
-        	if (sort != null) {
-        		if (sort.getOrder() == Order.ASC) {
+            if (sort != null) {
+                if (sort.getOrder() == Order.ASC) {
                     html.nbsp();
                     html.img();
                     html.src(imagesPath + getCoreContext().getPreference(HtmlConstants.SORT_ASC_IMAGE));
                     html.style("border:0");
                     html.alt("Arrow");
                     html.end();
-        		} else if (sort.getOrder() == Order.DESC) {
+                } else if (sort.getOrder() == Order.DESC) {
                     html.nbsp();
                     html.img();
                     html.src(imagesPath + getCoreContext().getPreference(HtmlConstants.SORT_DESC_IMAGE));
                     html.style("border:0");
                     html.alt("Arrow");
                     html.end();
-        		}
-        	}
+                }
+            }
         }
-        
-		html.tdEnd();
-		
-		return html;
-	}
+
+        html.tdEnd();
+
+        return html;
+    }
 }

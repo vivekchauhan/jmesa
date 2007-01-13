@@ -22,15 +22,15 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public interface LimitActionFactory {
-	public String getId();
-	
-	public Integer getMaxRows();
+    public String getId();
 
-	public int getPage();
-	
-	public FilterSet getFilterSet();
-	
-	public SortSet getSortSet();
-	
-	public Export getExport();
+    public Integer getMaxRows();
+
+    public int getPage();
+
+    public FilterSet getFilterSet();
+
+    public SortSet getSortSet();
+
+    public Export getExport();
 }

@@ -19,8 +19,8 @@ import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * Uses the default implementation of the Limit and RowSelect to construct
- * a LimitImpl and a BasicRowSelect object.
+ * Uses the default implementation of the Limit and RowSelect to construct a
+ * LimitImpl and a BasicRowSelect object.
  * </p>
  * 
  * <p>
@@ -29,18 +29,18 @@ import org.jmesa.web.WebContext;
  * 
  * <p>
  * First you need to pass in a String id and Map of parameters to get a Limit.
- * </p> 
+ * </p>
  * 
  * <pre>
- * String id = "pres";
+ * String id = &quot;pres&quot;;
  * Map parameters = request.getParameterMap();
  * 
  * LimitFactory limitFactory = new LimitFactoryImpl(id, parameters);
  * Limit limit = limitFactory.createLimit();
  * </pre>
  * 
- * Once you have a Limit you can use the FilterSet on the Limit to figure out 
- * the total rows. With the total rows you can now create a RowSelect. Lastly, 
+ * Once you have a Limit you can use the FilterSet on the Limit to figure out
+ * the total rows. With the total rows you can now create a RowSelect. Lastly,
  * set the RowSelect on the Limit and your done!
  * 
  * <pre>
@@ -56,41 +56,41 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class LimitFactoryImpl implements LimitFactory {
-	private final LimitActionFactory limitActionFactory;
+    private final LimitActionFactory limitActionFactory;
 
-	public LimitFactoryImpl(String id, WebContext context) {
-		this.limitActionFactory = new LimitActionFactoryImpl(id, context.getParameterMap());
-	}
+    public LimitFactoryImpl(String id, WebContext context) {
+        this.limitActionFactory = new LimitActionFactoryImpl(id, context.getParameterMap());
+    }
 
-	public Limit createLimit() {
-		Limit limit = new LimitImpl(limitActionFactory.getId());
+    public Limit createLimit() {
+        Limit limit = new LimitImpl(limitActionFactory.getId());
 
-		FilterSet filterSet = limitActionFactory.getFilterSet();
-		limit.setFilterSet(filterSet);
+        FilterSet filterSet = limitActionFactory.getFilterSet();
+        limit.setFilterSet(filterSet);
 
-		SortSet sortSet = limitActionFactory.getSortSet();
-		limit.setSortSet(sortSet);
+        SortSet sortSet = limitActionFactory.getSortSet();
+        limit.setSortSet(sortSet);
 
-		Export export = limitActionFactory.getExport();
-		limit.setExport(export);
+        Export export = limitActionFactory.getExport();
+        limit.setExport(export);
 
-		return limit;
-	}
+        return limit;
+    }
 
-	public RowSelect createRowSelect(int maxRows, int totalRows) {
-		int page = limitActionFactory.getPage();
+    public RowSelect createRowSelect(int maxRows, int totalRows) {
+        int page = limitActionFactory.getPage();
 
-		maxRows = getMaxRows(maxRows);
+        maxRows = getMaxRows(maxRows);
 
-		return new RowSelectImpl(page, maxRows, totalRows);
-	}
+        return new RowSelectImpl(page, maxRows, totalRows);
+    }
 
-	protected int getMaxRows(int maxRows) {
-		Integer currentMaxRows = limitActionFactory.getMaxRows();
-		if (currentMaxRows == null) {
-			return maxRows;
-		}
+    protected int getMaxRows(int maxRows) {
+        Integer currentMaxRows = limitActionFactory.getMaxRows();
+        if (currentMaxRows == null) {
+            return maxRows;
+        }
 
-		return currentMaxRows;
-	}
+        return currentMaxRows;
+    }
 }

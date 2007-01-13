@@ -75,11 +75,11 @@ public class ServletRequestWebContext implements WebContext {
         return request.getParameterMap();
     }
 
-	public void setParameterMap(Map parameterMap) {
-		this.parameterMap = parameterMap;
-	}
+    public void setParameterMap(Map parameterMap) {
+        this.parameterMap = parameterMap;
+    }
 
-	public Object getRequestAttribute(String name) {
+    public Object getRequestAttribute(String name) {
         return request.getAttribute(name);
     }
 
@@ -104,22 +104,22 @@ public class ServletRequestWebContext implements WebContext {
     }
 
     public Writer getWriter() {
-        return new StringWriter();    
+        return new StringWriter();
     }
 
     public Locale getLocale() {
-    	if (locale != null) {
-    		return locale;
-    	}
+        if (locale != null) {
+            return locale;
+        }
 
-    	return request.getLocale();
+        return request.getLocale();
     }
 
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
-	public String getContextPath() {
+    public String getContextPath() {
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
 

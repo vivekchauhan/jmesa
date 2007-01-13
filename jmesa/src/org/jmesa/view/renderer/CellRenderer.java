@@ -23,13 +23,13 @@ import org.jmesa.view.editor.CellEditor;
  * @author Jeff Johnston
  */
 public interface CellRenderer {
-	public Column getColumn();
-	
-	public void setColumn(Column column);
-	
-	public CellEditor getCellEditor();
-	
-	public void setCellEditor(CellEditor editor);
-	
-	public Object render(Object item, int rowcount);
+    public Column getColumn();
+
+    public void setColumn(Column column);
+
+    public CellEditor getCellEditor();
+
+    public void setCellEditor(CellEditor editor);
+
+    public Object render(Object item, int rowcount);
 }

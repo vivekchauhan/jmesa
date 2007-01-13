@@ -22,11 +22,11 @@ import org.jmesa.view.renderer.CellRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlCellRenderer extends CellRenderer {
-	public String getStyle();
-	
-	public void setStyle(String style);
+    public String getStyle();
 
-	public String getStyleClass();
+    public void setStyle(String style);
 
-	public void setStyleClass(String styleClass);
+    public String getStyleClass();
+
+    public void setStyleClass(String styleClass);
 }

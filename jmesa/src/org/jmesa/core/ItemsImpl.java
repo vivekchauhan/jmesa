@@ -32,62 +32,64 @@ import org.jmesa.limit.RowSelectImpl;
  * @author Jeff Johnston
  */
 public class ItemsImpl implements Items {
-	private static Log logger = LogFactory.getLog(ItemsImpl.class);
-	
-	private Collection allItems;
-	private Collection filteredItems;
-	private Collection pageItems;
-	private Collection sortedItems;
+    private static Log logger = LogFactory.getLog(ItemsImpl.class);
 
-	public ItemsImpl(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
-		this.allItems = new ArrayList<Object>(items); // copy for thread safety
-		
-		this.filteredItems = rowFilter.filterItems(allItems, limit);
-		
-		if (filteredItems.size() != allItems.size()) {
-			recalculateRowSelect(filteredItems, limit);
-		}
-        
-		this.sortedItems = columnSort.sortItems(filteredItems, limit);
-        
+    private Collection allItems;
+    private Collection filteredItems;
+    private Collection pageItems;
+    private Collection sortedItems;
+
+    public ItemsImpl(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
+        this.allItems = new ArrayList<Object>(items); // copy for thread
+                                                        // safety
+
+        this.filteredItems = rowFilter.filterItems(allItems, limit);
+
+        if (filteredItems.size() != allItems.size()) {
+            recalculateRowSelect(filteredItems, limit);
+        }
+
+        this.sortedItems = columnSort.sortItems(filteredItems, limit);
+
         this.pageItems = getPageItems(sortedItems, limit);
-        
-		if (logger.isDebugEnabled()) {
+
+        if (logger.isDebugEnabled()) {
             logger.debug(limit.toString());
         }
-	}
-	
-	public Collection getAllItems() {
-		return allItems;
-	}
+    }
 
-	public Collection getFilteredItems() {
-		return filteredItems;
-	}
+    public Collection getAllItems() {
+        return allItems;
+    }
 
-	public Collection getPageItems() {
-		return pageItems;
-	}
+    public Collection getFilteredItems() {
+        return filteredItems;
+    }
 
-	public Collection getSortedItems() {
-		return sortedItems;
-	}
-	
-	/**
-	 * Need to recalculate the RowSelect object if the items needed to be filtered.
-	 * 
-	 * @param filteredItems
-	 * @param limit
-	 */
-	private void recalculateRowSelect(Collection filteredItems, Limit limit) {
+    public Collection getPageItems() {
+        return pageItems;
+    }
+
+    public Collection getSortedItems() {
+        return sortedItems;
+    }
+
+    /**
+     * Need to recalculate the RowSelect object if the items needed to be
+     * filtered.
+     * 
+     * @param filteredItems
+     * @param limit
+     */
+    private void recalculateRowSelect(Collection filteredItems, Limit limit) {
         RowSelect rowSelect = limit.getRowSelect();
         int page = rowSelect.getPage();
-		int maxRows = rowSelect.getMaxRows();
-		RowSelect recalcRowSelect = new RowSelectImpl(page, maxRows, filteredItems.size());
+        int maxRows = rowSelect.getMaxRows();
+        RowSelect recalcRowSelect = new RowSelectImpl(page, maxRows, filteredItems.size());
         limit.setRowSelect(recalcRowSelect);
-	}
-	
-	private Collection getPageItems(Collection items, Limit limit) {
+    }
+
+    private Collection getPageItems(Collection items, Limit limit) {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 
@@ -101,7 +103,7 @@ public class ItemsImpl implements Items {
         }
 
         if (rowEnd > items.size()) {
-        	if (logger.isDebugEnabled()) {
+            if (logger.isDebugEnabled()) {
                 logger.debug("The Limit row end is > items.size(). Return as many items as possible.");
             }
 
@@ -115,5 +117,5 @@ public class ItemsImpl implements Items {
         }
 
         return results;
-    }	
+    }
 }

@@ -76,11 +76,11 @@ public final class JspPageWebContext implements WebContext {
         return pageContext.getRequest().getParameterMap();
     }
 
-	public void setParameterMap(Map parameterMap) {
-		this.parameterMap = parameterMap;
-	}
+    public void setParameterMap(Map parameterMap) {
+        this.parameterMap = parameterMap;
+    }
 
-	public Object getRequestAttribute(String name) {
+    public Object getRequestAttribute(String name) {
         return pageContext.getRequest().getAttribute(name);
     }
 
@@ -109,23 +109,23 @@ public final class JspPageWebContext implements WebContext {
     }
 
     public Locale getLocale() {
-    	if (locale != null) {
-    		return locale;
-    	}
+        if (locale != null) {
+            return locale;
+        }
 
-    	return pageContext.getRequest().getLocale();
+        return pageContext.getRequest().getLocale();
     }
 
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
     public String getContextPath() {
         ServletRequest request = pageContext.getRequest();
         if (request instanceof HttpServletRequest) {
-            return ((HttpServletRequest)request).getContextPath();
+            return ((HttpServletRequest) request).getContextPath();
         }
-        
+
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
 

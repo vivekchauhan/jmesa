@@ -20,34 +20,34 @@ import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * Works like the current implementation in that you pass it a parameter 
- * telling it to keep the persisted state.
+ * Works like the current implementation in that you pass it a parameter telling
+ * it to keep the persisted state.
  * </p>
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class NotifyToPersistState implements State {
-	private final WebContext context;
-	private final String id;
-	private final String stateAttr;
+    private final WebContext context;
+    private final String id;
+    private final String stateAttr;
 
-	public NotifyToPersistState(WebContext context, String id, String stateAttr) {
-		this.context = context;
-		this.id = id;
-		this.stateAttr = stateAttr;
-	}
+    public NotifyToPersistState(WebContext context, String id, String stateAttr) {
+        this.context = context;
+        this.id = id;
+        this.stateAttr = stateAttr;
+    }
 
-	public Limit retrieveLimit() {
-		String stateAttrValue = context.getParameter(stateAttr);
-		if ("true".equalsIgnoreCase(stateAttrValue)) {
-			return (Limit) context.getSessionAttribute(id);
-		}
+    public Limit retrieveLimit() {
+        String stateAttrValue = context.getParameter(stateAttr);
+        if ("true".equalsIgnoreCase(stateAttrValue)) {
+            return (Limit) context.getSessionAttribute(id);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public void persistLimit(Limit limit) {
-		context.setSessionAttribute(id, limit);
-	}
+    public void persistLimit(Limit limit) {
+        context.setSessionAttribute(id, limit);
+    }
 }

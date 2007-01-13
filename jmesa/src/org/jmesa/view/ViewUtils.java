@@ -25,8 +25,9 @@ import org.jmesa.view.html.component.HtmlColumn;
  * @author Jeff Johnston
  */
 public class ViewUtils {
-	private ViewUtils(){}
-	
+    private ViewUtils() {
+    }
+
     /**
      * Convert camelCase text to a readable word. example: camelCaseToWord -->
      * Camel Case To Word
@@ -56,7 +57,7 @@ public class ViewUtils {
 
         return build;
     }
-    
+
     /**
      * Find out if the column is sitting on an even row.
      */
@@ -78,14 +79,14 @@ public class ViewUtils {
 
         return true;
     }
-    
+
     public static boolean isFilterable(List<HtmlColumn> columns) {
-    	for (HtmlColumn column : columns) {
-    		if (column.isFilterable()) {
-    			return true;
-    		}
-    	}
-    	
-    	return false;
+        for (HtmlColumn column : columns) {
+            if (column.isFilterable()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

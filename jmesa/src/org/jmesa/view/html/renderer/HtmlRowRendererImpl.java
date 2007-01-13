@@ -27,95 +27,95 @@ import org.jmesa.view.renderer.AbstractRowRenderer;
  * @author Jeff Johnston
  */
 public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowRenderer {
-	private String style;
-	private String styleClass;
-	private String highlightStyle;
-	private String highlightClass;
-	private String evenClass;
-	private String oddClass;
-	
-	public HtmlRowRendererImpl(HtmlRow row) {
-		setRow(row);
-	}
-	
-	public HtmlRow getRow() {
-		return (HtmlRow)super.getRow();
-	}
+    private String style;
+    private String styleClass;
+    private String highlightStyle;
+    private String highlightClass;
+    private String evenClass;
+    private String oddClass;
 
-	public String getStyle() {
-		return style;
-	}
+    public HtmlRowRendererImpl(HtmlRow row) {
+        setRow(row);
+    }
 
-	public void setStyle(String style) {
-		this.style = style;
-	}
+    public HtmlRow getRow() {
+        return (HtmlRow) super.getRow();
+    }
 
-	public String getStyleClass() {
-		return styleClass;
-	}
+    public String getStyle() {
+        return style;
+    }
 
-	public String getEvenClass() {
-		if (StringUtils.isBlank(evenClass)) {
-			return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_EVEN_CLASS);
-		}
+    public void setStyle(String style) {
+        this.style = style;
+    }
 
-		return evenClass;
-	}
+    public String getStyleClass() {
+        return styleClass;
+    }
 
-	public void setEvenClass(String evenClass) {
-		this.evenClass = evenClass;
-	}
+    public String getEvenClass() {
+        if (StringUtils.isBlank(evenClass)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_EVEN_CLASS);
+        }
 
-	public String getOddClass() {
-		if (StringUtils.isBlank(oddClass)) {
-			return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_ODD_CLASS);
-		}
+        return evenClass;
+    }
 
-		return oddClass;
-	}
+    public void setEvenClass(String evenClass) {
+        this.evenClass = evenClass;
+    }
 
-	public void setOddClass(String oddClass) {
-		this.oddClass = oddClass;
-	}
+    public String getOddClass() {
+        if (StringUtils.isBlank(oddClass)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_ODD_CLASS);
+        }
 
-	protected String getStyleClass(int rowcount) {
+        return oddClass;
+    }
+
+    public void setOddClass(String oddClass) {
+        this.oddClass = oddClass;
+    }
+
+    protected String getStyleClass(int rowcount) {
         String styleClass = getStyleClass();
         if (StringUtils.isNotBlank(styleClass)) {
             return styleClass;
         }
 
         if (ViewUtils.isRowEven(rowcount)) {
-        	return getEvenClass();
+            return getEvenClass();
         }
 
         return getOddClass();
-	}
+    }
 
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
-	
-	public String getHighlightClass() {
-		if (StringUtils.isBlank(highlightClass)) {
-			return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_HIGHLIGHT_CLASS);
-		}
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
 
-		return highlightClass;
-	}
+    public String getHighlightClass() {
+        if (StringUtils.isBlank(highlightClass)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_HIGHLIGHT_CLASS);
+        }
 
-	public void setHighlightClass(String highlightClass) {
-		this.highlightClass = highlightClass;
-	}
+        return highlightClass;
+    }
 
-	public String getHighlightStyle() {
-		return highlightStyle;
-	}
+    public void setHighlightClass(String highlightClass) {
+        this.highlightClass = highlightClass;
+    }
 
-	public void setHighlightStyle(String highlightStyle) {
-		this.highlightStyle = highlightStyle;
-	}
+    public String getHighlightStyle() {
+        return highlightStyle;
+    }
 
-	protected String getOnmouseover(boolean highlighter, String onmouseover) {
+    public void setHighlightStyle(String highlightStyle) {
+        this.highlightStyle = highlightStyle;
+    }
+
+    protected String getOnmouseover(boolean highlighter, String onmouseover) {
         if (highlighter) {
             String highlightClass = getHighlightClass();
             if (StringUtils.isNotBlank(onmouseover)) {
@@ -128,7 +128,7 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
         }
     }
 
-	protected String getOnmouseout(boolean highlighter, String onmouseout, int rowcount) {
+    protected String getOnmouseout(boolean highlighter, String onmouseout, int rowcount) {
         if (highlighter) {
             String styleClass = getStyleClass(rowcount);
             if (StringUtils.isNotBlank(onmouseout)) {
@@ -139,17 +139,17 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
         } else {
             return onmouseout;
         }
-    }	
-	
-	public Object render(Object item, int rowcount) {
-		HtmlBuilder html = new HtmlBuilder();
-		html.tr(1);
-		html.style(getStyle());
-		html.styleClass(getStyleClass(rowcount));
-		html.onmouseover(getOnmouseover(getRow().isHighlighter(), getRow().getOnmouseover()));
-		html.onmouseout(getOnmouseout(getRow().isHighlighter(), getRow().getOnmouseout(), rowcount));
-		html.close();
-		
-		return html;
-	}
+    }
+
+    public Object render(Object item, int rowcount) {
+        HtmlBuilder html = new HtmlBuilder();
+        html.tr(1);
+        html.style(getStyle());
+        html.styleClass(getStyleClass(rowcount));
+        html.onmouseover(getOnmouseover(getRow().isHighlighter(), getRow().getOnmouseover()));
+        html.onmouseout(getOnmouseout(getRow().isHighlighter(), getRow().getOnmouseout(), rowcount));
+        html.close();
+
+        return html;
+    }
 }

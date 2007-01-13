@@ -22,41 +22,41 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class Export {
-	private final String type;
+    private final String type;
 
-	public Export(String type) {
-		this.type = type;
-	}
+    public Export(String type) {
+        this.type = type;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == this)
-			return true;
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
 
-		if (!(o instanceof Export))
-			return false;
+        if (!(o instanceof Export))
+            return false;
 
-		Export that = (Export) o;
+        Export that = (Export) o;
 
-		return that.getType().equals(this.getType());
-	}
+        return that.getType().equals(this.getType());
+    }
 
-	@Override
-	public int hashCode() {
-		int result = 17;
-		int property = this.getType() == null ? 0 : this.getType().hashCode();
-		result = result * 37 + property;
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        int result = 17;
+        int property = this.getType() == null ? 0 : this.getType().hashCode();
+        result = result * 37 + property;
+        return result;
+    }
 
-	@Override
-	public String toString() {
-		ToStringBuilder builder = new ToStringBuilder(this);
-		builder.append("type", getType());
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("type", getType());
+        return builder.toString();
+    }
 }

@@ -26,23 +26,23 @@ import org.jmesa.view.renderer.RowRenderer;
  * @author Jeff Johnston
  */
 public class RowImpl extends ContextSupport implements Row {
-	List<Column> columns = new ArrayList<Column>();
-	private RowRenderer rowRenderer;
+    List<Column> columns = new ArrayList<Column>();
+    private RowRenderer rowRenderer;
 
-	public void addColumn(Column column) {
-		column.setRow(this);
-		columns.add(column);
-	}
+    public void addColumn(Column column) {
+        column.setRow(this);
+        columns.add(column);
+    }
 
-	public List<Column> getColumns() {
-		return columns;
-	}
+    public List<Column> getColumns() {
+        return columns;
+    }
 
-	public RowRenderer getRowRenderer() {
-		return rowRenderer;
-	}
+    public RowRenderer getRowRenderer() {
+        return rowRenderer;
+    }
 
-	public void setRowRenderer(RowRenderer rowRenderer) {
-		this.rowRenderer = rowRenderer;
-	}
+    public void setRowRenderer(RowRenderer rowRenderer) {
+        this.rowRenderer = rowRenderer;
+    }
 }

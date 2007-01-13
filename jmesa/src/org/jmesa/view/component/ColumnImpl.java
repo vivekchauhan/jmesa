@@ -26,61 +26,62 @@ import org.jmesa.view.renderer.HeaderRenderer;
  * @author Jeff Johnston
  */
 public class ColumnImpl extends ContextSupport implements Column {
-	private String property;
-	private String title;
-	private CellRenderer columnRenderer;
-	private HeaderRenderer headerRenderer;
-	private Row row;
-	
-	public ColumnImpl(){}
-	
-	public ColumnImpl(String property) {
-		this.property = property;
-	}
+    private String property;
+    private String title;
+    private CellRenderer columnRenderer;
+    private HeaderRenderer headerRenderer;
+    private Row row;
 
-	public String getProperty() {
-		return property;
-	}
+    public ColumnImpl() {
+    }
 
-	public void setProperty(String property) {
-		this.property = property;
-	}
-	
-	public String getTitle() {
-		if (StringUtils.isBlank(title)) {
-			return ViewUtils.camelCaseToWord(property);	
-		} else {
-			
-		}
-		
-		return null;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public ColumnImpl(String property) {
+        this.property = property;
+    }
 
-	public CellRenderer getCellRenderer() {
-		return columnRenderer;
-	}
+    public String getProperty() {
+        return property;
+    }
 
-	public void setCellRenderer(CellRenderer columnRenderer) {
-		this.columnRenderer = columnRenderer;
-	}
+    public void setProperty(String property) {
+        this.property = property;
+    }
 
-	public HeaderRenderer getHeaderRenderer() {
-		return headerRenderer;
-	}
+    public String getTitle() {
+        if (StringUtils.isBlank(title)) {
+            return ViewUtils.camelCaseToWord(property);
+        } else {
 
-	public void setHeaderRenderer(HeaderRenderer headerRenderer) {
-		this.headerRenderer = headerRenderer;
-	}
+        }
 
-	public Row getRow() {
-		return row;
-	}
+        return null;
+    }
 
-	public void setRow(Row row) {
-		this.row = row;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public CellRenderer getCellRenderer() {
+        return columnRenderer;
+    }
+
+    public void setCellRenderer(CellRenderer columnRenderer) {
+        this.columnRenderer = columnRenderer;
+    }
+
+    public HeaderRenderer getHeaderRenderer() {
+        return headerRenderer;
+    }
+
+    public void setHeaderRenderer(HeaderRenderer headerRenderer) {
+        this.headerRenderer = headerRenderer;
+    }
+
+    public Row getRow() {
+        return row;
+    }
+
+    public void setRow(Row row) {
+        this.row = row;
+    }
 }

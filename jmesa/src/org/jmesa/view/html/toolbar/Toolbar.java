@@ -22,15 +22,15 @@ import java.util.List;
  * @author Jeff Johnston
  */
 public interface Toolbar {
-	public void setToolbarClass(String toolbarClass);
-	
-	public void addToolbarItem(ToolbarItem item);
-	
-	public ToolbarItem addToolbarItem(ToolbarItemType type);
-	
-	public List<ToolbarItem> addExportToolbarItems(String... exportTypes);
-	
-	public ToolbarItem addExportToolbarItem(String exportType);
-	
-	public String render();
+    public void setToolbarClass(String toolbarClass);
+
+    public void addToolbarItem(ToolbarItem item);
+
+    public ToolbarItem addToolbarItem(ToolbarItemType type);
+
+    public List<ToolbarItem> addExportToolbarItems(String... exportTypes);
+
+    public ToolbarItem addExportToolbarItem(String exportType);
+
+    public String render();
 }
