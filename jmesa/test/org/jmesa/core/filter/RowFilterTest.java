@@ -65,7 +65,7 @@ public class RowFilterTest {
 	}
 	
 	private Map<?, ?> getParameters() {
-		HashMap<String, Object> results = new HashMap<String, Object>();
+		Map<String, Object> results = new HashMap<String, Object>();
 		ParametersAdapter parametersAdapter = new ParametersAdapter(results);
 		createBuilder(parametersAdapter);
 		return results;

@@ -22,8 +22,6 @@ import java.util.List;
  * @author Jeff Johnston
  */
 public interface Toolbar {
-    public void setToolbarClass(String toolbarClass);
-
     public void addToolbarItem(ToolbarItem item);
 
     public ToolbarItem addToolbarItem(ToolbarItemType type);

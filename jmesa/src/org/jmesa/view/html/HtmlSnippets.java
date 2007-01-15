@@ -50,7 +50,5 @@ public interface HtmlSnippets {
 
     public String statusBar();
 
-    public String statusBar(Toolbar toolbar);
-
     public String initJavascriptLimit();
 }

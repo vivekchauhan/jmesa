@@ -36,8 +36,6 @@ public class HtmlConstants {
     public final static String ROW_RENDERER_ODD_CLASS = "html.row.renderer.oddClass";
 
     // column
-    public final static String COLUMN_RENDERER_HEADER_STYLE_CLASS = "html.column.header.renderer.styleClass";
-
     public final static String SORT_ASC_IMAGE = "html.column.header.renderer.image.sortAsc";
     public final static String SORT_DESC_IMAGE = "html.column.header.renderer.image.sortDesc";
 
@@ -45,6 +43,7 @@ public class HtmlConstants {
     public final static String TBODY_CLASS = "html.tbodyClass";
     public final static String TITLE_CLASS = "html.titleClass";
     public final static String FILTER_CLASS = "html.filterClass";
+    public final static String HEADER_CLASS = "html.headerClass";
     public final static String TOOLBAR_CLASS = "html.toolbarClass";
     public final static String STATUS_BAR_CLASS = "html.statusBarClass";
 
