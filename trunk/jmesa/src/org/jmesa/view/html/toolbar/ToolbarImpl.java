@@ -29,7 +29,6 @@ import org.jmesa.web.WebContext;
 public class ToolbarImpl implements Toolbar {
     private ToolbarItemFactory toolbarItemFactory;
     private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
-    private String toolbarClass;
 
     public ToolbarImpl(WebContext webContext, CoreContext coreContext) {
         this.toolbarItemFactory = new ToolbarItemFactoryImpl(webContext, coreContext);
@@ -98,14 +97,10 @@ public class ToolbarImpl implements Toolbar {
         return item;
     }
 
-    public void setToolbarClass(String toolbarClass) {
-        this.toolbarClass = toolbarClass;
-    }
-
     public String render() {
         HtmlBuilder html = new HtmlBuilder();
 
-        html.table(2).border("0").cellpadding("0").cellspacing("1").styleClass(toolbarClass).close();
+        html.table(2).border("0").cellpadding("0").cellspacing("1").close();
 
         html.tr(3).close();
 

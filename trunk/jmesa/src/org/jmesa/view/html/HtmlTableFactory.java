@@ -17,7 +17,6 @@ package org.jmesa.view.html;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractTableFactory;
-import org.jmesa.view.ComponentFactory;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.web.WebContext;
 
@@ -37,7 +36,7 @@ public class HtmlTableFactory extends AbstractTableFactory {
     }
 
     @Override
-    protected ComponentFactory getComponentFactory() {
+    protected HtmlComponentFactory getComponentFactory() {
         return new HtmlComponentFactory(getWebContext(), getCoreContext());
     }
 }

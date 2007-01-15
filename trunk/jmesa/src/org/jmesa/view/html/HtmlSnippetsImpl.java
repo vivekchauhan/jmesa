@@ -111,7 +111,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
     public String header() {
         HtmlBuilder html = new HtmlBuilder();
-        html.tr(1).close();
+        String headerClass = coreContext.getPreference(HtmlConstants.HEADER_CLASS);
+        html.tr(1).styleClass(headerClass).close();
 
         HtmlRow row = table.getRow();
         List columns = row.getColumns();
@@ -170,16 +171,11 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         HtmlRow row = table.getRow();
         List columns = row.getColumns();
 
-        html.tr(1).close();
-
         String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
-        toolbar.setToolbarClass(toolbarClass);
+        html.tr(1).styleClass(toolbarClass).close();
+        html.td(2).align("left").colspan(String.valueOf(columns.size())).close();
 
-        html.td(2).align("left").styleClass(toolbarClass).colspan(String.valueOf(columns.size())).close();
-
-        html.div().close();
         html.append(toolbar.render());
-        html.divEnd();
 
         html.tdEnd();
         html.trEnd(1);
@@ -188,42 +184,16 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
     }
 
     public String statusBar() {
-        return statusBar(null);
-    }
-
-    public String statusBar(Toolbar toolbar) {
         HtmlBuilder html = new HtmlBuilder();
 
         HtmlRow row = table.getRow();
         List columns = row.getColumns();
 
-        html.tr(1).close();
+        String toolbarClass = coreContext.getPreference(HtmlConstants.STATUS_BAR_CLASS);
+        html.tr(1).styleClass(toolbarClass).close();
+        html.td(2).align("left").colspan(String.valueOf(columns.size())).close();
 
-        html.td(2).colspan(String.valueOf(columns.size())).close();
-
-        html.table(2).border("0").cellpadding("0").cellspacing("0").width("100%").close();
-
-        html.tr(3).close();
-
-        // status bar text
-        String statusBarClass = coreContext.getPreference(HtmlConstants.STATUS_BAR_CLASS);
-        html.td(4).styleClass(statusBarClass).close();
-        html.span().close();
         html.append(statusBarText());
-        html.spanEnd();
-        html.tdEnd();
-
-        // toolbar
-        if (toolbar != null) {
-            html.td(4).align("right").close();
-            String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
-            toolbar.setToolbarClass(toolbarClass);
-            html.append(toolbar.render());
-            html.tdEnd();
-        }
-
-        html.trEnd(3);
-        html.tableEnd(2);
 
         html.tdEnd();
         html.trEnd(1);
@@ -247,9 +217,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 
         for (Sort sort : limit.getSortSet().getSorts()) {
-            html.append(
-                    "addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() + "','" + sort.getPosition()
-                            + "')").semicolon().newline();
+            html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() 
+                    + "','" + sort.getPosition() + "')").semicolon().newline();
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {

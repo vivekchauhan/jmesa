@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.html.renderer;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.Order;
 import org.jmesa.limit.Sort;
@@ -50,10 +49,6 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     }
 
     public String getStyleClass() {
-        if (StringUtils.isBlank(styleClass)) {
-            return getCoreContext().getPreference(HtmlConstants.COLUMN_RENDERER_HEADER_STYLE_CLASS);
-        }
-
         return styleClass;
     }
 
