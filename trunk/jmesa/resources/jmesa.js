@@ -125,7 +125,7 @@ Limit.prototype.createHiddenInputFields = function(form) {
 	}
 }
 
-Limit.prototype.createParameterString = function(form) {
+Limit.prototype.createParameterString = function() {
 	var url = '';
 
 	/* the current page */
