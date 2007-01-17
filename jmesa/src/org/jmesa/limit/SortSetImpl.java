@@ -47,7 +47,7 @@ public class SortSetImpl implements Serializable, SortSet {
     /**
      * @return Is true if there are any columns that need to be sorted.
      */
-    public boolean isSorted() {
+    public boolean isSortable() {
         return sorts != null && !sorts.isEmpty();
     }
 

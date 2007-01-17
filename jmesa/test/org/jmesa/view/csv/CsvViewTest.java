@@ -105,7 +105,7 @@ public class CsvViewTest {
 		CoreContextFactory factory = new CoreContextFactoryImpl(webContext, false);
 		CoreContext coreContext = factory.createCoreContext(items, limit);
 		
-		assertTrue(limit.isExported());
+		assertTrue(limit.isExportable());
 		assertTrue(limit.getExport().getType().equals("csv"));
 		
 		return coreContext;

@@ -21,7 +21,7 @@ public interface FilterSet {
     /**
      * @return Is true if there are any columns that need to be filtered.
      */
-    public boolean isFiltered();
+    public boolean isFilterable();
 
     public Collection<Filter> getFilters();
 

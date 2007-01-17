@@ -66,7 +66,7 @@ public class LimitImpl implements Limit {
         this.rowSelect = rowSelect;
     }
 
-    public boolean isExported() {
+    public boolean isExportable() {
         return getExport() != null;
     }
 

@@ -72,7 +72,7 @@ public interface Limit extends Serializable {
 
     public void setSortSet(SortSet sortSet);
 
-    public boolean isExported();
+    public boolean isExportable();
 
     public Export getExport();
 

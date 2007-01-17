@@ -21,7 +21,7 @@ public interface SortSet {
     /**
      * @return Is true if there are any columns that need to be sorted.
      */
-    public boolean isSorted();
+    public boolean isSortable();
 
     /**
      * @return The Set of Sort objects.
@@ -45,7 +45,7 @@ public interface SortSet {
      * @return The Sort Order.
      */
     public Order getSortOrder(String property);
-
+    
     /**
      * <p>
      * The Sort to add to the set in the given postion.
