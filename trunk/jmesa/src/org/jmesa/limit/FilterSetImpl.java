@@ -47,7 +47,7 @@ public class FilterSetImpl implements Serializable, FilterSet {
     /**
      * @return Is true if there are any columns that need to be filtered.
      */
-    public boolean isFiltered() {
+    public boolean isFilterable() {
         return filters != null && !filters.isEmpty();
     }
 

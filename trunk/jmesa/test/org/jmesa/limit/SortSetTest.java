@@ -30,11 +30,11 @@ public class SortSetTest {
 	@Test
 	public void isSorted() {
 		SortSet sortSet = new SortSetImpl();
-		boolean sorted = sortSet.isSorted();
+		boolean sorted = sortSet.isSortable();
 		assertFalse("default constructor", sorted);
 
 		sortSet = getSortSet();
-		sorted = sortSet.isSorted();
+		sorted = sortSet.isSortable();
 		assertTrue("sorted", sorted);
 	}
 	
