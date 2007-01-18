@@ -25,6 +25,10 @@ import org.jmesa.view.renderer.RowRenderer;
  */
 public interface Row {
     public List<Column> getColumns();
+    
+    public Column getColumn(String property);
+    
+    public Column getColumn(int index);
 
     public void addColumn(Column column);
 
