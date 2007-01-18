@@ -29,6 +29,20 @@ public class RowImpl extends ContextSupport implements Row {
     List<Column> columns = new ArrayList<Column>();
     private RowRenderer rowRenderer;
 
+    public Column getColumn(String property) {
+        for (Column column : columns) {
+            if (column.getProperty().equals(property)) {
+                return column;
+            }
+        }
+        
+        return null;
+    }
+
+    public Column getColumn(int index) {
+        return columns.get(index);
+    }
+
     public void addColumn(Column column) {
         column.setRow(this);
         columns.add(column);
