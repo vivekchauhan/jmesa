@@ -17,14 +17,14 @@ package org.jmesa.view.csv;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.jmesa.view.ViewResolver;
+import org.jmesa.view.Exporter;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class CsvViewResolver implements ViewResolver {
-    public void resolve(HttpServletResponse response, Object viewData, String fileName) throws Exception {
+public class CsvExporter implements Exporter {
+    public void export(HttpServletResponse response, Object viewData, String fileName) throws Exception {
         byte[] contents = ((String) viewData).getBytes();
         response.setContentType("text/plain");
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
