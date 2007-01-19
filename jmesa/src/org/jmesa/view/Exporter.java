@@ -21,6 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ViewResolver {
-    public void resolve(HttpServletResponse response, Object viewData, String fileName) throws Exception;
+public interface Exporter {
+    public void export(HttpServletResponse response, Object viewData, String fileName) throws Exception;
 }
