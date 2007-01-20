@@ -189,6 +189,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         HtmlRow row = table.getRow();
         List columns = row.getColumns();
 
+        html.tbody(1).close();
+
         String toolbarClass = coreContext.getPreference(HtmlConstants.STATUS_BAR_CLASS);
         html.tr(1).styleClass(toolbarClass).close();
         html.td(2).align("left").colspan(String.valueOf(columns.size())).close();
@@ -197,6 +199,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         html.tdEnd();
         html.trEnd(1);
+        
+        html.tbodyEnd(1);
 
         return html.toString();
     }
@@ -217,8 +221,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 
         for (Sort sort : limit.getSortSet().getSorts()) {
-            html.append("addSortToLimit('" + limit.getId() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() 
-                    + "','" + sort.getPosition() + "')").semicolon().newline();
+            html.append("addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() 
+                    + "')").semicolon().newline();
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {

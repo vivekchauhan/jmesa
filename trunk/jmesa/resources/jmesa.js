@@ -20,10 +20,10 @@ function Limit(id) {
 	this.exportType;
 }
 
-function Sort(property, order, position) {
+function Sort(position, property, order) {
+	this.position = position;
 	this.property = property;
 	this.order = order;
-	this.position = position;
 }
 
 function Filter(property, value) {
@@ -169,14 +169,14 @@ function setMaxRowsToLimit(id, maxRows) {
 	LimitManager.getLimit(id).setMaxRows(maxRows);
 }
  
-function addSortToLimit(id, property, order, position) {
+function addSortToLimit(id, position, property, order) {
 	/*First remove the sort if it is set on the limit, 
 		and then set the page back to the first one.*/
 	removeSortFromLimit(id, property);
 	setPageToLimit(id, '1');
 
 	var limit = LimitManager.getLimit(id);
-	var sort = new Sort(property, order, position); 
+	var sort = new Sort(position, property, order); 
 	limit.addSort(sort);
 }
 

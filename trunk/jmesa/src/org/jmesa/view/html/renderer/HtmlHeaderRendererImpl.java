@@ -73,21 +73,21 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
                     html.onmouseover("this.style.cursor='pointer'");
                     html.onmouseout("this.style.cursor='default'");
                     int position = column.getRow().getColumns().indexOf(column);
-                    html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" 
-                            + Order.DESC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
+                    html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.DESC.toParam()
+                            + "');onInvokeAction('" + limit.getId() + "')");
                 } else if (sort.getOrder() == Order.DESC) {
                     html.onmouseover("this.style.cursor='pointer'");
                     html.onmouseout("this.style.cursor='default'");
                     int position = column.getRow().getColumns().indexOf(column);
-                    html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "','" 
-                            + position + "');onInvokeAction('" + limit.getId() + "')");
+                    html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('"
+                            + limit.getId() + "')");
                 }
             } else {
                 html.onmouseover("this.style.cursor='pointer'");
                 html.onmouseout("this.style.cursor='default'");
                 int position = column.getRow().getColumns().indexOf(column);
-                html.onclick("addSortToLimit('" + limit.getId() + "','" + column.getProperty() + "','" 
-                        + Order.ASC.toParam() + "','" + position + "');onInvokeAction('" + limit.getId() + "')");
+                html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.ASC.toParam()
+                        + "');onInvokeAction('" + limit.getId() + "')");
             }
         }
 
