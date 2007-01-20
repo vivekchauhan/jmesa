@@ -18,6 +18,8 @@ package org.jmesa.view.html.renderer;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.HtmlConstants;
+import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractFilterRenderer;
 
@@ -66,26 +68,20 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
         html.styleClass(getStyleClass());
         html.close();
 
-        html.input().type("text");
-        html.name(property);
-
+        String filterValue = "";
         if (filter != null) {
-            html.value(filter.getValue());
+            filterValue = filter.getValue();
         }
 
-        StringBuilder onkeypress = new StringBuilder();
-        onkeypress.append("if (event.keyCode == 13) {");
-        onkeypress.append("onInvokeAction('" + limit.getId() + "');");
-        onkeypress.append("}");
-        html.onkeypress(onkeypress.toString());
+        html.div();
+        html.onclick("createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
+        html.close();
+        html.append(filterValue);
 
-        StringBuilder onkeyup = new StringBuilder();
-        onkeyup.append("if (event.keyCode != 13) {");
-        onkeyup.append("addFilterToLimit('" + limit.getId() + "','" + column.getProperty() + "',this.value)");
-        onkeyup.append("}");
-        html.onkeyup(onkeyup.toString());
-
+        String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
+        html.img().src(imagesPath + getCoreContext().getPreference(HtmlConstants.DROPLIST_HANDLE_IMAGE));
         html.end();
+        html.divEnd();
 
         html.tdEnd();
 

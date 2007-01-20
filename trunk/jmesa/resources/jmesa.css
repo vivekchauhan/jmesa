@@ -24,7 +24,7 @@
 }
 
 .jmesa .toolbar select {
-	font-size: .7em;
+	font-size: 11px;
 	border: solid 1px #c4c3c2;
 	width: 75px;
 }
@@ -33,13 +33,36 @@
 	padding: 2px;
 }
 
-.jmesa .filter input {
-	font-size: .7em;
-	border: solid 1px grey;
+.jmesa .filter div {
+	font-size: 11px;
+	height: 15px;
+	border: solid 1px #444444;
+	background-color: #efebe7;
+	position: relative;
 }
 
-.jmesa .filter select {
-	border: solid 1px #eeeeee;
+.jmesa .filter img {
+	display:inline;
+	position:absolute;
+	right:2px;
+	top:4px
+}
+
+.jmesa .filter #dynFilterDiv {
+	position: absolute;
+	top: 16px;
+	width: 131px;
+	height: 29px;
+	background-color: #edd400;
+	padding-left: 3px;
+}
+
+.jmesa .filter #dynFilterInput {
+	margin-top: 4px;
+	background-color: #eee;
+	border-style: none;
+	border: solid 1px #444444;
+	width: 124px;
 }
 
 .jmesa .header td {

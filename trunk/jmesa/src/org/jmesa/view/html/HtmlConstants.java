@@ -38,6 +38,7 @@ public class HtmlConstants {
     // column
     public final static String SORT_ASC_IMAGE = "html.column.header.renderer.image.sortAsc";
     public final static String SORT_DESC_IMAGE = "html.column.header.renderer.image.sortDesc";
+    public final static String DROPLIST_HANDLE_IMAGE = "html.column.filter.renderer.image.droplistHandle";
 
     // css names
     public final static String TBODY_CLASS = "html.tbodyClass";
