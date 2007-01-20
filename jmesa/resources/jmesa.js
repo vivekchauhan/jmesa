@@ -167,6 +167,7 @@ function setPageToLimit(id, page) {
 
 function setMaxRowsToLimit(id, maxRows) {
 	LimitManager.getLimit(id).setMaxRows(maxRows);
+	setPageToLimit(id, '1');
 }
  
 function addSortToLimit(id, position, property, order) {
@@ -285,4 +286,90 @@ function getFormByTableId(id) {
 	}
 }
 
+/* Special Effects */
 
+var dynFilter;
+
+function DynFilter(filter, id, property) {
+	this.filter = filter;
+	this.id = id;
+	this.property = property;
+}
+
+function createDynFilter(filter, id, property) {
+	dynFilter = new DynFilter(filter, id, property);
+
+	var dynFilterDiv = document.getElementById('dynFilterDiv');
+	
+	// already have a filter
+	if (dynFilterDiv) {
+		return; 
+	}
+	
+	// create the div tag
+	dynFilterDiv = document.createElement('div');
+	dynFilterDiv.id = 'dynFilterDiv';
+	filter.appendChild(dynFilterDiv);
+
+	// create the input tag
+	var dynFilterInput = document.createElement('input');
+	dynFilterInput.type = 'text';
+	dynFilterInput.id = 'dynFilterInput';
+	dynFilterInput.name = 'filter';
+	
+	var inputValue = filter.firstChild.nodeValue;
+	if (!inputValue) {
+		inputValue = '';
+	}
+	
+	dynFilterInput.value = inputValue;
+	addEvent(dynFilterInput, 'keypress', keypressDynFilterInput, false);
+	addEvent(dynFilterInput, 'blur', blurDynFilterInput, false);
+	dynFilterDiv.appendChild(dynFilterInput);
+	dynFilterInput.focus();
+}
+
+function blurDynFilterInput(event) {
+	var dynFilterDiv = document.getElementById('dynFilterDiv');
+	var dynFilterInput = document.getElementById('dynFilterInput');
+	addFilterText(dynFilter.filter, dynFilterDiv)
+	addFilterToLimit(dynFilter.id, dynFilter.property, dynFilterInput.value);
+}
+
+function keypressDynFilterInput(event) {
+	if (event.keyCode == 13) {
+		var dynFilterDiv = document.getElementById('dynFilterDiv');
+		var dynFilterInput = document.getElementById('dynFilterInput');
+		addFilterText(dynFilter.filter, dynFilterDiv)
+		addFilterToLimit(dynFilter.id, dynFilter.property, dynFilterInput.value);
+		onInvokeAction(dynFilter.id);
+	}
+}
+
+function addFilterText(filter, dynFilterDiv) {
+	var dynFilterInput = document.getElementById('dynFilterInput');
+	var inputValue = dynFilterInput.value;
+	var textNode = document.createTextNode(inputValue);
+	
+	var node = filter.firstChild;
+	if (node.nodeType == 3) { // node type of text
+		filter.replaceChild(textNode, node);
+	} else {
+		filter.insertBefore(textNode, node);
+	}
+	
+	filter.removeChild(dynFilterDiv);
+}
+
+/*A cross browser way to add events to different objects.*/
+function addEvent(obj, evType, fn, useCapture){
+	if (obj.addEventListener){
+		obj.addEventListener(evType, fn, useCapture);
+		return true;
+	} else if (obj.attachEvent){
+		var r = obj.attachEvent("on"+evType, fn);
+		return r;
+	} else {
+		alert("Handler could not be attached");
+	}
+}
