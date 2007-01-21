@@ -10,14 +10,13 @@ The [Limit] interface represents the limit package and is used so that you can f
 
 The [CoreContext] represents the core package and is the real plumbing. With the CoreContext you have direct access to the Items, Messages and Preferences. 
 
-The [Items] are the Collection of Beans or Collection of Maps broken down after it is filtered, after it is sorted, and by the current page. Note: if you not using JMesa to perform the filtering and sorting then everything in the Items will return the same Collection. We will talk about that more later to clarify.
+The [Items] are the Collection of Beans or Collection of Maps broken down after it is filtered, after it is sorted, and by the current page. Note: if you not using JMesa to perform the filtering and sorting then everything in the Items will return the same Collection. We will talk about that more later to clarify. The CoreContext extends Items so you always have direct access to the data.
 
 There is quite a bit more to creating the Items if you are using JMesa to do the filtering, sorting and paging. However this functionality is hidden by some very powerful interfaces with an implementation that is very easy to work with and easy to plug in your own strategies. I will talk more about that later, but, as an example, if you need to filter a column a certain way you can just by plugging in your own FilterMatch strategy.
 
 The [Messages] are the Locale specific text. The default implementation uses Java ResourceBundles. The CoreContext extends Messages so you always have direct access to the Locale specific text in your table.
 
-The [Preferences] are used for the metadata instead of hardcoding the values. The default implementation uses Java Properties. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then change the values you want.
-
+The [Preferences] are used for a lot of the configuration instead of hardcoding the values. The default implementation uses Java Properties. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then change the values you want. The CoreContext extends Preferences so you always have direct access to how things are configured.
 
 === view ===
 
