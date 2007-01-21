@@ -1,0 +1,28 @@
+JMesa is written as an API which is not dependant on any framework or Servlet API. The only core dependencies are to a few Apache Commons libraries in which JMesa is fortunate enough to be able to utilize.
+
+=== Requirements ===
+ * JDK1.5 (or higher)
+
+=== Minimum Jars Needed ===
+ * commons-beanutils-1.7.0.jar
+ * commons-collections-3.0.jar
+ * commons-lang-2.2.jar
+ * commons-logging-1.0.4.jar
+
+=== Installation ===
+First download the [http://code.google.com/p/jmesa/downloads/list distribution].
+
+In the jmesa.zip file you will find everything you need to get started:
+ * jmesa.jar
+ * jmesa.css
+ * jmesa.js
+ * default images
+ * source code
+
+The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directory and you are all ready to start coding your table. Of course to render correctly on the web page you will need to install the JavaScript, CSS, and Images. Your project probably has plenty of those resources and should be used consistently.
+
+
+
+
+
+
