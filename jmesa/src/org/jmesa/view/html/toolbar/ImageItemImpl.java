@@ -59,7 +59,7 @@ public class ImageItemImpl extends AbstractItem implements ImageItem {
 
     public String enabled() {
         HtmlBuilder html = new HtmlBuilder();
-        html.a();
+        html.a().href();
         html.quote();
         html.append(getAction());
         html.quote().close();

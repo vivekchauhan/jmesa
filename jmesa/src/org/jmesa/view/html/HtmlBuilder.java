@@ -812,18 +812,38 @@ public class HtmlBuilder {
 
     /**
      * <p>
-     * The start of the a element plus the href attribute [<a href=].
+     * The start of the a element attribute [<a href=].
      * </p>
      */
     public HtmlBuilder a() {
-        append("<a href=");
+        append("<a");
+
+        return this;
+    }
+    
+    public HtmlBuilder href(String href) {
+        if (StringUtils.isNotBlank(href)) {
+            append(" href=\"").append(href).append("\" ");
+        }
 
         return this;
     }
 
     /**
      * <p>
-     * The close tag of the a element [</div>].
+     * The href attribute [ href= ].
+     * </p>
+     *  
+     */
+    public HtmlBuilder href() {
+        append(" href=");
+
+        return this;
+    }
+
+    /**
+     * <p>
+     * The end tag of the a element [ </a> ].
      * </p>
      */
     public HtmlBuilder aEnd() {
@@ -1047,7 +1067,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder ul() {
-        append("<ul>");
+        append("<ul");
 
         return this;
     }
@@ -1071,7 +1091,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder li() {
-        append("<li>");
+        append("<li");
 
         return this;
     }
