@@ -1,0 +1,74 @@
+To make building JMesa tables easier you can use either the [TableFactory], or the !ComponentFactory. The lower level factory is the !ComponentFactory and will be demonstrated here. I find using a !ComponentFactory most useful when building HTML tables that are more custom. For exports I would recommend using the [TableFactory].
+
+The following is as an example of what an HTML table would look like:
+{{{
+HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
+
+// create the table
+HtmlTable table = factory.createTable();
+table.setCaption("Presidents");
+table.getTableRenderer().setWidth("600px");
+
+// create the row
+HtmlRow row = factory.createRow();
+table.setRow(row);
+
+// create the editor
+CellEditor editor = factory.createBasicCellEditor();
+
+// create the columns
+CellEditor customEditor = new PresidentsLinkEditor(editor);
+HtmlColumn firstNameColumn = factory.createColumn("firstName", customEditor);
+row.addColumn(firstNameColumn);
+
+HtmlColumn lastNameColumn = factory.createColumn("lastName", editor);
+row.addColumn(lastNameColumn);
+
+HtmlColumn termColumn = factory.createColumn("term", editor);
+row.addColumn(termColumn);
+
+HtmlColumn careerColumn = factory.createColumn("career", editor);
+row.addColumn(careerColumn);
+
+// create the view
+ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
+Toolbar toolbar = toolbarFactory.createToolbar();
+View view = new HtmlView(table, toolbar, coreContext);
+
+return view.render();
+}}}
+
+
+The following is as an example of what a CSV export table would look like:
+{{{
+CsvComponentFactory factory = new CsvComponentFactory(webContext, coreContext);
+
+// create the table
+Table table = factory.createTable();
+
+// create the row
+Row row = factory.createRow();
+table.setRow(row);
+
+// create the editor
+CellEditor editor = factory.createBasicCellEditor();
+
+// create the columns
+Column firstNameColumn = factory.createColumn("firstName", editor);
+row.addColumn(firstNameColumn);
+
+Column lastNameColumn = factory.createColumn("lastName", editor);
+row.addColumn(lastNameColumn);
+
+Column termColumn = factory.createColumn("term", editor);
+row.addColumn(termColumn);
+
+Column careerColumn = factory.createColumn("career", editor);
+row.addColumn(careerColumn);
+
+// create the view
+CsvView view = new CsvView(table, coreContext);
+ViewExporter exporter = new CsvViewExporter(view, "presidents.txt", response);
+exporter.export();
+}}}
+
