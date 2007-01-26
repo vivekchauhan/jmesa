@@ -1,0 +1,38 @@
+To make building JMesa tables easier you can use either the !TableFactory, or the [ComponentFactory]. The highest level factory is the !TableFactory and will be demonstrated here. I find using a !TableFactory most useful when building exports as most exports are pretty generic. The !TableFactory is also useful for HTML tables if you want to have the table created initially, and then can be customized by swapping out the default functionality for something else.
+
+The following is as an example of what an HTML table would look like: 
+{{{
+HtmlTableFactory tableFactory = new HtmlTableFactory(webContext, coreContext);
+
+HtmlTable table = tableFactory.createTable("firstName", "lastName", "term", "career");
+table.setCaption("Presidents");
+table.getTableRenderer().setWidth("600px;");
+
+CellEditor editor = new PresidentsLinkEditor(new BasicCellEditor());
+table.getRow().getColumn("firstName").getCellRenderer().setCellEditor(editor);
+
+ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
+Toolbar toolbar = toolbarFactory.createToolbar();
+View view = new HtmlView(table, toolbar, coreContext);
+
+return view.render();
+}}}
+
+Notice the use of the JDK1.5 varargs in the  createTable() method parameters! 
+
+The !PresidentsLinkEditor is an implementation of the !CellEditor and shows what it means to compose the column renderer with a custom cell editor. Because the !TableFactory creates the whole table at once you must first find the column and then grab the renderer. 
+
+The following is as an example of what a CSV export table would look like:
+{{{
+TableFactory tableFactory = new CsvTableFactory(webContext, coreContext);
+Table table = tableFactory.createTable("firstName", "lastName", "term", "career");
+View view = new CsvView(table, coreContext);
+ViewExporter exporter = new CsvViewExporter(view, "presidents.txt", response);
+exporter.export();
+}}}
+
+The additional step here is in using the !ViewExporter. The !ViewExporter is responsible for calling the render() method on the View and then exporting it to the response when the export() method is invoked.
+
+
+
+
