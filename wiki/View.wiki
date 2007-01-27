@@ -1,0 +1,15 @@
+The View interface is responsible for rendering the markup.
+
+== View ==
+http://extremecomponents.org/resources/images/uml/view.png
+
+== Components ==
+http://extremecomponents.org/resources/images/uml/component.png
+
+== Renderers ==
+http://extremecomponents.org/resources/images/uml/renderer.png
+
+== Editors ==
+http://extremecomponents.org/resources/images/uml/editor.png
+
+
