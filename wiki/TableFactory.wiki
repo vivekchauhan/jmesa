@@ -1,5 +1,7 @@
 To make building JMesa tables easier you can use either the !TableFactory, or the [ComponentFactory]. The highest level factory is the !TableFactory and will be demonstrated here. I find using a !TableFactory most useful when building exports as most exports are pretty generic. The !TableFactory is also useful for HTML tables if you want to have the table created initially, and then can be customized by swapping out the default functionality for something else.
 
+== HTML ==
+
 The following is as an example of what an HTML table would look like: 
 {{{
 HtmlTableFactory tableFactory = new HtmlTableFactory(webContext, coreContext);
@@ -22,6 +24,27 @@ Notice the use of the JDK1.5 varargs in the  createTable() method parameters!
 
 The !PresidentsLinkEditor is an implementation of the !CellEditor and shows what it means to compose the column renderer with a custom cell editor. Because the !TableFactory creates the whole table at once you must first find the column and then grab the renderer. 
 
+{{{
+private static class PresidentsLinkEditor implements CellEditor {
+    CellEditor cellEditor;
+
+    public PresidentsLinkEditor(CellEditor cellEditor) {
+        this.cellEditor = cellEditor;
+    }
+
+    public Object getValue(Object item, String property, int rowcount) {
+        Object value = cellEditor.getValue(item, property, rowcount);
+        HtmlBuilder html = new HtmlBuilder();
+        html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+        html.append(value);
+        html.aEnd();
+        return html.toString();
+    }
+}
+}}}
+
+== CSV Export ==
+
 The following is as an example of what a CSV export table would look like:
 {{{
 TableFactory tableFactory = new CsvTableFactory(webContext, coreContext);
@@ -32,6 +55,8 @@ exporter.export();
 }}}
 
 The additional step here is in using the !ViewExporter. The !ViewExporter is responsible for calling the render() method on the View and then exporting it to the response when the export() method is invoked.
+
+
 
 
 
