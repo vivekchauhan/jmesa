@@ -1,12 +1,12 @@
 The !CoreContext encapsulates the core package and is used to Filter and Sort the items (Collection of Beans or Collection of Maps). It also gives easy access to the Preferences and Messages as well as a reference to the Limit. To build the !CoreContext with the factory you need the WebContext and the [Limit], as well as the items.
 
 {{{
-Collection items = presidentsService.getPresidents(); // Collection of Beans or Maps
-
-CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
-CoreContext coreContext = factory.createCoreContext(items, limit);
+public CoreContext getCoreContext(Collection items, Limit limit, WebContext webContext) {
+    CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
+    CoreContext coreContext = factory.createCoreContext(items, limit);
+    return coreContext;
+}
 }}}
-
 
 
 
