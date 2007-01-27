@@ -1,5 +1,7 @@
 To make building JMesa tables easier you can use either the [TableFactory], or the !ComponentFactory. The lower level factory is the !ComponentFactory and will be demonstrated here. I find using a !ComponentFactory most useful when building HTML tables that are more custom. For exports I would recommend using the [TableFactory].
 
+== HTML ==
+
 The following is as an example of what an HTML table would look like:
 {{{
 HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
@@ -38,6 +40,28 @@ View view = new HtmlView(table, toolbar, coreContext);
 return view.render();
 }}}
 
+The !PresidentsLinkEditor is an implementation of the !CellEditor and shows what it means to compose the column renderer with a custom cell editor.
+
+{{{
+private static class PresidentsLinkEditor implements CellEditor {
+    CellEditor cellEditor;
+
+    public PresidentsLinkEditor(CellEditor cellEditor) {
+        this.cellEditor = cellEditor;
+    }
+
+    public Object getValue(Object item, String property, int rowcount) {
+        Object value = cellEditor.getValue(item, property, rowcount);
+        HtmlBuilder html = new HtmlBuilder();
+        html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+        html.append(value);
+        html.aEnd();
+        return html.toString();
+    }
+}
+}}}
+
+== CSV Export ==
 
 The following is as an example of what a CSV export table would look like:
 {{{
@@ -71,4 +95,6 @@ CsvView view = new CsvView(table, coreContext);
 ViewExporter exporter = new CsvViewExporter(view, "presidents.txt", response);
 exporter.export();
 }}}
+
+
 
