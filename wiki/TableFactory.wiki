@@ -15,7 +15,7 @@ ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreCo
 Toolbar toolbar = toolbarFactory.createToolbar();
 View view = new HtmlView(table, toolbar, coreContext);
 
-return view.render();
+Object viewData = view.render();
 }}}
 
 Notice the use of the JDK1.5 varargs in the  createTable() method parameters! 
@@ -32,7 +32,6 @@ exporter.export();
 }}}
 
 The additional step here is in using the !ViewExporter. The !ViewExporter is responsible for calling the render() method on the View and then exporting it to the response when the export() method is invoked.
-
 
 
 
