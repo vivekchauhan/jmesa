@@ -1,0 +1,10 @@
+The Preferences interface is used to avoid hard coding the default attribute values JMesa uses. The default implementation uses a properties file. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then change the values you want.
+
+To set up the properties file specify a context-param in your /WEB-INF/web.xml file and place the properties wherever you want to like this: 
+
+{{{
+<context-param>
+  <param-name>jmesaPreferencesLocation</param-name>
+  <param-value>/jmesa.properties</param-value>
+</context-param>
+}}}
