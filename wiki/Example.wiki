@@ -7,6 +7,5 @@ Taking things step by step looks like this:
  # Create the [Limit]
  # Create the [CoreContext]
  # Create the View using either the [TableFactory] or [ComponentFactory]
- # Pass the [ViewDataExample view data] to render the table on your [JSPExample web page]
-
+ # Pass the [ControllerExample view data] to render the table on your [JSPExample web page]
 
