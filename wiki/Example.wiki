@@ -1,0 +1,12 @@
+There are three ways to build a JMesa table. You can use either the TableFactory or ComponentFactory to build tables with a higher level factory class, or just build a table manually by pulling together the components, renderers and editors.
+
+Whichever way you choose to build a table the process is roughly the same. You first need to create a Limit object to find out how the user interacted with the table. With the Limit you could either use it to do something custom, or manipulate it to throw the table into a different state. With the Limit you then need to create a CoreContext object. The CoreContext allows you to filter and sort the items (Collection of Beans or Collection of Maps). It also gives you access to the Preferences, Messages, and the Limit in other parts of the application. Lastly, you create your View using either one of the factories, or with the components, renderers and editors directly.
+
+Taking things step by step looks like this:
+ # Create the [WebContext]
+ # Create the [Limit]
+ # Create the [CoreContext]
+ # Create the View using either the [TableFactory] or [ComponentFactory]
+
+
+
