@@ -42,7 +42,7 @@ limit.getSortSet().addSort("firstName", Order.ASC);
 limit.getRowSelect().setPage(2);
 }}}
 
-
+http://extremecomponents.org/resources/images/uml/limit.png
 
 
 
