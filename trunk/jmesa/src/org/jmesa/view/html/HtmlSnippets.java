@@ -15,8 +15,6 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.view.html.toolbar.Toolbar;
-
 /**
  * @since 2.0
  * @author Jeff Johnston
@@ -42,9 +40,11 @@ public interface HtmlSnippets {
 
     public String header();
 
+    public String footer();
+
     public String body();
 
-    public String toolbar(Toolbar toolbar);
+    public String toolbar();
 
     public String statusBarText();
 
