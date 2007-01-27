@@ -1,0 +1,12 @@
+The Messages interface is used to retrieve all the locale specific text. The default implementation uses Java [http://java.sun.com/j2se/1.5.0/docs/api/java/util/ResourceBundle.html resource bundles].
+
+To set up the resource bundle specify a context-param in your /WEB-INF/web.xml file and place the bundle wherever you want to like this:
+
+{{{
+<context-param>
+  <param-name>jmesaMessagesLocation</param-name>
+  <param-value>org/jmesaweb/resource/jmesaResourceBundle</param-value>
+</context-param>
+}}}
+
+
