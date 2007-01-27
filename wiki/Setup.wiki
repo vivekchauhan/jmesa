@@ -19,10 +19,14 @@ In the jmesa.zip file you will find everything you need to get started:
  * default images
  * source code
 
-The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directory and you are all ready to start coding your table. Of course to render correctly on the web page you will need to install the JavaScript, CSS, and Images. Your project probably has plenty of those resources and should be used consistently.
+The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directory and you are all ready to start coding your table. Of course to render correctly on the web page you will need to install the !JavaScript, CSS, and Images. Your project probably has plenty of those resources and should be used consistently.
 
 
+=== Tags and Filter ===
+JMesa does not currently have any tags, but instead uses the API to build tables directly with straight Java code. In the future I fully expect to have a tag implementation, but even then it will be a very straight forward library. More advanced tables will always be built via the API.
 
+Exports, on the other hand, will always be built using the API. There will no longer be a servlet filter used.
 
+Read the article about [TagsAndFilter tags and filters] for a detailed explanation of why both of these decisions were made.
 
 
