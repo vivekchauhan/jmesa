@@ -1,23 +1,13 @@
-The !CoreContext encapsulates the core package and is used to Filter and Sort the items (Collection of Beans or Collection of Maps). It also gives easy access to the Preferences and Messages as well as a reference to the Limit. To build the !CoreContext with the factory you need the WebContext and the Limit, as well as the items.
+The !CoreContext encapsulates the core package and is used to Filter and Sort the items (Collection of Beans or Collection of Maps). It also gives easy access to the Preferences and Messages as well as a reference to the Limit. To build the !CoreContext with the factory you need the WebContext and the [Limit], as well as the items.
 
 {{{
-Collection items = presidentsService.getPresidents();
-// the id is the unique identifier for this table
-LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-Limit limit = limitFactory.createLimit();
-
-if (limit.isExportable()) {
-    // the LimitFactory is not useful for the exports
-    RowSelect rowSelect = new RowSelectImpl(1, items.size(), items.size());
-    limit.setRowSelect(rowSelect);
-} else {
-    RowSelect rowSelect = limitFactory.createRowSelect(maxRows, items.size());
-    limit.setRowSelect(rowSelect);
-}
+Collection items = presidentsService.getPresidents(); // Collection of Beans or Maps
 
 CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
 CoreContext coreContext = factory.createCoreContext(items, limit);
 }}}
+
+
 
 
 
