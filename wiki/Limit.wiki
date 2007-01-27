@@ -44,6 +44,10 @@ limit.getRowSelect().setPage(2);
 
 http://extremecomponents.org/resources/images/uml/limit.png
 
+The !LimitFactory makes creating a Limit easy.
+
+http://extremecomponents.org/resources/images/uml/limitFactory.png
+
 
 
 
