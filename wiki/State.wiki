@@ -1,0 +1,3 @@
+The State interface is used to persist a [Limit].
+
+http://extremecomponents.org/resources/images/uml/state.png
