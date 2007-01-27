@@ -16,17 +16,20 @@ the !RowSelect to the Limit.
 private String id; // the table unique identifier
 private int maxRows; // the max page rows
 ...
-Collection items = presidentsService.getPresidents(); // Collection of Beans or Maps
 
-LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-Limit limit = limitFactory.createLimit();
+public Limit getLimit(Collection items, WebContext webContext) {
+    LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
+    Limit limit = limitFactory.createLimit();
 
-if (limit.isExportable()) {
-    RowSelect rowSelect = new RowSelectImpl(1, items.size(), items.size());
-    limit.setRowSelect(rowSelect);
-} else {
-    RowSelect rowSelect = limitFactory.createRowSelect(maxRows, items.size());
-    limit.setRowSelect(rowSelect);
+    if (limit.isExportable()) {
+        RowSelect rowSelect = new RowSelectImpl(1, items.size(), items.size());
+        limit.setRowSelect(rowSelect);
+    } else {
+        RowSelect rowSelect = limitFactory.createRowSelect(maxRows, items.size());
+        limit.setRowSelect(rowSelect);
+    }
+
+    return limit;
 }
 }}}
 
