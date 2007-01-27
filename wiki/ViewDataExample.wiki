@@ -1,0 +1,21 @@
+If you are rendering html then pass the view into the servlet request. If you are exporting then just set the export directly on the response. The following example is using Spring, but there is nothing Spring specific happening.
+
+{{{
+private static String CSV = "csv";
+...
+
+ModelAndView mv = new ModelAndView(successView);
+
+...
+if (limit.isExportable()) {
+    String type = limit.getExport().getType();
+    if (type.equals(CSV)) {
+        csvTable(response, webContext, coreContext);
+        return null;
+    }
+}
+
+Object presidents = htmlTable(webContext, coreContext);
+mv.addObject("presidents", presidents);
+}}}
+
