@@ -35,11 +35,21 @@ import org.jmesa.view.html.toolbar.Toolbar;
  */
 public class HtmlSnippetsImpl implements HtmlSnippets {
     private HtmlTable table;
+    private Toolbar toolbar;
     private CoreContext coreContext;
 
-    public HtmlSnippetsImpl(HtmlTable table, CoreContext coreContext) {
+    public HtmlSnippetsImpl(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
         this.table = table;
+        this.toolbar = toolbar;
         this.coreContext = coreContext;
+    }
+
+    protected HtmlTable getHtmlTable() {
+        return table;
+    }
+
+    protected CoreContext getCoreContext() {
+        return coreContext;
     }
 
     public String themeStart() {
@@ -126,6 +136,10 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         return html.toString();
     }
 
+    public String footer() {
+        return null;
+    }
+
     public String body() {
         HtmlBuilder html = new HtmlBuilder();
         int rowcount = 0;
@@ -165,7 +179,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         }
     }
 
-    public String toolbar(Toolbar toolbar) {
+    public String toolbar() {
         HtmlBuilder html = new HtmlBuilder();
 
         HtmlRow row = table.getRow();
@@ -199,7 +213,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         html.tdEnd();
         html.trEnd(1);
-        
+
         html.tbodyEnd(1);
 
         return html.toString();
@@ -221,8 +235,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 
         for (Sort sort : limit.getSortSet().getSorts()) {
-            html.append("addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam() 
-                    + "')").semicolon().newline();
+            html.append(
+                    "addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
+                            + "')").semicolon().newline();
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {

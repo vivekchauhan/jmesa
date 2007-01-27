@@ -27,13 +27,16 @@ import org.jmesa.view.html.toolbar.Toolbar;
  */
 public class HtmlView implements View {
     private HtmlTable table;
-    private Toolbar toolbar;
-    private CoreContext coreContext;
+    private HtmlSnippets snippets;
 
     public HtmlView(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
         this.table = table;
-        this.toolbar = toolbar;
-        this.coreContext = coreContext;
+        this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
+    }
+
+    public HtmlView(HtmlTable table, HtmlSnippets snippets) {
+        this.table = table;
+        this.snippets = snippets;
     }
 
     public HtmlTable getTable() {
@@ -43,15 +46,9 @@ public class HtmlView implements View {
     public void setTable(Table table) {
         this.table = (HtmlTable) table;
     }
-    
-    protected CoreContext getCoreContext() {
-        return coreContext;
-    }
-    
+
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
-
-        HtmlSnippets snippets = new HtmlSnippetsImpl(table, coreContext);
 
         html.append(snippets.themeStart());
 
@@ -59,7 +56,7 @@ public class HtmlView implements View {
 
         html.append(snippets.theadStart());
 
-        html.append(snippets.toolbar(toolbar));
+        html.append(snippets.toolbar());
 
         html.append(snippets.filter());
 
@@ -72,8 +69,8 @@ public class HtmlView implements View {
         html.append(snippets.body());
 
         html.append(snippets.tbodyEnd());
-        
-        html.append(footer());
+
+        html.append(snippets.footer());
 
         html.append(snippets.statusBar());
 
@@ -84,9 +81,5 @@ public class HtmlView implements View {
         html.append(snippets.initJavascriptLimit());
 
         return html.toString();
-    }
-    
-    protected String footer() {
-        return null;
     }
 }
