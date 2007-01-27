@@ -5,6 +5,8 @@ sorting, filtering, paging, max rows to display, and exporting. With this
 information you will be able to display the requested page filtered and
 sorted correctly in the most efficient manner possible.
 
+Note: If you want to persist a Limit you can use the [State] interface.
+
 Be sure to pay attention to the !RowSelect. The !RowSelect needs to be added to
 the Limit so that the row information is available. The catch is the
 !RowSelect cannot be created until the total rows is known, which is is
@@ -47,7 +49,6 @@ http://extremecomponents.org/resources/images/uml/limit.png
 The !LimitFactory makes creating a Limit easy.
 
 http://extremecomponents.org/resources/images/uml/limitFactory.png
-
 
 
 
