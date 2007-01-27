@@ -43,40 +43,50 @@ public class HtmlView implements View {
     public void setTable(Table table) {
         this.table = (HtmlTable) table;
     }
-
+    
+    protected CoreContext getCoreContext() {
+        return coreContext;
+    }
+    
     public Object render() {
-        StringBuilder builder = new StringBuilder();
+        HtmlBuilder html = new HtmlBuilder();
 
         HtmlSnippets snippets = new HtmlSnippetsImpl(table, coreContext);
 
-        builder.append(snippets.themeStart());
+        html.append(snippets.themeStart());
 
-        builder.append(snippets.tableStart());
+        html.append(snippets.tableStart());
 
-        builder.append(snippets.theadStart());
+        html.append(snippets.theadStart());
 
-        builder.append(snippets.toolbar(toolbar));
+        html.append(snippets.toolbar(toolbar));
 
-        builder.append(snippets.filter());
+        html.append(snippets.filter());
 
-        builder.append(snippets.header());
+        html.append(snippets.header());
 
-        builder.append(snippets.theadEnd());
+        html.append(snippets.theadEnd());
 
-        builder.append(snippets.tbodyStart());
+        html.append(snippets.tbodyStart());
 
-        builder.append(snippets.body());
+        html.append(snippets.body());
 
-        builder.append(snippets.tbodyEnd());
+        html.append(snippets.tbodyEnd());
+        
+        html.append(footer());
 
-        builder.append(snippets.statusBar());
+        html.append(snippets.statusBar());
 
-        builder.append(snippets.tableEnd());
+        html.append(snippets.tableEnd());
 
-        builder.append(snippets.themeEnd());
+        html.append(snippets.themeEnd());
 
-        builder.append(snippets.initJavascriptLimit());
+        html.append(snippets.initJavascriptLimit());
 
-        return builder;
+        return html.toString();
+    }
+    
+    protected String footer() {
+        return null;
     }
 }
