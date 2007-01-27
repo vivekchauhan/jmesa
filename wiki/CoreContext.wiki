@@ -8,6 +8,28 @@ public CoreContext getCoreContext(Collection items, Limit limit, WebContext webC
 }
 }}}
 
+The following shows the !CoreContext interface. This is created with the !CoreContextFactory.
+
+http://extremecomponents.org/resources/images/uml/coreContext.png
+
+The !CoreContext can sort the items.
+
+http://extremecomponents.org/resources/images/uml/sort.png
+
+The !CoreContext can filter the items. Note: you can specify different filter matching strategies and then plug them in directly on the !CoreContextFactoryImpl implementation.
+
+{{{
+CoreContextFactoryImpl factory = new CoreContextFactoryImpl(webContext);
+factory.addFilterMatch(key, match);
+// TODO: need a better example for this
+}}}
+
+http://extremecomponents.org/resources/images/uml/filter.png
+
+
+
+
+
 
 
 
