@@ -1,0 +1,46 @@
+The name Limit comes from the MySQL limit command, and the the purpose of the
+Limit interface is to know how to limit the table results. The implemenation
+of the Limit knows how the user interacted with the table with regards to
+sorting, filtering, paging, max rows to display, and exporting. With this
+information you will be able to display the requested page filtered and
+sorted correctly in the most efficient manner possible.
+
+Be sure to pay attention to the !RowSelect. The !RowSelect needs to be added to
+the Limit so that the row information is available. The catch is the
+!RowSelect cannot be created until the total rows is known, which is is
+calculated by using the Limit !FilterSet. So first get the Limit and use the
+!FilterSet to figure out the total rows, create the !RowSelect, and then add
+the !RowSelect to the Limit. 
+
+{{{
+private String id; // the table unique identifier
+private int maxRows; // the max page rows
+...
+Collection items = presidentsService.getPresidents(); // Collection of Beans or Maps
+
+LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
+Limit limit = limitFactory.createLimit();
+
+if (limit.isExportable()) {
+    RowSelect rowSelect = new RowSelectImpl(1, items.size(), items.size());
+    limit.setRowSelect(rowSelect);
+} else {
+    RowSelect rowSelect = limitFactory.createRowSelect(maxRows, items.size());
+    limit.setRowSelect(rowSelect);
+}
+}}}
+
+The code to handle the exports, in this example, is setting the max rows and the total rows to the total size of items so that all the rows are exported.
+
+
+The real power of the Limit implementation becomes apparent when you want to put the table into a different state. Here we are adding a Sort object to sort the first name in ascending order. This will also force the table to go right to the second page.
+{{{
+limit.getSortSet().addSort("firstName", Order.ASC);
+limit.getRowSelect().setPage(2);
+}}}
+
+
+
+
+
+
