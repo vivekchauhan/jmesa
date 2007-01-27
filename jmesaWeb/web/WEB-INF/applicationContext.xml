@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+  		<property name="url" value="jdbc:hsqldb:mem:presidents"/>
+  		<property name="username" value="sa"/>
+	</bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>org/jmesaweb/domain/President.hbm.xml</value>
+             </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.format_sql">true</prop>                
+            </props>
+        </property>
+    </bean>
+
+	<bean id="presidentsService" class="org.jmesaweb.service.PresidentsServiceImpl">
+		<property name="presidentsDao" ref="presidentsDao"/>
+	</bean>
+	
+	<bean id="presidentsDao" class="org.jmesaweb.dao.PresidentsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="dataSourcePopulator" class="org.jmesaweb.dao.DataSourcePopulator">
+		<property name="jdbcTemplate">
+			<bean class="org.springframework.jdbc.core.JdbcTemplate">
+				<property name="dataSource" ref="dataSource"/>
+			</bean>
+		</property>
+	</bean>
+</beans>

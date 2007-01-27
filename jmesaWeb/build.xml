@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="JMesaWeb" default="javadocs" basedir=".">
+	
+	<property name="main" value="./"/>
+	<property name="src" value="${main}/src"/>
+	<property name="build" value="${main}/build"/>
+	<property name="docs" value="${main}/build/docs"/>
+	
+	<path id="classes">
+		<fileset dir="${main}/web/WEB-INF/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+    </path>
+
+	<target name="clean">
+		<delete dir="${build}"/>
+		<delete dir="${docs}"/>
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${build}"/>
+		<mkdir dir="${build}/classes"/>
+
+		<echo message="You are using java version ${java.version}"/>
+		
+        <mkdir dir="${build}/classes/META-INF"/>
+		
+        <javac srcdir="${src}" destdir="${build}/classes" debug="false">
+			<classpath refid="classes"/>
+		</javac>
+	</target>
+	
+	<target name="javadocs" depends="compile">
+        <mkdir dir="${docs}/api"/>
+	
+		<javadoc 
+			sourcepath="${src}" 
+			destdir="${docs}/api" 
+			windowtitle="JMesa"
+			additionalparam="-breakiterator" 
+			source="1.5" 
+			linksource="true"
+			access="package" 
+			author="true" 
+			version="true" 
+			use="true" 
+			defaultexcludes="true">
+			
+			<doctitle><![CDATA[<h1>JMesa</h1>]]></doctitle>
+
+			<classpath refid="classes"/>
+	
+			<packageset dir="${src}">
+				<include name="org/jmesa/**"/>
+			</packageset>
+	
+			<link href="http://java.sun.com/j2ee/1.4/docs/api"/>
+			<link href="http://java.sun.com/j2se/1.4.2/docs/api"/>
+
+		</javadoc>
+	</target>
+
+</project>
+

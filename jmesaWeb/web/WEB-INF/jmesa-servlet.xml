@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="urlMap">
+			<map>
+				<entry key="presidents.run">
+					<ref bean="presidents"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="presidents" class="org.jmesaweb.controller.PresidentsController">
+		<property name="presidentsService" ref="presidentsService"/>
+		<property name="successView" value="jsp/example.jsp"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
+	</bean>
+
+</beans>
