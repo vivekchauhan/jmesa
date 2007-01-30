@@ -1,0 +1,26 @@
+A [View view] is composed of components, namely the table, row and column. The attributes of each component represent the features that are valid across multiple renderers. If you remember, each view defines their own components. For the purpose of this article I will also talk about the Html components and their attributes as they are used more often. For the other views see the javadocs to find out the various component specific attributes and how to use them.
+
+== Table ==
+The common attributes of all tables are caption, row, and tableRenderer. 
+
+The caption attribute is used to give the table a name. Almost all views will display the caption above the table.
+
+The row attribute defines the Row used for the table. Each table has one Row associated with it that represents all the rows in a table.
+
+The tableRenderer attribute defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderer] article for more information.
+
+The !HtmlTable also defines a theme attribute used to give a different display for different tables. Technically this means that the div that surrounds the table will have its class attribute modified. This technique makes it very easy to define many different displays just by declaring different CSS styles. All you have to do is prepend each selector in the CSS with the theme. For instance by default the theme is called jmesa. If you open up the jmesa.css file you will see .jmesa prepended before each selector.
+
+{{{
+.jmesa caption {
+    caption-side: top;
+    color: #444444;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: left;
+    padding-left: 5px;
+}
+
+}}}
+
+== Row ==
