@@ -7,9 +7,9 @@ The caption attribute is used to give the table a name. Almost all views will di
 
 The row attribute defines the Row used for the table. Each table has one Row associated with it that represents all the rows in a table.
 
-The tableRenderer attribute defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderer] article for more information.
+The tableRenderer attribute defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderers] article for more information.
 
-The !HtmlTable also defines a theme attribute used to give a different display for different tables. Technically this means that the div that surrounds the table will have its class attribute modified. This technique makes it very easy to define many different displays just by declaring different CSS styles. All you have to do is prepend each selector in the CSS with the theme. For instance by default the theme is called jmesa. If you open up the jmesa.css file you will see .jmesa prepended before each selector.
+The !HtmlTable also defines a theme attribute used to give a different display for different tables. Technically this means that the div that surrounds the table will have its class attribute modified. This technique makes it very easy to define many different displays just by declaring different CSS styles. All you have to do is prepend each selector in the CSS with the theme. For instance the default theme is called jmesa. If you open up the jmesa.css file you will see .jmesa prepended before each selector.
 
 {{{
 .jmesa caption {
