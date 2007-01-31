@@ -1,15 +1,35 @@
 A [View view] is composed of components, namely the table, row and column. The attributes of each component represent the features that are valid across multiple renderers. If you remember, each view defines their own components. For the purpose of this article I will also talk about the Html components and their attributes as they are used more often. For the other views see the javadocs to find out the various component specific attributes and how to use them.
 
 == Table ==
-The common attributes of all tables are caption, row, and tableRenderer. 
+The common attributes of all tables, regardless of the view, are caption, row, and tableRenderer. 
 
-The caption attribute is used to give the table a name. Almost all views will display the caption above the table.
+The caption is used to give the table a name. Almost all views will display the caption above the table. Here is an example of how the default caption displays above the html table.
 
-The row attribute defines the Row used for the table. Each table has one Row associated with it that represents all the rows in a table.
+{{{ 
+table.setCaption("Presidents");
+}}}
 
-The tableRenderer attribute defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderers] article for more information.
+http://extremecomponents.org/resources/images/caption.png
 
-The !HtmlTable also defines a theme attribute used to give a different display for different tables. Technically this means that the div that surrounds the table will have its class attribute modified. This technique makes it very easy to define many different displays just by declaring different CSS styles. All you have to do is prepend each selector in the CSS with the theme. For instance the default theme is called jmesa. If you open up the jmesa.css file you will see .jmesa prepended before each selector.
+The row defines the Row used for the table. Each table has one Row associated with it that represents all the rows in a table.
+
+{{{ 
+table.setRow(row);
+}}}
+
+The tableRenderer defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderers] article for more information.
+
+{{{ 
+table.setTableRenderer(tableRenderer);
+}}}
+
+The !HtmlTable also has a theme attribute used to give a different display for different tables. Technically this means that the div that surrounds the table will have its class attribute modified. This technique makes it very easy to define many different displays just by declaring different CSS styles. All you have to do is prepend each selector in the CSS with the theme. For instance the default theme is called jmesa.
+
+{{{ 
+table.setTheme("jmesa"); // the default
+}}}
+
+If you open up the jmesa.css file you will see .jmesa prepended before each selector.
 
 {{{
 .jmesa caption {
@@ -24,3 +44,88 @@ The !HtmlTable also defines a theme attribute used to give a different display f
 }}}
 
 == Row ==
+There are no common attributes, for a row, between different views. However, an HtmlRow has the following attributes: highlighter, onclick, onmouseover, and onmouseout.
+
+The highlighter is used to give the visual appearance of a row being highlighted as your mouse flows over the row. The default value is true, meaning the row will be highlighted.
+
+{{{ 
+row.setHighlighter(true); // the default
+}}}
+
+http://extremecomponents.org/resources/images/highlighter.png
+
+The onclick, onmouseover and onmouseout are used to specify the Javascript that will be invoked when one of those scripting actions are invoked. 
+
+{{{ 
+row.setOnclick("alert('Hello Onclick')");
+row.setOnmouseover("alert('Hello Onmouseover')");
+row.setOnmouseout("alert('Hello Onmouseout')");
+}}}
+
+
+== Column ==
+The common attributes of all columns, regardless of the view, are property, title, cellRenderer, and headerRenderer.
+
+The property corresponds to the item attribute, where an item is one object in the Collection of Items or Collection of Maps. The property is optional, so if the column does not map to an item attribute then it should be null.
+
+{{{ 
+column.setProperty("firstName");
+}}}
+
+The title is used to give the header a descriptive name. If you do not define a title then the column will convert the camelcase property name to a real word. If you do not want anything to show up in the header then just add a single whitespace for the title.
+
+{{{ 
+column.setTitle("First Name"); // Note: if left blank would still show as "First Name"
+}}}
+
+http://extremecomponents.org/resources/images/property.png
+
+The cellRenderer defines the !CellRenderer used for the column. See the !CellRenderer in the [Renderers] article for more information.
+
+{{{ 
+column.setCellRenderer(cellRenderer);
+}}}
+
+The headerRenderer defines the !HeaderRenderer used for the column. See the !HeaderRenderer in the [Renderers] article for more information.
+
+{{{ 
+column.setHeaderRenderer(headerRenderer);
+}}}
+
+The !HtmlColumn also has the following attributes: filterable, sortable and filterRenderer. 
+
+JMesa has filtering and sorting built right in. The only thing you need to decide is whether or not to use it. The attributes you will use are filterable and sortable. Both are booleans and the default value is true. If you choose not to use the sorting or filtering, then set the attributes to false. 
+
+{{{ 
+column.setFilterable(true); // the default
+column.setSortable(true); // the default
+}}}
+
+
+The filterRenderer defines the !FilterRenderer used for the column. See the !FilterRenderer in the [Renderers] article for more information.
+
+{{{ 
+column.setFilterRenderer(filterRenderer);
+}}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
