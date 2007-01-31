@@ -1,4 +1,4 @@
-A [View view] is composed of components, namely the table, row and column. The attributes of each component represent the features that are valid across multiple renderers. If you remember, each view defines their own components. For the purpose of this article I will also talk about the Html components and their attributes as they are used more often. For the other views see the javadocs to find out the various component specific attributes and how to use them.
+A [View view] is composed of components, namely the table, row and column. The attributes of each component represent the features that are valid across multiple [Renderers renderers]. If you remember, each view defines their own components. For the purpose of this article I will also talk about the Html components and their attributes as they are used more often. For the other views see the javadocs to find out the various component specific attributes and how to use them.
 
 == Table ==
 The common attributes of all tables, regardless of the view, are caption, row, and tableRenderer. 
