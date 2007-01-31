@@ -1,0 +1,51 @@
+A component is composed of renderers. The renderer's job is to render the component. The attributes of each renderer represent the features that are valid to renderer the specific component. For the purpose of this article I will also talk about the Html renderers and their attributes as they are used more often. For the other views see the javadocs to find out the various renderer specific attributes and how to use them.
+
+== TableRenderer ===
+There are no common attributes, for a tableRenderer, between different views. However, an HtmlTableRenderer has the following attributes: style, styleClass, border, cellpadding, cellspacing, and width.
+
+The style is the style attribute on the html table tag. For instance this would change the font color to blue in the table.
+
+{{{
+table.getTableRenderer().setStyle("color:blue");
+}}}
+
+The styleClass is the class attribute on the html table tag. For instance this would change the css class to outerTable.
+
+{{{
+table.getTableRenderer().setStyleClass("outerTable");
+}}}
+
+The border is the border attribute on the html table tag. For instance this would change the border to 1px.
+
+{{{
+table.getTableRenderer().setBorder("1px");
+}}}
+
+The cellpadding is the cellpadding attribute on the html table tag. For instance this would change the cellpadding to 1px.
+
+{{{
+table.getTableRenderer().setCellpadding("1px");
+}}}
+
+The cellspacing is the cellspacing attribute on the html table tag. For instance this would change the cellspacing to 1px.
+
+{{{
+table.getTableRenderer().setCellspacing("1px");
+}}}
+
+The width is the width attribute on the html table tag. For instance this would change the width to 600px.
+
+{{{
+table.getTableRenderer().setWidth("600px");
+}}}
+
+
+
+
+
+
+
+
+
+
+
