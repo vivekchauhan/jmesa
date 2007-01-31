@@ -44,7 +44,7 @@ If you open up the jmesa.css file you will see .jmesa prepended before each sele
 }}}
 
 == Row ==
-There are no common attributes, for a row, between different views. However, an HtmlRow has the following attributes: highlighter, onclick, onmouseover, and onmouseout.
+There are no common attributes, for a row, between different views. However, an !HtmlRow has the following attributes: highlighter, onclick, onmouseover, and onmouseout.
 
 The highlighter is used to give the visual appearance of a row being highlighted as your mouse flows over the row. The default value is true, meaning the row will be highlighted.
 
@@ -107,7 +107,6 @@ The filterRenderer defines the !FilterRenderer used for the column. See the !Fil
 {{{ 
 column.setFilterRenderer(filterRenderer);
 }}}
-
 
 
 
