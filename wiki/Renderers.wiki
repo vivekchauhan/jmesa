@@ -79,7 +79,7 @@ row.getRowRenderer().setOddClass("jmesaRowOdd");
 }}}
 
 == CellRenderer ==
-Each Column component has a !CellRenderer. The common attribute for all !CellRenderers, regardless of the view, is the !CellEditor. A !CellEditor is responsible for returning the value that the renderer will render. For more information see the [Editor] article.
+Each Column component has a !CellRenderer. The common attribute for all !CellRenderers, regardless of the view, is the !CellEditor. A !CellEditor is responsible for returning the value that the renderer will render. For more information see the [Editors] article.
 
 A !HtmlCellRenderer has the following attributes: style, and styleClass.
 
