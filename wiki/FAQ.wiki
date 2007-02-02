@@ -1,0 +1,28 @@
+===== Where is the autoIncludeParameters feature of eXtremeTable? =====
+JMesa is now a form component more like an input or select field. It
+is not automatically included in a form tag. It also does not
+automatically include parameters. One of the things JMesa tries to do
+is be is as straightforward as possible. Coming from the eXtremeTable,
+and understanding the autoIncludeParameters feature this may seem like
+a step backward, but by not trying to be too smart it increases the
+flexibility quite a bit. 
+
+If JMesa is in the same form as your other form fields
+then you will not have to do anything as when you submit the form
+everything goes with it. If the JMesa table is being used inside a separate form then you would have to have separate hidden form fields that
+contain the values from the first form. 
+
+You might think about coming up with a tag that could be used in
+conjunction with JMesa that would basically work like the
+autoIncludeParameters feature if including separate hidden fields
+manually seems like too much work. This would give you the feature,
+but be consistent with letting JMesa just render tables. If you look
+at the !ParametersBuilder class in the test package it would show you
+how the parameters are built. This might even be a good thing to
+include in the distribution as an optional tag and be a start to the
+tag package.
+
+
+
+
+
