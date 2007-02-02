@@ -1,7 +1,7 @@
 A component is composed of renderers. The renderer's job is to render the component. The attributes of each renderer represent the features that are valid to renderer the specific component. For the purpose of this article I will also talk about the Html renderers and their attributes as they are used more often. For the other views see the javadocs to find out the various renderer specific attributes and how to use them.
 
-== TableRenderer ===
-Each Table component has a !TableRenderer. There are no common attributes for a tableRenderer between different views. However, an !HtmlTableRenderer has the following attributes: style, styleClass, border, cellpadding, cellspacing, and width.
+== TableRenderer ==
+Each Table component has a !TableRenderer. There are no common attributes for a !TableRenderer between different views. However, an !HtmlTableRenderer has the following attributes: style, styleClass, border, cellpadding, cellspacing, and width.
 
 The style is the style attribute on the html table element. For instance this would change the font color to blue in the table.
 
@@ -9,10 +9,10 @@ The style is the style attribute on the html table element. For instance this wo
 table.getTableRenderer().setStyle("color:blue");
 }}}
 
-The styleClass is the class attribute on the html table element. For instance this would change the css class to outerTable.
+The styleClass is the class attribute on the html table element. For instance this would change the css class to jmesaTable.
 
 {{{
-table.getTableRenderer().setStyleClass("outerTable");
+table.getTableRenderer().setStyleClass("jmesaTable");
 }}}
 
 The border is the border attribute on the html table element. For instance this would change the border to 1px.
@@ -39,14 +39,73 @@ The width is the width attribute on the html table element. For instance this wo
 table.getTableRenderer().setWidth("600px");
 }}}
 
+== RowRenderer ==
+Each Row component has a !RowRenderer. There are no common attributes for a !RowRenderer between different views. However, an !HtmlRowRenderer has the following attributes: style, styleClass, highlightStyle, highlightClass, evenClass, and oddClass.
 
+The style is the style attribute on the html tr element. For instance this would change the height of the row to 20px.
 
+{{{
+row.getRowRenderer().setStyle("height:20px");
+}}}
 
+The styleClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRow.
 
+{{{
+row.getRowRenderer().setStyleClass("jmesaRow");
+}}}
 
+The highlightStyle is the style attribute on the html tr element. For instance this would change the height of the row to 20px.
 
+{{{
+row.getRowRenderer().setHighlightStyle("height:20px");
+}}}
 
+The highlightClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRowHighlighter.
 
+{{{
+row.getRowRenderer().setHighlightClass("jmesaRowHighlighter");
+}}}
 
+The evenClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRowEven.
 
+{{{
+row.getRowRenderer().setEvenClass("jmesaRowEven");
+}}}
 
+The oddClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRowOdd.
+
+{{{
+row.getRowRenderer().setOddClass("jmesaRowOdd");
+}}}
+
+== CellRenderer ==
+Each Column component has a !CellRenderer. The common attribute for all !CellRenderers, regardless of the view, is the !CellEditor. A !CellEditor is responsible for returning the value that the renderer will render. For more information see the [Editor] article.
+
+A !HtmlCellRenderer has the following attributes: style, and styleClass.
+
+The style is the style attribute on the html td element. For instance this would change the font color to blue in the column.
+
+{{{
+column.getCellRenderer().setStyle("color:blue");
+}}}
+
+The styleClass is the class attribute on the html td element. For instance this would change the css class to jmesaCell.
+
+{{{
+column.getCellRenderer().setStyleClass("jmesaCell");
+}}}
+
+== FilterRenderer ==
+Each Column component has a !FilterRenderer. There are no common attributes for a !FilterRenderer between different views. However, an !HtmlFilterRenderer has the following attributes: style, and styleClass.
+
+The style is the style attribute on the html td element. For instance this would change the height of the column to 20px.
+
+{{{
+column.getFilterRenderer().setStyle("height:20px");
+}}}
+
+The styleClass is the class attribute on the html td element. For instance this would change the css class to jmesaFilter.
+
+{{{
+column.getFilterRenderer().setStyleClass("jmesaFilter");
+}}}
