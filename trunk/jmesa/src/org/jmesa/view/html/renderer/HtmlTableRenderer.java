@@ -41,4 +41,8 @@ public interface HtmlTableRenderer extends TableRenderer {
     public String getCellspacing();
 
     public void setCellspacing(String cellspacing);
+    
+    public String getWidth();
+
+    public void setWidth(String width);
 }

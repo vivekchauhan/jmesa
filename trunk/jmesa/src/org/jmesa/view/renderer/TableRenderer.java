@@ -26,9 +26,5 @@ public interface TableRenderer {
 
     public void setTable(Table table);
 
-    public String getWidth();
-
-    public void setWidth(String width);
-
     public Object render();
 }

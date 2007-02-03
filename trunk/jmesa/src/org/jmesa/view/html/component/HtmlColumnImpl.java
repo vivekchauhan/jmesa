@@ -69,4 +69,9 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     public HtmlHeaderRenderer getHeaderRenderer() {
         return (HtmlHeaderRenderer) super.getHeaderRenderer();
     }
+
+    @Override
+    public HtmlRow getRow() {
+        return (HtmlRow) super.getRow();
+    }
 }
