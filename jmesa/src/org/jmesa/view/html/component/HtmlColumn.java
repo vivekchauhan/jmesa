@@ -40,4 +40,6 @@ public interface HtmlColumn extends Column {
     public HtmlCellRenderer getCellRenderer();
 
     public HtmlHeaderRenderer getHeaderRenderer();
+
+    public HtmlRow getRow();
 }

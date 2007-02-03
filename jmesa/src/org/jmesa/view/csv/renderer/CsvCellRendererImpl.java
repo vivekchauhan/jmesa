@@ -41,13 +41,13 @@ public class CsvCellRendererImpl extends AbstractCellRenderer implements CsvCell
 
     public Object render(Object item, int rowcount) {
         StringBuilder data = new StringBuilder();
-
+        
         String property = getColumn().getProperty();
+        
         Object value = getCellEditor().getValue(item, property, rowcount);
-
-        data.append(value);
+        data.append("\"").append(value).append("\"");
         data.append(delimiter);
-
+        
         return data.toString();
     }
 }
