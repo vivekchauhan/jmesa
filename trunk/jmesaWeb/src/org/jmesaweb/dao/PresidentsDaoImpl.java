@@ -15,8 +15,15 @@
  */
 package org.jmesaweb.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.jmesaweb.domain.President;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -26,5 +33,35 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class PresidentsDaoImpl extends HibernateDaoSupport implements PresidentsDao {
     public List getPresidents() {
         return getHibernateTemplate().find("from President");
+    }
+
+    public int getPresidentsCountWithFilter(final PresidentFilter filter) {
+        Integer count = (Integer) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(Session session)
+                    throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(President.class);
+                criteria = filter.execute(criteria);
+                criteria.setProjection(Projections.rowCount()).uniqueResult();
+                return criteria.uniqueResult();
+            }
+        });
+
+        return count.intValue();
+    }
+
+    public List getPresidentsWithFilterAndSort(final PresidentFilter filter, final PresidentSort sort, final int rowStart, final int rowEnd) {
+        List applications = (List) getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(Session session)
+                    throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(President.class);
+                criteria = filter.execute(criteria);
+                criteria = sort.execute(criteria);
+                criteria.setFirstResult(rowStart);
+                criteria.setMaxResults(rowEnd - rowStart);
+                return criteria.list();
+            }
+        });
+
+        return applications;
     }
 }

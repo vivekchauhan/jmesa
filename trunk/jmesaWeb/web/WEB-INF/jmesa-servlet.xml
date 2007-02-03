@@ -13,7 +13,7 @@
 		</property>
 	</bean>
 
-	<bean id="presidents" class="org.jmesaweb.controller.PresidentsController">
+	<bean id="presidents" class="org.jmesaweb.controller.LimitPresidentsController">
 		<property name="presidentsService" ref="presidentsService"/>
 		<property name="successView" value="jsp/example.jsp"/>
 		<property name="id" value="pres"/>

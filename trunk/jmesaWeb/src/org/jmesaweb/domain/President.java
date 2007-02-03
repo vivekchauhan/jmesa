@@ -16,7 +16,7 @@
 package org.jmesaweb.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Jeff Johnston
