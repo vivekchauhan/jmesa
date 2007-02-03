@@ -7,8 +7,8 @@
 
     <class name="President" table="president">
 
-        <id name="id" column="ID" type="long"/>
- 
+        <id name="id" column="id"/>
+		
         <property name="firstName" column="first_name"/>
         <property name="lastName" column="last_name"/>
         <property name="nickName" column="nick_name"/>

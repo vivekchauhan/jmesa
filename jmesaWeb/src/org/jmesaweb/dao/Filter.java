@@ -13,21 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesaweb.service;
-
-import java.util.List;
-
-import org.jmesaweb.dao.PresidentFilter;
-import org.jmesaweb.dao.PresidentSort;
+package org.jmesaweb.dao;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface PresidentsService {
-    public List getPresidents();
-    
-    public int getPresidentsCountWithFilter(PresidentFilter filter);
+public class Filter {
+    private final String property;
+    private final Object value;
 
-    public List getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+    public Filter(String property, Object value) {
+        this.property = property;
+        this.value = value;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public Object getValue() {
+        return value;
+    }
 }

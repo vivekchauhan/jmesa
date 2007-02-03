@@ -15,16 +15,23 @@
  */
 package org.jmesaweb.dao;
 
-import java.util.List;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface PresidentsDao {
-    public List getPresidents();
+public class PresidentsDaoTest extends AbstractDependencyInjectionSpringContextTests {
+    @Override
+    protected String[] getConfigLocations() {
+        return new String[] { "/org/jmesaweb/dao/testContext.xml" };
+    }
 
-    public int getPresidentsCountWithFilter(PresidentFilter filter);
-
-    public List getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+    public void testGetPresidentsCountWithFilter() {
+        PresidentsDao presidentsDao = (PresidentsDao) applicationContext.getBean("presidentsDao");
+        PresidentFilter filter = new PresidentFilter();
+        int count = presidentsDao.getPresidentsCountWithFilter(filter);
+        assertNotNull(count);
+        assertTrue(count == 43);
+    }
 }

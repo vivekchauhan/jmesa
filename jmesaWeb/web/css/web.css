@@ -4,6 +4,12 @@ html, body {
 	border: none;
 }
 
+#header {
+	float: left;
+	border: 0px;
+	margin: 0px;
+}
+
 #content {
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 1em;

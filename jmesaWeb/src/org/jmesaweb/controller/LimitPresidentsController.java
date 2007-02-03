@@ -25,11 +25,15 @@ import org.apache.commons.logging.LogFactory;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
+import org.jmesa.limit.Filter;
+import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
+import org.jmesa.limit.Sort;
+import org.jmesa.limit.SortSet;
 import org.jmesa.view.TableFactory;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewExporter;
@@ -48,6 +52,8 @@ import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesaweb.dao.PresidentFilter;
+import org.jmesaweb.dao.PresidentSort;
 import org.jmesaweb.service.PresidentsService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -57,8 +63,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * 
  * @author Jeff Johnston
  */
-public class PresidentsController extends AbstractController {
-    private static Log logger = LogFactory.getLog(PresidentsController.class);
+public class LimitPresidentsController extends AbstractController {
+    private static Log logger = LogFactory.getLog(LimitPresidentsController.class);
 
     private static String CSV = "csv";
 
@@ -72,9 +78,29 @@ public class PresidentsController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         WebContext webContext = new HttpServletRequestWebContext(request);
-        Collection items = presidentsService.getPresidents();
-        Limit limit = getLimit(items, webContext);
-        CoreContext coreContext = getCoreContext(items, limit, webContext);
+
+        LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
+        Limit limit = limitFactory.createLimit();
+
+        PresidentFilter presidentFilter = getPresidentFilter(limit);
+        PresidentSort presidentSort = getPresidentSort(limit);
+
+        int totalRows = presidentsService.getPresidentsCountWithFilter(presidentFilter);
+
+        if (limit.isExportable()) {
+            RowSelect rowSelect = new RowSelectImpl(1, totalRows, totalRows);
+            limit.setRowSelect(rowSelect);
+        } else {
+            RowSelect rowSelect = limitFactory.createRowSelect(maxRows, totalRows);
+            limit.setRowSelect(rowSelect);
+        }
+
+        int rowStart = limit.getRowSelect().getRowStart();
+        int rowEnd = limit.getRowSelect().getRowEnd();
+        Collection items = presidentsService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
+
+        CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
+        CoreContext coreContext = factory.createCoreContext(items, limit);
 
         if (limit.isExportable()) {
             String type = limit.getExport().getType();
@@ -116,27 +142,6 @@ public class PresidentsController extends AbstractController {
         exporter.export();
     }
 
-    public Limit getLimit(Collection items, WebContext webContext) {
-        LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-        Limit limit = limitFactory.createLimit();
-
-        if (limit.isExportable()) {
-            RowSelect rowSelect = new RowSelectImpl(1, items.size(), items.size());
-            limit.setRowSelect(rowSelect);
-        } else {
-            RowSelect rowSelect = limitFactory.createRowSelect(maxRows, items.size());
-            limit.setRowSelect(rowSelect);
-        }
-
-        return limit;
-    }
-
-    public CoreContext getCoreContext(Collection items, Limit limit, WebContext webContext) {
-        CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
-        CoreContext coreContext = factory.createCoreContext(items, limit);
-        return coreContext;
-    }
-
     /**
      * Create a link for the first name column. Using the decorator pattern so
      * that can wrap any kind of editor with a link.
@@ -156,6 +161,32 @@ public class PresidentsController extends AbstractController {
             html.aEnd();
             return html.toString();
         }
+    }
+
+    private PresidentFilter getPresidentFilter(Limit limit) {
+        PresidentFilter presidentFilter = new PresidentFilter();
+        FilterSet filterSet = limit.getFilterSet();
+        Collection<Filter> filters = filterSet.getFilters();
+        for (Filter filter : filters) {
+            String property = filter.getProperty();
+            String value = filter.getValue();
+            presidentFilter.addFilter(property, value);
+        }
+
+        return presidentFilter;
+    }
+
+    private PresidentSort getPresidentSort(Limit limit) {
+        PresidentSort presidentSort = new PresidentSort();
+        SortSet sortSet = limit.getSortSet();
+        Collection<Sort> sorts = sortSet.getSorts();
+        for (Sort sort : sorts) {
+            String property = sort.getProperty();
+            String order = sort.getOrder().toParam();
+            presidentSort.addSort(property, order);
+        }
+
+        return presidentSort;
     }
 
     public void setPresidentsService(PresidentsService presidentsService) {
