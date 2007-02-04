@@ -1,9 +1,10 @@
 *TODO:* Need to get the example posted here!
 
 You can see the 
-[http://extremecomponents.org/jmesa/limit.run live example] on the site.
+[http://extremecomponents.org/jmesa/limit.run live example] on the site. If you do a view source on the site you will notice that the AJAX is drop dead simple. It uses the JMesa javascript library to create the JMesa parameters, and the Sarissa library for the AJAX call. In general this is the most elegant way to use JMesa as it does not require any additional work to create, and it avoids a full page refresh.
 
 Note: the source code for this example, and all examples, are included in the jmesaWeb module checked into subversion. The site's data is run off of [http://hsqldb.org/ HSQLDB], which is an in-memory database. This makes it easy for anyone who wants to run the project to easily get it up and running. And, because the site only includes the code examples it is pretty easy to navigate the code.
+
 
 
 
