@@ -1,0 +1,6 @@
+*TODO:* Need to get the example posted here!
+
+Note: the source code for this example, and all examples, are included in the jmesaWeb module checked into subversion. The site's data is run off of [http://hsqldb.org/ HSQLDB], which is an in-memory database. This makes it easy for anyone who wants to run the project to easily get it up and running. And, because the site only includes the code examples it is pretty easy to navigate the code.
+
+
+
