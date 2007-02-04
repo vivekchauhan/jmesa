@@ -57,8 +57,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * 
  * @author Jeff Johnston
  */
-public class PresidentsController extends AbstractController {
-    private static Log logger = LogFactory.getLog(PresidentsController.class);
+public class BasicPresidentController extends AbstractController {
+    private static Log logger = LogFactory.getLog(BasicPresidentController.class);
 
     private static String CSV = "csv";
 
