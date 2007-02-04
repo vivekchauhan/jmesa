@@ -30,7 +30,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * 
  * @author Jeff Johnston
  */
-public class LimitPresidentsController extends AbstractController {
+public class LimitPresidentController extends AbstractController {
     private LimitCoreContext limitCoreContext;
     private String successView;
 

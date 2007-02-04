@@ -55,7 +55,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 /**
  * @author Jeff Johnston
  */
-public class ManualPresidentsController extends AbstractController {
+public class AdvancedPresidentController extends AbstractController {
     private static String CSV = "csv";
 
     private PresidentService presidentsService;
