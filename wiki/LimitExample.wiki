@@ -1,4 +1,4 @@
-*TODO:* Need to get the example posted here!
+*TODO:* Need to get the example posted here! The example uses JMesa, along with Spring and Hibernate (Criteria API).
 
 You can see the 
 [http://extremecomponents.org/jmesa/limit.run live example] on the site. If you do a view source on the site you will notice that the AJAX is drop dead simple. It uses the JMesa javascript library to create the JMesa parameters, and the Sarissa library for the AJAX call. In general this is the most elegant way to use JMesa as it does not require any additional work to create, and it avoids a full page refresh.
