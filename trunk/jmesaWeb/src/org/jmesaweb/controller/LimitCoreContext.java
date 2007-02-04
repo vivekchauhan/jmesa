@@ -39,7 +39,7 @@ import org.jmesaweb.service.PresidentService;
  * @author Jeff Johnston
  */
 public class LimitCoreContext {
-    private PresidentService presidentsService;
+    private PresidentService presidentService;
     private String id;
     private int maxRows;
 
@@ -50,7 +50,7 @@ public class LimitCoreContext {
         PresidentFilter presidentFilter = getPresidentFilter(limit);
         PresidentSort presidentSort = getPresidentSort(limit);
 
-        int totalRows = presidentsService.getPresidentsCountWithFilter(presidentFilter);
+        int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
 
         if (limit.isExportable()) {
             RowSelect rowSelect = new RowSelectImpl(1, totalRows, totalRows);
@@ -63,7 +63,7 @@ public class LimitCoreContext {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 
-        Collection items = presidentsService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
+        Collection items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
 
         CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
         return factory.createCoreContext(items, limit);
@@ -95,8 +95,8 @@ public class LimitCoreContext {
         return presidentSort;
     }
 
-    public void setPresidentsService(PresidentService presidentsService) {
-        this.presidentsService = presidentsService;
+    public void setPresidentService(PresidentService presidentService) {
+        this.presidentService = presidentService;
     }
 
     public void setId(String id) {

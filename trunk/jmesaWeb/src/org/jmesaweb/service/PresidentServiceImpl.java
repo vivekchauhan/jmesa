@@ -26,21 +26,21 @@ import org.jmesaweb.dao.PresidentDao;
  * @author Jeff Johnston
  */
 public class PresidentServiceImpl implements PresidentService {
-    private PresidentDao presidentsDao;
+    private PresidentDao presidentDao;
 
     public List getPresidents() {
-        return presidentsDao.getPresidents();
+        return presidentDao.getPresidents();
     }
 
     public int getPresidentsCountWithFilter(PresidentFilter filter) {
-        return presidentsDao.getPresidentsCountWithFilter(filter);
+        return presidentDao.getPresidentsCountWithFilter(filter);
     }
 
     public List getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd) {
-        return presidentsDao.getPresidentsWithFilterAndSort(filter, sort, rowStart, rowEnd);
+        return presidentDao.getPresidentsWithFilterAndSort(filter, sort, rowStart, rowEnd);
     }
 
-    public void setPresidentsDao(PresidentDao presidentsDao) {
-        this.presidentsDao = presidentsDao;
+    public void setPresidentDao(PresidentDao presidentsDao) {
+        this.presidentDao = presidentsDao;
     }
 }

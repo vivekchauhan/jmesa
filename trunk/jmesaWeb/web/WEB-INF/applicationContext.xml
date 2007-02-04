@@ -24,11 +24,11 @@
         </property>
     </bean>
 
-	<bean id="presidentsService" class="org.jmesaweb.service.PresidentsServiceImpl">
-		<property name="presidentsDao" ref="presidentsDao"/>
+	<bean id="presidentService" class="org.jmesaweb.service.PresidentServiceImpl">
+		<property name="presidentDao" ref="presidentDao"/>
 	</bean>
 	
-	<bean id="presidentsDao" class="org.jmesaweb.dao.PresidentsDaoImpl">
+	<bean id="presidentDao" class="org.jmesaweb.dao.PresidentDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
