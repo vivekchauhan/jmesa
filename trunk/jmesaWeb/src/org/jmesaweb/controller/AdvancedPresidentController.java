@@ -28,24 +28,6 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
-import org.jmesa.view.View;
-import org.jmesa.view.ViewExporter;
-import org.jmesa.view.component.Column;
-import org.jmesa.view.component.Row;
-import org.jmesa.view.component.Table;
-import org.jmesa.view.csv.CsvComponentFactory;
-import org.jmesa.view.csv.CsvView;
-import org.jmesa.view.csv.CsvViewExporter;
-import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.HtmlComponentFactory;
-import org.jmesa.view.html.HtmlView;
-import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarFactory;
-import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesaweb.service.PresidentService;
@@ -58,7 +40,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class AdvancedPresidentController extends AbstractController {
     private static String CSV = "csv";
 
-    private PresidentService presidentsService;
+    private PresidentService presidentService;
     private String successView;
     private String id;
     private int maxRows;
@@ -68,92 +50,22 @@ public class AdvancedPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         WebContext webContext = new HttpServletRequestWebContext(request);
-        Collection items = presidentsService.getPresidents();
+        Collection items = presidentService.getPresidents();
         Limit limit = getLimit(items, webContext);
         CoreContext coreContext = getCoreContext(items, limit, webContext);
 
         if (limit.isExportable()) {
             String type = limit.getExport().getType();
             if (type.equals(CSV)) {
-                csvTable(webContext, coreContext, response);
+                new CsvTableUsingComponentFactory().render(response, webContext, coreContext);
                 return null;
             }
         }
 
-        Object presidents = htmlTable(webContext, coreContext);
+        Object presidents = new HtmlTableUsingComponentFactory().render(webContext, coreContext);
         mv.addObject("presidents", presidents);
 
         return mv;
-    }
-
-    public Object htmlTable(WebContext webContext, CoreContext coreContext) {
-        HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
-
-        // create the table
-        HtmlTable table = factory.createTable();
-        table.setCaption("Presidents");
-        table.getTableRenderer().setWidth("600px");
-
-        // create the row
-        HtmlRow row = factory.createRow();
-        table.setRow(row);
-
-        // create the editor
-        CellEditor editor = factory.createBasicCellEditor();
-
-        // create the columns
-        CellEditor customEditor = new PresidentsLinkEditor(editor);
-        HtmlColumn firstNameColumn = factory.createColumn("firstName", customEditor);
-        row.addColumn(firstNameColumn);
-
-        HtmlColumn lastNameColumn = factory.createColumn("lastName", editor);
-        row.addColumn(lastNameColumn);
-
-        HtmlColumn termColumn = factory.createColumn("term", editor);
-        row.addColumn(termColumn);
-
-        HtmlColumn careerColumn = factory.createColumn("career", editor);
-        row.addColumn(careerColumn);
-
-        // create the view
-        ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
-        Toolbar toolbar = toolbarFactory.createToolbar();
-        View view = new HtmlView(table, toolbar, coreContext);
-
-        return view.render();
-    }
-
-    public void csvTable(WebContext webContext, CoreContext coreContext, HttpServletResponse response)
-            throws Exception {
-        CsvComponentFactory factory = new CsvComponentFactory(webContext, coreContext);
-
-        // create the table
-        Table table = factory.createTable();
-
-        // create the row
-        Row row = factory.createRow();
-        table.setRow(row);
-
-        // create the editor
-        CellEditor editor = factory.createBasicCellEditor();
-
-        // create the columns
-        Column firstNameColumn = factory.createColumn("firstName", editor);
-        row.addColumn(firstNameColumn);
-
-        Column lastNameColumn = factory.createColumn("lastName", editor);
-        row.addColumn(lastNameColumn);
-
-        Column termColumn = factory.createColumn("term", editor);
-        row.addColumn(termColumn);
-
-        Column careerColumn = factory.createColumn("career", editor);
-        row.addColumn(careerColumn);
-
-        // create the view
-        CsvView view = new CsvView(table, coreContext);
-        ViewExporter exporter = new CsvViewExporter(view, "presidents.txt", response);
-        exporter.export();
     }
 
     public Limit getLimit(Collection items, WebContext webContext) {
@@ -177,29 +89,8 @@ public class AdvancedPresidentController extends AbstractController {
         return coreContext;
     }
 
-    /**
-     * Create a link for the first name column. Using the decorator pattern so
-     * that can wrap any kind of editor with a link.
-     */
-    private static class PresidentsLinkEditor implements CellEditor {
-        CellEditor cellEditor;
-
-        public PresidentsLinkEditor(CellEditor cellEditor) {
-            this.cellEditor = cellEditor;
-        }
-
-        public Object getValue(Object item, String property, int rowcount) {
-            Object value = cellEditor.getValue(item, property, rowcount);
-            HtmlBuilder html = new HtmlBuilder();
-            html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
-            html.append(value);
-            html.aEnd();
-            return html.toString();
-        }
-    }
-
-    public void setPresidentsService(PresidentService presidentsService) {
-        this.presidentsService = presidentsService;
+    public void setPresidentService(PresidentService presidentService) {
+        this.presidentService = presidentService;
     }
 
     public void setSuccessView(String successView) {

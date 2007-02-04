@@ -30,22 +30,6 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
-import org.jmesa.view.TableFactory;
-import org.jmesa.view.View;
-import org.jmesa.view.ViewExporter;
-import org.jmesa.view.component.Table;
-import org.jmesa.view.csv.CsvTableFactory;
-import org.jmesa.view.csv.CsvView;
-import org.jmesa.view.csv.CsvViewExporter;
-import org.jmesa.view.editor.BasicCellEditor;
-import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.HtmlTableFactory;
-import org.jmesa.view.html.HtmlView;
-import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarFactory;
-import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesaweb.service.PresidentService;
@@ -62,7 +46,7 @@ public class BasicPresidentController extends AbstractController {
 
     private static String CSV = "csv";
 
-    private PresidentService presidentsService;
+    private PresidentService presidentService;
     private String successView;
     private String id;
     private int maxRows;
@@ -72,48 +56,22 @@ public class BasicPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         WebContext webContext = new HttpServletRequestWebContext(request);
-        Collection items = presidentsService.getPresidents();
+        Collection items = presidentService.getPresidents();
         Limit limit = getLimit(items, webContext);
         CoreContext coreContext = getCoreContext(items, limit, webContext);
 
         if (limit.isExportable()) {
             String type = limit.getExport().getType();
             if (type.equals(CSV)) {
-                csvTable(webContext, coreContext, response);
+                new CsvTableUsingTableFactory().render(response, webContext, coreContext);
                 return null;
             }
         }
 
-        Object presidents = htmlTable(webContext, coreContext);
+        Object presidents = new HtmlTableUsingTableFactory().render(webContext, coreContext);
         mv.addObject("presidents", presidents);
 
         return mv;
-    }
-
-    public Object htmlTable(WebContext webContext, CoreContext coreContext) {
-        HtmlTableFactory tableFactory = new HtmlTableFactory(webContext, coreContext);
-
-        HtmlTable table = tableFactory.createTable("firstName", "lastName", "term", "career");
-        table.setCaption("Presidents");
-        table.getTableRenderer().setWidth("600px;");
-
-        CellEditor editor = new PresidentsLinkEditor(new BasicCellEditor());
-        table.getRow().getColumn("firstName").getCellRenderer().setCellEditor(editor);
-
-        ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
-        Toolbar toolbar = toolbarFactory.createToolbar();
-        View view = new HtmlView(table, toolbar, coreContext);
-
-        return view.render();
-    }
-
-    public void csvTable(WebContext webContext, CoreContext coreContext, HttpServletResponse response)
-            throws Exception {
-        TableFactory tableFactory = new CsvTableFactory(webContext, coreContext);
-        Table table = tableFactory.createTable("firstName", "lastName", "nickName", "term", "born", "died", "education", "career", "politicalParty");
-        View view = new CsvView(table, coreContext);
-        ViewExporter exporter = new CsvViewExporter(view, "presidents.txt", response);
-        exporter.export();
     }
 
     public Limit getLimit(Collection items, WebContext webContext) {
@@ -137,29 +95,8 @@ public class BasicPresidentController extends AbstractController {
         return coreContext;
     }
 
-    /**
-     * Create a link for the first name column. Using the decorator pattern so
-     * that can wrap any kind of editor with a link.
-     */
-    private static class PresidentsLinkEditor implements CellEditor {
-        CellEditor cellEditor;
-
-        public PresidentsLinkEditor(CellEditor cellEditor) {
-            this.cellEditor = cellEditor;
-        }
-
-        public Object getValue(Object item, String property, int rowcount) {
-            Object value = cellEditor.getValue(item, property, rowcount);
-            HtmlBuilder html = new HtmlBuilder();
-            html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
-            html.append(value);
-            html.aEnd();
-            return html.toString();
-        }
-    }
-
-    public void setPresidentsService(PresidentService presidentsService) {
-        this.presidentsService = presidentsService;
+    public void setPresidentService(PresidentService presidentService) {
+        this.presidentService = presidentService;
     }
 
     public void setSuccessView(String successView) {
