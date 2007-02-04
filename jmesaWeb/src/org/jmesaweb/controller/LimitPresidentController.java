@@ -50,7 +50,7 @@ public class LimitPresidentController extends AbstractController {
             }
         }
 
-        Object presidents = new HtmlTableUsingTableFactory().render(webContext, coreContext);
+        Object presidents = new HtmlTableUsingComponentFactory().render(webContext, coreContext);
         mv.addObject("presidents", presidents);
 
         return mv;
