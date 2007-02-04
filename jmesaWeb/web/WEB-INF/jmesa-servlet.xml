@@ -14,12 +14,12 @@
 	</bean>
 	
 	<bean id="limitCoreContext" class="org.jmesaweb.controller.LimitCoreContext">
-		<property name="presidentsService" ref="presidentsService"/>
+		<property name="presidentService" ref="presidentService"/>
 		<property name="id" value="pres"/>
 		<property name="maxRows" value="12"/>
 	</bean>
 
-	<bean id="presidents" class="org.jmesaweb.controller.LimitPresidentsController">
+	<bean id="presidents" class="org.jmesaweb.controller.LimitPresidentController">
 		<property name="successView" value="jsp/example.jsp"/>
 		<property name="limitCoreContext" ref="limitCoreContext"/>
 	</bean>

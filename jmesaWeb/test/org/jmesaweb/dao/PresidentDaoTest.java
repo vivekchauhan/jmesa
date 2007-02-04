@@ -21,17 +21,22 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PresidentsDaoTest extends AbstractDependencyInjectionSpringContextTests {
+public class PresidentDaoTest extends AbstractDependencyInjectionSpringContextTests {
+    private PresidentDao presidentDao;
+
     @Override
     protected String[] getConfigLocations() {
         return new String[] { "/org/jmesaweb/dao/testContext.xml" };
     }
 
     public void testGetPresidentsCountWithFilter() {
-        PresidentDao presidentsDao = (PresidentDao) applicationContext.getBean("presidentsDao");
         PresidentFilter filter = new PresidentFilter();
-        int count = presidentsDao.getPresidentsCountWithFilter(filter);
+        int count = presidentDao.getPresidentsCountWithFilter(filter);
         assertNotNull(count);
         assertTrue(count == 43);
+    }
+
+    public void setPresidentDao(PresidentDao presidentDao) {
+        this.presidentDao = presidentDao;
     }
 }
