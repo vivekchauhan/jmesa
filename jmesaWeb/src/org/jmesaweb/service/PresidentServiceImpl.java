@@ -19,15 +19,28 @@ import java.util.List;
 
 import org.jmesaweb.dao.PresidentFilter;
 import org.jmesaweb.dao.PresidentSort;
+import org.jmesaweb.dao.PresidentDao;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface PresidentsService {
-    public List getPresidents();
-    
-    public int getPresidentsCountWithFilter(PresidentFilter filter);
+public class PresidentServiceImpl implements PresidentService {
+    private PresidentDao presidentsDao;
 
-    public List getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+    public List getPresidents() {
+        return presidentsDao.getPresidents();
+    }
+
+    public int getPresidentsCountWithFilter(PresidentFilter filter) {
+        return presidentsDao.getPresidentsCountWithFilter(filter);
+    }
+
+    public List getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd) {
+        return presidentsDao.getPresidentsWithFilterAndSort(filter, sort, rowStart, rowEnd);
+    }
+
+    public void setPresidentsDao(PresidentDao presidentsDao) {
+        this.presidentsDao = presidentsDao;
+    }
 }

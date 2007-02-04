@@ -48,7 +48,7 @@ import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
-import org.jmesaweb.service.PresidentsService;
+import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -62,7 +62,7 @@ public class PresidentsController extends AbstractController {
 
     private static String CSV = "csv";
 
-    private PresidentsService presidentsService;
+    private PresidentService presidentsService;
     private String successView;
     private String id;
     private int maxRows;
@@ -158,7 +158,7 @@ public class PresidentsController extends AbstractController {
         }
     }
 
-    public void setPresidentsService(PresidentsService presidentsService) {
+    public void setPresidentsService(PresidentService presidentsService) {
         this.presidentsService = presidentsService;
     }
 

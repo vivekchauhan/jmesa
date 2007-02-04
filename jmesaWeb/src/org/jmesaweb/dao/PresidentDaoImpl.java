@@ -30,7 +30,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PresidentsDaoImpl extends HibernateDaoSupport implements PresidentsDao {
+public class PresidentDaoImpl extends HibernateDaoSupport implements PresidentDao {
     public List getPresidents() {
         return getHibernateTemplate().find("from President");
     }
