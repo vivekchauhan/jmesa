@@ -7,41 +7,36 @@
 <body>
 
 	<p class="content">
-		JMesa In Action. 
+		JMesa In Action using Limit and AJAX. 
 	</p>
 	
 	
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/presidents.run">
-		${presidents}
+		<div id="presidents">
+			${presidents}
+		</div>
 	</form>
-	
-	<p class="content">
-		The example code using the TableFactory. See the wiki for the complete 
-		<a href="http://code.google.com/p/jmesa/wiki/Example">source code</a>.
-	</p>
-	
-<pre>
-HtmlTableFactory tableFactory = new HtmlTableFactory(webContext, coreContext);
-
-HtmlTable table = tableFactory.createTable("firstName", "lastName", "term", "career");
-table.setCaption("Presidents");
-table.getTableRenderer().setWidth("600px;");
-
-CellEditor editor = new PresidentsLinkEditor(new BasicCellEditor());
-table.getRow().getColumn("firstName").getCellRenderer().setCellEditor(editor);
-
-ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
-Toolbar toolbar = toolbarFactory.createToolbar();
-View view = new HtmlView(table, toolbar, coreContext);
-</pre>
 
 <script type="text/javascript">
 function onInvokeAction(id) {
 	setExportToLimit(id, '');
-	createHiddenInputFieldsForLimitAndSubmit(id);
+	
+	var parameterString = createParameterStringForLimit(id);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('GET', '${pageContext.request.contextPath}/ajax.run?' + parameterString, true);
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4) {
+			var presidents = document.getElementById('presidents');
+			presidents.innerHTML = xmlhttp.responseText;
+		}
+	}
+	
+	xmlhttp.send(null);
 }
+
 function onInvokeExportAction(id) {
-	var parameterString = createParameterStringForLimit(id, true);
+	var parameterString = createParameterStringForLimit(id);
 	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
 }
 </script>

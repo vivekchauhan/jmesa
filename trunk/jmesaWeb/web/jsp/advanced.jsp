@@ -7,7 +7,7 @@
 <body>
 
 	<p class="content">
-		Advanced JMesa In Action. 
+		JMesa In Action. 
 	</p>
 	
 	
@@ -21,7 +21,7 @@ function onInvokeAction(id) {
 	createHiddenInputFieldsForLimitAndSubmit(id);
 }
 function onInvokeExportAction(id) {
-	var parameterString = createParameterStringForLimit(id, true);
+	var parameterString = createParameterStringForLimit(id);
 	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
 }
 </script>

@@ -7,6 +7,9 @@
 		<property name="urlMap">
 			<map>
 				<entry key="presidents.run">
+					<ref bean="basic"/>
+				</entry>
+				<entry key="limit.run">
 					<ref bean="limit"/>
 				</entry>
 				<entry key="basic.run">
@@ -15,19 +18,26 @@
 				<entry key="advanced.run">
 					<ref bean="advanced"/>
 				</entry>
+				<entry key="ajax.run">
+					<ref bean="ajax"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
 	
+	<bean id="limitCoreContext" class="org.jmesaweb.controller.LimitCoreContext">
+		<property name="presidentService" ref="presidentService"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
+	</bean>
+	
 	<bean id="limit" class="org.jmesaweb.controller.LimitPresidentController">
 		<property name="successView" value="jsp/limit.jsp"/>
-		<property name="limitCoreContext">
-			<bean class="org.jmesaweb.controller.LimitCoreContext">
-				<property name="presidentService" ref="presidentService"/>
-				<property name="id" value="pres"/>
-				<property name="maxRows" value="12"/>
-			</bean>
-		</property>
+		<property name="limitCoreContext" ref="limitCoreContext"/>
+	</bean>
+
+	<bean id="ajax" class="org.jmesaweb.controller.AjaxLimitPresidentController">
+		<property name="limitCoreContext" ref="limitCoreContext"/>
 	</bean>
 
 	<bean id="basic" class="org.jmesaweb.controller.BasicPresidentController">
