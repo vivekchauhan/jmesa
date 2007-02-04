@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface PresidentsDao {
+public interface PresidentDao {
     public List getPresidents();
 
     public int getPresidentsCountWithFilter(PresidentFilter filter);

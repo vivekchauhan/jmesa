@@ -28,7 +28,7 @@ public class PresidentsDaoTest extends AbstractDependencyInjectionSpringContextT
     }
 
     public void testGetPresidentsCountWithFilter() {
-        PresidentsDao presidentsDao = (PresidentsDao) applicationContext.getBean("presidentsDao");
+        PresidentDao presidentsDao = (PresidentDao) applicationContext.getBean("presidentsDao");
         PresidentFilter filter = new PresidentFilter();
         int count = presidentsDao.getPresidentsCountWithFilter(filter);
         assertNotNull(count);
