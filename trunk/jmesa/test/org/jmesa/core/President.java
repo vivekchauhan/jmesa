@@ -23,7 +23,7 @@ import java.sql.Date;
  * @author Jeff Johnston
  */
 public class President implements Serializable {
-    private Integer presidentId;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String nickName;
@@ -35,12 +35,12 @@ public class President implements Serializable {
     private String politicalParty;
     private Double salary;
 
-    public Integer getPresidentId() {
-        return presidentId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPresidentId(Integer presidentId) {
-        this.presidentId = presidentId;
+    public void setId(Integer presidentId) {
+        this.id = presidentId;
     }
 
     public Date getBorn() {

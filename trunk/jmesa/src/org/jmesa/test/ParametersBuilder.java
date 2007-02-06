@@ -27,43 +27,56 @@ import org.jmesa.limit.Order;
  * @author Jeff Johnston
  */
 public class ParametersBuilder {
-    private final String prefixId;
+    private final String id;
     private final Parameters parameters;
+    private int sortCount;
 
     public ParametersBuilder(String id, Parameters parameters) {
-        this.prefixId = id + "_";
+        this.id = id + "_";
         this.parameters = parameters;
     }
 
     public void setPage(int page) {
-        String key = prefixId + Action.PAGE.toParam();
+        String key = id + Action.PAGE.toParam();
         parameters.addParameter(key, new Integer[] { page });
     }
 
     public void setMaxRows(int maxRows) {
-        String key = prefixId + Action.MAX_ROWS.toParam();
+        String key = id + Action.MAX_ROWS.toParam();
         parameters.addParameter(key, maxRows);
     }
 
     public void addFilter(String property, String value) {
-        String key = prefixId + Action.FILTER.toParam() + property;
+        String key = id + Action.FILTER.toParam() + property;
         List<String> filterList = new ArrayList<String>();
         filterList.add(value);
         parameters.addParameter(key, filterList);
     }
 
     public void setClearFilter() {
-        String key = prefixId + Action.CLEAR.toParam();
+        String key = id + Action.CLEAR.toParam();
         parameters.addParameter(key, "true");
     }
 
-    public void addSort(String property, Order order, int position) {
-        String key = prefixId + Action.SORT.toParam() + position + "_" + property;
+    /**
+     * Add a Sort parameter. Will increase the sort count.
+     * Note: do not mix and match this and the addSort()
+     * method that takes a position.
+     * 
+     * @param property
+     * @param order
+     */
+    public void addSort(String property, Order order) {
+        addSort(++sortCount, property, order);
+    }
+    
+    public void addSort(int position, String property, Order order) {
+        String key = id + Action.SORT.toParam() + position + "_" + property;
         parameters.addParameter(key, new String[] { order.toParam() });
     }
 
     public void setExport(String export) {
-        String key = prefixId + Action.EXPORT.toParam();
+        String key = id + Action.EXPORT.toParam();
         parameters.addParameter(key, export);
     }
 }

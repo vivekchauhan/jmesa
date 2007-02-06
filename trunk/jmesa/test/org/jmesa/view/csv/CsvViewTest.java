@@ -26,7 +26,7 @@ import java.util.Map;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
-import org.jmesa.core.PresidentsDao;
+import org.jmesa.core.PresidentDao;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -95,7 +95,7 @@ public class CsvViewTest {
 	}
 	
 	public CoreContext createCoreContext(WebContext webContext) {
-		Collection items = new PresidentsDao().getPresidents();
+		Collection items = new PresidentDao().getPresidents();
 
 		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
 		Limit limit = limitFactory.createLimit();

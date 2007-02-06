@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PresidentsDao {
+public class PresidentDao {
     public Collection getPresidents() {
         List<President> presidents = new ArrayList<President>();
 

@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.jmesa.core.President;
-import org.jmesa.core.PresidentsDao;
+import org.jmesa.core.PresidentDao;
 import org.jmesa.core.sort.MultiColumnSort;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
@@ -54,7 +54,7 @@ public class ColumnSortTest {
 		
 		MultiColumnSort itemsSort = new MultiColumnSort();
 		
-		PresidentsDao dao = new PresidentsDao();
+		PresidentDao dao = new PresidentDao();
 		Collection items = dao.getPresidents();
 		items = itemsSort.sortItems(items, limit);
 
@@ -78,7 +78,7 @@ public class ColumnSortTest {
 	
 	private void createBuilder(Parameters parameters) {
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.addSort("firstName", Order.ASC, 1);
-		builder.addSort("lastName", Order.DESC, 2);
+		builder.addSort(1, "firstName", Order.ASC);
+		builder.addSort(2, "lastName", Order.DESC);
 	}
 }

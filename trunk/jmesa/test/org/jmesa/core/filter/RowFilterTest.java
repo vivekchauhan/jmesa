@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jmesa.core.PresidentsDao;
+import org.jmesa.core.PresidentDao;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.filter.SimpleRowFilter;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -57,7 +57,7 @@ public class RowFilterTest {
 		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		
-		PresidentsDao dao = new PresidentsDao();
+		PresidentDao dao = new PresidentDao();
 		Collection items = dao.getPresidents();
 		items = itemsFilter.filterItems(items, limit);
 
