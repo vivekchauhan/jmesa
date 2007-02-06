@@ -15,6 +15,7 @@
  */
 package org.jmesaweb.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.jmesaweb.dao.PresidentFilter;
@@ -25,9 +26,9 @@ import org.jmesaweb.dao.PresidentSort;
  * @author Jeff Johnston
  */
 public interface PresidentService {
-    public List getPresidents();
+    public Collection getPresidents();
     
     public int getPresidentsCountWithFilter(PresidentFilter filter);
 
-    public List getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+    public Collection getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
 }
