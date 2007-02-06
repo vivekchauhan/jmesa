@@ -85,8 +85,8 @@ public class CoreContextTest {
 	
 	private void createBuilder(Parameters parameters) {
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.addSort("firstName", Order.ASC, 1);
-		builder.addSort("lastName", Order.DESC, 2);
+		builder.addSort(1, "firstName", Order.ASC);
+		builder.addSort(2, "lastName", Order.DESC);
 	}
 
 }

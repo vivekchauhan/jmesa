@@ -97,7 +97,7 @@ public class LimitFactoryTest {
 		builder.setPage(PAGE);
 		builder.addFilter("name", "George Washington");
 		builder.addFilter("nickName", "Father of His Country");
-		builder.addSort("name", Order.ASC, 1);
-		builder.addSort("nickName", Order.DESC, 2);
+		builder.addSort(1, "name", Order.ASC);
+		builder.addSort(2, "nickName", Order.DESC);
 	}
 }
