@@ -7,7 +7,7 @@
 <body>
 
 	<p class="content">
-		JMesa In Action using Limit and AJAX. 
+		JMesa using the Limit to only retrieve the current rows needed. Also using AJAX to avoid a full page refresh. 
 	</p>
 	
 	
@@ -16,6 +16,11 @@
 			${presidents}
 		</div>
 	</form>
+	
+	<p class="content">
+		See the wiki for the complete 
+		<a href="http://code.google.com/p/jmesa/wiki/LimitExample">source code</a>.
+	</p>
 
 <script type="text/javascript">
 function onInvokeAction(id) {
