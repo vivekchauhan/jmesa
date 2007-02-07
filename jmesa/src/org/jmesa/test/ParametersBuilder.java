@@ -53,11 +53,6 @@ public class ParametersBuilder {
         parameters.addParameter(key, filterList);
     }
 
-    public void setClearFilter() {
-        String key = prefixId + Action.CLEAR.toParam();
-        parameters.addParameter(key, "true");
-    }
-
     /**
      * Add a Sort parameter. Will increase the sort count.
      * Note: do not mix and match this and the addSort()
@@ -75,8 +70,8 @@ public class ParametersBuilder {
         parameters.addParameter(key, new String[] { order.toParam() });
     }
 
-    public void setExport(String export) {
+    public void setExport(String exportType) {
         String key = prefixId + Action.EXPORT.toParam();
-        parameters.addParameter(key, export);
+        parameters.addParameter(key, exportType);
     }
 }
