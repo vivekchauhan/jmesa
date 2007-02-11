@@ -15,7 +15,8 @@
  */
 package org.jmesa.core.sort;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,30 +25,25 @@ import java.util.Map;
 
 import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
-import org.jmesa.core.sort.MultiColumnSort;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
+import org.jmesa.limit.LimitFactoryImpl;
+import org.jmesa.limit.Order;
+import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
-import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.jmesa.limit.Order;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ColumnSortTest {
-	private static final String ID = "pres";
-
+public class ColumnSortTest extends AbstractTestCase {
 	@Test
 	public void sortItems() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		WebContext webContext = new HttpServletRequestWebContext(request);
+		WebContext webContext = createWebContext();
 		webContext.setParameterMap(getParameters());
 		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
 		Limit limit = limitFactory.createLimit();
@@ -78,7 +74,7 @@ public class ColumnSortTest {
 	
 	private void createBuilder(Parameters parameters) {
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.addSort(1, "firstName", Order.ASC);
-		builder.addSort(2, "lastName", Order.DESC);
+		builder.addSort("firstName", Order.ASC);
+		builder.addSort("lastName", Order.DESC);
 	}
 }

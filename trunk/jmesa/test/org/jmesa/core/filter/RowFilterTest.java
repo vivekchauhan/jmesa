@@ -22,57 +22,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jmesa.core.PresidentDao;
-import org.jmesa.core.filter.RowFilter;
-import org.jmesa.core.filter.SimpleRowFilter;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
+import org.jmesa.limit.LimitFactoryImpl;
+import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.web.WebContext;
-import org.jmesa.web.HttpServletRequestWebContext;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class RowFilterTest {
-	private static final String ID = "pres";
-	
-	@Test
-	public void filterItems() {
-		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		MatchKey key = new MatchKey(String.class);
-		FilterMatch match = new StringMatch();
-		registry.addFilterMatch(key, match);
-		
-		RowFilter itemsFilter = new SimpleRowFilter(registry);
-		
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		WebContext webContext = new HttpServletRequestWebContext(request);
-		webContext.setParameterMap(getParameters());
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
-		Limit limit = limitFactory.createLimit();
-		
-		PresidentDao dao = new PresidentDao();
-		Collection items = dao.getPresidents();
-		items = itemsFilter.filterItems(items, limit);
+public class RowFilterTest extends AbstractTestCase {
+    @Test
+    public void filterItems() {
+        FilterMatchRegistry registry = new FilterMatchRegistryImpl();
+        MatchKey key = new MatchKey(String.class);
+        FilterMatch match = new StringMatch();
+        registry.addFilterMatch(key, match);
 
-		assertTrue(items.size() == 3);
-	}
-	
-	private Map<?, ?> getParameters() {
-		Map<String, Object> results = new HashMap<String, Object>();
-		ParametersAdapter parametersAdapter = new ParametersAdapter(results);
-		createBuilder(parametersAdapter);
-		return results;
-	}
-	
-	private void createBuilder(Parameters parameters) {
-		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.addFilter("fullName", "george");
-	}
+        RowFilter itemsFilter = new SimpleRowFilter(registry);
+
+        WebContext webContext = createWebContext();
+        webContext.setParameterMap(getParameters());
+        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        Limit limit = limitFactory.createLimit();
+
+        PresidentDao dao = new PresidentDao();
+        Collection items = dao.getPresidents();
+        items = itemsFilter.filterItems(items, limit);
+
+        assertTrue(items.size() == 3);
+    }
+
+    private Map<?, ?> getParameters() {
+        Map<String, Object> results = new HashMap<String, Object>();
+        ParametersAdapter parametersAdapter = new ParametersAdapter(results);
+        createBuilder(parametersAdapter);
+        return results;
+    }
+
+    private void createBuilder(Parameters parameters) {
+        ParametersBuilder builder = new ParametersBuilder(ID, parameters);
+        builder.addFilter("fullName", "george");
+    }
 }

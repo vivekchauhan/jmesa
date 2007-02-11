@@ -18,36 +18,54 @@ package org.jmesa.core.preference;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jmesa.web.WebContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.context.support.ServletContextResource;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class PropertiesPreferences implements Preferences {
-    private Logger logger = Logger.getLogger(PropertiesPreferences.class.getName());
+    private static Log logger = LogFactory.getLog(PropertiesPreferences.class);
 
     private final static String JMESA_PROPERTIES = "jmesa.properties";
 
     private Properties properties = new Properties();
 
-    public PropertiesPreferences(WebContext context, String preferencesLocation) {
+    public PropertiesPreferences(String preferencesLocation, WebContext webContext) {
         try {
-            InputStream resourceAsStream = this.getClass().getResourceAsStream(JMESA_PROPERTIES);
+            InputStream resourceAsStream = getInputStream(JMESA_PROPERTIES, webContext);
             properties.load(resourceAsStream);
             if (StringUtils.isNotBlank(preferencesLocation)) {
-                InputStream input = this.getClass().getResourceAsStream(preferencesLocation);
+                InputStream input = getInputStream(preferencesLocation, webContext);
                 if (input != null) {
                     properties.load(input);
                 }
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Could not load the eXtremeTable preferences.", e);
+            logger.error("Could not load the JMesa preferences.", e);
         }
+    }
+
+    private InputStream getInputStream(String preferencesLocation, WebContext webContext)
+            throws IOException {
+        if (preferencesLocation.startsWith("WEB-INF")) {
+            HttpServletRequest request = (HttpServletRequest) webContext.getContextObject();
+            ServletContextResource resource = new ServletContextResource(request.getSession().getServletContext(), preferencesLocation);
+            return resource.getInputStream();
+        } else if (preferencesLocation.startsWith("classpath:")) {
+            ClassPathResource resource = new ClassPathResource(StringUtils.substringAfter(preferencesLocation, "classpath:"));
+            return resource.getInputStream();
+        }
+
+        return this.getClass().getResourceAsStream(preferencesLocation);
     }
 
     /**

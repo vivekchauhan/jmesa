@@ -68,8 +68,8 @@ public class CoreContextTest {
 		
 		Items items = new ItemsImpl(data, limit, rowFilter, columnSort);
 		
-		Preferences preferences = new PropertiesPreferences(webContext, "/org/jmesa/core/test.properties");
-		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.message.testResourceBundle");
+		Preferences preferences = new PropertiesPreferences("/org/jmesa/core/test.properties", webContext);
+		Messages messages = new ResourceBundleMessages("org.jmesa.core.message.testResourceBundle", webContext);
 
 		CoreContextImpl coreContext = new CoreContextImpl(items, limit, preferences, messages);
 		
@@ -85,8 +85,8 @@ public class CoreContextTest {
 	
 	private void createBuilder(Parameters parameters) {
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.addSort(1, "firstName", Order.ASC);
-		builder.addSort(2, "lastName", Order.DESC);
+		builder.addSort("firstName", Order.ASC);
+		builder.addSort("lastName", Order.DESC);
 	}
 
 }

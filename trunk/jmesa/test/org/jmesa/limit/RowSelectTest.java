@@ -24,20 +24,20 @@ import org.junit.Test;
  */
 public class RowSelectTest {
 
-	@Test
-	public void createRowSelect() {
-		int maxRows = 2;
-		int totalRows = 5;
-		int page = 5;
+    @Test
+    public void createRowSelect() {
+        int maxRows = 2;
+        int totalRows = 5;
+        int page = 5;
 
-		RowSelectImpl rowSelect = new RowSelectImpl(page, maxRows, totalRows);
+        RowSelectImpl rowSelect = new RowSelectImpl(page, maxRows, totalRows);
 
-		assertTrue("page", rowSelect.getPage() == 3);
-		assertTrue("max rows", rowSelect.getMaxRows() == 2);
+        assertTrue("page", rowSelect.getPage() == 3);
+        assertTrue("max rows", rowSelect.getMaxRows() == 2);
 
-		int rowStart = rowSelect.getRowStart();
-		int rowEnd = rowSelect.getRowEnd();
+        int rowStart = rowSelect.getRowStart();
+        int rowEnd = rowSelect.getRowEnd();
 
-		assertTrue("row end greater than row start", rowEnd >= rowStart);
-	}
+        assertTrue("row end greater than row start", rowEnd >= rowStart);
+    }
 }

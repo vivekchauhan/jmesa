@@ -25,6 +25,8 @@ public interface Table {
     public String getCaption();
 
     public void setCaption(String caption);
+    
+    public void setCaption(String caption, boolean message);
 
     public Row getRow();
 
