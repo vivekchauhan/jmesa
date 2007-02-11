@@ -48,7 +48,7 @@ public class AdvancedPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-
+        
         WebContext webContext = new HttpServletRequestWebContext(request);
         Collection items = presidentService.getPresidents();
         Limit limit = getLimit(items, webContext);

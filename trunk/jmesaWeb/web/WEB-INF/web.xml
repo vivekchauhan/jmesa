@@ -6,7 +6,7 @@
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<context-param>
 		<param-name>jmesaPreferencesLocation</param-name>
-		<param-value>/org/jmesaweb/resource/jmesa.properties</param-value>
+		<param-value>WEB-INF/jmesa.properties</param-value>
 	</context-param>	
 	<context-param>
 		<param-name>jmesaMessagesLocation</param-name>
