@@ -20,8 +20,6 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
@@ -42,8 +40,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Jeff Johnston
  */
 public class BasicPresidentController extends AbstractController {
-    private static Log logger = LogFactory.getLog(BasicPresidentController.class);
-
     private static String CSV = "csv";
 
     private PresidentService presidentService;
