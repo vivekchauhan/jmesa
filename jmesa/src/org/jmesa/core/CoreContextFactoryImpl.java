@@ -103,7 +103,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     protected Preferences getPreferences() {
         if (preferences == null) {
             String jmesaPreferencesLocation = (String) webContext.getApplicationInitParameter("jmesaPreferencesLocation");
-            preferences = new PropertiesPreferences(null, jmesaPreferencesLocation);
+            preferences = new PropertiesPreferences(jmesaPreferencesLocation, webContext);
         }
 
         return preferences;
@@ -116,7 +116,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     protected Messages getMessages() {
         if (messages == null) {
             String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter("jmesaMessagesLocation");
-            messages = new ResourceBundleMessages(webContext, jmesaMessagesLocation);
+            messages = new ResourceBundleMessages(jmesaMessagesLocation, webContext);
         }
 
         return messages;

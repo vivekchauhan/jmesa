@@ -38,25 +38,23 @@ public class ResourceBundleMessages implements Messages {
     private ResourceBundle defaultResourceBundle;
     private Locale locale;
 
-    public ResourceBundleMessages(WebContext webContext, String messagesLocation) {
+    public ResourceBundleMessages(String messagesLocation, WebContext webContext) {
         this.locale = webContext.getLocale();
-        defaultResourceBundle = findResourceBundle(JMESA_RESOURCE_BUNDLE, locale);
-        if (StringUtils.isNotBlank(messagesLocation)) {
-            customResourceBundle = findResourceBundle(messagesLocation, locale);
+        try {
+            defaultResourceBundle = getResourceBundle(JMESA_RESOURCE_BUNDLE, webContext);
+            if (StringUtils.isNotBlank(messagesLocation)) {
+                customResourceBundle = getResourceBundle(messagesLocation, webContext);
+            }
+        } catch (MissingResourceException e) {
+            if (logger.isErrorEnabled()) {
+                logger.error("The resource bundle [" + messagesLocation + "] was not found. Make sure the path and resource name is correct.");
+            }
         }
     }
 
-    private ResourceBundle findResourceBundle(String resourceBundleLocation, Locale locale) {
-        try {
-            return ResourceBundle.getBundle(resourceBundleLocation, locale, getClass().getClassLoader());
-        } catch (MissingResourceException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error("The resource bundle [" + resourceBundleLocation + "] was not found. "
-                        + "Make sure the path and resource name is correct.", e);
-            }
-        }
-
-        return null;
+    private ResourceBundle getResourceBundle(String messagesLocation, WebContext webContext)
+            throws MissingResourceException {
+        return ResourceBundle.getBundle(messagesLocation, locale, getClass().getClassLoader());
     }
 
     /**

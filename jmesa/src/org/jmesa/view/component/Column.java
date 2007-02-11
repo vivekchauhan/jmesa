@@ -31,6 +31,8 @@ public interface Column {
 
     public void setTitle(String title);
 
+    public void setTitle(String title, boolean message);
+
     public CellRenderer getCellRenderer();
 
     public void setCellRenderer(CellRenderer cellRenderer);

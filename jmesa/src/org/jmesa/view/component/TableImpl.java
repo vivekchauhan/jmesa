@@ -32,7 +32,15 @@ public class TableImpl extends ContextSupport implements Table {
     }
 
     public void setCaption(String caption) {
-        this.caption = caption;
+        setCaption(caption, false);
+    }
+
+    public void setCaption(String caption, boolean message) {
+        if (message) {
+            this.caption = getCoreContext().getMessage(caption);
+        } else {
+            this.caption = caption;
+        }
     }
 
     public Row getRow() {

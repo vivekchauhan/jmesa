@@ -15,41 +15,20 @@
  */
 package org.jmesa.view.html.renderer;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactory;
-import org.jmesa.core.CoreContextFactoryImpl;
-import org.jmesa.core.PresidentDao;
-import org.jmesa.limit.Limit;
-import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.limit.RowSelect;
+import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.html.component.HtmlColumnImpl;
-import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlHeaderRendererTest {
-	private static final String ID = "pres";
-	private static final int MAX_ROWS = 12;
-	
+public class HtmlHeaderRendererTest extends AbstractTestCase {
 	@Test
 	public void getStyleClass() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		
-		WebContext webContext = new HttpServletRequestWebContext(request);
-		webContext.setParameterMap(getParameters());
-		webContext.setLocale(Locale.US);
-		
+		WebContext webContext = createWebContext();
 		CoreContext coreContext = createCoreContext(webContext);
 		
 		HtmlColumnImpl column = new HtmlColumnImpl("firstName");
@@ -63,24 +42,5 @@ public class HtmlHeaderRendererTest {
 //		String styleClass = headerRenderer.getStyleClass();
 //		assertNotNull(styleClass);
 //		assertTrue(styleClass.equals("header"));
-	}
-
-	public CoreContext createCoreContext(WebContext webContext) {
-		Collection items = new PresidentDao().getPresidents();
-
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
-		Limit limit = limitFactory.createLimit();
-		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, items.size());
-		limit.setRowSelect(rowSelect);
-
-		CoreContextFactory factory = new CoreContextFactoryImpl(webContext, false);
-		CoreContext coreContext = factory.createCoreContext(items, limit);
-		
-		return coreContext;
-	}
-	
-	private Map<?, ?> getParameters() {
-		HashMap<String, Object> results = new HashMap<String, Object>();
-		return results;
 	}
 }

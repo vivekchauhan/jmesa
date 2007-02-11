@@ -18,19 +18,12 @@ package org.jmesa.view.csv;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactory;
-import org.jmesa.core.CoreContextFactoryImpl;
-import org.jmesa.core.PresidentDao;
-import org.jmesa.limit.Limit;
-import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.limit.RowSelect;
+import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
@@ -38,88 +31,68 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class CsvViewTest {
-	private static final String ID = "pres";
+public class CsvViewTest extends AbstractTestCase {
+    @Test
+    public void render() {
+        WebContext webContext = createWebContext();
+        webContext.setParameterMap(getParameters());
+        webContext.setLocale(Locale.US);
 
-	@Test
-	public void render() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		
-		WebContext webContext = new HttpServletRequestWebContext(request);
-		webContext.setParameterMap(getParameters());
-		webContext.setLocale(Locale.US);
-		
-		CoreContext coreContext = createCoreContext(webContext);
-		
-		CsvComponentFactory factory = new CsvComponentFactory(webContext, coreContext);
-		
-		// create the table
-		Table table = factory.createTable();
-		
-		// create the row
-		Row row = factory.createRow();
-		table.setRow(row);
-		
-		// create some reusable objects
+        CoreContext coreContext = createCoreContext(webContext);
 
-		CellEditor editor = factory.createBasicCellEditor();
-		
-		// create the columns
-		Column firstNameColumn = factory.createColumn("firstName", editor);
-		row.addColumn(firstNameColumn);
-		
-		Column lastNameColumn = factory.createColumn("lastName", editor);
-		row.addColumn(lastNameColumn);
+        assertTrue(coreContext.getLimit().isExportable());
+        assertTrue(coreContext.getLimit().getExport().getType().equals("csv"));
 
-		Column termColumn = factory.createColumn("term", editor);
-		row.addColumn(termColumn);
+        CsvComponentFactory factory = new CsvComponentFactory(webContext, coreContext);
 
-		Column careerColumn = factory.createColumn("career", editor);
-		row.addColumn(careerColumn);
+        // create the table
+        Table table = factory.createTable();
 
-		// create the view
-		CsvView view = new CsvView(table, coreContext);
+        // create the row
+        Row row = factory.createRow();
+        table.setRow(row);
 
-		Object csv = view.render();
-		
-		assertNotNull(csv);
-	}
-	
-	public CoreContext createCoreContext(WebContext webContext) {
-		Collection items = new PresidentDao().getPresidents();
+        // create some reusable objects
 
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
-		Limit limit = limitFactory.createLimit();
-		RowSelect rowSelect = limitFactory.createRowSelect(items.size(), items.size());
-		limit.setRowSelect(rowSelect);
+        CellEditor editor = factory.createBasicCellEditor();
 
-		CoreContextFactory factory = new CoreContextFactoryImpl(webContext, false);
-		CoreContext coreContext = factory.createCoreContext(items, limit);
-		
-		assertTrue(limit.isExportable());
-		assertTrue(limit.getExport().getType().equals("csv"));
-		
-		return coreContext;
-	}
-	
-	private Map<?, ?> getParameters() {
-		HashMap<String, Object> results = new HashMap<String, Object>();
-		ParametersAdapter parametersAdapter = new ParametersAdapter(results);
-		createBuilder(parametersAdapter);
-		return results;
-	}
-	
-	private void createBuilder(Parameters parameters) {
-		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.setExport("csv");
-	}
+        // create the columns
+        Column firstNameColumn = factory.createColumn("firstName", editor);
+        row.addColumn(firstNameColumn);
+
+        Column lastNameColumn = factory.createColumn("lastName", editor);
+        row.addColumn(lastNameColumn);
+
+        Column termColumn = factory.createColumn("term", editor);
+        row.addColumn(termColumn);
+
+        Column careerColumn = factory.createColumn("career", editor);
+        row.addColumn(careerColumn);
+
+        // create the view
+        CsvView view = new CsvView(table, coreContext);
+
+        Object csv = view.render();
+
+        assertNotNull(csv);
+    }
+
+    private Map<?, ?> getParameters() {
+        HashMap<String, Object> results = new HashMap<String, Object>();
+        ParametersAdapter parametersAdapter = new ParametersAdapter(results);
+        createBuilder(parametersAdapter);
+        return results;
+    }
+
+    private void createBuilder(Parameters parameters) {
+        ParametersBuilder builder = new ParametersBuilder(ID, parameters);
+        builder.setExport("csv");
+    }
 }

@@ -37,7 +37,7 @@ public class MessagesTest {
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setLocale(Locale.US);
 
-		Messages messages = new ResourceBundleMessages(webContext, "org.jmesa.core.message.testResourceBundle");
+		Messages messages = new ResourceBundleMessages("org.jmesa.core.message.testResourceBundle", webContext);
 		String message = messages.getMessage("test.normal");
 		assertNotNull(message);
 		assertTrue(message.equals("foo"));

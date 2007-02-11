@@ -33,57 +33,57 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Jeff Johnston
  */
 public class LimitActionFactoryTest {
-	private static final String ID = "pres";
-	private static final int MAX_ROWS = 20;
-	private static final int PAGE = 3;
+    private static final String ID = "pres";
+    private static final int MAX_ROWS = 20;
+    private static final int PAGE = 3;
 
-	private LimitActionFactoryImpl limitActionFactory;
-	
-	@Before
-	public void setUp() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		WebContext webContext = new HttpServletRequestWebContext(request);
-		webContext.setParameterMap(getParameters());
-		limitActionFactory = new LimitActionFactoryImpl(ID, webContext.getParameterMap());
-	}
+    private LimitActionFactoryImpl limitActionFactory;
 
-	@Test
-	public void getMaxRows() {
-		int maxRows = limitActionFactory.getMaxRows();
-		assertTrue(maxRows == MAX_ROWS);
-	}
+    @Before
+    public void setUp() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        WebContext webContext = new HttpServletRequestWebContext(request);
+        webContext.setParameterMap(getParameters());
+        limitActionFactory = new LimitActionFactoryImpl(ID, webContext.getParameterMap());
+    }
 
-	@Test
-	public void getPage() {
-		int page = limitActionFactory.getPage();
-		assertTrue(page == PAGE);
-	}
+    @Test
+    public void getMaxRows() {
+        int maxRows = limitActionFactory.getMaxRows();
+        assertTrue(maxRows == MAX_ROWS);
+    }
 
-	@Test
-	public void getFilterSet() {
-		FilterSet filterSet = limitActionFactory.getFilterSet();
-		assertNotNull(filterSet);
-		assertTrue(filterSet.getFilters().size() == 2);
-	}
+    @Test
+    public void getPage() {
+        int page = limitActionFactory.getPage();
+        assertTrue(page == PAGE);
+    }
 
-	@Test
-	public void getSortSet() {
-		SortSet sortSet = limitActionFactory.getSortSet();
-		assertNotNull(sortSet);
-		assertTrue(sortSet.getSorts().size() == 2);
-	}
+    @Test
+    public void getFilterSet() {
+        FilterSet filterSet = limitActionFactory.getFilterSet();
+        assertNotNull(filterSet);
+        assertTrue(filterSet.getFilters().size() == 2);
+    }
 
-	private Map<String, ?> getParameters() {
-		HashMap<String, Object> results = new HashMap<String, Object>();
-		ParametersBuilder builder = new ParametersBuilder(ID, new ParametersAdapter(results));
-		
-		builder.setMaxRows(MAX_ROWS);
-		builder.setPage(PAGE);
-		builder.addFilter("name", "George Washington");
-		builder.addFilter("nickName", "Father of His Country");
-		builder.addSort(1, "name", Order.ASC);
-		builder.addSort(2, "nickName", Order.DESC);
+    @Test
+    public void getSortSet() {
+        SortSet sortSet = limitActionFactory.getSortSet();
+        assertNotNull(sortSet);
+        assertTrue(sortSet.getSorts().size() == 2);
+    }
 
-		return results;
-	}
+    private Map<String, ?> getParameters() {
+        HashMap<String, Object> results = new HashMap<String, Object>();
+        ParametersBuilder builder = new ParametersBuilder(ID, new ParametersAdapter(results));
+
+        builder.setMaxRows(MAX_ROWS);
+        builder.setPage(PAGE);
+        builder.addFilter("name", "George Washington");
+        builder.addFilter("nickName", "Father of His Country");
+        builder.addSort("name", Order.ASC);
+        builder.addSort("nickName", Order.DESC);
+
+        return results;
+    }
 }

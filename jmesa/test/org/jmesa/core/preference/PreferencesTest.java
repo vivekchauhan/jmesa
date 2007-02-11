@@ -19,18 +19,21 @@ import static org.junit.Assert.*;
 
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PropertiesPreferences;
+import org.jmesa.test.AbstractTestCase;
+import org.jmesa.web.WebContext;
 import org.junit.Test;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PreferencesTest {
-	@Test
-	public void getPreference() {
-		Preferences preferences = new PropertiesPreferences(null, "/org/jmesa/core/preference/test.properties");
-		String preference = preferences.getPreference("test.data");
-		assertNotNull(preference);
-		assertTrue(preference.equals("foo"));
-	}
+public class PreferencesTest extends AbstractTestCase {
+    @Test
+    public void getPreference() {
+        WebContext webContext = createWebContext();
+        Preferences preferences = new PropertiesPreferences("/org/jmesa/core/preference/test.properties", webContext);
+        String preference = preferences.getPreference("test.data");
+        assertNotNull(preference);
+        assertTrue(preference.equals("foo"));
+    }
 }

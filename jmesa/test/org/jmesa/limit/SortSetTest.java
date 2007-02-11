@@ -15,7 +15,6 @@
  */
 package org.jmesa.limit;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -25,55 +24,59 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class SortSetTest {
-	
-	@Test
-	public void isSorted() {
-		SortSet sortSet = new SortSetImpl();
-		boolean sorted = sortSet.isSortable();
-		assertFalse("default constructor", sorted);
 
-		sortSet = getSortSet();
-		sorted = sortSet.isSortable();
-		assertTrue("sorted", sorted);
-	}
-	
-	@Test
-	public void getSortOrder() {
-		SortSet sortSet = getSortSet();
-		Order order = sortSet.getSortOrder("nickname");
-		assertNotNull(order);
-		assertEquals(order.toParam(), "desc");
-		assertEquals(order, Order.DESC);
-	}
+    @Test
+    public void isSorted() {
+        SortSet sortSet = new SortSetImpl();
+        boolean sorted = sortSet.isSortable();
+        assertFalse("default constructor", sorted);
 
-	@Test
-	public void getSort() {
-		SortSet sortSet = getSortSet();
-		Sort sort = sortSet.getSort("nickname");
-		assertNotNull(sort);
-		assertEquals(sort.getOrder(), Order.DESC);
-		assertEquals(sort.getProperty(), "nickname");
-	}
+        sortSet = getSortSet();
+        sorted = sortSet.isSortable();
+        assertTrue("sorted", sorted);
+    }
 
-	private SortSet getSortSet() {
-		SortSet sortSet = new SortSetImpl();
-		
-		sortSet.addSort(new Sort(2, "nickname", Order.DESC));
-		sortSet.addSort(new Sort(1, "fullName", Order.ASC));
-		sortSet.addSort(new Sort(3, "term", Order.ASC));
-		
-		Iterator iterator = sortSet.getSorts().iterator();
-		
-		int position = ((Sort)iterator.next()).getPosition();
-		assertEquals(position, 1);
+    @Test
+    public void getSortOrder() {
+        SortSet sortSet = getSortSet();
+        Order order = sortSet.getSortOrder("nickname");
+        assertNotNull(order);
+        assertEquals(order.toParam(), "desc");
+        assertEquals(order, Order.DESC);
+    }
 
-		position = ((Sort)iterator.next()).getPosition();
-		assertEquals(position, 2);
+    @Test
+    public void getSort() {
+        SortSet sortSet = getSortSet();
+        Sort sort = sortSet.getSort("nickname");
+        assertNotNull(sort);
+        assertEquals(sort.getOrder(), Order.DESC);
+        assertEquals(sort.getProperty(), "nickname");
+    }
 
-		position = ((Sort)iterator.next()).getPosition();
-		assertEquals(position, 3);
+    private SortSet getSortSet() {
+        SortSet sortSet = new SortSetImpl();
 
-		return sortSet;
-	}
+        sortSet.addSort(new Sort(2, "nickname", Order.DESC));
+        sortSet.addSort(new Sort(1, "fullName", Order.ASC));
+        sortSet.addSort(new Sort(3, "term", Order.ASC));
+
+        Iterator iterator = sortSet.getSorts().iterator();
+
+        int position = ((Sort) iterator.next()).getPosition();
+        assertEquals(position, 1);
+
+        position = ((Sort) iterator.next()).getPosition();
+        assertEquals(position, 2);
+
+        position = ((Sort) iterator.next()).getPosition();
+        assertEquals(position, 3);
+
+        return sortSet;
+    }
 }

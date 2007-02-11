@@ -61,6 +61,14 @@ public class ColumnImpl extends ContextSupport implements Column {
         this.title = title;
     }
 
+    public void setTitle(String title, boolean message) {
+        if (message) {
+            this.title = getCoreContext().getMessage(title);
+        } else {
+            this.title = title;
+        }
+    }
+
     public CellRenderer getCellRenderer() {
         return columnRenderer;
     }
