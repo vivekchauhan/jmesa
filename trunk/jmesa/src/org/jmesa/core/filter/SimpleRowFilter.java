@@ -47,7 +47,7 @@ public class SimpleRowFilter implements RowFilter {
 
         if (filtered) {
             Collection collection = new ArrayList();
-            Map<Filter, FilterMatch> matches = getMatches(limit, filterSet, items);
+            Map<Filter, FilterMatch> matches = getMatches(items, limit, filterSet);
             FilterPredicate filterPredicate = new FilterPredicate(matches, filterSet);
             CollectionUtils.select(items, filterPredicate, collection);
 
@@ -57,7 +57,7 @@ public class SimpleRowFilter implements RowFilter {
         return items;
     }
 
-    private Map<Filter, FilterMatch> getMatches(Limit limit, FilterSet filterSet, Collection items) {
+    private Map<Filter, FilterMatch> getMatches(Collection items, Limit limit, FilterSet filterSet) {
         Map<Filter, FilterMatch> matches = new HashMap<Filter, FilterMatch>();
 
         if (items == null || !items.iterator().hasNext()) {

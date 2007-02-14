@@ -57,7 +57,7 @@ public abstract class AbstractTestCase {
             limit.setRowSelect(rowSelect);
         }
 
-        CoreContextFactory factory = new CoreContextFactoryImpl(webContext, false);
+        CoreContextFactory factory = new CoreContextFactoryImpl(false, webContext);
         CoreContext coreContext = factory.createCoreContext(items, limit);
         
         return coreContext;

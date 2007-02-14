@@ -41,9 +41,9 @@ public class ResourceBundleMessages implements Messages {
     public ResourceBundleMessages(String messagesLocation, WebContext webContext) {
         this.locale = webContext.getLocale();
         try {
-            defaultResourceBundle = getResourceBundle(JMESA_RESOURCE_BUNDLE, webContext);
+            defaultResourceBundle = getResourceBundle(JMESA_RESOURCE_BUNDLE);
             if (StringUtils.isNotBlank(messagesLocation)) {
-                customResourceBundle = getResourceBundle(messagesLocation, webContext);
+                customResourceBundle = getResourceBundle(messagesLocation);
             }
         } catch (MissingResourceException e) {
             if (logger.isErrorEnabled()) {
@@ -52,7 +52,7 @@ public class ResourceBundleMessages implements Messages {
         }
     }
 
-    private ResourceBundle getResourceBundle(String messagesLocation, WebContext webContext)
+    private ResourceBundle getResourceBundle(String messagesLocation)
             throws MissingResourceException {
         return ResourceBundle.getBundle(messagesLocation, locale, getClass().getClassLoader());
     }

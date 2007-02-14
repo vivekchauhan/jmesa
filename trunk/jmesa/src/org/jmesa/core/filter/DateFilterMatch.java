@@ -20,20 +20,23 @@ import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
-import org.jmesa.view.ContextSupport;
+import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DateFilterMatch extends ContextSupport implements FilterMatch {
+public class DateFilterMatch implements FilterMatch {
     private String pattern = "MM/dd/yyyy";
+    private Locale locale;
 
-    public DateFilterMatch() {
+    public DateFilterMatch(WebContext webContext) {
+        this.locale = webContext.getLocale();
     }
 
-    public DateFilterMatch(String pattern) {
+    public DateFilterMatch(String pattern, WebContext webContext) {
         this.pattern = pattern;
+        this.locale = webContext.getLocale();
     }
 
     public void setPattern(String pattern) {
@@ -44,9 +47,12 @@ public class DateFilterMatch extends ContextSupport implements FilterMatch {
         if (itemValue == null) {
             return false;
         }
-
-        Locale locale = getWebContext().getLocale();
-        itemValue = DateFormatUtils.format((Date) itemValue, pattern, locale);
+        
+        if (locale != null) {
+            itemValue = DateFormatUtils.format((Date) itemValue, pattern, locale);
+        } else {
+            itemValue = DateFormatUtils.format((Date) itemValue, pattern);
+        }
 
         String item = String.valueOf(itemValue);
         String match = String.valueOf(matchValue);
