@@ -39,7 +39,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class MatchKey {
     private final Class type;
-    private final String id;
     private final String property;
 
     /**
@@ -48,17 +47,7 @@ public class MatchKey {
      * @param type
      */
     public MatchKey(Class type) {
-        this(type, null, null);
-    }
-
-    /**
-     * The second most generic constructor.
-     * 
-     * @param id
-     * @param type
-     */
-    public MatchKey(Class type, String id) {
-        this(type, id, null);
+        this(type, null);
     }
 
     /**
@@ -68,14 +57,9 @@ public class MatchKey {
      * @param property
      * @param type
      */
-    public MatchKey(Class type, String id, String property) {
+    public MatchKey(Class type, String property) {
         this.type = type;
-        this.id = id;
         this.property = property;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getProperty() {
@@ -96,18 +80,17 @@ public class MatchKey {
 
         MatchKey that = (MatchKey) o;
 
-        return new EqualsBuilder().append(getType(), that.getType()).append(getId(), 
-                that.getId()).append(getProperty(), that.getProperty()).isEquals();
+        return new EqualsBuilder().append(getType(), that.getType()).append(getProperty(), that.getProperty()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(getType()).append(getId()).append(getProperty()).toHashCode();
+        return new HashCodeBuilder(17, 37).append(getType()).append(getProperty()).toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("type", getType()).append("id", getId()).append("property", getProperty()).toString();
+        return new ToStringBuilder(this).append("type", getType()).append("property", getProperty()).toString();
     }
 
 }

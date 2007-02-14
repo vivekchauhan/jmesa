@@ -41,7 +41,7 @@ public class RowFilterTest extends AbstractTestCase {
     public void filterItems() {
         FilterMatchRegistry registry = new FilterMatchRegistryImpl();
         MatchKey key = new MatchKey(String.class);
-        FilterMatch match = new StringMatch();
+        FilterMatch match = new StringFilterMatch();
         registry.addFilterMatch(key, match);
 
         RowFilter itemsFilter = new SimpleRowFilter(registry);

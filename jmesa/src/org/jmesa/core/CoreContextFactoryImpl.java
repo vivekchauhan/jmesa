@@ -15,8 +15,11 @@
  */
 package org.jmesa.core;
 
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 
+import org.jmesa.core.filter.DateFilterMatch;
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.FilterMatch;
 import org.jmesa.core.filter.FilterMatchRegistry;
@@ -24,7 +27,7 @@ import org.jmesa.core.filter.FilterMatchRegistryImpl;
 import org.jmesa.core.filter.MatchKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.filter.SimpleRowFilter;
-import org.jmesa.core.filter.StringMatch;
+import org.jmesa.core.filter.StringFilterMatch;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.ResourceBundleMessages;
 import org.jmesa.core.preference.Preferences;
@@ -60,9 +63,15 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     protected FilterMatchRegistry getFilterMatchRegistry() {
         if (registry == null) {
             registry = new FilterMatchRegistryImpl();
-            MatchKey key = new MatchKey(String.class);
-            FilterMatch match = new StringMatch();
-            registry.addFilterMatch(key, match);
+            registry.addFilterMatch(new MatchKey(String.class), new StringFilterMatch());
+
+            DateFilterMatch timestampFilterMatch = new DateFilterMatch();
+            timestampFilterMatch.setWebContext(webContext);
+            registry.addFilterMatch(new MatchKey(Timestamp.class), timestampFilterMatch);
+
+            DateFilterMatch dateFilterMatch = new DateFilterMatch();
+            dateFilterMatch.setWebContext(webContext);
+            registry.addFilterMatch(new MatchKey(Date.class), dateFilterMatch);
         }
 
         return registry;

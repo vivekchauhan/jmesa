@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class StringMatch implements FilterMatch {
+public class StringFilterMatch implements FilterMatch {
     public boolean evaluate(Object itemValue, String matchValue) {
         String item = StringUtils.lowerCase((String) itemValue);
         String match = StringUtils.lowerCase((String) matchValue);

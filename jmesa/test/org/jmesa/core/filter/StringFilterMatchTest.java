@@ -18,17 +18,17 @@ package org.jmesa.core.filter;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jmesa.core.filter.StringMatch;
+import org.jmesa.core.filter.StringFilterMatch;
 import org.junit.Test;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class StringMatchTest {
+public class StringFilterMatchTest {
 	@Test
 	public void evaluateTest() {
-		StringMatch match = new StringMatch();
+		StringFilterMatch match = new StringFilterMatch();
 
 		boolean evaluate = match.evaluate(null, "geo");
 		assertFalse(evaluate);
