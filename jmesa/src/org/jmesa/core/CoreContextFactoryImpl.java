@@ -52,12 +52,12 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     private boolean enableFilterAndSort;
 
     public CoreContextFactoryImpl(WebContext webContext) {
-        this(webContext, true);
+        this(true, webContext);
     }
 
-    public CoreContextFactoryImpl(WebContext webContext, boolean enableFilterAndSort) {
-        this.webContext = webContext;
+    public CoreContextFactoryImpl(boolean enableFilterAndSort, WebContext webContext) {
         this.enableFilterAndSort = enableFilterAndSort;
+        this.webContext = webContext;
     }
 
     protected FilterMatchRegistry getFilterMatchRegistry() {
@@ -65,12 +65,10 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
             registry = new FilterMatchRegistryImpl();
             registry.addFilterMatch(new MatchKey(String.class), new StringFilterMatch());
 
-            DateFilterMatch timestampFilterMatch = new DateFilterMatch();
-            timestampFilterMatch.setWebContext(webContext);
+            DateFilterMatch timestampFilterMatch = new DateFilterMatch(webContext);
             registry.addFilterMatch(new MatchKey(Timestamp.class), timestampFilterMatch);
 
-            DateFilterMatch dateFilterMatch = new DateFilterMatch();
-            dateFilterMatch.setWebContext(webContext);
+            DateFilterMatch dateFilterMatch = new DateFilterMatch(webContext);
             registry.addFilterMatch(new MatchKey(Date.class), dateFilterMatch);
         }
 
