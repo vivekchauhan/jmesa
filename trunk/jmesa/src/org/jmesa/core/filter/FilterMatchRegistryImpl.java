@@ -34,13 +34,7 @@ public class FilterMatchRegistryImpl implements FilterMatchRegistry {
 
         if (match == null) {
             // take off property and see if find match
-            key = new MatchKey(key.getType(), key.getId(), null);
-            match = matches.get(key);
-        }
-
-        if (match == null) {
-            // take off id and property and see if find match
-            key = new MatchKey(key.getType(), null, null);
+            key = new MatchKey(key.getType(), null);
             match = matches.get(key);
         }
 
@@ -48,6 +42,6 @@ public class FilterMatchRegistryImpl implements FilterMatchRegistry {
             return match;
         }
 
-        throw new IllegalArgumentException("There is no Match with the MatchKey [" + key.toString() + "]");
+        throw new IllegalArgumentException("There is no FilterMatch with the MatchKey [" + key.toString() + "]");
     }
 }

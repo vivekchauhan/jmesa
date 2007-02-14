@@ -24,7 +24,7 @@ import org.jmesa.core.filter.FilterMatch;
 import org.jmesa.core.filter.FilterMatchRegistry;
 import org.jmesa.core.filter.FilterMatchRegistryImpl;
 import org.jmesa.core.filter.MatchKey;
-import org.jmesa.core.filter.StringMatch;
+import org.jmesa.core.filter.StringFilterMatch;
 import org.junit.Test;
 
 /**
@@ -35,26 +35,17 @@ public class FilterMatchRegistryTest {
 	@Test
 	public void getMatch() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new MatchKey(String.class), new StringMatch());
-		MatchKey key = new MatchKey(String.class, "pres", "name");
+		registry.addFilterMatch(new MatchKey(String.class), new StringFilterMatch());
+		MatchKey key = new MatchKey(String.class, "name");
 		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
 
 	@Test
-	public void getMatchWithId() {
+	public void getMatchKeyWithProperty() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new MatchKey(String.class, "pres"), new StringMatch());
-		MatchKey key = new MatchKey(String.class, "pres", "name");
-		FilterMatch result = registry.getFilterMatch(key);
-		assertNotNull(result);
-	}
-
-	@Test
-	public void getMatchKeyWithIdAndProperty() {
-		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new MatchKey(String.class, "pres", "name"), new StringMatch());
-		MatchKey key = new MatchKey(String.class, "pres", "name");
+		registry.addFilterMatch(new MatchKey(String.class, "name"), new StringFilterMatch());
+		MatchKey key = new MatchKey(String.class, "name");
 		FilterMatch result = registry.getFilterMatch(key);
 		assertNotNull(result);
 	}
@@ -62,7 +53,7 @@ public class FilterMatchRegistryTest {
 	@Test
 	public void getMatchKeyWithErrors() {
 		FilterMatchRegistry registry = new FilterMatchRegistryImpl();
-		registry.addFilterMatch(new MatchKey(Date.class), new StringMatch());
+		registry.addFilterMatch(new MatchKey(Date.class), new StringFilterMatch());
 		MatchKey key = new MatchKey(String.class);
 		try {
 			FilterMatch result = registry.getFilterMatch(key);

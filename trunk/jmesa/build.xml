@@ -6,6 +6,10 @@
 			<include name="**/*.jar"/>
 		</fileset>
     </path>
+	
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
 
 	<target name="compile">
 		<mkdir dir="build/classes"/>
