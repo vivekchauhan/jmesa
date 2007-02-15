@@ -67,7 +67,7 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
         html.style(getStyle());
         html.styleClass(getStyleClass());
         html.close();
-
+        
         String filterValue = "";
         if (filter != null) {
             filterValue = filter.getValue();

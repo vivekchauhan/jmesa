@@ -112,7 +112,11 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         for (Iterator iter = columns.iterator(); iter.hasNext();) {
             HtmlColumn column = (HtmlColumn) iter.next();
-            html.append(column.getFilterRenderer().render());
+            if (column.isFilterable()) {
+                html.append(column.getFilterRenderer().render());
+            } else {
+                html.td(2).close().tdEnd();
+            }
         }
 
         html.trEnd(1);
