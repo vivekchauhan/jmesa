@@ -50,11 +50,9 @@ public class ColumnImpl extends ContextSupport implements Column {
     public String getTitle() {
         if (StringUtils.isBlank(title)) {
             return ViewUtils.camelCaseToWord(property);
-        } else {
-
         }
-
-        return null;
+        
+        return title;
     }
 
     public void setTitle(String title) {
