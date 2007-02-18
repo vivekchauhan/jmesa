@@ -77,8 +77,8 @@ public class LimitPresidentsControllerTest {
         Parameters parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
 
-        builder.addSort("firstName", Order.ASC);
-        builder.addSort("lastName", Order.DESC);
+        builder.addSort("name.firstName", Order.ASC);
+        builder.addSort("name.lastName", Order.DESC);
 
         try {
             ModelAndView mav = controller.handleRequestInternal(request, null);

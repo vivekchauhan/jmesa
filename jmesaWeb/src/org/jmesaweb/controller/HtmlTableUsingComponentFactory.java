@@ -42,7 +42,7 @@ public class HtmlTableUsingComponentFactory {
         // create the table
         HtmlTable table = factory.createTable();
         table.setCaption("Presidents");
-        table.getTableRenderer().setWidth("600px");
+        table.getTableRenderer().setWidth("650px");
 
         // create the row
         HtmlRow row = factory.createRow();
@@ -53,17 +53,25 @@ public class HtmlTableUsingComponentFactory {
 
         // create the columns
         CellEditor customEditor = new PresidentsLinkEditor(editor);
-        HtmlColumn firstNameColumn = factory.createColumn("firstName", customEditor);
-        row.addColumn(firstNameColumn);
+        HtmlColumn firstName = factory.createColumn("name.firstName", customEditor);
+        firstName.setTitle("First Name");
+        row.addColumn(firstName);
 
-        HtmlColumn lastNameColumn = factory.createColumn("lastName", editor);
-        row.addColumn(lastNameColumn);
+        HtmlColumn lastName = factory.createColumn("name.lastName", editor);
+        lastName.setTitle("Last Name");
+        row.addColumn(lastName);
 
-        HtmlColumn termColumn = factory.createColumn("term", editor);
-        row.addColumn(termColumn);
+        HtmlColumn term = factory.createColumn("term", editor);
+        row.addColumn(term);
 
-        HtmlColumn careerColumn = factory.createColumn("career", editor);
-        row.addColumn(careerColumn);
+        HtmlColumn career = factory.createColumn("career", editor);
+        row.addColumn(career);
+        
+        CellEditor dateCellEditor = factory.createDateCellEditor();
+        HtmlColumn bornColumn = factory.createColumn("born", dateCellEditor);
+        bornColumn.setFilterable(false);
+        bornColumn.setSortable(false);
+        row.addColumn(bornColumn);
 
         // create the view
         ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);

@@ -21,9 +21,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jmesa.core.message.ResourceBundleMessages;
+import org.jmesaweb.domain.Name;
 import org.jmesaweb.domain.President;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
@@ -34,8 +32,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author Jeff Johnston
  */
 public class DataSourcePopulator implements InitializingBean {
-    private static Log logger = LogFactory.getLog(ResourceBundleMessages.class);
-    
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     private HibernateTemplate hibernateTemplate;
@@ -56,9 +52,13 @@ public class DataSourcePopulator implements InitializingBean {
 
             President president = new President();
             president.setId(new Long(id.toString()));
-            president.setFirstName(data[0]);
-            president.setLastName(data[1]);
-            president.setNickName(data[2]);
+
+            Name name = new Name();
+            name.setFirstName(data[0]);
+            name.setLastName(data[1]);
+            name.setNickName(data[2]);
+            president.setName(name);
+            
             president.setTerm(data[3]);
             president.setBorn(simpleDateFormat.parse(data[4]));
             

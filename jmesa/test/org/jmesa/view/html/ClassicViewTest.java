@@ -60,11 +60,11 @@ public class ClassicViewTest extends AbstractTestCase {
         CellEditor editor = factory.createBasicCellEditor();
 
         // create the columns
-        HtmlColumn firstNameColumn = factory.createColumn("firstName", editor);
+        HtmlColumn firstNameColumn = factory.createColumn("name.firstName", editor);
         firstNameColumn.getHeaderRenderer().setStyleClass("header"); // TODO: this should default
         row.addColumn(firstNameColumn);
 
-        HtmlColumn lastNameColumn = factory.createColumn("lastName", editor);
+        HtmlColumn lastNameColumn = factory.createColumn("name.lastName", editor);
         lastNameColumn.getHeaderRenderer().setStyleClass("header");
         row.addColumn(lastNameColumn);
 

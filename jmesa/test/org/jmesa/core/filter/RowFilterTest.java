@@ -67,6 +67,6 @@ public class RowFilterTest extends AbstractTestCase {
 
     private void createBuilder(Parameters parameters) {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.addFilter("fullName", "george");
+        builder.addFilter("name.fullName", "george");
     }
 }

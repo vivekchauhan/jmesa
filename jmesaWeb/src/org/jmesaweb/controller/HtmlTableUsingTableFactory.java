@@ -17,6 +17,7 @@ package org.jmesaweb.controller;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.View;
+import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
@@ -37,12 +38,17 @@ public class HtmlTableUsingTableFactory {
 
     public Object render(WebContext webContext, CoreContext coreContext) {
         HtmlTableFactory tableFactory = new HtmlTableFactory(webContext, coreContext);
-        HtmlTable table = tableFactory.createTable("firstName", "lastName", "term", "career");
+        HtmlTable table = tableFactory.createTable("name.firstName", "name.lastName", "term", "career");
         table.setCaption("Presidents");
         table.getTableRenderer().setWidth("600px;");
 
         CellEditor editor = new PresidentsLinkEditor(new BasicCellEditor());
-        table.getRow().getColumn("firstName").getCellRenderer().setCellEditor(editor);
+        Column firstName = table.getRow().getColumn("name.firstName");
+        firstName.setTitle("First Name");
+        firstName.getCellRenderer().setCellEditor(editor);
+
+        Column lastName = table.getRow().getColumn("name.lastName");
+        lastName.setTitle("Last Name");
 
         ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);
         Toolbar toolbar = toolbarFactory.createToolbar();

@@ -64,7 +64,7 @@ public class CoreContextTest {
 		RowFilter rowFilter = new DefaultRowFilter();
 		ColumnSort columnSort = new DefaultColumnSort();
 		
-		List data = new ArrayList();
+		List<Object> data = new ArrayList<Object>();
 		
 		Items items = new ItemsImpl(data, limit, rowFilter, columnSort);
 		

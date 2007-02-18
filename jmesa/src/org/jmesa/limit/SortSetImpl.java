@@ -127,6 +127,7 @@ public class SortSetImpl implements Serializable, SortSet {
      * @param sort
      *            The Sort to add to the set.
      */
+    @SuppressWarnings("unchecked")
     public void addSort(Sort sort) {
         if (!sorts.contains(sort)) {
             sorts.add(sort);

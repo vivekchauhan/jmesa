@@ -9,9 +9,12 @@
 
         <id name="id" column="id"/>
 		
-        <property name="firstName" column="first_name"/>
-        <property name="lastName" column="last_name"/>
-        <property name="nickName" column="nick_name"/>
+		<component name="name" class="Name">
+	        <property name="firstName" column="first_name"/>
+	        <property name="lastName" column="last_name"/>
+	        <property name="nickName" column="nick_name"/>
+		</component>
+		
         <property name="term"/>
         <property name="born"/>
         <property name="died"/>

@@ -32,9 +32,8 @@ public class PresidentDao {
         List<President> presidents = new ArrayList<President>();
 
         President president = new President();
-        president.setFirstName("George");
-        president.setLastName("Washington");
-        president.setNickName("Father of His Country");
+        Name name = new Name("George", "Washington", "Father of His Country");
+        president.setName(name);
         president.setTerm("1789-1797");
         president.setBorn(getDate("02/22/1732"));
         president.setDied(getDate("12/14/1799"));
@@ -45,9 +44,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("John");
-        president.setLastName("Adams");
-        president.setNickName("Atlas of Independence");
+        name = new Name("John", "Adams", "Atlas of Independence");
+        president.setName(name);
         president.setTerm("1797-1801");
         president.setBorn(getDate("10/25/1764"));
         president.setDied(getDate("07/04/1826"));
@@ -58,9 +56,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Thomas");
-        president.setLastName("Jefferson");
-        president.setNickName("Man of the People, Sage of Monticello");
+        name = new Name("Thomas", "Jefferson", "Man of the People, Sage of Monticello");
+        president.setName(name);
         president.setTerm("1801-09");
         president.setBorn(getDate("04/13/1743"));
         president.setDied(getDate("07/04/1826"));
@@ -71,9 +68,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("James");
-        president.setLastName("Madison");
-        president.setNickName("Father of the Constitution");
+        name = new Name("James", "Madison", "Father of the Constitution");
+        president.setName(name);
         president.setTerm("1809-17");
         president.setBorn(getDate("03/16/1751"));
         president.setDied(getDate("06/28/1836"));
@@ -84,9 +80,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("James");
-        president.setLastName("Monroe");
-        president.setNickName("The Last Cocked Hat, Era-of-Good-Feelings President");
+        name = new Name("James", "Monroe", "The Last Cocked Hat, Era-of-Good-Feelings President");
+        president.setName(name);
         president.setTerm("1817-25");
         president.setBorn(getDate("04/28/1758"));
         president.setDied(getDate("07/04/1831"));
@@ -97,9 +92,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("John");
-        president.setLastName("Adams");
-        president.setNickName("Old Man Eloquent");
+        name = new Name("John", "Adams", "Old Man Eloquent");
+        president.setName(name);
         president.setTerm("1825-29");
         president.setBorn(getDate("07/11/1767"));
         president.setDied(getDate("02/23/1848"));
@@ -110,9 +104,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Andrew");
-        president.setLastName("Jackson");
-        president.setNickName("Old Hickory");
+        name = new Name("Andrew", "Jackson", "Old Hickory");
+        president.setName(name);
         president.setTerm("1829-37");
         president.setBorn(getDate("03/15/1767"));
         president.setDied(getDate("06/08/1845"));
@@ -123,9 +116,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Martin");
-        president.setLastName("Van Buren");
-        president.setNickName("The Little Magician, The Red Fox of Kinderhook");
+        name = new Name("Martin", "Van Buren", "The Little Magician, The Red Fox of Kinderhook");
+        president.setName(name);
         president.setTerm("1837-41");
         president.setBorn(getDate("12/05/1782"));
         president.setDied(getDate("08/24/1862"));
@@ -136,9 +128,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("William Henry");
-        president.setLastName("Harrison");
-        president.setNickName("Old Tippecanoe, Old Tip");
+        name = new Name("William Henry", "Harrison", "Old Tippecanoe, Old Tip");
+        president.setName(name);
         president.setTerm("1841");
         president.setBorn(getDate("02/09/1773"));
         president.setDied(getDate("05/04/1841"));
@@ -149,9 +140,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("John");
-        president.setLastName("Tyler");
-        president.setNickName("Accidental President, His Accidency");
+        name = new Name("John", "Tyler", "Accidental President, His Accidency");
+        president.setName(name);
         president.setTerm("1841-45");
         president.setBorn(getDate("03/29/1790"));
         president.setDied(getDate("01/18/1862"));
@@ -162,9 +152,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("James");
-        president.setLastName("Polk");
-        president.setNickName("Young Hickory");
+        name = new Name("James", "Polk", "Young Hickory");
+        president.setName(name);
         president.setTerm("1845-49");
         president.setBorn(getDate("11/02/1795"));
         president.setDied(getDate("06/15/1849"));
@@ -175,9 +164,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Zachary");
-        president.setLastName("Taylor");
-        president.setNickName("Old Rough and Ready");
+        name = new Name("Zachary", "Taylor", "Old Rough and Ready");
+        president.setName(name);
         president.setTerm("1849-50");
         president.setBorn(getDate("06/21/1810"));
         president.setDied(getDate("07/09/1850"));
@@ -188,9 +176,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Millard");
-        president.setLastName("Fillmore");
-        president.setNickName("The American Louis Philippe");
+        name = new Name("Millard", "Fillmore", "The American Louis Philippe");
+        president.setName(name);
         president.setTerm("1850-53");
         president.setBorn(getDate("01/07/1800"));
         president.setDied(getDate("03/08/1874"));
@@ -201,9 +188,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Franklin");
-        president.setLastName("Pierce");
-        president.setNickName("Young Hickory of the Granite Hills");
+        name = new Name("Franklin", "Pierce", "Young Hickory of the Granite Hills");
+        president.setName(name);
         president.setTerm("1853-57");
         president.setBorn(getDate("11/23/1804"));
         president.setDied(getDate("10/08/1869"));
@@ -214,9 +200,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("James");
-        president.setLastName("Buchanan");
-        president.setNickName("Old Buck");
+        name = new Name("James", "Buchanan", "Old Buck");
+        president.setName(name);
         president.setTerm("1857-61");
         president.setBorn(getDate("05/23/1791"));
         president.setDied(getDate("06/01/1868"));
@@ -227,9 +212,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Abraham");
-        president.setLastName("Lincoln");
-        president.setNickName("Honest Abe, Illinois Rail-Splitter");
+        name = new Name("Abraham", "Lincoln", "Honest Abe, Illinois Rail-Splitter");
+        president.setName(name);
         president.setTerm("1861-65");
         president.setBorn(getDate("02/12/1809"));
         president.setDied(getDate("05/15/1865"));
@@ -240,9 +224,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Andrew");
-        president.setLastName("Johnson");
-        president.setNickName("");
+        name = new Name("Andrew", "Johnson", "");
+        president.setName(name);
         president.setTerm("1865-69");
         president.setBorn(getDate("12/29/1808"));
         president.setDied(getDate("07/31/1875"));
@@ -253,9 +236,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Ulysses S.");
-        president.setLastName("Grant");
-        president.setNickName("Hero of Appomattox");
+        name = new Name("Ulysses S.", "Grant", "Hero of Appomattox");
+        president.setName(name);
         president.setTerm("1869-77");
         president.setBorn(getDate("04/27/1822"));
         president.setDied(getDate("07/23/1885"));
@@ -266,9 +248,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Rutherford B.");
-        president.setLastName("Hayes");
-        president.setNickName("Dark-Horse President");
+        name = new Name("Rutherford B.", "Hayes", "Dark-Horse President");
+        president.setName(name);
         president.setTerm("1877-81");
         president.setBorn(getDate("10/04/1822"));
         president.setDied(getDate("01/17/1893"));
@@ -279,9 +260,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("James");
-        president.setLastName("Garfield");
-        president.setNickName("");
+        name = new Name("James", "Garfield", "");
+        president.setName(name);
         president.setTerm("1881");
         president.setBorn(getDate("11/19/1831"));
         president.setDied(getDate("09/19/1881"));
@@ -292,9 +272,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Chester");
-        president.setLastName("Arthur");
-        president.setNickName("The Gentleman Boss");
+        name = new Name("Chester", "Arthur", "The Gentleman Boss");
+        president.setName(name);
         president.setTerm("1881-85");
         president.setBorn(getDate("10/05/1829"));
         president.setDied(getDate("11/18/1886"));
@@ -305,9 +284,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Grover");
-        president.setLastName("Cleveland");
-        president.setNickName("Big Steve, Uncle Jumbo");
+        name = new Name("Grover", "Cleveland", "Big Steve, Uncle Jumbo");
+        president.setName(name);
         president.setTerm("1885-89");
         president.setBorn(getDate("03/18/1837"));
         president.setDied(getDate("06/24/1908"));
@@ -318,9 +296,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Benjamin");
-        president.setLastName("Harrison");
-        president.setNickName("Kid Gloves Harrison, Little Ben");
+        name = new Name("Benjamin", "Harrison", "Kid Gloves Harrison, Little Ben");
+        president.setName(name);
         president.setTerm("1889-93");
         president.setBorn(getDate("08/20/1833"));
         president.setDied(getDate("03/13/1901"));
@@ -331,9 +308,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Grover");
-        president.setLastName("Cleveland");
-        president.setNickName("Big Steve, Uncle Jumbo");
+        name = new Name("Grover", "Cleveland", "Big Steve, Uncle Jumbo");
+        president.setName(name);
         president.setTerm("1893-97");
         president.setBorn(getDate("03/18/1837"));
         president.setDied(getDate("06/24/1908"));
@@ -344,9 +320,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("William");
-        president.setLastName("McKinley");
-        president.setNickName("Idol of Ohio");
+        name = new Name("William", "McKinley", "Idol of Ohio");
+        president.setName(name);
         president.setTerm("1897-1901");
         president.setBorn(getDate("01/29/1843"));
         president.setDied(getDate("09/14/1901"));
@@ -357,9 +332,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Theodore");
-        president.setLastName("Roosevelt");
-        president.setNickName("TR, Trust-Buster, Teddy");
+        name = new Name("Theodore", "Roosevelt", "TR, Trust-Buster, Teddy");
+        president.setName(name);
         president.setTerm("1901-09");
         president.setBorn(getDate("10/27/1858"));
         president.setDied(getDate("01/06/1919"));
@@ -370,9 +344,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("William H.");
-        president.setLastName("Taft");
-        president.setNickName("");
+        name = new Name("William H.", "Taft", "");
+        president.setName(name);
         president.setTerm("1909-13");
         president.setBorn(getDate("10/15/1857"));
         president.setDied(getDate("03/08/1930"));
@@ -383,9 +356,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Woodrow");
-        president.setLastName("Wilson");
-        president.setNickName("Schoolmaster in Politics");
+        name = new Name("Woodrow", "Wilson", "Schoolmaster in Politics");
+        president.setName(name);
         president.setTerm("1913-21");
         president.setBorn(getDate("12/28/1856"));
         president.setDied(getDate("02/03/1924"));
@@ -396,9 +368,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Warren");
-        president.setLastName("Harding");
-        president.setNickName("");
+        name = new Name("Warren", "Harding", "");
+        president.setName(name);
         president.setTerm("1921-23");
         president.setBorn(getDate("11/02/1865"));
         president.setDied(getDate("08/02/1923"));
@@ -409,9 +380,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Calvin");
-        president.setLastName("Coolidge");
-        president.setNickName("Silent Ca");
+        name = new Name("Calvin", "Coolidge", "Silent Ca");
+        president.setName(name);
         president.setTerm("1923-29");
         president.setBorn(getDate("07/04/1872"));
         president.setDied(getDate("01/05/1933"));
@@ -422,9 +392,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Herbert");
-        president.setLastName("Hoover");
-        president.setNickName("");
+        name = new Name("Herbert", "Hoover", "");
+        president.setName(name);
         president.setTerm("1929-33");
         president.setBorn(getDate("08/10/1874"));
         president.setDied(getDate("10/20/ 1964"));
@@ -435,9 +404,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Franklin D.");
-        president.setLastName("Roosevelt");
-        president.setNickName("FDR");
+        name = new Name("Franklin D.", "Roosevelt", "FDR");
+        president.setName(name);
         president.setTerm("1933-45");
         president.setBorn(getDate("01/30/1882"));
         president.setDied(getDate("04/12/1945"));
@@ -448,9 +416,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Harry");
-        president.setLastName("Truman");
-        president.setNickName("Give 'Em Hell Harry");
+        name = new Name("Harry", "Truman", "Give 'Em Hell Harry");
+        president.setName(name);
         president.setTerm("1945-53");
         president.setBorn(getDate("05/08/1884"));
         president.setDied(getDate("12/26/1972"));
@@ -461,9 +428,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Dwight");
-        president.setLastName("Eisenhower");
-        president.setNickName("Ike");
+        name = new Name("Dwight", "Eisenhower", "Ike");
+        president.setName(name);
         president.setTerm("1953-61");
         president.setBorn(getDate("10/14/1890"));
         president.setDied(getDate("03/28/1969"));
@@ -474,9 +440,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("John F.");
-        president.setLastName("Kennedy");
-        president.setNickName("JFK, Jack");
+        name = new Name("John F.", "Kennedy", "JFK, Jack");
+        president.setName(name);
         president.setTerm("1961-63");
         president.setBorn(getDate("05/29/1917"));
         president.setDied(getDate("11/22/1963"));
@@ -487,9 +452,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Lyndon");
-        president.setLastName("Johnson");
-        president.setNickName("LBJ");
+        name = new Name("Lyndon", "Johnson", "LBJ");
+        president.setName(name);
         president.setTerm("1963-69");
         president.setBorn(getDate("08/27/1908"));
         president.setDied(getDate("01/22/1973"));
@@ -500,9 +464,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Richard");
-        president.setLastName("Nixon");
-        president.setNickName("");
+        name = new Name("Richard", "Nixon", "");
+        president.setName(name);
         president.setTerm("1969-74");
         president.setBorn(getDate("01/09/1913"));
         president.setDied(getDate("04/22/1994"));
@@ -513,9 +476,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Gerald");
-        president.setLastName("Ford");
-        president.setNickName("Jerry");
+        name = new Name("Gerald", "Ford", "Jerry");
+        president.setName(name);
         president.setTerm("1974-77");
         president.setBorn(getDate("07/14/1913"));
         president.setEducation("University of Michigan (1935); Yale University Law School (1941)");
@@ -525,9 +487,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Jimmy");
-        president.setLastName("Carter");
-        president.setNickName("Jimmy");
+        name = new Name("Jimmy", "Carter", "Jimmy");
+        president.setName(name);
         president.setTerm("1977-81");
         president.setBorn(getDate("10/01/1924"));
         president.setEducation("Georgia Southwestern College, 1941-1942; Georgia Institute of Technology, 1942-1943; United States Naval Academy, 1943-1946 (class of 1947);");
@@ -536,9 +497,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("Ronald");
-        president.setLastName("Reagan");
-        president.setNickName("The Great Communicator");
+        name = new Name("Ronald", "Reagan", "The Great Communicator");
+        president.setName(name);
         president.setTerm("1981-89");
         president.setBorn(getDate("02/06/1911"));
         president.setDied(getDate("06/05/2004"));
@@ -549,9 +509,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("George H.W.");
-        president.setLastName("Bush");
-        president.setNickName("Poppy");
+        name = new Name("George H.W.", "Bush", "Poppy");
+        president.setName(name);
         president.setTerm("1989-93");
         president.setBorn(getDate("06/12/1924"));
         president.setEducation("Yale University (1948)");
@@ -561,9 +520,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("William J.");
-        president.setLastName("Clinton");
-        president.setNickName("Bill");
+        name = new Name("William J.", "Clinton", "Bill");
+        president.setName(name);
         president.setTerm("1993-2001");
         president.setBorn(getDate("08/19/1946"));
         president.setEducation("Georgetown University (1968), attended Oxford University (1968-1970), Yale Law School (1973)");
@@ -573,9 +531,8 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
-        president.setFirstName("George W.");
-        president.setLastName("Bush");
-        president.setNickName("Dubya");
+        name = new Name("George W.", "Bush", "Dubya");
+        president.setName(name);
         president.setTerm("2001-present");
         president.setBorn(getDate("07/06/1946"));
         president.setEducation("Yale (B.S., 1968), Harvard (M.B.A., 1975)");
