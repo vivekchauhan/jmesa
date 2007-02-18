@@ -128,8 +128,16 @@ public final class JspPageWebContext implements WebContext {
 
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
+    
+    public String getRealPath(String path) {
+        if (pageContext.getRequest() instanceof HttpServletRequest) {
+            return ((HttpServletRequest) pageContext.getRequest()).getSession().getServletContext().getRealPath(path);
+        }
 
-    public Object getContextObject() {
+        throw new UnsupportedOperationException("There is no real path associated with the request.");
+    }
+
+    public Object getBackingObject() {
         return pageContext;
     }
 }

@@ -15,18 +15,15 @@
  */
 package org.jmesa.core.preference;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jmesa.web.WebContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.context.support.ServletContextResource;
 
 /**
  * @since 2.0
@@ -57,19 +54,16 @@ public class PropertiesPreferences implements Preferences {
     private InputStream getInputStream(String preferencesLocation, WebContext webContext)
             throws IOException {
         if (preferencesLocation.startsWith("WEB-INF")) {
-            HttpServletRequest request = (HttpServletRequest) webContext.getContextObject();
-            ServletContextResource resource = new ServletContextResource(request.getSession().getServletContext(), preferencesLocation);
-            return resource.getInputStream();
-        } else if (preferencesLocation.startsWith("classpath:")) {
-            ClassPathResource resource = new ClassPathResource(StringUtils.substringAfter(preferencesLocation, "classpath:"));
-            return resource.getInputStream();
+            String path = webContext.getRealPath("WEB-INF");
+            String name = StringUtils.substringAfter(preferencesLocation, "WEB-INF/");
+            return new FileInputStream(path + "/" + name);
         }
 
         return this.getClass().getResourceAsStream(preferencesLocation);
     }
 
     /**
-     * Get the default property.
+     * Get the property.
      */
     public String getPreference(String name) {
         return (String) properties.get(name);

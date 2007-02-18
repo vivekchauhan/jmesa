@@ -122,8 +122,12 @@ public class ServletRequestWebContext implements WebContext {
     public String getContextPath() {
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
+    
+    public String getRealPath(String path) {
+        throw new UnsupportedOperationException("There is no real path associated with the request.");
+    }
 
-    public Object getContextObject() {
+    public Object getBackingObject() {
         return request;
     }
 }
