@@ -42,6 +42,7 @@ public abstract class AbstractTestCase {
         return new HttpServletRequestWebContext(request);
     }
     
+    @SuppressWarnings("unchecked")
     protected CoreContext createCoreContext(WebContext webContext) {
         Collection items = new PresidentDao().getPresidents();
 

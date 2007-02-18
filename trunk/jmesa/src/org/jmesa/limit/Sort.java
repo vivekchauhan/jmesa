@@ -61,8 +61,6 @@ public final class Sort implements Serializable, Comparable {
     private final Order order;
 
     public Sort(int position, String property, Order order) {
-        // TODO: rewrite all properties with underscores to be with dot
-        // notation.
         this.position = position;
         this.property = property;
         this.order = order;

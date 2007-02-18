@@ -49,6 +49,7 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
         this.exportTypes = exportTypes;
     }
 
+    @SuppressWarnings("unchecked")
     public Toolbar createToolbar() {
         Toolbar toolbar = new ToolbarImpl(webContext, coreContext);
         toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);

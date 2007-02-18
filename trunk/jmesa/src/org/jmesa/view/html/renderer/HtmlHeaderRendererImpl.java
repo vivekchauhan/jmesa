@@ -78,7 +78,6 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
                 } else if (sort.getOrder() == Order.DESC) {
                     html.onmouseover("this.style.cursor='pointer'");
                     html.onmouseout("this.style.cursor='default'");
-                    int position = column.getRow().getColumns().indexOf(column);
                     html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('"
                             + limit.getId() + "')");
                 }

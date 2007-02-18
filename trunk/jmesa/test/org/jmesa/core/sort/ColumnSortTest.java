@@ -59,10 +59,10 @@ public class ColumnSortTest extends AbstractTestCase {
 		Iterator iterator = items.iterator();
 		
 		President asc = (President)iterator.next();
-		assertTrue("the asc sort order is wrong", asc.getFirstName().equals("Abraham"));
+		assertTrue("the asc sort order is wrong", asc.getName().getFirstName().equals("Abraham"));
 		
 		President desc = (President)iterator.next();
-		assertTrue("the desc sort order is wrong", desc.getLastName().equals("Johnson"));
+		assertTrue("the desc sort order is wrong", desc.getName().getLastName().equals("Johnson"));
 	}
 	
 	private Map<?, ?> getParameters() {
@@ -74,7 +74,7 @@ public class ColumnSortTest extends AbstractTestCase {
 	
 	private void createBuilder(Parameters parameters) {
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-		builder.addSort("firstName", Order.ASC);
-		builder.addSort("lastName", Order.DESC);
+		builder.addSort("name.firstName", Order.ASC);
+		builder.addSort("name.lastName", Order.DESC);
 	}
 }

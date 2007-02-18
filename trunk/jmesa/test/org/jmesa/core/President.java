@@ -24,9 +24,7 @@ import java.sql.Date;
  */
 public class President implements Serializable {
     private Integer id;
-    private String firstName;
-    private String lastName;
-    private String nickName;
+    private Name name;
     private String term;
     private Date born;
     private Date died;
@@ -41,6 +39,14 @@ public class President implements Serializable {
 
     public void setId(Integer presidentId) {
         this.id = presidentId;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
     }
 
     public Date getBorn() {
@@ -75,34 +81,6 @@ public class President implements Serializable {
         this.education = education;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFullName() {
-        return getFirstName() + " " + getLastName();
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
     public String getPoliticalParty() {
         return politicalParty;
     }
@@ -118,7 +96,7 @@ public class President implements Serializable {
     public void setTerm(String term) {
         this.term = term;
     }
-    
+
     public Double getSalary() {
         return salary;
     }
