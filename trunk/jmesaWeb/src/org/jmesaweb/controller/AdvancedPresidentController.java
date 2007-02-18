@@ -50,7 +50,7 @@ public class AdvancedPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
         
         WebContext webContext = new HttpServletRequestWebContext(request);
-        Collection items = presidentService.getPresidents();
+        Collection<Object> items = presidentService.getPresidents();
         Limit limit = getLimit(items, webContext);
         CoreContext coreContext = getCoreContext(items, limit, webContext);
 
@@ -83,7 +83,7 @@ public class AdvancedPresidentController extends AbstractController {
         return limit;
     }
 
-    public CoreContext getCoreContext(Collection items, Limit limit, WebContext webContext) {
+    public CoreContext getCoreContext(Collection<Object> items, Limit limit, WebContext webContext) {
         CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
         CoreContext coreContext = factory.createCoreContext(items, limit);
         return coreContext;

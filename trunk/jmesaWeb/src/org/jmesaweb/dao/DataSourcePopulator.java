@@ -38,6 +38,7 @@ public class DataSourcePopulator implements InitializingBean {
     private JdbcTemplate jdbcTemplate;
     private Resource presidents;
 
+    @SuppressWarnings("unchecked")
     public void afterPropertiesSet() throws Exception {
         createPresidentTable();
         

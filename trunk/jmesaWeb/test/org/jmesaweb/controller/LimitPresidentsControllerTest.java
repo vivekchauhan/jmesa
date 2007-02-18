@@ -57,7 +57,7 @@ public class LimitPresidentsControllerTest {
     @Test
     public void handleRequestInternal() {
         PresidentDao dao = new PresidentDao();
-        Collection items = dao.getPresidents();
+        Collection<Object> items = dao.getPresidents();
 
         expect(presidentService.getPresidentsCountWithFilter(isA(PresidentFilter.class))).andReturn(43);
         expect(presidentService.getPresidentsWithFilterAndSort(isA(PresidentFilter.class), isA(PresidentSort.class), anyInt(), anyInt())).andReturn(items);
