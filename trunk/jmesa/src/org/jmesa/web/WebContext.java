@@ -63,6 +63,8 @@ public interface WebContext {
     public void setLocale(Locale locale);
 
     public String getContextPath();
+    
+    public String getRealPath(String path);
 
-    public Object getContextObject();
+    public Object getBackingObject();
 }
