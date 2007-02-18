@@ -31,6 +31,7 @@ import org.jmesa.view.renderer.AbstractHeaderRenderer;
 public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements HtmlHeaderRenderer {
     private String style;
     private String styleClass;
+    private boolean defaultSortOrderable = true;
 
     public HtmlHeaderRendererImpl(HtmlColumn column) {
         setColumn(column);
@@ -56,6 +57,14 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
         this.styleClass = styleClass;
     }
 
+    public boolean isDefaultSortOrderable() {
+        return defaultSortOrderable;
+    }
+
+    public void setDefaultSortOrderable(boolean defaultSortOrderable) {
+        this.defaultSortOrderable = defaultSortOrderable;
+    }
+
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
@@ -68,23 +77,25 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
 
         if (column.isSortable()) {
             Sort sort = limit.getSortSet().getSort(column.getProperty());
+
+            html.onmouseover("this.style.cursor='pointer'");
+            html.onmouseout("this.style.cursor='default'");
+            int position = column.getRow().getColumns().indexOf(column);
+
             if (sort != null) {
                 if (sort.getOrder() == Order.ASC) {
-                    html.onmouseover("this.style.cursor='pointer'");
-                    html.onmouseout("this.style.cursor='default'");
-                    int position = column.getRow().getColumns().indexOf(column);
                     html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.DESC.toParam()
                             + "');onInvokeAction('" + limit.getId() + "')");
                 } else if (sort.getOrder() == Order.DESC) {
-                    html.onmouseover("this.style.cursor='pointer'");
-                    html.onmouseout("this.style.cursor='default'");
-                    html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('"
-                            + limit.getId() + "')");
+                    if (isDefaultSortOrderable()) {
+                        html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('" + limit.getId()
+                                + "')");
+                    } else {
+                        html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','"
+                                + Order.ASC.toParam() + "');onInvokeAction('" + limit.getId() + "')");
+                    }
                 }
             } else {
-                html.onmouseover("this.style.cursor='pointer'");
-                html.onmouseout("this.style.cursor='default'");
-                int position = column.getRow().getColumns().indexOf(column);
                 html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.ASC.toParam()
                         + "');onInvokeAction('" + limit.getId() + "')");
             }

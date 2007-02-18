@@ -41,12 +41,12 @@ public class SimpleRowFilter implements RowFilter {
         this.registry = registry;
     }
 
-    public Collection filterItems(Collection items, Limit limit) {
+    public Collection<Object> filterItems(Collection<Object> items, Limit limit) {
         FilterSet filterSet = limit.getFilterSet();
         boolean filtered = filterSet.isFilterable();
 
         if (filtered) {
-            Collection collection = new ArrayList();
+            Collection<Object> collection = new ArrayList<Object>();
             Map<Filter, FilterMatch> matches = getMatches(items, limit, filterSet);
             FilterPredicate filterPredicate = new FilterPredicate(matches, filterSet);
             CollectionUtils.select(items, filterPredicate, collection);

@@ -18,12 +18,12 @@ package org.jmesa.view.html;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.html.component.HtmlColumnImpl;
-import org.jmesa.view.html.component.HtmlRowImpl;
-import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlColumnImpl;
 import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.renderer.HtmlCellRendererImpl;
 import org.jmesa.view.html.renderer.HtmlFilterRendererImpl;
 import org.jmesa.view.html.renderer.HtmlHeaderRendererImpl;
@@ -65,6 +65,10 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         row.setRowRenderer(rowRenderer);
 
         return row;
+    }
+    
+    public HtmlColumn createColumn(CellEditor editor) {
+        return createColumn(null, editor);
     }
 
     public HtmlColumn createColumn(String property, CellEditor editor) {

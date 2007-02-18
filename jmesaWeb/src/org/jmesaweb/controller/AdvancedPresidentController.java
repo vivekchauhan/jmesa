@@ -26,6 +26,7 @@ import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
+import org.jmesa.limit.Order;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
@@ -52,6 +53,7 @@ public class AdvancedPresidentController extends AbstractController {
         WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
         Limit limit = getLimit(items, webContext);
+        limit.getSortSet().addSort("name.firstName", Order.ASC);
         CoreContext coreContext = getCoreContext(items, limit, webContext);
 
         if (limit.isExportable()) {

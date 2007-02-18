@@ -23,6 +23,11 @@ public class Name {
     public Name() {        
     }
 
+    public Name(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Name(String firstName, String lastName, String nickName) {
         this.firstName = firstName;
         this.lastName = lastName;

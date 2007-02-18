@@ -52,9 +52,16 @@ public class HtmlTableUsingComponentFactory {
         CellEditor editor = factory.createBasicCellEditor();
 
         // create the columns
+        
+        HtmlColumn checkbox = factory.createColumn(new CheckboxEditor());
+        checkbox.setFilterable(false);
+        checkbox.setSortable(false);
+        row.addColumn(checkbox);
+        
         CellEditor customEditor = new PresidentsLinkEditor(editor);
         HtmlColumn firstName = factory.createColumn("name.firstName", customEditor);
         firstName.setTitle("First Name");
+        firstName.getHeaderRenderer().setDefaultSortOrderable(false);
         row.addColumn(firstName);
 
         HtmlColumn lastName = factory.createColumn("name.lastName", editor);
@@ -98,6 +105,15 @@ public class HtmlTableUsingComponentFactory {
             html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
             html.append(value);
             html.aEnd();
+            return html.toString();
+        }
+    }
+    
+    
+    private static class CheckboxEditor implements CellEditor {
+        public Object getValue(Object item, String property, int rowcount) {
+            HtmlBuilder html = new HtmlBuilder();
+            html.input().type("checkbox").end();
             return html.toString();
         }
     }

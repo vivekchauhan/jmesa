@@ -17,16 +17,18 @@ package org.jmesa.core.filter;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jmesa.core.Name;
+import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
-import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.web.WebContext;
@@ -47,26 +49,68 @@ public class RowFilterTest extends AbstractTestCase {
         RowFilter itemsFilter = new SimpleRowFilter(registry);
 
         WebContext webContext = createWebContext();
-        webContext.setParameterMap(getParameters());
+        
+        Map<String, Object> results = new HashMap<String, Object>();
+        ParametersAdapter parametersAdapter = new ParametersAdapter(results);
+        ParametersBuilder builder = new ParametersBuilder(ID, parametersAdapter);
+        builder.addFilter("name.fullName", "george");
+        webContext.setParameterMap(results);
+        
         LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
         Limit limit = limitFactory.createLimit();
 
         PresidentDao dao = new PresidentDao();
-        Collection items = dao.getPresidents();
+        Collection<Object> items = dao.getPresidents();
         items = itemsFilter.filterItems(items, limit);
 
         assertTrue(items.size() == 3);
     }
 
-    private Map<?, ?> getParameters() {
+    @Test
+    @SuppressWarnings({"unchecked"})
+    public void filterNullItems() {
+        FilterMatchRegistry registry = new FilterMatchRegistryImpl();
+        MatchKey key = new MatchKey(String.class);
+        FilterMatch match = new StringFilterMatch();
+        registry.addFilterMatch(key, match);
+
+        RowFilter itemsFilter = new SimpleRowFilter(registry);
+
+        WebContext webContext = createWebContext();
+        
         Map<String, Object> results = new HashMap<String, Object>();
         ParametersAdapter parametersAdapter = new ParametersAdapter(results);
-        createBuilder(parametersAdapter);
-        return results;
-    }
+        ParametersBuilder builder = new ParametersBuilder(ID, parametersAdapter);
+        builder.addFilter("name.firstName", "James");
+        webContext.setParameterMap(results);
+        
+        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        Limit limit = limitFactory.createLimit();
 
-    private void createBuilder(Parameters parameters) {
-        ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.addFilter("name.fullName", "george");
+        Collection<Object> items = new ArrayList<Object>();
+        
+        President president = new President();
+        Name  name = new Name("James", "Monroe");
+        president.setName(name);
+        items.add(president);
+
+        president = new President();
+        name = new Name(null, "Washington"); // The null object
+        president.setName(name);
+        items.add(president);
+
+        president = new President();
+        name = new Name("James", "Madison");
+        president.setName(name);
+        items.add(president);
+        
+        president = new President();
+        name = new Name("Andrew", "Jackson");
+        president.setName(name);
+        items.add(president);
+
+        items = itemsFilter.filterItems(items, limit);
+
+        assertTrue(items.size() == 2);
     }
 }

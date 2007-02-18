@@ -48,10 +48,11 @@ public class CsvTableUsingComponentFactory {
         CellEditor editor = factory.createBasicCellEditor();
 
         // create the columns
-        Column firstNameColumn = factory.createColumn("firstName", editor);
+
+        Column firstNameColumn = factory.createColumn("name.firstName", editor);
         row.addColumn(firstNameColumn);
 
-        Column lastNameColumn = factory.createColumn("lastName", editor);
+        Column lastNameColumn = factory.createColumn("name.lastName", editor);
         row.addColumn(lastNameColumn);
 
         Column termColumn = factory.createColumn("term", editor);
