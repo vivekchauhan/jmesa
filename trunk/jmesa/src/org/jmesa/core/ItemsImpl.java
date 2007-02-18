@@ -34,14 +34,13 @@ import org.jmesa.limit.RowSelectImpl;
 public class ItemsImpl implements Items {
     private static Log logger = LogFactory.getLog(ItemsImpl.class);
 
-    private Collection allItems;
-    private Collection filteredItems;
-    private Collection pageItems;
-    private Collection sortedItems;
+    private Collection<Object> allItems;
+    private Collection<Object> filteredItems;
+    private Collection<Object> pageItems;
+    private Collection<Object> sortedItems;
 
     public ItemsImpl(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
-        this.allItems = new ArrayList<Object>(items); // copy for thread
-                                                        // safety
+        this.allItems = new ArrayList<Object>(items); // copy for thread safety
 
         this.filteredItems = rowFilter.filterItems(allItems, limit);
 
@@ -89,7 +88,7 @@ public class ItemsImpl implements Items {
         limit.setRowSelect(recalcRowSelect);
     }
 
-    private Collection getPageItems(Collection items, Limit limit) {
+    private Collection<Object> getPageItems(Collection<Object> items, Limit limit) {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 
@@ -112,7 +111,7 @@ public class ItemsImpl implements Items {
 
         Collection<Object> results = new ArrayList<Object>();
         for (int i = rowStart; i < rowEnd; i++) {
-            Object item = ((List) items).get(i);
+            Object item = ((List<Object>) items).get(i);
             results.add(item);
         }
 

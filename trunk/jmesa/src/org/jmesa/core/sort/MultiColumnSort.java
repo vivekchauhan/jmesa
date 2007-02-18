@@ -33,7 +33,7 @@ import org.jmesa.limit.SortSet;
  */
 public class MultiColumnSort implements ColumnSort {
     @SuppressWarnings("unchecked")
-    public Collection sortItems(Collection items, Limit limit) {
+    public Collection sortItems(Collection<Object> items, Limit limit) {
         ComparatorChain chain = new ComparatorChain();
 
         SortSet sortSet = limit.getSortSet();

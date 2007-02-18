@@ -29,6 +29,8 @@ public interface ComponentFactory {
 
     public Row createRow();
 
+    public Column createColumn(CellEditor editor);
+
     public Column createColumn(String property, CellEditor editor);
 
     public CellEditor createBasicCellEditor();

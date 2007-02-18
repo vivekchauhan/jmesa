@@ -544,7 +544,7 @@ public class PresidentDao {
         return presidents;
     }
 
-    private Date getDate(String date) {
+    public static Date getDate(String date) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
             Calendar calendar = Calendar.getInstance();

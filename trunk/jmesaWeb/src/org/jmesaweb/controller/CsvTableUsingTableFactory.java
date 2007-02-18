@@ -35,7 +35,7 @@ public class CsvTableUsingTableFactory {
     public void render(HttpServletResponse response, WebContext webContext, CoreContext coreContext)
             throws Exception {
         TableFactory tableFactory = new CsvTableFactory(webContext, coreContext);
-        Table table = tableFactory.createTable("firstName", "lastName", "nickName", "term", "born", "died", "education", "career", "politicalParty");
+        Table table = tableFactory.createTable("name.firstName", "name.lastName", "name.nickName", "term", "born", "died", "education", "career", "politicalParty");
         View view = new CsvView(table, coreContext);
         ViewExporter exporter = new CsvViewExporter(view, "presidents.txt", response);
         exporter.export();
