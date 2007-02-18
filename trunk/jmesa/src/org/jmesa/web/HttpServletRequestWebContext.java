@@ -130,7 +130,11 @@ public class HttpServletRequestWebContext implements WebContext {
         return request.getContextPath();
     }
 
-    public Object getContextObject() {
+    public String getRealPath(String path) {
+        return request.getSession().getServletContext().getRealPath(path);
+    }
+
+    public Object getBackingObject() {
         return request;
     }
 }
