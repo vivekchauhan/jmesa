@@ -22,9 +22,9 @@ import java.util.List;
  * @author Jeff Johnston
  */
 public interface PresidentDao {
-    public List getPresidents();
+    public List<Object> getPresidents();
 
     public int getPresidentsCountWithFilter(PresidentFilter filter);
 
-    public List getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+    public List<Object> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
 }

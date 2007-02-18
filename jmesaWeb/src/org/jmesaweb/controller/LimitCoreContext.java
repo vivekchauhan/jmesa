@@ -63,7 +63,7 @@ public class LimitCoreContext {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 
-        Collection items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
+        Collection<Object> items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
 
         CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
         return factory.createCoreContext(items, limit);
