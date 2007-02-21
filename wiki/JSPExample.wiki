@@ -1,4 +1,4 @@
-The code in the JSP page is pretty easy now. What we have is simply a placeholder for the table. In this example it is the ${presidents} el expression. Make sure you have the jmesa.js and jmesa.css files set in your JSP page as well.
+The code in the JSP page is pretty easy now. What we have is simply a placeholder for the table. In this example it is the ${presidents} el expression. Make sure you have the jmesa.js and jmesa.css files set in your JSP page as well. For more information about how to interact with the table see the [Javascript javascript] page. This will also describe more detail on how to use AJAX to work with the table if you choose to use that.
 
 {{{
 <html>
@@ -30,6 +30,9 @@ function onInvokeExportAction(id) {
 
 </html>
 }}}
+
+
+
 
 
 
