@@ -100,6 +100,13 @@ public class FilterSetImpl implements Serializable, FilterSet {
      *            The Filter to add to the Set.
      */
     public void addFilter(Filter filter) {
+        if (filters.contains(filter)) {
+            filters.remove(filter);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Removing Filter: " + filter.toString());
+            }
+        }
+
         filters.add(filter);
         if (logger.isDebugEnabled()) {
             logger.debug("Added Filter: " + filter.toString());
