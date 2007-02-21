@@ -129,12 +129,17 @@ public class SortSetImpl implements Serializable, SortSet {
      */
     @SuppressWarnings("unchecked")
     public void addSort(Sort sort) {
-        if (!sorts.contains(sort)) {
-            sorts.add(sort);
-            Collections.sort(sorts);
+        if (sorts.contains(sort)) {
+            sorts.remove(sort);
             if (logger.isDebugEnabled()) {
-                logger.debug("Added Sort: " + sort.toString());
+                logger.debug("Removing Sort: " + sort.toString());
             }
+        }
+
+        sorts.add(sort);
+        Collections.sort(sorts);
+        if (logger.isDebugEnabled()) {
+            logger.debug("Added Sort: " + sort.toString());
         }
     }
 
