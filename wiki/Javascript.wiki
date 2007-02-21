@@ -1,0 +1,120 @@
+One of the best features of JMesa over the eXtremeTable is that the table actions are no longer controlled by hidden form fields, but instead a Javascript model is used. The actions, of course, are how the table is filtered, sorted, paginated and the max rows.
+
+The Javascript model looks very close to the Java Limit object. If you remember the Limit represents the table actions. As a matter of fact the point of the model was to represent the Limit in a Javascript format. This makes it very natural to work with the Java Limit and the Javascript Limit in a very consistant manner. 
+
+For the most part you do not have to be concerned with how the Javascript model looks or even works. What you do need to do is call the correct function to convert the Javascript Limit in a format that can be sent to the server. Your two choices are to either build a parameter string, or create hidden form fields.
+
+{{{
+createParameterStringForLimit(id) // create parameter string
+
+createHiddenInputFieldsForLimitAndSubmit(id); // create hidden form fields and submit the form
+
+createHiddenInputFieldsForLimit(id) // just create hidden form fields
+}}}
+
+It really is that easy. However, you might be wondering when you should invoke one of these functions. 
+
+What you need to understand is that when you click on one of the table actions it will invoke a local Javascript function called onInvokeAction(id) that you implement. This is what a typical implementation looks like:
+
+{{{
+<script type="text/javascript">
+function onInvokeAction(id) {
+	setExportToLimit(id, '');
+	createHiddenInputFieldsForLimitAndSubmit(id);
+}
+</script>
+}}}
+
+This will create hidden input fields that represent the Limit, and also submit the form that wraps the table. The function setExportToLimit() probably looks a little odd, but it is neccessary because it is up to your client side code to reset the export in case an export was done on the previous call. If you are not doing any exporting then you can exclude the setExportToLimit() call.
+
+If you are doing exporting then you will need to implement the export function onInvokeExportAction(id). This is what a typical implementation of that looks like:
+
+{{{
+<script type="text/javascript">
+function onInvokeExportAction(id) {
+	var parameterString = createParameterStringForLimit(id);
+	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+}
+</script>
+}}}
+
+This will create a parameter string that represents the Limit. When exporting you should use a parameter string, and not hidden input fields. This is because an export does not refresh the page so if you create hidden input fields there is no way to delete the hidden input fields once the call to the server completes. This is also why you need to make sure you reset the export for the onInvokeAction() function.
+
+What makes this all the more appealing is when you decide you want to use AJAX. As you will see nothing changes other than you would use the createParameterStringForLimit() function for both table actions as well as the exports. This example makes use of the Sarissa toolkit for the AJAX call.
+
+For example on the page we would first put in the javascript link to import the Sarissa library.
+
+{{{
+<script type="text/javascript" src="/jmesa/js/sarissa.js"></script>
+}}}
+
+Then we need to put in the form element and include the JMesa table inside it. Note: the form action element is defined only because it is a required attribute by XHTML standards, however in this example it is never invoked. Also notice how the table markup is included in the form just like you normally would as defined by ${presidents}. In fact there is nothing about this example code that even looks like we are using AJAX.
+
+{{{
+<form name="presidentsForm" action="${pageContext.request.contextPath}/presidents.run">
+	<div id="presidents">
+		${presidents}
+	</div>
+</form>
+}}}
+
+The magic of AJAX comes into play when the onInvokeAction() is called by one of the table actions. Here AJAX is used to call the server, and then the innerHTML function is used to swap out the new HTML markup.
+
+{{{
+<script type="text/javascript">
+function onInvokeAction(id) {
+	setExportToLimit(id, '');
+	
+	var parameterString = createParameterStringForLimit(id);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('GET', '${pageContext.request.contextPath}/ajax.run?' + parameterString, true);
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4) {
+			var presidents = document.getElementById('presidents');
+			presidents.innerHTML = xmlhttp.responseText;
+		}
+	}
+	
+	xmlhttp.send(null);
+}
+
+function onInvokeExportAction(id) {
+	var parameterString = createParameterStringForLimit(id);
+	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+}
+</script>
+}}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
