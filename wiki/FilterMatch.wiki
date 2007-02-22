@@ -1,19 +1,18 @@
 By default JMesa will filter your items. If you remember the items represent the Collection of Beans or Collection of Maps. The JMesa filtering mechanism is very flexible and allows you to easily plug in your own filter strategy.
 
-You plug in your filter strategy via the !CoreContext (which behind the scenes really plugs into the !FilterMatchRegistry). First lets look at what it takes to create the !CoreContext again:
+You plug in your filter strategy via the !CoreContextFactory (which behind the scenes really plugs into the !FilterMatchRegistry). First lets look at what it takes to create the !CoreContextFactory again:
 
 {{{
-CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
-CoreContextImpl coreContext = factory.createCoreContext(items, limit);
+CoreContextFactoryImpl factory = new CoreContextFactoryImpl(webContext);
 }}}
 
-Although not part of the !CoreContext interface the default implementation of the !CoreContext allows you to set your own filter strategy via the !FilterMatch interface. The !MatchKey as you will see is how the proper !FilterMatch object is found and invoked.
+Although not part of the !CoreContextFactory interface the default implementation of the !CoreContextFactory allows you to set your own filter strategy via the !FilterMatch interface. The !MatchKey as you will see is how the proper !FilterMatch object is found and invoked.
 
 {{{
 public void addFilterMatch(MatchKey key, FilterMatch match) 
 }}}
 
-We will start by looking at the !MatchKey and !FilterMatch in more depth, and then come back to how we add them to the !CoreContext.
+We will start by looking at the !MatchKey and !FilterMatch in more depth, and then come back to how we add them to the !CoreContextFactory.
 
 The !MatchKey is used to find the proper !FilterMatch strategy. !MatchKey is an immutable object that has two constructors. One takes only a class type, and the other takes a class type and property. This allows you to match filters either by a specific class type, or more specifically, by class type and for a given column property.
 
@@ -42,7 +41,7 @@ public class StringFilterMatch implements FilterMatch {
 }
 }}}
 
-Then by default it is registered when creating the !CoreContext:
+Then by default it is registered when creating the !CoreContextFactory:
 {{{
 addFilterMatch(new MatchKey(String.class), new StringFilterMatch());
 }}}
@@ -50,7 +49,6 @@ addFilterMatch(new MatchKey(String.class), new StringFilterMatch());
 This is saying that all filters that represent a string class will be matched against the !StringFilterMatch, which we now know is case-insensitive. As mentioned this is set up for you, although it should make sense on how you could easily come up with your own filtering strategy. 
 
 Next lets looks at a slightly more complicated filter, the !DateFilterMatch. *TODO:* Put in more complicated example.
-
 
 
 
