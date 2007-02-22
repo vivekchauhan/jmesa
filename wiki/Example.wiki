@@ -6,10 +6,12 @@ Taking things step by step looks like this:
  # Create the [WebContext]
  # Create the [Limit]
  # Create the [CoreContext]
+ # (Optionally) Add your own [FilterMatch filtering strategy]
  # Create the View using either the [TableFactory] or [ComponentFactory]
  # Pass the [ControllerExample view data] to render the table on your [JSPExample web page]. Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table.
 
 _Once you have your table implemented you can use the !ParametersBuilder to [UnitTest test] your code.
+
 
 
 
