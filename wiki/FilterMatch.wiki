@@ -16,7 +16,15 @@ We will start by looking at the !MatchKey and !FilterMatch in more depth, and th
 
 The !MatchKey is used to find the proper !FilterMatch strategy. !MatchKey is an immutable object that has two constructors. One takes only a class type, and the other takes a class type and property. This allows you to match filters either by a specific class type, or more specifically, by class type and for a given column property.
 
-Lets look at the !FilterMatch interface:
+{{{
+public class MatchKey {
+    public MatchKey(Class type)
+
+    public MatchKey(Class type, String property)
+}
+}}}
+
+However the actual work of whether or not an item is filtered is the work of the !FilterMatch interface:
 
 {{{
 public interface FilterMatch {
@@ -49,9 +57,3 @@ addFilterMatch(new MatchKey(String.class), new StringFilterMatch());
 This is saying that all filters that represent a string class will be matched against the !StringFilterMatch, which we now know is case-insensitive. As mentioned this is set up for you, although it should make sense on how you could easily come up with your own filtering strategy. 
 
 Next lets looks at a slightly more complicated filter, the !DateFilterMatch. *TODO:* Put in more complicated example.
-
-
-
-
-
-
