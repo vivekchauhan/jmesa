@@ -33,6 +33,7 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
     private String[] exportTypes;
     private WebContext webContext;
     private CoreContext coreContext;
+    private boolean enableSeparators = true;
 
     public ToolbarFactoryImpl(HtmlTable table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
         this.table = table;
@@ -48,6 +49,10 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
         this.coreContext = coreContext;
         this.exportTypes = exportTypes;
     }
+    
+    public void enableSeparators(boolean isEnabled) {
+        this.enableSeparators = isEnabled;
+    }
 
     @SuppressWarnings("unchecked")
     public Toolbar createToolbar() {
@@ -56,20 +61,36 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
         toolbar.addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.LAST_PAGE_ITEM);
-        toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
+        
+        if (enableSeparators) {
+            toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
+        }
 
         MaxRowsItem maxRowsItem = (MaxRowsItem) toolbar.addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
         if (maxRowsIncrements != null) {
             maxRowsItem.setIncrements(maxRowsIncrements);
         }
+        
+        boolean exportable = exportTypes != null && exportTypes.length > 0;
 
-        toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
-        toolbar.addExportToolbarItems(exportTypes);
-        toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
-
+        if (exportable && enableSeparators) {
+            toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
+        }
+        
+        if (exportable) {
+            toolbar.addExportToolbarItems(exportTypes);
+        }
+        
         Row row = table.getRow();
         List columns = row.getColumns();
-        if (ViewUtils.isFilterable(columns)) {
+        
+        boolean filterable = ViewUtils.isFilterable(columns);
+
+        if (filterable && enableSeparators) {
+            toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);
+        }
+
+        if (filterable) {
             toolbar.addToolbarItem(ToolbarItemType.FILTER_ITEM);
             toolbar.addToolbarItem(ToolbarItemType.CLEAR_ITEM);
         }
