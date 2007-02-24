@@ -28,12 +28,7 @@ import java.io.Serializable;
  * </p>
  * 
  * <p>
- * Be sure to pay attention to the RowSelect. The RowSelect needs to be added to
- * the Limit so that the row information is available. The catch is the
- * RowSelect cannot be created until the total rows is known, which is is
- * calculated by using the Limit FilterSet. So first get the Limit and use the
- * FilterSet to figure out the total rows, create the RowSelect, and then add
- * the RowSelect to the Limit.
+ * The RowSelect needs to be added to the Limit so that the row information is available.
  * </p>
  * 
  * @since 2.0
