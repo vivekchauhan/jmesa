@@ -1,4 +1,4 @@
-The !WebContext is a wrapper around the servlet request. A !WebContext allows the table to be used in multiple containers. In the future it will also allow tags to be easily incorporated. The !WebContext is most commonly used in conjunction with the CoreContext.
+The !WebContext is an adapter for the servlet request. A !WebContext allows the table to be used in multiple containers. In the future it will also allow tags to be easily incorporated. The !WebContext is most commonly used in conjunction with the CoreContext.
 
 {{{
 WebContext webContext = new HttpServletRequestWebContext(request);
