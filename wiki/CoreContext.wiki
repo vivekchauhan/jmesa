@@ -1,4 +1,7 @@
-The !CoreContext encapsulates the core package and is used to Filter and Sort the items (Collection of Beans or Collection of Maps). It also gives easy access to the [Preferences] and [Messages] as well as a reference to the [Limit]. To build the !CoreContext with the factory you need the WebContext and the Limit, as well as the items.
+The !CoreContext encapsulates the core package and is used to Filter and Sort the [Items items]. It also gives easy access to the [Preferences] and [Messages] as well as a reference to the [Limit].
+
+==== Example ====
+To build the !CoreContext with the factory you need the WebContext and the Limit, as well as the [Items items].
 
 {{{
 public CoreContext getCoreContext(Collection items, Limit limit, WebContext webContext) {
@@ -8,23 +11,49 @@ public CoreContext getCoreContext(Collection items, Limit limit, WebContext webC
 }
 }}}
 
-The following shows the !CoreContext interface. This is created with the !CoreContextFactory.
+==== Example (disable filtering and sorting) ====
+If you are manually filtering and sorting be sure to call the alternate constructor that skips the filtering and sorting step. And, just to be clear, you would call this because you have already filtered and sorted the items so there is no reason to do it again. This does not mean that the table does not show up in the filtered or sorted state. In this example pay attention to the *false* setting on the constructor.
+
+{{{
+public CoreContext getCoreContext(Collection items, Limit limit, WebContext webContext) {
+    CoreContextFactory factory = new CoreContextFactoryImpl(false, webContext);
+    CoreContext coreContext = factory.createCoreContext(items, limit);
+    return coreContext;
+}
+}}}
+
+==== Add Custom Filters ====
+The !CoreContext will filter the items based on the property class type. If you need to add a custom filter or are trying to support a custom class type then you need to add your own [FilterMatch filter matching strategy].
+
+
+=== UML Class Diagrams ===
+
+==== The CoreContext class diagram. ====
 
 http://extremecomponents.org/resources/images/uml/coreContext.png
 
-The !CoreContext can sort the items.
+==== The Filter class diagram. ====
+
+http://extremecomponents.org/resources/images/uml/filter.png
+
+==== The Sort class diagram. ====
 
 http://extremecomponents.org/resources/images/uml/sort.png
 
-The !CoreContext can filter the items. Note: you can specify different filter matching strategies and then plug them in directly on the !CoreContextFactoryImpl implementation.
 
-{{{
-CoreContextFactoryImpl factory = new CoreContextFactoryImpl(webContext);
-factory.addFilterMatch(key, match);
-// TODO: need a better example for this
-}}}
 
-http://extremecomponents.org/resources/images/uml/filter.png
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
