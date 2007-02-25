@@ -1,6 +1,6 @@
 A component is composed of renderers. The renderer's job is to render the component. The attributes of each renderer represent the features that are valid to renderer the specific component. For the purpose of this article I will also talk about the Html renderers and their attributes as they are used more often. For the other views see the javadocs to find out the various renderer specific attributes and how to use them.
 
-== TableRenderer ==
+==== TableRenderer ====
 Each Table component has a !TableRenderer. There are no common attributes for a !TableRenderer between different views. However, an !HtmlTableRenderer has the following attributes: style, styleClass, border, cellpadding, cellspacing, and width.
 
 The style is the style attribute on the html table element. For instance this would change the font color to blue in the table.
@@ -39,7 +39,7 @@ The width is the width attribute on the html table element. For instance this wo
 table.getTableRenderer().setWidth("600px");
 }}}
 
-== RowRenderer ==
+==== RowRenderer ====
 Each Row component has a !RowRenderer. There are no common attributes for a !RowRenderer between different views. However, an !HtmlRowRenderer has the following attributes: style, styleClass, highlightStyle, highlightClass, evenClass, and oddClass.
 
 The style is the style attribute on the html tr element. For instance this would change the height of the row to 20px.
@@ -78,7 +78,7 @@ The oddClass is the class attribute on the html tr element. For instance this wo
 row.getRowRenderer().setOddClass("jmesaRowOdd");
 }}}
 
-== CellRenderer ==
+==== CellRenderer ====
 Each Column component has a !CellRenderer. The common attribute for all !CellRenderers, regardless of the view, is the !CellEditor. A !CellEditor is responsible for returning the value that the renderer will render. For more information see the [Editors] article.
 
 A !HtmlCellRenderer has the following attributes: style, and styleClass.
