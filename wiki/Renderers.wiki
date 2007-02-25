@@ -95,7 +95,7 @@ The styleClass is the class attribute on the html td element. For instance this 
 column.getCellRenderer().setStyleClass("jmesaCell");
 }}}
 
-== FilterRenderer ==
+==== FilterRenderer ====
 Each Column component has a !FilterRenderer. There are no common attributes for a !FilterRenderer between different views. However, an !HtmlFilterRenderer has the following attributes: style, and styleClass.
 
 The style is the style attribute on the html td element. For instance this would change the height of the column to 20px.
