@@ -1,6 +1,6 @@
 A [View view] is composed of components, namely the table, row and column. The attributes of each component represent the features that are valid across multiple [Renderers renderers]. If you remember, each view defines their own components. For the purpose of this article I will also talk about the Html components and their attributes as they are used more often. For the other views see the javadocs to find out the various component specific attributes and how to use them.
 
-== Table ==
+==== Table ====
 The common attributes of all tables, regardless of the view, are caption, row, and tableRenderer. 
 
 The caption is used to give the table a name. Almost all views will display the caption above the table. Here is an example of how the default caption displays above the html table.
@@ -43,7 +43,7 @@ If you open up the jmesa.css file you will see .jmesa prepended before each sele
 
 }}}
 
-== Row ==
+==== Row ====
 There are no common attributes, for a row, between different views. However, an !HtmlRow has the following attributes: highlighter, onclick, onmouseover, and onmouseout.
 
 The highlighter is used to give the visual appearance of a row being highlighted as your mouse flows over the row. The default value is true, meaning the row will be highlighted.
@@ -63,7 +63,7 @@ row.setOnmouseout("alert('Hello Onmouseout')");
 }}}
 
 
-== Column ==
+==== Column ====
 The common attributes of all columns, regardless of the view, are property, title, cellRenderer, and headerRenderer.
 
 The property corresponds to the item attribute, where an item is one object in the Collection of Items or Collection of Maps. The property is optional, so if the column does not map to an item attribute then it should be null.
@@ -107,7 +107,6 @@ The filterRenderer defines the !FilterRenderer used for the column. See the !Fil
 {{{ 
 column.setFilterRenderer(filterRenderer);
 }}}
-
 
 
 
