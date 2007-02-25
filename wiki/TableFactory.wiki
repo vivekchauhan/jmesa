@@ -1,6 +1,6 @@
-To make building JMesa tables easier you can use either the !TableFactory, or the [ComponentFactory]. The highest level factory is the !TableFactory and will be demonstrated here. I find using a !TableFactory most useful when building exports as most exports are pretty generic. The !TableFactory is also useful for HTML tables if you want to have the table created initially, and then can be customized by swapping out the default functionality for something else.
+To make building JMesa tables easier you can use either the TableFactory, or the [ComponentFactory]. The lower level factory is the [ComponentFactory] and will be demonstrated here. I find using a [ComponentFactory] most useful when building HTML tables that are more custom. For exports I would recommend using the TableFactory because they typically have pretty simple requirements. For more information about components, renderers and editors first read the [View view] overview.
 
-== HTML View ==
+==== HTML View ====
 
 The following is as an example of what an HTML table would look like: 
 {{{
@@ -45,7 +45,7 @@ private static class PresidentsLinkEditor implements CellEditor {
 }
 }}}
 
-== CSV Export View ==
+==== CSV Export View ====
 
 The following is as an example of what a CSV export table would look like:
 {{{
@@ -60,7 +60,6 @@ public void csvTable(WebContext webContext, CoreContext coreContext, HttpServlet
 }}}
 
 The additional step here is in using the !ViewExporter. The !ViewExporter is responsible for calling the render() method on the View and then exporting it to the response when the export() method is invoked.
-
 
 
 
