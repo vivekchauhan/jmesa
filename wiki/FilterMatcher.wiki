@@ -57,3 +57,9 @@ addFilterMatcher(new MatcherKey(String.class), new StringFilterMatcher());
 This is saying that all filters that represent a string class will be matched against the !StringFilterMatcher, which we now know is case-insensitive. As mentioned this is set up for you, although it should make sense on how you could easily come up with your own filtering strategy. 
 
 Next lets looks at a slightly more complicated filter, the !DateFilterMatcher. *TODO:* Put in more complicated example.
+
+=== UML Class Diagrams ===
+
+==== The Filter class diagram. ====
+
+http://extremecomponents.org/resources/images/uml/filter.png
