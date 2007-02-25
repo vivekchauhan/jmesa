@@ -29,4 +29,4 @@ One huge departure from the eXtremeTable is that each type of view has its own c
 To help with building views there are quite a few factories that you can use. There is a high level factory [TableFactory] for when your needs are very simple and works by defining just the column names. There is also a lower level factory [ComponentFactory] to build each component separately. Either factory will use their default components, renderers and editors. In many cases the best approach is to use one of the factories to give yourself a jump start, and then swap out the component, renderer or editor that you need. Although, if you find yourself doing this too often you can easily build upon the factories, or just build everything yourself right at the component, renderer, or editor level. I personally find it most useful to use the !TableFactory to build the export views, and the !ComponentFactory to build the HTML view. The reason is most times exported tables are usually not very custom, but HTML tables are.
 
 === Testing ===
-To test JMesa you can use the [Parameters] interface.
+With JMesa you can easily [UnitTest unit test] your tables.
