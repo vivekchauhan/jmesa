@@ -22,7 +22,10 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
 
 /**
- * @TODO add comment
+ * <p>
+ * The CoreContext encapsulates the core package and is used to Filter and Sort the items. 
+ * It also gives easy access to the Preferences and Messages as well as a reference to the Limit.
+ * </p>
  * 
  * @since 2.0
  * @author Jeff Johnston

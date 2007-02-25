@@ -18,6 +18,10 @@ package org.jmesa.limit;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+ * <p>
+ * The Export represents the export type that the user invoked.
+ * </p> 
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */

@@ -59,11 +59,11 @@ public class CsvViewExporter extends AbstractViewExporter {
             throws Exception {
         String viewData = (String) view.render();
         byte[] contents = (viewData).getBytes();
-        responseHeaders(response, contents);
+        responseHeaders(contents, response);
     }
 
     @Override
-    public void responseHeaders(HttpServletResponse response, byte[] contents)
+    public void responseHeaders(byte[] contents, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/plain");
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
