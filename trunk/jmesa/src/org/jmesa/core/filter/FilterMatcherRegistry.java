@@ -16,7 +16,7 @@
 package org.jmesa.core.filter;
 
 /**
- * Register and then retrive Match objects.
+ * Register and then retrive FilterMatcher objects.
  * 
  * @since 2.0
  * @author Jeff Johnston
