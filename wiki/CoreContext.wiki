@@ -40,14 +40,9 @@ The !CoreContext will filter the items based on the property class type. If you 
 
 http://extremecomponents.org/resources/images/uml/coreContext.png
 
-==== The Filter class diagram. ====
-
-http://extremecomponents.org/resources/images/uml/filter.png
-
 ==== The Sort class diagram. ====
 
 http://extremecomponents.org/resources/images/uml/sort.png
-
 
 
 
