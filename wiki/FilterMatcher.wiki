@@ -1,0 +1,59 @@
+By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps. The JMesa filtering mechanism is very flexible and allows you to easily plug in your own filter strategy.
+
+You plug in your filter strategy via the !CoreContextFactory (which behind the scenes really plugs into the !FilterMatcherRegistry). First lets look at what it takes to create the !CoreContextFactory again:
+
+{{{
+CoreContextFactoryImpl factory = new CoreContextFactoryImpl(webContext);
+}}}
+
+Although not part of the !CoreContextFactory interface the default implementation of the !CoreContextFactory allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked.
+
+{{{
+public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) 
+}}}
+
+We will start by looking at the !MatcherKey and !FilterMatcher in more depth, and then come back to how we add them to the !CoreContextFactory.
+
+The !MatcherKey is used to find the proper !FilterMatcher strategy. !MatcherKey is an immutable object that has two constructors. One takes only a class type, and the other takes a class type and property. This allows you to match filters either by a specific class type, or more specifically, by class type and for a given column property.
+
+{{{
+public class MatcherKey {
+    public MatcherKey(Class type)
+
+    public MatcherKey(Class type, String property)
+}
+}}}
+
+However the actual work of whether or not an item is filtered is the work of the !FilterMatcher interface:
+
+{{{
+public interface FilterMatcher {
+    public boolean evaluate(Object itemValue, String matchValue);
+}
+}}}
+
+The itemValue is the current item value from the current Bean or Map in the Collection. The matchValue is the value entered by the user in the table filter. With these two pieces of information the !FilterMatcher will evaluate whether a matcher was or was not found.
+
+As an example this is what the default string filter matcher looks like:
+{{{
+public class StringFilterMatcher implements FilterMatcher {
+    public boolean evaluate(Object itemValue, String matchValue) {
+        String item = StringUtils.lowerCase((String) itemValue);
+        String match = StringUtils.lowerCase((String) matchValue);
+        if (StringUtils.contains(item, match)) {
+            return true;
+        }
+
+        return false;
+    }
+}
+}}}
+
+Then by default it is registered when creating the !CoreContextFactory:
+{{{
+addFilterMatcher(new MatcherKey(String.class), new StringFilterMatcher());
+}}}
+
+This is saying that all filters that represent a string class will be matched against the !StringFilterMatcher, which we now know is case-insensitive. As mentioned this is set up for you, although it should make sense on how you could easily come up with your own filtering strategy. 
+
+Next lets looks at a slightly more complicated filter, the !DateFilterMatcher. *TODO:* Put in more complicated example.
