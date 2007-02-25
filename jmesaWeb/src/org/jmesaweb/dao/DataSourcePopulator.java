@@ -42,7 +42,7 @@ public class DataSourcePopulator implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         createPresidentTable();
         
-        Integer id = 0;
+        int id = 0;
 
         InputStream input = presidents.getInputStream();
         List<String> lines = IOUtils.readLines(input);
@@ -52,7 +52,7 @@ public class DataSourcePopulator implements InitializingBean {
             String[] data =  line.split("\",\"");
 
             President president = new President();
-            president.setId(new Long(id.toString()));
+            president.setId(id);
 
             Name name = new Name();
             name.setFirstName(data[0]);
