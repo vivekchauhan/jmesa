@@ -50,7 +50,7 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
             return matcher;
         }
 
-        throw new IllegalArgumentException("There is no FilterMatch with the MatchKey [" + key.toString() + "]");
+        throw new IllegalArgumentException("There is no FilterMatcher with the MatcherKey [" + key.toString() + "]");
     }
 
     /**
@@ -104,14 +104,24 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
      * @param type The Class type for the current column item.
      * @return The FilterMatch object that will do the comparison.
      */
+    @SuppressWarnings("unchecked")
     private FilterMatcher getFilterMatchByObject(Class type) {
+        FilterMatcher result = null;
+
         for (MatcherKey key : matchers.keySet()) {
             Class typ = key.getType();
-            if (typ.isInstance(type)) {
-                return matchers.get(key);
+            if (typ.isAssignableFrom(type)) {
+                FilterMatcher matcher = matchers.get(key);
+                if (key.getType().equals(Object.class)) {
+                    result = matcher; // If Object matches then make sure
+                                        // there is not something more specific
+                    continue;
+                }
+
+                return matcher;
             }
         }
 
-        return null;
+        return result;
     }
 }
