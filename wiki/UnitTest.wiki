@@ -52,6 +52,9 @@ builder.addFilter("firstName", "geo");
 
 *TODO:* write up more about the alternate ParametersAdapter class for non-spring users.
 
+=== UML Class Diagrams ===
+
+http://extremecomponents.org/resources/images/uml/test.png
 
 
 
