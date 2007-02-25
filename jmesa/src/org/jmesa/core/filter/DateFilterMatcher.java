@@ -26,15 +26,15 @@ import org.jmesa.web.WebContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DateFilterMatch implements FilterMatch {
+public class DateFilterMatcher implements FilterMatcher {
     private String pattern = "MM/dd/yyyy";
     private Locale locale;
 
-    public DateFilterMatch(WebContext webContext) {
+    public DateFilterMatcher(WebContext webContext) {
         this.locale = webContext.getLocale();
     }
 
-    public DateFilterMatch(String pattern, WebContext webContext) {
+    public DateFilterMatcher(String pattern, WebContext webContext) {
         this.pattern = pattern;
         this.locale = webContext.getLocale();
     }

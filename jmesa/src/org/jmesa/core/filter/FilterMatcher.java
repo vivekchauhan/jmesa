@@ -38,7 +38,7 @@ package org.jmesa.core.filter;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface FilterMatch {
+public interface FilterMatcher {
     /**
      * <p>
      * Take the current item value and evaluate whether or not it is the same as

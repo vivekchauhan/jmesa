@@ -33,10 +33,10 @@ import org.jmesa.limit.FilterSet;
 public final class FilterPredicate implements Predicate {
     private static Log logger = LogFactory.getLog(FilterPredicate.class);
 
-    private Map<Filter, FilterMatch> matches;
+    private Map<Filter, FilterMatcher> matches;
     private FilterSet filterSet;
 
-    public FilterPredicate(Map<Filter, FilterMatch> matches, FilterSet filterSet) {
+    public FilterPredicate(Map<Filter, FilterMatcher> matches, FilterSet filterSet) {
         this.matches = matches;
         this.filterSet = filterSet;
     }
@@ -53,7 +53,7 @@ public final class FilterPredicate implements Predicate {
                 Object value = PropertyUtils.getProperty(item, property);
 
                 if (value != null) {
-                    FilterMatch match = matches.get(filter);
+                    FilterMatcher match = matches.get(filter);
                     result = match.evaluate(value, filter.getValue());
                 }
 
