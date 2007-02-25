@@ -15,19 +15,18 @@
  */
 package org.jmesa.core;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 
-import org.jmesa.core.filter.DateFilterMatch;
+import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.DefaultRowFilter;
-import org.jmesa.core.filter.FilterMatch;
-import org.jmesa.core.filter.FilterMatchRegistry;
-import org.jmesa.core.filter.FilterMatchRegistryImpl;
-import org.jmesa.core.filter.MatchKey;
+import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherRegistry;
+import org.jmesa.core.filter.FilterMatcherRegistryImpl;
+import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.filter.SimpleRowFilter;
-import org.jmesa.core.filter.StringFilterMatch;
+import org.jmesa.core.filter.StringFilterMatcher;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.ResourceBundleMessages;
 import org.jmesa.core.preference.Preferences;
@@ -48,7 +47,7 @@ import org.jmesa.web.WebContext;
  */
 public class CoreContextFactoryImpl implements CoreContextFactory {
     private WebContext webContext;
-    private FilterMatchRegistry registry;
+    private FilterMatcherRegistry registry;
     private RowFilter rowFilter;
     private ColumnSort columnSort;
     private Preferences preferences;
@@ -78,32 +77,30 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
         this.webContext = webContext;
     }
 
-    protected FilterMatchRegistry getFilterMatchRegistry() {
+    protected FilterMatcherRegistry getFilterMatcherRegistry() {
         if (registry == null) {
-            registry = new FilterMatchRegistryImpl();
-            registry.addFilterMatch(new MatchKey(String.class), new StringFilterMatch());
+            registry = new FilterMatcherRegistryImpl();
+            StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();
+            registry.addFilterMatcher(new MatcherKey(Object.class), stringFilterMatcher);
 
-            DateFilterMatch timestampFilterMatch = new DateFilterMatch(webContext);
-            registry.addFilterMatch(new MatchKey(Timestamp.class), timestampFilterMatch);
-
-            DateFilterMatch dateFilterMatch = new DateFilterMatch(webContext);
-            registry.addFilterMatch(new MatchKey(Date.class), dateFilterMatch);
+            DateFilterMatcher dateFilterMatcher = new DateFilterMatcher(webContext);
+            registry.addFilterMatcher(new MatcherKey(Date.class), dateFilterMatcher);
         }
 
         return registry;
     }
 
-    public void setFilterMatchRegistry(FilterMatchRegistry registry) {
+    public void setFilterMatcherRegistry(FilterMatcherRegistry registry) {
         this.registry = registry;
     }
 
-    public void addFilterMatch(MatchKey key, FilterMatch match) {
-        getFilterMatchRegistry().addFilterMatch(key, match);
+    public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
+        getFilterMatcherRegistry().addFilterMatcher(key, matcher);
     }
 
     protected RowFilter getRowFilter() {
         if (rowFilter == null) {
-            rowFilter = new SimpleRowFilter(getFilterMatchRegistry());
+            rowFilter = new SimpleRowFilter(getFilterMatcherRegistry());
         }
 
         return rowFilter;

@@ -35,9 +35,9 @@ import org.jmesa.limit.Limit;
 public class SimpleRowFilter implements RowFilter {
     private static Log logger = LogFactory.getLog(SimpleRowFilter.class);
 
-    private FilterMatchRegistry registry;
+    private FilterMatcherRegistry registry;
 
-    public SimpleRowFilter(FilterMatchRegistry registry) {
+    public SimpleRowFilter(FilterMatcherRegistry registry) {
         this.registry = registry;
     }
 
@@ -47,7 +47,7 @@ public class SimpleRowFilter implements RowFilter {
 
         if (filtered) {
             Collection<Object> collection = new ArrayList<Object>();
-            Map<Filter, FilterMatch> matches = getMatches(items, limit, filterSet);
+            Map<Filter, FilterMatcher> matches = getMatches(items, limit, filterSet);
             FilterPredicate filterPredicate = new FilterPredicate(matches, filterSet);
             CollectionUtils.select(items, filterPredicate, collection);
 
@@ -57,8 +57,8 @@ public class SimpleRowFilter implements RowFilter {
         return items;
     }
 
-    private Map<Filter, FilterMatch> getMatches(Collection items, Limit limit, FilterSet filterSet) {
-        Map<Filter, FilterMatch> matches = new HashMap<Filter, FilterMatch>();
+    private Map<Filter, FilterMatcher> getMatches(Collection items, Limit limit, FilterSet filterSet) {
+        Map<Filter, FilterMatcher> matches = new HashMap<Filter, FilterMatcher>();
 
         if (items == null || !items.iterator().hasNext()) {
             return matches;
@@ -72,8 +72,8 @@ public class SimpleRowFilter implements RowFilter {
                 Object value = PropertyUtils.getProperty(item, property);
 
                 if (value != null) {
-                    MatchKey key = new MatchKey(value.getClass(), property);
-                    FilterMatch match = registry.getFilterMatch(key);
+                    MatcherKey key = new MatcherKey(value.getClass(), property);
+                    FilterMatcher match = registry.getFilterMatcher(key);
                     matches.put(filter, match);
                 }
             }

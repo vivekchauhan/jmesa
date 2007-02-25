@@ -15,14 +15,22 @@
  */
 package org.jmesa.core.filter;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
- * Register and then retrive Match objects.
+ * Will do a case insensitive string match.
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface FilterMatchRegistry {
-    public void addFilterMatch(MatchKey key, FilterMatch match);
+public class StringFilterMatcher implements FilterMatcher {
+    public boolean evaluate(Object itemValue, String matchValue) {
+        String item = StringUtils.lowerCase(String.valueOf(itemValue));
+        String match = StringUtils.lowerCase(String.valueOf(matchValue));
+        if (StringUtils.contains(item, match)) {
+            return true;
+        }
 
-    public FilterMatch getFilterMatch(MatchKey key);
+        return false;
+    }
 }
