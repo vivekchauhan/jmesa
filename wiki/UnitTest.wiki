@@ -22,6 +22,8 @@ This should be pretty straightforward. You can easily set the page, max rows and
 
 Right now there are two implementations to set up the Parameters. One if you are using the Spring framework, and the other if you are setting the parameters on the !WebContext manually.
 
+==== SpringParametersAdapter Example ====
+
 If you are using Spring you will want to set up the parameters by using the !SpringParametersAdapter. The following example shows how you would use the Spring !MockHttpServletRequest with the !SpringParametersAdapter to make the !ParametersBuilder work.
 
 {{{
@@ -49,12 +51,34 @@ To add a filter you would do this:
 builder.addFilter("firstName", "geo");
 }}}
 
+==== ParametersAdapter Example ====
 
-*TODO:* write up more about the alternate ParametersAdapter class for non-spring users.
+If you are not using Spring there is a more generic way to build the parameters. The idea is you will add the parameters to a Map and then set that on the !WebContext. The reason this works is because ultimately we are using the parameters so that the Limit object can be built. So, if you use this technique you have to create the !WebContext and then create the Limit.
+
+{{{
+// First create the custom parameterMap.
+Map<String, Object> parameterMap = new HashMap<String, Object>();
+ParametersAdapter adapter = new ParametersAdapter(parameterMap);
+ParametersBuilder builder = new ParametersBuilder(ID, adapter);
+
+// Add some things to the filter.
+builder.addFilter("fullName", "george");
+
+// Then create the WebContext and pass in the custom paramaterMap.
+MockHttpServletRequest request = new MockHttpServletRequest();
+WebContext webContext = new HttpServletRequestWebContext(request);
+webContext.setParameterMap(parameterMap);
+
+// Now create the Limit.
+LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+Limit limit = limitFactory.createLimit();
+}}}
 
 === UML Class Diagrams ===
 
 http://extremecomponents.org/resources/images/uml/test.png
+
+
 
 
 
