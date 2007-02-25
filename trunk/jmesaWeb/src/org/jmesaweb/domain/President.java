@@ -22,7 +22,7 @@ import java.util.Date;
  * @author Jeff Johnston
  */
 public class President implements Serializable {
-    private Long id;
+    private int id;
     private Name name;
     private String term;
     private Date born;
@@ -31,11 +31,11 @@ public class President implements Serializable {
     private String career;
     private String politicalParty;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
