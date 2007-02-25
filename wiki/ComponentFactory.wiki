@@ -1,6 +1,6 @@
-To make building JMesa tables easier you can use either the [TableFactory], or the !ComponentFactory. The lower level factory is the !ComponentFactory and will be demonstrated here. I find using a !ComponentFactory most useful when building HTML tables that are more custom. For exports I would recommend using the [TableFactory].
+To make building JMesa tables easier you can use either the [TableFactory], or the [ComponentFactory]. The lower level factory is the !ComponentFactory and will be demonstrated here. I find using a [ComponentFactory] most useful when building HTML tables that are more custom. For exports I would recommend using the [TableFactory] because they typically have pretty simple requirements. For more information about components, renderers and editors first read the [View view] overview.
 
-== HTML ==
+==== HTML Example ====
 
 The following is as an example of what an HTML table would look like:
 {{{
@@ -21,17 +21,17 @@ public Object htmlTable(WebContext webContext, CoreContext coreContext) {
 
     // create the columns
     CellEditor customEditor = new PresidentsLinkEditor(editor);
-    HtmlColumn firstNameColumn = factory.createColumn("firstName", customEditor);
-    row.addColumn(firstNameColumn);
+    HtmlColumn firstName = factory.createColumn("firstName", customEditor);
+    row.addColumn(firstName);
 
-    HtmlColumn lastNameColumn = factory.createColumn("lastName", editor);
-    row.addColumn(lastNameColumn);
+    HtmlColumn lastName = factory.createColumn("lastName", editor);
+    row.addColumn(lastName);
 
-    HtmlColumn termColumn = factory.createColumn("term", editor);
-    row.addColumn(termColumn);
+    HtmlColumn term = factory.createColumn("term", editor);
+    row.addColumn(term);
 
-    HtmlColumn careerColumn = factory.createColumn("career", editor);
-    row.addColumn(careerColumn);
+    HtmlColumn career = factory.createColumn("career", editor);
+    row.addColumn(career);
 
     // create the view
     ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
@@ -45,6 +45,10 @@ public Object htmlTable(WebContext webContext, CoreContext coreContext) {
 The !PresidentsLinkEditor is an implementation of the !CellEditor and shows what it means to compose the column renderer with a custom cell editor.
 
 {{{
+/**
+ * Create a link for the first name column. Using the decorator pattern so
+ * that can wrap any kind of editor with a link.
+ */
 private static class PresidentsLinkEditor implements CellEditor {
     CellEditor cellEditor;
 
@@ -63,7 +67,7 @@ private static class PresidentsLinkEditor implements CellEditor {
 }
 }}}
 
-== CSV Export ==
+==== CSV Export Example ====
 
 The following is as an example of what a CSV export table would look like:
 {{{
@@ -82,17 +86,17 @@ public void csvTable(WebContext webContext, CoreContext coreContext, HttpServlet
     CellEditor editor = factory.createBasicCellEditor();
 
     // create the columns
-    Column firstNameColumn = factory.createColumn("firstName", editor);
-    row.addColumn(firstNameColumn);
+    Column firstName = factory.createColumn("firstName", editor);
+    row.addColumn(firstName);
 
-    Column lastNameColumn = factory.createColumn("lastName", editor);
-    row.addColumn(lastNameColumn);
+    Column lastName = factory.createColumn("lastName", editor);
+    row.addColumn(lastName);
 
-    Column termColumn = factory.createColumn("term", editor);
-    row.addColumn(termColumn);
+    Column term = factory.createColumn("term", editor);
+    row.addColumn(term);
 
-    Column careerColumn = factory.createColumn("career", editor);
-    row.addColumn(careerColumn);
+    Column career = factory.createColumn("career", editor);
+    row.addColumn(career);
 
     // create the view
     CsvView view = new CsvView(table, coreContext);
@@ -100,6 +104,15 @@ public void csvTable(WebContext webContext, CoreContext coreContext, HttpServlet
     exporter.export();
 }
 }}}
+
+
+
+
+
+
+
+
+
 
 
 
