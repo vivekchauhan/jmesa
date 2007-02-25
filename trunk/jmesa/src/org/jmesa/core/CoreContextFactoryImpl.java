@@ -39,6 +39,10 @@ import org.jmesa.limit.Limit;
 import org.jmesa.web.WebContext;
 
 /**
+ * <p>
+ * Used to construct a CoreContext.
+ * </p>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
@@ -51,10 +55,24 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     private Messages messages;
     private boolean enableFilterAndSort;
 
+    /**
+     * @param webContext The WebContext for the table.
+     */
     public CoreContextFactoryImpl(WebContext webContext) {
         this(true, webContext);
     }
 
+    /**
+     * <p>
+     * You would call this contructor if you do not want the items filtered
+     * and sorted. You would only use this if you manually filtered and sorted
+     * the items to display a page of data and, in which case, there is no 
+     * reason to do it again. 
+     * </p>
+     * 
+     * @param Is false if you do not want to have the items filtered and sorted.
+     * @param webContext The WebContext for the table.
+     */
     public CoreContextFactoryImpl(boolean enableFilterAndSort, WebContext webContext) {
         this.enableFilterAndSort = enableFilterAndSort;
         this.webContext = webContext;
@@ -133,6 +151,11 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
         this.messages = messages;
     }
 
+    /**
+     * @param items The Collection of Beans or the Collection of Maps.
+     * @param limit The Limit object.
+     * @return The CoreContext object.
+     */
     public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
         Items itemsImpl;
 

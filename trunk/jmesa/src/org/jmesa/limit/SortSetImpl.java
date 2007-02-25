@@ -28,8 +28,8 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>
- * The SortSet is an Collection of Sort objects. A Sort contains a bean property
- * and the sort order. Or, in other words, it is simply the column that the user
+ * The SortSet is an Collection of Sort objects. A Sort contains an item property
+ * and the sort Order. Or, in other words, it is simply the column that the user
  * is trying to sort in the correct order.
  * </p>
  * 
@@ -52,17 +52,18 @@ public class SortSetImpl implements Serializable, SortSet {
     }
 
     /**
-     * @return The Set of Sort objects.
+     * @return The set of Sort objects.
      */
     public Collection<Sort> getSorts() {
         return sorts;
     }
 
     /**
-     * For a given property, retrieve the Sort.
+     * <p>
+     * For a given item property, retrieve the Sort object based on the property.
+     * </p> 
      * 
-     * @param property
-     *            The Sort property.
+     * @param property The Sort property, which is also a column property.
      * @return The Sort object.
      */
     public Sort getSort(String property) {
@@ -79,8 +80,7 @@ public class SortSetImpl implements Serializable, SortSet {
     /**
      * For a given property, retrieve the Sort Order.
      * 
-     * @param property
-     *            The Sort property.
+     * @param property The Sort property, which is also a column property.
      * @return The Sort Order.
      */
     public Order getSortOrder(String property) {
@@ -89,13 +89,12 @@ public class SortSetImpl implements Serializable, SortSet {
 
     /**
      * <p>
-     * The Sort to add to the set in the given postion.
+     * The Sort to add to the set in the given position.
      * </p>
      * 
-     * @param property
-     *            The column property to sort.
-     * @param order
-     *            The order to sort the column.
+     * @param position The position in the set to add the Sort.
+     * @param property The Sort property, which is also a column property.
+     * @param order The Order to sort the column.
      */
     public void addSort(int position, String property, Order order) {
         addSort(new Sort(position, property, order));
@@ -114,18 +113,15 @@ public class SortSetImpl implements Serializable, SortSet {
      * includes the position.
      * </p>
      * 
-     * @param property
-     *            The column property to sort.
-     * @param order
-     *            The order to sort the column.
+     * @param property The Sort property, which is also a column property.
+     * @param order The Order to sort the column.
      */
     public void addSort(String property, Order order) {
         addSort(new Sort(sorts.size(), property, order));
     }
 
     /**
-     * @param sort
-     *            The Sort to add to the set.
+     * @param sort The Sort to add to the set.
      */
     @SuppressWarnings("unchecked")
     public void addSort(Sort sort) {

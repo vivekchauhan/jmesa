@@ -51,16 +51,20 @@ public class FilterSetImpl implements Serializable, FilterSet {
         return filters != null && !filters.isEmpty();
     }
 
+    /**
+     * @return The set of Filter objects.
+     */
     public Collection<Filter> getFilters() {
         return filters;
     }
 
     /**
-     * For a given property, retrieve the Filter.
+     * <p>
+     * For a given item property, retrieve the Filter object based on the property.
+     * </p> 
      * 
-     * @param property
-     *            The Filter property.
-     * @return The Filter value.
+     * @param property The Filter property, which is also a column property.
+     * @return The Filter object.
      */
     public Filter getFilter(String property) {
         for (Iterator iter = filters.iterator(); iter.hasNext();) {
@@ -74,10 +78,11 @@ public class FilterSetImpl implements Serializable, FilterSet {
     }
 
     /**
+     * <p>
      * For a given property, retrieve the Filter value.
+     * </p>
      * 
-     * @param property
-     *            The Filter property.
+     * @param property The Filter property, which is also a column property.
      * @return The Filter value.
      */
     public String getFilterValue(String property) {
@@ -85,19 +90,19 @@ public class FilterSetImpl implements Serializable, FilterSet {
     }
 
     /**
+     * <p>
+     * The Filter to add to the set.
+     * </p>
      * 
-     * @param property
-     *            The column property to filter.
-     * @param value
-     *            The value to filter the column.
+     * @param property The column property to filter.
+     * @param value The value to filter the column.
      */
     public void addFilter(String property, String value) {
         addFilter(new Filter(property, value));
     }
 
     /**
-     * @param filter
-     *            The Filter to add to the Set.
+     * @param filter The Filter to add to the set.
      */
     public void addFilter(Filter filter) {
         if (filters.contains(filter)) {

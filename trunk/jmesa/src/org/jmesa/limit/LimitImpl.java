@@ -18,7 +18,18 @@ package org.jmesa.limit;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * The default implementation of the Limit interface.
+ * <p>
+ * The name Limit comes from the MySQL limit command, and the the purpose of the
+ * Limit interface is to know how to limit the table results. The implemenation
+ * of the Limit knows how the user interacted with the table with regards to
+ * sorting, filtering, paging, max rows to display, and exporting. With this
+ * information you will be able to display the requested page filtered and
+ * sorted correctly in the most efficient manner possible.
+ * </p>
+ * 
+ * <p>
+ * The RowSelect needs to be added to the Limit so that the row information is available.
+ * </p>
  * 
  * @since 2.0
  * @author Jeff Johnston
@@ -31,17 +42,24 @@ public class LimitImpl implements Limit {
     private Export export;
 
     /**
-     * @param id
-     *            Uniquely identifies the table instance.
+     * @param id The code to uniquely identify the table.
      */
     public LimitImpl(String id) {
         this.id = id;
     }
 
+    /**
+     * @return The code to uniquely identify the table.
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * <p>
+     * A FilterSet represents the set of Filter objects.
+     * </p>
+     */
     public FilterSet getFilterSet() {
         return filterSet;
     }
@@ -50,6 +68,11 @@ public class LimitImpl implements Limit {
         this.filterSet = filterSet;
     }
 
+    /**
+     * <p>
+     * A SortSet represents the set of Sort objects.
+     * </p>
+     */
     public SortSet getSortSet() {
         return sortSet;
     }
@@ -58,18 +81,49 @@ public class LimitImpl implements Limit {
         this.sortSet = sortSet;
     }
 
+    /**
+     * <p>
+     * A RowSelect represents the row information.
+     * </p>
+     */
     public RowSelect getRowSelect() {
         return rowSelect;
     }
 
+    /**
+     * <p>
+     * The RowSelect needs to be set on the Limit for the Limit to be useful. Of
+     * course the RowSelect cannot be created until the total rows is known.
+     * </p>
+     * 
+     * <p>
+     * The idea is you first create a Limit and use the FilterSet to retrieve
+     * the total rows. Once you have the total rows you can create a RowSelect
+     * and pass it in here.
+     * </p>
+     * 
+     * @param rowSelect The RowSelect to use for this Limit.
+     */
     public void setRowSelect(RowSelect rowSelect) {
         this.rowSelect = rowSelect;
     }
 
+    /**
+     * <p>
+     * Check to see if the user is trying to export a table. 
+     * </p>
+     * 
+     * @return Is true if the user invoked an export. 
+     */
     public boolean isExportable() {
         return getExport() != null;
     }
 
+    /**
+     * <p>
+     * The Export represents the export that the user invoked.
+     * </p>
+     */
     public Export getExport() {
         return export;
     }
