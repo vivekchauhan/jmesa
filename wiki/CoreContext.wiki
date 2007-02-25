@@ -1,4 +1,4 @@
-The [CoreContext] interface represents the core package and is the real plumbing. With the !CoreContext you have direct access to the Items, Messages and Preferences. 
+The !CoreContext interface represents the core package and is the real plumbing. With the !CoreContext you have direct access to the Items, Messages and Preferences. 
 
 The Items are the Collection of Beans or Collection of Maps broken down after it is filtered, after it is sorted, and by the current page. The !CoreContext extends Items so you always have direct access to the data.
 
@@ -47,7 +47,6 @@ http://extremecomponents.org/resources/images/uml/filter.png
 ==== The Sort class diagram. ====
 
 http://extremecomponents.org/resources/images/uml/sort.png
-
 
 
 
