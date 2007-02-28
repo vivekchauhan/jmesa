@@ -1,0 +1,9 @@
+===== jmesa-2_beta7 =====
+
+The beta 7 release features a better filtering implementation. Along the way I also decided to re-write the spec to rename the !FilterMatch interface to [FilterMatcher], along with a similar naming convention for the other filtering classes in the core.filter package. The idea is to follow the spec, so doing this is not at all the norm. However, I am now very happy with the flexibility that we have with the filtering. In the next few weeks I will be working on more documentation to demonstrate how to plug in a custom filter, specifically looking at the !DateFilterMatcher class.
+
+I also updated quite a bit of the documentation on the wiki and in the javadocs. Lastly, there are a few more unit tests to help solidify the filtering code.
+
+
+
+
