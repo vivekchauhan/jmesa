@@ -46,6 +46,7 @@ CoreContext coreContext = factory.createCoreContext(items, limit);
 
 
 ===== Full Example =====
+Here is the full example and is what the controller calls to get the !CoreContext. The code references the service and dao, along with helper classes to filter and sort. To be complete I also created a page to show the remaining [LimitServiceDaoExample service and dao] methods.
 
 {{{
 public CoreContext getCoreContext(WebContext webContext) {
@@ -106,6 +107,7 @@ protected PresidentSort getPresidentSort(Limit limit) {
     return presidentSort;
 }
 }}}
+
 
 
 
