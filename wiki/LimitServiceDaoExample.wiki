@@ -1,0 +1,104 @@
+This is a quick overview of the service and dao, along with the helper filter and sort objects. For the complete source code see the jmesaWeb module checked into Subversion.
+
+==== Service ====
+
+The service is used just to layer the application. The real work is in the dao, however I wanted to show the service code just to be complete.
+{{{
+public int getPresidentsCountWithFilter(PresidentFilter filter) {
+    return presidentDao.getPresidentsCountWithFilter(filter);
+}
+
+public Collection<Object> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd) {
+    return presidentDao.getPresidentsWithFilterAndSort(filter, sort, rowStart, rowEnd);
+}
+}}}
+
+==== Dao ====
+The Dao is using Hibernate's Criteria API to dynamically perform the filtering and sorting.
+{{{
+public int getPresidentsCountWithFilter(final PresidentFilter filter) {
+    Integer count = (Integer) getHibernateTemplate().execute(new HibernateCallback() {
+        public Object doInHibernate(Session session)
+                throws HibernateException, SQLException {
+            Criteria criteria = session.createCriteria(President.class);
+            criteria = filter.execute(criteria);
+            criteria.setProjection(Projections.rowCount()).uniqueResult();
+            return criteria.uniqueResult();
+        }
+    });
+
+    return count.intValue();
+}
+
+public List<Object> getPresidentsWithFilterAndSort(final PresidentFilter filter, final PresidentSort sort, final int rowStart, final int rowEnd) {
+    List applications = (List) getHibernateTemplate().execute(new HibernateCallback() {
+        public Object doInHibernate(Session session)
+                throws HibernateException, SQLException {
+            Criteria criteria = session.createCriteria(President.class);
+            criteria = filter.execute(criteria);
+            criteria = sort.execute(criteria);
+            criteria.setFirstResult(rowStart);
+            criteria.setMaxResults(rowEnd - rowStart);
+            return criteria.list();
+        }
+    });
+
+    return applications;
+}
+}}}
+
+==== Filter ====
+
+{{{
+public class PresidentFilter implements CriteriaCommand {
+    List<Filter> filters = new ArrayList<Filter>();
+
+    public void addFilter(String property, Object value) {
+        filters.add(new Filter(property, value));
+    }
+
+    public Criteria execute(Criteria criteria) {
+        for (Filter filter : filters) {
+            buildCriteria(criteria, filter.getProperty(), filter.getValue());
+        }
+
+        return criteria;
+    }
+
+    private void buildCriteria(Criteria criteria, String property, Object value) {
+        if (value != null) {
+            criteria.add(Restrictions.like(property, "%" + value + "%").ignoreCase());
+        }
+    }
+}
+}}}
+
+==== Sort ====
+
+{{{
+public class PresidentSort implements CriteriaCommand {
+    List<Sort> sorts = new ArrayList<Sort>();
+
+    public void addSort(String property, String order) {
+        sorts.add(new Sort(property, order));
+    }
+
+    public Criteria execute(Criteria criteria) {
+        for (Sort sort : sorts) {
+            buildCriteria(criteria, sort.getProperty(), sort.getOrder());
+        }
+
+        return criteria;
+    }
+
+    private void buildCriteria(Criteria criteria, String property, String order) {
+        if (order.equals(Sort.ASC)) {
+            criteria.addOrder(Order.asc(property));
+        } else if (order.equals(Sort.DESC)) {
+            criteria.addOrder(Order.desc(property));
+        }
+    }
+
+}
+}}}
+
