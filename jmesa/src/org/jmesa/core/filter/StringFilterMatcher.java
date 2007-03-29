@@ -24,10 +24,10 @@ import org.apache.commons.lang.StringUtils;
  * @author Jeff Johnston
  */
 public class StringFilterMatcher implements FilterMatcher {
-    public boolean evaluate(Object itemValue, String matchValue) {
+    public boolean evaluate(Object itemValue, String filterValue) {
         String item = StringUtils.lowerCase(String.valueOf(itemValue));
-        String match = StringUtils.lowerCase(String.valueOf(matchValue));
-        if (StringUtils.contains(item, match)) {
+        String filter = StringUtils.lowerCase(String.valueOf(filterValue));
+        if (StringUtils.contains(item, filter)) {
             return true;
         }
 

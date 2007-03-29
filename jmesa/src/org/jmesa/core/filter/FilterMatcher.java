@@ -47,10 +47,10 @@ public interface FilterMatcher {
      * 
      * @param itemValue
      *            The value that will be performing the match against.
-     * @param matchValue
+     * @param filterValue
      *            The value to match with.
      * 
      * @return Is true if the itemValue and the matchValue are the same.
      */
-    public boolean evaluate(Object itemValue, String matchValue);
+    public boolean evaluate(Object itemValue, String filterValue);
 }

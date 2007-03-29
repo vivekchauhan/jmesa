@@ -52,7 +52,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     private ColumnSort columnSort;
     private Preferences preferences;
     private Messages messages;
-    private boolean enableFilterAndSort;
+    private boolean performFilterAndSort;
 
     /**
      * @param webContext The WebContext for the table.
@@ -72,8 +72,8 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
      * @param Is false if you do not want to have the items filtered and sorted.
      * @param webContext The WebContext for the table.
      */
-    public CoreContextFactoryImpl(boolean enableFilterAndSort, WebContext webContext) {
-        this.enableFilterAndSort = enableFilterAndSort;
+    public CoreContextFactoryImpl(boolean performFilterAndSort, WebContext webContext) {
+        this.performFilterAndSort = performFilterAndSort;
         this.webContext = webContext;
     }
 
@@ -156,7 +156,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
         Items itemsImpl;
 
-        if (enableFilterAndSort) {
+        if (performFilterAndSort) {
             itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
         } else {
             itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
