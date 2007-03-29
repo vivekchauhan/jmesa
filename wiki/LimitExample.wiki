@@ -7,7 +7,7 @@ Now here is the important part. To get a smaller result set you would create a q
 
 The savy Sybase or SQL Server developer may be saying, but the rowcount command always starts at the beginning, so when I go to page two I have to start at the beginning. Well, yes, but now you have only returned two pages of results, as opposed to the whole result set. When you go to page three then you will only have pulled back three pages. Other databases, such as MySQL and Oracle, allow you to ask for a given section of rows so then you consistently only pull back the page that you need.
 
-To find out how the user is trying to sort and filter, what page they are going to, and how many results they need to see the eXtremeTable has a convenient interface called the [Limit] and is created using the !LimitFactory: 
+To find out how the user is trying to sort and filter, what page they are going to, and how many results they need to see JMesa has a convenient interface called the [Limit] and is created using the !LimitFactory: 
 
 ==== Example ====
 
@@ -25,7 +25,6 @@ You can see the
 [http://extremecomponents.org/jmesa/limit.run live example] on the site. If you do a view source on the site you will notice that the AJAX is drop dead simple. It uses the JMesa Javascript library to create the JMesa parameters, and the Sarissa library for the AJAX call. In general this is the most elegant way to use JMesa as it does not require any additional work to create, and it avoids a full page refresh.
 
 Note: the source code for this example, and all examples, are included in the jmesaWeb module checked into subversion. The site's data is run off of [http://hsqldb.org/ HSQLDB], which is an in-memory database. This makes it easy for anyone who wants to run the project to easily get it up and running. And, because the site only includes the code examples it is pretty easy to navigate the code.
-
 
 
 
