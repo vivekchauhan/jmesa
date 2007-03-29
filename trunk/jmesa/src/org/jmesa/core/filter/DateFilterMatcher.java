@@ -43,7 +43,7 @@ public class DateFilterMatcher implements FilterMatcher {
         this.pattern = pattern;
     }
 
-    public boolean evaluate(Object itemValue, String matchValue) {
+    public boolean evaluate(Object itemValue, String filterValue) {
         if (itemValue == null) {
             return false;
         }
@@ -55,8 +55,8 @@ public class DateFilterMatcher implements FilterMatcher {
         }
 
         String item = String.valueOf(itemValue);
-        String match = String.valueOf(matchValue);
-        if (StringUtils.contains(item, match)) {
+        String filter = String.valueOf(filterValue);
+        if (StringUtils.contains(item, filter)) {
             return true;
         }
 

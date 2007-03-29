@@ -17,6 +17,7 @@ package org.jmesa.limit;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
@@ -92,7 +93,7 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
                 String value = LimitUtils.getValue(parameters.get(parameter));
                 if (StringUtils.isNotBlank(value)) {
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER.toParam());
-                    Filter filter = new Filter(property, value);
+                    Filter filter = new Filter(property, StringEscapeUtils.escapeHtml(value));
                     filterSet.addFilter(filter);
                 }
             }
