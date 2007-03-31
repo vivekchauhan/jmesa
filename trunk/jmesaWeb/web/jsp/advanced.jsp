@@ -9,7 +9,8 @@
 	<p class="content">
 		The advanced JMesa example uses the ComponentFactory to build a table. This is the same as the Limit example, 
 		but is not using the database to do the pagination or using AJAX. In the future this will serve to show 
-		more of the customizations possible with JMesa.
+		more of the customizations possible with JMesa. However, one feature you should notice is that each time
+		you come back to this table it is displayed just the way that you left it by using the State interface.
 	</p>
 	
 	<p class="content">
