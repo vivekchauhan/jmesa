@@ -80,6 +80,7 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
 
         String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
         html.img().src(imagesPath + getCoreContext().getPreference(HtmlConstants.DROPLIST_HANDLE_IMAGE));
+        html.alt("filter");
         html.end();
         html.divEnd();
 

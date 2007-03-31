@@ -144,6 +144,7 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
     public Object render(Object item, int rowcount) {
         HtmlBuilder html = new HtmlBuilder();
         html.tr(1);
+        html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
         html.style(getStyle());
         html.styleClass(getStyleClass(rowcount));
         html.onmouseover(getOnmouseover(getRow().isHighlighter(), getRow().getOnmouseover()));
