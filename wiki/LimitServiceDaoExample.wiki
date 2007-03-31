@@ -70,6 +70,24 @@ public class PresidentFilter implements CriteriaCommand {
             criteria.add(Restrictions.like(property, "%" + value + "%").ignoreCase());
         }
     }
+    
+    private static class Filter {
+        private final String property;
+        private final Object value;
+
+        public Filter(String property, Object value) {
+            this.property = property;
+            this.value = value;
+        }
+
+        public String getProperty() {
+            return property;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+    }
 }
 }}}
 
@@ -99,6 +117,32 @@ public class PresidentSort implements CriteriaCommand {
         }
     }
 
+    private static class Sort {
+        public final static String ASC = "asc";
+        public final static String DESC = "desc";
+
+        private final String property;
+        private final String order;
+
+        public Sort(String property, String order) {
+            this.property = property;
+            this.order = order;
+        }
+
+        public String getProperty() {
+            return property;
+        }
+
+        public String getOrder() {
+            return order;
+        }
+    }
 }
 }}}
 
+==== Command ====
+{{{
+public interface CriteriaCommand {
+	public Criteria execute(Criteria criteria);
+}
+}}}
