@@ -20,27 +20,34 @@ import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * Will always persist the state of the table without having to pass any
- * additional parameters around.
+ * Pass the stateAttr to find the Limit with the persisted state. The allows a
+ * user to display a table in the way they left it.
  * </p>
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public class PersistState implements State {
-    private final WebContext context;
-    private final String id;
+    private String id;
+    private String stateAttr;
+    private WebContext webContext;
 
-    public PersistState(WebContext context, String id) {
-        this.context = context;
+    public PersistState(String id, String stateAttr, WebContext webContext) {
         this.id = id;
+        this.stateAttr = stateAttr;
+        this.webContext = webContext;
     }
 
     public Limit retrieveLimit() {
-        return (Limit) context.getSessionAttribute(id);
+        String stateAttrValue = webContext.getParameter(stateAttr);
+        if ("true".equalsIgnoreCase(stateAttrValue)) {
+            return (Limit) webContext.getSessionAttribute(id);
+        }
+
+        return null;
     }
 
     public void persistLimit(Limit limit) {
-        context.setSessionAttribute(id, limit);
+        webContext.setSessionAttribute(id, limit);
     }
 }
