@@ -32,13 +32,14 @@ You can see an
 on the JMesa site. 
 
 
-The other major change is the row renderer and cell editor rowcount variable can be set to include the pagination in the Preferences. The default is to not include the pagination.
+One other major enhancement is the row renderer and cell editor rowcount variable can be set to include the pagination in the Preferences. The default is to not include the pagination.
 {{{
 html.rowcount.includePagination=false
 }}}
 
+Lastly, the table row id is now specified. The format is the table id
+followed by the word row and then the correct rowcount. 
 
-
-
-
-
+{{{
+<tr id="pres_row1></tr> 
+}}}
