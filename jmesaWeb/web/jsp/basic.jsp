@@ -13,7 +13,7 @@
 	<p class="content">
 		Other examples:<br/>
 		<a href="${pageContext.request.contextPath}/limit.run">Limit (with AJAX)</a> <br/>
-		<a href="${pageContext.request.contextPath}/advanced.run">Advanced</a><br/>
+		<a href="${pageContext.request.contextPath}/advanced.run?state=true">Advanced</a><br/>
 	</p>
 	
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/basic.run">
