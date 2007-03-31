@@ -48,18 +48,17 @@ public class CsvTableUsingComponentFactory {
         CellEditor editor = factory.createBasicCellEditor();
 
         // create the columns
+        Column firstName = factory.createColumn("name.firstName", editor);
+        row.addColumn(firstName);
 
-        Column firstNameColumn = factory.createColumn("name.firstName", editor);
-        row.addColumn(firstNameColumn);
+        Column lastName = factory.createColumn("name.lastName", editor);
+        row.addColumn(lastName);
 
-        Column lastNameColumn = factory.createColumn("name.lastName", editor);
-        row.addColumn(lastNameColumn);
+        Column term = factory.createColumn("term", editor);
+        row.addColumn(term);
 
-        Column termColumn = factory.createColumn("term", editor);
-        row.addColumn(termColumn);
-
-        Column careerColumn = factory.createColumn("career", editor);
-        row.addColumn(careerColumn);
+        Column career = factory.createColumn("career", editor);
+        row.addColumn(career);
 
         // create the view
         CsvView view = new CsvView(table, coreContext);

@@ -25,7 +25,6 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.WebContext;
 
@@ -53,11 +52,6 @@ public class HtmlTableUsingComponentFactory {
 
         // create the columns
         
-        HtmlColumn checkbox = factory.createColumn(new CheckboxEditor());
-        checkbox.setFilterable(false);
-        checkbox.setSortable(false);
-        row.addColumn(checkbox);
-        
         CellEditor customEditor = new PresidentsLinkEditor(editor);
         HtmlColumn firstName = factory.createColumn("name.firstName", customEditor);
         firstName.setTitle("First Name");
@@ -73,7 +67,7 @@ public class HtmlTableUsingComponentFactory {
 
         HtmlColumn career = factory.createColumn("career", editor);
         row.addColumn(career);
-        
+
         CellEditor dateCellEditor = factory.createDateCellEditor();
         HtmlColumn bornColumn = factory.createColumn("born", dateCellEditor);
         bornColumn.setFilterable(false);
@@ -81,7 +75,7 @@ public class HtmlTableUsingComponentFactory {
         row.addColumn(bornColumn);
 
         // create the view
-        ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);
+        ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);
         Toolbar toolbar = toolbarFactory.createToolbar();
         View view = new HtmlView(table, toolbar, coreContext);
 
@@ -105,15 +99,6 @@ public class HtmlTableUsingComponentFactory {
             html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
             html.append(value);
             html.aEnd();
-            return html.toString();
-        }
-    }
-    
-    
-    private static class CheckboxEditor implements CellEditor {
-        public Object getValue(Object item, String property, int rowcount) {
-            HtmlBuilder html = new HtmlBuilder();
-            html.input().type("checkbox").end();
             return html.toString();
         }
     }

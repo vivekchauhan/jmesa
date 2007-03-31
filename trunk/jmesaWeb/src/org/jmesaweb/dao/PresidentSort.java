@@ -35,20 +35,20 @@ public class PresidentSort implements CriteriaCommand {
         sorts.add(new Sort(property, order));
     }
 
-	public Criteria execute(Criteria criteria) {
+    public Criteria execute(Criteria criteria) {
         for (Sort sort : sorts) {
             buildCriteria(criteria, sort.getProperty(), sort.getOrder());
         }
 
         return criteria;
-	}
+    }
 
-	private void buildCriteria(Criteria criteria, String property, String order) {
-		if (order.equals(Sort.ASC)) {
-			criteria.addOrder(Order.asc(property));
-		} else if (order.equals(Sort.DESC)) {
-			criteria.addOrder(Order.desc(property));
-		}
-	}
+    private void buildCriteria(Criteria criteria, String property, String order) {
+        if (order.equals(Sort.ASC)) {
+            criteria.addOrder(Order.asc(property));
+        } else if (order.equals(Sort.DESC)) {
+            criteria.addOrder(Order.desc(property));
+        }
+    }
 
 }
