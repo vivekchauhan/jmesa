@@ -1,15 +1,20 @@
 <html>
 
 <head>
-	<title>JMesa Example</title>
+	<title>Basic JMesa Example</title>
 </head>
 
 <body>
 
 	<p class="content">
-		JMesa In Action. 
+		The basic JMesa example uses the TableFactory to build a table. 
 	</p>
 	
+	<p class="content">
+		Other examples:<br/>
+		<a href="${pageContext.request.contextPath}/limit.run">Limit (with AJAX)</a> <br/>
+		<a href="${pageContext.request.contextPath}/advanced.run">Advanced</a><br/>
+	</p>
 	
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/basic.run">
 		${presidents}
@@ -22,17 +27,23 @@
 	
 <pre>
 HtmlTableFactory tableFactory = new HtmlTableFactory(webContext, coreContext);
-
-HtmlTable table = tableFactory.createTable("firstName", "lastName", "term", "career");
+HtmlTable table = tableFactory.createTable("name.firstName", "name.lastName", "term", "career");
 table.setCaption("Presidents");
 table.getTableRenderer().setWidth("600px;");
 
 CellEditor editor = new PresidentsLinkEditor(new BasicCellEditor());
-table.getRow().getColumn("firstName").getCellRenderer().setCellEditor(editor);
+Column firstName = table.getRow().getColumn("name.firstName");
+firstName.setTitle("First Name");
+firstName.getCellRenderer().setCellEditor(editor);
 
-ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
+Column lastName = table.getRow().getColumn("name.lastName");
+lastName.setTitle("Last Name");
+
+ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);
+toolbarFactory.enableSeparators(false);
 Toolbar toolbar = toolbarFactory.createToolbar();
 View view = new HtmlView(table, toolbar, coreContext);
+view.render();
 </pre>
 	
 <script type="text/javascript">

@@ -25,7 +25,6 @@ import org.jmesa.view.html.HtmlTableFactory;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.WebContext;
 
@@ -50,7 +49,8 @@ public class HtmlTableUsingTableFactory {
         Column lastName = table.getRow().getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
-        ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);
+        ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);
+        toolbarFactory.enableSeparators(false);
         Toolbar toolbar = toolbarFactory.createToolbar();
         View view = new HtmlView(table, toolbar, coreContext);
 

@@ -43,7 +43,7 @@ public class PresidentFilter implements CriteriaCommand {
         for (Filter filter : filters) {
             buildCriteria(criteria, filter.getProperty(), filter.getValue());
         }
-        
+
         return criteria;
     }
 

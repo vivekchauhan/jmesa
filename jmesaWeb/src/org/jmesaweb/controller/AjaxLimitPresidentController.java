@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Limit;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,15 +36,6 @@ public class AjaxLimitPresidentController extends AbstractController {
             throws Exception {
         WebContext webContext = new HttpServletRequestWebContext(request);
         CoreContext coreContext = limitCoreContext.getCoreContext(webContext);
-        Limit limit = coreContext.getLimit();
-
-        if (limit.isExportable()) {
-            String type = limit.getExport().getType();
-            if (type.equals(HtmlTableUsingTableFactory.CSV)) {
-                new CsvTableUsingTableFactory().render(response, webContext, coreContext);
-                return null;
-            }
-        }
 
         Object presidents = new HtmlTableUsingComponentFactory().render(webContext, coreContext);
         byte[] contents = presidents.toString().getBytes();

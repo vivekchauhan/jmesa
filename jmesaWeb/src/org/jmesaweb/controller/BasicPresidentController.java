@@ -26,8 +26,6 @@ import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.limit.RowSelect;
-import org.jmesa.limit.RowSelectImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesaweb.service.PresidentService;
@@ -72,16 +70,7 @@ public class BasicPresidentController extends AbstractController {
 
     public Limit getLimit(Collection items, WebContext webContext) {
         LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-        Limit limit = limitFactory.createLimit();
-
-        if (limit.isExportable()) {
-            RowSelect rowSelect = new RowSelectImpl(1, items.size(), items.size());
-            limit.setRowSelect(rowSelect);
-        } else {
-            RowSelect rowSelect = limitFactory.createRowSelect(maxRows, items.size());
-            limit.setRowSelect(rowSelect);
-        }
-
+        Limit limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
         return limit;
     }
 
