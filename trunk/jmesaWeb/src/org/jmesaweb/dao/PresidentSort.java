@@ -50,5 +50,25 @@ public class PresidentSort implements CriteriaCommand {
             criteria.addOrder(Order.desc(property));
         }
     }
+    
+    private static class Sort {
+        public final static String ASC = "asc";
+        public final static String DESC = "desc";
 
+        private final String property;
+        private final String order;
+
+        public Sort(String property, String order) {
+            this.property = property;
+            this.order = order;
+        }
+
+        public String getProperty() {
+            return property;
+        }
+
+        public String getOrder() {
+            return order;
+        }
+    }
 }

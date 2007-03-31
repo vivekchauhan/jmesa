@@ -52,4 +52,22 @@ public class PresidentFilter implements CriteriaCommand {
             criteria.add(Restrictions.like(property, "%" + value + "%").ignoreCase());
         }
     }
+    
+    private static class Filter {
+        private final String property;
+        private final Object value;
+
+        public Filter(String property, Object value) {
+            this.property = property;
+            this.value = value;
+        }
+
+        public String getProperty() {
+            return property;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+    }
 }
