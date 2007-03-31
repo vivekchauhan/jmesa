@@ -26,6 +26,8 @@ import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
+import org.jmesa.limit.state.PersistState;
+import org.jmesa.limit.state.State;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesaweb.service.PresidentService;
@@ -37,6 +39,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class AdvancedPresidentController extends AbstractController {
     private static String CSV = "csv";
+    private static String STATE = "state";
 
     private PresidentService presidentService;
     private String successView;
@@ -46,11 +49,13 @@ public class AdvancedPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-        
+
         WebContext webContext = new HttpServletRequestWebContext(request);
+        State state = new PersistState(id, STATE, webContext);
+
         Collection<Object> items = presidentService.getPresidents();
-        Limit limit = getLimit(items, webContext);
-        
+        Limit limit = getLimit(items, state, webContext);
+
         CoreContext coreContext = getCoreContext(items, limit, webContext);
 
         if (limit.isExportable()) {
@@ -67,9 +72,15 @@ public class AdvancedPresidentController extends AbstractController {
         return mv;
     }
 
-    public Limit getLimit(Collection items, WebContext webContext) {
+    public Limit getLimit(Collection items, State state, WebContext webContext) {
+        Limit limit = state.retrieveLimit();
+        if (limit != null) {
+            return limit;
+        }
+
         LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-        Limit limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
+        limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
+        state.persistLimit(limit);
         return limit;
     }
 
