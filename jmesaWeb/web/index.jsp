@@ -16,8 +16,9 @@
 
 	<p class="content">
 		This site contains the running JMesa 
-		<a href="${pageContext.request.contextPath}/presidents.run">examples</a>. 
-		For all the documentation see the 
+		<a href="${pageContext.request.contextPath}/presidents.run">examples</a> and the 
+		<a href="${pageContext.request.contextPath}/docs/api/index.html">javadocs</a>. 
+		For all the additional documentation see the 
 		<a href="http://code.google.com/p/jmesa/">wiki</a>.
 	</p>
 
