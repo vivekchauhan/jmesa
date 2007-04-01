@@ -1,3 +1,35 @@
-The State interface is used to persist a [Limit].
+The State interface is used to set and retrieve the table [Limit]. Implementations will set the Limit so that it can be retrieved at a later time. This is useful so a user can return to a specific table with it filtered, sorted, and paged exactly like they left it.
+
+==== Example ===
+In the controller create a new State object.
+{{{
+private static String RESTORE_STATE = "restore";
+
+State state = new SessionState(id, RESTORE_STATE, webContext);
+}}}
+The id method parameter is the table id. The restore method parameter tells the !SessionState implementation to look for the Limit with this servlet parameter. 
+
+{{{
+public Limit getLimit(Collection items, State state, WebContext webContext) {
+    Limit limit = state.retrieveLimit();
+    if (limit != null) {
+        return limit;
+    }
+
+    LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
+    limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
+    state.persistLimit(limit);
+    return limit;
+}
+}}}
+This is actually quite simple. The State will check to see if a parameter named restore with a value of true is passed as a servlet parameter. If it is then the State will retrieve the Limit. If there is no servlet parameter named restore or it has a value of false then a null value will be returned. At that point you grab a Limit like normal, but be sure to persist the limit each time so the most recent changes are saved.
+
+You can see an  
+[http://extremecomponents.org/jmesa/advanced.run?restore=true example]
+on the JMesa site. Notice how the restore parameter tips off the State that it should go look in the session and restore the users previous Limit object.
+
 
 http://extremecomponents.org/resources/images/uml/state.png
+
+
+
