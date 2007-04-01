@@ -27,12 +27,12 @@ import org.jmesa.web.WebContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PersistState implements State {
+public class SessionState implements State {
     private String id;
     private String stateAttr;
     private WebContext webContext;
 
-    public PersistState(String id, String stateAttr, WebContext webContext) {
+    public SessionState(String id, String stateAttr, WebContext webContext) {
         this.id = id;
         this.stateAttr = stateAttr;
         this.webContext = webContext;

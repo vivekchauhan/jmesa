@@ -26,7 +26,7 @@ import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.limit.state.PersistState;
+import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
@@ -39,7 +39,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class AdvancedPresidentController extends AbstractController {
     private static String CSV = "csv";
-    private static String STATE = "state";
+    private static String RESTORE_STATE = "restore";
 
     private PresidentService presidentService;
     private String successView;
@@ -51,7 +51,7 @@ public class AdvancedPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         WebContext webContext = new HttpServletRequestWebContext(request);
-        State state = new PersistState(id, STATE, webContext);
+        State state = new SessionState(id, RESTORE_STATE, webContext);
 
         Collection<Object> items = presidentService.getPresidents();
         Limit limit = getLimit(items, state, webContext);
