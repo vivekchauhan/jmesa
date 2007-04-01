@@ -32,7 +32,7 @@ You can see an
 on the JMesa site. 
 
 
-One other major enhancement is the RowRenderer and CellEditor rowcount variable can be set to include the pagination in the Preferences. The default is to not include the pagination.
+One other major enhancement is the !RowRenderer and !CellEditor rowcount variable can be set to include the pagination in the Preferences. The default is to not include the pagination.
 {{{
 html.rowcount.includePagination=false
 }}}
