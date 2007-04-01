@@ -9,9 +9,9 @@ I also updated quite a bit of the documentation on the wiki and in the javadocs.
 The first release candidate introduces the [State] interface. This interface is used to set and retrieve the table Limit. Implementations will set the Limit so that it can be retrieved at a later time. This is useful so a user can return to a specific table with it filtered, sorted, and paged exactly like they left it.
 
 {{{
-State state = new PersistState(id, param, webContext);
+State state = new PersistState(id, stateAttr, webContext);
 }}}
-The param variable is the parameter that the tells the !PersistState implementation to look for the Limit. 
+The stateAttr variable is the parameter that the tells the !PersistState implementation to look for the Limit. 
 
 {{{
 public Limit getLimit(Collection items, State state, WebContext webContext) {
