@@ -6,40 +6,17 @@ I also updated quite a bit of the documentation on the wiki and in the javadocs.
 
 ==== jmesa-2_rc2 ====
 
-The first release candidate introduces the [State] interface. This interface is used to set and retrieve the table Limit. Implementations will set the Limit so that it can be retrieved at a later time. This is useful so a user can return to a specific table with it filtered, sorted, and paged exactly like they left it.
-
-{{{
-State state = new SessionState(id, restore, webContext);
-}}}
-The stateAttr variable is the parameter that the tells the !PersistState implementation to look for the Limit. 
-
-{{{
-public Limit getLimit(Collection items, State state, WebContext webContext) {
-    Limit limit = state.retrieveLimit();
-    if (limit != null) {
-        return limit;
-    }
-
-    LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-    limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
-    state.persistLimit(limit);
-    return limit;
-}
-}}}
-
-You can see an  
-[http://extremecomponents.org/jmesa/advanced.run?restore=true example]
-on the JMesa site. Notice how the restore parameter tips off the State that it should go look in the session and restore the users previous Limit object.
-
+The first release candidate introduces the [State] interface. Follow the link to read more about that.
 
 One other major enhancement is the !RowRenderer and !CellEditor rowcount variable can be set to include the pagination in the Preferences. The default is to not include the pagination.
 {{{
 html.rowcount.includePagination=false
 }}}
 
-Lastly, the table row id is now specified. The format is the table id
+Lastly, the table row id is now specified for the html view. The format is the table id
 followed by the word row and then the correct rowcount. 
 
 {{{
 <tr id="pres_row1></tr> 
 }}}
+
