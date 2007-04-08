@@ -33,7 +33,9 @@ private static class PresidentsLinkEditor implements CellEditor {
 }
 }}}
 
-Not too bad really as the HtmlBuilder does make things easier. However, wouldn't it be great if you could somehow have the ease of templating, like you do in a jsp, but not have the calling code be aware of any templating engine. This is where Groovy comes in. Now our cell editor looks like this:
+Not too bad really as the !HtmlBuilder does make things easier. However, wouldn't it be great if you could somehow have the ease of templating, like you do in a jsp, but not have the calling code be aware of any templating engine. 
+
+This is where Groovy comes in. Now our cell editor looks like this:
 
 {{{
 class PresidentsLinkEditor implements CellEditor {
