@@ -55,8 +55,7 @@ class PresidentsLinkEditor implements CellEditor {
 
 This is my Groovy class that is doing the exact same work as the static inner class. In fact to get this to work I did not change one line of code in my calling class...other than the import declaration. One of the main things to know about Groovy is that Groovy is run as bytecode in the JVM so Groovy and Java get along like milk and cookies. It can be compiled or be used for at-runtime scripting. In my example I compiled it and included it as a jar file.
 
-I will admit that this is kind of a simple example. However as easy as this is, think how easy and useful this would be if it was not so simple. First off if you look carefully at the href tag you will notice the $value attribute resolves to the def value. Nice huh. And then I can include all the text I want on as many lines as I need without any String concatenation getting in the way. All this and all I am using is the Groovy GString class. With Groovy I have the complete Groovy library as well as Java and any other library I want to use.
-
+I will admit that this is kind of a simple example. However as easy as this is, think how easy and useful this would be if it was not so simple. First off notice how there is no setter defined for the cellEditor attribute. That is just some Groovy magic. Then, if you look carefully at the href tag you will notice the $value attribute resolves to the def value. Nice huh. And then I can include all the text I want on as many lines as I need without any String concatenation getting in the way. All this and all I am using is the Groovy GString class. With Groovy I have the complete Groovy library as well as Java and any other library I want to use.
 
 
 
