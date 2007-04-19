@@ -1,4 +1,4 @@
-#labels Phase-Deploy
+#labels Phase-Deploy,Featured
 JMesa is written as an API which is not dependant on any framework or Servlet API. The only core dependencies are to a few Apache Commons libraries in which JMesa is fortunate enough to be able to utilize.
 
 === Requirements ===
@@ -31,4 +31,3 @@ JMesa does not currently have any tags, but instead uses the API to build tables
 Exports, on the other hand, will always be built using the API. There will no longer be a servlet filter used.
 
 Read the article about [TagsAndFilter tags and filters] for a detailed explanation of why both of these decisions were made.
-
