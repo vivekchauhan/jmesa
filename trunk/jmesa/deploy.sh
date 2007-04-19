@@ -21,7 +21,6 @@ mkdir $BUILD_DIR/jmesa-$VERSION
 mkdir $BUILD_DIR/jmesa-$VERSION/dist
 mkdir $BUILD_DIR/jmesa-$VERSION/images
 mkdir $BUILD_DIR/jmesa-$VERSION/source
-mkdir $BUILD_DIR/jmesa-$VERSION/docs
 
 echo "Build the project with ANT ..."
 export JAVA_HOME=/home/jeff/jdk1.5.0_09
