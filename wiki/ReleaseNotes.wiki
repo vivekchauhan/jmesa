@@ -20,3 +20,5 @@ followed by the word row and then the correct rowcount.
 <tr id="pres_row1></tr> 
 }}}
 
+==== jmesa-2.0 ====
+The 2.0 release is out! There are no changes from the last release candidate so this is just a repackaged version with the correct version number.
