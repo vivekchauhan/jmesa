@@ -1,10 +1,11 @@
-*2/27/2006*
-
+===== 2/27/2007 =====
 The road map for JMesa is still being defined. However, the general plan is to start with the release candidates as soon as the documentation is more complete. I would also like to get some more unit tests and examples done. I fully expect to have the documentation, unit tests and enough examples done by the end of March. It is undefined as to how many release candidates we will need, but the idea would be to encourage more people to try out the library before going to a final release.
 
-*4/1/2006*
-
+===== 4/1/2007 =====
 The release candidates have started. If all goes well the production release will be out by mid-April.
 
+===== 4/18/2007 =====
+The 2.0 release is out!
 
-
+==== Future Release ====
+The next step for JMesa is to further explore how JMesa fits in with the Groovy language. Using Groovy makes a lot of sense for !CellEditors and it might make sense to create a whole table with straight Groovy code. In addition, when creating simple tables there should be an opportunity to create a facade over the existing functionality to make things even easier when the requirements are not very complex. Lastly, I will include more export views as the need to create them comes up.
