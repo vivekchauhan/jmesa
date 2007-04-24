@@ -2,9 +2,6 @@ The following icons are used from the Tango Desktop Project
 at http://tango.freedesktop.org/Tango_Desktop_Project. The icons are
 licensed under the Creative Commons Attribution Share-Alike license 
 which is described at http://creativecommons.org/licenses/by-sa/2.5/.
-
-The following are the original tango icons, 
-although renamed for the project specic use:
 -clear.png
 -filter.png
 -csv.png
@@ -13,9 +10,11 @@ although renamed for the project specic use:
 -nextPage.png
 -lastPage.png
 
-The following are tango icons I changed to have a
-disabled look. They are also covered under the 
-Creative Commons Attribution Share-Alike license.
+The following icons are modified from the Tango Desktop Project 
+at http://tango.freedesktop.org/Tango_Desktop_Project. I changed 
+them to have a disabled look.The icons are licensed under the 
+Creative Commons Attribution Share-Alike license which is described 
+at http://creativecommons.org/licenses/by-sa/2.5/.
 -firstPageDisabled.png
 -prevPageDisabled.png
 -nextPageDisabled.png
