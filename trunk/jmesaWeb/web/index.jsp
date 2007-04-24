@@ -11,7 +11,11 @@
 	</p>
 
 	<p class="content" style="font-style:italic;">
-		JMesa uses the <a href="http://httpd.apache.org/docs/LICENSE"> Apache License Version 2.0</a> open source license.
+		JMesa uses the <a href="http://httpd.apache.org/docs/LICENSE"> Apache License Version 2.0</a> open source license. 
+		Most of the icons are used from the 
+		<a href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango Desktop Project</a>. 
+		The icons are licensed under the 
+		<a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution Share-Alike license</a>.
 	</p>
 
 	<p class="content">
