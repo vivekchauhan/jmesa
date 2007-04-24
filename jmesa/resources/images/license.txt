@@ -1,0 +1,22 @@
+The following icons are used from the Tango Desktop Project 
+at http://tango.freedesktop.org/Tango_Desktop_Project. The icons are
+licensed under the Creative Commons Attribution Share-Alike license 
+which is described at http://creativecommons.org/licenses/by-sa/2.5/.
+
+The following are the original tango icons, 
+although renamed for the project specic use:
+-clear.png
+-filter.png
+-csv.png
+-firstPage.png
+-prevPage.png
+-nextPage.png
+-lastPage.png
+
+The following are tango icons I changed to have a
+disabled look. They are also covered under the 
+Creative Commons Attribution Share-Alike license.
+-firstPageDisabled.png
+-prevPageDisabled.png
+-nextPageDisabled.png
+-lastPageDisabled.png
