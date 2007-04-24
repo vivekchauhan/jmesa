@@ -23,7 +23,7 @@ mkdir $BUILD_DIR/jmesa-$VERSION/images
 mkdir $BUILD_DIR/jmesa-$VERSION/source
 
 echo "Build the project with ANT ..."
-export JAVA_HOME=/home/jeff/jdk1.5.0_09
+export JAVA_HOME=/home/jeff/jdk1.5.0_11
 export PATH=$JAVA_HOME/bin:$PATH
 ant jar -Dversion=$VERSION
 ant javadocs
