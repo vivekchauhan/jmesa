@@ -95,6 +95,32 @@ The styleClass is the class attribute on the html td element. For instance this 
 column.getCellRenderer().setStyleClass("jmesaCell");
 }}}
 
+==== HeaderRenderer ====
+Each Column component has a !HeaderRenderer. There are no common attributes for a !HeaderRenderer between different views. However, an !HtmlHeaderRenderer has the following attributes: style, styleClass, and defaultSortOrderable.
+
+The style is the style attribute on the html td element in the header row. For instance this would change the height of the column to 20px.
+
+{{{
+column.geHeaderRenderer().setStyle("height:20px");
+}}}
+
+The styleClass is the class attribute on the html td element in the header row. For instance this would change the css class to jmesaHeader.
+
+{{{
+column.getHeaderRenderer().setStyleClass("jmesaHeader");
+}}}
+
+The defaultSortOrderable specifies whether or not the header will display in the default state for the column. The default state means that the table is not sorted in ascending or descending order. Keep in mind though that this only changes the look, it does not control whether the column is actually sorted. For that you would have to use the [Limit]. The default for the defaultSortOrderable is true meaning it will allow the default (non-ordering) state to be shown. This is how you could change is to false.
+
+{{{
+column.getHeaderRenderer().setDefaultSortOrderable(false);
+}}}
+
+You can see an example on the JMesa site example
+[http://extremecomponents.org/jmesa/advanced.run here].
+
+Notice how once you click on the First Name column it never goes back to the default state.
+
 ==== FilterRenderer ====
 Each Column component has a !FilterRenderer. There are no common attributes for a !FilterRenderer between different views. However, an !HtmlFilterRenderer has the following attributes: style, and styleClass.
 
@@ -109,3 +135,5 @@ The styleClass is the class attribute on the html td element. For instance this 
 {{{
 column.getFilterRenderer().setStyleClass("jmesaFilter");
 }}}
+
+
