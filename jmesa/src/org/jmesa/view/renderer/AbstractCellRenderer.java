@@ -45,6 +45,27 @@ public abstract class AbstractCellRenderer extends ContextSupport implements Cel
         this.editor = editor;
     }
 
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the CellEditor.
+     * </p>
+     * 
+     * <p>
+     * And example is as follows:
+     * </p>
+     * 
+     * <pre>
+     * firstName.cellRenderer.setCellEditor({item, property, rowcount -> 
+     *      def value = new BasicCellEditor().getValue(item, property, rowcount);
+     *      return """
+     *              <a href="http://www.whitehouse.gov/history/presidents/">
+     *                 $value
+     *              </a>
+     *             """});
+     * </pre>
+     * 
+     * @param closure The Groovy closure to use.
+     */
     public void setCellEditor(final Closure closure) {
         this. editor = new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
