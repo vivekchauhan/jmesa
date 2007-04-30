@@ -2,9 +2,9 @@ JMesa is now starting to get support for [http://groovy.codehaus.org/ Groovy] bu
 
 I will be using this page as the index for all the code examples and everything JMesa related to Groovy!
 
-* Using Groovy to create a [GroovyCellEditor custom cell editor].
+ * Using Groovy to create a [GroovyCellEditor custom cell editor].
 
-* Using Groovy to create a [BasicGroovy complete table] using the !HtmlTableFactory.
+ * Using Groovy to create a [BasicGroovy complete table] using the !HtmlTableFactory.
 
 
 
