@@ -1,5 +1,7 @@
 With the support added in Spring 2.0 you can now easily embed Groovy scripts in your Java code.
 
+This is added to the servlet bean context:
+
 {{{
 <bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
     <property name="successView" value="jsp/basicGroovy.jsp"/>
