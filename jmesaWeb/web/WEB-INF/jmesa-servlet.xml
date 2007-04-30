@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>
+ <beans
+     xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:util="http://www.springframework.org/schema/util"
+     xmlns:lang="http://www.springframework.org/schema/lang"
+     xsi:schemaLocation="http://www.springframework.org/schema/beans 
+     						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd  
+     						http://www.springframework.org/schema/lang
+     						http://www.springframework.org/schema/lang/spring-lang-2.0.xsd
+     						http://www.springframework.org/schema/util 
+     						http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
 	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
@@ -20,6 +28,9 @@
 				</entry>
 				<entry key="ajax.run">
 					<ref bean="ajax"/>
+				</entry>
+				<entry key="basicGroovy.run">
+					<ref bean="basicGroovy"/>
 				</entry>
 			</map>
 		</property>
@@ -46,6 +57,19 @@
 		<property name="id" value="pres"/>
 		<property name="maxRows" value="12"/>
 	</bean>
+
+	<bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
+		<property name="successView" value="jsp/basicGroovy.jsp"/>
+		<property name="presidentService" ref="presidentService"/>
+		<property name="basicGroovyPresident" ref="basicGroovyPresident"/>
+	</bean>
+
+	<lang:groovy id="basicGroovyPresident" 
+				refresh-check-delay="5000"
+				script-source="WEB-INF/groovy/BasicGroovyPresident.groovy">
+        <lang:property name="id" value="pres"/> 
+        <lang:property name="maxRows" value="12"/> 
+    </lang:groovy>			
 
 	<bean id="advanced" class="org.jmesaweb.controller.AdvancedPresidentController">
 		<property name="successView" value="jsp/advanced.jsp"/>
