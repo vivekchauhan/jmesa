@@ -110,7 +110,7 @@ The styleClass is the class attribute on the html td element in the header row. 
 column.getHeaderRenderer().setStyleClass("jmesaHeader");
 }}}
 
-The defaultSortOrderable specifies whether or not the header will display in the default state for the column. The default state means that the table is not sorted in ascending or descending order. Keep in mind though that this only changes the look, it does not control whether the column is actually sorted. For that you would have to use the [Limit]. The default for the defaultSortOrderable is true meaning it will allow the default (non-ordering) state to be shown. This is how you could change is to false.
+The defaultSortOrderable specifies whether or not the header will display in the default state for the column. The default state means that the table is not sorted in ascending or descending order. Keep in mind though that this only changes the look, it does not control whether the column is actually sorted. For that you would have to use the [Limit]. The default for the defaultSortOrderable is true meaning it will allow the default (non-ordering) state to be shown. This is how you could change it to false.
 
 {{{
 column.getHeaderRenderer().setDefaultSortOrderable(false);
@@ -135,5 +135,4 @@ The styleClass is the class attribute on the html td element. For instance this 
 {{{
 column.getFilterRenderer().setStyleClass("jmesaFilter");
 }}}
-
 
