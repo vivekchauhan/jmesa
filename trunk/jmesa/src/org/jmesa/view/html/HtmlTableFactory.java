@@ -35,6 +35,27 @@ public class HtmlTableFactory extends AbstractTableFactory {
         return (HtmlTable) super.createTable(columnNames);
     }
 
+    /**
+     * Returns the HtmlTable instance of a Table. This method call 
+     * is only useful if using with Groovy because of Groovy bug [GROOVY-1860].
+     * The nature of the bug is a method that is overridden and returns
+     * a different return type is incorrectly referenced from Groovy, 
+     * which makes it impossible to use the createTable() method.
+     *  
+     * Non-Groovy code should use the overridden createTable() method as this
+     * method will be deprecated over time when the bug is fixed.
+     * 
+     * Referenece Groovy bug [GROOVY-1860] for more details. It is marked by
+     * the Groovy team as a blocking bug so hopefully it will be fixed in
+     * Groovy 1.1.
+     * 
+     * @param columnNames The array of columns, specified as varargs.
+     * @return The HtmlTable instance.
+     */
+    public HtmlTable createHtmlTable(String... columnNames) {
+        return (HtmlTable) super.createTable(columnNames);
+    }
+
     @Override
     protected HtmlComponentFactory getComponentFactory() {
         return new HtmlComponentFactory(getWebContext(), getCoreContext());
