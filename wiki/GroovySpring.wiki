@@ -1,0 +1,39 @@
+With the support added in Spring 2.0 you can now easily embed Groovy scripts in your Java code.
+
+{{{
+<bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
+    <property name="successView" value="jsp/basicGroovy.jsp"/>
+    <property name="presidentService" ref="presidentService"/>
+    <property name="basicGroovyPresident" ref="basicGroovyPresident"/>
+</bean>
+
+<lang:groovy id="basicGroovyPresident" 
+		refresh-check-delay="5000"
+		script-source="WEB-INF/groovy/BasicGroovyPresident.groovy">
+    <lang:property name="id" value="pres"/> 
+    <lang:property name="maxRows" value="12"/> 
+</lang:groovy>
+}}}
+
+Then the Spring Controller looks like this:
+
+{{{
+public class BasicGroovyPresidentController extends AbstractController {
+    private GroovyObject basicGroovyPresident;
+
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        ...
+        WebContext webContext = new HttpServletRequestWebContext(request);
+        Collection<Object> items = presidentService.getPresidents();
+        Object presidents = basicGroovyPresident.invokeMethod("getHtmlTable", new Object[] {items, webContext});
+        mv.addObject("presidents", presidents);
+        return mv;
+    }
+
+    public void setBasicGroovyPresident(GroovyObject basicGroovyPresident) {
+        this.basicGroovyPresident = basicGroovyPresident;
+    }
+}
+}}}
+
