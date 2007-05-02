@@ -24,8 +24,8 @@ class BasicGroovyPresident {
     Object render(WebContext webContext, CoreContext coreContext) {
         def tableFactory = [webContext, coreContext] as HtmlTableFactory;
         def columns = ["name.firstName", "name.lastName", "term", "career"] as String[];
-        def table = tableFactory.createHtmlTable(columns); // Must use createHtmlTable because createTable 
-                                                           // does not work because of Groovy bug [GROOVY-1860].
+        def table = tableFactory.createHtmlTable(columns); 
+
         table.caption = "Presidents";
         table.tableRenderer.width = "600px";
 
@@ -55,7 +55,6 @@ class BasicGroovyPresident {
 }
 
 }}}
-
 
 
 
