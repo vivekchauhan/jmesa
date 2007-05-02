@@ -21,16 +21,16 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jmesa.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class ResourceBundleMessages implements Messages {
-    private static Log logger = LogFactory.getLog(ResourceBundleMessages.class);
+    private Logger logger = LoggerFactory.getLogger(ResourceBundleMessages.class);
 
     private final static String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/jmesaResourceBundle";
 

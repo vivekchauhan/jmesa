@@ -21,6 +21,8 @@ import java.util.Locale;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.jmesa.view.ContextSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
@@ -29,6 +31,8 @@ import org.jmesa.view.ContextSupport;
 public class DateCellEditor extends ContextSupport implements CellEditor {
     private String pattern = "MM/dd/yyyy";
 
+    private Logger logger = LoggerFactory.getLogger( DateCellEditor.class );    
+    
     public DateCellEditor() {
     }
 
@@ -50,7 +54,7 @@ public class DateCellEditor extends ContextSupport implements CellEditor {
                 itemValue = DateFormatUtils.format((Date) itemValue, pattern, locale);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn( "item class " + item.getClass().getName() + " doesn't have property " + property );
         }
 
         return itemValue;

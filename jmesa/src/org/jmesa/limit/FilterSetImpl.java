@@ -22,8 +22,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Jeff Johnston
  */
 public class FilterSetImpl implements Serializable, FilterSet {
-    private static Log logger = LogFactory.getLog(FilterSetImpl.class);
+    private Logger logger = LoggerFactory.getLogger(FilterSetImpl.class);
 
     private Set<Filter> filters;
 

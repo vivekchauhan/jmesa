@@ -20,15 +20,15 @@ import java.util.Map;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class LimitActionFactoryImpl implements LimitActionFactory {
-    private static Log logger = LogFactory.getLog(LimitActionFactoryImpl.class);
+    private Logger logger = LoggerFactory.getLogger(LimitActionFactoryImpl.class);
 
     private final Map<?, ?> parameters;
     private final String id;

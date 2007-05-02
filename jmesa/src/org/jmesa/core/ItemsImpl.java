@@ -19,20 +19,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class ItemsImpl implements Items {
-    private static Log logger = LogFactory.getLog(ItemsImpl.class);
+    private Logger logger = LoggerFactory.getLogger(ItemsImpl.class);
 
     private Collection<Object> allItems;
     private Collection<Object> filteredItems;
