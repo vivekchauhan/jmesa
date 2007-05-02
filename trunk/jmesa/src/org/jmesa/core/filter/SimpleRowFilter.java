@@ -22,18 +22,18 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter {
-    private static Log logger = LogFactory.getLog(SimpleRowFilter.class);
+    private Logger logger = LoggerFactory.getLogger(SimpleRowFilter.class);
 
     private FilterMatcherRegistry registry;
 

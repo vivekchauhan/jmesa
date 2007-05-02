@@ -19,10 +19,10 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Use the Jakarta Collections predicate pattern to filter out the table.
@@ -31,7 +31,7 @@ import org.jmesa.limit.FilterSet;
  * @author Jeff Johnston
  */
 public final class FilterPredicate implements Predicate {
-    private static Log logger = LogFactory.getLog(FilterPredicate.class);
+    private Logger logger = LoggerFactory.getLogger(FilterPredicate.class);
 
     private Map<Filter, FilterMatcher> matches;
     private FilterSet filterSet;

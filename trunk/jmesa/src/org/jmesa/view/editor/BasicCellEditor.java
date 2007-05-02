@@ -17,19 +17,24 @@ package org.jmesa.view.editor;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.jmesa.view.ContextSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class BasicCellEditor extends ContextSupport implements CellEditor {
+    
+    private Logger logger = LoggerFactory.getLogger( BasicCellEditor.class );
+    
     public Object getValue(Object item, String property, int rowcount) {
         Object itemValue = null;
 
         try {
             itemValue = PropertyUtils.getProperty(item, property);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn( "item class " + item.getClass().getName() + " doesn't have property " + property );
         }
 
         return itemValue;

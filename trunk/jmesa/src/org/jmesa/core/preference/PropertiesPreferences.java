@@ -21,16 +21,16 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jmesa.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class PropertiesPreferences implements Preferences {
-    private static Log logger = LogFactory.getLog(PropertiesPreferences.class);
+    private Logger logger = LoggerFactory.getLogger(PropertiesPreferences.class);
 
     private final static String JMESA_PROPERTIES = "jmesa.properties";
 

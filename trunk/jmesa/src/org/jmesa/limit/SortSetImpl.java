@@ -23,8 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Jeff Johnston
  */
 public class SortSetImpl implements Serializable, SortSet {
-    private static Log logger = LogFactory.getLog(SortSetImpl.class);
+    private Logger logger = LoggerFactory.getLogger(SortSetImpl.class);
     private List<Sort> sorts;
 
     public SortSetImpl() {
