@@ -39,5 +39,9 @@ public interface HtmlRow extends Row {
 
     public void setOnmouseout(String onmouseout);
 
+    public HtmlColumn getColumn(String property);
+    
+    public HtmlColumn getColumn(int index);
+
     public HtmlRowRenderer getRowRenderer();
 }

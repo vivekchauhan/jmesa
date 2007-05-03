@@ -18,6 +18,10 @@ package org.jmesa.view.html.component;
 import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class HtmlRowImpl extends RowImpl implements HtmlRow {
     private boolean highlighter = true;
     private String onclick;
@@ -54,6 +58,16 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnmouseover(String onmouseover) {
         this.onmouseover = onmouseover;
+    }
+
+    @Override
+    public HtmlColumn getColumn(String property) {
+        return (HtmlColumn) super.getColumn(property);
+    }
+
+    @Override
+    public HtmlColumn getColumn(int index) {
+        return (HtmlColumn) super.getColumn(index);
     }
 
     @Override
