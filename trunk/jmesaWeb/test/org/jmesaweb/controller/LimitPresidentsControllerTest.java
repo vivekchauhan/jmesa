@@ -27,7 +27,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Collection;
 
-import org.jmesa.core.PresidentDao;
 import org.jmesa.limit.Order;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersBuilder;
@@ -35,8 +34,8 @@ import org.jmesa.test.SpringParametersAdapter;
 import org.jmesaweb.dao.PresidentFilter;
 import org.jmesaweb.dao.PresidentSort;
 import org.jmesaweb.service.PresidentService;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
