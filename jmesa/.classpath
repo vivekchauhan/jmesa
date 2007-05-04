@@ -17,5 +17,5 @@
 	<classpathentry kind="lib" path="lib/spring-1.2.6.jar"/>
 	<classpathentry kind="lib" path="lib/spring-mock-1.2.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="build"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
