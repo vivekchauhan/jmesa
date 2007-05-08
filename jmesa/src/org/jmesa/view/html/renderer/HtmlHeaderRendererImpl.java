@@ -72,6 +72,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
         HtmlColumn column = getColumn();
 
         html.td(2);
+        html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
 

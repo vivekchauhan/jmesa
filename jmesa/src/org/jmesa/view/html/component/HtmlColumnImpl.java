@@ -27,6 +27,7 @@ import org.jmesa.view.renderer.FilterRenderer;
 public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     private boolean filterable = true;
     private boolean sortable = true;
+    private String width;
     private FilterRenderer filterRenderer;
 
     public HtmlColumnImpl() {
@@ -50,6 +51,14 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 
     public void setSortable(boolean sortable) {
         this.sortable = sortable;
+    }
+    
+    public String getWidth() {
+        return width;
+    }
+    
+    public void setWidth(String width) {
+        this.width = width;
     }
 
     public FilterRenderer getFilterRenderer() {

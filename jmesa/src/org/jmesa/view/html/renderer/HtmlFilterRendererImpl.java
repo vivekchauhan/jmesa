@@ -64,6 +64,7 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
         Filter filter = limit.getFilterSet().getFilter(property);
 
         html.td(2);
+        html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
         html.close();
