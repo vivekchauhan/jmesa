@@ -11,7 +11,7 @@ JMesa is written as an API which is not dependant on any framework or Servlet AP
 
 ==== Logging ====
 
-In addition JMesa is using [SLF4J] The core jar file is:
+In addition JMesa is using [SLF4J]. The core jar file is:
  * slf4j-api-1.3.1.jar
 
 _See the [SLF4J] page for details about working with the slf4j logging framework._
@@ -38,7 +38,6 @@ JMesa does not currently have any tags, but instead uses the API to build tables
 Exports, on the other hand, will always be built using the API. There will no longer be a servlet filter used.
 
 Read the article about [TagsAndFilter tags and filters] for a detailed explanation of why both of these decisions were made.
-
 
 
 
