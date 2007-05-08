@@ -8,7 +8,20 @@ JMesa is written as an API which is not dependant on any framework or Servlet AP
  * commons-beanutils-1.7.0.jar
  * commons-collections-3.0.jar
  * commons-lang-2.2.jar
- * commons-logging-1.0.4.jar
+
+==== Logging ====
+
+In addition JMesa is using [SLF4J] so you will need some additional jars. The core jar file is:
+ * slf4j-api-1.3.1.jar
+
+Then, for example, if you are using Log4j the minimum jar files needed are:
+
+    * slf4j-log4j12-1.3.1.jar
+    * log4j-1.2.8.jar 
+
+To add support for the commons-logging framework also add:
+
+    * jcl104-over-slf4j-1.3.1.jar 
 
 === Installation ===
 First download the [http://code.google.com/p/jmesa/downloads/list distribution].
@@ -31,3 +44,5 @@ JMesa does not currently have any tags, but instead uses the API to build tables
 Exports, on the other hand, will always be built using the API. There will no longer be a servlet filter used.
 
 Read the article about [TagsAndFilter tags and filters] for a detailed explanation of why both of these decisions were made.
+
+
