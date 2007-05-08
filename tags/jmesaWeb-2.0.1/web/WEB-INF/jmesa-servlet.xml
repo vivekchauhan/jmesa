@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <beans
+     xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:util="http://www.springframework.org/schema/util"
+     xmlns:lang="http://www.springframework.org/schema/lang"
+     xsi:schemaLocation="http://www.springframework.org/schema/beans 
+     						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd  
+     						http://www.springframework.org/schema/lang
+     						http://www.springframework.org/schema/lang/spring-lang-2.0.xsd
+     						http://www.springframework.org/schema/util 
+     						http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="urlMap">
+			<map>
+				<entry key="presidents.run">
+					<ref bean="basic"/>
+				</entry>
+				<entry key="limit.run">
+					<ref bean="limit"/>
+				</entry>
+				<entry key="basic.run">
+					<ref bean="basic"/>
+				</entry>
+				<entry key="advanced.run">
+					<ref bean="advanced"/>
+				</entry>
+				<entry key="ajax.run">
+					<ref bean="ajax"/>
+				</entry>
+				<entry key="basicGroovy.run">
+					<ref bean="basicGroovy"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="limitCoreContext" class="org.jmesaweb.controller.LimitCoreContext">
+		<property name="presidentService" ref="presidentService"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
+	</bean>
+	
+	<bean id="limit" class="org.jmesaweb.controller.LimitPresidentController">
+		<property name="successView" value="jsp/limit.jsp"/>
+		<property name="limitCoreContext" ref="limitCoreContext"/>
+	</bean>
+
+	<bean id="ajax" class="org.jmesaweb.controller.AjaxLimitPresidentController">
+		<property name="limitCoreContext" ref="limitCoreContext"/>
+	</bean>
+
+	<bean id="basic" class="org.jmesaweb.controller.BasicPresidentController">
+		<property name="successView" value="jsp/basic.jsp"/>
+		<property name="presidentService" ref="presidentService"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
+	</bean>
+
+	<bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
+		<property name="successView" value="jsp/basicGroovy.jsp"/>
+		<property name="presidentService" ref="presidentService"/>
+		<property name="basicGroovyPresident" ref="basicGroovyPresident"/>
+	</bean>
+
+	<lang:groovy id="basicGroovyPresident" 
+				refresh-check-delay="5000"
+				script-source="WEB-INF/groovy/BasicGroovyPresident.groovy">
+        <lang:property name="id" value="pres"/> 
+        <lang:property name="maxRows" value="12"/> 
+    </lang:groovy>			
+
+	<bean id="advanced" class="org.jmesaweb.controller.AdvancedPresidentController">
+		<property name="successView" value="jsp/advanced.jsp"/>
+		<property name="presidentService" ref="presidentService"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
+	</bean>
+
+</beans>
