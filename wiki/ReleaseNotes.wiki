@@ -22,3 +22,14 @@ followed by the word row and then the correct rowcount.
 
 ==== jmesa-2.0 ====
 The 2.0 release is out! There are no changes from the last release candidate so this is just a repackaged version with the correct version number.
+
+==== jmesa-2.0.1 ====
+In the spirit of wanting to release fixes and small improvements JMesa offers the following enhancements:
+ * Moved to [SLF4J] logging framework
+ * Added HtmlColumn width attribute
+ * The table.getRow().getColumn("name"); syntax now correctly returns a HtmlColumn so no casting is needed.
+ * Added Groovy closure support for a !CellEditor.
+
+
+
+
