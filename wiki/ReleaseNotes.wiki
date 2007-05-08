@@ -25,11 +25,10 @@ The 2.0 release is out! There are no changes from the last release candidate so 
 
 ==== jmesa-2.0.1 ====
 In the spirit of wanting to release fixes and small improvements JMesa offers the following enhancements:
- * Moved to [SLF4J] logging framework
+ * Moved to [SLF4J] logging framework (will require new jars)
  * Added HtmlColumn width attribute
  * The table.getRow().getColumn("name"); syntax now correctly returns a HtmlColumn so no casting is needed.
  * Added Groovy closure support for a !CellEditor.
-
 
 
 
