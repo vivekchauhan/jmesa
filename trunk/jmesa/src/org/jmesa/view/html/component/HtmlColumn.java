@@ -32,6 +32,10 @@ public interface HtmlColumn extends Column {
     public boolean isSortable();
 
     public void setSortable(boolean sortable);
+    
+    public String getWidth();
+    
+    public void setWidth(String width);
 
     public FilterRenderer getFilterRenderer();
 

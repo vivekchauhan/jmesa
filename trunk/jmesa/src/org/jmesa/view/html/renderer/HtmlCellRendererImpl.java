@@ -56,6 +56,7 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
     public Object render(Object item, int rowcount) {
         HtmlBuilder html = new HtmlBuilder();
         html.td(2);
+        html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
         html.close();
