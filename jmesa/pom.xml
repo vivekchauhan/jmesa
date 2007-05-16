@@ -20,6 +20,32 @@
         <directory>testResources</directory>
       </testResource>
     </testResources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-test-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <copy overwrite="true" todir="${project.build.outputDirectory}">
+                  <fileset dir="${basedir}/testResources"/>
+                </copy>
+                <copy overwrite="true" todir="${project.build.testOutputDirectory}">
+                  <fileset dir="${project.build.sourceDirectory}/">
+                    <include name="**/*.properties"/>
+                  </fileset>
+                </copy>                
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>

@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.web.WebContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,5 +68,12 @@ public class PropertiesPreferences implements Preferences {
      */
     public String getPreference(String name) {
         return (String) properties.get(name);
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("properties", properties);
+        return builder.toString();        
     }
 }
