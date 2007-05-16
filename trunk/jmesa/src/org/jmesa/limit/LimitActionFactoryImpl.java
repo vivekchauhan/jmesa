@@ -51,7 +51,9 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
     public Integer getMaxRows() {
         String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.toParam()));
         if (StringUtils.isNotBlank(maxRows)) {
-            logger.debug("Max Rows:" + maxRows);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Max Rows:" + maxRows);
+            }
             return Integer.parseInt(maxRows);
         }
 
@@ -70,9 +72,11 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
             }
             return Integer.parseInt(page);
         }
-
-        logger.debug("Defaulting to Page 1");
-
+        
+        if (logger.isDebugEnabled()) {
+        	logger.debug("Defaulting to Page 1");
+        }
+        
         return 1;
     }
 

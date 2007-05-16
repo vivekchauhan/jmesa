@@ -183,13 +183,11 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             return coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND);
         }
 
-        else {
-            Integer total = new Integer(rowSelect.getTotalRows());
-            Integer from = new Integer(rowSelect.getRowStart() + 1);
-            Integer to = new Integer(rowSelect.getRowEnd());
-            Object[] messageArguments = { total, from, to };
-            return coreContext.getMessage(HtmlConstants.STATUSBAR_RESULTS_FOUND, messageArguments);
-        }
+        Integer total = new Integer(rowSelect.getTotalRows());
+        Integer from = new Integer(rowSelect.getRowStart() + 1);
+        Integer to = new Integer(rowSelect.getRowEnd());
+        Object[] messageArguments = { total, from, to };
+        return coreContext.getMessage(HtmlConstants.STATUSBAR_RESULTS_FOUND, messageArguments);
     }
 
     public String toolbar() {
