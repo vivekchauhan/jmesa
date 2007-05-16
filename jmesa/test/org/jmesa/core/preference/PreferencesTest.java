@@ -22,18 +22,24 @@ import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class PreferencesTest extends AbstractTestCase {
+    
+    private Logger logger = LoggerFactory.getLogger( PreferencesTest.class );
+    
     @Test
     public void getPreference() {
         WebContext webContext = createWebContext();
         Preferences preferences = new PropertiesPreferences("/org/jmesa/core/preference/test.properties", webContext);
         String preference = preferences.getPreference("test.data");
-        assertNotNull(preference);
+        logger.debug( "preferences loaded " + preferences );
+        assertNotNull("preference test.data is null " , preference);
         assertTrue(preference.equals("foo"));
     }
 }
