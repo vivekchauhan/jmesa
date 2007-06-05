@@ -6,7 +6,7 @@ This is added to the servlet bean context:
 <bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
     <property name="successView" value="jsp/basicGroovy.jsp"/>
     <property name="presidentService" ref="presidentService"/>
-    <property name="basicGroovyPresident" ref="basicGroovyPresident"/>
+    <property name="htmlTableTemplate" ref="basicGroovyPresident"/>
 </bean>
 
 <lang:groovy id="basicGroovyPresident" 
@@ -21,20 +21,20 @@ Then the Spring Controller looks like this:
 
 {{{
 public class BasicGroovyPresidentController extends AbstractController {
-    private GroovyObject basicGroovyPresident;
+    private HtmlTableTemplate htmlTableTemplate;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ...
         WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Object presidents = basicGroovyPresident.invokeMethod("getHtmlTable", new Object[] {items, webContext});
+        Object presidents = htmlTableTemplate.render(items, webContext);
         mv.addObject("presidents", presidents);
         return mv;
     }
 
-    public void setBasicGroovyPresident(GroovyObject basicGroovyPresident) {
-        this.basicGroovyPresident = basicGroovyPresident;
+    public void setHtmlTableTemplate(HtmlTableTemplate htmlTableTemplate) {
+        this.htmlTableTemplate = htmlTableTemplate;
     }
 }
 }}}
