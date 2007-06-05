@@ -15,7 +15,7 @@
  */
 package org.jmesaweb.controller;
 
-import groovy.lang.GroovyObject;
+import org.jmesaweb.controller.HtmlTableTemplate;
 
 import java.util.Collection;
 
@@ -36,14 +36,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class BasicGroovyPresidentController extends AbstractController {
     private PresidentService presidentService;
     private String successView;
-    private GroovyObject basicGroovyPresident;
+    private HtmlTableTemplate htmlTableTemplate;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ModelAndView mv = new ModelAndView(successView);
         WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Object presidents = basicGroovyPresident.invokeMethod("getHtmlTable", new Object[] {items, webContext});
+        Object presidents = htmlTableTemplate.render(items, webContext);
         mv.addObject("presidents", presidents);
         return mv;
     }
@@ -56,7 +56,7 @@ public class BasicGroovyPresidentController extends AbstractController {
 		this.presidentService = presidentService;
 	}
 
-    public void setBasicGroovyPresident(GroovyObject basicGroovyPresident) {
-        this.basicGroovyPresident = basicGroovyPresident;
+    public void setHtmlTableTemplate(HtmlTableTemplate htmlTableTemplate) {
+        this.htmlTableTemplate = htmlTableTemplate;
     }
 }

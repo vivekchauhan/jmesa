@@ -61,7 +61,7 @@
 	<bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
 		<property name="successView" value="jsp/basicGroovy.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
-		<property name="basicGroovyPresident" ref="basicGroovyPresident"/>
+		<property name="htmlTableTemplate" ref="basicGroovyPresident"/>
 	</bean>
 
 	<lang:groovy id="basicGroovyPresident" 
