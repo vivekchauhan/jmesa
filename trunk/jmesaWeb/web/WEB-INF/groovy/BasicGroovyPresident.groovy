@@ -1,5 +1,6 @@
-import java.util.Collection;
+import org.jmesaweb.controller.HtmlTableTemplate;
 
+import java.util.Collection;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
@@ -18,21 +19,17 @@ import org.jmesa.web.WebContext;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.BasicCellEditor;
 
-class BasicGroovyPresident {
+class BasicGroovyPresident implements HtmlTableTemplate {
     String id;
     int maxRows;
     
-	String getHtmlTable(Collection items, WebContext webContext) {
+	String render(Collection items, WebContext webContext) {
         def limitFactory = [id, webContext] as LimitFactoryImpl;
         def limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
 
         def factory = [webContext] as CoreContextFactoryImpl;
         def coreContext = factory.createCoreContext(items, limit);
 
-        return render(webContext, coreContext).toString();
-	}
-	
-    Object render(WebContext webContext, CoreContext coreContext) {
         def tableFactory = [webContext, coreContext] as HtmlTableFactory;
         def columns = ["name.firstName", "name.lastName", "term", "career"] as String[];
         def table = tableFactory.createHtmlTable(columns); // Must use createHtmlTable because createTable 
@@ -59,6 +56,6 @@ class BasicGroovyPresident {
         def toolbar = toolbarFactory.createToolbar();
         def view = [table, toolbar, coreContext] as HtmlView;
 
-        return view.render();
+        return view.render().toString();
     }
 }
