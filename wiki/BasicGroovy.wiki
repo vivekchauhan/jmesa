@@ -7,21 +7,19 @@ Another nice touch, if you are using Spring, is that you can wire this all up th
 _Note: support for closures in the column !CellEditor is currently only available on the development trunk._ 
 
 {{{
-class BasicGroovyPresident {
+import org.jmesaweb.controller.HtmlTableTemplate;
+
+class BasicGroovyPresident implements HtmlTableTemplate {
     String id;
     int maxRows;
     
-    String getHtmlTable(Collection items, WebContext webContext) {
+    String render(Collection items, WebContext webContext) {
         def limitFactory = [id, webContext] as LimitFactoryImpl;
         def limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
 
         def factory = [webContext] as CoreContextFactoryImpl;
         def coreContext = factory.createCoreContext(items, limit);
 
-        return render(webContext, coreContext).toString();
-    }
-	
-    Object render(WebContext webContext, CoreContext coreContext) {
         def tableFactory = [webContext, coreContext] as HtmlTableFactory;
         def columns = ["name.firstName", "name.lastName", "term", "career"] as String[];
         def table = tableFactory.createHtmlTable(columns); 
@@ -50,7 +48,7 @@ class BasicGroovyPresident {
         def toolbar = toolbarFactory.createToolbar();
         def view = [table, toolbar, coreContext] as HtmlView;
 
-        return view.render();
+        return view.render().toString();
     }
 }
 
