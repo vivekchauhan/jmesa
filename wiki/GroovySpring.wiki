@@ -28,7 +28,7 @@ public class BasicGroovyPresidentController extends AbstractController {
         ...
         WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Object presidents = htmlTableTemplate.render(items, webContext);
+        Object presidents = htmlTableTemplate.build(items, webContext);
         mv.addObject("presidents", presidents);
         return mv;
     }
@@ -38,4 +38,3 @@ public class BasicGroovyPresidentController extends AbstractController {
     }
 }
 }}}
-
