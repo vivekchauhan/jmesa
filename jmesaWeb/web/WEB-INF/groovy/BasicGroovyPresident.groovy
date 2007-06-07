@@ -23,7 +23,7 @@ class BasicGroovyPresident implements HtmlTableTemplate {
     String id;
     int maxRows;
     
-	String render(Collection items, WebContext webContext) {
+	String build(Collection items, WebContext webContext) {
         def limitFactory = [id, webContext] as LimitFactoryImpl;
         def limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
 
