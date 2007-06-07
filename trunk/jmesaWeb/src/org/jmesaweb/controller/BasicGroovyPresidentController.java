@@ -43,7 +43,7 @@ public class BasicGroovyPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
         WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Object presidents = htmlTableTemplate.render(items, webContext);
+        Object presidents = htmlTableTemplate.build(items, webContext);
         mv.addObject("presidents", presidents);
         return mv;
     }
