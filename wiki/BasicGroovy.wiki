@@ -4,8 +4,6 @@ One of my favorite things about Groovy is that you can just cut and paste in Jav
 
 Another nice touch, if you are using Spring, is that you can wire this all up through the [GroovySpring bean factory].
 
-_Note: support for closures in the column !CellEditor is currently only available on the development trunk._ 
-
 {{{
 import org.jmesaweb.controller.HtmlTableTemplate;
 
@@ -53,7 +51,6 @@ class BasicGroovyPresident implements HtmlTableTemplate {
 }
 
 }}}
-
 
 
 
