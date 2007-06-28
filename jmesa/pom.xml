@@ -93,6 +93,7 @@
       <groupId>groovy</groupId>
       <artifactId>groovy</artifactId>
       <version>1.0</version>
+	  <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -110,6 +111,7 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-mock</artifactId>
       <version>1.2.6</version>
+	  <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
