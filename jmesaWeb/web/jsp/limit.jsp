@@ -35,44 +35,28 @@
 	
 <pre>
 function onInvokeAction(id) {
-	setExportToLimit(id, '');
-	
-	var parameterString = createParameterStringForLimit(id);
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open('GET', '${pageContext.request.contextPath}/ajax.run?' + parameterString, true);
-	
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4) {
-			var presidents = document.getElementById('presidents');
-			presidents.innerHTML = xmlhttp.responseText;
-		}
-	}
-	
-	xmlhttp.send(null);
+    setExportToLimit(id, '');
+
+    var parameterString = createParameterStringForLimit(id);
+    $.get('${pageContext.request.contextPath}/ajax.run?' + parameterString, function(data) {
+        $("#presidents").html(data)
+    });
 }
 
 function onInvokeExportAction(id) {
-	var parameterString = createParameterStringForLimit(id);
-	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+    var parameterString = createParameterStringForLimit(id);
+    location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
 }
 </pre>		
 
 <script type="text/javascript">
 function onInvokeAction(id) {
-	setExportToLimit(id, '');
-	
-	var parameterString = createParameterStringForLimit(id);
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open('GET', '${pageContext.request.contextPath}/ajax.run?' + parameterString, true);
-	
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4) {
-			var presidents = document.getElementById('presidents');
-			presidents.innerHTML = xmlhttp.responseText;
-		}
-	}
-	
-	xmlhttp.send(null);
+    setExportToLimit(id, '');
+
+    var parameterString = createParameterStringForLimit(id);
+    $.get('${pageContext.request.contextPath}/ajax.run?' + parameterString, function(data) {
+        $("#presidents").html(data)
+    });
 }
 
 function onInvokeExportAction(id) {
