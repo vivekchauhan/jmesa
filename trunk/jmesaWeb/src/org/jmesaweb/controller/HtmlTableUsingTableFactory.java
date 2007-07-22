@@ -34,6 +34,7 @@ import org.jmesa.web.WebContext;
  */
 public class HtmlTableUsingTableFactory {
     public static String CSV = "csv";
+    public static String EXCEL = "excel";
 
     public Object render(WebContext webContext, CoreContext coreContext) {
         HtmlTableFactory tableFactory = new HtmlTableFactory(webContext, coreContext);
@@ -49,7 +50,7 @@ public class HtmlTableUsingTableFactory {
         Column lastName = table.getRow().getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
-        ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV);
+        ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, CSV, EXCEL);
         toolbarFactory.enableSeparators(false);
         Toolbar toolbar = toolbarFactory.createToolbar();
         View view = new HtmlView(table, toolbar, coreContext);

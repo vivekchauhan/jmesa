@@ -39,6 +39,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class BasicPresidentController extends AbstractController {
     private static String CSV = "csv";
+    private static String EXCEL = "excel";
 
     private PresidentService presidentService;
     private String successView;
@@ -58,6 +59,10 @@ public class BasicPresidentController extends AbstractController {
             String type = limit.getExport().getType();
             if (type.equals(CSV)) {
                 new CsvTableUsingTableFactory().render(response, webContext, coreContext);
+                return null;
+            }
+            else if (type.equals(EXCEL)) {
+                new ExcelTableUsingTableFactory().render(response, webContext, coreContext);
                 return null;
             }
         }
