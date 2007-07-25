@@ -12,8 +12,10 @@
 	
 	<p class="content">
 		Other examples:<br/>
+		<a href="${pageContext.request.contextPath}/basic.run">Basic</a> <br/>
 		<a href="${pageContext.request.contextPath}/limit.run">Limit (with AJAX)</a> <br/>
 		<a href="${pageContext.request.contextPath}/advanced.run?restore=true">Advanced</a><br/>
+		<a href="${pageContext.request.contextPath}/tag.run">Tag</a><br/>
 	</p>
 	
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/basicGroovy.run">
