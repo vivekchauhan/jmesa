@@ -21,7 +21,7 @@ The following are the tags defined by JMesa.
 || cellspacing ||  ||
 
 === !RowTag ===
-The !RowTag could be optional?
+The !RowTag is optional?
 
 || *Attribute* || *Description* ||
 || highlighter ||  ||
@@ -38,7 +38,6 @@ The !RowTag could be optional?
 || width ||  ||
 || style ||  ||
 || styleClass ||  ||
-
 
 
 
