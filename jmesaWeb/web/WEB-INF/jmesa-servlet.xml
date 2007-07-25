@@ -32,6 +32,9 @@
 				<entry key="basicGroovy.run">
 					<ref bean="basicGroovy"/>
 				</entry>
+				<entry key="tag.run">
+					<ref bean="tag"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -62,6 +65,13 @@
 		<property name="successView" value="jsp/basicGroovy.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
 		<property name="htmlTableTemplate" ref="basicGroovyPresident"/>
+	</bean>
+
+	<bean id="tag" class="org.jmesaweb.controller.TagPresidentController">
+		<property name="successView" value="jsp/tag.jsp"/>
+		<property name="presidentService" ref="presidentService"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
 	</bean>
 
 	<lang:groovy id="basicGroovyPresident" 
