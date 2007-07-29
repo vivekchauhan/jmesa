@@ -96,22 +96,6 @@ public class LimitFactoryImpl implements LimitFactory {
         this.limitActionFactory = new LimitActionFactoryImpl(id, context.getParameterMap());
     }
 
-    /**
-     * <p>
-     * Create a Limit object that is populated with the FilterSet, SortSet, and 
-     * Export. Be aware though that the Limit object is still incomplete. You still
-     * need to set a RowSelect on the Limit to make the object complete. 
-     * </p>
-     * 
-     * <p>
-     * One reason to create the Limit separately from the RowSelect is if you are 
-     * going to manually filter and sort the table to only return one page of data. 
-     * If you are doing that then you should use the FilterSet to manually filter 
-     * the table to figure out the totalRows.  
-     * </p>
-     * 
-     * @return The created Limit object.  
-     */
     public Limit createLimit() {
         Limit limit = new LimitImpl(limitActionFactory.getId());
 
@@ -127,25 +111,6 @@ public class LimitFactoryImpl implements LimitFactory {
         return limit;
     }
 
-    /**
-     * <p>
-     * Create the RowSelect object. This is created with dynamic values for the
-     * page and maxRows. What this means is if the user is paginating or
-     * selected a different maxRows on the table then the RowSelect will be
-     * created using those values.
-     * </p>
-     * 
-     * <p>
-     * If you do not want the RowSelect to be created based on how the user is
-     * interacting with the table, then do not use this method. Instead you 
-     * should instantiate the RowSelect object yourself and set it on the Limit.  
-     * </p>
-     * 
-     * @param maxRows The maximum page rows that should be displayed on the current page.
-     * @param totalRows The total rows across all the pages.
-     * 
-     * @return The created RowSelect object.
-     */
     public RowSelect createRowSelect(int maxRows, int totalRows) {
         int page = limitActionFactory.getPage();
 
@@ -153,38 +118,13 @@ public class LimitFactoryImpl implements LimitFactory {
 
         return new RowSelectImpl(page, maxRows, totalRows);
     }
+    
+    public RowSelect createRowSelect(int maxRows, int totalRows, Limit limit) {
+        RowSelect rowSelect = createRowSelect(maxRows, totalRows);
+        limit.setRowSelect(rowSelect);
+        return rowSelect;
+    }
 
-    /**
-     * <p>
-     * A convenience method to create the Limit and RowSelect at the same time. This
-     * takes in account whether or not the table is being exported. If the table 
-     * is being exported a new RowSelect object is created, starting at page one, 
-     * and the maxRows and totalRows set to the value of the totalRows. If the
-     * table is not being exported then the RowSelect will be created based on how 
-     * the user is interacting with the table. What this means is if the user is 
-     * paginating or selected a different maxRows on the table then the RowSelect 
-     * will be created using those values.
-     * </p>
-     * 
-     * <p>
-     * If you do not want the RowSelect to be created based on how the user is
-     * interacting with the table, then do not use this method. Instead create the
-     * Limit using the createLimit() method and then create a RowSelect object
-     * separately. 
-     * </p>
-     * 
-     * <p>
-     * This method is also not useful if you are using the Limit to filter and sort
-     * manually and only return one page of data. This is because when you are manually 
-     * filtering you do not know the totalRows until you use the FilterSet to do the 
-     * filtering.
-     * </p>
-     * 
-     * @param maxRows The maximum page rows that should be displayed on the current page.
-     * @param totalRows The total rows across all the pages.
-     * 
-     * @return The created Limit that is populated with the RowSelect object.
-     */
     public Limit createLimitAndRowSelect(int maxRows, int totalRows) {
         Limit limit = createLimit();
 

@@ -28,7 +28,6 @@ import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.limit.RowSelect;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlView;
@@ -223,8 +222,7 @@ public class TableTag extends BodyTagSupport {
             logger.info("could not found limit object in the request scope.");
             LimitFactory limitFactory = new LimitFactoryImpl(getId(), webContext);
             m_limit = limitFactory.createLimit();
-            RowSelect rs = limitFactory.createRowSelect(maxRows, items.size());
-            m_limit.setRowSelect(rs);
+            limitFactory.createRowSelect(maxRows, items.size(), m_limit);
         }
         
         return m_limit;

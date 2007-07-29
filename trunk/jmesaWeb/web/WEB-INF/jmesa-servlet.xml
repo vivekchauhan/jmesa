@@ -35,6 +35,9 @@
 				<entry key="tag.run">
 					<ref bean="tag"/>
 				</entry>
+				<entry key="facade.run">
+					<ref bean="facade"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -69,6 +72,13 @@
 
 	<bean id="tag" class="org.jmesaweb.controller.TagPresidentController">
 		<property name="successView" value="jsp/tag.jsp"/>
+		<property name="presidentService" ref="presidentService"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
+	</bean>
+
+	<bean id="facade" class="org.jmesaweb.controller.TableFacadePresidentController">
+		<property name="successView" value="jsp/facade.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
 		<property name="id" value="pres"/>
 		<property name="maxRows" value="12"/>
