@@ -1,0 +1,86 @@
+I was on vacation recently and during the drive started thinking about what it would mean to create a facade over the existing functionality of JMesa. The idea would be to make creating tables with the API easier without sacrificing any of the flexibility that you are currently used to.
+
+It wasn't long before I realized that what I needed was a facade that had a little bit of builder in its veins. I sketched up the class diagram and the interface I came up with is called !TableFacade. I implemented the interface and thought it was good enough to share with people, although it will be a few weeks before there is a beta release available in the download section. I hope to release this with a beta version of the [Tags tag library] as well.
+
+The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. The facade completely abstracts away all the factory classes and eliminates a lot of boilerplate code. The builder notion comes in because as you work with it it will internally build up everything you need and keep track of it for you.
+
+Maybe a better way to look at it is you can work with and get at all the classes that you are used to through the facade without using any of the factories. Or, if all you need is a simple table then instantiate the !TableFacade and call the render method. All the work is done for you automatically.
+
+For instance to render an html table all you would have to do is this:
+{{{
+TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+String html = facade.render(); 
+}}}
+
+Or if you want to customize it then you can do this (Spring MVC example): 
+
+{{{
+protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    ModelAndView mv = new ModelAndView(successView);
+    Collection<Object> items = presidentService.getPresidents();
+
+    TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+    facade.setExportTypes(response, CSV, EXCEL);
+
+    Table table = facade.getTable();
+    table.setCaption("Presidents");
+
+    Column firstName = table.getRow().getColumn("name.firstName");
+    firstName.setTitle("First Name");
+
+    Column lastName = table.getRow().getColumn("name.lastName");
+    lastName.setTitle("Last Name");
+
+    Limit limit = facade.getLimit();
+    if (limit.isExportable()) {
+        facade.render();
+        return null;
+    } else {
+        HtmlTable htmlTable = (HtmlTable) table;
+        htmlTable.getTableRenderer().setWidth("600px");
+
+        firstName.getCellRenderer().setCellEditor(new CellEditor() {
+            public Object getValue(Object item, String property, int rowcount) {
+                Object value = new BasicCellEditor().getValue(item, property, rowcount);
+                HtmlBuilder html = new HtmlBuilder();
+                html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+                html.append(value);
+                html.aEnd();
+                return html.toString();
+            }
+        });
+
+        String html = facade.render();
+        mv.addObject("presidents", html);
+    }
+
+    return mv;
+}
+}}}
+
+Notice how there are no factories to deal with. However any API Object that you would have used before is available through the facade, including the !WebContext, !CoreContext, Limit, Table, Toolbar, and View. When you ask the facade for a given object it builds everything it needs up to that point. Internally it keeps track of everything you are doing so it also works like a builder. 
+
+The !TableFacade interface also has setters for all the facade objects including the !WebContext, !CoreContext, Limit, Table, Toolbar, and View. The reason is if you really need to customize something and want to set your own implementation you can. Your object just goes into the flow of the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when the render() method is called it will use your Toolbar.
+
+However, all this should feel very natural and you should not have to think about what you are doing. Just interact with the facade how you need to and it will take care of everything.
+
+Even if you start using the tag library it would still be very handy to use for the exports. The code would be as easy as this:
+
+{{{
+TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+facade.setExportTypes(response, CSV, EXCEL);
+
+Limit limit = facade.getLimit();
+if (limit.isExportable()) {
+    facade.render();
+    return null;
+}
+}}}
+
+All the boilerplate code of rendering the exports is done for you!
+
+
+
+
+
+
