@@ -42,6 +42,7 @@ public class TableFacadeImpl implements TableFacade {
 
     private HttpServletRequest request;
     private HttpServletResponse response;
+
     private String id;
     private int maxRows;
     private Collection<Object> items;
@@ -57,11 +58,15 @@ public class TableFacadeImpl implements TableFacade {
     private boolean performFilterAndSort = true;
 
     /**
+     * The most common constructor that will be used to display a table and
+     * exports. The intent is let the API do all the filtering and sorting
+     * automatically.
      * 
-     * @param maxRows
-     * @param items
-     * @param request
-     * @param columns
+     * @param id The unique identifier for this table.
+     * @param request The servlet request object.
+     * @param maxRows The max rows to display on a page.
+     * @param items The Collection of Beans or Collection of Maps.
+     * @param columnNames The columns to be pulled from the items.
      */
     public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<Object> items, String... columnNames) {
         this.id = id;
@@ -72,9 +77,29 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
+     * This constructor is only useful if you are only using the facade for
+     * exports, not html tables. This is because you are not setting the maxRows
+     * which is always required for the html tables.
      * 
-     * @param response
-     * @param exportTypes
+     * @param id The unique identifier for this table.
+     * @param request The servlet request object.
+     * @param items The Collection of Beans or Collection of Maps.
+     * @param columnNames The columns to be pulled from the items.
+     */
+    public TableFacadeImpl(String id, HttpServletRequest request, Collection<Object> items, String... columnNames) {
+        this.id = id;
+        this.items = items;
+        this.request = request;
+        this.columnNames = columnNames;
+    }
+
+    /**
+     * This constructor is useful if you are doing the filtering and sorting
+     * manually and intend to set the RowSelect object by yourself.
+     * 
+     * @param id The unique identifier for this table.
+     * @param request The servlet request object.
+     * @param columnNames The columns to be pulled from the items.
      */
     public TableFacadeImpl(String id, HttpServletRequest request, String... columnNames) {
         this.id = id;
@@ -143,6 +168,10 @@ public class TableFacadeImpl implements TableFacade {
             return coreContext;
         }
 
+        if (items == null) {
+            throw new IllegalStateException("The items is null. You need to set the items on the facade.");
+        }
+
         CoreContextFactory factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
         CoreContext cc = factory.createCoreContext(items, getLimit());
 
@@ -172,11 +201,13 @@ public class TableFacadeImpl implements TableFacade {
         LimitFactory limitFactory = new LimitFactoryImpl(id, wc);
         Limit l = limitFactory.createLimit();
 
-        if (maxRows > 0 && items != null) {
+        if (items != null) {
             if (l.isExportable()) {
                 l.setRowSelect(new RowSelectImpl(1, items.size(), items.size()));
             } else {
-                limitFactory.createRowSelect(maxRows, items.size(), l);
+                if (maxRows > 0) {
+                    limitFactory.createRowSelect(maxRows, items.size(), l);
+                }
             }
         }
 
@@ -200,6 +231,8 @@ public class TableFacadeImpl implements TableFacade {
      * @see org.jmesa.view.TableFacade#setRowSelect(int, int)
      */
     public RowSelect setRowSelect(int maxRows, int totalRows) {
+        this.maxRows = maxRows;
+
         RowSelect rowSelect;
 
         if (limit.isExportable()) {
