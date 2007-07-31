@@ -67,7 +67,7 @@ However, all this should feel very natural and you should not have to think abou
 Even if you start using the tag library it would still be very handy to use for the exports. The code would be as easy as this:
 
 {{{
-TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+TableFacade facade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
 facade.setExportTypes(response, CSV, EXCEL);
 
 Limit limit = facade.getLimit();
@@ -78,7 +78,6 @@ if (limit.isExportable()) {
 }}}
 
 All the boilerplate code of rendering the exports is done for you!
-
 
 
 
