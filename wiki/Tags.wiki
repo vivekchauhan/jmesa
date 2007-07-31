@@ -7,35 +7,36 @@ One note I would like to make though is I learned from the eXtremeTable that usi
 The following are the tags defined by JMesa.
 
 === !TableTag ===
-|| *Attribute* || *Description* ||
-|| id || The unique table id ||
-|| items || The Collection of beans or maps ||
-|| caption || The caption for the table ||
-|| theme ||  ||
-|| exportTypes || The comma separated list of exports ||
-|| width ||  ||
-|| style ||  ||
-|| styleClass ||  ||
-|| border ||  ||
-|| cellpadding ||  ||
-|| cellspacing ||  ||
+|| *Attribute* || *Type* || *Description* ||
+|| id || String || The unique table id ||
+|| items || Object || The Collection of beans or maps ||
+|| caption || String || The caption for the table ||
+|| theme || String ||  ||
+|| exportTypes || String || The comma separated list of exports ||
+|| width || String ||  ||
+|| style || String ||  ||
+|| styleClass || String ||  ||
+|| border || String ||  ||
+|| cellpadding || String ||  ||
+|| cellspacing || String ||  ||
 
 === !RowTag ===
-|| *Attribute* || *Description* ||
-|| highlighter ||  ||
-|| onclick ||  ||
-|| onmouseout ||  ||
-|| onmouseover ||  ||
+|| *Attribute* || *Type* || *Description* ||
+|| highlighter || boolean ||  ||
+|| onclick || String ||  ||
+|| onmouseout || String ||  ||
+|| onmouseover || String ||  ||
 
 === !ColumnTag ===
-|| *Attribute* || *Description* ||
-|| property || The bean or map attribute ||
-|| title || The column header title ||
-|| filterable ||  ||
-|| sortable ||  ||
-|| width ||  ||
-|| style ||  ||
-|| styleClass ||  ||
+|| *Attribute* || *Type* || *Description* ||
+|| property || String || The bean or map attribute ||
+|| title || String || The column header title ||
+|| filterable || boolean ||  ||
+|| sortable || boolean ||  ||
+|| width || String ||  ||
+|| style || String ||  ||
+|| styleClass || String ||  ||
+
 
 
 
