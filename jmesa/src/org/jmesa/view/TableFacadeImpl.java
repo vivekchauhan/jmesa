@@ -197,8 +197,7 @@ public class TableFacadeImpl implements TableFacade {
             return limit;
         }
 
-        WebContext wc = getWebContext();
-        LimitFactory limitFactory = new LimitFactoryImpl(id, wc);
+        LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
         Limit l = limitFactory.createLimit();
 
         if (items != null) {
@@ -235,12 +234,14 @@ public class TableFacadeImpl implements TableFacade {
 
         RowSelect rowSelect;
 
-        if (limit.isExportable()) {
+        Limit l = getLimit();
+
+        if (l.isExportable()) {
             rowSelect = new RowSelectImpl(1, totalRows, totalRows);
-            limit.setRowSelect(rowSelect);
+            l.setRowSelect(rowSelect);
         } else {
             LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
-            rowSelect = limitFactory.createRowSelect(maxRows, totalRows, getLimit());
+            rowSelect = limitFactory.createRowSelect(maxRows, totalRows, l);
         }
 
         return rowSelect;
@@ -259,6 +260,11 @@ public class TableFacadeImpl implements TableFacade {
         Limit l = getLimit();
 
         if (!l.isExportable()) {
+            if (l.getRowSelect() == null) {
+                throw new IllegalStateException(
+                        "The RowSelect is null. You need to set the Limit RowSelect on the facade, or use the contructor with the maxRows.");
+            }
+
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
             this.table = tableFactory.createTable(columnNames);
         } else {
@@ -269,6 +275,8 @@ public class TableFacadeImpl implements TableFacade {
             } else if (exportType.equals(EXCEL)) {
                 TableFactory tableFactory = new ExcelTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnNames);
+            } else {
+                throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
         }
 
@@ -288,9 +296,9 @@ public class TableFacadeImpl implements TableFacade {
         ToolbarFactory toolbarFactory;
 
         if (maxRowsIncrements != null && maxRowsIncrements.length > 0) {
-            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) table, maxRowsIncrements, getWebContext(), getCoreContext(), exportTypes);
+            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), maxRowsIncrements, getWebContext(), getCoreContext(), exportTypes);
         } else {
-            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) table, getWebContext(), getCoreContext(), exportTypes);
+            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), getWebContext(), getCoreContext(), exportTypes);
         }
 
         this.toolbar = toolbarFactory.createToolbar();
@@ -328,9 +336,11 @@ public class TableFacadeImpl implements TableFacade {
         } else {
             String exportType = l.getExport().getType();
             if (exportType.equals(CSV)) {
-                this.view = new CsvView(table, getCoreContext());
+                this.view = new CsvView(getTable(), getCoreContext());
             } else if (exportType.equals(EXCEL)) {
-                this.view = new ExcelView(table, getCoreContext());
+                this.view = new ExcelView(getTable(), getCoreContext());
+            } else {
+                throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
         }
 
@@ -372,6 +382,8 @@ public class TableFacadeImpl implements TableFacade {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
         }
 
