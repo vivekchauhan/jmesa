@@ -28,9 +28,9 @@ import org.jmesa.web.WebContext;
  * </p>
  * 
  * <p>
- * First you need to pass in the table id and the WebContext. The table id 
- * is the unique identifier for the current table being built. The 
- * WebContext is an adapter for the servlet request.
+ * First you need to pass in the table id and the WebContext. The table id is
+ * the unique identifier for the current table being built. The WebContext is an
+ * adapter for the servlet request.
  * </p>
  * 
  * <pre>
@@ -43,17 +43,17 @@ import org.jmesa.web.WebContext;
  * 
  * <p>
  * Once you have the Limit you still need to create and set a RowSelect object
- * on the Limit. The RowSelect needs to be added to the Limit so that the row 
- * information is available. The catch is the RowSelect cannot be created until 
+ * on the Limit. The RowSelect needs to be added to the Limit so that the row
+ * information is available. The catch is the RowSelect cannot be created until
  * the total rows is known. If you are not manually filtering and sorting the
- * table then it is easy because the totalRows is just the size of your items 
- * (Collection of Beans or Collection of Maps). However, if you are manually 
- * filtering and sorting the table to bring back one page of data the you 
- * first need to use the FilterSet on the Limit to figure out the total rows.
+ * table then it is easy because the totalRows is just the size of your items
+ * (Collection of Beans or Collection of Maps). However, if you are manually
+ * filtering and sorting the table to bring back one page of data the you first
+ * need to use the FilterSet on the Limit to figure out the total rows.
  * </p>
  * 
  * <p>
- * Either way, once you have the total rows you can now create a RowSelect with 
+ * Either way, once you have the total rows you can now create a RowSelect with
  * the factory. Lastly, set the RowSelect on the Limit and your done!
  * </p>
  * 
@@ -63,8 +63,8 @@ import org.jmesa.web.WebContext;
  * </pre>
  * 
  * <p>
- * Note: if you are not manually filtering and sorting there is a convenience method
- * to create the Limit and RowSelect at once. 
+ * Note: if you are not manually filtering and sorting there is a convenience
+ * method to create the Limit and RowSelect at once.
  * </p>
  * 
  * <pre>
@@ -73,8 +73,8 @@ import org.jmesa.web.WebContext;
  * </pre>
  * 
  * <p>
- * Also, if you are manually filtering and sorting and are doing an export then you 
- * should create the RowSelect object yourself and set it on the Limit.
+ * Also, if you are manually filtering and sorting and are doing an export then
+ * you should create the RowSelect object yourself and set it on the Limit.
  * </p>
  * 
  * <pre>
@@ -89,7 +89,7 @@ public class LimitFactoryImpl implements LimitFactory {
     private final LimitActionFactory limitActionFactory;
 
     /**
-     * @param id The unique identifier for the current table being built. 
+     * @param id The unique identifier for the current table being built.
      * @param context The adapter for the servlet request.
      */
     public LimitFactoryImpl(String id, WebContext context) {
@@ -111,6 +111,27 @@ public class LimitFactoryImpl implements LimitFactory {
         return limit;
     }
 
+    /**
+     * <p>
+     * Create the RowSelect object. This is created with dynamic values for the
+     * page and maxRows. What this means is if the user is paginating or
+     * selected a different maxRows on the table then the RowSelect will be
+     * created using those values.
+     * </p>
+     * 
+     * <p>
+     * If you do not want the RowSelect to be created based on how the user is
+     * interacting with the table, then do not use this method. Instead you
+     * should instantiate the RowSelectImpl object yourself and set it on the
+     * Limit.
+     * </p>
+     * 
+     * @param maxRows The maximum page rows that should be displayed on the
+     *            current page.
+     * @param totalRows The total rows across all the pages.
+     * 
+     * @return The created RowSelect object.
+     */
     public RowSelect createRowSelect(int maxRows, int totalRows) {
         int page = limitActionFactory.getPage();
 
@@ -118,13 +139,71 @@ public class LimitFactoryImpl implements LimitFactory {
 
         return new RowSelectImpl(page, maxRows, totalRows);
     }
-    
+
+    /**
+     * <p>
+     * Create the RowSelect object. This is created with dynamic values for the
+     * page and maxRows. What this means is if the user is paginating or
+     * selected a different maxRows on the table then the RowSelect will be
+     * created using those values.
+     * </p>
+     * 
+     * <p>
+     * In additon set the RowSelect on the Limit at the same time. This is a
+     * convenience method to make things a little easier.
+     * </p>
+     * 
+     * <p>
+     * If you do not want the RowSelect to be created based on how the user is
+     * interacting with the table, then do not use this method. Instead you
+     * should instantiate the RowSelectImpl object yourself and set it on the
+     * Limit.
+     * </p>
+     * 
+     * @param maxRows The maximum page rows that should be displayed on the
+     *            current page.
+     * @param totalRows The total rows across all the pages.
+     * 
+     * @return The created RowSelect object.
+     */
     public RowSelect createRowSelect(int maxRows, int totalRows, Limit limit) {
         RowSelect rowSelect = createRowSelect(maxRows, totalRows);
         limit.setRowSelect(rowSelect);
         return rowSelect;
     }
 
+    /**
+     * <p>
+     * A convenience method to create the Limit and RowSelect at the same time.
+     * This takes in account whether or not the table is being exported. If the
+     * table is being exported a new RowSelect object is created, starting at
+     * page one, and the maxRows and totalRows set to the value of the
+     * totalRows. If the table is not being exported then the RowSelect will be
+     * created based on how the user is interacting with the table. What this
+     * means is if the user is paginating or selected a different maxRows on the
+     * table then the RowSelect will be created using those values.
+     * </p>
+     * 
+     * <p>
+     * If you do not want the RowSelect to be created based on how the user is
+     * interacting with the table, then do not use this method. Instead create
+     * the Limit using the createLimit() method and then create a RowSelect
+     * object separately.
+     * </p>
+     * 
+     * <p>
+     * This method is also not useful if you are using the Limit to filter and
+     * sort manually and only return one page of data. This is because when you
+     * are manually filtering you do not know the totalRows until you use the
+     * FilterSet to do the filtering.
+     * </p>
+     * 
+     * @param maxRows The maximum page rows that should be displayed on the
+     *            current page.
+     * @param totalRows The total rows across all the pages.
+     * 
+     * @return The created Limit that is populated with the RowSelect object.
+     */
     public Limit createLimitAndRowSelect(int maxRows, int totalRows) {
         Limit limit = createLimit();
 
