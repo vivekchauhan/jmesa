@@ -29,8 +29,7 @@ import javax.servlet.jsp.PageContext;
  */
 public final class JspPageWebContext implements WebContext {
     private PageContext pageContext;
-    @SuppressWarnings("unchecked")
-    private Map parameterMap;
+    private Map<?,?> parameterMap;
     private Locale locale;
 
     public JspPageWebContext(PageContext pageContext) {
@@ -69,8 +68,7 @@ public final class JspPageWebContext implements WebContext {
         return pageContext.getRequest().getParameter(name);
     }
 
-    @SuppressWarnings("unchecked")
-    public Map getParameterMap() {
+    public Map<?,?> getParameterMap() {
         if (parameterMap != null) {
             return parameterMap;
         }
@@ -78,8 +76,7 @@ public final class JspPageWebContext implements WebContext {
         return pageContext.getRequest().getParameterMap();
     }
 
-    @SuppressWarnings("unchecked")
-    public void setParameterMap(Map parameterMap) {
+    public void setParameterMap(Map<?,?> parameterMap) {
         this.parameterMap = parameterMap;
     }
 
