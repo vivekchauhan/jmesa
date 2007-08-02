@@ -38,7 +38,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class MatcherKey {
-    private final Class type;
+    private final Class<?> type;
     private final String property;
 
     /**
@@ -46,7 +46,7 @@ public class MatcherKey {
      * 
      * @param type
      */
-    public MatcherKey(Class type) {
+    public MatcherKey(Class<?> type) {
         this(type, null);
     }
 
@@ -57,7 +57,7 @@ public class MatcherKey {
      * @param property
      * @param type
      */
-    public MatcherKey(Class type, String property) {
+    public MatcherKey(Class<?> type, String property) {
         this.type = type;
         this.property = property;
     }
@@ -66,7 +66,7 @@ public class MatcherKey {
         return property;
     }
 
-    public Class getType() {
+    public Class<?> getType() {
         return type;
     }
 

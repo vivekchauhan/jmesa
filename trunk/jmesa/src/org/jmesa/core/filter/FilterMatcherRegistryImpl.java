@@ -84,9 +84,9 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
      * @param type The Class type for the current column item.
      * @return The FilterMatch object that will do the comparison.
      */
-    private FilterMatcher getFilterMatchByType(Class type) {
+    private FilterMatcher getFilterMatchByType(Class<?> type) {
         for (MatcherKey key : matchers.keySet()) {
-            Class typ = key.getType();
+            Class<?> typ = key.getType();
             if (typ.equals(type)) {
                 return matchers.get(key);
             }

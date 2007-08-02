@@ -215,7 +215,7 @@ public class TableTag extends BodyTagSupport {
     /**
      * get limit from the request, if there is no limit,create one.
      */
-    private Limit getLimit(Collection items, WebContext webContext) {
+    private Limit getLimit(Collection<Object> items, WebContext webContext) {
         Limit m_limit = (Limit) pageContext.getRequest().getAttribute(limit);
 
         if (m_limit == null) { // in case there is no limit store in the request scope.

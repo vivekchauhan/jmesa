@@ -57,19 +57,19 @@ public class ItemsImpl implements Items {
         }
     }
 
-    public Collection getAllItems() {
+    public Collection<Object> getAllItems() {
         return allItems;
     }
 
-    public Collection getFilteredItems() {
+    public Collection<Object> getFilteredItems() {
         return filteredItems;
     }
 
-    public Collection getPageItems() {
+    public Collection<Object> getPageItems() {
         return pageItems;
     }
 
-    public Collection getSortedItems() {
+    public Collection<Object> getSortedItems() {
         return sortedItems;
     }
 
@@ -80,7 +80,7 @@ public class ItemsImpl implements Items {
      * @param filteredItems
      * @param limit
      */
-    private void recalculateRowSelect(Collection filteredItems, Limit limit) {
+    private void recalculateRowSelect(Collection<Object> filteredItems, Limit limit) {
         RowSelect rowSelect = limit.getRowSelect();
         int page = rowSelect.getPage();
         int maxRows = rowSelect.getMaxRows();

@@ -17,6 +17,8 @@ package org.jmesa.limit.state;
 
 import org.jmesa.limit.Limit;
 import org.jmesa.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -28,6 +30,8 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class SessionState implements State {
+    private Logger logger = LoggerFactory.getLogger(SessionState.class);
+    
     private String id;
     private String stateAttr;
     private WebContext webContext;
@@ -41,6 +45,9 @@ public class SessionState implements State {
     public Limit retrieveLimit() {
         String stateAttrValue = webContext.getParameter(stateAttr);
         if ("true".equalsIgnoreCase(stateAttrValue)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("The Limit is being retrieved from the users session.");
+            }
             return (Limit) webContext.getSessionAttribute(id);
         }
 
@@ -48,6 +55,9 @@ public class SessionState implements State {
     }
 
     public void persistLimit(Limit limit) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("The Limit is being persisted on the users session.");
+        }
         webContext.setSessionAttribute(id, limit);
     }
 }

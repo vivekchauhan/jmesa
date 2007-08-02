@@ -22,11 +22,11 @@ import java.util.Collection;
  * @author Jeff Johnston
  */
 public interface Items {
-    public Collection getAllItems();
+    public Collection<Object> getAllItems();
 
-    public Collection getPageItems();
+    public Collection<Object> getPageItems();
 
-    public Collection getFilteredItems();
+    public Collection<Object> getFilteredItems();
 
-    public Collection getSortedItems();
+    public Collection<Object> getSortedItems();
 }

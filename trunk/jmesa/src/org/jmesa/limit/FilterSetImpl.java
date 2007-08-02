@@ -67,8 +67,8 @@ public class FilterSetImpl implements Serializable, FilterSet {
      * @return The Filter object.
      */
     public Filter getFilter(String property) {
-        for (Iterator iter = filters.iterator(); iter.hasNext();) {
-            Filter filter = (Filter) iter.next();
+        for (Iterator<Filter> iter = filters.iterator(); iter.hasNext();) {
+            Filter filter = iter.next();
             if (filter.getProperty().equals(property)) {
                 return filter;
             }
@@ -122,8 +122,8 @@ public class FilterSetImpl implements Serializable, FilterSet {
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
 
-        for (Iterator iter = filters.iterator(); iter.hasNext();) {
-            Filter filter = (Filter) iter.next();
+        for (Iterator<Filter> iter = filters.iterator(); iter.hasNext();) {
+            Filter filter = iter.next();
             builder.append(filter.toString());
         }
 

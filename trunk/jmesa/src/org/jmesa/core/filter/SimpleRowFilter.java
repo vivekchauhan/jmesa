@@ -57,7 +57,7 @@ public class SimpleRowFilter implements RowFilter {
         return items;
     }
 
-    private Map<Filter, FilterMatcher> getMatches(Collection items, Limit limit, FilterSet filterSet) {
+    private Map<Filter, FilterMatcher> getMatches(Collection<Object> items, Limit limit, FilterSet filterSet) {
         Map<Filter, FilterMatcher> matches = new HashMap<Filter, FilterMatcher>();
 
         if (items == null || !items.iterator().hasNext()) {

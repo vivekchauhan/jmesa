@@ -50,7 +50,7 @@ public class CsvView implements View {
         List<Column> columns = table.getRow().getColumns();
 
         int rowcount = 0;
-        Collection items = coreContext.getPageItems();
+        Collection<Object> items = coreContext.getPageItems();
         for (Object item : items) {
             rowcount++;
 

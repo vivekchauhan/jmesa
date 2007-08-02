@@ -33,6 +33,8 @@ import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -81,6 +83,8 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class TableFacadeImpl implements TableFacade {
+    private Logger logger = LoggerFactory.getLogger(TableFacadeImpl.class);
+
     public static String CSV = "csv";
     public static String EXCEL = "excel";
 
@@ -298,6 +302,12 @@ public class TableFacadeImpl implements TableFacade {
             state.persistLimit(limit);
         }
 
+        if (logger.isDebugEnabled()) {
+            if (limit.getRowSelect() == null) {
+                logger.debug("The RowSelect is not set on the Limit. Be sure to call the setRowSelect() method on the facade.");
+            }
+        }
+
         return limit;
     }
 
@@ -332,6 +342,10 @@ public class TableFacadeImpl implements TableFacade {
         } else {
             LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
             rowSelect = limitFactory.createRowSelect(maxRows, totalRows, l);
+        }
+        
+        if (logger.isDebugEnabled()) {
+            logger.debug("The RowSelect is now set on the Limit.");
         }
 
         return rowSelect;
