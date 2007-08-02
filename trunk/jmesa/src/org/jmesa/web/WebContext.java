@@ -40,8 +40,10 @@ public interface WebContext {
 
     public String getParameter(String name);
 
+    @SuppressWarnings("unchecked")
     public Map getParameterMap();
 
+    @SuppressWarnings("unchecked")
     public void setParameterMap(Map parameterMap);
 
     public Object getRequestAttribute(String name);

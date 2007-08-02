@@ -66,9 +66,9 @@ public class SortSetTest {
         sortSet.addSort(new Sort(1, "fullName", Order.ASC));
         sortSet.addSort(new Sort(3, "term", Order.ASC));
 
-        Iterator iterator = sortSet.getSorts().iterator();
+        Iterator<Sort> iterator = sortSet.getSorts().iterator();
 
-        int position = ((Sort) iterator.next()).getPosition();
+        int position = (iterator.next()).getPosition();
         assertEquals(position, 1);
 
         position = ((Sort) iterator.next()).getPosition();

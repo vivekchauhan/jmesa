@@ -55,7 +55,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public final class Sort implements Serializable, Comparable {
+public final class Sort implements Serializable, Comparable<Sort> {
     private final int position;
     private final String property;
     private final Order order;
@@ -95,13 +95,7 @@ public final class Sort implements Serializable, Comparable {
      * if two Sort objects have the same position they better have the same
      * property.
      */
-    public int compareTo(Object o) {
-        if (!(o instanceof Sort)) {
-            throw new ClassCastException("A Sort object expected.");
-        }
-
-        Sort sort = (Sort) o;
-
+    public int compareTo(Sort sort) {
         if (this.getPosition() < sort.getPosition()) {
             return -1;
         }

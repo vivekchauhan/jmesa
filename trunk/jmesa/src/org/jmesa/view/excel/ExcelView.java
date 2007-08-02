@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -68,7 +69,7 @@ public class ExcelView implements View {
         int columncount = 0;
         for (Column col : columns) {
             HSSFCell cell = hssfRow.createCell((short) columncount++);
-            cell.setCellValue(col.getTitle());
+            cell.setCellValue(new HSSFRichTextString(col.getTitle()));
         }
 
         // renderer body
@@ -88,7 +89,7 @@ public class ExcelView implements View {
                     Double number = Double.valueOf(value);
                     cell.setCellValue(number);
                 } else
-                    cell.setCellValue(value);
+                    cell.setCellValue(new HSSFRichTextString(value));
 
             }
         }
