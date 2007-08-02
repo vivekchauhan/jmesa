@@ -16,6 +16,8 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
+import org.jmesa.limit.state.SessionState;
+import org.jmesa.limit.state.State;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvTableFactory;
 import org.jmesa.view.csv.CsvView;
@@ -33,6 +35,48 @@ import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 
 /**
+ * <p>
+ * This is a facade for working with tables that also has a little bit of
+ * builder in its veins. The basic idea is you instantiate a TableFacade class
+ * and then interact with it in a natural way. The facade completely abstracts
+ * away all the factory classes and eliminates a lot of boilerplate code. The
+ * builder notion comes in because as you work with it it will internally build
+ * up everything you need and keep track of it for you.
+ * </p>
+ * 
+ * <p>
+ * The simple example is:
+ * </p>
+ * 
+ * <pre>
+ * TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, &quot;name.firstName&quot;, &quot;name.lastName&quot;, &quot;term&quot;, &quot;career&quot;);
+ * String html = facade.render();
+ * </pre>
+ * 
+ * <p>
+ * Notice how there are no factories to deal with. However any API Object that
+ * you would have used before is available through the facade, including the
+ * WebContext, CoreContext, Limit, Table, Toolbar, and View. When you ask the
+ * facade for a given object it builds everything it needs up to that point.
+ * Internally it keeps track of everything you are doing so it also works like a
+ * builder.
+ * </p>
+ * 
+ * <p>
+ * The TableFacade interface also has setters for all the facade objects
+ * including the WebContext, CoreContext, Limit, Table, Toolbar, and View. The
+ * reason is if you really need to customize something and want to set your own
+ * implementation you can. Your object just goes into the flow of the facade.
+ * For instance if you want a custom toolbar just set the Toolbar on the facade
+ * and when the render() method is called it will use your Toolbar.
+ * </p>
+ * 
+ * <p>
+ * However, all this should feel very natural and you should not have to think
+ * about what you are doing. Just interact with the facade how you need to and
+ * it will take care of everything.
+ * </p>
+ * 
  * @since 2.1
  * @author Jeff Johnston
  */
@@ -51,6 +95,7 @@ public class TableFacadeImpl implements TableFacade {
     private WebContext webContext;
     private CoreContext coreContext;
     private Limit limit;
+    private State state;
     private Table table;
     private Toolbar toolbar;
     private int[] maxRowsIncrements;
@@ -107,21 +152,20 @@ public class TableFacadeImpl implements TableFacade {
         this.columnNames = columnNames;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jmesa.view.TableFacade#setExportTypes(javax.servlet.http.HttpServletResponse,
-     *      java.lang.String[])
+    /**
+     * Set the comma separated list of export types. The currently supported
+     * types are TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
      */
     public void setExportTypes(HttpServletResponse response, String... exportTypes) {
         this.response = response;
         this.exportTypes = exportTypes;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Get the WebContext. If the WebContext does not exist then one will be
+     * created.
      * 
-     * @see org.jmesa.view.TableFacade#getWebContext()
+     * @return The WebContext to use.
      */
     public WebContext getWebContext() {
         if (webContext == null) {
@@ -131,37 +175,45 @@ public class TableFacadeImpl implements TableFacade {
         return webContext;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Set the WebContext on the facade. This will override the WebContext if it
+     * was previously set.
      * 
-     * @see org.jmesa.view.TableFacade#setWebContext(org.jmesa.web.WebContext)
+     * @param webContext The WebContext to use.
      */
     public void setWebContext(WebContext webContext) {
         this.webContext = webContext;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Set if the table needs to be filtered and sorted. By default the facade
+     * will sort and filter the Collection of Beans (or Maps).
      * 
-     * @see org.jmesa.view.TableFacade#performFilterAndSort(boolean)
+     * @param performFilterAndSort True if should sort and filter the Collection
+     *            of Beans (or Maps).
      */
     public void performFilterAndSort(boolean performFilterAndSort) {
         this.performFilterAndSort = performFilterAndSort;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Set the items, the Collection of Beans (or Maps), if not already set on
+     * the constructor. Useful if performing the sorting and filtering manually
+     * and need to set the items on the facade. If you are performing the
+     * sorting and filtering manually you should also set the
+     * performFilterAndSort() to false.
      * 
-     * @see org.jmesa.view.TableFacade#setItems(java.util.Collection)
+     * @param The Collecton of Beans (or Maps) to use.
      */
     public void setItems(Collection<Object> items) {
         this.items = items;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Get the CoreContext. If the CoreContext does not exist then one will be
+     * created.
      * 
-     * @see org.jmesa.view.TableFacade#getCoreContext()
+     * @return The CoreContext to use.
      */
     public CoreContext getCoreContext() {
         if (coreContext != null) {
@@ -178,23 +230,53 @@ public class TableFacadeImpl implements TableFacade {
         return cc;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Set the CoreContext on the facade. This will override the CoreContext if
+     * it was previously set.
      * 
-     * @see org.jmesa.view.TableFacade#setCoreContext(org.jmesa.core.CoreContext)
+     * @param coreContext The CoreContext to use.
      */
     public void setCoreContext(CoreContext coreContext) {
         this.coreContext = coreContext;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Utilize the State interface to persist the Limit in the users
+     * HttpSession. Will persist the Limit by the id.
      * 
-     * @see org.jmesa.view.TableFacade#getLimit()
+     * @param stateAttr The parameter that will be searched to see if the state
+     *            should be used.
+     */
+    public void setState(String stateAttr) {
+        this.state = new SessionState(id, stateAttr, getWebContext());
+    }
+
+    /**
+     * <p>
+     * Get the Limit. If the Limit does not exist then one will be created. If
+     * you are manually sorting and filtering the table then as much of the
+     * Limit will be created as is possible. You still might need to set the
+     * RowSelect on the facade, which will set it on the Limit.
+     * </p>
+     * 
+     * <p>
+     * If using the State interface then be sure to call the setState() method
+     * on the facade before calling the Limit.
+     * </p>
+     * 
+     * @return The Limit to use.
      */
     public Limit getLimit() {
         if (limit != null) {
             return limit;
+        }
+
+        if (state != null) {
+            Limit l = state.retrieveLimit();
+            if (l != null) {
+                this.limit = l;
+                return limit;
+            }
         }
 
         LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
@@ -212,22 +294,30 @@ public class TableFacadeImpl implements TableFacade {
 
         this.limit = l;
 
+        if (state != null) {
+            state.persistLimit(limit);
+        }
+
         return limit;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Set the Limit on the facade. This will override the Limit if it was
+     * previously set.
      * 
-     * @see org.jmesa.view.TableFacade#setLimit(org.jmesa.limit.Limit)
+     * @param limit The Limit to use.
      */
     public void setLimit(Limit limit) {
         this.limit = limit;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * If you are manually sorting and filtering the table then you still need
+     * to ensure that you set the RowSelect on the Limit. Using this method will
+     * set the RowSelect on the Limit. You can also override any previously set
+     * RowSelect.
      * 
-     * @see org.jmesa.view.TableFacade#setRowSelect(int, int)
+     * @return The RowSelect set on the Limit.
      */
     public RowSelect setRowSelect(int maxRows, int totalRows) {
         this.maxRows = maxRows;
@@ -247,10 +337,10 @@ public class TableFacadeImpl implements TableFacade {
         return rowSelect;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Get the Table. If the Table does not exist then one will be created.
      * 
-     * @see org.jmesa.view.TableFacade#getTable()
+     * @return The Table to use.
      */
     public Table getTable() {
         if (table != null) {
@@ -283,10 +373,10 @@ public class TableFacadeImpl implements TableFacade {
         return table;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Get the Toolbar. If the Toolbar does not exist then one will be created.
      * 
-     * @see org.jmesa.view.TableFacade#getToolbar()
+     * @return The Toolbar to use.
      */
     public Toolbar getToolbar() {
         if (toolbar != null) {
@@ -306,23 +396,31 @@ public class TableFacadeImpl implements TableFacade {
         return toolbar;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Set the Toolbar on the facade. This will override the Toolbar if it was
+     * previously set.
      * 
-     * @see org.jmesa.view.TableFacade#setToolbar(org.jmesa.view.html.toolbar.Toolbar)
+     * @param toolbar The Toolbar to use.
      */
     public void setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
     }
 
+    /**
+     * Set the comma separated list of values to use for the max rows droplist.
+     * Be sure that one of the values is the same as the maxRows set on the
+     * facade.
+     * 
+     * @param maxRowsIncrements The max rows increments to use.
+     */
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
         this.maxRowsIncrements = maxRowsIncrements;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Get the View. If the View does not exist then one will be created.
      * 
-     * @see org.jmesa.view.TableFacade#getView()
+     * @return The View to use.
      */
     public View getView() {
         if (view != null) {
@@ -347,19 +445,22 @@ public class TableFacadeImpl implements TableFacade {
         return view;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Set the View on the facade. This will override the View if it was
+     * previously set.
      * 
-     * @see org.jmesa.view.TableFacade#setView(org.jmesa.view.View)
+     * @param view The View to use.
      */
     public void setView(View view) {
         this.view = view;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Generate the view.
      * 
-     * @see org.jmesa.view.TableFacade#render()
+     * @return An html generated table will return the String markup. An export
+     *         will be written out to the response and this method will return
+     *         null.
      */
     public String render() {
         Limit l = getLimit();

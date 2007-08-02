@@ -154,6 +154,27 @@ public class TableFacadeTest extends AbstractTestCase {
         assertTrue("The limit is exportable.", !limit.isExportable());
         assertTrue("The limit maxRows is the same as the totalRows.", limit.getRowSelect().getMaxRows() != limit.getRowSelect().getTotalRows());
     }
+    
+    @Test
+    public void getLimitWithState() {
+        Collection<Object> items = new PresidentDao().getPresidents();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        facade.setState("restore");
+
+        Limit limit = facade.getLimit();
+        assertNotNull(limit);
+        assertNotNull(limit.getRowSelect());
+        assertNotNull(request.getSession().getAttribute("pres"));
+        
+        TableFacade facadeWithState = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
+        facadeWithState.setState("restore");
+        request.addParameter("restore", "true");
+        
+        limit = facadeWithState.getLimit();
+        assertNotNull(limit);
+    }
 
     @Test
     public void setRowSelectAndExportable() {

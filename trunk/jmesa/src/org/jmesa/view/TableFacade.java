@@ -43,6 +43,8 @@ public interface TableFacade {
 
     public void performFilterAndSort(boolean performFilterAndSort);
 
+    public void setState(String stateAttr);
+
     public Limit getLimit();
 
     public void setLimit(Limit limit);
@@ -56,12 +58,12 @@ public interface TableFacade {
     public Toolbar getToolbar();
 
     public void setToolbar(Toolbar toolbar);
-    
+
     public void setMaxRowsIncrements(int... maxRowsIncrements);
 
     public View getView();
 
     public void setView(View view);
-    
+
     public String render();
 }
