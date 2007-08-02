@@ -28,6 +28,7 @@ import javax.servlet.ServletRequest;
  */
 public class ServletRequestWebContext implements WebContext {
     private ServletRequest request;
+    @SuppressWarnings("unchecked")
     private Map parameterMap;
     private Locale locale;
 
@@ -67,6 +68,7 @@ public class ServletRequestWebContext implements WebContext {
         return request.getParameter(name);
     }
 
+    @SuppressWarnings("unchecked")
     public Map getParameterMap() {
         if (parameterMap != null) {
             return parameterMap;
@@ -75,6 +77,7 @@ public class ServletRequestWebContext implements WebContext {
         return request.getParameterMap();
     }
 
+    @SuppressWarnings("unchecked")
     public void setParameterMap(Map parameterMap) {
         this.parameterMap = parameterMap;
     }
