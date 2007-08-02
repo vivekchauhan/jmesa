@@ -24,6 +24,7 @@ import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.Sort;
+import org.jmesa.view.component.Column;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -108,9 +109,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.tr(1).styleClass(filterClass).close();
 
         HtmlRow row = table.getRow();
-        List columns = row.getColumns();
+        List<Column> columns = row.getColumns();
 
-        for (Iterator iter = columns.iterator(); iter.hasNext();) {
+        for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
             HtmlColumn column = (HtmlColumn) iter.next();
             if (column.isFilterable()) {
                 html.append(column.getFilterRenderer().render());
@@ -129,9 +130,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.tr(1).styleClass(headerClass).close();
 
         HtmlRow row = table.getRow();
-        List columns = row.getColumns();
+        List<Column> columns = row.getColumns();
 
-        for (Iterator iter = columns.iterator(); iter.hasNext();) {
+        for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
             HtmlColumn column = (HtmlColumn) iter.next();
             html.append(column.getHeaderRenderer().render());
         }
@@ -156,16 +157,16 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             rowcount = (page - 1) * maxRows;
         }
         
-        Collection items = coreContext.getPageItems();
+        Collection<Object> items = coreContext.getPageItems();
         for (Object item : items) {
             rowcount++;
 
             HtmlRow row = table.getRow();
-            List columns = row.getColumns();
+            List<Column> columns = row.getColumns();
 
             html.append(row.getRowRenderer().render(item, rowcount));
 
-            for (Iterator iter = columns.iterator(); iter.hasNext();) {
+            for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
                 HtmlColumn column = (HtmlColumn) iter.next();
                 html.append(column.getCellRenderer().render(item, rowcount));
             }
@@ -194,7 +195,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         HtmlBuilder html = new HtmlBuilder();
 
         HtmlRow row = table.getRow();
-        List columns = row.getColumns();
+        List<Column> columns = row.getColumns();
 
         String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
         html.tr(1).styleClass(toolbarClass).close();
@@ -212,7 +213,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         HtmlBuilder html = new HtmlBuilder();
 
         HtmlRow row = table.getRow();
-        List columns = row.getColumns();
+        List<Column> columns = row.getColumns();
 
         html.tbody(1).close();
 

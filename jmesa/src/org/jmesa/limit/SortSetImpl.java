@@ -67,8 +67,8 @@ public class SortSetImpl implements Serializable, SortSet {
      * @return The Sort object.
      */
     public Sort getSort(String property) {
-        for (Iterator iter = sorts.iterator(); iter.hasNext();) {
-            Sort sort = (Sort) iter.next();
+        for (Iterator<Sort> iter = sorts.iterator(); iter.hasNext();) {
+            Sort sort = iter.next();
             if (sort.getProperty().equals(property)) {
                 return sort;
             }
@@ -144,8 +144,8 @@ public class SortSetImpl implements Serializable, SortSet {
         ToStringBuilder builder = new ToStringBuilder(this);
 
         if (sorts != null) {
-            for (Iterator iter = sorts.iterator(); iter.hasNext();) {
-                Sort sort = (Sort) iter.next();
+            for (Iterator<Sort> iter = sorts.iterator(); iter.hasNext();) {
+                Sort sort = iter.next();
                 builder.append(sort.toString());
             }
         }

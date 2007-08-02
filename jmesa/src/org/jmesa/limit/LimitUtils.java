@@ -39,8 +39,8 @@ public class LimitUtils {
             }
         } else if (value instanceof List) {
             List<?> valueList = (List<?>) value;
-            if (((List) valueList).size() == 1) {
-                return String.valueOf(((List) valueList).get(0));
+            if (((List<?>) valueList).size() == 1) {
+                return String.valueOf(((List<?>) valueList).get(0));
             }
         }
 
