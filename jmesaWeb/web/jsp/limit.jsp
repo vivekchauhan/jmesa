@@ -16,6 +16,7 @@
 		<a href="${pageContext.request.contextPath}/basicGroovy.run">Basic With Groovy</a><br/>
 		<a href="${pageContext.request.contextPath}/advanced.run?restore=true">Advanced</a><br/>
 		<a href="${pageContext.request.contextPath}/tag.run">Tag</a><br/>
+		<a href="${pageContext.request.contextPath}/facade.run">Facade</a> <br/>
 	</p>
 	
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/presidents.run">
