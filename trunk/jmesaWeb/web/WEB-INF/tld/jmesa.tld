@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
-<taglib>
+<?xml version="1.0" encoding="UTF-8" ?>
 
-	<tlibversion>2.0.1</tlibversion>
-	<jspversion>1.1</jspversion>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd" 
+    version="2.0">
+
+	<tlibversion>1.1</tlibversion>
 	<shortname>jmesa</shortname>
 	<uri>http://code.google.com/p/jmesa</uri>
 
 	<tag>
 		<name>table</name>
 		<tagclass>org.jmesa.web.tag.TableTag</tagclass>
-		<bodycontent>jsp</bodycontent>
+		<bodycontent>scriptless</bodycontent>
 		<attribute>
 			<name>id</name>
 			<required>true</required>
@@ -22,8 +24,13 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>maxRows</name>
-			<required>false</required>
+			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
@@ -38,6 +45,11 @@
 		</attribute>
 		<attribute>
 			<name>limit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>performFilterAndSort</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -79,9 +91,35 @@
 	</tag>
 	
 	<tag>
+		<name>row</name>
+		<tagclass>org.jmesa.web.tag.RowTag</tagclass>
+		<bodycontent>scriptless</bodycontent>
+		<attribute>
+			<name>highlighter</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onclick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onmouseover</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onmouseout</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
 		<name>column</name>
 		<tagclass>org.jmesa.web.tag.ColumnTag</tagclass>
-		<bodycontent>jsp</bodycontent>
+		<bodycontent>scriptless</bodycontent>
 		<attribute>
 			<name>property</name>
 			<required>false</required>
@@ -109,14 +147,4 @@
 		</attribute>
 	</tag>
 
-	<tag>
-		<name>property</name>
-		<tagclass>org.jmesa.web.tag.PropertyTag</tagclass>
-		<bodycontent>jsp</bodycontent>
-		<attribute>
-			<name>name</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
 </taglib>
