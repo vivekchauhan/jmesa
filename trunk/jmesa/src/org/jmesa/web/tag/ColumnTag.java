@@ -15,49 +15,42 @@
  */
 package org.jmesa.web.tag;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * @since 2.0
+ * @since 2.1
  * @author jeff jie
  */
-public class ColumnTag extends BodyTagSupport {
-    private Logger logger = LoggerFactory.getLogger(ColumnTag.class);
-
+public class ColumnTag extends SimpleTagSupport {
     private String property;
     private String title;
     private boolean sortable = true;
     private boolean filterable = true;
     private String width;
+
     private HtmlColumn column;
-
-    private List<String> attributes = new ArrayList<String>();
-
-    public boolean isFilterable() {
-        return filterable;
-    }
-
-    public void setFilterable(boolean filterable) {
-        this.filterable = filterable;
-    }
 
     public String getProperty() {
         return property;
     }
 
-    public void setProperty(String name) {
-        this.property = name;
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public boolean isSortable() {
@@ -68,12 +61,12 @@ public class ColumnTag extends BodyTagSupport {
         this.sortable = sortable;
     }
 
-    public String getTitle() {
-        return title == null ? property : title;
+    public boolean isFilterable() {
+        return filterable;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFilterable(boolean filterable) {
+        this.filterable = filterable;
     }
 
     public String getWidth() {
@@ -83,72 +76,28 @@ public class ColumnTag extends BodyTagSupport {
     public void setWidth(String width) {
         this.width = width;
     }
-    
-    public void addAttribute(String name) {
-        attributes.add(name);
+
+    public HtmlColumn getColumn() {
+        if (column != null) {
+            return column;
+        }
+
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        HtmlComponentFactory factory = tableTag.getComponentFactory();
+        CellEditor editor = factory.createBasicCellEditor();
+        this.column = factory.createColumn(getProperty(), editor);
+
+        RowTag rowTag = (RowTag) findAncestorWithClass(this, RowTag.class);
+        rowTag.getRow().addColumn(column);
+
+        return column;
     }
 
-    public int doEndTag() throws JspException {
-        TableTag table = (TableTag) getParent();
-
-        if (getBodyContent() != null && !"".equals(getBodyContent().getString())) {
-            HtmlRemarkerCellEditor editor = new HtmlRemarkerCellEditor();
-            String body = getBodyContent().getString();
-            editor.setBody(body);
-            column = table.getComponentFactory().createColumn(getProperty(), editor);
-        } else {
-            column = table.getComponentFactory().createColumn(getProperty(), new BasicCellEditor());
-        }
+    public void doTag() throws JspException, IOException {
+        HtmlColumn column = getColumn();
         column.setTitle(getTitle());
-        column.setFilterable(isFilterable());
         column.setSortable(isSortable());
+        column.setFilterable(isFilterable());
         column.setWidth(getWidth());
-
-        table.addColumn(column);
-        return EVAL_PAGE;
-    }
-
-    public class HtmlRemarkerCellEditor implements CellEditor {
-        private String body;
-
-        public void setBody(String body) {
-            this.body = body;
-        }
-
-        public Object getValue(Object item, String property, int rowcount) {
-            String ret = null;
-            if (body == null) {// bodyContent is null,display the spicific
-                                // property's value.
-                if (property != null) {
-                    try {
-                        return PropertyUtils.getProperty(item, property);
-                    } catch (Exception e) {
-                        logger.warn("item class " + item.getClass().getName() + " doesn't have property " + property);
-                    }
-                }
-            }
-            ret = body;
-            for (String attr : attributes) {
-                Object itemValue = "";
-                try {
-                    itemValue = PropertyUtils.getProperty(item, attr);
-                    ret = replace(ret, "#{" + attr + "}", itemValue.toString());
-                } catch (Exception e) {
-                    logger.warn("item class " + item.getClass().getName() + " doesn't have property " + property);
-                    ret = replace(ret, "#{" + attr + "}", "");
-                }
-            }
-            return ret;
-        }
-    }
-
-    public String replace(String src, String regex, String replacement) {
-        StringBuffer sb = new StringBuffer(src);
-        while (sb.indexOf(regex) != -1) {
-            int index = sb.indexOf(regex);
-            sb.insert(index, replacement);
-            sb.delete(index + replacement.length(), index + replacement.length() + regex.length());
-        }
-        return sb.toString();
     }
 }

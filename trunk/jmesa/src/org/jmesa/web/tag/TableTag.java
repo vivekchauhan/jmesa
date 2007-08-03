@@ -18,10 +18,12 @@ package org.jmesa.web.tag;
 import java.io.IOException;
 import java.util.Collection;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspFragment;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
@@ -31,44 +33,65 @@ import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlView;
-import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
-import org.jmesa.web.HttpServletRequestWebContext;
+import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * @since 2.0
+ * @since 2.1
  * @author jeff jie
  */
-public class TableTag extends BodyTagSupport {
-    private Logger logger = LoggerFactory.getLogger(ColumnTag.class);
-
+public class TableTag extends SimpleTagSupport {
     // core attributes
     private String id;
-    private String items = "items";
+    private Collection<Object> items;
+    private String var;
     private int maxRows = 15;
+    private Limit limit;
+    private boolean performFilterAndSort = true;
     private String caption;
     private String exportTypes;
-    private String limit = "limit";
 
     // style attributes
     private String theme;
     private String style;
     private String styleClass;
-    private String border;
     private String width;
+    private String border;
     private String cellpadding;
     private String cellspacing;
 
-    // other menbers
-    private HtmlComponentFactory componentFactory;
-    private HtmlTable table;
+    // other attributes
+    WebContext webContext;
+    CoreContext coreContext;
+    HtmlComponentFactory componentFactory;
+    HtmlTable table;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Collection<Object> getItems() {
+        return items;
+    }
+
+    public void setItems(Collection<Object> items) {
+        this.items = items;
+    }
+
+    public String getVar() {
+        return var;
+    }
+
+    public void setVar(String var) {
+        this.var = var;
+    }
 
     public int getMaxRows() {
         return maxRows;
@@ -78,12 +101,28 @@ public class TableTag extends BodyTagSupport {
         this.maxRows = maxRows;
     }
 
-    public String getBorder() {
-        return border;
+    public Limit getLimit() {
+        if (limit != null) {
+            return limit;
+        }
+
+        LimitFactory limitFactory = new LimitFactoryImpl(getId(), getWebContext());
+        this.limit = limitFactory.createLimit();
+        limitFactory.createRowSelect(getMaxRows(), getItems().size(), limit);
+
+        return limit;
     }
 
-    public void setBorder(String border) {
-        this.border = border;
+    public void setLimit(Limit limit) {
+        this.limit = limit;
+    }
+
+    public boolean isPerformFilterAndSort() {
+        return performFilterAndSort;
+    }
+
+    public void setPerformFilterAndSort(boolean performFilterAndSort) {
+        this.performFilterAndSort = performFilterAndSort;
     }
 
     public String getCaption() {
@@ -94,44 +133,20 @@ public class TableTag extends BodyTagSupport {
         this.caption = caption;
     }
 
-    public String getCellpadding() {
-        return cellpadding;
-    }
-
-    public void setCellpadding(String cellpadding) {
-        this.cellpadding = cellpadding;
-    }
-
-    public String getCellspacing() {
-        return cellspacing;
-    }
-
-    public void setCellspacing(String cellspacing) {
-        this.cellspacing = cellspacing;
-    }
-
     public String getExportTypes() {
         return exportTypes;
     }
 
-    public void setExportTypes(String export) {
-        this.exportTypes = export;
+    public void setExportTypes(String exportTypes) {
+        this.exportTypes = exportTypes;
     }
 
-    public String getId() {
-        return id;
+    public String getTheme() {
+        return theme;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getItems() {
-        return items;
-    }
-
-    public void setItems(String items) {
-        this.items = items;
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     public String getStyle() {
@@ -158,95 +173,103 @@ public class TableTag extends BodyTagSupport {
         this.width = width;
     }
 
+    public String getBorder() {
+        return border;
+    }
+
+    public void setBorder(String border) {
+        this.border = border;
+    }
+
+    public String getCellpadding() {
+        return cellpadding;
+    }
+
+    public void setCellpadding(String cellpadding) {
+        this.cellpadding = cellpadding;
+    }
+
+    public String getCellspacing() {
+        return cellspacing;
+    }
+
+    public void setCellspacing(String cellspacing) {
+        this.cellspacing = cellspacing;
+    }
+
+    public WebContext getWebContext() {
+        if (webContext != null) {
+            return webContext;
+        }
+
+        this.webContext = new JspPageWebContext((PageContext) getJspContext());
+
+        return webContext;
+    }
+
+    public CoreContext getCoreContext() {
+        if (coreContext != null) {
+            return coreContext;
+        }
+
+        CoreContextFactory factory = new CoreContextFactoryImpl(isPerformFilterAndSort(), getWebContext());
+        this.coreContext = factory.createCoreContext(getItems(), getLimit());
+
+        return coreContext;
+    }
+
     public HtmlComponentFactory getComponentFactory() {
+        if (componentFactory != null) {
+            return componentFactory;
+        }
+
+        this.componentFactory = new HtmlComponentFactory(getWebContext(), getCoreContext());
+
         return componentFactory;
     }
 
-    public String getTheme() {
-        return theme;
+    public HtmlTable getTable() {
+        if (table != null) {
+            return table;
+        }
+
+        this.table = getComponentFactory().createTable();
+
+        return table;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public String getLimit() {
-        return limit;
-    }
-
-    public void setLimit(String limit) {
-        this.limit = limit;
-    }
-
-    public void addColumn(HtmlColumn column) {
-        table.getRow().addColumn(column);
-    }
-
-    @SuppressWarnings("unchecked")
     @Override
-    public int doStartTag() throws JspException {
-        Collection v_items = (Collection) pageContext.getRequest().getAttribute(items);
-
-        WebContext webContext = new HttpServletRequestWebContext((HttpServletRequest) pageContext.getRequest());
-
-        CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
-        CoreContext coreContext = factory.createCoreContext(v_items, getLimit(v_items, webContext));
-
-        componentFactory = new HtmlComponentFactory(webContext, coreContext);
-
-        // create the table
-        table = componentFactory.createTable();
+    public void doTag() throws JspException, IOException {
+        HtmlTable table = getTable();
         table.setCaption(getCaption());
         table.setTheme(getTheme());
         table.getTableRenderer().setWidth(getWidth());
-        table.getTableRenderer().setBorder(getBorder());
         table.getTableRenderer().setStyle(getStyle());
         table.getTableRenderer().setStyleClass(getStyleClass());
+        table.getTableRenderer().setBorder(getBorder());
         table.getTableRenderer().setCellpadding(getCellpadding());
         table.getTableRenderer().setCellspacing(getCellspacing());
 
-        HtmlRow row = componentFactory.createRow();
-
-        table.setRow(row);
-
-        return EVAL_BODY_INCLUDE;
-    }
-
-    /**
-     * get limit from the request, if there is no limit,create one.
-     */
-    private Limit getLimit(Collection<Object> items, WebContext webContext) {
-        Limit m_limit = (Limit) pageContext.getRequest().getAttribute(limit);
-
-        if (m_limit == null) { // in case there is no limit store in the request scope.
-            logger.info("could not found limit object in the request scope.");
-            LimitFactory limitFactory = new LimitFactoryImpl(getId(), webContext);
-            m_limit = limitFactory.createLimit();
-            limitFactory.createRowSelect(maxRows, items.size(), m_limit);
+        JspFragment body = getJspBody();
+        if (body == null) {
+            return;
         }
-        
-        return m_limit;
-    }
 
-    @Override
-    public int doEndTag() throws JspException {
-        Toolbar toolbar = null;
+        // for (Iterator<Object> iterator = getItems().iterator();
+        // iterator.hasNext();) {
+        // Object item = iterator.next();
+        // getWebContext().setPageAttribute(getVar(), item);
+        // }
+        body.invoke(null);
 
-        String[] exports = null;
-        if (null != exportTypes && !"".equals(exportTypes)) {
-            exports = exportTypes.split(",");
-        }
-        
-        ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, componentFactory.getWebContext(), componentFactory.getCoreContext(), exports);
-        toolbar = toolbarFactory.createToolbar();
-        View view = new HtmlView(table, toolbar, componentFactory.getCoreContext());
-        
-        try {
-            pageContext.getOut().write(view.render().toString());
-        } catch (IOException e) {
-            logger.warn("write table to responese fail!");
-        }
-        
-        return EVAL_PAGE;
+        String[] exportTypes = StringUtils.split(getExportTypes(), ",");
+        ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, getWebContext(), getCoreContext(), exportTypes);
+        toolbarFactory.enableSeparators(true); // TODO: this could be an
+                                                // attribute
+        Toolbar toolbar = toolbarFactory.createToolbar();
+        View view = new HtmlView(table, toolbar, getCoreContext());
+
+        String html = view.render().toString();
+        getJspContext().getOut().print(html);
     }
 }
