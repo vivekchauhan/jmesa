@@ -16,7 +16,9 @@
 package org.jmesa.web.tag;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -27,6 +29,13 @@ import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
+import org.jmesa.core.CoreContextImpl;
+import org.jmesa.core.Items;
+import org.jmesa.core.ItemsImpl;
+import org.jmesa.core.filter.DefaultRowFilter;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.sort.DefaultColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -64,10 +73,11 @@ public class TableTag extends SimpleTagSupport {
     private String cellspacing;
 
     // other attributes
-    WebContext webContext;
-    CoreContext coreContext;
-    HtmlComponentFactory componentFactory;
-    HtmlTable table;
+    private WebContext webContext;
+    private CoreContext coreContext;
+    private HtmlComponentFactory componentFactory;
+    private HtmlTable table;
+    private Collection<Object> pageItems = new ArrayList<Object>();
 
     public String getId() {
         return id;
@@ -212,7 +222,7 @@ public class TableTag extends SimpleTagSupport {
             return coreContext;
         }
 
-        CoreContextFactory factory = new CoreContextFactoryImpl(isPerformFilterAndSort(), getWebContext());
+        CoreContextFactory factory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
         this.coreContext = factory.createCoreContext(getItems(), getLimit());
 
         return coreContext;
@@ -238,6 +248,10 @@ public class TableTag extends SimpleTagSupport {
         return table;
     }
 
+    public Collection<Object> getPageItems() {
+        return pageItems;
+    }
+
     @Override
     public void doTag() throws JspException, IOException {
         HtmlTable table = getTable();
@@ -255,21 +269,67 @@ public class TableTag extends SimpleTagSupport {
             return;
         }
 
-        // for (Iterator<Object> iterator = getItems().iterator();
-        // iterator.hasNext();) {
-        // Object item = iterator.next();
-        // getWebContext().setPageAttribute(getVar(), item);
-        // }
-        body.invoke(null);
+        TagCoreContext tagCoreContext = (TagCoreContext) getCoreContext();
+
+        for (Iterator<Object> iterator = tagCoreContext.getPageItems().iterator(); iterator.hasNext();) {
+            Object item = iterator.next();
+            getWebContext().setPageAttribute(getVar(), item);
+            body.invoke(null);
+        }
+
+        tagCoreContext.setPageItems(getPageItems());
 
         String[] exportTypes = StringUtils.split(getExportTypes(), ",");
         ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, getWebContext(), getCoreContext(), exportTypes);
-        toolbarFactory.enableSeparators(true); // TODO: this could be an
-                                                // attribute
+        toolbarFactory.enableSeparators(true); // TODO: this could be an attribute
         Toolbar toolbar = toolbarFactory.createToolbar();
         View view = new HtmlView(table, toolbar, getCoreContext());
 
         String html = view.render().toString();
         getJspContext().getOut().print(html);
+    }
+
+    protected class TagCoreContext extends CoreContextImpl {
+        private Collection<Object> pageItems;
+
+        public TagCoreContext(Items items, Limit limit, Preferences preferences, Messages messages) {
+            super(items, limit, preferences, messages);
+        }
+
+        public void setPageItems(Collection<Object> pageItems) {
+            this.pageItems = pageItems;
+        }
+
+        @Override
+        public Collection<Object> getPageItems() {
+            if (pageItems == null) {
+                return super.getPageItems();
+            }
+            
+            return pageItems;
+        }
+    }
+
+    protected class TagCoreContextFactory extends CoreContextFactoryImpl {
+        private boolean performFilterAndSort;
+
+        public TagCoreContextFactory(boolean performFilterAndSort, WebContext webContext) {
+            super(performFilterAndSort, webContext);
+            this.performFilterAndSort = performFilterAndSort;
+        }
+
+        @Override
+        public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
+            Items itemsImpl;
+
+            if (performFilterAndSort) {
+                itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
+            } else {
+                itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
+            }
+
+            CoreContext coreContextImpl = new TagCoreContext(itemsImpl, limit, getPreferences(), getMessages());
+            return coreContextImpl;
+        }
     }
 }
