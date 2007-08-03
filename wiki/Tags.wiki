@@ -9,7 +9,9 @@ The following are the tags defined by JMesa.
 === !TableTag ===
 || *Attribute* || *Type* || *Description* ||
 || id || String || The unique table id ||
-|| items || Object || The Collection of beans or maps ||
+|| items || Collection || The Collection of beans or maps ||
+|| limit || Limit || The Limit object to use ||
+|| var || String || The value to hold the current bean ||
 || caption || String || The caption for the table ||
 || theme || String ||  ||
 || exportTypes || String || The comma separated list of exports ||
