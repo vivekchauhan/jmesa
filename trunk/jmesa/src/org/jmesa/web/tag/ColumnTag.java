@@ -16,19 +16,27 @@
 package org.jmesa.web.tag;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.1
  * @author jeff jie
  */
 public class ColumnTag extends SimpleTagSupport {
+    private Logger logger = LoggerFactory.getLogger(ColumnTag.class);
+
     private String property;
     private String title;
     private boolean sortable = true;
@@ -99,5 +107,28 @@ public class ColumnTag extends SimpleTagSupport {
         column.setSortable(isSortable());
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
+
+        RowTag rowTag = (RowTag) findAncestorWithClass(this, RowTag.class);
+        rowTag.getItem().put(getProperty(), getValue());
+    }
+
+    public Object getValue() {
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        String var = tableTag.getVar();
+        Object item = getJspContext().getAttribute(var);
+
+        Object itemValue = null;
+
+        try {
+            if (item instanceof Map) {
+                itemValue = ((Map) item).get(property);
+            } else {
+                itemValue = PropertyUtils.getProperty(item, property);
+            }
+        } catch (Exception e) {
+            logger.warn("item class " + item.getClass().getName() + " doesn't have property " + property);
+        }
+
+        return itemValue;
     }
 }

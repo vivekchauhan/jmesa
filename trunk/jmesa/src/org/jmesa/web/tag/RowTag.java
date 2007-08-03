@@ -1,6 +1,9 @@
 package org.jmesa.web.tag;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
@@ -19,6 +22,7 @@ public class RowTag extends SimpleTagSupport {
     private String onmouseout;
 
     private HtmlRow row;
+    private Map item;
 
     public boolean isHighlighter() {
         return highlighter;
@@ -59,23 +63,31 @@ public class RowTag extends SimpleTagSupport {
 
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
         this.row = tableTag.getComponentFactory().createRow();
-        tableTag.getTable().setRow(row);
-
-        return row;
-    }
-
-    @Override
-    public void doTag() throws JspException, IOException {
-        HtmlRow row = getRow();
         row.setHighlighter(isHighlighter());
         row.setOnclick(getOnclick());
         row.setOnmouseover(getOnmouseover());
         row.setOnmouseout(getOnmouseout());
 
+        tableTag.getTable().setRow(row);
+
+        return row;
+    }
+
+    public Map getItem() {
+        return item;
+    }
+
+    @Override
+    public void doTag() throws JspException, IOException {
         JspFragment body = getJspBody();
         if (body == null) {
             return;
         }
+        
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        Collection<Object> pageItems = tableTag.getPageItems();
+        this.item = new HashMap();
+        pageItems.add(item);
 
         body.invoke(null);
     }
