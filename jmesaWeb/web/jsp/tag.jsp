@@ -24,17 +24,20 @@
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/tag.run">
 		
 		<jmesa:table 
-		            id="pres" 
-					items="presidents" 
-					maxRows="12"
-					caption="Presidents" 
-					exportTypes="csv,excel"
-					width="600px"
-					>			
-	        <jmesa:column property="name.firstName" title="First Name"/>
-	        <jmesa:column property="name.lastName" title="Last Name"/>
-	        <jmesa:column property="term" title="Term"/>
-	        <jmesa:column property="career" title="Career"/>
+			id="pres" 
+			items="${presidents}"
+			var="pres"
+			maxRows="12"
+			caption="Presidents" 
+			exportTypes="csv,excel"
+			width="600px"
+			>		
+			<jmesa:row>	
+		        <jmesa:column property="name.firstName" title="First Name"/>
+		        <jmesa:column property="name.lastName" title="Last Name"/>
+		        <jmesa:column property="term" title="Term"/>
+		        <jmesa:column property="career" title="Career"/>
+	        </jmesa:row>
 		</jmesa:table> 
 	
 	</form>

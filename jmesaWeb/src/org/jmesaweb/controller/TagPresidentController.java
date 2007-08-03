@@ -20,14 +20,9 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactory;
-import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.limit.Limit;
-import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.web.HttpServletRequestWebContext;
-import org.jmesa.web.WebContext;
+import org.jmesa.view.TableFacade;
+import org.jmesa.view.TableFacadeImpl;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -42,44 +37,27 @@ public class TagPresidentController extends AbstractController {
     private PresidentService presidentService;
     private String successView;
     private String id;
-    private int maxRows;
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Limit limit = getLimit(items, webContext);
-        CoreContext coreContext = getCoreContext(items, limit, webContext);
 
+        TableFacade facade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
+        facade.setExportTypes(response, CSV, EXCEL);
+
+        Limit limit = facade.getLimit();
         if (limit.isExportable()) {
-            String type = limit.getExport().getType();
-            if (type.equals(CSV)) {
-                new CsvTableUsingTableFactory().render(response, webContext, coreContext);
-                return null;
-            }
-            else if (type.equals(EXCEL)) {
-                new ExcelTableUsingTableFactory().render(response, webContext, coreContext);
-                return null;
-            }
+            facade.getTable().setCaption("Presidents");
+            facade.getTable().getRow().getColumn("name.firstName").setTitle("First Name");
+            facade.getTable().getRow().getColumn("name.lastName").setTitle("Last Name");
+            facade.render();
+            return null;
         }
 
         mv.addObject("presidents", items);
 
         return mv;
-    }
-
-    public Limit getLimit(Collection items, WebContext webContext) {
-        LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-        Limit limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
-        return limit;
-    }
-
-    public CoreContext getCoreContext(Collection<Object> items, Limit limit, WebContext webContext) {
-        CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
-        CoreContext coreContext = factory.createCoreContext(items, limit);
-        return coreContext;
     }
 
     public void setPresidentService(PresidentService presidentService) {
@@ -93,9 +71,4 @@ public class TagPresidentController extends AbstractController {
     public void setId(String id) {
         this.id = id;
     }
-
-    public void setMaxRows(int maxRows) {
-        this.maxRows = maxRows;
-    }
-
 }

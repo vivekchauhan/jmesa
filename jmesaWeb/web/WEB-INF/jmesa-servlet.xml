@@ -74,7 +74,6 @@
 		<property name="successView" value="jsp/tag.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
 		<property name="id" value="pres"/>
-		<property name="maxRows" value="12"/>
 	</bean>
 
 	<bean id="facade" class="org.jmesaweb.controller.TableFacadePresidentController">
