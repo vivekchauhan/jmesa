@@ -11,6 +11,9 @@ The following are the tags defined by JMesa.
 || id || String || The unique table id ||
 || items || Collection || The Collection of beans or maps ||
 || limit || Limit || The Limit object to use ||
+|| maxRows || int || The max page rows ||
+|| maxRowsIncrements || String || The toolbar max rows increments ||
+|| stateAttr || String || The parameter to use for the SessionState ||
 || var || String || The value to hold the current bean ||
 || caption || String || The caption for the table ||
 || theme || String ||  ||
@@ -33,12 +36,13 @@ The following are the tags defined by JMesa.
 || *Attribute* || *Type* || *Description* ||
 || property || String || The bean or map attribute ||
 || title || String || The column header title ||
+|| cellEditor || String || The CellEditor class ||
+|| pattern || String || The pattern to inject into the CellEditor class ||
 || filterable || boolean ||  ||
 || sortable || boolean ||  ||
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
-
 
 
 
