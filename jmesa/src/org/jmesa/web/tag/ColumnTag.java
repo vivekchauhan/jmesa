@@ -16,12 +16,16 @@
 package org.jmesa.web.tag;
 
 import java.io.IOException;
-import java.util.Map;
+import java.io.StringWriter;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.ItemUtils;
+import org.jmesa.view.ContextSupport;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
@@ -37,9 +41,12 @@ public class ColumnTag extends SimpleTagSupport {
 
     private String property;
     private String title;
+    private String titleKey;
     private boolean sortable = true;
     private boolean filterable = true;
     private String width;
+    private String pattern;
+    private String cellEditor;
 
     private HtmlColumn column;
 
@@ -57,6 +64,14 @@ public class ColumnTag extends SimpleTagSupport {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTitleKey() {
+        return titleKey;
+    }
+
+    public void setTitleKey(String titleKey) {
+        this.titleKey = titleKey;
     }
 
     public boolean isSortable() {
@@ -83,6 +98,50 @@ public class ColumnTag extends SimpleTagSupport {
         this.width = width;
     }
 
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
+    public String getCellEditor() {
+        return cellEditor;
+    }
+
+    public void setCellEditor(String cellEditor) {
+        this.cellEditor = cellEditor;
+    }
+
+    protected CellEditor getColumnCellEditor() {
+        CellEditor editor = null;
+
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+
+        if (StringUtils.isEmpty(getCellEditor())) {
+            HtmlComponentFactory factory = tableTag.getComponentFactory();
+            editor = factory.createBasicCellEditor();
+        } else {
+            try {
+                Object obj = Class.forName(getCellEditor()).newInstance();
+                if (pattern != null) {
+                    PropertyUtils.setProperty(obj, "pattern", getPattern());
+                }
+                editor = (CellEditor) obj;
+                if (obj instanceof ContextSupport) {
+                    ((ContextSupport) editor).setCoreContext(tableTag.getCoreContext());
+                    ((ContextSupport) editor).setWebContext(tableTag.getWebContext());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error("Could not create the CellEditor [" + getCellEditor() + "]", e);
+            }
+        }
+
+        return editor;
+    }
+
     public HtmlColumn getColumn() {
         if (column != null) {
             return column;
@@ -90,7 +149,7 @@ public class ColumnTag extends SimpleTagSupport {
 
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
         HtmlComponentFactory factory = tableTag.getComponentFactory();
-        CellEditor editor = factory.createBasicCellEditor();
+        CellEditor editor = getColumnCellEditor();
         this.column = factory.createColumn(getProperty(), editor);
 
         RowTag rowTag = (RowTag) findAncestorWithClass(this, RowTag.class);
@@ -101,32 +160,38 @@ public class ColumnTag extends SimpleTagSupport {
 
     public void doTag() throws JspException, IOException {
         HtmlColumn column = getColumn();
-        column.setTitle(getTitle());
+
+        if (getTitleKey() != null) {
+            column.setTitle(getTitleKey(), true);
+        } else {
+            column.setTitle(getTitle());
+        }
+
         column.setSortable(isSortable());
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
 
         RowTag rowTag = (RowTag) findAncestorWithClass(this, RowTag.class);
-        rowTag.getItem().put(getProperty(), getValue());
+        rowTag.getPageItem().put(getProperty(), getValue());
     }
 
-    public Object getValue() {
+    @SuppressWarnings("unchecked")
+    public Object getValue() throws JspException, IOException {
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
         String var = tableTag.getVar();
         Object item = getJspContext().getAttribute(var);
 
-        Object itemValue = null;
-
-        try {
-            if (item instanceof Map) {
-                itemValue = ((Map) item).get(property);
-            } else {
-                itemValue = PropertyUtils.getProperty(item, property);
-            }
-        } catch (Exception e) {
-            logger.warn("item class " + item.getClass().getName() + " doesn't have property " + property);
+        if (item == null) {
+            return null;
         }
 
-        return itemValue;
+        JspFragment body = getJspBody();
+        if (body == null) {
+            return ItemUtils.getItemValue(item, getProperty());
+        } else {
+            StringWriter value = new StringWriter();
+            body.invoke(value);
+            return value;
+        }
     }
 }

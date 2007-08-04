@@ -43,7 +43,7 @@ public interface TableFacade {
 
     public void performFilterAndSort(boolean performFilterAndSort);
 
-    public void setState(String stateAttr);
+    public void setStateAttr(String stateAttr);
 
     public Limit getLimit();
 

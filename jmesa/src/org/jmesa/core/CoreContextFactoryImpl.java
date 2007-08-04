@@ -63,10 +63,10 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
 
     /**
      * <p>
-     * You would call this contructor if you do not want the items filtered
-     * and sorted. You would only use this if you manually filtered and sorted
-     * the items to display a page of data and, in which case, there is no 
-     * reason to do it again. 
+     * You would call this contructor if you do not want the items filtered and
+     * sorted. You would only use this if you manually filtered and sorted the
+     * items to display a page of data and, in which case, there is no reason to
+     * do it again.
      * </p>
      * 
      * @param Is false if you do not want to have the items filtered and sorted.
@@ -149,6 +149,15 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     }
 
     /**
+     * Is false if you do not want to have the items filtered and sorted. For
+     * instance you would not want the API to filter and sort the items if you
+     * did that step manually.
+     */
+    protected boolean isPerformFilterAndSort() {
+        return performFilterAndSort;
+    }
+
+    /**
      * @param items The Collection of Beans or the Collection of Maps.
      * @param limit The Limit object.
      * @return The CoreContext object.
@@ -156,7 +165,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
         Items itemsImpl;
 
-        if (performFilterAndSort) {
+        if (isPerformFilterAndSort()) {
             itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
         } else {
             itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());

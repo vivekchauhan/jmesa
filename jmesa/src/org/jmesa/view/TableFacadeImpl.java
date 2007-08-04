@@ -251,7 +251,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param stateAttr The parameter that will be searched to see if the state
      *            should be used.
      */
-    public void setState(String stateAttr) {
+    public void setStateAttr(String stateAttr) {
         this.state = new SessionState(id, stateAttr, getWebContext());
     }
 

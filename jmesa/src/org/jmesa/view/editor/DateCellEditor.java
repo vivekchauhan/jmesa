@@ -18,8 +18,8 @@ package org.jmesa.view.editor;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
+import org.jmesa.util.ItemUtils;
 import org.jmesa.view.ContextSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,13 +48,13 @@ public class DateCellEditor extends ContextSupport implements CellEditor {
         Object itemValue = null;
 
         try {
-            itemValue = PropertyUtils.getProperty(item, property);
+            itemValue = ItemUtils.getItemValue(item, property);
             Locale locale = getWebContext().getLocale();
             if (itemValue != null) {
                 itemValue = DateFormatUtils.format((Date) itemValue, pattern, locale);
             }
         } catch (Exception e) {
-            logger.warn( "item class " + item.getClass().getName() + " doesn't have property " + property );
+            logger.warn( "Could not process editor with property " + property );
         }
 
         return itemValue;

@@ -161,7 +161,7 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
-        facade.setState("restore");
+        facade.setStateAttr("restore");
 
         Limit limit = facade.getLimit();
         assertNotNull(limit);
@@ -169,7 +169,7 @@ public class TableFacadeTest extends AbstractTestCase {
         assertNotNull(request.getSession().getAttribute("pres"));
         
         TableFacade facadeWithState = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
-        facadeWithState.setState("restore");
+        facadeWithState.setStateAttr("restore");
         request.addParameter("restore", "true");
         
         limit = facadeWithState.getLimit();
