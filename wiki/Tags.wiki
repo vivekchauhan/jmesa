@@ -36,13 +36,14 @@ The following are the tags defined by JMesa.
 || *Attribute* || *Type* || *Description* ||
 || property || String || The bean or map attribute ||
 || title || String || The column header title ||
-|| cellEditor || String || The [CellEditor] class ||
+|| cellEditor || String || The [Editors CellEditor] class ||
 || pattern || String || The pattern to inject into the CellEditor class ||
 || filterable || boolean ||  ||
 || sortable || boolean ||  ||
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
+
 
 
 
