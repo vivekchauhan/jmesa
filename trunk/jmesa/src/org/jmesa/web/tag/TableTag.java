@@ -39,6 +39,8 @@ import org.jmesa.core.sort.DefaultColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
+import org.jmesa.limit.state.SessionState;
+import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlView;
@@ -58,9 +60,12 @@ public class TableTag extends SimpleTagSupport {
     private Collection<Object> items;
     private String var;
     private int maxRows = 15;
+    private String maxRowsIncrements;
     private Limit limit;
+    private String stateAttr;
     private boolean performFilterAndSort = true;
     private String caption;
+    private String captionKey;
     private String exportTypes;
 
     // style attributes
@@ -111,20 +116,12 @@ public class TableTag extends SimpleTagSupport {
         this.maxRows = maxRows;
     }
 
-    public Limit getLimit() {
-        if (limit != null) {
-            return limit;
-        }
-
-        LimitFactory limitFactory = new LimitFactoryImpl(getId(), getWebContext());
-        this.limit = limitFactory.createLimit();
-        limitFactory.createRowSelect(getMaxRows(), getItems().size(), limit);
-
-        return limit;
+    public String getMaxRowsIncrements() {
+        return maxRowsIncrements;
     }
 
-    public void setLimit(Limit limit) {
-        this.limit = limit;
+    public void setMaxRowsIncrements(String maxRowsIncrements) {
+        this.maxRowsIncrements = maxRowsIncrements;
     }
 
     public boolean isPerformFilterAndSort() {
@@ -141,6 +138,14 @@ public class TableTag extends SimpleTagSupport {
 
     public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    public String getCaptionKey() {
+        return captionKey;
+    }
+
+    public void setCaptionKey(String captionKey) {
+        this.captionKey = captionKey;
     }
 
     public String getExportTypes() {
@@ -217,6 +222,10 @@ public class TableTag extends SimpleTagSupport {
         return webContext;
     }
 
+    protected void setWebContext(WebContext webContext) {
+        this.webContext = webContext;
+    }
+
     public CoreContext getCoreContext() {
         if (coreContext != null) {
             return coreContext;
@@ -226,6 +235,47 @@ public class TableTag extends SimpleTagSupport {
         this.coreContext = factory.createCoreContext(getItems(), getLimit());
 
         return coreContext;
+    }
+
+    protected void setCoreContext(CoreContext coreContext) {
+        this.coreContext = coreContext;
+    }
+
+    public Limit getLimit() {
+        if (limit != null) {
+            return limit;
+        }
+
+        State state = null;
+        if (getStateAttr() != null) {
+            state = new SessionState(id, stateAttr, getWebContext());
+            this.limit = state.retrieveLimit();
+            if (this.limit != null) {
+                return limit;
+            }
+        }
+
+        LimitFactory limitFactory = new LimitFactoryImpl(getId(), getWebContext());
+        this.limit = limitFactory.createLimit();
+        limitFactory.createRowSelect(getMaxRows(), getItems().size(), limit);
+
+        if (state != null) {
+            state.persistLimit(limit);
+        }
+
+        return limit;
+    }
+
+    public void setLimit(Limit limit) {
+        this.limit = limit;
+    }
+
+    public String getStateAttr() {
+        return stateAttr;
+    }
+
+    public void setStateAttr(String stateAttr) {
+        this.stateAttr = stateAttr;
     }
 
     public HtmlComponentFactory getComponentFactory() {
@@ -248,6 +298,45 @@ public class TableTag extends SimpleTagSupport {
         return table;
     }
 
+    public Toolbar getToolbar() {
+        String[] exportTypes = StringUtils.split(getExportTypes(), ",");
+
+        ToolbarFactoryImpl toolbarFactory;
+
+        int[] toolbarMaxRowIncrements = getToolbarMaxRowIncrements();
+        if (toolbarMaxRowIncrements != null && toolbarMaxRowIncrements.length > 0) {
+            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), toolbarMaxRowIncrements, getWebContext(), getCoreContext(), exportTypes);
+        } else {
+            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), getWebContext(), getCoreContext(), exportTypes);
+        }
+
+        toolbarFactory.enableSeparators(true);
+        Toolbar toolbar = toolbarFactory.createToolbar();
+        return toolbar;
+    }
+
+    protected int[] getToolbarMaxRowIncrements() {
+        if (StringUtils.isEmpty(getMaxRowsIncrements())) {
+            return null;
+        }
+
+        String[] maxRowIncrements = StringUtils.split(getMaxRowsIncrements(), ",");
+
+        int[] toolbarMaxRowIncrements = new int[maxRowIncrements.length];
+
+        for (int i = 0; i < maxRowIncrements.length; i++) {
+            toolbarMaxRowIncrements[i] = Integer.parseInt(maxRowIncrements[i]);
+        }
+
+        return toolbarMaxRowIncrements;
+    }
+
+    public View getView() {
+        View view = new HtmlView(getTable(), getToolbar(), getCoreContext());
+        return view;
+
+    }
+
     public Collection<Object> getPageItems() {
         return pageItems;
     }
@@ -255,7 +344,13 @@ public class TableTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         HtmlTable table = getTable();
-        table.setCaption(getCaption());
+        
+        if (getCaptionKey() != null) {
+            table.setCaption(getCaptionKey(), true);
+        } else {
+            table.setCaption(getCaption());
+        }
+        
         table.setTheme(getTheme());
         table.getTableRenderer().setWidth(getWidth());
         table.getTableRenderer().setStyle(getStyle());
@@ -266,25 +361,24 @@ public class TableTag extends SimpleTagSupport {
 
         JspFragment body = getJspBody();
         if (body == null) {
-            return;
+            throw new IllegalStateException("You need to wrap the row in the table tag.");
         }
 
         TagCoreContext tagCoreContext = (TagCoreContext) getCoreContext();
 
-        for (Iterator<Object> iterator = tagCoreContext.getPageItems().iterator(); iterator.hasNext();) {
-            Object item = iterator.next();
-            getWebContext().setPageAttribute(getVar(), item);
+        if (tagCoreContext.getPageItems().size() == 0) {
             body.invoke(null);
+        } else {
+            for (Iterator<Object> iterator = tagCoreContext.getPageItems().iterator(); iterator.hasNext();) {
+                Object item = iterator.next();
+                getWebContext().setPageAttribute(getVar(), item);
+                body.invoke(null);
+            }
         }
 
-        tagCoreContext.setPageItems(getPageItems());
+        tagCoreContext.setPageItems(getPageItems()); // morph the items
 
-        String[] exportTypes = StringUtils.split(getExportTypes(), ",");
-        ToolbarFactoryImpl toolbarFactory = new ToolbarFactoryImpl(table, getWebContext(), getCoreContext(), exportTypes);
-        toolbarFactory.enableSeparators(true); // TODO: this could be an attribute
-        Toolbar toolbar = toolbarFactory.createToolbar();
-        View view = new HtmlView(table, toolbar, getCoreContext());
-
+        View view = getView();
         String html = view.render().toString();
         getJspContext().getOut().print(html);
     }
@@ -305,24 +399,21 @@ public class TableTag extends SimpleTagSupport {
             if (pageItems == null) {
                 return super.getPageItems();
             }
-            
+
             return pageItems;
         }
     }
 
     protected class TagCoreContextFactory extends CoreContextFactoryImpl {
-        private boolean performFilterAndSort;
-
         public TagCoreContextFactory(boolean performFilterAndSort, WebContext webContext) {
             super(performFilterAndSort, webContext);
-            this.performFilterAndSort = performFilterAndSort;
         }
 
         @Override
         public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
             Items itemsImpl;
 
-            if (performFilterAndSort) {
+            if (isPerformFilterAndSort()) {
                 itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
             } else {
                 itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());

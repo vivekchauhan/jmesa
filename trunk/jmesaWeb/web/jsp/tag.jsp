@@ -27,16 +27,21 @@
 			id="pres" 
 			items="${presidents}"
 			var="pres"
-			maxRows="12"
-			caption="Presidents" 
+			maxRows="8"
+			maxRowsIncrements="8,16,24"
+			stateAttr="restore"
+			captionKey="presidents.caption" 
 			exportTypes="csv,excel"
 			width="600px"
 			>		
 			<jmesa:row>	
-		        <jmesa:column property="name.firstName" title="First Name"/>
+		        <jmesa:column property="name.firstName" titleKey="presidents.firstName">
+		        	<a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
+		        </jmesa:column>
 		        <jmesa:column property="name.lastName" title="Last Name"/>
-		        <jmesa:column property="term" title="Term"/>
-		        <jmesa:column property="career" title="Career"/>
+		        <jmesa:column property="term"/>
+		        <jmesa:column property="career"/>
+		        <jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
 	        </jmesa:row>
 		</jmesa:table> 
 	
@@ -50,15 +55,21 @@
 &lt;jmesa:table 
      id="pres" 
      items="presidents" 
-     maxRows="12"
+     maxRows="8"
+     maxRowsIncrements="8,16,24"
+     stateAttr="restore"
      caption="Presidents" 
      exportTypes="csv,excel"
      width="600px"
-     >			
-     &lt;jmesa:column property="name.firstName" title="First Name"/>
-     &lt;jmesa:column property="name.lastName" title="Last Name"/>
-     &lt;jmesa:column property="term" title="Term"/>
-     &lt;jmesa:column property="career" title="Career"/>
+     >
+     &lt;jmesa:row>		
+         &lt;jmesa:column property="name.firstName" title="First Name">
+             &lt;a href="http://www.whitehouse.gov/history/presidents/">{pres.name.firstName}&lt;/a>
+         &lt;/jmesa:column>
+         &lt;jmesa:column property="name.lastName" title="Last Name"/>
+         &lt;jmesa:column property="term" title="Term"/>
+         &lt;jmesa:column property="career" title="Career"/>
+     &lt;/jmesa:row>		
 &lt;/jmesa:table> 
 </pre>		
 	

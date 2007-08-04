@@ -22,7 +22,7 @@ public class RowTag extends SimpleTagSupport {
     private String onmouseout;
 
     private HtmlRow row;
-    private Map item;
+    private Map<String, Object> pageItem;
 
     public boolean isHighlighter() {
         return highlighter;
@@ -73,21 +73,21 @@ public class RowTag extends SimpleTagSupport {
         return row;
     }
 
-    public Map getItem() {
-        return item;
+    public Map<String, Object> getPageItem() {
+        return pageItem;
     }
 
     @Override
     public void doTag() throws JspException, IOException {
         JspFragment body = getJspBody();
         if (body == null) {
-            return;
+            throw new IllegalStateException("You need to wrap the columns in the row tag.");
         }
         
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
         Collection<Object> pageItems = tableTag.getPageItems();
-        this.item = new HashMap();
-        pageItems.add(item);
+        this.pageItem = new HashMap<String, Object>();
+        pageItems.add(pageItem);
 
         body.invoke(null);
     }

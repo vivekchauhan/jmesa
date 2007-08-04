@@ -70,8 +70,6 @@ public class HtmlTableUsingComponentFactory {
 
         CellEditor dateCellEditor = factory.createDateCellEditor();
         HtmlColumn bornColumn = factory.createColumn("born", dateCellEditor);
-        bornColumn.setFilterable(false);
-        bornColumn.setSortable(false);
         row.addColumn(bornColumn);
 
         // create the view
