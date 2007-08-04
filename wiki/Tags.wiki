@@ -7,10 +7,11 @@ The tags should be very intuitive and is a very similar facade to the [TableFaca
 
 {{{
 <jmesa:table 
-     id="pres" 
-     items="presidents" 
+     id="presidents"
+     items="${presidents}"
+     var="pres"
      maxRows="12"
-     caption="Presidents" 
+     caption="Presidents"
      exportTypes="csv,excel"
      width="600px"
      >
