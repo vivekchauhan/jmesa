@@ -30,6 +30,7 @@ ant.copy(todir:zip_dir + '/images') { fileset(dir:resources_dir + "/images") }
 ant.copy(todir:zip_dir + '/dist', file:build_dir + "/jmesa-${version}.jar")
 ant.copy(todir:zip_dir + '/dist', file:resources_dir + "/jmesa.js")
 ant.copy(todir:zip_dir + '/dist', file:resources_dir + "/jmesa.css")
+ant.copy(todir:zip_dir + '/dist', file:resources_dir + "/jmesa.tld")
 
 ant.zip(zipfile:build_dir + "/jmesa-${version}.zip", basedir:zip_dir)
 
