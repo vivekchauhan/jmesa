@@ -1,4 +1,3 @@
-#labels Featured
 To build a table you first need to create a Limit object to find out how the user interacted with the table. With the Limit you could either use it to do something custom, or manipulate it to throw the table into a different state. With the Limit you then need to create a !CoreContext object. The !CoreContext allows you to filter and sort the [Items items]. It also gives you access to the Preferences, Messages, and the Limit in other parts of the application. Lastly, you create your View using either one of the factories, or with the [Components components], [Renderers renderers] and [Editors editors] directly.
 
 The following example assumes you have already followed the [Setup setup] instructions.
@@ -12,7 +11,6 @@ Taking things step by step looks like this:
  # Pass the [ControllerExample view data] to render the table on your [JSPExample web page]. Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table.
 
 _Once you have your table implemented you can use the !ParametersBuilder to [UnitTest test] your code.
-
 
 
 
