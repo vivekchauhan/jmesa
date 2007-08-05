@@ -1,4 +1,6 @@
 #labels Featured
+*NOTE: I no longer recommend building tables this way.* The preferred way to build a table is using the [TableFacade] or using the [Tags tag library]. The facade does use the following methodology, but this is considered a low level coding technique that should only be used for JMesa developers. It should not be necessary to use this technique to build your tables.
+
 The default way that JMesa deals with [Items items] is to take everything and then perform the filtering and sorting. The nice thing about this is you can get the filtering, sorting, and pagination for free. That works great for small to medium result sets, but starts to fail pretty miserably when the results are large. It really is a judgement call, but I prefer to let profiling make my technical decisions. If you are concerned that you have a performance problem then the best thing to do is put a profiler on it and see for yourself. There are many open source and commercial profilers available to help you make the best decision. So, lets assume that we have discovered a performance problem and need to deal with the pagination ourselves.
 
 To handle the pagination manually means that you only pull back enough results to fit on one page. At the same time you will need to deal with the filtering, sorting and pagination yourself. For the following discussion I am assuming that you are getting the [Items items] from a database and not some other mechanism. Of course the same principles apply no matter what you do so you should easily be able to adapt your code.
@@ -25,7 +27,6 @@ You can see the
 [http://extremecomponents.org/jmesa/limit.run live example] on the site. If you do a view source on the site you will notice that the AJAX is drop dead simple. It uses the JMesa Javascript library to create the JMesa parameters, and the Sarissa library for the AJAX call. In general this is the most elegant way to use JMesa as it does not require any additional work to create, and it avoids a full page refresh.
 
 Note: the source code for this example, and all examples, are included in the jmesaWeb module checked into subversion. The site's data is run off of [http://hsqldb.org/ HSQLDB], which is an in-memory database. This makes it easy for anyone who wants to run the project to easily get it up and running. And, because the site only includes the code examples it is pretty easy to navigate the code.
-
 
 
 
