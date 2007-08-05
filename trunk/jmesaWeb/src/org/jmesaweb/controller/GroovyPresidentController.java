@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 /**
  * A complete example in creating a JMesa table using Spring.
  * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class GroovyPresidentController extends AbstractController {
@@ -34,8 +35,7 @@ public class GroovyPresidentController extends AbstractController {
     private String successView;
     private HtmlTableTemplate htmlTableTemplate;
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
         Collection<Object> items = presidentService.getPresidents();
         Object presidents = htmlTableTemplate.build(items, request);
@@ -47,9 +47,9 @@ public class GroovyPresidentController extends AbstractController {
         this.successView = successView;
     }
 
-	public void setPresidentService(PresidentService presidentService) {
-		this.presidentService = presidentService;
-	}
+    public void setPresidentService(PresidentService presidentService) {
+        this.presidentService = presidentService;
+    }
 
     public void setHtmlTableTemplate(HtmlTableTemplate htmlTableTemplate) {
         this.htmlTableTemplate = htmlTableTemplate;
