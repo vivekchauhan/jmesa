@@ -4,6 +4,7 @@ It wasn't long before I realized that what I needed was a facade that had a litt
 
 More examples and documentation can be found here:
  * [FacadeLimitExample Limit Example]
+ * [FacadeGroovyExample Groovy Example]
 
 The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. The facade completely abstracts away all the factory classes and eliminates all of the boilerplate code. The builder notion comes in because as you work with it it will internally build up everything you need and keep track of it for you.
 
