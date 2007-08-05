@@ -13,10 +13,8 @@
 	<p class="content">
 		Other examples:<br/>
 		<a href="${pageContext.request.contextPath}/basic.run">Basic</a> <br/>
-		<a href="${pageContext.request.contextPath}/basicGroovy.run">Basic With Groovy</a><br/>
-		<a href="${pageContext.request.contextPath}/advanced.run?restore=true">Advanced</a><br/>
+		<a href="${pageContext.request.contextPath}/groovy.run">Groovy</a><br/>
 		<a href="${pageContext.request.contextPath}/tag.run">Tag</a><br/>
-		<a href="${pageContext.request.contextPath}/facade.run">Facade</a> <br/>
 	</p>
 	
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/presidents.run">
@@ -26,13 +24,12 @@
 	</form>
 	
 	<p class="content">
-		See the wiki for the complete 
-		<a href="http://code.google.com/p/jmesa/wiki/LimitExample">source code</a>. 
+		This example source code can be found 
+		<a href="http://code.google.com/p/jmesa/wiki/Example">here</a>.
 	</p>
 
 	<p class="content" style="font-style: italic;">
-		Note: This is what the AJAX call looks like. Also, for the (above) example I am using the
-		ComponentFactory, but could have easily used the TableFactory.
+		Note: This is what the AJAX call looks like using the JQuery library.
 	</p>
 	
 <pre>
@@ -56,14 +53,14 @@ function onInvokeAction(id) {
     setExportToLimit(id, '');
 
     var parameterString = createParameterStringForLimit(id);
-    $.get('${pageContext.request.contextPath}/ajax.run?' + parameterString, function(data) {
+    $.get('${pageContext.request.contextPath}/limit.run?ajax=true&' + parameterString, function(data) {
         $("#presidents").html(data)
     });
 }
 
 function onInvokeExportAction(id) {
 	var parameterString = createParameterStringForLimit(id);
-	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+	location.href = '${pageContext.request.contextPath}/presidents.run?ajax=true&' + parameterString;
 }
 </script>
 

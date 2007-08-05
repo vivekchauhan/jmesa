@@ -63,13 +63,13 @@ public class LimitPresidentsControllerTest {
 
         replay(presidentService);
 
-        LimitCoreContext limitCoreContext = new LimitCoreContext();
-        limitCoreContext.setPresidentService(presidentService);
-        limitCoreContext.setId(ID);
-        limitCoreContext.setMaxRows(12);
+//        LimitCoreContext limitCoreContext = new LimitCoreContext();
+//        limitCoreContext.setPresidentService(presidentService);
+//        limitCoreContext.setId(ID);
+//        limitCoreContext.setMaxRows(12);
 
         LimitPresidentController controller = new LimitPresidentController();
-        controller.setLimitCoreContext(limitCoreContext);
+//        controller.setLimitCoreContext(limitCoreContext);
         controller.setSuccessView("jsp/limit.jsp");
 
         MockHttpServletRequest request = new MockHttpServletRequest();

@@ -15,19 +15,23 @@
  */
 package org.jmesaweb.controller;
 
+import static org.jmesa.view.TableFacadeImpl.CSV;
+import static org.jmesa.view.TableFacadeImpl.EXCEL;
+
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactory;
-import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.limit.Limit;
-import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.web.HttpServletRequestWebContext;
-import org.jmesa.web.WebContext;
+import org.jmesa.view.TableFacade;
+import org.jmesa.view.TableFacadeImpl;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Table;
+import org.jmesa.view.editor.BasicCellEditor;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -38,51 +42,51 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Jeff Johnston
  */
 public class BasicPresidentController extends AbstractController {
-    private static String CSV = "csv";
-    private static String EXCEL = "excel";
-
     private PresidentService presidentService;
     private String successView;
     private String id;
     private int maxRows;
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-
-        WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Limit limit = getLimit(items, webContext);
-        CoreContext coreContext = getCoreContext(items, limit, webContext);
 
+        TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+        facade.setExportTypes(response, CSV, EXCEL);
+
+        Table table = facade.getTable();
+        table.setCaption("Presidents");
+
+        Column firstName = table.getRow().getColumn("name.firstName");
+        firstName.setTitle("First Name");
+
+        Column lastName = table.getRow().getColumn("name.lastName");
+        lastName.setTitle("Last Name");
+
+        Limit limit = facade.getLimit();
         if (limit.isExportable()) {
-            String type = limit.getExport().getType();
-            if (type.equals(CSV)) {
-                new CsvTableUsingTableFactory().render(response, webContext, coreContext);
-                return null;
-            }
-            else if (type.equals(EXCEL)) {
-                new ExcelTableUsingTableFactory().render(response, webContext, coreContext);
-                return null;
-            }
+            facade.render();
+            return null;
+        } else {
+            HtmlTable htmlTable = (HtmlTable) table;
+            htmlTable.getTableRenderer().setWidth("600px");
+
+            firstName.getCellRenderer().setCellEditor(new CellEditor() {
+                public Object getValue(Object item, String property, int rowcount) {
+                    Object value = new BasicCellEditor().getValue(item, property, rowcount);
+                    HtmlBuilder html = new HtmlBuilder();
+                    html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+                    html.append(value);
+                    html.aEnd();
+                    return html.toString();
+                }
+            });
+
+            String html = facade.render();
+            mv.addObject("presidents", html);
         }
 
-        Object presidents = new HtmlTableUsingTableFactory().render(webContext, coreContext);
-        mv.addObject("presidents", presidents);
-
         return mv;
-    }
-
-    public Limit getLimit(Collection items, WebContext webContext) {
-        LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-        Limit limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
-        return limit;
-    }
-
-    public CoreContext getCoreContext(Collection<Object> items, Limit limit, WebContext webContext) {
-        CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
-        CoreContext coreContext = factory.createCoreContext(items, limit);
-        return coreContext;
     }
 
     public void setPresidentService(PresidentService presidentService) {

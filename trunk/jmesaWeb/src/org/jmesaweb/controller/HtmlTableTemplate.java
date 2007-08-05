@@ -10,5 +10,5 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public interface HtmlTableTemplate {
-    public String build(Collection items, WebContext webContext);
+    public String build(Collection<Object> items, WebContext webContext);
 }
