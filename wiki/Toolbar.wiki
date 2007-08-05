@@ -1,0 +1,9 @@
+The toolbar in JMesa can be fully customized.
+
+todo: need to write up more about this class.
+
+
+{{{
+ToolbarFactory toolbarFactory = new ToolbarFactoryImpl(table, webContext, coreContext, "csv");
+Toolbar toolbar = toolbarFactory.createToolbar();
+}}}
