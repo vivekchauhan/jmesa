@@ -1,0 +1,49 @@
+This is my first full blown Groovy example using the new [TableFacade]! I probably went overboard with the Groovy specific syntax, but I was having fun and wanted to see how short and concise I could get the syntax and also explore different kinds of Groovy syntax. 
+
+One of my favorite things about Groovy is that you can just cut and paste in Java syntax and then "Groovy it up", as they say! That is why you will notice that I specifically put in closure support for cell editors. I did not want to have to extend anything in JMesa to make it work. Going forward I want to always be able to have the same code work between Java and Groovy and not think about working with specific implementations.
+
+Another nice touch, if you are using Spring, is that you can wire this all up through the [GroovySpring bean factory].
+
+{{{
+import org.jmesaweb.controller.HtmlTableTemplate;
+
+class BasicGroovyPresident implements HtmlTableTemplate {
+    String id;
+    int maxRows;
+    
+    String build(Collection<Object> items, HttpServletRequest request) {
+        def facade = [id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career"] as TableFacadeImpl
+
+        def table = facade.table
+        table.caption = "Presidents"
+
+        def firstName = table.row.getColumn("name.firstName")
+        firstName.title = "First Name"
+
+        def lastName = table.row.getColumn("name.lastName")
+        lastName.title = "Last Name"
+
+        table.tableRenderer.width = "600px"
+
+        firstName.headerRenderer.defaultSortOrderable = false
+		firstName.cellRenderer.setCellEditor({item, property, rowcount -> 
+		 	def value = new BasicCellEditor().getValue(item, property, rowcount);
+                return """
+                    <a href="http://www.whitehouse.gov/history/presidents/">
+                       $value
+                    </a>
+                   """})
+
+        return facade.render()
+    }
+}
+
+}}}
+
+
+
+
+
+
+
+
