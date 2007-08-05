@@ -55,7 +55,7 @@ class BasicGroovyPresident implements HtmlTableTemplate {
 
         firstName.headerRenderer.defaultSortOrderable = false
         firstName.cellRenderer.setCellEditor({item, property, rowcount -> 
-	        def value = new BasicCellEditor().getValue(item, property, rowcount);
+            def value = new BasicCellEditor().getValue(item, property, rowcount);
             return """
                     <a href="http://www.whitehouse.gov/history/presidents/">
                        $value
