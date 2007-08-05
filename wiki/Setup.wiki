@@ -1,5 +1,5 @@
 #labels Phase-Deploy,Featured
-JMesa is written as an API which is not dependant on any framework or Servlet API. The only core dependencies are to a few Apache Commons libraries in which JMesa is fortunate enough to be able to utilize.
+The only core dependencies are a few Apache Commons libraries in which JMesa is fortunate enough to be able to utilize. Some advanced functionality will require more jars, as detailed below.
 
 === Requirements ===
  * JDK1.5 (or higher)
@@ -16,6 +16,12 @@ In addition JMesa is using [SLF4J]. The core jar file is:
 
 _See the [SLF4J] page for details about working with the slf4j logging framework._
 
+==== Excel Export (JMesa 2.1) ====
+ * poi-3.0.1.jar
+
+==== Tags (JMesa 2.1) ====
+ * servlet-api-2.4.jar
+ * jsp-api-2.0.jar
 
 === Installation ===
 First download the [http://code.google.com/p/jmesa/downloads/list distribution].
@@ -24,6 +30,7 @@ In the jmesa.zip file you will find everything you need to get started:
  * jmesa.jar
  * jmesa.css
  * jmesa.js
+ * jmesa.tld (JMesa 2.1)
  * default images
  * source code
 
@@ -32,12 +39,9 @@ The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directo
 If you need to do more customization you might need to set up the [Messages] and [Preferences].
 
 
-=== Tags and Filter ===
-JMesa does not currently have any tags, but instead uses the API to build tables directly with straight Java code. In the future I fully expect to have a tag implementation, but even then it will be a very straight forward library. More advanced tables will always be built via the API.
 
-Exports, on the other hand, will always be built using the API. There will no longer be a servlet filter used.
 
-Read the article about [TagsAndFilter tags and filters] for a detailed explanation of why both of these decisions were made.
+
 
 
 
