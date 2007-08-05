@@ -19,8 +19,8 @@ What you need to understand is that when you click on one of the table actions i
 {{{
 <script type="text/javascript">
 function onInvokeAction(id) {
-	setExportToLimit(id, '');
-	createHiddenInputFieldsForLimitAndSubmit(id);
+    setExportToLimit(id, '');
+    createHiddenInputFieldsForLimitAndSubmit(id);
 }
 </script>
 }}}
@@ -32,8 +32,8 @@ If you are doing exporting then you will need to implement the export function o
 {{{
 <script type="text/javascript">
 function onInvokeExportAction(id) {
-	var parameterString = createParameterStringForLimit(id);
-	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+    var parameterString = createParameterStringForLimit(id);
+    location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
 }
 </script>
 }}}
@@ -52,9 +52,9 @@ Then we need to put in the form element and include the JMesa table inside it. N
 
 {{{
 <form name="presidentsForm" action="${pageContext.request.contextPath}/presidents.run">
-	<div id="presidents">
-		${presidents}
-	</div>
+    <div id="presidents">
+        ${presidents}
+    </div>
 </form>
 }}}
 
@@ -63,28 +63,22 @@ The magic of AJAX comes into play when the onInvokeAction() is called by one of 
 {{{
 <script type="text/javascript">
 function onInvokeAction(id) {
-	setExportToLimit(id, '');
+    setExportToLimit(id, '');
 	
-	var parameterString = createParameterStringForLimit(id);
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open('GET', '${pageContext.request.contextPath}/ajax.run?' + parameterString, true);
-	
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4) {
-			var presidents = document.getElementById('presidents');
-			presidents.innerHTML = xmlhttp.responseText;
-		}
-	}
-	
-	xmlhttp.send(null);
+    var parameterString = createParameterStringForLimit(id);
+    $.get('${pageContext.request.contextPath}/limit.run?ajax=true&' + parameterString, function(data) {
+        $("#presidents").html(data)
+    });
 }
 
 function onInvokeExportAction(id) {
-	var parameterString = createParameterStringForLimit(id);
-	location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+    var parameterString = createParameterStringForLimit(id);
+    location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
 }
 </script>
 }}}
+
+
 
 
 
