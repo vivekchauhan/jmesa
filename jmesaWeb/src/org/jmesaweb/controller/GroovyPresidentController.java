@@ -15,15 +15,11 @@
  */
 package org.jmesaweb.controller;
 
-import org.jmesaweb.controller.HtmlTableTemplate;
-
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jmesa.web.HttpServletRequestWebContext;
-import org.jmesa.web.WebContext;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -41,9 +37,8 @@ public class GroovyPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-        WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Object presidents = htmlTableTemplate.build(items, webContext);
+        Object presidents = htmlTableTemplate.build(items, request);
         mv.addObject("presidents", presidents);
         return mv;
     }
