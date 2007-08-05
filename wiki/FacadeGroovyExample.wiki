@@ -11,16 +11,4 @@ All the code examples are checked into subversion. The best way to present these
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/web/WEB-INF/groovy/GroovyPresident.groovy Groovy] file
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/web/jsp/groovy.jsp JSP]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table.
