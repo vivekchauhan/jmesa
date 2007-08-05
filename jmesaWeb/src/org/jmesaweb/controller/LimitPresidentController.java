@@ -43,8 +43,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A complete example in creating a JMesa table using Spring.
+ * A complete example in creating a JMesa table using Spring. This example sorts
+ * and filters the results manually. In addition Ajax is used.
  * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class LimitPresidentController extends AbstractController {
@@ -55,10 +57,10 @@ public class LimitPresidentController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-        
+
         String content = render(request, response);
         if (content == null) {
-            return null; //an export
+            return null; // an export
         } else {
             String ajax = request.getParameter("ajax");
             if (ajax != null && ajax.equals("true")) {
@@ -72,13 +74,13 @@ public class LimitPresidentController extends AbstractController {
 
         return mv;
     }
-    
+
     protected String render(HttpServletRequest request, HttpServletResponse response) {
         TableFacade facade = new TableFacadeImpl(id, request, "name.firstName", "name.lastName", "term", "career");
         facade.setExportTypes(response, CSV, EXCEL);
 
         Limit limit = facade.getLimit();
-        
+
         setLimitVariables(facade, limit);
 
         Table table = facade.getTable();
@@ -107,7 +109,7 @@ public class LimitPresidentController extends AbstractController {
                 }
             });
         }
-        
+
         return facade.render();
     }
 
@@ -116,7 +118,7 @@ public class LimitPresidentController extends AbstractController {
         PresidentSort presidentSort = getPresidentSort(limit);
         int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
         facade.setRowSelect(maxRows, totalRows);
-        
+
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
         Collection<Object> items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);

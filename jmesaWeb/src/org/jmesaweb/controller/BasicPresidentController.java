@@ -39,6 +39,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 /**
  * A complete example in creating a JMesa table using Spring.
  * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class BasicPresidentController extends AbstractController {
