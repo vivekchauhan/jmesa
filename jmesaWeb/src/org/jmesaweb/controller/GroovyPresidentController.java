@@ -33,7 +33,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * 
  * @author Jeff Johnston
  */
-public class BasicGroovyPresidentController extends AbstractController {
+public class GroovyPresidentController extends AbstractController {
     private PresidentService presidentService;
     private String successView;
     private HtmlTableTemplate htmlTableTemplate;

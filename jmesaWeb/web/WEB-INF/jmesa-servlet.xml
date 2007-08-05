@@ -17,46 +17,22 @@
 				<entry key="presidents.run">
 					<ref bean="basic"/>
 				</entry>
-				<entry key="limit.run">
-					<ref bean="limit"/>
-				</entry>
 				<entry key="basic.run">
 					<ref bean="basic"/>
 				</entry>
-				<entry key="advanced.run">
-					<ref bean="advanced"/>
+				<entry key="limit.run">
+					<ref bean="limit"/>
 				</entry>
-				<entry key="ajax.run">
-					<ref bean="ajax"/>
-				</entry>
-				<entry key="basicGroovy.run">
-					<ref bean="basicGroovy"/>
+				<entry key="groovy.run">
+					<ref bean="groovy"/>
 				</entry>
 				<entry key="tag.run">
 					<ref bean="tag"/>
-				</entry>
-				<entry key="facade.run">
-					<ref bean="facade"/>
 				</entry>
 			</map>
 		</property>
 	</bean>
 	
-	<bean id="limitCoreContext" class="org.jmesaweb.controller.LimitCoreContext">
-		<property name="presidentService" ref="presidentService"/>
-		<property name="id" value="pres"/>
-		<property name="maxRows" value="12"/>
-	</bean>
-	
-	<bean id="limit" class="org.jmesaweb.controller.LimitPresidentController">
-		<property name="successView" value="jsp/limit.jsp"/>
-		<property name="limitCoreContext" ref="limitCoreContext"/>
-	</bean>
-
-	<bean id="ajax" class="org.jmesaweb.controller.AjaxLimitPresidentController">
-		<property name="limitCoreContext" ref="limitCoreContext"/>
-	</bean>
-
 	<bean id="basic" class="org.jmesaweb.controller.BasicPresidentController">
 		<property name="successView" value="jsp/basic.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
@@ -64,10 +40,11 @@
 		<property name="maxRows" value="12"/>
 	</bean>
 
-	<bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
-		<property name="successView" value="jsp/basicGroovy.jsp"/>
+	<bean id="limit" class="org.jmesaweb.controller.LimitPresidentController">
+		<property name="successView" value="jsp/limit.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
-		<property name="htmlTableTemplate" ref="basicGroovyPresident"/>
+		<property name="id" value="pres"/>
+		<property name="maxRows" value="12"/>
 	</bean>
 
 	<bean id="tag" class="org.jmesaweb.controller.TagPresidentController">
@@ -76,25 +53,17 @@
 		<property name="id" value="pres"/>
 	</bean>
 
-	<bean id="facade" class="org.jmesaweb.controller.TableFacadePresidentController">
-		<property name="successView" value="jsp/facade.jsp"/>
+	<bean id="groovy" class="org.jmesaweb.controller.GroovyPresidentController">
+		<property name="successView" value="jsp/groovy.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
-		<property name="id" value="pres"/>
-		<property name="maxRows" value="12"/>
+		<property name="htmlTableTemplate" ref="groovyPresident"/>
 	</bean>
 
-	<lang:groovy id="basicGroovyPresident" 
+	<lang:groovy id="groovyPresident" 
 				refresh-check-delay="5000"
-				script-source="WEB-INF/groovy/BasicGroovyPresident.groovy">
+				script-source="WEB-INF/groovy/GroovyPresident.groovy">
         <lang:property name="id" value="pres"/> 
         <lang:property name="maxRows" value="12"/> 
     </lang:groovy>			
-
-	<bean id="advanced" class="org.jmesaweb.controller.AdvancedPresidentController">
-		<property name="successView" value="jsp/advanced.jsp"/>
-		<property name="presidentService" ref="presidentService"/>
-		<property name="id" value="pres"/>
-		<property name="maxRows" value="12"/>
-	</bean>
 
 </beans>

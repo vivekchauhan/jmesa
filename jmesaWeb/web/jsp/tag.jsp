@@ -16,9 +16,7 @@
 		Other examples:<br/>
 		<a href="${pageContext.request.contextPath}/limit.run">Limit (with AJAX)</a> <br/>
 		<a href="${pageContext.request.contextPath}/basic.run">Basic</a> <br/>
-		<a href="${pageContext.request.contextPath}/basicGroovy.run">Basic With Groovy</a><br/>
-		<a href="${pageContext.request.contextPath}/advanced.run?restore=true">Advanced</a><br/>
-		<a href="${pageContext.request.contextPath}/facade.run">Facade</a> <br/>
+		<a href="${pageContext.request.contextPath}/groovy.run">Groovy</a><br/>
 	</p>
 
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/tag.run">
