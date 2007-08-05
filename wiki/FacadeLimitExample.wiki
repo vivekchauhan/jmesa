@@ -15,6 +15,8 @@ The example uses JMesa, along with Spring and Hibernate (Criteria API). It also 
 ==== code references ====
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code. The examples only build tables so there is no other code to look at. I am also working on creating a war file, with Jetty built in, that will includes all the source code and examples that can be run locally.
 
+For the Limit example there is a service and dao class of interest, but how you implement those is very custom and will differ on how you work. The class to really pay attention to is the controller as that is how you will interact with the [TableFacade].
+
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/LimitPresidentController.java Controller]
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/service/PresidentServiceImpl.java  Service]
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/dao/PresidentDaoImpl.java Dao]
