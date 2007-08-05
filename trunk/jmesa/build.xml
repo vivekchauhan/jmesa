@@ -11,7 +11,7 @@
 		<delete dir="build"/>
 	</target>
 
-	<target name="compile">
+	<target name="compile" depends="clean">
 		<mkdir dir="build/classes"/>
 
 		<echo message="You are using java version ${java.version}"/>
@@ -22,14 +22,14 @@
 	</target>
 	
 	<target name="jar" depends="compile">
-		<jar jarfile="build/jmesa-${version}.jar" basedir="build/classes">
+		<jar jarfile="build/jmesa.jar" basedir="build/classes">
 			<fileset dir="src">
 				<include name="**/*.properties"/>
 			</fileset>
 		</jar>
 	</target>
 	
-	<target name="javadocs">
+	<target name="javadocs" depends="jar">
         <mkdir dir="build"/>
         <mkdir dir="build/docs"/>
 	
