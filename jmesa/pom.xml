@@ -7,6 +7,7 @@
   <version>2.0.1</version>
   <description>jmesa</description>
   <inceptionYear>2007</inceptionYear>
+  <url>http://code.google.com/p/jmesa</url>
   <scm>
     <connection>scm:svn:http://jmesa.googlecode.com/svn/trunk/jmesa</connection>
     <developerConnection>scm:svn:https://jmesa.googlecode.com/svn/trunk/jmesa</developerConnection>
@@ -84,10 +85,15 @@
       <version>3.2</version>
     </dependency>
     <dependency>
+      <groupId>poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.0.1-FINAL</version>
+    </dependency>
+    <dependency>
       <groupId>groovy</groupId>
       <artifactId>groovy</artifactId>
       <version>1.0</version>
-	  <optional>true</optional>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -111,7 +117,7 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-mock</artifactId>
       <version>1.2.6</version>
-	  <optional>true</optional>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
