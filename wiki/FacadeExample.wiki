@@ -9,7 +9,7 @@ TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firs
 String html = facade.render(); 
 }}}
 
-A more common example is to start with a facade and then do tweak it out and I will show that next.
+A more common example is to start with a facade and then tweak it out. I will show that next.
 
 ==== code references ====
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code. I will work on getting more javadocs in as I get time. The examples only build tables so there is no other code to look at. I am also working on creating a war file, with Jetty built in, that will includes all the source code and examples that can be run locally.
@@ -18,7 +18,6 @@ All the code examples are checked into subversion. The best way to present these
 Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table.
 
 _Once you have your table implemented you can use the !ParametersBuilder to [UnitTest test] your code.
-
 
 
 
