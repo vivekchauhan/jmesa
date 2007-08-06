@@ -1,3 +1,5 @@
+*NOTE: I no longer recommend building tables this way.* The preferred way to build a table is using the [TableFacade] or using the [Tags tag library]. The facade does use the following methodology, but this is considered a low level coding technique that should only be used for JMesa developers. It should not be necessary to use this technique to build your tables.
+
 In this example we are doing the filtering and sorting in the database. The main points of interest as compared to the simple way of working with the Limit is in the way that we have to actively find the total rows and use the filtering and sorting. You will also notice that the [Limit] and [CoreContext] are created in the same method. This still works because the Limit is available on the !CoreContext and can be easily retrieved.
 
 ==== Example ====
@@ -107,7 +109,6 @@ protected PresidentSort getPresidentSort(Limit limit) {
     return presidentSort;
 }
 }}}
-
 
 
 
