@@ -1,4 +1,4 @@
-JMesa now has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade]. In fact for exporting you will be using the facade to process the export in the controller.
+JMesa now has a complete [Tags tag library]! The tags should be very intuitive and is a very similar facade to the [TableFacade]. In fact for exporting you will be using the facade to process the export in the controller.
 
 === Example ===
 The following examples uses JMesa, along with Spring. It also assumes you have already followed the [Setup setup] instructions.
