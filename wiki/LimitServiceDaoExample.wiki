@@ -1,3 +1,6 @@
+*NOTE: I no longer recommend building tables this way.* The preferred way to build a table is using the [TableFacade] or using the [Tags tag library]. The facade does use the following methodology, but this is considered a low level coding technique that should only be used for JMesa developers. It should not be necessary to use this technique to build your tables.
+
+
 This is a quick overview of the service and dao, along with the helper filter and sort objects. For the complete source code see the jmesaWeb module checked into Subversion.
 
 ==== Service ====
