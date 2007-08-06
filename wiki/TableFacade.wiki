@@ -1,3 +1,4 @@
+#labels Featured
 _The following technique is available as of the JMesa 2.1 release._
 
 I was on vacation recently and during the drive started thinking about what it would mean to create a facade over the existing functionality of JMesa. The idea would be to make creating tables with the API easier without sacrificing any of the flexibility that you are currently used to.
@@ -86,6 +87,5 @@ if (limit.isExportable()) {
 }}}
 
 All the boilerplate code of rendering the exports is done for you!
-
 
 
