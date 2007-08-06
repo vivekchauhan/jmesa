@@ -1,3 +1,5 @@
+*NOTE: I no longer recommend building tables this way.* The preferred way to build a table is using the [TableFacade] or using the [Tags tag library]. The facade does use the following methodology, but this is considered a low level coding technique that should only be used for JMesa developers. It should not be necessary to use this technique to build your tables.
+
 To make building JMesa tables easier you can use either the [TableFactory], or the !ComponentFactory. The lower level factory is the !ComponentFactory and will be demonstrated here. I find using a !ComponentFactory most useful when building HTML tables that are more custom. For exports I would recommend using the [TableFactory] because they typically have pretty simple requirements. For more information about components, renderers and editors first read the [View view] overview.
 
 ==== HTML Example ====
@@ -104,7 +106,6 @@ public void csvTable(WebContext webContext, CoreContext coreContext, HttpServlet
     exporter.export();
 }
 }}}
-
 
 
 
