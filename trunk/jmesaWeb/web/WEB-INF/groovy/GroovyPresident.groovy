@@ -32,7 +32,11 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.controller.HtmlTableTemplate;
 
 /**
- * @since 2.0
+ * This example is exactly like the basic example except it is using Groovy. It is 
+ * also not doing any exports so it is not using the Limit object to check for
+ * exports.
+ *
+ * @since 2.1
  * @author Jeff Johnston
  */
 class BasicGroovyPresident implements HtmlTableTemplate {
@@ -54,6 +58,8 @@ class BasicGroovyPresident implements HtmlTableTemplate {
         table.tableRenderer.width = "600px"
 
         firstName.headerRenderer.defaultSortOrderable = false
+
+        // Using a closure to implement a custom editor.
         firstName.cellRenderer.setCellEditor({item, property, rowcount -> 
             def value = new BasicCellEditor().getValue(item, property, rowcount);
             return """
@@ -62,6 +68,6 @@ class BasicGroovyPresident implements HtmlTableTemplate {
                     </a>
                    """})
 
-        return facade.render()
+        return facade.render() // Return the Html.
     }
 }

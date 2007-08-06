@@ -28,6 +28,12 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 
+/**
+ * Creates a command to wrap the Hibernate criteria API to sort.
+ * 
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class PresidentSort implements CriteriaCommand {
     List<Sort> sorts = new ArrayList<Sort>();
 

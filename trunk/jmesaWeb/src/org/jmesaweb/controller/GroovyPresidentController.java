@@ -25,9 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A complete example in creating a JMesa table using Spring.
+ * The real work for this example is done in the GroovyPresident.groovy file. The HtmlTableTemplate
+ * interface is used to bridge the gap between Java and Groovy. Because of this the Groovy code is
+ * effectively injected into this controller.
  * 
- * @since 2.0
+ * @since 2.1
  * @author Jeff Johnston
  */
 public class GroovyPresidentController extends AbstractController {
@@ -38,8 +40,8 @@ public class GroovyPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
         Collection<Object> items = presidentService.getPresidents();
-        Object presidents = htmlTableTemplate.build(items, request);
-        mv.addObject("presidents", presidents);
+        String html = htmlTableTemplate.build(items, request);
+        mv.addObject("presidents", html); // Set the Html in the request for the JSP.
         return mv;
     }
 

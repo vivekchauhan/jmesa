@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class President implements Serializable {
