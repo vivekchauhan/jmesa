@@ -24,6 +24,12 @@ package org.jmesaweb.dao;
 
 import org.hibernate.Criteria;
 
+/**
+ * Creates a command to wrap the Hibernate criteria API.
+ * 
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public interface CriteriaCommand {
 	public Criteria execute(Criteria criteria);
 }

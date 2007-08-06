@@ -37,16 +37,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A complete example in creating a JMesa table using Spring.
+ * Create a new TableFacade and tweak it out.
  * 
- * @since 2.0
+ * @since 2.1
  * @author Jeff Johnston
  */
 public class BasicPresidentController extends AbstractController {
     private PresidentService presidentService;
     private String successView;
-    private String id;
-    private int maxRows;
+    private String id; // The unique table id.
+    private int maxRows; // The max rows to display on the page.
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
@@ -66,12 +66,13 @@ public class BasicPresidentController extends AbstractController {
 
         Limit limit = facade.getLimit();
         if (limit.isExportable()) {
-            facade.render();
-            return null;
+            facade.render(); // Will write the export data out to the response.
+            return null; // In Spring returning null tells the controller not to do anything.
         } else {
             HtmlTable htmlTable = (HtmlTable) table;
             htmlTable.getTableRenderer().setWidth("600px");
 
+            // Using an anonymous class to implement a custom editor.
             firstName.getCellRenderer().setCellEditor(new CellEditor() {
                 public Object getValue(Object item, String property, int rowcount) {
                     Object value = new BasicCellEditor().getValue(item, property, rowcount);
@@ -83,8 +84,8 @@ public class BasicPresidentController extends AbstractController {
                 }
             });
 
-            String html = facade.render();
-            mv.addObject("presidents", html);
+            String html = facade.render(); // Return the Html.
+            mv.addObject("presidents", html); // Set the Html in the request for the JSP.
         }
 
         return mv;

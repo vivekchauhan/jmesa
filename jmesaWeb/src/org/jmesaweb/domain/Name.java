@@ -15,6 +15,10 @@
  */
 package org.jmesaweb.domain;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class Name {
     private String firstName;
     private String lastName;

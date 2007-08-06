@@ -29,6 +29,8 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 /**
+ * Creates a command to wrap the Hibernate criteria API to filter.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
@@ -52,7 +54,7 @@ public class PresidentFilter implements CriteriaCommand {
             criteria.add(Restrictions.like(property, "%" + value + "%").ignoreCase());
         }
     }
-    
+
     private static class Filter {
         private final String property;
         private final Object value;

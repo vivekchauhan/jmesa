@@ -43,45 +43,52 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A complete example in creating a JMesa table using Spring. This example sorts
- * and filters the results manually. In addition Ajax is used.
+ * This example sorts and filters the results manually and only returns one page of data. In
+ * addition Ajax is used. Hopefully adding Ajax does not complicate the example very much. Really
+ * the whole process is the same, except instead of sending the html out on the request we have to
+ * send it back out on the response.
  * 
- * @since 2.0
+ * @since 2.1
  * @author Jeff Johnston
  */
 public class LimitPresidentController extends AbstractController {
     private PresidentService presidentService;
     private String successView;
-    private String id;
-    private int maxRows;
+    private String id; // The unique table id.
+    private int maxRows; // The max rows to display on the page.
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        String content = render(request, response);
-        if (content == null) {
+        String html = render(request, response);
+        if (html == null) {
             return null; // an export
         } else {
+            // Setting a parameter to signal that this is an Ajax request.
             String ajax = request.getParameter("ajax");
             if (ajax != null && ajax.equals("true")) {
-                byte[] contents = content.getBytes();
+                byte[] contents = html.getBytes();
                 response.getOutputStream().write(contents);
                 return null;
-            } else {
-                mv.addObject("presidents", content);
+            } else { // Not using Ajax if invoke the controller for the first time.
+                mv.addObject("presidents", html); // Set the Html in the request for the JSP.
             }
         }
 
         return mv;
     }
 
+    /**
+     * Create a new TableFacade and work with it just like with the basic example.
+     * 
+     * @param request The HttpServletRequest to use.
+     * @param response The HttpServletResponse to use.
+     */
     protected String render(HttpServletRequest request, HttpServletResponse response) {
         TableFacade facade = new TableFacadeImpl(id, request, "name.firstName", "name.lastName", "term", "career");
-        facade.setExportTypes(response, CSV, EXCEL);
+        facade.setExportTypes(response, CSV, EXCEL); // Tell the facade what exports to use.
 
-        Limit limit = facade.getLimit();
-
-        setLimitVariables(facade, limit);
+        setDataAndLimitVariables(facade); // Find the data to display and build the Limit.
 
         Table table = facade.getTable();
         table.setCaption("Presidents");
@@ -92,12 +99,15 @@ public class LimitPresidentController extends AbstractController {
         Column lastName = table.getRow().getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
+        Limit limit = facade.getLimit();
         if (limit.isExportable()) {
-            return null;
+            facade.render(); // Will write the export data out to the response.
+            return null; // In Spring return null tells the controller not to do anything.
         } else {
             HtmlTable htmlTable = (HtmlTable) table;
             htmlTable.getTableRenderer().setWidth("600px");
 
+            // Using an anonymous class to implement a custom editor.
             firstName.getCellRenderer().setCellEditor(new CellEditor() {
                 public Object getValue(Object item, String property, int rowcount) {
                     Object value = new BasicCellEditor().getValue(item, property, rowcount);
@@ -108,23 +118,53 @@ public class LimitPresidentController extends AbstractController {
                     return html.toString();
                 }
             });
-        }
 
-        return facade.render();
+            return facade.render(); // Return the Html.
+        }
     }
 
-    protected void setLimitVariables(TableFacade facade, Limit limit) {
-        PresidentFilter presidentFilter = getPresidentFilter(limit);
-        PresidentSort presidentSort = getPresidentSort(limit);
-        int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
-        facade.setRowSelect(maxRows, totalRows);
+    /**
+     * <p>
+     * We are manually filtering and sorting the rows here. In addition we are only returning one
+     * page of data. To do this we must use the Limit to tell us where the rows start and end.
+     * However, to do that we must set the RowSelect object using the maxRows and totalRows to
+     * create a valid Limit object.
+     * </p>
+     * 
+     * <p>
+     * The idea is to first find the total rows. The total rows can only be figured out after
+     * filtering out the data. The sorting does not effect the total row count but is needed to
+     * return the correct set of sorted rows.
+     * </p>
+     * 
+     * @param facade The TableFacade to use.
+     */
+    protected void setDataAndLimitVariables(TableFacade facade) {
+        Limit limit = facade.getLimit();
 
+        PresidentFilter presidentFilter = getPresidentFilter(limit);
+        int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
+        facade.setRowSelect(maxRows, totalRows); /*
+                                                     * Very important to set the RowSelect on the
+                                                     * Limit before trying to get the row start and
+                                                     * row end variables.
+                                                     */
+
+        PresidentSort presidentSort = getPresidentSort(limit);
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
         Collection<Object> items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
-        facade.setItems(items);
+        facade.setItems(items); // Do not forget to set the items back on the facade.
     }
 
+    /**
+     * A very custom way to filter the items. The PresidentFilter acts as a command for the
+     * Hibernate criteria object. There are probably many ways to do this, but this is the most
+     * flexible way I have found. The point is you need to somehow take the Limit information and
+     * filter the rows.
+     * 
+     * @param limit The Limit to use.
+     */
     protected PresidentFilter getPresidentFilter(Limit limit) {
         PresidentFilter presidentFilter = new PresidentFilter();
         FilterSet filterSet = limit.getFilterSet();
@@ -138,6 +178,13 @@ public class LimitPresidentController extends AbstractController {
         return presidentFilter;
     }
 
+    /**
+     * A very custom way to sort the items. The PresidentSort acts as a command for the Hibernate
+     * criteria object. There are probably many ways to do this, but this is the most flexible way I
+     * have found. The point is you need to somehow take the Limit information and sort the rows.
+     * 
+     * @param limit The Limit to use.
+     */
     protected PresidentSort getPresidentSort(Limit limit) {
         PresidentSort presidentSort = new PresidentSort();
         SortSet sortSet = limit.getSortSet();

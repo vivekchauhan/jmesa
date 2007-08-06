@@ -3,7 +3,6 @@
 <head>
 	<title>Basic JMesa Example</title>
 	<%@ taglib uri="/WEB-INF/tld/jmesa.tld" prefix="jmesa" %>
-	
 </head>
 
 <body>
@@ -46,31 +45,9 @@
 	</form>
 	
 	<p class="content">
-		The example code using the new tag library:
+		This example source code can be found 
+		<a href="http://code.google.com/p/jmesa/wiki/TagsExample">here</a>.
 	</p>
-	
-<pre>
-&lt;jmesa:table 
-     id="pres" 
-     items="presidents" 
-     maxRows="8"
-     maxRowsIncrements="8,16,24"
-     stateAttr="restore"
-     caption="Presidents" 
-     exportTypes="csv,excel"
-     width="600px"
-     >
-     &lt;jmesa:row>		
-         &lt;jmesa:column property="name.firstName" title="First Name">
-             &lt;a href="http://www.whitehouse.gov/history/presidents/">{pres.name.firstName}&lt;/a>
-         &lt;/jmesa:column>
-         &lt;jmesa:column property="name.lastName" title="Last Name"/>
-         &lt;jmesa:column property="term" title="Term"/>
-         &lt;jmesa:column property="career" title="Career"/>
-     &lt;/jmesa:row>		
-&lt;/jmesa:table> 
-</pre>		
-	
 
 <script type="text/javascript">
 function onInvokeAction(id) {

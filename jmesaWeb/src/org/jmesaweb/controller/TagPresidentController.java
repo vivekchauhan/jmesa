@@ -28,6 +28,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
+ * Because we are using tags for this example the two things we need to do in the controller is get
+ * the items to use, and process the exports. The reason we do not need to pass the maxRows to the
+ * facade is because the exports only care about the total rows because exports always export
+ * everything.
+ * 
+ * @since 2.1
  * @author Jeff Johnston
  */
 public class TagPresidentController extends AbstractController {
@@ -36,7 +42,7 @@ public class TagPresidentController extends AbstractController {
 
     private PresidentService presidentService;
     private String successView;
-    private String id;
+    private String id; // The unique table id.
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
@@ -44,7 +50,7 @@ public class TagPresidentController extends AbstractController {
         Collection<Object> items = presidentService.getPresidents();
 
         TableFacade facade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
-        facade.setExportTypes(response, CSV, EXCEL);
+        facade.setExportTypes(response, CSV, EXCEL); // Tell the facade what exports to use.
 
         Limit limit = facade.getLimit();
         if (limit.isExportable()) {
@@ -55,7 +61,7 @@ public class TagPresidentController extends AbstractController {
             return null;
         }
 
-        mv.addObject("presidents", items);
+        mv.addObject("presidents", items); // Set the items in the request for the TableTag to use.
 
         return mv;
     }
