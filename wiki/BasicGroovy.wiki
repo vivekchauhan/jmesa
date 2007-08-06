@@ -1,3 +1,5 @@
+*NOTE: I no longer recommend building tables this way.* The preferred way to build a table is using the [TableFacade]. The facade does use the following methodology, but this is considered a low level coding technique that should only be used for JMesa developers. It should not be necessary to use this technique to build your tables.
+
 This is my first full blown Groovy example! I probably went overboard with the Groovy specific syntax, but I was having fun and wanted to see how short and concise I could get the syntax and also explore different kinds of Groovy syntax. 
 
 One of my favorite things about Groovy is that you can just cut and paste in Java syntax and then "Groovy it up", as they say! That is why you will notice that I specifically put in closure support for cell editors. I did not want to have to extend anything in JMesa to make it work. Going forward I want to always be able to have the same code work between Java and Groovy and not think about working with specific implementations.
@@ -51,7 +53,6 @@ class BasicGroovyPresident implements HtmlTableTemplate {
 }
 
 }}}
-
 
 
 
