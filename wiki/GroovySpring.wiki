@@ -3,15 +3,15 @@ With the support added in Spring 2.0 you can now easily embed Groovy scripts in 
 This is added to the servlet bean context:
 
 {{{
-<bean id="basicGroovy" class="org.jmesaweb.controller.BasicGroovyPresidentController">
-    <property name="successView" value="jsp/basicGroovy.jsp"/>
+<bean id="groovy" class="org.jmesaweb.controller.GroovyPresidentController">
+    <property name="successView" value="jsp/groovy.jsp"/>
     <property name="presidentService" ref="presidentService"/>
-    <property name="htmlTableTemplate" ref="basicGroovyPresident"/>
+    <property name="htmlTableTemplate" ref="groovyPresident"/>
 </bean>
 
-<lang:groovy id="basicGroovyPresident" 
+<lang:groovy id="groovyPresident" 
 		refresh-check-delay="5000"
-		script-source="WEB-INF/groovy/BasicGroovyPresident.groovy">
+		script-source="WEB-INF/groovy/GroovyPresident.groovy">
     <lang:property name="id" value="pres"/> 
     <lang:property name="maxRows" value="12"/> 
 </lang:groovy>
@@ -20,7 +20,7 @@ This is added to the servlet bean context:
 Then the Spring Controller looks like this:
 
 {{{
-public class BasicGroovyPresidentController extends AbstractController {
+public class GroovyPresidentController extends AbstractController {
     private HtmlTableTemplate htmlTableTemplate;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
@@ -28,8 +28,8 @@ public class BasicGroovyPresidentController extends AbstractController {
         ...
         WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Object presidents = htmlTableTemplate.build(items, webContext);
-        mv.addObject("presidents", presidents);
+        Object html = htmlTableTemplate.build(items, webContext);
+        mv.addObject("presidents", html);
         return mv;
     }
 
