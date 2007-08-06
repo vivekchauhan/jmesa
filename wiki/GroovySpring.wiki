@@ -26,9 +26,8 @@ public class GroovyPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ...
-        WebContext webContext = new HttpServletRequestWebContext(request);
         Collection<Object> items = presidentService.getPresidents();
-        Object html = htmlTableTemplate.build(items, webContext);
+        Object html = htmlTableTemplate.build(items, request);
         mv.addObject("presidents", html);
         return mv;
     }
