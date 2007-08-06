@@ -1,4 +1,3 @@
-#labels Featured
 _The following technique is available as of the JMesa 2.1 release._
 
 JMesa now has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade].
@@ -88,7 +87,6 @@ if (limit.isExportable()) {
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
-
 
 
 
