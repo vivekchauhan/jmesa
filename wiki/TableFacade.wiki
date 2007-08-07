@@ -74,7 +74,7 @@ Even if you start using the tag library it would still be very handy to use for 
 
 {{{
 TableFacade facade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
-facade.setExportTypes(response, CSV, EXCEL);
+facade.setExportTypes(response, "csv", "excel");
 
 Limit limit = facade.getLimit();
 if (limit.isExportable()) {
