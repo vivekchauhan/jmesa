@@ -26,7 +26,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
     Collection<Object> items = presidentService.getPresidents();
 
     TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
-    facade.setExportTypes(response, CSV, EXCEL);
+    facade.setExportTypes(response, "csv", "excel");
 
     Table table = facade.getTable();
     table.setCaption("Presidents");
