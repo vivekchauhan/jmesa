@@ -20,6 +20,10 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.view.component.Table;
@@ -42,6 +46,12 @@ public interface TableFacade {
     public void setCoreContext(CoreContext coreContext);
 
     public void performFilterAndSort(boolean performFilterAndSort);
+    
+    public void setMessages(Messages messages);
+
+    public void setPreferences(Preferences preferences);
+    
+    public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
 
     public void setStateAttr(String stateAttr);
 

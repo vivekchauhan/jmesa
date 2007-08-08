@@ -4,13 +4,19 @@
 package org.jmesa.view;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
+import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -38,12 +44,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * This is a facade for working with tables that also has a little bit of
- * builder in its veins. The basic idea is you instantiate a TableFacade class
- * and then interact with it in a natural way. The facade completely abstracts
- * away all the factory classes and eliminates a lot of boilerplate code. The
- * builder notion comes in because as you work with it it will internally build
- * up everything you need and keep track of it for you.
+ * This is a facade for working with tables that also has a little bit of builder in its veins. The
+ * basic idea is you instantiate a TableFacade class and then interact with it in a natural way. The
+ * facade completely abstracts away all the factory classes and eliminates a lot of boilerplate
+ * code. The builder notion comes in because as you work with it it will internally build up
+ * everything you need and keep track of it for you.
  * </p>
  * 
  * <p>
@@ -56,27 +61,24 @@ import org.slf4j.LoggerFactory;
  * </pre>
  * 
  * <p>
- * Notice how there are no factories to deal with. However any API Object that
- * you would have used before is available through the facade, including the
- * WebContext, CoreContext, Limit, Table, Toolbar, and View. When you ask the
- * facade for a given object it builds everything it needs up to that point.
- * Internally it keeps track of everything you are doing so it also works like a
+ * Notice how there are no factories to deal with. However any API Object that you would have used
+ * before is available through the facade, including the WebContext, CoreContext, Limit, Table,
+ * Toolbar, and View. When you ask the facade for a given object it builds everything it needs up to
+ * that point. Internally it keeps track of everything you are doing so it also works like a
  * builder.
  * </p>
  * 
  * <p>
- * The TableFacade interface also has setters for all the facade objects
- * including the WebContext, CoreContext, Limit, Table, Toolbar, and View. The
- * reason is if you really need to customize something and want to set your own
- * implementation you can. Your object just goes into the flow of the facade.
- * For instance if you want a custom toolbar just set the Toolbar on the facade
- * and when the render() method is called it will use your Toolbar.
+ * The TableFacade interface also has setters for all the facade objects including the WebContext,
+ * CoreContext, Limit, Table, Toolbar, and View. The reason is if you really need to customize
+ * something and want to set your own implementation you can. Your object just goes into the flow of
+ * the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when
+ * the render() method is called it will use your Toolbar.
  * </p>
  * 
  * <p>
- * However, all this should feel very natural and you should not have to think
- * about what you are doing. Just interact with the facade how you need to and
- * it will take care of everything.
+ * However, all this should feel very natural and you should not have to think about what you are
+ * doing. Just interact with the facade how you need to and it will take care of everything.
  * </p>
  * 
  * @since 2.1
@@ -98,6 +100,9 @@ public class TableFacadeImpl implements TableFacade {
     private String[] exportTypes;
     private WebContext webContext;
     private CoreContext coreContext;
+    private Messages messages;
+    private Preferences preferences;
+    private Map<MatcherKey, FilterMatcher> filterMatchers;
     private Limit limit;
     private State state;
     private Table table;
@@ -107,9 +112,8 @@ public class TableFacadeImpl implements TableFacade {
     private boolean performFilterAndSort = true;
 
     /**
-     * The most common constructor that will be used to display a table and
-     * exports. The intent is let the API do all the filtering and sorting
-     * automatically.
+     * The most common constructor that will be used to display a table and exports. The intent is
+     * let the API do all the filtering and sorting automatically.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -126,9 +130,9 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * This constructor is only useful if you are only using the facade for
-     * exports, not html tables. This is because you are not setting the maxRows
-     * which is always required for the html tables.
+     * This constructor is only useful if you are only using the facade for exports, not html
+     * tables. This is because you are not setting the maxRows which is always required for the html
+     * tables.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -143,8 +147,8 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * This constructor is useful if you are doing the filtering and sorting
-     * manually and intend to set the RowSelect object by yourself.
+     * This constructor is useful if you are doing the filtering and sorting manually and intend to
+     * set the RowSelect object by yourself.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -157,8 +161,8 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set the comma separated list of export types. The currently supported
-     * types are TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
+     * Set the comma separated list of export types. The currently supported types are
+     * TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
      */
     public void setExportTypes(HttpServletResponse response, String... exportTypes) {
         this.response = response;
@@ -166,8 +170,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Get the WebContext. If the WebContext does not exist then one will be
-     * created.
+     * Get the WebContext. If the WebContext does not exist then one will be created.
      * 
      * @return The WebContext to use.
      */
@@ -180,8 +183,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set the WebContext on the facade. This will override the WebContext if it
-     * was previously set.
+     * Set the WebContext on the facade. This will override the WebContext if it was previously set.
      * 
      * @param webContext The WebContext to use.
      */
@@ -190,21 +192,53 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set if the table needs to be filtered and sorted. By default the facade
-     * will sort and filter the Collection of Beans (or Maps).
+     * Set if the table needs to be filtered and sorted. By default the facade will sort and filter
+     * the Collection of Beans (or Maps).
      * 
-     * @param performFilterAndSort True if should sort and filter the Collection
-     *            of Beans (or Maps).
+     * @param performFilterAndSort True if should sort and filter the Collection of Beans (or Maps).
      */
     public void performFilterAndSort(boolean performFilterAndSort) {
         this.performFilterAndSort = performFilterAndSort;
     }
 
     /**
-     * Set the items, the Collection of Beans (or Maps), if not already set on
-     * the constructor. Useful if performing the sorting and filtering manually
-     * and need to set the items on the facade. If you are performing the
-     * sorting and filtering manually you should also set the
+     * Set the Messages on the facade. This will override the Messages if it was previously set.
+     * 
+     * @param messages The Messages to use.
+     */
+    public void setMessages(Messages messages) {
+        this.messages = messages;
+    }
+
+    /**
+     * Set the Preferences on the facade. This will override the Preferences if it was previously
+     * set.
+     * 
+     * @param preferences The Preferences to use.
+     */
+    public void setPreferences(Preferences preferences) {
+        this.preferences = preferences;
+    }
+
+    /**
+     * Add a FilterMatcher on the facade. This will override the FilterMatcher if it was previously
+     * set.
+     * 
+     * @param key The MatcherKey to use.
+     * @param matcher The FilterMatcher to use.
+     */
+    public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
+        if (filterMatchers == null) {
+            filterMatchers = new HashMap<MatcherKey, FilterMatcher>();
+        }
+
+        filterMatchers.put(key, matcher);
+    }
+
+    /**
+     * Set the items, the Collection of Beans (or Maps), if not already set on the constructor.
+     * Useful if performing the sorting and filtering manually and need to set the items on the
+     * facade. If you are performing the sorting and filtering manually you should also set the
      * performFilterAndSort() to false.
      * 
      * @param The Collecton of Beans (or Maps) to use.
@@ -214,8 +248,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Get the CoreContext. If the CoreContext does not exist then one will be
-     * created.
+     * Get the CoreContext. If the CoreContext does not exist then one will be created.
      * 
      * @return The CoreContext to use.
      */
@@ -228,15 +261,27 @@ public class TableFacadeImpl implements TableFacade {
             throw new IllegalStateException("The items is null. You need to set the items on the facade.");
         }
 
-        CoreContextFactory factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
+        CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
+        factory.setPreferences(preferences);
+        factory.setMessages(messages);
+        if (filterMatchers != null) {
+            Set<MatcherKey> keySet = filterMatchers.keySet();
+            for (MatcherKey key : keySet) {
+                FilterMatcher matcher = filterMatchers.get(key);
+                factory.addFilterMatcher(key, matcher);
+            }
+        }
+
         CoreContext cc = factory.createCoreContext(items, getLimit());
+        
+        this.coreContext = cc;
 
         return cc;
     }
 
     /**
-     * Set the CoreContext on the facade. This will override the CoreContext if
-     * it was previously set.
+     * Set the CoreContext on the facade. This will override the CoreContext if it was previously
+     * set.
      * 
      * @param coreContext The CoreContext to use.
      */
@@ -245,11 +290,10 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Utilize the State interface to persist the Limit in the users
-     * HttpSession. Will persist the Limit by the id.
+     * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
+     * Limit by the id.
      * 
-     * @param stateAttr The parameter that will be searched to see if the state
-     *            should be used.
+     * @param stateAttr The parameter that will be searched to see if the state should be used.
      */
     public void setStateAttr(String stateAttr) {
         this.state = new SessionState(id, stateAttr, getWebContext());
@@ -257,15 +301,14 @@ public class TableFacadeImpl implements TableFacade {
 
     /**
      * <p>
-     * Get the Limit. If the Limit does not exist then one will be created. If
-     * you are manually sorting and filtering the table then as much of the
-     * Limit will be created as is possible. You still might need to set the
-     * RowSelect on the facade, which will set it on the Limit.
+     * Get the Limit. If the Limit does not exist then one will be created. If you are manually
+     * sorting and filtering the table then as much of the Limit will be created as is possible. You
+     * still might need to set the RowSelect on the facade, which will set it on the Limit.
      * </p>
      * 
      * <p>
-     * If using the State interface then be sure to call the setState() method
-     * on the facade before calling the Limit.
+     * If using the State interface then be sure to call the setState() method on the facade before
+     * calling the Limit.
      * </p>
      * 
      * @return The Limit to use.
@@ -312,8 +355,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set the Limit on the facade. This will override the Limit if it was
-     * previously set.
+     * Set the Limit on the facade. This will override the Limit if it was previously set.
      * 
      * @param limit The Limit to use.
      */
@@ -322,10 +364,9 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * If you are manually sorting and filtering the table then you still need
-     * to ensure that you set the RowSelect on the Limit. Using this method will
-     * set the RowSelect on the Limit. You can also override any previously set
-     * RowSelect.
+     * If you are manually sorting and filtering the table then you still need to ensure that you
+     * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit. You
+     * can also override any previously set RowSelect.
      * 
      * @return The RowSelect set on the Limit.
      */
@@ -343,7 +384,7 @@ public class TableFacadeImpl implements TableFacade {
             LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
             rowSelect = limitFactory.createRowSelect(maxRows, totalRows, l);
         }
-        
+
         if (logger.isDebugEnabled()) {
             logger.debug("The RowSelect is now set on the Limit.");
         }
@@ -411,8 +452,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set the Toolbar on the facade. This will override the Toolbar if it was
-     * previously set.
+     * Set the Toolbar on the facade. This will override the Toolbar if it was previously set.
      * 
      * @param toolbar The Toolbar to use.
      */
@@ -421,9 +461,8 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set the comma separated list of values to use for the max rows droplist.
-     * Be sure that one of the values is the same as the maxRows set on the
-     * facade.
+     * Set the comma separated list of values to use for the max rows droplist. Be sure that one of
+     * the values is the same as the maxRows set on the facade.
      * 
      * @param maxRowsIncrements The max rows increments to use.
      */
@@ -460,8 +499,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set the View on the facade. This will override the View if it was
-     * previously set.
+     * Set the View on the facade. This will override the View if it was previously set.
      * 
      * @param view The View to use.
      */
@@ -472,9 +510,8 @@ public class TableFacadeImpl implements TableFacade {
     /**
      * Generate the view.
      * 
-     * @return An html generated table will return the String markup. An export
-     *         will be written out to the response and this method will return
-     *         null.
+     * @return An html generated table will return the String markup. An export will be written out
+     *         to the response and this method will return null.
      */
     public String render() {
         Limit l = getLimit();
