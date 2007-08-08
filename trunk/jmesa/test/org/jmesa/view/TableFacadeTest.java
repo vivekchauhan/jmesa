@@ -21,15 +21,19 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.PresidentDao;
+import org.jmesa.core.filter.DateFilterMatcher;
+import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
+import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
 import org.jmesa.view.component.Table;
@@ -102,8 +106,30 @@ public class TableFacadeTest extends AbstractTestCase {
 
         CoreContext coreContextToSet = createCoreContext(facade.getWebContext());
         facade.setCoreContext(coreContextToSet); // The WebContext set should
-                                                    // now be the one used.
+        // now be the one used.
         assertTrue("The core context is not the same.", coreContextToSet == facade.getCoreContext());
+    }
+
+    @Test
+    public void addFilterMatcher() {
+        Collection<Object> items = new PresidentDao().getPresidents();
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        SpringParametersAdapter parameters = new SpringParametersAdapter(request);
+        ParametersBuilder builder = new ParametersBuilder(ID, parameters);
+        builder.addFilter("born", "1732/02");
+
+        TableFacade facade = new TableFacadeImpl(ID, request, 15, items, "name.firstName", "name.lastName", "term", "career", "born");
+
+        MatcherKey key = new MatcherKey(Date.class);
+        DateFilterMatcher matcher = new DateFilterMatcher("yyyy/MM", facade.getWebContext());
+        facade.addFilterMatcher(key, matcher);
+
+        assertNotNull(facade.getCoreContext());
+
+        Collection<Object> filteredObjects = facade.getCoreContext().getPageItems();
+        assertNotNull(filteredObjects);
+        assertTrue("There are two many filtered items.", filteredObjects.size() == 1);
     }
 
     @Test
@@ -118,8 +144,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
         LimitFactory limitFactory = new LimitFactoryImpl(ID, facade.getWebContext());
         Limit limitToSet = limitFactory.createLimit();
-        facade.setLimit(limitToSet); // The WebContext set should now be the
-                                        // one used.
+        facade.setLimit(limitToSet); // The WebContext set should now be the one used.
         assertTrue("The limit is not the same.", limitToSet == facade.getLimit());
     }
 
@@ -154,7 +179,7 @@ public class TableFacadeTest extends AbstractTestCase {
         assertTrue("The limit is exportable.", !limit.isExportable());
         assertTrue("The limit maxRows is the same as the totalRows.", limit.getRowSelect().getMaxRows() != limit.getRowSelect().getTotalRows());
     }
-    
+
     @Test
     public void getLimitWithState() {
         Collection<Object> items = new PresidentDao().getPresidents();
@@ -167,11 +192,11 @@ public class TableFacadeTest extends AbstractTestCase {
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
         assertNotNull(request.getSession().getAttribute("pres"));
-        
+
         TableFacade facadeWithState = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
         facadeWithState.setStateAttr("restore");
         request.addParameter("restore", "true");
-        
+
         limit = facadeWithState.getLimit();
         assertNotNull(limit);
     }
@@ -262,7 +287,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
         Toolbar toolbarToSet = new ToolbarImpl(facade.getWebContext(), facade.getCoreContext());
         facade.setToolbar(toolbarToSet); // The toolbar set should now be the
-                                            // one used.
+        // one used.
         assertTrue("The toolbar is not the same.", toolbarToSet == facade.getToolbar());
     }
 
