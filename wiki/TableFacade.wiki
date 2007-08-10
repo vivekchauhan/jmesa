@@ -64,6 +64,8 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
 }
 }}}
 
+_For more information about working with the table, rows, and columns read the [Components] section._
+
 Notice how there are no factories to deal with. However any API Object that you would have used before is available through the facade, including the [WebContext], [CoreContext], [Limit], Table, [Toolbar], and [View]. When you ask the facade for a given object it builds everything it needs up to that point. Internally it keeps track of everything you are doing so it also works like a builder. 
 
 The !TableFacade interface also has setters for all the facade objects including the [WebContext], [CoreContext], [Limit], [Toolbar], and [View]. The reason is if you really need to customize something and want to set your own implementation you can. Your object just goes into the flow of the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when the render() method is called it will use your Toolbar.
@@ -86,4 +88,6 @@ if (limit.isExportable()) {
 All the boilerplate code of rendering the exports is done for you!
 
 *Note:* Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!
+
+
 
