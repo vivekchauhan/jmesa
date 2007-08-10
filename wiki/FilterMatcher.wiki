@@ -62,4 +62,4 @@ Next lets looks at a slightly more complicated filter, the !DateFilterMatcher. *
 
 ==== The Filter class diagram. ====
 
-http://extremecomponents.org/resources/images/uml/filter.png
+http://extremecomponents.googlepages.com/filter.png
