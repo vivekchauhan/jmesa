@@ -9,14 +9,13 @@ The View interface is responsible for rendering the markup.
 === UML Class Diagrams ===
 
 ==== View Class Diagrams ====
-http://extremecomponents.org/resources/images/uml/view.png
+http://extremecomponents.googlepages.com/view.png
 
 ==== Components Class Diagrams ====
-http://extremecomponents.org/resources/images/uml/component.png
+http://extremecomponents.googlepages.com/component.png
 
 ==== Renderers Class Diagrams ====
-http://extremecomponents.org/resources/images/uml/renderer.png
+http://extremecomponents.googlepages.com/renderer.png
 
 ==== Editors Class Diagrams ====
-http://extremecomponents.org/resources/images/uml/editor.png
-
+http://extremecomponents.googlepages.com/editor.png
