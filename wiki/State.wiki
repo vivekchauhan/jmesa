@@ -14,6 +14,7 @@ The same goes for the [Tags TableTag]:
 <jmesa:table 
         id="basic" 
         stateAttr="restore"
+        ...
         >
 }}}
 
@@ -26,7 +27,6 @@ http://extremecomponents.googlepages.com/basic.png
 === UML ===
 
 http://extremecomponents.googlepages.com/state.png
-
 
 
 
