@@ -246,16 +246,6 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Set the names of the columns.
-     * 
-     * @param columnNames The columns to be pulled from the items.
-     */
-    public void setColumnNames(String[] columnNames) {
-        this.columnNames = columnNames;
-    }
-    
-
-    /**
      * Set the items, the Collection of Beans (or Maps), if not already set on the constructor.
      * Useful if performing the sorting and filtering manually and need to set the items on the
      * facade. If you are performing the sorting and filtering manually you should also set the
