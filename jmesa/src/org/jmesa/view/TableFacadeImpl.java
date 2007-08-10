@@ -537,25 +537,25 @@ public class TableFacadeImpl implements TableFacade {
 
         if (!l.isExportable()) {
             return getView().render().toString();
-        } else {
-            String exportType = l.getExport().getType();
-            if (exportType.equals(CSV)) {
-                ViewExporter exporter = new CsvViewExporter(getView(), response);
-                try {
-                    exporter.export();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (exportType.equals(EXCEL)) {
-                ViewExporter exporter = new ExcelViewExporter(getView(), response);
-                try {
-                    exporter.export();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                throw new IllegalStateException("Not able to handle the export of type: " + exportType);
+        }
+        
+        String exportType = l.getExport().getType();
+        if (exportType.equals(CSV)) {
+            ViewExporter exporter = new CsvViewExporter(getView(), response);
+            try {
+                exporter.export();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        } else if (exportType.equals(EXCEL)) {
+            ViewExporter exporter = new ExcelViewExporter(getView(), response);
+            try {
+                exporter.export();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new IllegalStateException("Not able to handle the export of type: " + exportType);
         }
 
         return null;
