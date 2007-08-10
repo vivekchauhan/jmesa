@@ -84,3 +84,6 @@ if (limit.isExportable()) {
 }}}
 
 All the boilerplate code of rendering the exports is done for you!
+
+*Note:* Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!
+
