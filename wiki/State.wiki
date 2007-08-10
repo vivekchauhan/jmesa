@@ -1,35 +1,36 @@
 The State interface is used to set and retrieve the table [Limit]. Implementations will set the Limit so that it can be retrieved at a later time. This is useful so a user can return to a specific table with it filtered, sorted, and paged exactly like they left it.
 
 ==== Example ===
-In the controller create a new State object.
+All you have to do is set the stateAttr to the parameter to look for in the request to tip the table off that. 
+
+For example in the [TableFacade] just pass in the name of the parameter to use:
 {{{
-private static String RESTORE_STATE = "restore";
-
-State state = new SessionState(id, RESTORE_STATE, webContext);
+TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+facade.setStateAttr("restore");
 }}}
-The id method parameter is the table id. The restore method parameter tells the !SessionState implementation to look for the Limit with this servlet parameter. 
 
+The same goes for the [Tags TableTag]:
 {{{
-public Limit getLimit(Collection items, State state, WebContext webContext) {
-    Limit limit = state.retrieveLimit();
-    if (limit != null) {
-        return limit;
-    }
-
-    LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-    limit = limitFactory.createLimitAndRowSelect(maxRows, items.size());
-    state.persistLimit(limit);
-    return limit;
-}
+<jmesa:table 
+        id="basic" 
+        stateAttr="restore"
+        >
 }}}
-This is actually quite simple. The State will check to see if a parameter named restore with a value of true is passed as a servlet parameter. If it is then the State will retrieve the Limit. If there is no servlet parameter named restore or it has a value of false then a null value will be returned. At that point you grab a Limit like normal, but be sure to persist the limit each time so the most recent changes are saved.
 
-You can see an  
-[http://extremecomponents.org/jmesa/advanced.run?restore=true example]
-on the JMesa site. Notice how the restore parameter tips off the State that it should go look in the session and restore the users previous Limit object.
+As you can see in the following example, by passing in a parameter of "restore=true" then the table is rendered in the same way that you left it. That is really all there is too it! 
+
+http://extremecomponents.googlepages.com/basic.png
+
+*Note:* Just be sure that you have a unique table id for each table that you define. Technically the Limit object for each table is stored in the users session keyed by the table id. If the tables are not unique then you will overwrite one Limit with another.
+
+=== UML ===
+
+http://extremecomponents.googlepages.com/state.png
 
 
-http://extremecomponents.org/resources/images/uml/state.png
+
+
+
 
 
 
