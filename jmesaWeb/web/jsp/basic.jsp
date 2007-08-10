@@ -7,7 +7,9 @@
 <body>
 
 	<p class="content">
-		The basic JMesa example to build a table. 
+		The basic JMesa example to build a table. Also using the State feature. You can see that
+		everytime you come back to this page the table is sorted, filted, and paged the way
+		that you left it.
 	</p>
 	
 	<p class="content">

@@ -54,6 +54,7 @@ public class BasicPresidentController extends AbstractController {
 
         TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
         facade.setExportTypes(response, CSV, EXCEL);
+        facade.setStateAttr("restore");
 
         Table table = facade.getTable();
         table.setCaption("Presidents");
