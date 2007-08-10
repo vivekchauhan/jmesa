@@ -131,6 +131,14 @@ public class LimitImpl implements Limit {
     public void setExport(Export export) {
         this.export = export;
     }
+    
+    public boolean isComplete() {
+        if (rowSelect != null) {
+            return true;
+        }
+        
+        return false;
+    }
 
     @Override
     public String toString() {

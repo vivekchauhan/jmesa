@@ -33,7 +33,6 @@ import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
-import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
 import org.jmesa.view.component.Table;
@@ -135,16 +134,23 @@ public class TableFacadeTest extends AbstractTestCase {
     @Test
     public void getLimit() {
         Collection<Object> items = new PresidentDao().getPresidents();
-        HttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addParameter("restore", "true");
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
-
+        facade.setStateAttr("restore");
         Limit limit = facade.getLimit();
         assertNotNull(limit);
-        assertNotNull(limit.getRowSelect());
+        assertTrue(limit.isComplete());
+        
+        // Test the baking in of the State feature.
+        TableFacade facadeStateLimit = new TableFacadeImpl("pres", request);
+        facadeStateLimit.setStateAttr("restore");
+        Limit stateLimit = facadeStateLimit.getLimit();
+        assertTrue(stateLimit.isComplete());
 
         LimitFactory limitFactory = new LimitFactoryImpl(ID, facade.getWebContext());
         Limit limitToSet = limitFactory.createLimit();
-        facade.setLimit(limitToSet); // The WebContext set should now be the one used.
+        facade.setLimit(limitToSet); // The Limit set should now be the one used.
         assertTrue("The limit is not the same.", limitToSet == facade.getLimit());
     }
 
