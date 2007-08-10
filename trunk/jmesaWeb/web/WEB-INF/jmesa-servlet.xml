@@ -36,21 +36,21 @@
 	<bean id="basic" class="org.jmesaweb.controller.BasicPresidentController">
 		<property name="successView" value="jsp/basic.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
-		<property name="id" value="pres"/>
+		<property name="id" value="basic"/>
 		<property name="maxRows" value="12"/>
 	</bean>
 
 	<bean id="limit" class="org.jmesaweb.controller.LimitPresidentController">
 		<property name="successView" value="jsp/limit.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
-		<property name="id" value="pres"/>
+		<property name="id" value="limit"/>
 		<property name="maxRows" value="12"/>
 	</bean>
 
 	<bean id="tag" class="org.jmesaweb.controller.TagPresidentController">
 		<property name="successView" value="jsp/tag.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
-		<property name="id" value="pres"/>
+		<property name="id" value="tag"/>
 	</bean>
 
 	<bean id="groovy" class="org.jmesaweb.controller.GroovyPresidentController">
@@ -62,7 +62,7 @@
 	<lang:groovy id="groovyPresident" 
 				refresh-check-delay="5000"
 				script-source="WEB-INF/groovy/GroovyPresident.groovy">
-        <lang:property name="id" value="pres"/> 
+        <lang:property name="id" value="groovy"/> 
         <lang:property name="maxRows" value="12"/> 
     </lang:groovy>			
 
