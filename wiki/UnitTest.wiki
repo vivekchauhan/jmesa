@@ -76,8 +76,7 @@ Limit limit = limitFactory.createLimit();
 
 === UML Class Diagrams ===
 
-http://extremecomponents.org/resources/images/uml/test.png
-
+http://extremecomponents.googlepages.com/test.png
 
 
 
