@@ -246,22 +246,14 @@ public class TableTag extends SimpleTagSupport {
             return limit;
         }
 
-        State state = null;
-        if (getStateAttr() != null) {
-            state = new SessionState(id, stateAttr, getWebContext());
-            this.limit = state.retrieveLimit();
-            if (this.limit != null) {
-                return limit;
-            }
-        }
-
         LimitFactory limitFactory = new LimitFactoryImpl(getId(), getWebContext());
+        limitFactory.setStateAttr(stateAttr);
         this.limit = limitFactory.createLimit();
-        limitFactory.createRowSelect(getMaxRows(), getItems().size(), limit);
-
-        if (state != null) {
-            state.persistLimit(limit);
+        if (limit.isComplete()) {
+            return limit;
         }
+        
+        limitFactory.createRowSelect(getMaxRows(), getItems().size(), limit);
 
         return limit;
     }

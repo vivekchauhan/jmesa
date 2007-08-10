@@ -15,6 +15,8 @@
  */
 package org.jmesa.limit;
 
+import org.jmesa.limit.state.SessionState;
+import org.jmesa.limit.state.State;
 import org.jmesa.web.WebContext;
 
 /**
@@ -87,17 +89,38 @@ import org.jmesa.web.WebContext;
  */
 public class LimitFactoryImpl implements LimitFactory {
     private final LimitActionFactory limitActionFactory;
+    private final String id;
+    private final WebContext webContext;
+    private State state;
 
     /**
      * @param id The unique identifier for the current table being built.
-     * @param context The adapter for the servlet request.
+     * @param webContext The adapter for the servlet request.
      */
-    public LimitFactoryImpl(String id, WebContext context) {
-        this.limitActionFactory = new LimitActionFactoryImpl(id, context.getParameterMap());
+    public LimitFactoryImpl(String id, WebContext webContext) {
+        this.id = id;
+        this.webContext = webContext;
+        this.limitActionFactory = new LimitActionFactoryImpl(id, webContext.getParameterMap());
+    }
+    
+    /**
+     * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
+     * Limit by the id.
+     * 
+     * @param stateAttr The parameter that will be searched to see if the state should be used.
+     */
+    public void setStateAttr(String stateAttr) {
+        this.state = new SessionState(id, stateAttr, webContext);
     }
 
     public Limit createLimit() {
-        Limit limit = new LimitImpl(limitActionFactory.getId());
+        Limit limit = getStateLimit();
+        
+        if (limit != null) {
+            return limit;
+        }
+        
+        limit = new LimitImpl(limitActionFactory.getId());
 
         FilterSet filterSet = limitActionFactory.getFilterSet();
         limit.setFilterSet(filterSet);
@@ -107,6 +130,8 @@ public class LimitFactoryImpl implements LimitFactory {
 
         Export export = limitActionFactory.getExport();
         limit.setExport(export);
+        
+        setStateLimit(limit);
 
         return limit;
     }
@@ -206,6 +231,10 @@ public class LimitFactoryImpl implements LimitFactory {
      */
     public Limit createLimitAndRowSelect(int maxRows, int totalRows) {
         Limit limit = createLimit();
+        
+        if (limit.isComplete()) {
+            return limit;
+        }
 
         if (limit.isExportable()) {
             RowSelect rowSelect = new RowSelectImpl(1, totalRows, totalRows);
@@ -225,5 +254,22 @@ public class LimitFactoryImpl implements LimitFactory {
         }
 
         return currentMaxRows;
+    }
+    
+    private Limit getStateLimit() {
+        if (state != null) {
+            Limit l = state.retrieveLimit();
+            if (l != null) {
+                return l;
+            }
+        }
+        
+        return null;
+    }
+    
+    private void setStateLimit(Limit limit) {
+        if (state != null) {
+            state.persistLimit(limit);
+        }
     }
 }

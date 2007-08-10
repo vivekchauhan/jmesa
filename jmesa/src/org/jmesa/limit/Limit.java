@@ -41,4 +41,6 @@ public interface Limit extends Serializable {
     public Export getExport();
 
     public void setExport(Export export);
+    
+    public boolean isComplete();
 }

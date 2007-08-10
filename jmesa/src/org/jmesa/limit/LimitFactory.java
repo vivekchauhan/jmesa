@@ -39,6 +39,8 @@ public interface LimitFactory {
      * @return The created Limit object.
      */
     public Limit createLimit();
+    
+    public void setStateAttr(String stateAttr);
 
     public RowSelect createRowSelect(int maxRows, int totalRows);
 
