@@ -15,6 +15,7 @@
  */
 package org.jmesa.limit;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
 import org.jmesa.web.WebContext;
@@ -110,7 +111,9 @@ public class LimitFactoryImpl implements LimitFactory {
      * @param stateAttr The parameter that will be searched to see if the state should be used.
      */
     public void setStateAttr(String stateAttr) {
-        this.state = new SessionState(id, stateAttr, webContext);
+        if (StringUtils.isNotEmpty(stateAttr)) {
+            this.state = new SessionState(id, stateAttr, webContext);
+        }
     }
 
     public Limit createLimit() {
