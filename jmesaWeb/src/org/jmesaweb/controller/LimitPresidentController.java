@@ -146,6 +146,10 @@ public class LimitPresidentController extends AbstractController {
 
         PresidentFilter presidentFilter = getPresidentFilter(limit);
 
+        /*
+         * Because we are using the State feature (via stateAttr) we can do a check to see if we
+         * have a complete limit already. See the State feature for more details
+         */
         if (!limit.isComplete()) {
             int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
             tableFacade.setRowSelect(maxRows, totalRows); /*
