@@ -12,6 +12,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.jmesa.view.html.component.HtmlRow;
 
 /**
+ * Represents an HtmlRow.
+ * 
  * @since 2.1
  * @author Jeff Johnston
  */
@@ -56,6 +58,9 @@ public class RowTag extends SimpleTagSupport {
         this.onmouseout = onmouseout;
     }
 
+    /**
+     * The row to use. If the row does not exist then one will be created.
+     */
     public HtmlRow getRow() {
         if (row != null) {
             return row;
@@ -74,6 +79,9 @@ public class RowTag extends SimpleTagSupport {
         return row;
     }
 
+    /**
+     * @return The current page item.
+     */
     public Map<String, Object> getPageItem() {
         return pageItem;
     }
@@ -84,7 +92,7 @@ public class RowTag extends SimpleTagSupport {
         if (body == null) {
             throw new IllegalStateException("You need to wrap the columns in the row tag.");
         }
-        
+
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         Collection<Object> pageItems = facadeTag.getPageItems();
         this.pageItem = new HashMap<String, Object>();

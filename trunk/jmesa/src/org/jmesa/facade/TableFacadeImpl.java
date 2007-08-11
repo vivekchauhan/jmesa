@@ -57,8 +57,8 @@ import org.slf4j.LoggerFactory;
  * </p>
  * 
  * <pre>
- * TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, &quot;name.firstName&quot;, &quot;name.lastName&quot;, &quot;term&quot;, &quot;career&quot;);
- * String html = facade.render();
+ * TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, &quot;name.firstName&quot;, &quot;name.lastName&quot;, &quot;term&quot;, &quot;career&quot;);
+ * String html = tableFacade.render();
  * </pre>
  * 
  * <p>
