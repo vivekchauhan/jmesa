@@ -1,5 +1,7 @@
 _The following technique is available as of the JMesa 2.1 release._
 
+*Update:* I was looking at the difference between the [TableFacade] and the tags and I was not happy with the fact that I let the facade specific attributes leak into the !TableTag. I wanted to make the two concepts work and feel the same. So now there is a new !TableFacadeTag, although the logic is the same. Simply move the proper attributes to the facade tag and everything will work as expected. You will also need to get the new jmesa.tld.
+
 JMesa now has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade].
 
 An example and more documentation can be found here:
@@ -13,24 +15,30 @@ One note I would like to make though is I learned from the eXtremeTable that usi
 The following will define the html table.
 
 {{{
-<jmesa:table 
-     id="presidents"
-     items="${presidents}"
-     var="pres"
-     maxRows="12"
-     caption="Presidents"
-     exportTypes="csv,excel"
-     width="600px"
-     >
-     <jmesa:row>		
-         <jmesa:column property="name.firstName" title="First Name">
-             <a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
-         </jmesa:column>
-         <jmesa:column property="name.lastName" title="Last Name"/>
-         <jmesa:column property="term" title="Term"/>
-         <jmesa:column property="career" title="Career"/>
-     </jmesa:row>		
-</jmesa:table> 
+<jmesa:facade
+    id="pres" 
+    items="${presidents}"
+    maxRows="8"
+    exportTypes="csv,excel"
+    maxRowsIncrements="8,16,24"
+    stateAttr="restore"
+    var="pres"
+    >
+    <jmesa:table 
+        captionKey="presidents.caption" 
+        width="600px"
+        >		
+        <jmesa:row>	
+            <jmesa:column property="name.firstName" titleKey="presidents.firstName">
+                <a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
+            </jmesa:column>
+            <jmesa:column property="name.lastName" title="Last Name"/>
+            <jmesa:column property="term"/>
+            <jmesa:column property="career"/>
+            <jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+        </jmesa:row>
+    </jmesa:table> 
+</jmesa:facade>
 }}}
 
 To generate the exports use the [TableFacade].
@@ -48,7 +56,7 @@ if (limit.isExportable()) {
 
 === The following are the tags defined by JMesa. ===
 
-==== !TableTag ====
+==== !TableFacadeTag ====
 || *Attribute* || *Type* || *Description* ||
 || id || String || The unique table id ||
 || [Items items] || Collection || The Collection of beans or maps ||
@@ -57,10 +65,13 @@ if (limit.isExportable()) {
 || maxRowsIncrements || String || The toolbar max rows increments ||
 || stateAttr || String || The parameter to use for the [State] ||
 || var || String || The value to hold the current bean ||
+|| exportTypes || String || The comma separated list of exports ||
+
+==== !TableTag ====
+|| *Attribute* || *Type* || *Description* ||
 || caption || String || The caption for the table ||
 || captionKey || String || The value to find in the messages ||
 || theme || String ||  ||
-|| exportTypes || String || The comma separated list of exports ||
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
@@ -87,6 +98,11 @@ if (limit.isExportable()) {
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
+
+
+
+
+
 
 
 
