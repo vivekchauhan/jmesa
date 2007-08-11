@@ -15,7 +15,7 @@ One note I would like to make though is I learned from the eXtremeTable that usi
 The following will define the html table.
 
 {{{
-<jmesa:facade
+<jmesa:tableFacade
     id="pres" 
     items="${presidents}"
     maxRows="8"
@@ -38,18 +38,18 @@ The following will define the html table.
             <jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
         </jmesa:row>
     </jmesa:table> 
-</jmesa:facade>
+</jmesa:tableFacade>
 }}}
 
 To generate the exports use the [TableFacade].
 
 {{{
-TableFacade facade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
-facade.setExportTypes(response, "csv", "excel");
+TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
+tableFacade.setExportTypes(response, "csv", "excel");
 
-Limit limit = facade.getLimit();
+Limit limit = tableFacade.getLimit();
 if (limit.isExportable()) {
-    facade.render();
+    tableFacade.render();
     return null;
 }
 }}}
