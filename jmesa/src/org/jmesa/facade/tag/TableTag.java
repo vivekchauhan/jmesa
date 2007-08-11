@@ -24,6 +24,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.jmesa.view.html.component.HtmlTable;
 
 /**
+ * Represents an HtmlTable.
+ * 
  * @since 2.1
  * @author jeff jie
  */
@@ -115,6 +117,9 @@ public class TableTag extends SimpleTagSupport {
         this.cellspacing = cellspacing;
     }
 
+    /**
+     * The table to use. If the table does not exist then one will be created.
+     */
     public HtmlTable getTable() {
         if (table != null) {
             return table;

@@ -45,6 +45,7 @@ class BasicGroovyPresident implements HtmlTableTemplate {
     
     String build(Collection<Object> items, HttpServletRequest request) {
         def tableFacade = [id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career"] as TableFacadeImpl
+        tableFacade.stateAttr = "restore";
 
         def table = tableFacade.table
         table.caption = "Presidents"

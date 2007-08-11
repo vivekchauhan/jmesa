@@ -33,6 +33,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Represents an HtmlColumn.
+ * 
  * @since 2.1
  * @author jeff jie
  */
@@ -114,6 +116,19 @@ public class ColumnTag extends SimpleTagSupport {
         this.cellEditor = cellEditor;
     }
 
+    /**
+     * <p>
+     * If the cellEditor is not defined then create a BasicCellEditor.
+     * </p>
+     * 
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor. If a setPattern() method is defined on your editor and you have defined the column
+     * pattern attribute on the tag it will be set on your CellEditor automatically.
+     * </p>
+     * 
+     * @return The CellEditor to use.
+     */
     protected CellEditor getColumnCellEditor() {
         CellEditor editor = null;
 
@@ -142,6 +157,9 @@ public class ColumnTag extends SimpleTagSupport {
         return editor;
     }
 
+    /**
+     * The column to use. If the column does not exist then one will be created.
+     */
     public HtmlColumn getColumn() {
         if (column != null) {
             return column;
@@ -158,6 +176,12 @@ public class ColumnTag extends SimpleTagSupport {
         return column;
     }
 
+    /**
+     * If a ColumnTag body is defined then use it as the current page item value. If it is not
+     * defined then get the page item value from the regular bean by using the property
+     * 
+     * @return The item to use.
+     */
     @SuppressWarnings("unchecked")
     public Object getValue() throws JspException, IOException {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
