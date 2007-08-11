@@ -20,9 +20,9 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
-import org.jmesa.view.TableFacade;
-import org.jmesa.view.TableFacadeImpl;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;

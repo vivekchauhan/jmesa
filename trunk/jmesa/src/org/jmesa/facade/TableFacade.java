@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.facade;
 
 import java.util.Collection;
 
@@ -26,6 +26,7 @@ import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
+import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;

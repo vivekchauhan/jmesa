@@ -1,4 +1,4 @@
-package org.jmesa.web.tag;
+package org.jmesa.facade.tag;
 
 import java.io.IOException;
 import java.util.Collection;

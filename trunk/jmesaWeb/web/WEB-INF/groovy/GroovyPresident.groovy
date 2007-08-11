@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.limit.Limit;
-import org.jmesa.view.TableFacade;
-import org.jmesa.view.TableFacadeImpl;
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.BasicCellEditor;

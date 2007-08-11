@@ -11,7 +11,7 @@
 
 	<tag>
 		<name>table</name>
-		<tagclass>org.jmesa.web.tag.TableTag</tagclass>
+		<tagclass>org.jmesa.facade.tag.TableTag</tagclass>
 		<bodycontent>scriptless</bodycontent>
 		<attribute>
 			<name>id</name>
@@ -107,7 +107,7 @@
 	
 	<tag>
 		<name>row</name>
-		<tagclass>org.jmesa.web.tag.RowTag</tagclass>
+		<tagclass>org.jmesa.facade.tag.RowTag</tagclass>
 		<bodycontent>scriptless</bodycontent>
 		<attribute>
 			<name>highlighter</name>
@@ -133,7 +133,7 @@
 
 	<tag>
 		<name>column</name>
-		<tagclass>org.jmesa.web.tag.ColumnTag</tagclass>
+		<tagclass>org.jmesa.facade.tag.ColumnTag</tagclass>
 		<bodycontent>scriptless</bodycontent>
 		<attribute>
 			<name>property</name>
