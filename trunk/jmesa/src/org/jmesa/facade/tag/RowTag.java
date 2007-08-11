@@ -61,13 +61,14 @@ public class RowTag extends SimpleTagSupport {
             return row;
         }
 
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-        this.row = tableTag.getComponentFactory().createRow();
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        this.row = facadeTag.getComponentFactory().createRow();
         row.setHighlighter(isHighlighter());
         row.setOnclick(getOnclick());
         row.setOnmouseover(getOnmouseover());
         row.setOnmouseout(getOnmouseout());
 
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
         tableTag.getTable().setRow(row);
 
         return row;
@@ -84,8 +85,8 @@ public class RowTag extends SimpleTagSupport {
             throw new IllegalStateException("You need to wrap the columns in the row tag.");
         }
         
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-        Collection<Object> pageItems = tableTag.getPageItems();
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        Collection<Object> pageItems = facadeTag.getPageItems();
         this.pageItem = new HashMap<String, Object>();
         pageItems.add(pageItem);
 

@@ -20,27 +20,30 @@
 
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/tag.run">
 		
-		<jmesa:table 
+		<jmesa:facade
 			id="pres" 
 			items="${presidents}"
-			var="pres"
 			maxRows="8"
+			exportTypes="csv,excel"
 			maxRowsIncrements="8,16,24"
 			stateAttr="restore"
-			captionKey="presidents.caption" 
-			exportTypes="csv,excel"
-			width="600px"
-			>		
-			<jmesa:row>	
-		        <jmesa:column property="name.firstName" titleKey="presidents.firstName">
-		        	<a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
-		        </jmesa:column>
-		        <jmesa:column property="name.lastName" title="Last Name"/>
-		        <jmesa:column property="term"/>
-		        <jmesa:column property="career"/>
-		        <jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
-	        </jmesa:row>
-		</jmesa:table> 
+			var="pres"
+			>
+			<jmesa:table 
+				captionKey="presidents.caption" 
+				width="600px"
+				>		
+				<jmesa:row>	
+			        <jmesa:column property="name.firstName" titleKey="presidents.firstName">
+			        	<a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
+			        </jmesa:column>
+			        <jmesa:column property="name.lastName" title="Last Name"/>
+			        <jmesa:column property="term"/>
+			        <jmesa:column property="career"/>
+			        <jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+		        </jmesa:row>
+			</jmesa:table> 
+		</jmesa:facade>
 	
 	</form>
 	
