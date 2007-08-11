@@ -10,7 +10,7 @@
 	<uri>http://code.google.com/p/jmesa</uri>
 
 	<tag>
-		<name>facade</name>
+		<name>tableFacade</name>
 		<tagclass>org.jmesa.facade.tag.TableFacadeTag</tagclass>
 		<bodycontent>scriptless</bodycontent>
 		<attribute>

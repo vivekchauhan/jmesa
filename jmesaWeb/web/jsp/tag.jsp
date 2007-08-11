@@ -20,7 +20,7 @@
 
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/tag.run">
 		
-		<jmesa:facade
+		<jmesa:tableFacade
 			id="pres" 
 			items="${presidents}"
 			maxRows="8"
@@ -43,7 +43,7 @@
 					<jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
 				</jmesa:row>
 			</jmesa:table> 
-		</jmesa:facade>
+		</jmesa:tableFacade>
 	
 	</form>
 	

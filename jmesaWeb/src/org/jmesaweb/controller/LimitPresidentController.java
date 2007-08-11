@@ -85,12 +85,12 @@ public class LimitPresidentController extends AbstractController {
      * @param response The HttpServletResponse to use.
      */
     protected String render(HttpServletRequest request, HttpServletResponse response) {
-        TableFacade facade = new TableFacadeImpl(id, request, "name.firstName", "name.lastName", "term", "career");
-        facade.setExportTypes(response, CSV, EXCEL); // Tell the facade what exports to use.
+        TableFacade tableFacade = new TableFacadeImpl(id, request, "name.firstName", "name.lastName", "term", "career");
+        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
 
-        setDataAndLimitVariables(facade); // Find the data to display and build the Limit.
+        setDataAndLimitVariables(tableFacade); // Find the data to display and build the Limit.
 
-        Table table = facade.getTable();
+        Table table = tableFacade.getTable();
         table.setCaption("Presidents");
 
         Column firstName = table.getRow().getColumn("name.firstName");
@@ -99,9 +99,9 @@ public class LimitPresidentController extends AbstractController {
         Column lastName = table.getRow().getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
-        Limit limit = facade.getLimit();
+        Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {
-            facade.render(); // Will write the export data out to the response.
+            tableFacade.render(); // Will write the export data out to the response.
             return null; // In Spring return null tells the controller not to do anything.
         } else {
             HtmlTable htmlTable = (HtmlTable) table;
@@ -119,7 +119,7 @@ public class LimitPresidentController extends AbstractController {
                 }
             });
 
-            return facade.render(); // Return the Html.
+            return tableFacade.render(); // Return the Html.
         }
     }
 
@@ -137,14 +137,14 @@ public class LimitPresidentController extends AbstractController {
      * return the correct set of sorted rows.
      * </p>
      * 
-     * @param facade The TableFacade to use.
+     * @param tableFacade The TableFacade to use.
      */
-    protected void setDataAndLimitVariables(TableFacade facade) {
-        Limit limit = facade.getLimit();
+    protected void setDataAndLimitVariables(TableFacade tableFacade) {
+        Limit limit = tableFacade.getLimit();
 
         PresidentFilter presidentFilter = getPresidentFilter(limit);
         int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
-        facade.setRowSelect(maxRows, totalRows); /*
+        tableFacade.setRowSelect(maxRows, totalRows); /*
                                                      * Very important to set the RowSelect on the
                                                      * Limit before trying to get the row start and
                                                      * row end variables.
@@ -154,7 +154,7 @@ public class LimitPresidentController extends AbstractController {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
         Collection<Object> items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
-        facade.setItems(items); // Do not forget to set the items back on the facade.
+        tableFacade.setItems(items); // Do not forget to set the items back on the tableFacade.
     }
 
     /**

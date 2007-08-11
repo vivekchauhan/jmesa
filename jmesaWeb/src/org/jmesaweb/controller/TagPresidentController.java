@@ -30,7 +30,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 /**
  * Because we are using tags for this example the two things we need to do in the controller is get
  * the items to use, and process the exports. The reason we do not need to pass the maxRows to the
- * facade is because the exports only care about the total rows because exports always export
+ * tableFacade is because the exports only care about the total rows because exports always export
  * everything.
  * 
  * @since 2.1
@@ -49,15 +49,15 @@ public class TagPresidentController extends AbstractController {
 
         Collection<Object> items = presidentService.getPresidents();
 
-        TableFacade facade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
-        facade.setExportTypes(response, CSV, EXCEL); // Tell the facade what exports to use.
+        TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
+        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
 
-        Limit limit = facade.getLimit();
+        Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {
-            facade.getTable().setCaption("Presidents");
-            facade.getTable().getRow().getColumn("name.firstName").setTitle("First Name");
-            facade.getTable().getRow().getColumn("name.lastName").setTitle("Last Name");
-            facade.render();
+            tableFacade.getTable().setCaption("Presidents");
+            tableFacade.getTable().getRow().getColumn("name.firstName").setTitle("First Name");
+            tableFacade.getTable().getRow().getColumn("name.lastName").setTitle("Last Name");
+            tableFacade.render();
             return null;
         }
 
