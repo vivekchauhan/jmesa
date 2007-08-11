@@ -116,6 +116,22 @@ public class LimitFactoryImpl implements LimitFactory {
         }
     }
 
+    /**
+     * <p>
+     * Create a Limit object that is populated with the FilterSet, SortSet, and 
+     * Export. Be aware though that the Limit object is still incomplete. You still
+     * need to set a RowSelect on the Limit to make the object complete. 
+     * </p>
+     * 
+     * <p>
+     * One reason to create the Limit separately from the RowSelect is if you are 
+     * going to manually filter and sort the table to only return one page of data. 
+     * If you are doing that then you should use the FilterSet to manually filter 
+     * the table to figure out the totalRows.  
+     * </p>
+     * 
+     * @return The created Limit object.  
+     */
     public Limit createLimit() {
         Limit limit = getStateLimit();
         

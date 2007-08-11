@@ -39,8 +39,6 @@ import org.jmesa.core.sort.DefaultColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.limit.state.SessionState;
-import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlView;
@@ -290,7 +288,7 @@ public class TableTag extends SimpleTagSupport {
         return table;
     }
 
-    public Toolbar getToolbar() {
+    protected Toolbar getToolbar() {
         String[] exportTypes = StringUtils.split(getExportTypes(), ",");
 
         ToolbarFactoryImpl toolbarFactory;
@@ -323,7 +321,7 @@ public class TableTag extends SimpleTagSupport {
         return toolbarMaxRowIncrements;
     }
 
-    public View getView() {
+    protected View getView() {
         View view = new HtmlView(getTable(), getToolbar(), getCoreContext());
         return view;
 
