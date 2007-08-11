@@ -10,8 +10,8 @@
 	<uri>http://code.google.com/p/jmesa</uri>
 
 	<tag>
-		<name>table</name>
-		<tagclass>org.jmesa.facade.tag.TableTag</tagclass>
+		<name>facade</name>
+		<tagclass>org.jmesa.facade.tag.TableFacadeTag</tagclass>
 		<bodycontent>scriptless</bodycontent>
 		<attribute>
 			<name>id</name>
@@ -24,27 +24,12 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>var</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
 			<name>maxRows</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<name>maxRowsIncrements</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>caption</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>captionKey</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -65,6 +50,27 @@
 		</attribute>
 		<attribute>
 			<name>performFilterAndSort</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>table</name>
+		<tagclass>org.jmesa.facade.tag.TableTag</tagclass>
+		<bodycontent>scriptless</bodycontent>
+		<attribute>
+			<name>caption</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>captionKey</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

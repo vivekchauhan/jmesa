@@ -117,10 +117,10 @@ public class ColumnTag extends SimpleTagSupport {
     protected CellEditor getColumnCellEditor() {
         CellEditor editor = null;
 
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
         if (StringUtils.isEmpty(getCellEditor())) {
-            HtmlComponentFactory factory = tableTag.getComponentFactory();
+            HtmlComponentFactory factory = facadeTag.getComponentFactory();
             editor = factory.createBasicCellEditor();
         } else {
             try {
@@ -130,8 +130,8 @@ public class ColumnTag extends SimpleTagSupport {
                 }
                 editor = (CellEditor) obj;
                 if (obj instanceof ContextSupport) {
-                    ((ContextSupport) editor).setCoreContext(tableTag.getCoreContext());
-                    ((ContextSupport) editor).setWebContext(tableTag.getWebContext());
+                    ((ContextSupport) editor).setCoreContext(facadeTag.getCoreContext());
+                    ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -147,8 +147,8 @@ public class ColumnTag extends SimpleTagSupport {
             return column;
         }
 
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-        HtmlComponentFactory factory = tableTag.getComponentFactory();
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        HtmlComponentFactory factory = facadeTag.getComponentFactory();
         CellEditor editor = getColumnCellEditor();
         this.column = factory.createColumn(getProperty(), editor);
 
@@ -158,6 +158,27 @@ public class ColumnTag extends SimpleTagSupport {
         return column;
     }
 
+    @SuppressWarnings("unchecked")
+    public Object getValue() throws JspException, IOException {
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        String var = facadeTag.getVar();
+        Object item = getJspContext().getAttribute(var);
+
+        if (item == null) {
+            return null;
+        }
+
+        JspFragment body = getJspBody();
+        if (body == null) {
+            return ItemUtils.getItemValue(item, getProperty());
+        } else {
+            StringWriter value = new StringWriter();
+            body.invoke(value);
+            return value;
+        }
+    }
+
+    @Override
     public void doTag() throws JspException, IOException {
         HtmlColumn column = getColumn();
 
@@ -173,25 +194,5 @@ public class ColumnTag extends SimpleTagSupport {
 
         RowTag rowTag = (RowTag) findAncestorWithClass(this, RowTag.class);
         rowTag.getPageItem().put(getProperty(), getValue());
-    }
-
-    @SuppressWarnings("unchecked")
-    public Object getValue() throws JspException, IOException {
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-        String var = tableTag.getVar();
-        Object item = getJspContext().getAttribute(var);
-
-        if (item == null) {
-            return null;
-        }
-
-        JspFragment body = getJspBody();
-        if (body == null) {
-            return ItemUtils.getItemValue(item, getProperty());
-        } else {
-            StringWriter value = new StringWriter();
-            body.invoke(value);
-            return value;
-        }
     }
 }
