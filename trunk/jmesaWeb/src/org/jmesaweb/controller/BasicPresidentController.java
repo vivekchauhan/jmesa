@@ -52,11 +52,11 @@ public class BasicPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
         Collection<Object> items = presidentService.getPresidents();
 
-        TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
-        facade.setExportTypes(response, CSV, EXCEL);
-        facade.setStateAttr("restore");
+        TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+        tableFacade.setExportTypes(response, CSV, EXCEL);
+        tableFacade.setStateAttr("restore");
 
-        Table table = facade.getTable();
+        Table table = tableFacade.getTable();
         table.setCaption("Presidents");
 
         Column firstName = table.getRow().getColumn("name.firstName");
@@ -65,9 +65,9 @@ public class BasicPresidentController extends AbstractController {
         Column lastName = table.getRow().getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
-        Limit limit = facade.getLimit();
+        Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {
-            facade.render(); // Will write the export data out to the response.
+            tableFacade.render(); // Will write the export data out to the response.
             return null; // In Spring returning null tells the controller not to do anything.
         } else {
             HtmlTable htmlTable = (HtmlTable) table;
@@ -85,7 +85,7 @@ public class BasicPresidentController extends AbstractController {
                 }
             });
 
-            String html = facade.render(); // Return the Html.
+            String html = tableFacade.render(); // Return the Html.
             mv.addObject("presidents", html); // Set the Html in the request for the JSP.
         }
 

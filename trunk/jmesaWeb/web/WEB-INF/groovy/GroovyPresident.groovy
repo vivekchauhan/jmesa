@@ -44,9 +44,9 @@ class BasicGroovyPresident implements HtmlTableTemplate {
     int maxRows;
     
     String build(Collection<Object> items, HttpServletRequest request) {
-        def facade = [id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career"] as TableFacadeImpl
+        def tableFacade = [id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career"] as TableFacadeImpl
 
-        def table = facade.table
+        def table = tableFacade.table
         table.caption = "Presidents"
 
         def firstName = table.row.getColumn("name.firstName")
@@ -68,6 +68,6 @@ class BasicGroovyPresident implements HtmlTableTemplate {
                     </a>
                    """})
 
-        return facade.render() // Return the Html.
+        return tableFacade.render() // Return the Html.
     }
 }
