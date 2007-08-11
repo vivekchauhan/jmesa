@@ -34,14 +34,14 @@
 				width="600px"
 				>		
 				<jmesa:row>	
-			        <jmesa:column property="name.firstName" titleKey="presidents.firstName">
-			        	<a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
-			        </jmesa:column>
-			        <jmesa:column property="name.lastName" title="Last Name"/>
-			        <jmesa:column property="term"/>
-			        <jmesa:column property="career"/>
-			        <jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
-		        </jmesa:row>
+					<jmesa:column property="name.firstName" titleKey="presidents.firstName">
+						<a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
+					</jmesa:column>
+					<jmesa:column property="name.lastName" title="Last Name"/>
+					<jmesa:column property="term"/>
+					<jmesa:column property="career"/>
+					<jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+				</jmesa:row>
 			</jmesa:table> 
 		</jmesa:facade>
 	
