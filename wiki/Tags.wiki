@@ -1,6 +1,6 @@
 _The following technique is available as of the JMesa 2.1 release._
 
-*Update:* I was looking at the difference between the [TableFacade] and the tags and I was not happy with the fact that I let the facade specific attributes leak into the !TableTag. I wanted to make the two concepts work and feel the same. So now there is a new !TableFacadeTag, although the logic is the same. Simply move the proper attributes to the facade tag and everything will work as expected. You will also need to get the new jmesa.tld.
+*Update:* I was looking at the difference between the [TableFacade] and the tags and I was not happy with the fact that I let the facade specific attributes leak into the !TableTag. I wanted to keep the !TableTag to only include table specific attributes.  I also wanted to make the tags and facade work and feel the same as they are trying to accomplish the same abstraction. So now there is a new !TableFacadeTag, although the logic is the same. Simply move the proper attributes to the facade tag and everything will work as expected (see example below). You will also need to get the new jmesa.tld.
 
 JMesa now has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade].
 
