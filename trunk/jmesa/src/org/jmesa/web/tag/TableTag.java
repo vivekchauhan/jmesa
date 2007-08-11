@@ -224,21 +224,6 @@ public class TableTag extends SimpleTagSupport {
         this.webContext = webContext;
     }
 
-    public CoreContext getCoreContext() {
-        if (coreContext != null) {
-            return coreContext;
-        }
-
-        CoreContextFactory factory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
-        this.coreContext = factory.createCoreContext(getItems(), getLimit());
-
-        return coreContext;
-    }
-
-    protected void setCoreContext(CoreContext coreContext) {
-        this.coreContext = coreContext;
-    }
-
     public Limit getLimit() {
         if (limit != null) {
             return limit;
@@ -250,7 +235,7 @@ public class TableTag extends SimpleTagSupport {
         if (limit.isComplete()) {
             return limit;
         }
-        
+
         limitFactory.createRowSelect(getMaxRows(), getItems().size(), limit);
 
         return limit;
@@ -266,6 +251,21 @@ public class TableTag extends SimpleTagSupport {
 
     public void setStateAttr(String stateAttr) {
         this.stateAttr = stateAttr;
+    }
+
+    public CoreContext getCoreContext() {
+        if (coreContext != null) {
+            return coreContext;
+        }
+
+        CoreContextFactory factory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
+        this.coreContext = factory.createCoreContext(getItems(), getLimit());
+
+        return coreContext;
+    }
+
+    protected void setCoreContext(CoreContext coreContext) {
+        this.coreContext = coreContext;
     }
 
     public HtmlComponentFactory getComponentFactory() {
@@ -334,13 +334,13 @@ public class TableTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         HtmlTable table = getTable();
-        
+
         if (getCaptionKey() != null) {
             table.setCaption(getCaptionKey(), true);
         } else {
             table.setCaption(getCaption());
         }
-        
+
         table.setTheme(getTheme());
         table.getTableRenderer().setWidth(getWidth());
         table.getTableRenderer().setStyle(getStyle());
