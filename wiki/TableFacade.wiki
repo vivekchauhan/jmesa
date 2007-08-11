@@ -16,8 +16,8 @@ Maybe a better way to look at it is you can work with and get at all the classes
 
 For instance to render an html table all you would have to do is this:
 {{{
-TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
-String html = facade.render(); 
+TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+String html = tableFacade.render(); 
 }}}
 
 Or if you want to customize it then you can do this (Spring MVC example): 
@@ -27,10 +27,10 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
     ModelAndView mv = new ModelAndView(successView);
     Collection<Object> items = presidentService.getPresidents();
 
-    TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
-    facade.setExportTypes(response, "csv", "excel");
+    TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+    tableFacade.setExportTypes(response, "csv", "excel");
 
-    Table table = facade.getTable();
+    Table table = tableFacade.getTable();
     table.setCaption("Presidents");
 
     Column firstName = table.getRow().getColumn("name.firstName");
@@ -39,7 +39,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
     Column lastName = table.getRow().getColumn("name.lastName");
     lastName.setTitle("Last Name");
 
-    Limit limit = facade.getLimit();
+    Limit limit = tableFacade.getLimit();
     if (limit.isExportable()) {
         facade.render();
         return null;
@@ -58,7 +58,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
             }
         });
 
-        String html = facade.render();
+        String html = tableFacade.render();
         mv.addObject("presidents", html);
     }
 
@@ -77,12 +77,12 @@ However, all this should feel very natural and you should not have to think abou
 Even if you start using the tag library it would still be very handy to use for the exports. The code would be as easy as this:
 
 {{{
-TableFacade facade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
-facade.setExportTypes(response, "csv", "excel");
+TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
+tableFacade.setExportTypes(response, "csv", "excel");
 
-Limit limit = facade.getLimit();
+Limit limit = tableFacade.getLimit();
 if (limit.isExportable()) {
-    facade.render();
+    tableFacade.render();
     return null;
 }
 }}}
@@ -90,4 +90,5 @@ if (limit.isExportable()) {
 All the boilerplate code of rendering the exports is done for you!
 
 *Note:* Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!
+
 
