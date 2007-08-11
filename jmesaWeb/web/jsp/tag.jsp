@@ -29,20 +29,20 @@
 			stateAttr="restore"
 			var="bean"
 			>
-			<jmesa:table 
+			<jmesa:htmlTable 
 				captionKey="presidents.caption" 
 				width="600px"
 				>		
-				<jmesa:row>	
-					<jmesa:column property="name.firstName" titleKey="presidents.firstName">
+				<jmesa:htmlRow>	
+					<jmesa:htmlColumn property="name.firstName" titleKey="presidents.firstName">
 						<a href="http://www.whitehouse.gov/history/presidents/">${bean.name.firstName}</a>
-					</jmesa:column>
-					<jmesa:column property="name.lastName" title="Last Name"/>
-					<jmesa:column property="term"/>
-					<jmesa:column property="career"/>
-					<jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
-				</jmesa:row>
-			</jmesa:table> 
+					</jmesa:htmlColumn>
+					<jmesa:htmlColumn property="name.lastName" title="Last Name"/>
+					<jmesa:htmlColumn property="term"/>
+					<jmesa:htmlColumn property="career"/>
+					<jmesa:htmlColumn property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+				</jmesa:htmlRow>
+			</jmesa:htmlTable> 
 		</jmesa:tableFacade>
 	
 	</form>

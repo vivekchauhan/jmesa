@@ -17,7 +17,7 @@ import org.jmesa.view.html.component.HtmlRow;
  * @since 2.1
  * @author Jeff Johnston
  */
-public class RowTag extends SimpleTagSupport {
+public class HtmlRowTag extends SimpleTagSupport {
     private boolean highlighter = true;
     private String onclick;
     private String onmouseover;
@@ -73,7 +73,7 @@ public class RowTag extends SimpleTagSupport {
         row.setOnmouseover(getOnmouseover());
         row.setOnmouseout(getOnmouseout());
 
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        HtmlTableTag tableTag = (HtmlTableTag) findAncestorWithClass(this, HtmlTableTag.class);
         tableTag.getTable().setRow(row);
 
         return row;

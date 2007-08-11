@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
  * @since 2.1
  * @author jeff jie
  */
-public class ColumnTag extends SimpleTagSupport {
-    private Logger logger = LoggerFactory.getLogger(ColumnTag.class);
+public class HtmlColumnTag extends SimpleTagSupport {
+    private Logger logger = LoggerFactory.getLogger(HtmlColumnTag.class);
 
     private String property;
     private String title;
@@ -170,7 +170,7 @@ public class ColumnTag extends SimpleTagSupport {
         CellEditor editor = getColumnCellEditor();
         this.column = factory.createColumn(getProperty(), editor);
 
-        RowTag rowTag = (RowTag) findAncestorWithClass(this, RowTag.class);
+        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
         rowTag.getRow().addColumn(column);
 
         return column;
@@ -216,7 +216,7 @@ public class ColumnTag extends SimpleTagSupport {
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
 
-        RowTag rowTag = (RowTag) findAncestorWithClass(this, RowTag.class);
+        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
         rowTag.getPageItem().put(getProperty(), getValue());
     }
 }
