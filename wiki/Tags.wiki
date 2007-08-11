@@ -67,7 +67,7 @@ if (limit.isExportable()) {
 || var || String || The value to hold the current bean ||
 || exportTypes || String || The comma separated list of exports ||
 
-==== !TableTag ====
+==== !HtmlTableTag ====
 || *Attribute* || *Type* || *Description* ||
 || caption || String || The caption for the table ||
 || captionKey || String || The value to find in the messages ||
@@ -79,14 +79,14 @@ if (limit.isExportable()) {
 || cellpadding || String ||  ||
 || cellspacing || String ||  ||
 
-==== !RowTag ====
+==== !HtmlRowTag ====
 || *Attribute* || *Type* || *Description* ||
 || highlighter || boolean ||  ||
 || onclick || String ||  ||
 || onmouseout || String ||  ||
 || onmouseover || String ||  ||
 
-==== !ColumnTag ====
+==== !HtmlColumnTag ====
 || *Attribute* || *Type* || *Description* ||
 || property || String || The bean or map attribute ||
 || title || String || The column header title ||
@@ -98,7 +98,6 @@ if (limit.isExportable()) {
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
-
 
 
 
