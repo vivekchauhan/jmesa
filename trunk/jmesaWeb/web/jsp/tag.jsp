@@ -27,7 +27,7 @@
 			exportTypes="csv,excel"
 			maxRowsIncrements="8,16,24"
 			stateAttr="restore"
-			var="pres"
+			var="bean"
 			>
 			<jmesa:table 
 				captionKey="presidents.caption" 
@@ -35,7 +35,7 @@
 				>		
 				<jmesa:row>	
 					<jmesa:column property="name.firstName" titleKey="presidents.firstName">
-						<a href="http://www.whitehouse.gov/history/presidents/">${pres.name.firstName}</a>
+						<a href="http://www.whitehouse.gov/history/presidents/">${bean.name.firstName}</a>
 					</jmesa:column>
 					<jmesa:column property="name.lastName" title="Last Name"/>
 					<jmesa:column property="term"/>
