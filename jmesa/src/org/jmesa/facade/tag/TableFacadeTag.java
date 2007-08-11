@@ -213,8 +213,8 @@ public class TableFacadeTag extends SimpleTagSupport {
             toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), getWebContext(), getCoreContext(), exportTypes);
         }
 
-        toolbarFactory.enableSeparators(true);
-        Toolbar toolbar = toolbarFactory.createToolbar();
+        this.toolbar = toolbarFactory.createToolbar();
+        
         return toolbar;
     }
 
