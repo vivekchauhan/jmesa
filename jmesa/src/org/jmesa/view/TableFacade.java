@@ -41,6 +41,14 @@ public interface TableFacade {
 
     public void setWebContext(WebContext webContext);
 
+    public Limit getLimit();
+
+    public void setLimit(Limit limit);
+
+    public RowSelect setRowSelect(int maxRows, int totalRows);
+
+    public void setStateAttr(String stateAttr);
+
     public CoreContext getCoreContext();
 
     public void setCoreContext(CoreContext coreContext);
@@ -52,14 +60,6 @@ public interface TableFacade {
     public void setPreferences(Preferences preferences);
     
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
-
-    public void setStateAttr(String stateAttr);
-
-    public Limit getLimit();
-
-    public void setLimit(Limit limit);
-
-    public RowSelect setRowSelect(int maxRows, int totalRows);
 
     public void setItems(Collection<Object> items);
 

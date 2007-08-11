@@ -108,10 +108,10 @@ public class TableFacadeImpl implements TableFacade {
     private int[] maxRowsIncrements;
     private View view;
     private boolean performFilterAndSort = true;
-    
+
     /**
-     * This constructor is only useful if you are only using the facade for the Limit, or 
-     * want to build the facade up over time.
+     * This constructor is only useful if you are only using the facade for the Limit, or want to
+     * build the facade up over time.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -134,7 +134,7 @@ public class TableFacadeImpl implements TableFacade {
         this.request = request;
         this.columnNames = columnNames;
     }
-    
+
     /**
      * This constructor is only useful if you are only using the facade for exports, not html
      * tables. This is because you are not setting the maxRows which is always required for the html
@@ -199,6 +199,103 @@ public class TableFacadeImpl implements TableFacade {
      */
     public void setWebContext(WebContext webContext) {
         this.webContext = webContext;
+    }
+
+    /**
+     * <p>
+     * Get the Limit. If the Limit does not exist then one will be created. If you are manually
+     * sorting and filtering the table then as much of the Limit will be created as is possible. You
+     * still might need to set the RowSelect on the facade, which will set it on the Limit.
+     * </p>
+     * 
+     * <p>
+     * If using the State interface then be sure to call the setState() method on the facade before
+     * calling the Limit.
+     * </p>
+     * 
+     * @return The Limit to use.
+     */
+    public Limit getLimit() {
+        if (limit != null) {
+            return limit;
+        }
+
+        LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
+        limitFactory.setStateAttr(stateAttr);
+        Limit l = limitFactory.createLimit();
+
+        if (l.isComplete()) {
+            this.limit = l;
+            return limit;
+        }
+
+        if (items != null) {
+            if (l.isExportable()) {
+                l.setRowSelect(new RowSelectImpl(1, items.size(), items.size()));
+            } else {
+                if (maxRows > 0) {
+                    limitFactory.createRowSelect(maxRows, items.size(), l);
+                }
+            }
+        }
+
+        this.limit = l;
+
+        if (logger.isDebugEnabled()) {
+            if (limit.getRowSelect() == null) {
+                logger.debug("The RowSelect is not set on the Limit. Be sure to call the setRowSelect() method on the facade.");
+            }
+        }
+
+        return limit;
+    }
+
+    /**
+     * Set the Limit on the facade. This will override the Limit if it was previously set.
+     * 
+     * @param limit The Limit to use.
+     */
+    public void setLimit(Limit limit) {
+        this.limit = limit;
+    }
+
+    /**
+     * If you are manually sorting and filtering the table then you still need to ensure that you
+     * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit. You
+     * can also override any previously set RowSelect.
+     * 
+     * @return The RowSelect set on the Limit.
+     */
+    public RowSelect setRowSelect(int maxRows, int totalRows) {
+        this.maxRows = maxRows;
+
+        RowSelect rowSelect;
+
+        Limit l = getLimit();
+
+        if (l.isExportable()) {
+            rowSelect = new RowSelectImpl(1, totalRows, totalRows);
+            l.setRowSelect(rowSelect);
+        } else {
+            LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
+            rowSelect = limitFactory.createRowSelect(maxRows, totalRows, l);
+        }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("The RowSelect is now set on the Limit.");
+        }
+
+        return rowSelect;
+    }
+
+    /**
+     * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
+     * Limit by the id.
+     * 
+     * @param stateAttr The parameter that will be searched to see if the state should be used.
+     */
+    public void setStateAttr(String stateAttr) {
+        this.stateAttr = stateAttr;
     }
 
     /**
@@ -283,7 +380,7 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         CoreContext cc = factory.createCoreContext(items, getLimit());
-        
+
         this.coreContext = cc;
 
         return cc;
@@ -300,103 +397,6 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
-     * Limit by the id.
-     * 
-     * @param stateAttr The parameter that will be searched to see if the state should be used.
-     */
-    public void setStateAttr(String stateAttr) {
-        this.stateAttr = stateAttr;
-    }
-
-    /**
-     * <p>
-     * Get the Limit. If the Limit does not exist then one will be created. If you are manually
-     * sorting and filtering the table then as much of the Limit will be created as is possible. You
-     * still might need to set the RowSelect on the facade, which will set it on the Limit.
-     * </p>
-     * 
-     * <p>
-     * If using the State interface then be sure to call the setState() method on the facade before
-     * calling the Limit.
-     * </p>
-     * 
-     * @return The Limit to use.
-     */
-    public Limit getLimit() {
-        if (limit != null) {
-            return limit;
-        }
-
-        LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
-        limitFactory.setStateAttr(stateAttr);
-        Limit l = limitFactory.createLimit();
-        
-        if (l.isComplete()) {
-            this.limit = l;
-            return limit;
-        }
-
-        if (items != null) {
-            if (l.isExportable()) {
-                l.setRowSelect(new RowSelectImpl(1, items.size(), items.size()));
-            } else {
-                if (maxRows > 0) {
-                    limitFactory.createRowSelect(maxRows, items.size(), l);
-                }
-            }
-        }
-
-        this.limit = l;
-
-        if (logger.isDebugEnabled()) {
-            if (limit.getRowSelect() == null) {
-                logger.debug("The RowSelect is not set on the Limit. Be sure to call the setRowSelect() method on the facade.");
-            }
-        }
-
-        return limit;
-    }
-
-    /**
-     * Set the Limit on the facade. This will override the Limit if it was previously set.
-     * 
-     * @param limit The Limit to use.
-     */
-    public void setLimit(Limit limit) {
-        this.limit = limit;
-    }
-
-    /**
-     * If you are manually sorting and filtering the table then you still need to ensure that you
-     * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit. You
-     * can also override any previously set RowSelect.
-     * 
-     * @return The RowSelect set on the Limit.
-     */
-    public RowSelect setRowSelect(int maxRows, int totalRows) {
-        this.maxRows = maxRows;
-
-        RowSelect rowSelect;
-
-        Limit l = getLimit();
-
-        if (l.isExportable()) {
-            rowSelect = new RowSelectImpl(1, totalRows, totalRows);
-            l.setRowSelect(rowSelect);
-        } else {
-            LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
-            rowSelect = limitFactory.createRowSelect(maxRows, totalRows, l);
-        }
-
-        if (logger.isDebugEnabled()) {
-            logger.debug("The RowSelect is now set on the Limit.");
-        }
-
-        return rowSelect;
-    }
-
-    /**
      * Get the Table. If the Table does not exist then one will be created.
      * 
      * @return The Table to use.
@@ -405,7 +405,7 @@ public class TableFacadeImpl implements TableFacade {
         if (table != null) {
             return table;
         }
-        
+
         if (columnNames == null || columnNames.length == 0) {
             throw new IllegalStateException(
                     "The column names are null. You need to set the columnNames on the facade, or use the contructor with the columnNames.");
@@ -528,7 +528,7 @@ public class TableFacadeImpl implements TableFacade {
         if (!l.isExportable()) {
             return getView().render().toString();
         }
-        
+
         String exportType = l.getExport().getType();
         if (exportType.equals(CSV)) {
             ViewExporter exporter = new CsvViewExporter(getView(), response);
