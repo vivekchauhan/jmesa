@@ -1,5 +1,7 @@
 _The following technique is available as of the JMesa 2.1 release._
 
+*Update:* I moved the !TableFacade into a new facade package. That package contains code for this facade and the tags (which is really a similar concept). Everything else is the same so just resolve the path.
+
 I was on vacation recently and during the drive started thinking about what it would mean to create a facade over the existing functionality of JMesa. The idea would be to make creating tables with the API easier without sacrificing any of the flexibility that you are currently used to. It wasn't long before I realized that what I needed was a facade that had a little bit of builder in its veins. I sketched up the class diagram and the interface I came up with is called !TableFacade. The implementation worked out perfectly and reinforced my opinion of how strong the API is!
 
 More examples and documentation can be found here:
