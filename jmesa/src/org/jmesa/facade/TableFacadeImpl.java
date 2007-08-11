@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.jmesa.view;
+package org.jmesa.facade;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,6 +22,9 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
+import org.jmesa.view.TableFactory;
+import org.jmesa.view.View;
+import org.jmesa.view.ViewExporter;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvTableFactory;
 import org.jmesa.view.csv.CsvView;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.facade;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -29,12 +29,15 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
+import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.html.HtmlSnippetsImpl;

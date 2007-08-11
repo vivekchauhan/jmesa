@@ -15,21 +15,21 @@
  */
 package org.jmesaweb.controller;
 
-import static org.jmesa.view.TableFacadeImpl.CSV;
-import static org.jmesa.view.TableFacadeImpl.EXCEL;
+import static org.jmesa.facade.TableFacadeImpl.CSV;
+import static org.jmesa.facade.TableFacadeImpl.EXCEL;
 
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.Sort;
 import org.jmesa.limit.SortSet;
-import org.jmesa.view.TableFacade;
-import org.jmesa.view.TableFacadeImpl;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.BasicCellEditor;
