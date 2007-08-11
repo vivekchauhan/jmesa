@@ -2,7 +2,7 @@ _The following technique is available as of the JMesa 2.1 release._
 
 JMesa now has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade].
 
-*Update:* I was looking at the difference between the [TableFacade] and the tags and I was not happy with the fact that I let the facade specific attributes leak into the !TableTag. I wanted to have the !TableTag only include table specific attributes.  I also wanted to make the tags and facade work and feel the same as they are trying to accomplish the same abstraction. So now there is a new !TableFacadeTag, although the logic is the same. Simply move the proper attributes to the facade tag and everything will work as expected (see example below). You will also need to get the new jmesa.tld.
+*Update:* I was looking at the difference between the [TableFacade] and the tags and I was not happy with the fact that I let the facade specific attributes leak into the !TableTag. I wanted to have the !TableTag only include table specific attributes.  I also wanted to make the tags and facade work and feel the same as they are trying to accomplish the same abstraction. So now there is a new !TableFacadeTag, although the logic is the same. Simply move the proper attributes to the facade tag and everything will work as expected (see example below). I also changed the names of the table, row, and column to htmlTable, htmlRow, and htmlColumn to reflect the JMesa API. You will need to get the new jmesa.tld.
 
 An example and more documentation can be found here:
  * [TagsExample Tags Example]
@@ -24,20 +24,20 @@ The following will define the html table.
     stateAttr="restore"
     var="bean"
     >
-    <jmesa:table 
+    <jmesa:htmlTable 
         captionKey="presidents.caption" 
         width="600px"
         >		
-        <jmesa:row>	
-            <jmesa:column property="name.firstName" titleKey="presidents.firstName">
+        <jmesa:htmlRow>	
+            <jmesa:htmlColumn property="name.firstName" titleKey="presidents.firstName">
                 <a href="http://www.whitehouse.gov/history/presidents/">${bean.name.firstName}</a>
-            </jmesa:column>
-            <jmesa:column property="name.lastName" title="Last Name"/>
-            <jmesa:column property="term"/>
-            <jmesa:column property="career"/>
-            <jmesa:column property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
-        </jmesa:row>
-    </jmesa:table> 
+            </jmesa:htmlColumn>
+            <jmesa:htmlColumn property="name.lastName" title="Last Name"/>
+            <jmesa:htmlColumn property="term"/>
+            <jmesa:htmlColumn property="career"/>
+            <jmesa:htmlColumn property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+        </jmesa:htmlRow>
+    </jmesa:htmlTable> 
 </jmesa:tableFacade>
 }}}
 
@@ -98,6 +98,8 @@ if (limit.isExportable()) {
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
+
+
 
 
 
