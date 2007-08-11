@@ -29,7 +29,7 @@ import org.jmesa.view.html.component.HtmlTable;
  * @since 2.1
  * @author jeff jie
  */
-public class TableTag extends SimpleTagSupport {
+public class HtmlTableTag extends SimpleTagSupport {
     // core attributes
     private String caption;
     private String captionKey;
