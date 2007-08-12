@@ -5,13 +5,13 @@ All you have to do is set the stateAttr to the parameter to look for in the requ
 
 For example in the [TableFacade] just pass in the name of the parameter to use:
 {{{
-TableFacade facade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
-facade.setStateAttr("restore");
+TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+tableFacade.setStateAttr("restore");
 }}}
 
 The same goes for the [Tags TableTag]:
 {{{
-<jmesa:table 
+<jmesa:tableFacade
         id="basic" 
         stateAttr="restore"
         ...
@@ -27,7 +27,6 @@ http://extremecomponents.googlepages.com/basic.png
 === UML ===
 
 http://extremecomponents.googlepages.com/state.png
-
 
 
 
