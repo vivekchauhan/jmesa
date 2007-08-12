@@ -9,7 +9,7 @@ TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name
 tableFacade.setStateAttr("restore");
 }}}
 
-The same goes for the [Tags TableTag]:
+The same goes for the [Tags]:
 {{{
 <jmesa:tableFacade
         id="basic" 
@@ -27,7 +27,6 @@ http://extremecomponents.googlepages.com/basic.png
 === UML ===
 
 http://extremecomponents.googlepages.com/state.png
-
 
 
 
