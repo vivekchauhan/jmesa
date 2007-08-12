@@ -37,9 +37,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Jeff Johnston
  */
 public class TagPresidentController extends AbstractController {
-    private static String CSV = "csv";
-    private static String EXCEL = "excel";
-
     private PresidentService presidentService;
     private String successView;
     private String id; // The unique table id.
@@ -50,7 +47,7 @@ public class TagPresidentController extends AbstractController {
         Collection<Object> items = presidentService.getPresidents();
 
         TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
-        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
+        tableFacade.setExportTypes(response, "csv", "excel"); // Tell the tableFacade what exports to use.
 
         Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {
