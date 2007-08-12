@@ -64,13 +64,13 @@ if (limit.isExportable()) {
 || maxRows || int || The max page rows ||
 || maxRowsIncrements || String || The toolbar max rows increments ||
 || stateAttr || String || The parameter to use for the [State] ||
-|| var || String || The value to hold the current bean ||
+|| var || String || The value to hold the current bean while iterating over the rows ||
 || exportTypes || String || The comma separated list of exports ||
 
 ==== !HtmlTableTag ====
 || *Attribute* || *Type* || *Description* ||
 || caption || String || The caption for the table ||
-|| captionKey || String || The value to find in the messages ||
+|| captionKey || String || The caption value to find in the messages ||
 || theme || String ||  ||
 || width || String ||  ||
 || style || String ||  ||
@@ -98,7 +98,6 @@ if (limit.isExportable()) {
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
-
 
 
 
