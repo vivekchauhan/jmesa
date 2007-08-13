@@ -34,8 +34,8 @@ public class ResourceBundleMessages implements Messages {
 
     private final static String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/jmesaResourceBundle";
 
-    private ResourceBundle customResourceBundle;
     private ResourceBundle defaultResourceBundle;
+    private ResourceBundle customResourceBundle;
     private Locale locale;
 
     public ResourceBundleMessages(String messagesLocation, WebContext webContext) {
