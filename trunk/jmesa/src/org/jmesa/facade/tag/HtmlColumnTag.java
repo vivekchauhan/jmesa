@@ -195,11 +195,11 @@ public class HtmlColumnTag extends SimpleTagSupport {
         JspFragment body = getJspBody();
         if (body == null) {
             return ItemUtils.getItemValue(item, getProperty());
-        } else {
-            StringWriter value = new StringWriter();
-            body.invoke(value);
-            return value;
         }
+        
+        StringWriter value = new StringWriter();
+        body.invoke(value);
+        return value;
     }
 
     @Override

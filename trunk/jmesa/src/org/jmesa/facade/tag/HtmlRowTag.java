@@ -97,6 +97,8 @@ public class HtmlRowTag extends SimpleTagSupport {
         Collection<Object> pageItems = facadeTag.getPageItems();
         this.pageItem = new HashMap<String, Object>();
         pageItems.add(pageItem);
+        
+        getRow();
 
         body.invoke(null);
     }

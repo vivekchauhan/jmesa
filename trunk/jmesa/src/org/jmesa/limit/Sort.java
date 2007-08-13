@@ -132,6 +132,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
         return result;
     }
 
+    @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("position", position);

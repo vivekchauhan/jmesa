@@ -38,6 +38,7 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
         setRow(row);
     }
 
+    @Override
     public HtmlRow getRow() {
         return (HtmlRow) super.getRow();
     }
@@ -120,12 +121,12 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
             String highlightClass = getHighlightClass();
             if (StringUtils.isNotBlank(onmouseover)) {
                 return "this.className='" + highlightClass + "';" + onmouseover;
-            } else {
-                return "this.className='" + highlightClass + "'";
-            }
-        } else {
-            return onmouseover;
+            } 
+            
+            return "this.className='" + highlightClass + "'";
         }
+        
+        return onmouseover;
     }
 
     protected String getOnmouseout(boolean highlighter, String onmouseout, int rowcount) {
@@ -133,12 +134,12 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
             String styleClass = getStyleClass(rowcount);
             if (StringUtils.isNotBlank(onmouseout)) {
                 return "this.className='" + styleClass + "';" + onmouseout;
-            } else {
-                return "this.className='" + styleClass + "'";
-            }
-        } else {
-            return onmouseout;
-        }
+            } 
+            
+            return "this.className='" + styleClass + "'";
+        } 
+        
+        return onmouseout;
     }
 
     public Object render(Object item, int rowcount) {

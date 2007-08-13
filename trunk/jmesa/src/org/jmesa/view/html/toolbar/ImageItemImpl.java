@@ -51,12 +51,14 @@ public class ImageItemImpl extends AbstractItem implements ImageItem {
         this.alt = alt;
     }
 
+    @Override
     public String disabled() {
         HtmlBuilder html = new HtmlBuilder();
         html.img().src(getDisabledImage()).style(getStyle()).alt(getAlt()).end();
         return html.toString();
     }
 
+    @Override
     public String enabled() {
         HtmlBuilder html = new HtmlBuilder();
         html.a().href();
