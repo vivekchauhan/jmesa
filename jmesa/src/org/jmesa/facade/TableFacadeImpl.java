@@ -113,8 +113,7 @@ public class TableFacadeImpl implements TableFacade {
     private boolean performFilterAndSort = true;
 
     /**
-     * This constructor is only useful if you are only using the facade for the Limit, or want to
-     * build the facade up over time.
+     * This constructor is only useful if you are only using the facade to get at the Limit.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -125,8 +124,8 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * This constructor is useful if you are doing the filtering and sorting manually and intend to
-     * set the RowSelect object by yourself.
+     * This constructor is useful if you are doing the filtering and sorting manually. However be sure to 
+     * set the RowSelect object and items before calling the render method.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -156,7 +155,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * The most common constructor that will be used to display a table and exports. The intent is
+     * The most common constructor that will be used to display an html table and exports. The intent is
      * let the API do all the filtering and sorting automatically.
      * 
      * @param id The unique identifier for this table.
@@ -265,7 +264,7 @@ public class TableFacadeImpl implements TableFacade {
     /**
      * If you are manually sorting and filtering the table then you still need to ensure that you
      * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit. You
-     * can also override any previously set RowSelect.
+     * can also override any previously set RowSelect object.
      * 
      * @return The RowSelect set on the Limit.
      */
@@ -349,7 +348,8 @@ public class TableFacadeImpl implements TableFacade {
      * Set the items, the Collection of Beans (or Maps), if not already set on the constructor.
      * Useful if performing the sorting and filtering manually and need to set the items on the
      * facade. If you are performing the sorting and filtering manually you should also set the
-     * performFilterAndSort() to false.
+     * performFilterAndSort() to false because there is no reason to have the API try to sort
+     * and filter if you have already done so.
      * 
      * @param The Collecton of Beans (or Maps) to use.
      */
