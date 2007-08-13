@@ -29,3 +29,10 @@ In the spirit of wanting to release fixes and small improvements faster, JMesa o
  * Added !HtmlColumn width attribute
  * The table.getRow().getColumn(property); syntax now correctly returns a !HtmlColumn so no casting is needed.
  * Added Groovy closure support for a !CellEditor.
+
+==== jmesa-2.1 ====
+ * An Excel View, using Apache POI
+ * New [Tags tag] library. 
+ * New [TableFacade] interface that makes working with the API very easy.
+
+
