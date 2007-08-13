@@ -1,11 +1,10 @@
-#labels Featured
 JMesa is now starting to get support for [http://groovy.codehaus.org/ Groovy] built right into the API. As it stands right now you can use Groovy as-is, however there are some Groovy features such as Closures that require some API additions in JMesa. Support for Groovy is going to be the emphasis of the next release as I think Groovy makes complete sense when working with JMesa. It makes the code shorter, more concise, and easier to build table with.
 
 I will be using this page as the index for all the code examples and everything JMesa related to Groovy!
 
  * Using Groovy to create a [GroovyCellEditor custom cell editor].
 
- * Using Groovy to create a [BasicGroovy complete table] using the !HtmlTableFactory.
+ * Using Groovy to create a [FacadeGroovyExample complete table].
 
 
 
