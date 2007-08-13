@@ -40,7 +40,7 @@ public class HtmlView implements View {
     }
 
     public HtmlTable getTable() {
-        return (HtmlTable) table;
+        return table;
     }
 
     public void setTable(Table table) {

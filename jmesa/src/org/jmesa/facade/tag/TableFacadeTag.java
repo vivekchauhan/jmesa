@@ -58,7 +58,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     // facade attributes
     private String id;
     private Collection<Object> items;
-    private int maxRows = 15;
+    private int maxRows;
     private String maxRowsIncrements;
     private String stateAttr;
     private boolean performFilterAndSort = true;
@@ -234,7 +234,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param webContext The WebContext to use.
      */
-    protected void setWebContext(WebContext webContext) {
+    public void setWebContext(WebContext webContext) {
         this.webContext = webContext;
     }
 
@@ -293,7 +293,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param coreContext The CoreContext to use.
      */
-    protected void setCoreContext(CoreContext coreContext) {
+    public void setCoreContext(CoreContext coreContext) {
         this.coreContext = coreContext;
     }
 
@@ -320,7 +320,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The Toolbar to use.
      */
-    protected Toolbar getToolbar() {
+    public Toolbar getToolbar() {
         if (toolbar != null) {
             return toolbar;
         }
@@ -346,7 +346,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param toolbar The Toolbar to use.
      */
-    protected void setToolbar(Toolbar toolbar) {
+    public void setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
     }
 
@@ -371,7 +371,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The View to use.
      */
-    protected View getView() {
+    public View getView() {
         if (view != null) {
             return view;
         }
@@ -386,7 +386,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param view The View to use.
      */
-    protected void setView(View view) {
+    public void setView(View view) {
         this.view = view;
     }
 

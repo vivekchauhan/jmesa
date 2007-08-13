@@ -27,6 +27,7 @@ import org.jmesa.view.html.renderer.HtmlTableRenderer;
 public class HtmlTableImpl extends TableImpl implements HtmlTable {
     private String theme;
 
+    @Override
     public HtmlRow getRow() {
         return (HtmlRow) super.getRow();
     }

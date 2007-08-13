@@ -68,6 +68,7 @@ public class ComparatorTest {
 			return zipCode;
 		}
 
+		@Override
 		public String toString() {
 			return name + ":" + zipCode;
 		}

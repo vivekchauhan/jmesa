@@ -37,6 +37,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
         setColumn(column);
     }
 
+    @Override
     public HtmlColumn getColumn() {
         return (HtmlColumn) super.getColumn();
     }

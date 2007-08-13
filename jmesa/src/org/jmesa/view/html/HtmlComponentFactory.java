@@ -41,6 +41,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         setCoreContext(coreContext);
     }
 
+    @Override
     public HtmlTable createTable() {
         HtmlTableImpl table = new HtmlTableImpl();
         table.setWebContext(getWebContext());
@@ -54,6 +55,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         return table;
     }
 
+    @Override
     public HtmlRow createRow() {
         HtmlRowImpl row = new HtmlRowImpl();
         row.setWebContext(getWebContext());

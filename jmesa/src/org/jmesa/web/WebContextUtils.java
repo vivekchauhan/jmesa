@@ -40,7 +40,7 @@ public class WebContextUtils {
             return (String[]) value;
         } else if (value instanceof List) {
             List<?> valueList = (List<?>) value;
-            return (String[]) valueList.toArray(new String[valueList.size()]);
+            return valueList.toArray(new String[valueList.size()]);
         }
 
         return new String[] { value.toString() };

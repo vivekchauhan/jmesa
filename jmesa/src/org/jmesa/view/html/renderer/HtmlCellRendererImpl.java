@@ -33,6 +33,7 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
         setCellEditor(editor);
     }
 
+    @Override
     public HtmlColumn getColumn() {
         return (HtmlColumn) super.getColumn();
     }

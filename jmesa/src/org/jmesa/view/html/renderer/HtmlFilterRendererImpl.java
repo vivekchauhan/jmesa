@@ -35,6 +35,7 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
         setColumn(column);
     }
 
+    @Override
     public HtmlColumn getColumn() {
         return (HtmlColumn) super.getColumn();
     }

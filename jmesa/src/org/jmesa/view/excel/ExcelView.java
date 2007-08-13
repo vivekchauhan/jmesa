@@ -49,7 +49,7 @@ public class ExcelView implements View {
     }
 
     public void setTable(Table table) {
-        this.table = (Table) table;
+        this.table = table;
     }
 
     public Object render() {

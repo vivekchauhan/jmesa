@@ -33,6 +33,7 @@ public class HtmlTableRendererImpl extends AbstractTableRenderer implements Html
         setTable(table);
     }
 
+    @Override
     public HtmlTable getTable() {
         return (HtmlTable) super.getTable();
     }
