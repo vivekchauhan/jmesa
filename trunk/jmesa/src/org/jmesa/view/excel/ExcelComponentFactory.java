@@ -24,7 +24,7 @@ import org.jmesa.view.excel.renderer.ExcelCellRender;
 import org.jmesa.web.WebContext;
 
 /**
- * @since 2.0
+ * @since 2.1
  * @author jeff jie
  */
 public class ExcelComponentFactory extends AbstractComponentFactory {

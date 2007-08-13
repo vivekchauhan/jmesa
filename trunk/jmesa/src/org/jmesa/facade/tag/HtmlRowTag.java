@@ -15,7 +15,7 @@ import org.jmesa.view.html.component.HtmlRow;
  * Represents an HtmlRow.
  * 
  * @since 2.1
- * @author Jeff Johnston
+ * @author jeff jie
  */
 public class HtmlRowTag extends SimpleTagSupport {
     private boolean highlighter = true;
