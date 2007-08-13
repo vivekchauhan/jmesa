@@ -21,17 +21,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
- * Able to match up values based on a class type, table id and column property.
- * The class type is required. The table id is optional and is used to match up
- * to a more specific filter. The column property is optional and is also used
+ * Able to match up values based on a class type and column property.
+ * The class type is required. The column property is optional and is also used
  * to match up to a more specific filter.
  * </p>
  * 
  * <p>
  * For instance you could just register a class type, such as a Date, and use
  * that across all tables. However, if you have a custom date to handle for a
- * specific table and/or specific column property than you could specify the id
- * and/or property value.
+ * specific column property than you could specify the id and/or property value.
  * </p>
  * 
  * @since 2.0
@@ -44,7 +42,7 @@ public class MatcherKey {
     /**
      * The more generic constructor.
      * 
-     * @param type
+     * @param type The class type to match against.
      */
     public MatcherKey(Class<?> type) {
         this(type, null);
@@ -53,19 +51,24 @@ public class MatcherKey {
     /**
      * The most specific constructor.
      * 
-     * @param id
-     * @param property
-     * @param type
+     * @param type The class type to match against.
+     * @param property The column property to match against.
      */
     public MatcherKey(Class<?> type, String property) {
         this.type = type;
         this.property = property;
     }
 
+    /**
+     * @return The class type to match against.
+     */
     public String getProperty() {
         return property;
     }
 
+    /**
+     * @return The column property to match against.
+     */
     public Class<?> getType() {
         return type;
     }
