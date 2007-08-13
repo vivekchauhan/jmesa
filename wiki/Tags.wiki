@@ -41,7 +41,7 @@ The following will define the html table.
 </jmesa:tableFacade>
 }}}
 
-To generate the exports use the [TableFacade].
+To generate the exports use the [TableFacade] in your controller.
 
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
@@ -98,7 +98,6 @@ if (limit.isExportable()) {
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
-
 
 
 
