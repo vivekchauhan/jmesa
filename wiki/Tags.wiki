@@ -1,8 +1,7 @@
+#labels Featured
 _The following technique is available as of the JMesa 2.1 release._
 
 JMesa now has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade].
-
-*Update:* I was looking at the difference between the [TableFacade] and the tags and I was not happy with the fact that I let the facade specific attributes leak into the !TableTag. I wanted to have the !TableTag only include table specific attributes.  I also wanted to make the tags and facade work and feel the same as they are trying to accomplish the same abstraction. So now there is a new !TableFacadeTag, although the logic is the same. Simply move the proper attributes to the facade tag and everything will work as expected (see example below). In addition I also changed the names of the table, row, and column tags to htmlTable, htmlRow, and htmlColumn to reflect the JMesa API naming...and because they really do represent the !HtmlTable, !HtmlRow, and !HtmlColumn. If this is too wordy feel free to rename it to whatever you want in the tld file. There will only ever be these tags to work with so customizing them is not really that big of a deal. You will need to get the new jmesa.tld either way.
 
 An example and more documentation can be found here:
  * [TagsExample Tags Example]
@@ -98,7 +97,6 @@ if (limit.isExportable()) {
 || width || String ||  ||
 || style || String ||  ||
 || styleClass || String ||  ||
-
 
 
 
