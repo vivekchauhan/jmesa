@@ -24,6 +24,7 @@ import org.jmesa.limit.Order;
 /**
  * Build up the parameters that is used by the LimitFactory.
  * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public class ParametersBuilder {

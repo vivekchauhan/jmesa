@@ -19,6 +19,7 @@ package org.jmesa.test;
  * Use as an Adaptor to abstract out how to add parameters to the backing
  * object.
  * 
+ * @since 2.0
  * @author Jeff Johnston
  */
 public interface Parameters {
