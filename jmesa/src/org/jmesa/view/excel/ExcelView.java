@@ -32,7 +32,7 @@ import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 
 /**
- * @since 2.0
+ * @since 2.1
  * @author jeff jie
  */
 public class ExcelView implements View {

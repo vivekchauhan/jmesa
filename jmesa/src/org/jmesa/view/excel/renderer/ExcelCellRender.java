@@ -20,7 +20,7 @@ import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.renderer.AbstractCellRenderer;
 
 /**
- * @since 2.0
+ * @since 2.1
  * @author jeff jie
  */
 public class ExcelCellRender extends AbstractCellRenderer {

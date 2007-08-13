@@ -22,7 +22,7 @@ import org.jmesa.view.View;
 import org.jmesa.view.ViewExporter;
 
 /**
- * @since 2.0
+ * @since 2.1
  * @author jeff jie
  */
 public class ExcelViewExporter implements ViewExporter {
