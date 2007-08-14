@@ -9,25 +9,19 @@ The [Messages] are the Locale specific text. The default implementation uses Jav
 The [Preferences] are used for a lot of the configuration instead of hardcoding the values. The default implementation uses Java Properties. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then change the values you want. The !CoreContext extends Preferences so you always have direct access to how things are configured.
 
 ==== Example ====
-To build the !CoreContext with the factory you need the WebContext and the Limit, as well as the [Items items].
+You can get the !CoreContext directly from the Limit:
 
 {{{
-public CoreContext getCoreContext(Collection items, Limit limit, WebContext webContext) {
-    CoreContextFactory factory = new CoreContextFactoryImpl(webContext);
-    CoreContext coreContext = factory.createCoreContext(items, limit);
-    return coreContext;
+TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+CoreContext coreContext = tableFacade.getCoreContext();
 }
 }}}
 
 ==== Example (disable filtering and sorting) ====
-If you are manually filtering and sorting be sure to call the alternate constructor that skips the filtering and sorting step. And, just to be clear, you would call this because you have already filtered and sorted the items so there is no reason to do it again. This does not mean that the table does not show up in the filtered or sorted state. In this example pay attention to the *false* setting on the constructor.
+If you are manually filtering and sorting be sure to call the performFilterAndSort() method. And, just to be clear, you would call this method is because you have already filtered and sorted the items so there is no reason to do it again. This does not mean that the table does not show up in the filtered or sorted state.
 
 {{{
-public CoreContext getCoreContext(Collection items, Limit limit, WebContext webContext) {
-    CoreContextFactory factory = new CoreContextFactoryImpl(false, webContext);
-    CoreContext coreContext = factory.createCoreContext(items, limit);
-    return coreContext;
-}
+tableFacade.performFilterAndSort(false);
 }}}
 
 ==== Add Custom Filters ====
