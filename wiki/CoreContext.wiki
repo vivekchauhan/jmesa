@@ -14,7 +14,6 @@ You can get the !CoreContext directly from the Limit:
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
 CoreContext coreContext = tableFacade.getCoreContext();
-}
 }}}
 
 ==== Example (disable filtering and sorting) ====
@@ -37,7 +36,6 @@ http://extremecomponents.googlepages.com/coreContext.png
 ==== The Sort class diagram. ====
 
 http://extremecomponents.googlepages.com/sort.png
-
 
 
 
