@@ -22,7 +22,7 @@ This should be pretty straightforward. You can easily set the page, max rows and
 
 Right now there are two implementations to set up the Parameters. One if you are using the Spring framework, and the other if you are setting the parameters on the !WebContext manually.
 
-==== SpringParametersAdapter Example ====
+==== !SpringParametersAdapter Example ====
 
 If you are using Spring you will want to set up the parameters by using the !SpringParametersAdapter. The following example shows how you would use the Spring !MockHttpServletRequest with the !SpringParametersAdapter to make the !ParametersBuilder work.
 
@@ -77,7 +77,6 @@ Limit limit = limitFactory.createLimit();
 === UML Class Diagrams ===
 
 http://extremecomponents.googlepages.com/test.png
-
 
 
 
