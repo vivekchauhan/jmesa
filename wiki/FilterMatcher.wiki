@@ -1,18 +1,12 @@
 By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps. The JMesa filtering mechanism is very flexible and allows you to easily plug in your own filter strategy.
 
-You plug in your filter strategy via the !CoreContextFactory (which behind the scenes really plugs into the !FilterMatcherRegistry). First lets look at what it takes to create the !CoreContextFactory again:
+You plug in your filter strategy via the [TableFacade]. This allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked.
 
 {{{
-CoreContextFactoryImpl factory = new CoreContextFactoryImpl(webContext);
+public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
 }}}
 
-Although not part of the !CoreContextFactory interface the default implementation of the !CoreContextFactory allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked.
-
-{{{
-public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) 
-}}}
-
-We will start by looking at the !MatcherKey and !FilterMatcher in more depth, and then come back to how we add them to the !CoreContextFactory.
+We will start by looking at the !MatcherKey and !FilterMatcher in more depth, and then come back to how we add them to the [TableFacade].
 
 The !MatcherKey is used to find the proper !FilterMatcher strategy. !MatcherKey is an immutable object that has two constructors. One takes only a class type, and the other takes a class type and property. This allows you to match filters either by a specific class type, or more specifically, by class type and for a given column property.
 
@@ -49,12 +43,12 @@ public class StringFilterMatcher implements FilterMatcher {
 }
 }}}
 
-Then by default it is registered when creating the !CoreContextFactory:
+Then just add this to the [TableFacade].
 {{{
-addFilterMatcher(new MatcherKey(String.class), new StringFilterMatcher());
+tableFacade.addFilterMatcher(new MatcherKey(String.class), new StringFilterMatcher());
 }}}
 
-This is saying that all filters that represent a string class will be matched against the !StringFilterMatcher, which we now know is case-insensitive. As mentioned this is set up for you, although it should make sense on how you could easily come up with your own filtering strategy. 
+This is saying that all filters that represent a string class will be matched against the !StringFilterMatcher, which we now know is case-insensitive. Keep in mind that the (above) example is one of the defaults that is already set up for you. Hopefully by examining this one it should make sense on how you could easily come up with your own filtering strategy. 
 
 Next lets looks at a slightly more complicated filter, the !DateFilterMatcher. *TODO:* Put in more complicated example.
 
@@ -63,3 +57,6 @@ Next lets looks at a slightly more complicated filter, the !DateFilterMatcher. *
 ==== The Filter class diagram. ====
 
 http://extremecomponents.googlepages.com/filter.png
+
+
+
