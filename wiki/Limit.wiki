@@ -104,8 +104,8 @@ Once you have the Limit completed (along with your data), you can pass this info
 ==== The Limit Exposed ====
 The real power of the Limit implementation becomes apparent when you want to put the table into a different state. Here we are adding a Sort object to sort the first name in ascending order. Then we are adding a Filter object to filter the last name. This will also force the table to go right to the second page.
 {{{
-limit.getSortSet().addSort("firstName", Order.ASC);
-limit.getFilterSet().addFilter("lastName", "a");
+limit.getSortSet().addSort("name.firstName", Order.ASC);
+limit.getFilterSet().addFilter("name.lastName", "a");
 limit.getRowSelect().setPage(2);
 }}}
 
@@ -120,7 +120,6 @@ http://extremecomponents.googlepages.com/limit.png
 ====The LimitFactory class diagram.====
 
 http://extremecomponents.googlepages.com/limitFactory.png
-
 
 
 
