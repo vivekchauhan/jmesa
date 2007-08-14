@@ -6,7 +6,7 @@ Working with the JMesa API can be broken down into three areas.
 
 The [Limit] interface represents the limit package and is used so that you can figure out how the user interacted with the table with regards to filtering, sorting, paging and the max rows.
 
-=== CoreContext ===
+=== !CoreContext ===
 
 The [CoreContext] interface represents the core package and is the real plumbing. With the !CoreContext you have direct access to the Items, Messages and Preferences. 
 
