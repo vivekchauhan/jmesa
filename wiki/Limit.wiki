@@ -1,44 +1,105 @@
-The name Limit comes from the MySQL limit command, and the purpose of the
-Limit interface is to know how to limit the table results. The implemenation
-of the Limit knows how the user interacted with the table with regards to
-sorting, filtering, paging, max rows to display, and exporting. With this
-information you will be able to display the requested page filtered and
-sorted correctly in the most efficient manner possible.
+The purpose of the Limit interface is to know how to limit the table results. The implemenation of the Limit knows how the user interacted with the table with regards to sorting, filtering, paging, max rows to display, and exporting. With this information you will be able to display the requested page filtered and sorted correctly in the most efficient manner possible.
+
+For instance, the Limit object can tell you what was filtered by calling the !FilterSet:
+{{{
+FilterSet filterSet = limit.getFilterSet();
+}}}
+
+The Limit object can also tell you what was sorted by calling the !SortSet:
+{{{
+SortSet sortSet = getSortSet();
+}}}
+
+To find out if a table was exported call the boolean:
+{{{
+boolean exportable = limit.isExportable();
+}}}
+
+Some of the more interesting information can be found on the !RowSelect object:
+{{{
+RowSelect rowSelect = limit.getRowSelect();
+}}}
+
+With this object you can find out all sorts of information about the rows to display:
+{{{
+int rowStart = rowSelect.getRowStart();
+
+int rowEnd = rowSelect.getRowEnd();
+
+int maxRows = rowSelect.getMaxRows();
+
+int totalRows = rowSelect.getTotalRows();
+
+int page = rowSelect.getPage();
+}}}
+
+This should be very self explanatory. Once you have a complete !RowSelect object you have all this information available. 
+
+There is only one thing to consider. If you pass in all the items then you do not need to do anything else. The most common [TableFacade] constructor to use when you are just passing in the complete items object is:
+
+{{{
+TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career")
+}}}
+
+That should make sense. Because you are passing in all the items the API knows everything it needs to create the complete Limit object.
+
+However, if you want to return only one page of data to work the most efficiently with your data then you will need to not only use the Limit, but, in addition, you will need to help finish completing the Limit object by setting the !RowSelect. I will explain that next.
 
 ==== Example ====
-Create a Limit using the !LimitFactory is as follows:
+For the purposes of this next example I am going to further explain how to work with the Limit using the [TableFacade] when you want to efficiently return only one page of data at a time. To see more details, and a complete example go to the [FacadeLimitExample facade example] page.
 
-First you need to pass in the table id and the !WebContext. The table id is the unique identifier for the current table being built. The !WebContext is an adapter for the servlet request.
-
+First we start with a [TableFacade]. Notice how we do not pass in the maxRows. The reason is because we will take care of this in the next step anyway so there is no reason to do it here.
 {{{
-LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-Limit limit = limitFactory.createLimit();
+TableFacade tableFacade = new TableFacadeImpl(id, request, "name.firstName", "name.lastName", "term", "career");
 }}}
 
-Once you have the Limit you still need to create and set a !RowSelect object on the Limit. The !RowSelect needs to be added to the Limit so that the row information is available. The catch is the !RowSelect cannot be created until the total rows is known. If you are not manually filtering and sorting the table then it is easy because the totalRows is just the size of your items (Collection of Beans or Collection of Maps). However, if you are manually filtering and sorting the table to bring back one page of data then you first need to use the !FilterSet on the Limit to figure out the total rows.
-
-Either way, once you have the total rows you can now create a !RowSelect with the factory. Lastly, set the !RowSelect on the Limit and your done!
-
+Now get the Limit from the !TableFacade.
 {{{
-RowSelect rowSelect = limitFactory.createRowSelect(maxRows, totalRows);
-limit.setRowSelect(rowSelect);
+Limit limit = tableFacade.getLimit();
 }}}
 
-==== Example (Convenience Method) ====
-If you are not manually filtering and sorting there is a convenience method to create the Limit and !RowSelect at once. This even takes in consideration if the table is exporting and will create a !RowSelect object setting the maxRows and totalRows to the totalRows.
+With this Limit object you know some basic information about how the user interacted with the table, including how they wish to filter, sort, and the page number. The only thing missing is the !RowSelect object, which knows the exact rows that the user is requesting. You will need to ensure this object is properly populated, but luckily, JMesa makes that very easy.
 
+Looking at the !TableFacade you will see there is a convenience method to set the RowSelect object:
 {{{
-LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
-Limit limit = limitFactory.createLimitAndRowSelect(maxRows, totalRows);
+public RowSelect setRowSelect(int maxRows, int totalRows);
 }}}
 
-==== Export Consideration ====
-If you are manually filtering and sorting and are doing an export then you should create the !RowSelect object yourself and set it on the Limit.
+As you can see, what we need is the maxRows and the totalRows. The totalRows is the tricky one because you will need to figure out that information first. And, when filtering is turned on, what it means to get the totalRows is the total results after the data has been filtered. How you do that is up to you. For one way to do it you can reference my [FacadeLimitExample example]. What the Limit buys you is the !FilterSet that contains the filter information.
 
 {{{
-RowSelect rowSelect = new RowSelectImpl(1, totalRows, totalRows);
-limit.setRowSelect(rowSelect);
+FilterSet filterSet = limit.getFilterSet();
 }}}
+
+Assuming you used this information to get the totalRows you can now set the !RowSelect:
+{{{
+tableFacade.setRowSelect(maxRows, totalRows);
+}}}
+
+The next step is to sort the data, and then figure out which rows to grab:
+{{{
+SortSet sortSet = limit.getSortSet();
+int rowStart = limit.getRowSelect().getRowStart();
+int rowEnd = limit.getRowSelect().getRowEnd();
+}}}
+
+Again, how you use this information to get the rows selected is up to you. The Limit merely provides you with how the user wishes the table to be sorted, filtered, and paged.
+
+==== Example If Using Tags ====
+If you are using the tag library there is no difference to how you use the Limit. However, there is a convenience constructor that does not care anything about the columns, as that information is defined on the tags themselves. 
+
+{{{
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+}}}
+
+The only thing you need to keep in mind though is the only thing you can pull back from the facade is the Limit object. The rest of the facade is not available, but you will not care anyway.
+
+Once you have the Limit completed (along with your data), you can pass this information to your table defined in the tags:
+
+{{{
+<jmesa:tableFacade limit="${limit}">
+}}}
+
 
 ==== The Limit Exposed ====
 The real power of the Limit implementation becomes apparent when you want to put the table into a different state. Here we are adding a Sort object to sort the first name in ascending order. Then we are adding a Filter object to filter the last name. This will also force the table to go right to the second page.
@@ -59,6 +120,16 @@ http://extremecomponents.googlepages.com/limit.png
 ====The LimitFactory class diagram.====
 
 http://extremecomponents.googlepages.com/limitFactory.png
+
+
+
+
+
+
+
+
+
+
 
 
 
