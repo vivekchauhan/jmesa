@@ -60,7 +60,7 @@ Limit limit = tableFacade.getLimit();
 
 With this Limit object you know some basic information about how the user interacted with the table, including how they wish to filter, sort, and the page number. The only thing missing is the !RowSelect object, which knows the exact rows that the user is requesting. You will need to ensure this object is properly populated, but luckily, JMesa makes that very easy.
 
-Looking at the !TableFacade you will see there is a convenience method to set the RowSelect object:
+Looking at the !TableFacade you will see there is a convenience method to set the !RowSelect object:
 {{{
 public RowSelect setRowSelect(int maxRows, int totalRows);
 }}}
@@ -120,7 +120,6 @@ http://extremecomponents.googlepages.com/limit.png
 ====The LimitFactory class diagram.====
 
 http://extremecomponents.googlepages.com/limitFactory.png
-
 
 
 
