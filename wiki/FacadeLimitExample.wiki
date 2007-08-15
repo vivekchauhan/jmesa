@@ -13,7 +13,7 @@ To find out how the user is trying to sort and filter, what page they are going 
 The example uses JMesa, along with Spring and Hibernate (Criteria API). It also assumes you have already followed the [Setup setup] instructions.
 
 ==== code references ====
-All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code. I will work on getting more javadocs in as I get time. The examples only build tables so there is no other code to look at. I am also working on creating a war file, with Jetty built in, that includes all the source code and examples that can be run locally.
+All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code. 
 
 For the Limit example there is a service and dao class of interest, but how you implement those is very custom and will differ on how you work. The class to really pay attention to is the controller as that is how you will interact with the [TableFacade].
 
