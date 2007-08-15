@@ -5,7 +5,8 @@ One of my favorite things about Groovy is that you can just cut and paste in Jav
 Another nice touch, if you are using Spring, is that you can wire this all up through the [GroovySpring bean factory].
 
 ==== code references ====
-All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code. I will work on getting more javadocs in as I get time. The examples only build tables so there is no other code to look at. I am also working on creating a war file, with Jetty built in, that will includes all the source code and examples that can be run locally.
+All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code.
+
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/GroovyPresidentController.java Controller]
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/HtmlTableTemplate.java Template] _Bridges Groovy and Java_
  * [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/web/WEB-INF/groovy/GroovyPresident.groovy Groovy] file
