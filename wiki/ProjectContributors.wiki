@@ -7,7 +7,7 @@ The following is a list of the people who have helped make JMesa a better compon
  * Added the ability to enable and disable the separators on the toolbar.
 
 ==== oliver.lamy  ====
- * Maintains the Maven2 pom.xml file!
+ * Initially added and maintains the Maven2 pom.xml file!
 
 === Version 2.1 ===
 
@@ -20,5 +20,4 @@ The following is a list of the people who have helped make JMesa a better compon
 
 ==== xuzhoujun ====
  * Worked on a Chinese Resource Bundle, jmesaResourceBundle_zh_CN.properties. It is already checked in and will be available in the next release.
-
 
