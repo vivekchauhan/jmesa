@@ -1,13 +1,24 @@
-The following is a list of the people who have helped make JMesa a better component by contributing their time and code to the library. Some developers I only know by their username. If your name is on this list and would like me to put your full name down let me know.
+The following is a list of the people who have helped make JMesa a better component by contributing their time and code to the library. Some developers I only know by their username. If your name is on this list and would like me to put your full name down let me know. Also, if I forgot to mention your name for something you did please let me know so that I can get you on the list!
+
+=== Version 2.0 ===
+
+==== rainerh ====
+ * Submitted some of the first bug reports while still in beta!
+ * Added the ability to enable and disable the separators on the toolbar.
+
+==== oliver.lamy  ====
+ * Maintains the Maven2 pom.xml file!
 
 === Version 2.1 ===
 
 ==== jeff jie ====
- * Solely responsible for the Excel View
- * Helped kick start the tag library by contributing the initial code for it 
+ * Solely responsible for the Excel View.
+ * Helped kick start the tag library by contributing the initial code for it .
 
 
 === Future Release ===
 
 ==== xuzhoujun ====
- * Worked on a Chinese Resource Bundle, jmesaResourceBundle_zh_CN.properties. It is already checked in and will be available in the next release
+ * Worked on a Chinese Resource Bundle, jmesaResourceBundle_zh_CN.properties. It is already checked in and will be available in the next release.
+
+
