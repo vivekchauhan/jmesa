@@ -12,7 +12,7 @@ The following is a list of the people who have helped make JMesa a better compon
 === Version 2.1 ===
 
 ==== jeff jie ====
- * Solely responsible for the Excel View. The implementation was so good I just put the code directly in JMesa, added the tags, and checked it in!
+ * Solely responsible for the Excel View. The implementation was so good I just put the code directly in JMesa, added the proper licenses, and checked it in!
  * Helped kick start the tag library by contributing the initial code for it .
 
 
