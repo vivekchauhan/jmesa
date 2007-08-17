@@ -1,0 +1,13 @@
+The following is a list of the people who have helped make JMesa a better component by contributing their time and code to the library. Some developers I only know by their username. If your name is on this list and would like me to put your full name down let me know.
+
+=== Version 2.1 ===
+
+==== jeff jie ====
+ * Solely responsible for the Excel View
+ * Helped kick start the tag library by contributing the initial code for it 
+
+
+=== Future Release ===
+
+==== xuzhoujun ====
+ * Worked on a Chinese Resource Bundle, jmesaResourceBundle_zh_CN.properties. It is already checked in and will be available in the next release
