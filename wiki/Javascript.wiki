@@ -58,7 +58,8 @@ Then we need to put in the form element and include the JMesa table inside it. N
 </form>
 }}}
 
-The magic of AJAX comes into play when the onInvokeAction() is called by one of the table actions. Here AJAX is used to call the server, and then the JQuery callback is used to swap out the new HTML markup. Note: if you haven't used it before I highly recommend using the [http://jquery.com/ JQuery] library as it makes working with JavaScript and AJAX real easy.
+The magic of AJAX comes into play when the onInvokeAction() is called by one of the table actions. Here AJAX is used to call the server, and then the JQuery callback is used to swap out the new HTML markup. Note: if you haven't used it before I highly recommend using the [http://jquery.com/ JQuery] library as it makes working with 
+!JavaScript and AJAX real easy.
 
 {{{
 <script type="text/javascript">
@@ -77,7 +78,6 @@ function onInvokeExportAction(id) {
 }
 </script>
 }}}
-
 
 
 
