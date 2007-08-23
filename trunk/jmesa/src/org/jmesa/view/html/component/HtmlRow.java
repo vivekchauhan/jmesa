@@ -16,6 +16,7 @@
 package org.jmesa.view.html.component;
 
 import org.jmesa.view.component.Row;
+import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
 /**
@@ -27,9 +28,9 @@ public interface HtmlRow extends Row {
 
     public void setHighlighter(boolean highlighter);
 
-    public String getOnclick();
+    public RowEvent getOnclick();
 
-    public void setOnclick(String onclick);
+    public void setOnclick(RowEvent rowEvent);
 
     public String getOnmouseover();
 

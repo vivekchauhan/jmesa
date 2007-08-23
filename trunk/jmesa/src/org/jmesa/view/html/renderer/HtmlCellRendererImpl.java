@@ -70,6 +70,6 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
 
         html.tdEnd();
 
-        return html;
+        return html.toString();
     }
 }
