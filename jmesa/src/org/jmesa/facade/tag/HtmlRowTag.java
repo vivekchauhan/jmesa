@@ -65,7 +65,7 @@ public class HtmlRowTag extends SimpleTagSupport {
     }
 
     /**
-     * Get the row onclick RowEvent object.
+     * Get the row Onclick RowEvent object.
      */
     protected RowEvent getRowOnclick() {
         if (StringUtils.isBlank(getOnclick())) {
@@ -78,7 +78,47 @@ public class HtmlRowTag extends SimpleTagSupport {
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
-            logger.error("Could not create the RowEvent [" + getOnclick() + "]", e);
+            logger.error("Could not create the Onclick RowEvent [" + getOnclick() + "]", e);
+        }
+
+        return null;
+    }
+    
+    /**
+     * Get the row Onmouseover RowEvent object.
+     */
+    protected RowEvent getRowOnmouseover() {
+        if (StringUtils.isBlank(getOnmouseover())) {
+            return null;
+        }
+
+        try {
+            Object obj = Class.forName(getOnmouseover()).newInstance();
+            if (obj instanceof RowEvent) {
+                return (RowEvent) obj;
+            }
+        } catch (Exception e) {
+            logger.error("Could not create the Onmouseover RowEvent [" + getOnmouseover() + "]", e);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the row Onmouseout RowEvent object.
+     */
+    protected RowEvent getRowOnmouseout() {
+        if (StringUtils.isBlank(getOnmouseout())) {
+            return null;
+        }
+
+        try {
+            Object obj = Class.forName(getOnmouseout()).newInstance();
+            if (obj instanceof RowEvent) {
+                return (RowEvent) obj;
+            }
+        } catch (Exception e) {
+            logger.error("Could not create the Onmouseout RowEvent [" + getOnmouseout() + "]", e);
         }
 
         return null;
@@ -96,8 +136,8 @@ public class HtmlRowTag extends SimpleTagSupport {
         this.row = facadeTag.getComponentFactory().createRow();
         row.setHighlighter(isHighlighter());
         row.setOnclick(getRowOnclick());
-        row.setOnmouseover(getOnmouseover());
-        row.setOnmouseout(getOnmouseout());
+        row.setOnmouseover(getRowOnmouseover());
+        row.setOnmouseout(getRowOnmouseout());
 
         HtmlTableTag tableTag = (HtmlTableTag) findAncestorWithClass(this, HtmlTableTag.class);
         tableTag.getTable().setRow(row);
