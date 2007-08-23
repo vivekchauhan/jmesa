@@ -19,11 +19,11 @@ package org.jmesa.view.html.event;
  * @since 2.2
  * @author Jeff Johnston
  */
-public class OnmouseoutRowEvent implements RowEvent {
+public class MouseRowEvent implements RowEvent {
     private boolean highlighter;
     private String styleClass;
 
-    public OnmouseoutRowEvent(boolean highlighter) {
+    public MouseRowEvent(boolean highlighter) {
         this.highlighter = highlighter;
     }
 

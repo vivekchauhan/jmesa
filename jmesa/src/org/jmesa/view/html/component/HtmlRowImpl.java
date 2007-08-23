@@ -16,8 +16,7 @@
 package org.jmesa.view.html.component;
 
 import org.jmesa.view.component.RowImpl;
-import org.jmesa.view.html.event.OnmouseoutRowEvent;
-import org.jmesa.view.html.event.OnmouseoverRowEvent;
+import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
@@ -49,7 +48,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public RowEvent getOnmouseout() {
         if (onmouseout == null) {
-            onmouseout = new OnmouseoutRowEvent(isHighlighter());
+            onmouseout = new MouseRowEvent(isHighlighter());
         }
         
         return onmouseout;
@@ -61,7 +60,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public RowEvent getOnmouseover() {
         if (onmouseover == null) {
-            onmouseover = new OnmouseoverRowEvent(isHighlighter());
+            onmouseover = new MouseRowEvent(isHighlighter());
         }
         
         return onmouseover;

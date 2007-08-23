@@ -20,8 +20,7 @@ import org.jmesa.view.ViewUtils;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.html.event.OnmouseoutRowEvent;
-import org.jmesa.view.html.event.OnmouseoverRowEvent;
+import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.renderer.AbstractRowRenderer;
 
@@ -133,21 +132,21 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 
         RowEvent onmouseover = getRow().getOnmouseover();
         if (onmouseover != null) {
-            if (onmouseover instanceof OnmouseoverRowEvent) {
-                OnmouseoverRowEvent onmouseoverRowEvent = (OnmouseoverRowEvent) onmouseover;
-                onmouseoverRowEvent.setHighlightClass(getHighlightClass());
+            if (onmouseover instanceof MouseRowEvent) {
+                MouseRowEvent onmouseoverRowEvent = (MouseRowEvent) onmouseover;
+                onmouseoverRowEvent.setStyleClass(getHighlightClass());
             }
-            
+
             html.onmouseover(onmouseover.execute(item, rowcount));
         }
 
         RowEvent onmouseout = getRow().getOnmouseout();
         if (onmouseout != null) {
-            if (onmouseout instanceof OnmouseoutRowEvent) {
-                OnmouseoutRowEvent onmouseoutRowEvent = (OnmouseoutRowEvent) onmouseout;
+            if (onmouseout instanceof MouseRowEvent) {
+                MouseRowEvent onmouseoutRowEvent = (MouseRowEvent) onmouseout;
                 onmouseoutRowEvent.setStyleClass(getStyleClass(rowcount));
             }
-            
+
             html.onmouseout(onmouseout.execute(item, rowcount));
         }
 
