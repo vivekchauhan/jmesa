@@ -55,21 +55,21 @@ public abstract class AbstractCellRenderer extends ContextSupport implements Cel
      * </p>
      * 
      * <pre>
-     * firstName.cellRenderer.setCellEditor({item, property, rowcount -> 
+     * firstName.cellRenderer.setCellEditor({item, property, rowcount -&gt; 
      *      def value = new BasicCellEditor().getValue(item, property, rowcount);
-     *      return """
-     *              <a href="http://www.whitehouse.gov/history/presidents/">
+     *      return &quot;&quot;&quot;
+     *              &lt;a href=&quot;http://www.whitehouse.gov/history/presidents/&quot;&gt;
      *                 $value
-     *              </a>
-     *             """});
+     *              &lt;/a&gt;
+     *             &quot;&quot;&quot;});
      * </pre>
      * 
      * @param closure The Groovy closure to use.
      */
     public void setCellEditor(final Closure closure) {
-        this. editor = new CellEditor() {
+        this.editor = new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
-                return closure.call(new Object[]{item, property, rowcount});
+                return closure.call(new Object[] { item, property, rowcount });
             }
         };
     }

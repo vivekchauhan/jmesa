@@ -17,6 +17,7 @@ package org.jmesa.facade.tag;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
@@ -195,7 +196,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         if (body == null) {
             return ItemUtils.getItemValue(item, getProperty());
         }
-        
+
         StringWriter value = new StringWriter();
         body.invoke(value);
         return value;
@@ -215,7 +216,33 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
 
+        validate();
+
         HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
-        rowTag.getPageItem().put(getProperty(), getValue());
+        Map<String, Object> pageItem = rowTag.getPageItem();
+        pageItem.put(getProperty(), getValue());
+    }
+
+    /**
+     * Validate that the HtmlColumnTag is in an expected state.
+     * 
+     * @return Is true is the validation passes
+     */
+    protected boolean validate() {
+        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
+        Map<String, Object> pageItem = rowTag.getPageItem();
+        if (pageItem.get(getProperty()) != null) {
+            TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+            String var = facadeTag.getVar();
+            String msg = "The column property [" + getProperty() + "] is not unique. One column value will overwrite another.";
+            if (var.equals(getProperty())) {
+                msg = "The column property [" + getProperty() + "] is the same as the TableFacadeTag var attribute [" + var + "].";
+            }
+
+            logger.error(msg);
+            throw new IllegalStateException(msg);
+        }
+
+        return true;
     }
 }

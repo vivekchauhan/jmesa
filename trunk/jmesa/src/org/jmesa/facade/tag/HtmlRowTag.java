@@ -12,6 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.event.RowEvent;
+import org.jmesa.web.WebContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,12 +79,12 @@ public class HtmlRowTag extends SimpleTagSupport {
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
-            logger.error("Could not create the Onclick RowEvent [" + getOnclick() + "]", e);
+            logger.error("Could not create the onclick RowEvent [" + getOnclick() + "]", e);
         }
 
         return null;
     }
-    
+
     /**
      * Get the row Onmouseover RowEvent object.
      */
@@ -98,7 +99,7 @@ public class HtmlRowTag extends SimpleTagSupport {
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
-            logger.error("Could not create the Onmouseover RowEvent [" + getOnmouseover() + "]", e);
+            logger.error("Could not create the onmouseover RowEvent [" + getOnmouseover() + "]", e);
         }
 
         return null;
@@ -118,7 +119,7 @@ public class HtmlRowTag extends SimpleTagSupport {
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
-            logger.error("Could not create the Onmouseout RowEvent [" + getOnmouseout() + "]", e);
+            logger.error("Could not create the onmouseout RowEvent [" + getOnmouseout() + "]", e);
         }
 
         return null;
@@ -163,6 +164,11 @@ public class HtmlRowTag extends SimpleTagSupport {
         Collection<Object> pageItems = facadeTag.getPageItems();
         this.pageItem = new HashMap<String, Object>();
         pageItems.add(pageItem);
+
+        String var = facadeTag.getVar();
+        WebContext webContext = facadeTag.getWebContext();
+        Object bean = webContext.getPageAttribute(var);
+        pageItem.put(var, bean);
 
         getRow();
 

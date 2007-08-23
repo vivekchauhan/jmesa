@@ -15,6 +15,8 @@
  */
 package org.jmesa.view.html.component;
 
+import groovy.lang.Closure;
+
 import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
@@ -46,11 +48,26 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         this.onclick = onclick;
     }
 
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the onclick RowEvent.
+     * </p>
+     * 
+     * @param closure The Groovy closure to use.
+     */
+    public void setOnclick(final Closure closure) {
+        this.onclick = new RowEvent() {
+            public String execute(Object item, int rowcount) {
+                return closure.call(new Object[] { item, rowcount }).toString();
+            }
+        };
+    }
+
     public RowEvent getOnmouseout() {
         if (onmouseout == null) {
             onmouseout = new MouseRowEvent(isHighlighter());
         }
-        
+
         return onmouseout;
     }
 
@@ -58,16 +75,46 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         this.onmouseout = onmouseout;
     }
 
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the onmouseout RowEvent.
+     * </p>
+     * 
+     * @param closure The Groovy closure to use.
+     */
+    public void setOnmouseout(final Closure closure) {
+        this.onmouseout = new RowEvent() {
+            public String execute(Object item, int rowcount) {
+                return closure.call(new Object[] { item, rowcount }).toString();
+            }
+        };
+    }
+
     public RowEvent getOnmouseover() {
         if (onmouseover == null) {
             onmouseover = new MouseRowEvent(isHighlighter());
         }
-        
+
         return onmouseover;
     }
 
     public void setOnmouseover(RowEvent onmouseover) {
         this.onmouseover = onmouseover;
+    }
+
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the onmouseover RowEvent.
+     * </p>
+     * 
+     * @param closure The Groovy closure to use.
+     */
+    public void setOnmouseover(final Closure closure) {
+        this.onmouseover = new RowEvent() {
+            public String execute(Object item, int rowcount) {
+                return closure.call(new Object[] { item, rowcount }).toString();
+            }
+        };
     }
 
     @Override
