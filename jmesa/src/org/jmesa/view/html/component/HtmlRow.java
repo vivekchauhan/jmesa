@@ -30,7 +30,7 @@ public interface HtmlRow extends Row {
 
     public RowEvent getOnclick();
 
-    public void setOnclick(RowEvent rowEvent);
+    public void setOnclick(RowEvent onclick);
 
     public String getOnmouseover();
 
