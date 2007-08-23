@@ -136,10 +136,9 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
             if (onmouseover instanceof OnmouseoverRowEvent) {
                 OnmouseoverRowEvent onmouseoverRowEvent = (OnmouseoverRowEvent) onmouseover;
                 onmouseoverRowEvent.setHighlightClass(getHighlightClass());
-                html.onmouseover(onmouseoverRowEvent.execute(item, rowcount));
-            } else {
-                html.onmouseover(onmouseover.execute(item, rowcount));
             }
+            
+            html.onmouseover(onmouseover.execute(item, rowcount));
         }
 
         RowEvent onmouseout = getRow().getOnmouseout();
@@ -147,10 +146,9 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
             if (onmouseout instanceof OnmouseoutRowEvent) {
                 OnmouseoutRowEvent onmouseoutRowEvent = (OnmouseoutRowEvent) onmouseout;
                 onmouseoutRowEvent.setStyleClass(getStyleClass(rowcount));
-                html.onmouseout(onmouseoutRowEvent.execute(item, rowcount));
-            } else {
-                html.onmouseout(onmouseout.execute(item, rowcount));
             }
+            
+            html.onmouseout(onmouseout.execute(item, rowcount));
         }
 
         html.close();
