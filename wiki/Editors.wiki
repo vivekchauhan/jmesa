@@ -30,41 +30,19 @@ public class BasicCellEditor extends ContextSupport implements CellEditor {
 }
 }}}
 
-It should be easy to see that we are just getting and returning the current item property. Typically you would not instantiate a !BasicCellEditor yourself (although you could), but you would just use one of the factory classes instead. 
+Or, more recently, I have started just using anonymous classes to code up my editors. This makes the code very compact and easy to read.
 
 {{{
-HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
-CellEditor editor = factory.createBasicCellEditor();
-
-// this is a convenience method to create a column, along with all the default renderers
-HtmlColumn lastName = factory.createColumn("name.lastName", editor);
-}}}
-
-Using the factory allows you to easily and quickly create and use an editor. Lets see what it takes to create a custom editor. The following example is interesting because it uses the decorator pattern to wrap any kind of editor with a link.
-
-{{{
-private static class PresidentsLinkEditor implements CellEditor {
-    CellEditor cellEditor;
-
-    public PresidentsLinkEditor(CellEditor cellEditor) {
-        this.cellEditor = cellEditor;
-    }
-
+// Using an anonymous class to implement a custom editor.
+firstName.getCellRenderer().setCellEditor(new CellEditor() {
     public Object getValue(Object item, String property, int rowcount) {
-        Object value = cellEditor.getValue(item, property, rowcount);
+        Object value = new BasicCellEditor().getValue(item, property, rowcount);
         HtmlBuilder html = new HtmlBuilder();
         html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
         html.append(value);
         html.aEnd();
         return html.toString();
     }
-}
+});
 }}}
-
-
-
-
-
-
-
 
