@@ -20,6 +20,8 @@ import org.jmesa.view.ViewUtils;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.html.event.OnmouseoutRowEvent;
+import org.jmesa.view.html.event.OnmouseoverRowEvent;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.renderer.AbstractRowRenderer;
 
@@ -117,32 +119,6 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
         this.highlightStyle = highlightStyle;
     }
 
-    protected String getOnmouseover(boolean highlighter, String onmouseover) {
-        if (highlighter) {
-            String highlightClass = getHighlightClass();
-            if (StringUtils.isNotBlank(onmouseover)) {
-                return "this.className='" + highlightClass + "';" + onmouseover;
-            }
-
-            return "this.className='" + highlightClass + "'";
-        }
-
-        return onmouseover;
-    }
-
-    protected String getOnmouseout(boolean highlighter, String onmouseout, int rowcount) {
-        if (highlighter) {
-            String styleClass = getStyleClass(rowcount);
-            if (StringUtils.isNotBlank(onmouseout)) {
-                return "this.className='" + styleClass + "';" + onmouseout;
-            }
-
-            return "this.className='" + styleClass + "'";
-        }
-
-        return onmouseout;
-    }
-
     public Object render(Object item, int rowcount) {
         HtmlBuilder html = new HtmlBuilder();
         html.tr(1);
@@ -155,8 +131,28 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
             html.onclick(onclick.execute(item, rowcount));
         }
 
-        html.onmouseover(getOnmouseover(getRow().isHighlighter(), getRow().getOnmouseover()));
-        html.onmouseout(getOnmouseout(getRow().isHighlighter(), getRow().getOnmouseout(), rowcount));
+        RowEvent onmouseover = getRow().getOnmouseover();
+        if (onmouseover != null) {
+            if (onmouseover instanceof OnmouseoverRowEvent) {
+                OnmouseoverRowEvent onmouseoverRowEvent = (OnmouseoverRowEvent) onmouseover;
+                onmouseoverRowEvent.setHighlightClass(getHighlightClass());
+                html.onmouseover(onmouseoverRowEvent.execute(item, rowcount));
+            } else {
+                html.onmouseover(onmouseover.execute(item, rowcount));
+            }
+        }
+
+        RowEvent onmouseout = getRow().getOnmouseout();
+        if (onmouseout != null) {
+            if (onmouseout instanceof OnmouseoutRowEvent) {
+                OnmouseoutRowEvent onmouseoutRowEvent = (OnmouseoutRowEvent) onmouseout;
+                onmouseoutRowEvent.setStyleClass(getStyleClass(rowcount));
+                html.onmouseout(onmouseoutRowEvent.execute(item, rowcount));
+            } else {
+                html.onmouseout(onmouseout.execute(item, rowcount));
+            }
+        }
+
         html.close();
 
         return html.toString();
