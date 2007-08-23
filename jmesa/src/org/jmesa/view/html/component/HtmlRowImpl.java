@@ -16,6 +16,7 @@
 package org.jmesa.view.html.component;
 
 import org.jmesa.view.component.RowImpl;
+import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
 /**
@@ -24,7 +25,7 @@ import org.jmesa.view.html.renderer.HtmlRowRenderer;
  */
 public class HtmlRowImpl extends RowImpl implements HtmlRow {
     private boolean highlighter = true;
-    private String onclick;
+    private RowEvent onclick;
     private String onmouseout;
     private String onmouseover;
 
@@ -36,11 +37,11 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         this.highlighter = highlighter;
     }
 
-    public String getOnclick() {
+    public RowEvent getOnclick() {
         return onclick;
     }
 
-    public void setOnclick(String onclick) {
+    public void setOnclick(RowEvent onclick) {
         this.onclick = onclick;
     }
 

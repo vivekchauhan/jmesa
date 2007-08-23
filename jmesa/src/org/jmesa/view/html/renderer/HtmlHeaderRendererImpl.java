@@ -130,6 +130,6 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
 
         html.tdEnd();
 
-        return html;
+        return html.toString();
     }
 }

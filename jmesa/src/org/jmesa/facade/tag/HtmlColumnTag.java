@@ -149,7 +149,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
                     ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 logger.error("Could not create the CellEditor [" + getCellEditor() + "]", e);
             }
         }

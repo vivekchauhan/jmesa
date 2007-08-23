@@ -20,6 +20,7 @@ import org.jmesa.view.ViewUtils;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.renderer.AbstractRowRenderer;
 
 /**
@@ -121,11 +122,11 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
             String highlightClass = getHighlightClass();
             if (StringUtils.isNotBlank(onmouseover)) {
                 return "this.className='" + highlightClass + "';" + onmouseover;
-            } 
-            
+            }
+
             return "this.className='" + highlightClass + "'";
         }
-        
+
         return onmouseover;
     }
 
@@ -134,11 +135,11 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
             String styleClass = getStyleClass(rowcount);
             if (StringUtils.isNotBlank(onmouseout)) {
                 return "this.className='" + styleClass + "';" + onmouseout;
-            } 
-            
+            }
+
             return "this.className='" + styleClass + "'";
-        } 
-        
+        }
+
         return onmouseout;
     }
 
@@ -148,11 +149,16 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
         html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
         html.style(getStyle());
         html.styleClass(getStyleClass(rowcount));
-        html.onclick(getRow().getOnclick());
+
+        RowEvent onclick = getRow().getOnclick();
+        if (onclick != null) {
+            html.onclick(onclick.execute(item, rowcount));
+        }
+
         html.onmouseover(getOnmouseover(getRow().isHighlighter(), getRow().getOnmouseover()));
         html.onmouseout(getOnmouseout(getRow().isHighlighter(), getRow().getOnmouseout(), rowcount));
         html.close();
 
-        return html;
+        return html.toString();
     }
 }
