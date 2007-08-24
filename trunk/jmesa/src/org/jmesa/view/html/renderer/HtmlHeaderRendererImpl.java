@@ -15,12 +15,7 @@
  */
 package org.jmesa.view.html.renderer;
 
-import org.jmesa.limit.Limit;
-import org.jmesa.limit.Order;
-import org.jmesa.limit.Sort;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.HtmlConstants;
-import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractHeaderRenderer;
 
@@ -41,7 +36,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     public HtmlColumn getColumn() {
         return (HtmlColumn) super.getColumn();
     }
-
+    
     public String getStyle() {
         return style;
     }
@@ -69,64 +64,12 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
-        Limit limit = getCoreContext().getLimit();
-        HtmlColumn column = getColumn();
-
         html.td(2);
         html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
 
-        if (column.isSortable()) {
-            Sort sort = limit.getSortSet().getSort(column.getProperty());
-
-            html.onmouseover("this.style.cursor='pointer'");
-            html.onmouseout("this.style.cursor='default'");
-            int position = column.getRow().getColumns().indexOf(column);
-
-            if (sort != null) {
-                if (sort.getOrder() == Order.ASC) {
-                    html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.DESC.toParam()
-                            + "');onInvokeAction('" + limit.getId() + "')");
-                } else if (sort.getOrder() == Order.DESC) {
-                    if (isDefaultSortOrderable()) {
-                        html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('" + limit.getId()
-                                + "')");
-                    } else {
-                        html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','"
-                                + Order.ASC.toParam() + "');onInvokeAction('" + limit.getId() + "')");
-                    }
-                }
-            } else {
-                html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.ASC.toParam()
-                        + "');onInvokeAction('" + limit.getId() + "')");
-            }
-        }
-
-        html.close();
-        html.append(column.getTitle());
-
-        if (column.isSortable()) {
-            String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
-            Sort sort = limit.getSortSet().getSort(column.getProperty());
-            if (sort != null) {
-                if (sort.getOrder() == Order.ASC) {
-                    html.nbsp();
-                    html.img();
-                    html.src(imagesPath + getCoreContext().getPreference(HtmlConstants.SORT_ASC_IMAGE));
-                    html.style("border:0");
-                    html.alt("Arrow");
-                    html.end();
-                } else if (sort.getOrder() == Order.DESC) {
-                    html.nbsp();
-                    html.img();
-                    html.src(imagesPath + getCoreContext().getPreference(HtmlConstants.SORT_DESC_IMAGE));
-                    html.style("border:0");
-                    html.alt("Arrow");
-                    html.end();
-                }
-            }
-        }
+        html.append(getHeaderEditor().getValue());
 
         html.tdEnd();
 

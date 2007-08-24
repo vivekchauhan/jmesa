@@ -24,6 +24,7 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.component.HtmlTableImpl;
+import org.jmesa.view.html.editor.BasicHtmlHeaderEditor;
 import org.jmesa.view.html.renderer.HtmlCellRendererImpl;
 import org.jmesa.view.html.renderer.HtmlFilterRendererImpl;
 import org.jmesa.view.html.renderer.HtmlHeaderRendererImpl;
@@ -68,7 +69,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 
         return row;
     }
-    
+
     public HtmlColumn createColumn(CellEditor editor) {
         return createColumn(null, editor);
     }
@@ -87,6 +88,12 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         headerRenderer.setWebContext(getWebContext());
         headerRenderer.setCoreContext(getCoreContext());
         column.setHeaderRenderer(headerRenderer);
+
+        BasicHtmlHeaderEditor headerEditor = new BasicHtmlHeaderEditor();
+        headerEditor.setWebContext(getWebContext());
+        headerEditor.setCoreContext(getCoreContext());
+        headerRenderer.setHeaderEditor(headerEditor);
+        headerEditor.setHeaderRenderer(headerRenderer);
 
         HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
         filterRenderer.setWebContext(getWebContext());

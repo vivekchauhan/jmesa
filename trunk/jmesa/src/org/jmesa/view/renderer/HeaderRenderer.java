@@ -15,10 +15,21 @@
  */
 package org.jmesa.view.renderer;
 
+import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.HeaderEditor;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface HeaderRenderer {
+    public Column getColumn();
+
+    public void setColumn(Column column);
+    
+    public HeaderEditor getHeaderEditor();
+
+    public void setHeaderEditor(HeaderEditor headerEditor);
+
     public Object render();
 }
