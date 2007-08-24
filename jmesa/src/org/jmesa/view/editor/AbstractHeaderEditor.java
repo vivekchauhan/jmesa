@@ -13,27 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.renderer;
+package org.jmesa.view.editor;
 
-import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.ContextSupport;
 import org.jmesa.view.renderer.HeaderRenderer;
 
 /**
- * @since 2.0
+ * @since 2.2
  * @author Jeff Johnston
  */
-public interface HtmlHeaderRenderer extends HeaderRenderer {
-    public HtmlColumn getColumn();
+public abstract class AbstractHeaderEditor extends ContextSupport implements HeaderEditor {
+    private HeaderRenderer headerRenderer;
 
-    public String getStyle();
+    public HeaderRenderer getHeaderRenderer() {
+        return headerRenderer;
+    }
 
-    public void setStyle(String style);
-
-    public String getStyleClass();
-
-    public void setStyleClass(String styleClass);
-
-    public boolean isDefaultSortOrderable();
-
-    public void setDefaultSortOrderable(boolean defaultSortOrderable);
+    public void setHeaderRenderer(HeaderRenderer headerRenderer) {
+        this.headerRenderer = headerRenderer;
+    }
 }

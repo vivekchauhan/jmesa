@@ -17,6 +17,7 @@ package org.jmesa.view.renderer;
 
 import org.jmesa.view.ContextSupport;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.HeaderEditor;
 
 /**
  * @since 2.0
@@ -24,6 +25,7 @@ import org.jmesa.view.component.Column;
  */
 public abstract class AbstractHeaderRenderer extends ContextSupport implements HeaderRenderer {
     private Column column;
+    private HeaderEditor headerEditor;
 
     public Column getColumn() {
         return column;
@@ -31,5 +33,13 @@ public abstract class AbstractHeaderRenderer extends ContextSupport implements H
 
     public void setColumn(Column column) {
         this.column = column;
+    }
+
+    public HeaderEditor getHeaderEditor() {
+        return headerEditor;
+    }
+
+    public void setHeaderEditor(HeaderEditor headerEditor) {
+        this.headerEditor = headerEditor;
     }
 }
