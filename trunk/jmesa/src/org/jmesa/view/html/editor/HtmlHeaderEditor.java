@@ -18,7 +18,7 @@ package org.jmesa.view.html.editor;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.Order;
 import org.jmesa.limit.Sort;
-import org.jmesa.view.editor.HeaderEditor;
+import org.jmesa.view.editor.AbstractHeaderEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlUtils;
@@ -29,7 +29,12 @@ import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
  * @since 2.2
  * @author Jeff Johnston
  */
-public class BasicHtmlHeaderEditor extends AbstractHtmlHeaderEditor implements HeaderEditor {
+public class HtmlHeaderEditor extends AbstractHeaderEditor {
+    @Override
+    public HtmlHeaderRenderer getHeaderRenderer() {
+        return (HtmlHeaderRenderer) super.getHeaderRenderer();
+    }
+
     public Object getValue() {
         HtmlBuilder html = new HtmlBuilder();
 
