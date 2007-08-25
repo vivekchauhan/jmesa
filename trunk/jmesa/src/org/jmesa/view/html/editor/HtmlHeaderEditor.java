@@ -25,6 +25,8 @@ import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlColumn;
 
 /**
+ * The default editor for the column header. Will handle all the sorting.
+ * 
  * @since 2.2
  * @author Jeff Johnston
  */
@@ -89,6 +91,12 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
         return html.toString();
     }
 
+    /**
+     * @param currentOrder The current sort Order.
+     * @param column The current column.
+     * @param limit The current limit.
+     * @return The JavaScript to get the next Order when invoking the onlick command.
+     */
     protected String onclick(Order currentOrder, HtmlColumn column, Limit limit) {
         HtmlBuilder html = new HtmlBuilder();
 

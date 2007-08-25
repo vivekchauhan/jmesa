@@ -25,6 +25,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.limit.Order;
 import org.jmesa.util.ItemUtils;
 import org.jmesa.view.ContextSupport;
 import org.jmesa.view.editor.CellEditor;
@@ -46,6 +47,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String title;
     private String titleKey;
     private boolean sortable = true;
+    private String sortOrder;
     private boolean filterable = true;
     private String width;
     private String pattern;
@@ -85,6 +87,22 @@ public class HtmlColumnTag extends SimpleTagSupport {
         this.sortable = sortable;
     }
 
+    /**
+     * @since 2.2
+     * @return The sort order for the column.
+     */
+    public String getSortOrder() {
+        return sortOrder;
+    }
+
+    /**
+     * @since 2.2
+     * @param sortOrder The order array.
+     */
+    public void setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
     public boolean isFilterable() {
         return filterable;
     }
@@ -115,6 +133,34 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     public void setCellEditor(String cellEditor) {
         this.cellEditor = cellEditor;
+    }
+
+    /**
+     * Take the comma separted Order values and convert them into an Array. The legal values include
+     * "none, asc, desc".
+     * 
+     * @since 2.2
+     * @return The sort order array for the column.
+     */
+    protected Order[] getColumnSortOrder() {
+        if (StringUtils.isBlank(sortOrder)) {
+            return null;
+        }
+
+        String[] orders = StringUtils.split(sortOrder, ",");
+
+        Order[] results = new Order[orders.length];
+
+        for (int i = 0; i < orders.length; i++) {
+            String order = orders[i];
+            Order valueOfParam = Order.valueOfParam(order);
+            if (valueOfParam == null) {
+                throw new IllegalStateException("The sortOrder must consist of comma separated values of asc, desc, and none.");
+            }
+            results[i] = valueOfParam;
+        }
+
+        return results;
     }
 
     /**
@@ -213,6 +259,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         }
 
         column.setSortable(isSortable());
+        column.setSortOrder(getColumnSortOrder());
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
 
