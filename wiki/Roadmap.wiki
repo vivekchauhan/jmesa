@@ -11,11 +11,15 @@ The 2.0 release is out!
 An Excel View, using Apache POI, is implemented and will be available in the next release. That was contributed by jeff jie! Another contribution by jeff jie was the start of a [Tags tag library]. What I would like to do is clean up a few things with the current implementation and then release that code as soon as possible. The tag library will have the basic functionality required by most developers. Future releases will make use of more advanced API features. And, lastly there is a new [TableFacade] interface that makes working with the API much easier.
 
 ==== version 2.2, (September 2007) ====
-The things I need from my list include finishing adding all the hooks
-for the tag library for features that already exist on the [TableFacade]
-API (mostly custom special cases) and adding an onclick event
-enhancement for the row.
+The things I need from my list include the following:
+ * Add an onclick, onmouseover, and onmouseout event enhancement for the row. _(done)_
+ * Add a column sortOrder. This takes a comma separated list of values to say how you want the column to be sorted. _(done)_
+ * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter. _(header done)_
+ * The ability to get at the original bean from an editor when using the tags. _(done)_
+ * A new !NumberCellEditor (contributed by jackcoll...@wallquest.com) _(still importing)_
+ * Finish adding the hooks for the tag library for features that already exist on the [TableFacade] API (mostly custom special cases) 
 
+===== Column Onclick Event =====
 The onclick event on the row would be something like this:
 
 public String onclick(!RowEvent event);
@@ -42,8 +46,79 @@ row.setOnclick(new RowEvent() {
 };)
 }}} 
 
+The tag would look like this:
+{{{
+<jmesa:htmlRow onclick="org.jmesaweb.controller.TagRowEvent">
+}}}
+
+{{{
+public class TagRowEvent implements RowEvent {
+    public String execute(Object item, int rowcount) {
+        Object bean = ItemUtils.getItemValue(item, "bean");
+        Object id = ItemUtils.getItemValue(bean, "id");
+        return "document.location='http://www.whitehouse.gov/history/presidents?id=" + id + "'";
+    }
+}
+}}}
+
+===== Column sortOrder =====
+Set the sort order for the column. This restricts the sorting to only the types listed here. Typically you would use this to exclude the 'none' Order so that the user can only sort ascending and decending once invoked.
+
+Note though that initially this does not change the look of the column, or effect the sorting, when the table is first displayed. For instance, if you only want to sort asc and then desc then when the table is initially displayed you need to make sure you set the Limit to be ordered. The reason is, by design, the limit does not look at the view for any information. The syntax to set the limit would be: limit.getSortSet().addSort();. If you do not do this then the effect will be that the once the column is sorted then it will just flip between asc and desc, which is still a really nice effect and is what I would mostly do.
+
+In the API do this:
+
+{{{
+HtmlColumn htmlColumn = (HtmlColumn)firstName;
+htmlColumn.setSortOrder(Order.ASC, Order.DESC);
+}}}
+
+The tag would look like this:
+{{{
+<jmesa:htmlColumn property="name.firstName" titleKey="presidents.firstName" sortOrder="asc,desc">
+}}}
+
+===== Tags bean value =====
+Currently when using the tag library under the hood the item is swapped out for a Map for each row. Because JMesa works with beans and maps completely transparently this works really well and is completely transparent. However, the map will only contain the values for the columns defined, and not the other values from the original bean. Now the original bean can be recovered from the map in the editor. The bean can be recovered from the map by the !TableFacadeTag var attribute.
+
+For example if the tableFacade looks like this:
+{{{
+<jmesa:tableFacade
+   id="tag" 
+   ...
+   var="bean"
+>
+}}}
+
+Notice how the original item can be recovered by the var attribute! It is recommended that you use the !ItemUtils because that abstracts out whether or not the item is a bean or a map, which is perfect for this.
+
+{{{
+public class TagRowEvent implements RowEvent {
+    public String execute(Object item, int rowcount) {
+        Object bean = ItemUtils.getItemValue(item, "bean");
+        Object id = ItemUtils.getItemValue(bean, "id");
+        return "document.location='http://www.whitehouse.gov/history/presidents?id=" + id + "'";
+    }
+}
+}}}
+
 ==== Future Release ====
 
 I am also trying to find out what developers are interested in for future releases. If you have any suggestions be sure to reply to the post on [http://groups.google.com/group/jmesa/browse_thread/thread/45ca5716dcd9bb7f Google Groups].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
