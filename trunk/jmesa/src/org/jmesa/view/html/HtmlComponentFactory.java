@@ -93,7 +93,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         headerEditor.setWebContext(getWebContext());
         headerEditor.setCoreContext(getCoreContext());
         headerRenderer.setHeaderEditor(headerEditor);
-        headerEditor.setHeaderRenderer(headerRenderer);
+        headerEditor.setColumn(column);
 
         HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
         filterRenderer.setWebContext(getWebContext());

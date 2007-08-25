@@ -23,7 +23,6 @@ import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 
 /**
  * @since 2.2
@@ -31,40 +30,34 @@ import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
  */
 public class HtmlHeaderEditor extends AbstractHeaderEditor {
     @Override
-    public HtmlHeaderRenderer getHeaderRenderer() {
-        return (HtmlHeaderRenderer) super.getHeaderRenderer();
+    public HtmlColumn getColumn() {
+        return (HtmlColumn) super.getColumn();
     }
 
     public Object getValue() {
         HtmlBuilder html = new HtmlBuilder();
 
         Limit limit = getCoreContext().getLimit();
-        HtmlHeaderRenderer headerRenderer = getHeaderRenderer();
-        HtmlColumn column = headerRenderer.getColumn();
+        HtmlColumn column = getColumn();
 
         if (column.isSortable()) {
             Sort sort = limit.getSortSet().getSort(column.getProperty());
 
             html.onmouseover("this.style.cursor='pointer'");
             html.onmouseout("this.style.cursor='default'");
-            int position = column.getRow().getColumns().indexOf(column);
 
             if (sort != null) {
-                if (sort.getOrder() == Order.ASC) {
-                    html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.DESC.toParam()
-                            + "');onInvokeAction('" + limit.getId() + "')");
-                } else if (sort.getOrder() == Order.DESC) {
-                    if (headerRenderer.isDefaultSortOrderable()) {
-                        html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('" + limit.getId()
-                                + "')");
-                    } else {
-                        html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','"
-                                + Order.ASC.toParam() + "');onInvokeAction('" + limit.getId() + "')");
-                    }
-                }
+                Order nextOrder = nextSortOrder(sort.getOrder(), column);
+                html.append(onclick(nextOrder, column, limit));
             } else {
-                html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + Order.ASC.toParam()
-                        + "');onInvokeAction('" + limit.getId() + "')");
+                Order[] sortOrder = column.getSortOrder();
+                if (sortOrder[0] == Order.NONE) {
+                    Order nextOrder = nextSortOrder(sortOrder[0], column);
+                    html.append(onclick(nextOrder, column, limit));
+                } else {
+                    Order nextOrder = sortOrder[0];
+                    html.append(onclick(nextOrder, column, limit));
+                }
             }
         }
 
@@ -95,4 +88,42 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
 
         return html.toString();
     }
+
+    protected String onclick(Order currentOrder, HtmlColumn column, Limit limit) {
+        HtmlBuilder html = new HtmlBuilder();
+
+        int position = column.getRow().getColumns().indexOf(column);
+
+        if (currentOrder == Order.NONE) {
+            html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('" + limit.getId() + "')");
+        } else {
+            html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + currentOrder.toParam()
+                    + "');onInvokeAction('" + limit.getId() + "')");
+        }
+
+        return html.toString();
+    }
+
+    /**
+     * @param currentOrder The current sort Order.
+     * @param column The current column.
+     * @return The next sort order in the array.
+     */
+    protected Order nextSortOrder(Order currentOrder, HtmlColumn column) {
+        Order[] sortOrder = column.getSortOrder();
+
+        for (int i = 0; i < sortOrder.length; i++) {
+            Order order = sortOrder[i];
+            if (order == currentOrder) {
+                if (i + 1 == sortOrder.length) {
+                    return sortOrder[0];
+                }
+
+                return sortOrder[i + 1];
+            }
+        }
+
+        return Order.NONE;
+    }
+
 }

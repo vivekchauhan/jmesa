@@ -16,20 +16,20 @@
 package org.jmesa.view.editor;
 
 import org.jmesa.view.ContextSupport;
-import org.jmesa.view.renderer.HeaderRenderer;
+import org.jmesa.view.component.Column;
 
 /**
  * @since 2.2
  * @author Jeff Johnston
  */
 public abstract class AbstractHeaderEditor extends ContextSupport implements HeaderEditor {
-    private HeaderRenderer headerRenderer;
+    private Column column;
 
-    public HeaderRenderer getHeaderRenderer() {
-        return headerRenderer;
+    public Column getColumn() {
+        return column;
     }
 
-    public void setHeaderRenderer(HeaderRenderer headerRenderer) {
-        this.headerRenderer = headerRenderer;
+    public void setColumn(Column column) {
+        this.column = column;
     }
 }

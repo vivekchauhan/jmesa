@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.component;
 
+import org.jmesa.limit.Order;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
@@ -32,9 +33,32 @@ public interface HtmlColumn extends Column {
     public boolean isSortable();
 
     public void setSortable(boolean sortable);
-    
+
+    /**
+     * @return The sort order for the column.
+     */
+    public Order[] getSortOrder();
+
+    /**
+     * <p>
+     * Set the sort order for the column. This also restricts the sorting to only the types listed
+     * here. Typically you would use this to exclude the 'none' Order so that the user can only sort
+     * ascending and decending once invoked.
+     * </p>
+     * 
+     * <p>
+     * Note though that initially this only changes the look of the column when the table is first
+     * displayed. For instance, if you only want to sort asc, and desc, then when the table is
+     * initially displayed you need to make sure you set the Limit to be ordered. The syntax looks
+     * like limit.getSortSet().addSort();
+     * </p>
+     * 
+     * @param sortOrder The order array.
+     */
+    public void setSortOrder(Order... sortOrder);
+
     public String getWidth();
-    
+
     public void setWidth(String width);
 
     public FilterRenderer getFilterRenderer();

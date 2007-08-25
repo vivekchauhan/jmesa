@@ -23,7 +23,8 @@ package org.jmesa.limit;
  */
 public enum Order {
     ASC, 
-    DESC;
+    DESC,
+    NONE;
 
     public String toParam() {
         switch (this) {
@@ -32,7 +33,7 @@ public enum Order {
         case DESC:
             return "desc";
         default:
-            return "";
+            return "none";
         }
     }
 

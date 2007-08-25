@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.component;
 
+import org.jmesa.limit.Order;
 import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
@@ -29,6 +30,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     private boolean sortable = true;
     private String width;
     private FilterRenderer filterRenderer;
+    private Order[] sortOrder;
 
     public HtmlColumnImpl() {
     }
@@ -49,14 +51,32 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return sortable;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setSortable(boolean sortable) {
         this.sortable = sortable;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public Order[] getSortOrder() {
+        if (sortOrder == null) {
+            sortOrder = new Order[] { Order.NONE, Order.ASC, Order.DESC };
+        }
+
+        return sortOrder;
+    }
+
+    public void setSortOrder(Order... sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
     public String getWidth() {
         return width;
     }
-    
+
     public void setWidth(String width) {
         this.width = width;
     }

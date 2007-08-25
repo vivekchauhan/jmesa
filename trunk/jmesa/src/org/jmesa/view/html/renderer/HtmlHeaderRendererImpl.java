@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.limit.Order;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractHeaderRenderer;
@@ -36,7 +37,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     public HtmlColumn getColumn() {
         return (HtmlColumn) super.getColumn();
     }
-    
+
     public String getStyle() {
         return style;
     }
@@ -53,11 +54,23 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
         this.styleClass = styleClass;
     }
 
+    /**
+     * TODO: This should move to the HtmlColumn class.
+     */
+    @Deprecated
     public boolean isDefaultSortOrderable() {
         return defaultSortOrderable;
     }
 
+    /**
+     * TODO: This should move to the HtmlColumn class.
+     */
+    @Deprecated
     public void setDefaultSortOrderable(boolean defaultSortOrderable) {
+        if (!defaultSortOrderable) {
+            getColumn().setSortOrder(new Order[] { Order.ASC, Order.DESC });
+        }
+
         this.defaultSortOrderable = defaultSortOrderable;
     }
 
