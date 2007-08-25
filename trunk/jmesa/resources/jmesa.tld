@@ -162,6 +162,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>sortOrder</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>filterable</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
