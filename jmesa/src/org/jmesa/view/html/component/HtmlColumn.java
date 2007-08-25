@@ -35,24 +35,29 @@ public interface HtmlColumn extends Column {
     public void setSortable(boolean sortable);
 
     /**
+     * @since 2.2
      * @return The sort order for the column.
      */
     public Order[] getSortOrder();
 
     /**
      * <p>
-     * Set the sort order for the column. This also restricts the sorting to only the types listed
-     * here. Typically you would use this to exclude the 'none' Order so that the user can only sort
+     * Set the sort order for the column. This restricts the sorting to only the types listed here.
+     * Typically you would use this to exclude the 'none' Order so that the user can only sort
      * ascending and decending once invoked.
      * </p>
      * 
      * <p>
-     * Note though that initially this only changes the look of the column when the table is first
-     * displayed. For instance, if you only want to sort asc, and desc, then when the table is
-     * initially displayed you need to make sure you set the Limit to be ordered. The syntax looks
-     * like limit.getSortSet().addSort();
+     * Note though that initially this does not change the look of the column, or effect the
+     * sorting, when the table is first displayed. For instance, if you only want to sort asc and
+     * then desc then when the table is initially displayed you need to make sure you set the Limit
+     * to be ordered. The reason is, by design, the limit does not look at the view for any
+     * information. The syntax to set the limit would be: limit.getSortSet().addSort();. If you do
+     * not do this then the effect will be that the once the column is sorted then it will just flip
+     * between asc and desc, which is still a really nice effect and is what I would mostly do.
      * </p>
      * 
+     * @since 2.2
      * @param sortOrder The order array.
      */
     public void setSortOrder(Order... sortOrder);

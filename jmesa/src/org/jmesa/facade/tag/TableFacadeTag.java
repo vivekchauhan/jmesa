@@ -451,7 +451,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * until all the rows and columns are processed. Then will swap out regular items with the new
      * page items. See the getPageItems() method for more information.
      */
-    protected class TagCoreContext extends CoreContextImpl {
+    protected static class TagCoreContext extends CoreContextImpl {
         private Collection<Object> pageItems;
 
         public TagCoreContext(Items items, Limit limit, Preferences preferences, Messages messages) {
@@ -476,7 +476,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * An implementation specifically for the tags to work with the TagCoreContext.
      * 
      */
-    protected class TagCoreContextFactory extends CoreContextFactoryImpl {
+    protected static class TagCoreContextFactory extends CoreContextFactoryImpl {
         public TagCoreContextFactory(boolean performFilterAndSort, WebContext webContext) {
             super(performFilterAndSort, webContext);
         }

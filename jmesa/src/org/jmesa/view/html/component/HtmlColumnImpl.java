@@ -51,9 +51,6 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return sortable;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void setSortable(boolean sortable) {
         this.sortable = sortable;
     }
@@ -69,6 +66,9 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return sortOrder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setSortOrder(Order... sortOrder) {
         this.sortOrder = sortOrder;
     }
