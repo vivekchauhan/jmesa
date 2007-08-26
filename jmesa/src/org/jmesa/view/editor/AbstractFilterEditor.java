@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.renderer;
+package org.jmesa.view.editor;
 
 import org.jmesa.view.ContextSupport;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.FilterEditor;
 
 /**
- * @since 2.0
+ * Abstract filter editor that contains the column.
+ * 
+ * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractFilterRenderer extends ContextSupport implements FilterRenderer {
+public abstract class AbstractFilterEditor extends ContextSupport implements FilterEditor {
     private Column column;
-    private FilterEditor filterEditor;
 
     public Column getColumn() {
         return column;
@@ -33,13 +33,5 @@ public abstract class AbstractFilterRenderer extends ContextSupport implements F
 
     public void setColumn(Column column) {
         this.column = column;
-    }
-
-    public FilterEditor getFilterEditor() {
-        return filterEditor;
-    }
-
-    public void setFilterEditor(FilterEditor filterEditor) {
-        this.filterEditor = filterEditor;
     }
 }

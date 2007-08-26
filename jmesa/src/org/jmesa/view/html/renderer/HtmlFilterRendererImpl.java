@@ -15,11 +15,7 @@
  */
 package org.jmesa.view.html.renderer;
 
-import org.jmesa.limit.Filter;
-import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.HtmlConstants;
-import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractFilterRenderer;
 
@@ -59,32 +55,13 @@ public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements Ht
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
-        Limit limit = getCoreContext().getLimit();
-        HtmlColumn column = getColumn();
-        String property = column.getProperty();
-        Filter filter = limit.getFilterSet().getFilter(property);
-
         html.td(2);
         html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
         html.close();
-        
-        String filterValue = "";
-        if (filter != null) {
-            filterValue = filter.getValue();
-        }
 
-        html.div();
-        html.onclick("createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
-        html.close();
-        html.append(filterValue);
-
-        String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
-        html.img().src(imagesPath + getCoreContext().getPreference(HtmlConstants.DROPLIST_HANDLE_IMAGE));
-        html.alt("filter");
-        html.end();
-        html.divEnd();
+        html.append(getFilterEditor().getValue());
 
         html.tdEnd();
 
