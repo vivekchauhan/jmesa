@@ -24,6 +24,7 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.component.HtmlTableImpl;
+import org.jmesa.view.html.editor.HtmlFilterEditor;
 import org.jmesa.view.html.editor.HtmlHeaderEditor;
 import org.jmesa.view.html.renderer.HtmlCellRendererImpl;
 import org.jmesa.view.html.renderer.HtmlFilterRendererImpl;
@@ -92,13 +93,19 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         HtmlHeaderEditor headerEditor = new HtmlHeaderEditor();
         headerEditor.setWebContext(getWebContext());
         headerEditor.setCoreContext(getCoreContext());
-        headerRenderer.setHeaderEditor(headerEditor);
         headerEditor.setColumn(column);
+        headerRenderer.setHeaderEditor(headerEditor);
 
         HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
         filterRenderer.setWebContext(getWebContext());
         filterRenderer.setCoreContext(getCoreContext());
         column.setFilterRenderer(filterRenderer);
+
+        HtmlFilterEditor filterEditor = new HtmlFilterEditor();
+        filterEditor.setWebContext(getWebContext());
+        filterEditor.setCoreContext(getCoreContext());
+        filterEditor.setColumn(column);
+        filterRenderer.setFilterEditor(filterEditor);
 
         return column;
     }

@@ -13,23 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.renderer;
-
-import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.renderer.FilterRenderer;
+package org.jmesa.view.editor;
 
 /**
- * @since 2.0
+ * An editor specific to the filter.
+ * 
+ * @since 2.2
  * @author Jeff Johnston
  */
-public interface HtmlFilterRenderer extends FilterRenderer {
-    public HtmlColumn getColumn();
-
-    public String getStyle();
-
-    public void setStyle(String style);
-
-    public String getStyleClass();
-
-    public void setStyleClass(String styleClass);
+public interface FilterEditor {
+    public Object getValue();
 }

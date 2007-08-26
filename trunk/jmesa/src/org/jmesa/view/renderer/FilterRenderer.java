@@ -15,10 +15,21 @@
  */
 package org.jmesa.view.renderer;
 
+import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.FilterEditor;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface FilterRenderer {
+    public Column getColumn();
+
+    public void setColumn(Column column);
+
+    public FilterEditor getFilterEditor();
+
+    public void setFilterEditor(FilterEditor filterEditor);
+
     public Object render();
 }

@@ -29,6 +29,8 @@ import org.jmesa.limit.Order;
 import org.jmesa.util.ItemUtils;
 import org.jmesa.view.ContextSupport;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.FilterEditor;
+import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.slf4j.Logger;
@@ -52,6 +54,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String width;
     private String pattern;
     private String cellEditor;
+    private String headerEditor;
+    private String filterEditor;
 
     private HtmlColumn column;
 
@@ -136,6 +140,38 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
+     * @since 2.2
+     * @return The header editor for the column.
+     */
+    public String getHeaderEditor() {
+        return headerEditor;
+    }
+
+    /**
+     * @since 2.2
+     * @param headerEditor The header editor to use.
+     */
+    public void setHeaderEditor(String headerEditor) {
+        this.headerEditor = headerEditor;
+    }
+
+    /**
+     * @since 2.2
+     * @return The filter editor for the column.
+     */
+    public String getFilterEditor() {
+        return filterEditor;
+    }
+
+    /**
+     * @since 2.2
+     * @param filterEditor The filter editor to use.
+     */
+    public void setFilterEditor(String filterEditor) {
+        this.filterEditor = filterEditor;
+    }
+
+    /**
      * Take the comma separted Order values and convert them into an Array. The legal values include
      * "none, asc, desc".
      * 
@@ -196,7 +232,69 @@ public class HtmlColumnTag extends SimpleTagSupport {
                     ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
                 }
             } catch (Exception e) {
-                logger.error("Could not create the CellEditor [" + getCellEditor() + "]", e);
+                logger.error("Could not create the cellEditor [" + getCellEditor() + "]", e);
+            }
+        }
+
+        return editor;
+    }
+
+    /**
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor.
+     * </p>
+     * 
+     * @return The HeaderEditor to use.
+     */
+    protected HeaderEditor getColumnHeaderEditor() {
+        HeaderEditor editor = null;
+
+        if (StringUtils.isEmpty(getHeaderEditor())) {
+            return null;
+        } else {
+            try {
+                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+
+                Object obj = Class.forName(getHeaderEditor()).newInstance();
+                editor = (HeaderEditor) obj;
+                if (obj instanceof ContextSupport) {
+                    ((ContextSupport) editor).setCoreContext(facadeTag.getCoreContext());
+                    ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
+                }
+            } catch (Exception e) {
+                logger.error("Could not create the headerEditor [" + getHeaderEditor() + "]", e);
+            }
+        }
+
+        return editor;
+    }
+
+    /**
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor.
+     * </p>
+     * 
+     * @return The FilterEditor to use.
+     */
+    protected FilterEditor getColumnFilterEditor() {
+        FilterEditor editor = null;
+
+        if (StringUtils.isEmpty(getFilterEditor())) {
+            return null;
+        } else {
+            try {
+                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+
+                Object obj = Class.forName(getFilterEditor()).newInstance();
+                editor = (FilterEditor) obj;
+                if (obj instanceof ContextSupport) {
+                    ((ContextSupport) editor).setCoreContext(facadeTag.getCoreContext());
+                    ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
+                }
+            } catch (Exception e) {
+                logger.error("Could not create the filterEditor [" + getFilterEditor() + "]", e);
             }
         }
 
@@ -215,6 +313,32 @@ public class HtmlColumnTag extends SimpleTagSupport {
         HtmlComponentFactory factory = facadeTag.getComponentFactory();
         CellEditor editor = getColumnCellEditor();
         this.column = factory.createColumn(getProperty(), editor);
+
+        HeaderEditor headerEditor = getColumnHeaderEditor();
+        if (headerEditor != null) {
+            boolean hasColumn = PropertyUtils.isWriteable(headerEditor, "column");
+            if (hasColumn) {
+                try {
+                    PropertyUtils.setProperty(headerEditor, "column", column);
+                } catch (Exception e) {
+                    logger.error("The HeaderEditor [" + getHeaderEditor() + "] does not have a column property to set.", e);
+                }
+            }
+            column.getHeaderRenderer().setHeaderEditor(headerEditor);
+        }
+
+        FilterEditor filterEditor = getColumnFilterEditor();
+        if (filterEditor != null) {
+            boolean hasColumn = PropertyUtils.isWriteable(filterEditor, "column");
+            if (hasColumn) {
+                try {
+                    PropertyUtils.setProperty(filterEditor, "column", column);
+                } catch (Exception e) {
+                    logger.error("The FilterEditor [" + getFilterEditor() + "] does not have a column property to set.", e);
+                }
+            }
+            column.getFilterRenderer().setFilterEditor(filterEditor);
+        }
 
         HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
         rowTag.getRow().addColumn(column);
