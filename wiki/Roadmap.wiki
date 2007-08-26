@@ -14,7 +14,7 @@ An Excel View, using Apache POI, is implemented and will be available in the nex
 The new features include the following:
  * Add an onclick, onmouseover, and onmouseout event enhancement for the row. _(done)_
  * Add a column sortOrder. This takes a comma separated list of values to say how you want the column to be sorted. _(done)_
- * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter. _(header done)_
+ * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter. _(done)_
  * The ability to get at the original bean from an editor when using the tags. _(done)_
  * A new !NumberCellEditor (contributed by jackcoll...@wallquest.com) _(done)_
  * Finish adding the hooks for the tag library for features that already exist on the [TableFacade] API (mostly custom special cases) 
@@ -144,7 +144,6 @@ Note though that for this filter example you would still need to add the Javascr
 ==== Future Release ====
 
 I am also trying to find out what developers are interested in for future releases. If you have any suggestions be sure to reply to the post on [http://groups.google.com/group/jmesa/browse_thread/thread/45ca5716dcd9bb7f Google Groups].
-
 
 
 
