@@ -102,9 +102,53 @@ public class TagRowEvent implements RowEvent {
 }
 }}}
 
+===== !HeaderEditor =====
+The header now has an editor to break out the logic of what the header looks like and what  kind of element it is.
+
+For instance if you wanted to have a header that displayed a checkbox you would do this:
+{{{
+HtmlColumn htmlColumn = (HtmlColumn)lastName;
+htmlColumn.getHeaderRenderer().setHeaderEditor(new HeaderEditor() {
+    public Object getValue() {
+        return "<input type=\"checkbox\">";
+    }
+});
+}}}
+
+The tag would look like this:
+{{{
+headerEditor="org.jmesaweb.controller.TagHeaderEditor" 
+}}}
+
+===== !FilterEditor =====
+The filter now has an editor to break out the logic of what the filter looks like and what  kind of element it is.
+
+If you wanted to have a filter that displayed a select element you would do this:
+{{{
+HtmlColumn careerColumn = (HtmlColumn)row.getColumn("career");;
+careerColumn.getFilterRenderer().setFilterEditor(new FilterEditor() {
+    public Object getValue() {
+        return "<select><option value=\"career\">Career</option><option value=\"lawyer\">Lawyer</option></select>";
+    }
+});
+}}}
+
+The tag would look like this:
+{{{
+filterEditor="org.jmesaweb.controller.TagFilterEditor"
+}}}
+
+
+Note though that for this filter example you would still need to add the Javascript to interact with the Javascript Limit. If this is something you are interested in you can look at the !HtmlFilterEditor to see the default example.
+
 ==== Future Release ====
 
 I am also trying to find out what developers are interested in for future releases. If you have any suggestions be sure to reply to the post on [http://groups.google.com/group/jmesa/browse_thread/thread/45ca5716dcd9bb7f Google Groups].
+
+
+
+
+
 
 
 
