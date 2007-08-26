@@ -20,41 +20,48 @@ import java.util.Locale;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.jmesa.util.ItemUtils;
-import org.jmesa.view.ContextSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * An editor to work with dates. Just send in a valid date pattern and the date will be formated.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DateCellEditor extends ContextSupport implements CellEditor {
-    private String pattern = "MM/dd/yyyy";
+public class DateCellEditor extends AbstractPatternCellEditor {
+    private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
 
-    private Logger logger = LoggerFactory.getLogger( DateCellEditor.class );    
-    
+    /**
+     * The default pattern is "MM/dd/yyyy".
+     */
     public DateCellEditor() {
+        setPattern("MM/dd/yyyy");
     }
 
+    /**
+     * @param pattern The pattern to use.
+     */
     public DateCellEditor(String pattern) {
-        this.pattern = pattern;
+        setPattern(pattern);
     }
 
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
+    /**
+     * Get the formatted date value based on the pattern set.
+     */
     public Object getValue(Object item, String property, int rowcount) {
         Object itemValue = null;
 
         try {
             itemValue = ItemUtils.getItemValue(item, property);
-            Locale locale = getWebContext().getLocale();
-            if (itemValue != null) {
-                itemValue = DateFormatUtils.format((Date) itemValue, pattern, locale);
+            if (itemValue == null) {
+                return null;
             }
+
+            Locale locale = getWebContext().getLocale();
+            itemValue = DateFormatUtils.format((Date) itemValue, getPattern(), locale);
         } catch (Exception e) {
-            logger.warn( "Could not process editor with property " + property );
+            logger.warn("Could not process date editor with property " + property);
         }
 
         return itemValue;
