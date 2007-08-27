@@ -15,6 +15,8 @@
  */
 package org.jmesa.view.renderer;
 
+import groovy.lang.Closure;
+
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.FilterEditor;
@@ -41,5 +43,20 @@ public abstract class AbstractFilterRenderer extends AbstractContextSupport impl
 
     public void setFilterEditor(FilterEditor filterEditor) {
         this.filterEditor = filterEditor;
+    }
+
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the filterEditor.
+     * </p>
+     * 
+     * @param closure The Groovy closure to use.
+     */
+    public void setFilterEditor(final Closure closure) {
+        this.filterEditor = new FilterEditor() {
+            public Object getValue() {
+                return closure.call();
+            }
+        };
     }
 }
