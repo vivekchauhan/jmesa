@@ -17,10 +17,10 @@ The new features include the following:
  * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter. _(done)_
  * The ability to get at the original bean from an editor when using the tags. _(done)_
  * A new !NumberCellEditor (contributed by jackcoll...@wallquest.com) _(done)_
- * Finish adding the hooks for the tag library for features that already exist on the [TableFacade] API (mostly custom special cases) 
  * Changed !ContextSupport to be an interface. The implementing class is called !AbstractContextSupport. This is so that if an editor referenced from a tag did not want to extend a class to get !ContextSupport it could. In hindsight this should have been done sooner. In that same way of thinking there are two other new interfaces called !PatternSupport and !ColumnSupport so that editors that want to get a pattern or column injected in them have a safe way to do that. I will explain this feature more later if that does not make complete sense. _(done)_
  * Deprecated table.setCaption(key, message) in favor of table.setCaptionKey(key) to make the method to use with the Messages more clear and consistent with the tag library. _(done)_
  * Deprecated column.setTitle(key, message) in favor of column.setTitleKey(key) to make the method to use with the Messages more clear and consistent with the tag library. _(done)_
+ * Finish adding the hooks for the tag library for features that already exist on the [TableFacade] API (mostly custom special cases) 
 
 ===== Column Onclick Event =====
 The onclick event on the row would be something like this:
@@ -147,7 +147,6 @@ Note though that for this filter example you would still need to add the Javascr
 ==== Future Release ====
 
 I am also trying to find out what developers are interested in for future releases. If you have any suggestions be sure to reply to the post on [http://groups.google.com/group/jmesa/browse_thread/thread/45ca5716dcd9bb7f Google Groups].
-
 
 
 
