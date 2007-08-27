@@ -15,8 +15,8 @@
  */
 package org.jmesa.view;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.web.WebContext;
+import org.jmesa.core.CoreContextSupport;
+import org.jmesa.web.WebContextSupport;
 
 /**
  * <p>
@@ -24,20 +24,15 @@ import org.jmesa.web.WebContext;
  * </p>
  * 
  * <p>
- * Note: in version 2.2 this was changed to an interface so that classes would not have to extend
- * this class to get the feature. This interface is used throughout the library to detect whether or
- * not the webContext and coreContext should be set on the implementing class automatically.
+ * Note: in version 2.2 this was changed to an interface so that classes would
+ * not have to extend this class to get the feature. This interface is used
+ * throughout the library to detect whether or not the webContext and
+ * coreContext should be set on the implementing class automatically.
  * </p>
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ContextSupport {
-    public CoreContext getCoreContext();
-
-    public void setCoreContext(CoreContext coreContext);
-
-    public WebContext getWebContext();
-
-    public void setWebContext(WebContext webContext);
+public interface ContextSupport extends WebContextSupport, CoreContextSupport {
+    // There are no methods specific to just ContextSupport.
 }
