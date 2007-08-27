@@ -18,6 +18,7 @@ The new features include the following:
  * The ability to get at the original bean from an editor when using the tags. _(done)_
  * A new !NumberCellEditor (contributed by jackcoll...@wallquest.com) _(done)_
  * Finish adding the hooks for the tag library for features that already exist on the [TableFacade] API (mostly custom special cases) 
+ * Changed !ContextSupport to be an interface. The implementing class is called !AbstractContextSupport. This is so that if an editor referenced from a tag did not want to extend a class to get !ContextSupport it could. In hindsight this should have been done sooner. In that same way of thinking there are two other new interfaces called !PatternSupport and !ColumnSupport so that editors that want to get a pattern or column injected in them have a safe way to do that. I will explain this feature more later if that does not make complete sense.
 
 ===== Column Onclick Event =====
 The onclick event on the row would be something like this:
