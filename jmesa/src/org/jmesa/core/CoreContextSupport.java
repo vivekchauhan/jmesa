@@ -22,7 +22,6 @@ package org.jmesa.core;
  * @author Jeff Johnston
  */
 public interface CoreContextSupport {
-
     public CoreContext getCoreContext();
 
     public void setCoreContext(CoreContext coreContext);
