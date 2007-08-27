@@ -19,26 +19,25 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.web.WebContext;
 
 /**
+ * <p>
+ * Support to handle both the CoreContext and WebContext.
+ * </p>
+ * 
+ * <p>
+ * Note: in version 2.2 this was changed to an interface so that classes would not have to extend
+ * this class to get the feature. This interface is used throughout the library to detect whether or
+ * not the webContext and coreContext should be set on the implementing class automatically.
+ * </p>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ContextSupport {
-    private CoreContext coreContext;
-    private WebContext webContext;
+public interface ContextSupport {
+    public CoreContext getCoreContext();
 
-    public CoreContext getCoreContext() {
-        return coreContext;
-    }
+    public void setCoreContext(CoreContext coreContext);
 
-    public void setCoreContext(CoreContext coreContext) {
-        this.coreContext = coreContext;
-    }
+    public WebContext getWebContext();
 
-    public WebContext getWebContext() {
-        return webContext;
-    }
-
-    public void setWebContext(WebContext webContext) {
-        this.webContext = webContext;
-    }
+    public void setWebContext(WebContext webContext);
 }

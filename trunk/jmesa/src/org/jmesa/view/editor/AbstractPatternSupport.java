@@ -13,31 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.toolbar;
+package org.jmesa.view.editor;
 
 import org.jmesa.view.AbstractContextSupport;
 
 /**
- * @since 2.0
+ * Abstract class to hold the pattern information for supporting classes.
+ * 
+ * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractItemRenderer extends AbstractContextSupport implements ToolbarItemRenderer {
-    private String onInvokeAction;
-    private ToolbarItem toolbarItem;
+public abstract class AbstractPatternSupport extends AbstractContextSupport implements CellEditor, PatternSupport {
+    private String pattern;
 
-    public String getOnInvokeAction() {
-        return onInvokeAction;
+    /**
+     * {@inheritDoc}
+     */
+    public String getPattern() {
+        return pattern;
     }
 
-    public void setOnInvokeAction(String onInvokeAction) {
-        this.onInvokeAction = onInvokeAction;
-    }
-
-    public ToolbarItem getToolbarItem() {
-        return toolbarItem;
-    }
-
-    public void setToolbarItem(ToolbarItem toolbarItem) {
-        this.toolbarItem = toolbarItem;
+    /**
+     * {@inheritDoc}
+     */
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 }

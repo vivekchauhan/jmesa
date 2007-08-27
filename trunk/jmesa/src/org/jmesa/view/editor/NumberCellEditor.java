@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * @since 2.2
  * @author Jeff Johnston
  */
-public class NumberCellEditor extends AbstractPatternCellEditor {
+public class NumberCellEditor extends AbstractPatternSupport {
     private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
 
     /**

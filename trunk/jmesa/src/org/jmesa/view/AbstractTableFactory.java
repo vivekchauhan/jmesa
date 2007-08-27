@@ -24,7 +24,7 @@ import org.jmesa.view.editor.CellEditor;
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractTableFactory extends ContextSupport implements TableFactory {
+public abstract class AbstractTableFactory extends AbstractContextSupport implements TableFactory {
     public Table createTable(String... columnNames) {
         ComponentFactory factory = getComponentFactory();
 

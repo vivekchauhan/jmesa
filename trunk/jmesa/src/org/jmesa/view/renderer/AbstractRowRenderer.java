@@ -15,14 +15,14 @@
  */
 package org.jmesa.view.renderer;
 
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Row;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractRowRenderer extends ContextSupport implements RowRenderer {
+public abstract class AbstractRowRenderer extends AbstractContextSupport implements RowRenderer {
     private Row row;
 
     public Row getRow() {
