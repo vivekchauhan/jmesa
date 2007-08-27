@@ -13,30 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.editor;
+package org.jmesa.view;
 
-import org.jmesa.view.ContextSupport;
+import org.jmesa.core.CoreContext;
+import org.jmesa.web.WebContext;
 
 /**
- * Abstract class to hold the pattern information for supporting classes.
+ * Convenience class to add CoreContext and WebContext support.
  * 
  * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractPatternCellEditor extends ContextSupport implements CellEditor {
-    private String pattern;
+public abstract class AbstractContextSupport {
+    private CoreContext coreContext;
+    private WebContext webContext;
 
-    /**
-     * @return The pattern to use.
-     */
-    public String getPattern() {
-        return pattern;
+    public CoreContext getCoreContext() {
+        return coreContext;
     }
 
-    /**
-     * @param pattern The pattern to use.
-     */
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
+    public void setCoreContext(CoreContext coreContext) {
+        this.coreContext = coreContext;
+    }
+
+    public WebContext getWebContext() {
+        return webContext;
+    }
+
+    public void setWebContext(WebContext webContext) {
+        this.webContext = webContext;
     }
 }

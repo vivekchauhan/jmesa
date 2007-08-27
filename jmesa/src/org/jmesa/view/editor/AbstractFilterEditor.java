@@ -15,8 +15,9 @@
  */
 package org.jmesa.view.editor;
 
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.component.ColumnSupport;
 
 /**
  * Abstract filter editor that contains the column.
@@ -24,7 +25,7 @@ import org.jmesa.view.component.Column;
  * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractFilterEditor extends ContextSupport implements FilterEditor {
+public abstract class AbstractFilterEditor extends AbstractContextSupport implements FilterEditor, ColumnSupport {
     private Column column;
 
     public Column getColumn() {

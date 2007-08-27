@@ -127,13 +127,8 @@ public class HtmlTableTag extends SimpleTagSupport {
 
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         this.table = facadeTag.getComponentFactory().createTable();
-
-        if (getCaptionKey() != null) {
-            table.setCaption(getCaptionKey(), true);
-        } else {
-            table.setCaption(getCaption());
-        }
-
+        table.setCaption(getCaption());
+        table.setCaptionKey(getCaptionKey());
         table.setTheme(getTheme());
         table.getTableRenderer().setWidth(getWidth());
         table.getTableRenderer().setStyle(getStyle());

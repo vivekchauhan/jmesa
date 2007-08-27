@@ -15,14 +15,14 @@
  */
 package org.jmesa.view.renderer;
 
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Table;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractTableRenderer extends ContextSupport implements TableRenderer {
+public abstract class AbstractTableRenderer extends AbstractContextSupport implements TableRenderer {
     private Table table;
 
     public Table getTable() {

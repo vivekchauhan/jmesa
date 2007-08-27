@@ -15,14 +15,15 @@
  */
 package org.jmesa.view.component;
 
-import org.jmesa.view.ContextSupport;
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.TableRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class TableImpl extends ContextSupport implements Table {
+public class TableImpl extends AbstractContextSupport implements Table {
     private Row row;
     private String caption;
     private TableRenderer tableRenderer;
@@ -32,9 +33,19 @@ public class TableImpl extends ContextSupport implements Table {
     }
 
     public void setCaption(String caption) {
-        setCaption(caption, false);
+        this.caption = caption;
     }
 
+    public void setCaptionKey(String key) {
+        if (StringUtils.isNotEmpty(key)) {
+            this.caption = getCoreContext().getMessage(key);
+        }
+    }
+
+    /**
+     * Use the setCaptionKey instead. This makes it consistent with the tag library.
+     */
+    @Deprecated
     public void setCaption(String caption, boolean message) {
         if (message) {
             this.caption = getCoreContext().getMessage(caption);

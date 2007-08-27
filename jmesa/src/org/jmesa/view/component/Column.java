@@ -31,6 +31,12 @@ public interface Column {
 
     public void setTitle(String title);
 
+    public void setTitleKey(String key);
+
+    /**
+     * Use the setTitleKey instead. This makes it consistent with the tag library.
+     */
+    @Deprecated
     public void setTitle(String title, boolean message);
 
     public CellRenderer getCellRenderer();

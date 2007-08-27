@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.editor;
-
-import org.jmesa.util.ItemUtils;
-import org.jmesa.view.AbstractContextSupport;
+package org.jmesa.view.component;
 
 /**
- * @since 2.0
+ * Support to handle a Column.
+ * 
+ * @since 2.2
  * @author Jeff Johnston
  */
-public class BasicCellEditor extends AbstractContextSupport implements CellEditor {
-    public Object getValue(Object item, String property, int rowcount) {
-        return ItemUtils.getItemValue(item, property);
-    }
+public interface ColumnSupport {
+    /**
+     * @return The Column to use.
+     */
+    public Column getColumn();
+
+    /**
+     * @param column The Column to use.
+     */
+    public void setColumn(Column column);
 }

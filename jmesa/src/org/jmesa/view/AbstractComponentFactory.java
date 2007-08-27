@@ -27,7 +27,7 @@ import org.jmesa.view.editor.DateCellEditor;
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractComponentFactory extends ContextSupport implements ComponentFactory {
+public abstract class AbstractComponentFactory extends AbstractContextSupport implements ComponentFactory {
     public Table createTable() {
         TableImpl table = new TableImpl();
         table.setWebContext(getWebContext());

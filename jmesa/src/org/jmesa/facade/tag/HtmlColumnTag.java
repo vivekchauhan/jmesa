@@ -23,14 +23,15 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.Order;
 import org.jmesa.util.ItemUtils;
 import org.jmesa.view.ContextSupport;
+import org.jmesa.view.component.ColumnSupport;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
+import org.jmesa.view.editor.PatternSupport;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.slf4j.Logger;
@@ -223,11 +224,11 @@ public class HtmlColumnTag extends SimpleTagSupport {
         } else {
             try {
                 Object obj = Class.forName(getCellEditor()).newInstance();
-                if (pattern != null) {
-                    PropertyUtils.setProperty(obj, "pattern", getPattern());
-                }
                 editor = (CellEditor) obj;
-                if (obj instanceof ContextSupport) {
+                if (pattern != null && editor instanceof PatternSupport) {
+                    ((PatternSupport) editor).setPattern(getPattern());
+                }
+                if (editor instanceof ContextSupport) {
                     ((ContextSupport) editor).setCoreContext(facadeTag.getCoreContext());
                     ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
                 }
@@ -258,7 +259,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
                 Object obj = Class.forName(getHeaderEditor()).newInstance();
                 editor = (HeaderEditor) obj;
-                if (obj instanceof ContextSupport) {
+                if (editor instanceof ContextSupport) {
                     ((ContextSupport) editor).setCoreContext(facadeTag.getCoreContext());
                     ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
                 }
@@ -289,7 +290,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
                 Object obj = Class.forName(getFilterEditor()).newInstance();
                 editor = (FilterEditor) obj;
-                if (obj instanceof ContextSupport) {
+                if (editor instanceof ContextSupport) {
                     ((ContextSupport) editor).setCoreContext(facadeTag.getCoreContext());
                     ((ContextSupport) editor).setWebContext(facadeTag.getWebContext());
                 }
@@ -316,26 +317,16 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         HeaderEditor headerEditor = getColumnHeaderEditor();
         if (headerEditor != null) {
-            boolean hasColumn = PropertyUtils.isWriteable(headerEditor, "column");
-            if (hasColumn) {
-                try {
-                    PropertyUtils.setProperty(headerEditor, "column", column);
-                } catch (Exception e) {
-                    logger.error("The HeaderEditor [" + getHeaderEditor() + "] does not have a column property to set.", e);
-                }
+            if (headerEditor instanceof ColumnSupport) {
+                ((ColumnSupport) headerEditor).setColumn(column);
             }
             column.getHeaderRenderer().setHeaderEditor(headerEditor);
         }
 
         FilterEditor filterEditor = getColumnFilterEditor();
         if (filterEditor != null) {
-            boolean hasColumn = PropertyUtils.isWriteable(filterEditor, "column");
-            if (hasColumn) {
-                try {
-                    PropertyUtils.setProperty(filterEditor, "column", column);
-                } catch (Exception e) {
-                    logger.error("The FilterEditor [" + getFilterEditor() + "] does not have a column property to set.", e);
-                }
+            if (filterEditor instanceof ColumnSupport) {
+                ((ColumnSupport) filterEditor).setColumn(column);
             }
             column.getFilterRenderer().setFilterEditor(filterEditor);
         }
@@ -375,13 +366,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         HtmlColumn column = getColumn();
-
-        if (getTitleKey() != null) {
-            column.setTitle(getTitleKey(), true);
-        } else {
-            column.setTitle(getTitle());
-        }
-
+        column.setTitle(getTitle());
+        column.setTitleKey(getTitleKey());
         column.setSortable(isSortable());
         column.setSortOrder(getColumnSortOrder());
         column.setFilterable(isFilterable());

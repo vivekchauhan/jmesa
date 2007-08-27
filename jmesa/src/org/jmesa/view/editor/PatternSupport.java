@@ -15,15 +15,20 @@
  */
 package org.jmesa.view.editor;
 
-import org.jmesa.util.ItemUtils;
-import org.jmesa.view.AbstractContextSupport;
-
 /**
- * @since 2.0
+ * Support to handle a pattern.
+ * 
+ * @since 2.2
  * @author Jeff Johnston
  */
-public class BasicCellEditor extends AbstractContextSupport implements CellEditor {
-    public Object getValue(Object item, String property, int rowcount) {
-        return ItemUtils.getItemValue(item, property);
-    }
+public interface PatternSupport {
+    /**
+     * @return The pattern to use.
+     */
+    public String getPattern();
+
+    /**
+     * @param pattern The pattern to use.
+     */
+    public void setPattern(String pattern);
 }

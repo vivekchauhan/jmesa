@@ -25,7 +25,13 @@ public interface Table {
     public String getCaption();
 
     public void setCaption(String caption);
-    
+
+    public void setCaptionKey(String key);
+
+    /**
+     * Use the setCaptionKey instead. This makes it consistent with the tag library.
+     */
+    @Deprecated
     public void setCaption(String caption, boolean message);
 
     public Row getRow();

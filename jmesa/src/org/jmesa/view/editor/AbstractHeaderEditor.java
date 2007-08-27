@@ -15,14 +15,15 @@
  */
 package org.jmesa.view.editor;
 
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.component.ColumnSupport;
 
 /**
  * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractHeaderEditor extends ContextSupport implements HeaderEditor {
+public abstract class AbstractHeaderEditor extends AbstractContextSupport implements HeaderEditor, ColumnSupport {
     private Column column;
 
     public Column getColumn() {

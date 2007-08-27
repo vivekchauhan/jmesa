@@ -16,7 +16,7 @@
 package org.jmesa.view.component;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
@@ -25,7 +25,7 @@ import org.jmesa.view.renderer.HeaderRenderer;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ColumnImpl extends ContextSupport implements Column {
+public class ColumnImpl extends AbstractContextSupport implements Column {
     private String property;
     private String title;
     private CellRenderer columnRenderer;
@@ -51,7 +51,7 @@ public class ColumnImpl extends ContextSupport implements Column {
         if (StringUtils.isBlank(title)) {
             return ViewUtils.camelCaseToWord(property);
         }
-        
+
         return title;
     }
 
@@ -59,6 +59,16 @@ public class ColumnImpl extends ContextSupport implements Column {
         this.title = title;
     }
 
+    public void setTitleKey(String key) {
+        if (StringUtils.isNotBlank(key)) {
+            this.title = getCoreContext().getMessage(key);
+        }
+    }
+
+    /**
+     * Use the setTitleKey instead. This makes it consistent with the tag library.
+     */
+    @Deprecated
     public void setTitle(String title, boolean message) {
         if (message) {
             this.title = getCoreContext().getMessage(title);

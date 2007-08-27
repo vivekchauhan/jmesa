@@ -18,14 +18,14 @@ package org.jmesa.view.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.RowRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class RowImpl extends ContextSupport implements Row {
+public class RowImpl extends AbstractContextSupport implements Row {
     List<Column> columns = new ArrayList<Column>();
     private RowRenderer rowRenderer;
 

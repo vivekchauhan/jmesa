@@ -15,7 +15,7 @@
  */
 package org.jmesa.view.renderer;
 
-import org.jmesa.view.ContextSupport;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.FilterEditor;
 
@@ -23,7 +23,7 @@ import org.jmesa.view.editor.FilterEditor;
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractFilterRenderer extends ContextSupport implements FilterRenderer {
+public abstract class AbstractFilterRenderer extends AbstractContextSupport implements FilterRenderer {
     private Column column;
     private FilterEditor filterEditor;
 
