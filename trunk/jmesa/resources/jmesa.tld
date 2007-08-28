@@ -54,6 +54,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>filterMatcherMap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>var</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -183,6 +188,16 @@
 		</attribute>
 		<attribute>
 			<name>cellEditor</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>headerEditor</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>filterEditor</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
