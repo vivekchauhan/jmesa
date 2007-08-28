@@ -20,7 +20,7 @@ The new features include the following:
  * Changed !ContextSupport to be an interface. The implementing class is called !AbstractContextSupport. This is so that if an editor referenced from a tag did not want to extend a class to get !ContextSupport it could. In hindsight this should have been done sooner. In that same way of thinking there are two other new interfaces called !PatternSupport and !ColumnSupport so that editors that want to get a pattern or column injected in them have a safe way to do that. I will explain this feature more later if that does not make complete sense. _(done)_
  * Deprecated table.setCaption(key, message) in favor of table.setCaptionKey(key) to make the method to use with the Messages more clear and consistent with the tag library. _(done)_
  * Deprecated column.setTitle(key, message) in favor of column.setTitleKey(key) to make the method to use with the Messages more clear and consistent with the tag library. _(done)_
- * Finish adding the hooks for the tag library for features that already exist on the [TableFacade] API (mostly custom special cases) 
+ * Added hooks for the tag library to register !FilterMatchers. _(done)_
 
 ===== Column Onclick Event =====
 The onclick event on the row would be something like this:
@@ -143,6 +143,37 @@ filterEditor="org.jmesaweb.controller.TagFilterEditor"
 
 
 Note though that for this filter example you would still need to add the Javascript to interact with the Javascript Limit. If this is something you are interested in you can look at the !HtmlFilterEditor to see the default example.
+
+===== !FilterMatcherMap =====
+If you have a column that uses a special editor such as the !DateCellEditor and you want to have the JMesa API filter the results you will need to register custom !FilterMatchers. With the tag library you would do this through the !FilterMatcherMap interface. 
+
+For instance if you have a column that looks like this:
+{{{
+<jmesa:htmlColumn property="born" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+}}}
+
+Now you need to set up a custom !FilterMatcherMap and set it in the request for the !TableFacadeTag to use.
+
+{{{
+FilterMatcherMap filterMatcherMap = new FilterMatcherMap() {
+    public Map<MatcherKey, FilterMatcher> getFilterMatchers() {
+        Map<MatcherKey, FilterMatcher> results = new HashMap<MatcherKey, FilterMatcher>();
+        
+        DateFilterMatcher dateFilterMatcher = new DateFilterMatcher("MM/yyyy", tableFacade.getWebContext());
+        results.put(new MatcherKey(Date.class, "born"), dateFilterMatcher);
+
+        return results;
+    }
+};
+request.setAttribute("filterMatcherMap", filterMatcherMap);
+}}}
+
+Just make sure you define the filterMatcherMap on the !TableFacadeTag:
+{{{
+<jmesa:tableFacade
+        id="tag" 
+        filterMatcherMap="${filterMatcherMap}"
+}}}
 
 ==== Future Release ====
 
