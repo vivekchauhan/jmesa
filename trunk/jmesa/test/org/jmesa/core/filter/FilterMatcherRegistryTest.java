@@ -21,13 +21,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import org.jmesa.core.filter.FilterMatcher;
-import org.jmesa.core.filter.FilterMatcherRegistry;
-import org.jmesa.core.filter.FilterMatcherRegistryImpl;
-import org.jmesa.core.filter.MatcherKey;
-import org.jmesa.core.filter.StringFilterMatcher;
 import org.jmesa.test.AbstractTestCase;
-import org.jmesa.web.WebContext;
 import org.junit.Test;
 
 /**
@@ -39,10 +33,8 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
     public void getMatchWithDateObject() {
         FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
         
-        WebContext webContext = createWebContext();
-        
         registry.addFilterMatcher(new MatcherKey(Object.class), new StringFilterMatcher());
-        registry.addFilterMatcher(new MatcherKey(Date.class), new DateFilterMatcher(webContext));
+        registry.addFilterMatcher(new MatcherKey(Date.class), new DateFilterMatcher());
         
         MatcherKey key = new MatcherKey(Timestamp.class);
         FilterMatcher result = registry.getFilterMatcher(key);

@@ -21,22 +21,35 @@ import java.util.Locale;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.jmesa.web.WebContext;
+import org.jmesa.web.WebContextSupport;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DateFilterMatcher implements FilterMatcher {
-    private String pattern = "MM/dd/yyyy";
-    private Locale locale;
+public class DateFilterMatcher implements FilterMatcher, WebContextSupport {
+    private String pattern;
+    private WebContext webContext;
 
-    public DateFilterMatcher(WebContext webContext) {
-        this.locale = webContext.getLocale();
+    public DateFilterMatcher() {
+        pattern = "MM/dd/yyyy";
+    }
+
+    public DateFilterMatcher(String pattern) {
+        this.pattern = pattern;
     }
 
     public DateFilterMatcher(String pattern, WebContext webContext) {
         this.pattern = pattern;
-        this.locale = webContext.getLocale();
+        this.webContext = webContext;
+    }
+
+    public WebContext getWebContext() {
+        return webContext;
+    }
+
+    public void setWebContext(WebContext webContext) {
+        this.webContext = webContext;
     }
 
     public void setPattern(String pattern) {
@@ -47,7 +60,12 @@ public class DateFilterMatcher implements FilterMatcher {
         if (itemValue == null) {
             return false;
         }
-        
+
+        Locale locale = null;
+        if (webContext != null) {
+            locale = webContext.getLocale();
+        }
+
         if (locale != null) {
             itemValue = DateFormatUtils.format((Date) itemValue, pattern, locale);
         } else {

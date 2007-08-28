@@ -34,9 +34,10 @@ public class DateFilterMatcherTest extends AbstractTestCase {
     @Test
     public void evaluateTest() {
         WebContext webContext = createWebContext();
-        DateFilterMatcher match = new DateFilterMatcher(webContext);
-
-        boolean evaluate = match.evaluate(null, "07/");
+        DateFilterMatcher matcher = new DateFilterMatcher();
+        matcher.setWebContext(webContext);
+        
+        boolean evaluate = matcher.evaluate(null, "07/");
         assertFalse(evaluate);
 
         Date date = null;
@@ -47,10 +48,10 @@ public class DateFilterMatcherTest extends AbstractTestCase {
             e.printStackTrace();
         }
 
-        evaluate = match.evaluate(date, null);
+        evaluate = matcher.evaluate(date, null);
         assertFalse(evaluate);
 
-        evaluate = match.evaluate(date, "/04/");
+        evaluate = matcher.evaluate(date, "/04/");
         assertTrue(evaluate);
     }
 }

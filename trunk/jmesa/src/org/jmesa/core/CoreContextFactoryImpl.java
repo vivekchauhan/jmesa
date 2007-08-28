@@ -83,7 +83,8 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
             StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();
             registry.addFilterMatcher(new MatcherKey(Object.class), stringFilterMatcher);
 
-            DateFilterMatcher dateFilterMatcher = new DateFilterMatcher(webContext);
+            DateFilterMatcher dateFilterMatcher = new DateFilterMatcher();
+            dateFilterMatcher.setWebContext(webContext);
             registry.addFilterMatcher(new MatcherKey(Date.class), dateFilterMatcher);
         }
 
