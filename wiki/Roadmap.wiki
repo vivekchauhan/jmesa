@@ -156,9 +156,7 @@ You now need to set up a custom Map<!MatcherKey, !FilterMatcher> and set it in t
 
 {{{
 Map<MatcherKey, FilterMatcher> filterMatcherMap = new HashMap<MatcherKey, FilterMatcher>();
-DateFilterMatcher dateFilterMatcher = new DateFilterMatcher("MM/yyyy");
-filterMatcherMap.put(new MatcherKey(Date.class, "born"), dateFilterMatcher);
-request.setAttribute("filterMatcherMap", filterMatcherMap);
+filterMatcherMap.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));request.setAttribute("filterMatcherMap", filterMatcherMap);
 }}}
 
 Just make sure you define the filterMatcherMap on the !TableFacadeTag:
@@ -175,7 +173,6 @@ _For more information about the filter matchers see the [FilterMatcher] page._
 I am also trying to find out what developers are interested in for future releases. If you have any suggestions be sure to reply to the post on [http://groups.google.com/group/jmesa/browse_thread/thread/45ca5716dcd9bb7f Google Groups].
 
 In the next few months JMesa is going to have an editable mode. The editable mode will work something like the Google spreadsheet in that when you click on a column a div will pop up and you enter your data there. Then I will look for an onchange event. The server will then make a map for each row that changed. Something like that. I still need to map out the details and make concrete decisions. Like everything else I want to take quite a bit of time to design the whole thing up front.
-
 
 
 
