@@ -156,7 +156,7 @@ You now need to set up a custom Map<!MatcherKey, !FilterMatcher> and set it in t
 
 {{{
 Map<MatcherKey, FilterMatcher> filterMatcherMap = new HashMap<MatcherKey, FilterMatcher>();
-DateFilterMatcher dateFilterMatcher = new DateFilterMatcher("MM/yyyy", tableFacade.getWebContext());
+DateFilterMatcher dateFilterMatcher = new DateFilterMatcher("MM/yyyy");
 filterMatcherMap.put(new MatcherKey(Date.class, "born"), dateFilterMatcher);
 request.setAttribute("filterMatcherMap", filterMatcherMap);
 }}}
