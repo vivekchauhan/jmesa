@@ -13,34 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.core.filter;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.web.WebContext;
+import java.util.Map;
 
 /**
- * Convenience class to add CoreContext and WebContext support.
+ * Create all the FilterMatchers needed for the current table.
  * 
  * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractContextSupport implements ContextSupport {
-    private CoreContext coreContext;
-    private WebContext webContext;
-
-    public CoreContext getCoreContext() {
-        return coreContext;
-    }
-
-    public void setCoreContext(CoreContext coreContext) {
-        this.coreContext = coreContext;
-    }
-
-    public WebContext getWebContext() {
-        return webContext;
-    }
-
-    public void setWebContext(WebContext webContext) {
-        this.webContext = webContext;
-    }
+public interface FilterMatcherMap {
+    /**
+     * @return The Map of FilterMatchers.
+     */
+    public Map<MatcherKey, FilterMatcher> getFilterMatchers();
 }

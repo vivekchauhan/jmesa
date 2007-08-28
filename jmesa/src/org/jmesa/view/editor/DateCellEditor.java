@@ -61,7 +61,7 @@ public class DateCellEditor extends AbstractPatternSupport {
             Locale locale = getWebContext().getLocale();
             itemValue = DateFormatUtils.format((Date) itemValue, getPattern(), locale);
         } catch (Exception e) {
-            logger.warn("Could not process date editor with property " + property);
+            logger.warn("Could not process date editor with property " + property, e);
         }
 
         return itemValue;

@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -27,12 +29,14 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.CoreContextImpl;
 import org.jmesa.core.Items;
 import org.jmesa.core.ItemsImpl;
 import org.jmesa.core.filter.DefaultRowFilter;
+import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherMap;
+import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.DefaultColumnSort;
@@ -71,6 +75,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private WebContext webContext;
     private Limit limit;
     private CoreContext coreContext;
+    private FilterMatcherMap filterMatcherMap;
     private HtmlTable table;
     private View view;
     private Toolbar toolbar;
@@ -281,8 +286,18 @@ public class TableFacadeTag extends SimpleTagSupport {
             return coreContext;
         }
 
-        CoreContextFactory factory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
-        this.coreContext = factory.createCoreContext(getItems(), getLimit());
+        TagCoreContextFactory coreContextFactory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
+
+        if (filterMatcherMap != null) {
+            Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
+            Set<MatcherKey> keys = filterMatchers.keySet();
+            for (MatcherKey key : keys) {
+                FilterMatcher matcher = filterMatchers.get(key);
+                coreContextFactory.addFilterMatcher(key, matcher);
+            }
+        }
+
+        this.coreContext = coreContextFactory.createCoreContext(getItems(), getLimit());
 
         return coreContext;
     }
@@ -295,6 +310,22 @@ public class TableFacadeTag extends SimpleTagSupport {
      */
     public void setCoreContext(CoreContext coreContext) {
         this.coreContext = coreContext;
+    }
+
+    /**
+     * @return Get all the FilterMatchers needed for the current table.
+     */
+    public FilterMatcherMap getFilterMatcherMap() {
+        return filterMatcherMap;
+    }
+
+    /**
+     * Set the current Map of FilterMatchers.
+     * 
+     * @param filterMatcherMap The Map of current FilterMatchers.
+     */
+    public void setFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
+        this.filterMatcherMap = filterMatcherMap;
     }
 
     /**
