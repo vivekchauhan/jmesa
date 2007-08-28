@@ -50,6 +50,7 @@ import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesa.web.WebContextSupport;
 
 /**
  * A tag abstraction similar to the TableFacade. See the TableFacade document for more information.
@@ -223,7 +224,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The WebContext to use.
      */
-    public WebContext getWebContext() {
+    protected WebContext getWebContext() {
         if (webContext != null) {
             return webContext;
         }
@@ -238,7 +239,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param webContext The WebContext to use.
      */
-    public void setWebContext(WebContext webContext) {
+    protected void setWebContext(WebContext webContext) {
         this.webContext = webContext;
     }
 
@@ -280,7 +281,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The CoreContext to use.
      */
-    public CoreContext getCoreContext() {
+    protected CoreContext getCoreContext() {
         if (coreContext != null) {
             return coreContext;
         }
@@ -291,6 +292,11 @@ public class TableFacadeTag extends SimpleTagSupport {
             Set<MatcherKey> keys = filterMatcherMap.keySet();
             for (MatcherKey key : keys) {
                 FilterMatcher matcher = filterMatcherMap.get(key);
+
+                if (matcher instanceof WebContextSupport) {
+                    ((WebContextSupport) matcher).setWebContext(getWebContext());
+                }
+
                 coreContextFactory.addFilterMatcher(key, matcher);
             }
         }
@@ -306,7 +312,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param coreContext The CoreContext to use.
      */
-    public void setCoreContext(CoreContext coreContext) {
+    protected void setCoreContext(CoreContext coreContext) {
         this.coreContext = coreContext;
     }
 
@@ -331,7 +337,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The Table to use.
      */
-    public HtmlTable getTable() {
+    protected HtmlTable getTable() {
         return table;
     }
 
@@ -340,7 +346,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param table The HtmlTable to use.
      */
-    public void setTable(HtmlTable table) {
+    protected void setTable(HtmlTable table) {
         this.table = table;
     }
 
@@ -349,7 +355,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The Toolbar to use.
      */
-    public Toolbar getToolbar() {
+    protected Toolbar getToolbar() {
         if (toolbar != null) {
             return toolbar;
         }
@@ -375,7 +381,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param toolbar The Toolbar to use.
      */
-    public void setToolbar(Toolbar toolbar) {
+    protected void setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
     }
 
@@ -422,7 +428,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * @return The HtmlComponentFactory to use.
      */
-    public HtmlComponentFactory getComponentFactory() {
+    protected HtmlComponentFactory getComponentFactory() {
         if (componentFactory != null) {
             return componentFactory;
         }
