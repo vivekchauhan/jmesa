@@ -35,7 +35,6 @@ import org.jmesa.core.Items;
 import org.jmesa.core.ItemsImpl;
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.FilterMatcher;
-import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
@@ -75,7 +74,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private WebContext webContext;
     private Limit limit;
     private CoreContext coreContext;
-    private FilterMatcherMap filterMatcherMap;
+    private Map<MatcherKey, FilterMatcher> filterMatcherMap;
     private HtmlTable table;
     private View view;
     private Toolbar toolbar;
@@ -289,10 +288,9 @@ public class TableFacadeTag extends SimpleTagSupport {
         TagCoreContextFactory coreContextFactory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
 
         if (filterMatcherMap != null) {
-            Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
-            Set<MatcherKey> keys = filterMatchers.keySet();
+            Set<MatcherKey> keys = filterMatcherMap.keySet();
             for (MatcherKey key : keys) {
-                FilterMatcher matcher = filterMatchers.get(key);
+                FilterMatcher matcher = filterMatcherMap.get(key);
                 coreContextFactory.addFilterMatcher(key, matcher);
             }
         }
@@ -315,7 +313,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * @return Get all the FilterMatchers needed for the current table.
      */
-    public FilterMatcherMap getFilterMatcherMap() {
+    public Map<MatcherKey, FilterMatcher> getFilterMatcherMap() {
         return filterMatcherMap;
     }
 
@@ -324,7 +322,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param filterMatcherMap The Map of current FilterMatchers.
      */
-    public void setFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
+    public void setFilterMatcherMap(Map<MatcherKey, FilterMatcher> filterMatcherMap) {
         this.filterMatcherMap = filterMatcherMap;
     }
 
