@@ -42,6 +42,7 @@ import org.jmesa.core.sort.DefaultColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlView;
@@ -51,6 +52,8 @@ import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.web.WebContextSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A tag abstraction similar to the TableFacade. See the TableFacade document for more information.
@@ -59,6 +62,8 @@ import org.jmesa.web.WebContextSupport;
  * @author Jeff Johnston
  */
 public class TableFacadeTag extends SimpleTagSupport {
+    private Logger logger = LoggerFactory.getLogger(TableFacadeTag.class);
+
     // facade attributes
     private String id;
     private Collection<Object> items;
@@ -77,7 +82,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private CoreContext coreContext;
     private Map<MatcherKey, FilterMatcher> filterMatcherMap;
     private HtmlTable table;
-    private View view;
+    private String view;
     private Toolbar toolbar;
     private HtmlComponentFactory componentFactory;
     private Collection<Object> pageItems = new ArrayList<Object>();
@@ -402,17 +407,9 @@ public class TableFacadeTag extends SimpleTagSupport {
     }
 
     /**
-     * Get the View. If the View does not exist then one will be created.
-     * 
      * @return The View to use.
      */
-    public View getView() {
-        if (view != null) {
-            return view;
-        }
-
-        this.view = new HtmlView(getTable(), getToolbar(), getCoreContext());
-
+    public String getView() {
         return view;
     }
 
@@ -421,8 +418,32 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param view The View to use.
      */
-    public void setView(View view) {
+    public void setView(String view) {
         this.view = view;
+    }
+
+    /**
+     * @return Get the View object.
+     */
+    protected View getTableFacadeView() {
+        View view = null;
+
+        if (StringUtils.isEmpty(getView())) {
+            view = new HtmlView(getTable(), getToolbar(), getCoreContext());
+        } else {
+            try {
+                Object obj = Class.forName(getView()).newInstance();
+                view = (View) obj;
+                SupportUtils.setTable(view, getTable());
+                SupportUtils.setToolbar(view, getToolbar());
+                SupportUtils.setCoreContext(view, getCoreContext());
+                SupportUtils.setWebContext(view, getWebContext());
+            } catch (Exception e) {
+                logger.error("Could not create the view [" + getView() + "]", e);
+            }
+        }
+
+        return view;
     }
 
     /**
@@ -476,7 +497,7 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         tagCoreContext.setPageItems(getPageItems()); // morph the items
 
-        View view = getView();
+        View view = getTableFacadeView();
         String html = view.render().toString();
         getJspContext().getOut().print(html);
     }
