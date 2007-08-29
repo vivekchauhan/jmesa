@@ -59,6 +59,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>view</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>var</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>

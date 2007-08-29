@@ -1,3 +1,18 @@
+/*
+ * Copyright 2004 original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jmesa.facade.tag;
 
 import java.io.IOException;
@@ -10,6 +25,7 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.web.WebContext;
@@ -76,6 +92,9 @@ public class HtmlRowTag extends SimpleTagSupport {
         try {
             Object obj = Class.forName(getOnclick()).newInstance();
             if (obj instanceof RowEvent) {
+                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+                SupportUtils.setCoreContext(obj, facadeTag.getCoreContext());
+                SupportUtils.setWebContext(obj, facadeTag.getWebContext());
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
@@ -96,6 +115,9 @@ public class HtmlRowTag extends SimpleTagSupport {
         try {
             Object obj = Class.forName(getOnmouseover()).newInstance();
             if (obj instanceof RowEvent) {
+                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+                SupportUtils.setCoreContext(obj, facadeTag.getCoreContext());
+                SupportUtils.setWebContext(obj, facadeTag.getWebContext());
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
@@ -116,6 +138,9 @@ public class HtmlRowTag extends SimpleTagSupport {
         try {
             Object obj = Class.forName(getOnmouseout()).newInstance();
             if (obj instanceof RowEvent) {
+                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+                SupportUtils.setCoreContext(obj, facadeTag.getCoreContext());
+                SupportUtils.setWebContext(obj, facadeTag.getWebContext());
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
