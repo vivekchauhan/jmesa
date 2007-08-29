@@ -51,7 +51,6 @@ import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
-import org.jmesa.web.WebContextSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -297,11 +296,7 @@ public class TableFacadeTag extends SimpleTagSupport {
             Set<MatcherKey> keys = filterMatcherMap.keySet();
             for (MatcherKey key : keys) {
                 FilterMatcher matcher = filterMatcherMap.get(key);
-
-                if (matcher instanceof WebContextSupport) {
-                    ((WebContextSupport) matcher).setWebContext(getWebContext());
-                }
-
+                SupportUtils.setWebContext(matcher, getWebContext());
                 coreContextFactory.addFilterMatcher(key, matcher);
             }
         }

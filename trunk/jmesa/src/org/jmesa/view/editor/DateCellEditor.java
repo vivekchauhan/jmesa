@@ -32,11 +32,7 @@ import org.slf4j.LoggerFactory;
 public class DateCellEditor extends AbstractPatternSupport {
     private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
 
-    /**
-     * The default pattern is "MM/dd/yyyy".
-     */
     public DateCellEditor() {
-        setPattern("MM/dd/yyyy");
     }
 
     /**

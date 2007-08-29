@@ -33,11 +33,7 @@ import org.slf4j.LoggerFactory;
 public class NumberCellEditor extends AbstractPatternSupport {
     private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
 
-    /**
-     * The default pattern is to not set a pattern.
-     */
     public NumberCellEditor() {
-        setPattern("");
     }
 
     /**

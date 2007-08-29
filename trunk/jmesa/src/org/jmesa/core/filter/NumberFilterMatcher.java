@@ -15,36 +15,36 @@
  */
 package org.jmesa.core.filter;
 
-import java.util.Date;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.jmesa.view.editor.PatternSupport;
 import org.jmesa.web.WebContext;
 import org.jmesa.web.WebContextSupport;
 
 /**
- * The date filter matcher.
+ * The number filter matcher.
  * 
- * @since 2.0
+ * @since 2.2
  * @author Jeff Johnston
  */
-public class DateFilterMatcher implements FilterMatcher, PatternSupport, WebContextSupport {
+public class NumberFilterMatcher implements FilterMatcher, PatternSupport, WebContextSupport {
     private String pattern;
     private WebContext webContext;
 
-    public DateFilterMatcher() {
+    public NumberFilterMatcher() {
     }
 
     /**
      * @param pattern The pattern to use.
      */
-    public DateFilterMatcher(String pattern) {
+    public NumberFilterMatcher(String pattern) {
         this.pattern = pattern;
     }
 
-    public DateFilterMatcher(String pattern, WebContext webContext) {
+    public NumberFilterMatcher(String pattern, WebContext webContext) {
         this.pattern = pattern;
         this.webContext = webContext;
     }
@@ -75,10 +75,17 @@ public class DateFilterMatcher implements FilterMatcher, PatternSupport, WebCont
             locale = webContext.getLocale();
         }
 
+        NumberFormat nf;
         if (locale != null) {
-            itemValue = DateFormatUtils.format((Date) itemValue, pattern, locale);
+            nf = NumberFormat.getInstance(locale);
         } else {
-            itemValue = DateFormatUtils.format((Date) itemValue, pattern);
+            nf = NumberFormat.getInstance();
+        }
+
+        DecimalFormat df = (DecimalFormat) nf;
+        df.applyPattern(pattern);
+        if (itemValue != null) {
+            itemValue = df.format(itemValue);
         }
 
         String item = String.valueOf(itemValue);
