@@ -21,6 +21,7 @@ The new features include the following:
  * Deprecated table.setCaption(key, message) in favor of table.setCaptionKey(key) to make the method to use with the Messages more clear and consistent with the tag library. _(done)_
  * Deprecated column.setTitle(key, message) in favor of column.setTitleKey(key) to make the method to use with the Messages more clear and consistent with the tag library. _(done)_
  * Added hooks for the tag library to register !FilterMatchers. _(done)_
+ * Plugable views for the tag library. _(done)_
 
 ===== Column Onclick Event =====
 The onclick event on the row would be something like this:
