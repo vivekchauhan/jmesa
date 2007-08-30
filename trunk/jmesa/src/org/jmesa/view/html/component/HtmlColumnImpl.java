@@ -18,6 +18,7 @@ package org.jmesa.view.html.component;
 import org.jmesa.limit.Order;
 import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
+import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 
@@ -81,8 +82,8 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         this.width = width;
     }
 
-    public FilterRenderer getFilterRenderer() {
-        return filterRenderer;
+    public HtmlFilterRenderer getFilterRenderer() {
+        return (HtmlFilterRenderer) filterRenderer;
     }
 
     public void setFilterRenderer(FilterRenderer filterRenderer) {
