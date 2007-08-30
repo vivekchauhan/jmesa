@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.renderer.RowRenderer;
 
 /**
@@ -45,4 +46,6 @@ public interface HtmlRowRenderer extends RowRenderer {
     public String getOddClass();
 
     public void setOddClass(String oddClass);
+    
+    public HtmlRow getRow();
 }
