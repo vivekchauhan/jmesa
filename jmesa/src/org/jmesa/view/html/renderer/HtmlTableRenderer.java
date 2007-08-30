@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.renderer.TableRenderer;
 
 /**
@@ -41,8 +42,10 @@ public interface HtmlTableRenderer extends TableRenderer {
     public String getCellspacing();
 
     public void setCellspacing(String cellspacing);
-    
+
     public String getWidth();
 
     public void setWidth(String width);
+
+    public HtmlTable getTable();
 }
