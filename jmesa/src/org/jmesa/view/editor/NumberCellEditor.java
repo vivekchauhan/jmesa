@@ -59,10 +59,7 @@ public class NumberCellEditor extends AbstractPatternSupport {
             NumberFormat nf = NumberFormat.getInstance(locale);
             DecimalFormat df = (DecimalFormat) nf;
             df.applyPattern(getPattern());
-            if (itemValue != null) {
-                itemValue = df.format(itemValue);
-            }
-
+            itemValue = df.format(itemValue);
         } catch (Exception e) {
             logger.warn("Could not process number editor with property " + property);
         }

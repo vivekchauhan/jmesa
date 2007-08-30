@@ -35,6 +35,7 @@ import org.jmesa.core.Items;
 import org.jmesa.core.ItemsImpl;
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
@@ -79,7 +80,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private WebContext webContext;
     private Limit limit;
     private CoreContext coreContext;
-    private Map<MatcherKey, FilterMatcher> filterMatcherMap;
+    private String filterMatcherMap;
     private HtmlTable table;
     private String view;
     private Toolbar toolbar;
@@ -292,10 +293,12 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         TagCoreContextFactory coreContextFactory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
 
+        FilterMatcherMap filterMatcherMap = getTableFacadeFilterMatcherMap();
         if (filterMatcherMap != null) {
-            Set<MatcherKey> keys = filterMatcherMap.keySet();
+            Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
+            Set<MatcherKey> keys = filterMatchers.keySet();
             for (MatcherKey key : keys) {
-                FilterMatcher matcher = filterMatcherMap.get(key);
+                FilterMatcher matcher = filterMatchers.get(key);
                 SupportUtils.setWebContext(matcher, getWebContext());
                 coreContextFactory.addFilterMatcher(key, matcher);
             }
@@ -319,7 +322,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * @return Get all the FilterMatchers needed for the current table.
      */
-    public Map<MatcherKey, FilterMatcher> getFilterMatcherMap() {
+    public String getFilterMatcherMap() {
         return filterMatcherMap;
     }
 
@@ -328,8 +331,28 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param filterMatcherMap The Map of current FilterMatchers.
      */
-    public void setFilterMatcherMap(Map<MatcherKey, FilterMatcher> filterMatcherMap) {
+    public void setFilterMatcherMap(String filterMatcherMap) {
         this.filterMatcherMap = filterMatcherMap;
+    }
+
+    /**
+     * @return Get the FilterMatcherMap object.
+     */
+    protected FilterMatcherMap getTableFacadeFilterMatcherMap() {
+        if (StringUtils.isEmpty(getFilterMatcherMap())) {
+            return null;
+        }
+
+        FilterMatcherMap filterMatcherMap = null;
+
+        try {
+            filterMatcherMap = (FilterMatcherMap) Class.forName(getFilterMatcherMap()).newInstance();
+            SupportUtils.setWebContext(filterMatcherMap, getWebContext());
+        } catch (Exception e) {
+            logger.error("Could not create the filterMatcherMap [" + getFilterMatcherMap() + "]", e);
+        }
+
+        return filterMatcherMap;
     }
 
     /**
@@ -366,9 +389,9 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         int[] toolbarMaxRowIncrements = getToolbarMaxRowIncrements();
         if (toolbarMaxRowIncrements != null && toolbarMaxRowIncrements.length > 0) {
-            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), toolbarMaxRowIncrements, getWebContext(), getCoreContext(), exportTypes);
+            toolbarFactory = new ToolbarFactoryImpl(getTable(), toolbarMaxRowIncrements, getWebContext(), getCoreContext(), exportTypes);
         } else {
-            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), getWebContext(), getCoreContext(), exportTypes);
+            toolbarFactory = new ToolbarFactoryImpl(getTable(), getWebContext(), getCoreContext(), exportTypes);
         }
 
         this.toolbar = toolbarFactory.createToolbar();

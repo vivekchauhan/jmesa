@@ -71,10 +71,10 @@ public class SortSetTest {
         int position = (iterator.next()).getPosition();
         assertEquals(position, 1);
 
-        position = ((Sort) iterator.next()).getPosition();
+        position = (iterator.next()).getPosition();
         assertEquals(position, 2);
 
-        position = ((Sort) iterator.next()).getPosition();
+        position = (iterator.next()).getPosition();
         assertEquals(position, 3);
 
         return sortSet;

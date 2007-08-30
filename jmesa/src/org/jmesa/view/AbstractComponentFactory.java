@@ -22,6 +22,7 @@ import org.jmesa.view.component.TableImpl;
 import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
+import org.jmesa.view.editor.NumberCellEditor;
 
 /**
  * @since 2.0
@@ -51,8 +52,15 @@ public abstract class AbstractComponentFactory extends AbstractContextSupport im
         return editor;
     }
 
-    public CellEditor createDateCellEditor() {
-        DateCellEditor editor = new DateCellEditor();
+    public CellEditor createDateCellEditor(String pattern) {
+        DateCellEditor editor = new DateCellEditor(pattern);
+        editor.setWebContext(getWebContext());
+        editor.setCoreContext(getCoreContext());
+        return editor;
+    }
+
+    public CellEditor createNumberCellEditor(String pattern) {
+        NumberCellEditor editor = new NumberCellEditor(pattern);
         editor.setWebContext(getWebContext());
         editor.setCoreContext(getCoreContext());
         return editor;

@@ -84,9 +84,7 @@ public class NumberFilterMatcher implements FilterMatcher, PatternSupport, WebCo
 
         DecimalFormat df = (DecimalFormat) nf;
         df.applyPattern(pattern);
-        if (itemValue != null) {
-            itemValue = df.format(itemValue);
-        }
+        itemValue = df.format(itemValue);
 
         String item = String.valueOf(itemValue);
         String filter = String.valueOf(filterValue);

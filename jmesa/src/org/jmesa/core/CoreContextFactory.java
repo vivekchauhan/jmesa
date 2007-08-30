@@ -17,12 +17,71 @@ package org.jmesa.core;
 
 import java.util.Collection;
 
+import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherRegistry;
+import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.core.filter.RowFilter;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
 
 /**
+ * Used to create a CoreContext object.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface CoreContextFactory {
+    /**
+     * Set the FilterMatcherRegistry. Will overrirde the default.
+     * 
+     * @param registry The FilterMatcherRegistry instance.
+     */
+    public void setFilterMatcherRegistry(FilterMatcherRegistry registry);
+
+    /**
+     * Add a FilterMatcher to the FilterMatcherRegistry..
+     * 
+     * @param key The MatcherKey instance.
+     * @param key The FilterMatcher instance.
+     */
+    public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
+
+    /**
+     * Set the RowFilter. Will override the default implementation.
+     * 
+     * @param rowFilter The RowFilter instance.
+     */
+    public void setRowFilter(RowFilter rowFilter);
+
+    /**
+     * Set the ColumnSort. Will override the default implementation.
+     * 
+     * @param columnSort The ColumnSort instance.
+     */
+    public void setColumnSort(ColumnSort columnSort);
+
+    /**
+     * Set the Preferences. Will override the default implementation.
+     * 
+     * @param preferences The Preferences instance.
+     */
+    public void setPreferences(Preferences preferences);
+
+    /**
+     * Set the Messages. Will override the default implementation.
+     * 
+     * @param messages The Messages instance.
+     */
+    public void setMessages(Messages messages);
+
+    /**
+     * Take all the attributes of the factory and create a CoreContext object.
+     * 
+     * @param items The Collection of Beans or Maps.
+     * @param limit The Limit instance.
+     * @return The newly created CoreContext object.
+     */
     public CoreContext createCoreContext(Collection<Object> items, Limit limit);
 }
