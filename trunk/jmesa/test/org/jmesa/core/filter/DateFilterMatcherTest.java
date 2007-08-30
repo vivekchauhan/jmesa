@@ -34,7 +34,7 @@ public class DateFilterMatcherTest extends AbstractTestCase {
     @Test
     public void evaluateTest() {
         WebContext webContext = createWebContext();
-        DateFilterMatcher matcher = new DateFilterMatcher();
+        DateFilterMatcher matcher = new DateFilterMatcher("MM/dd/yyyy");
         matcher.setWebContext(webContext);
         
         boolean evaluate = matcher.evaluate(null, "07/");
