@@ -16,9 +16,7 @@
 package org.jmesa.core;
 
 import java.util.Collection;
-import java.util.Date;
 
-import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherRegistry;
@@ -82,10 +80,6 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
             registry = new FilterMatcherRegistryImpl();
             StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();
             registry.addFilterMatcher(new MatcherKey(Object.class), stringFilterMatcher);
-
-            DateFilterMatcher dateFilterMatcher = new DateFilterMatcher();
-            dateFilterMatcher.setWebContext(webContext);
-            registry.addFilterMatcher(new MatcherKey(Date.class), dateFilterMatcher);
         }
 
         return registry;
