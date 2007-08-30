@@ -23,6 +23,8 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.jmesa.view.editor.PatternSupport;
 import org.jmesa.web.WebContext;
 import org.jmesa.web.WebContextSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The date filter matcher.
@@ -31,6 +33,8 @@ import org.jmesa.web.WebContextSupport;
  * @author Jeff Johnston
  */
 public class DateFilterMatcher implements FilterMatcher, PatternSupport, WebContextSupport {
+    private Logger logger = LoggerFactory.getLogger(DateFilterMatcher.class);
+
     private String pattern;
     private WebContext webContext;
 
@@ -67,6 +71,12 @@ public class DateFilterMatcher implements FilterMatcher, PatternSupport, WebCont
 
     public boolean evaluate(Object itemValue, String filterValue) {
         if (itemValue == null) {
+            return false;
+        }
+
+        if (pattern == null) {
+            logger.debug("The filter (value " + filterValue + ") is trying to match against a date column using the DateFilterMatcher, "
+                    + "but there is no pattern defined. You need to register a DateFilterMatcher to be able to filter against this column.");
             return false;
         }
 
