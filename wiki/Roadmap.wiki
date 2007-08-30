@@ -67,6 +67,8 @@ public class TagRowEvent implements RowEvent {
 }
 }}}
 
+_This works the same for the row onmouseover and onmouseout events._
+
 ===== Column sortOrder =====
 Set the sort order for the column. This restricts the sorting to only the types listed here. Typically you would use this to exclude the 'none' Order so that the user can only sort ascending and decending once invoked.
 
