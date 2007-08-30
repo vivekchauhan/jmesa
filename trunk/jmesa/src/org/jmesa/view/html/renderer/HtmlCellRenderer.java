@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.CellRenderer;
 
 /**
@@ -29,4 +30,6 @@ public interface HtmlCellRenderer extends CellRenderer {
     public String getStyleClass();
 
     public void setStyleClass(String styleClass);
+    
+    public HtmlColumn getColumn();
 }
