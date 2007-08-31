@@ -11,7 +11,7 @@ The 2.0 release is out!
 An Excel View, using Apache POI, is implemented and will be available in the next release. That was contributed by jeff jie! Another contribution by jeff jie was the start of a [Tags tag library]. What I would like to do is clean up a few things with the current implementation and then release that code as soon as possible. The tag library will have the basic functionality required by most developers. Future releases will make use of more advanced API features. And, lastly there is a new [TableFacade] interface that makes working with the API much easier.
 
 ==== version 2.2, (September 2007) ====
-*All the features for the September release are done and a release candidate will be out shortly...*
+*All the features for the September release are done and a release candidate is now out...*
 
 See the 2.2 [2_2NewAndNoteworthy New And Noteworthy] list for more deails.
 
@@ -20,7 +20,6 @@ See the 2.2 [2_2NewAndNoteworthy New And Noteworthy] list for more deails.
 I am also trying to find out what developers are interested in for future releases. If you have any suggestions be sure to reply to the post on [http://groups.google.com/group/jmesa/browse_thread/thread/45ca5716dcd9bb7f Google Groups].
 
 In the next few months JMesa is going to have an editable worksheet mode. The worksheet mode will work something like the Google spreadsheet in that when you click on a column a div will pop up and you enter your data there. Then I will look for an onchange event. The server will then make a map for each row that changed. Something like that. I still need to map out the details and make concrete decisions. Like everything else I want to take quite a bit of time to design the whole thing up front.
-
 
 
 
