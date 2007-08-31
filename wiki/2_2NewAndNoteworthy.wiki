@@ -42,6 +42,7 @@ The legal Column sortOrder values are 'asc', 'desc', and 'none'.
  * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter.
  * Added hooks for the tag library to register !FilterMatchers via the !FilterMatcherMap interface.
  * Added plugable views for the tag library.
+ * Added a series of support interfaces for the tag library that will automatically inject certain objects into your custom classes. The interfaces just define getter and setter methods, but using these interfaces makes things very clear and safe. The idea is if you implement a certain interface the API will check for the inclusion of that interface and inject the class for you. This is really nice for the tag library because you would not have any other way to get at the objects you need. The support classes include !WebContextSupport, !CoreContextSupport, !ToolbarSupport, !TableSupport, !ColumnSupport and !PatternSupport. The javadocs will be updated to clearly show what parts of the API have hooks for these support classes.
 
 ===== Column Onclick Event =====
 The onclick event on the row:
@@ -181,6 +182,7 @@ Just make sure you define the filterMatcherMap on the !TableFacadeTag:
 }}}
 
 _For more information about the filter matchers see the [FilterMatcher] page._
+
 
 
 
