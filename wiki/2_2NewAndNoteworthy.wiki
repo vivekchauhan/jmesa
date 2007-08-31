@@ -1,0 +1,181 @@
+This page contains the new and noteworthy features for the JMesa 2.2 release. It also contains the changes that took place from the 2.1 to the 2.2 release. There are only a few changes that may effect some users, but for the most part the changes are transparent. Be sure to read about the deprecated and modified features to see if or what you may need to do.
+
+_This page is a work in progress. I will keep working on it while we go through the release candidates._
+
+=== Deprecated Features ===
+ * Deprecated table.setCaption(key, message) in favor of table.setCaptionKey(key) to make the method to use with the Messages more clear and consistent with the tag library. The deprecated method will be removed in the next release.
+ * Deprecated column.setTitle(key, message) in favor of column.setTitleKey(key) to make the method to use with the Messages more clear and consistent with the tag library. The deprecated method will be removed in the next release.
+ * Deprecated the !HtmlHeaderRendererImpl.setDefaultSortOrderable() and !HtmlHeaderRendererImpl.isDefaultSortOrderable(). This has been replaced by the column sortOrder feature, which is much more flexible. The deprecated methods will be removed in the next release.
+
+===== Column sortOrder =====
+Set the sort order for the column. This restricts the sorting to only the types listed here. Typically you would use this to exclude the 'none' Order so that the user can only sort ascending and decending once invoked.
+
+Note though that initially this does not change the look of the column, or effect the sorting, when the table is first displayed. For instance, if you only want to sort asc and then desc then when the table is initially displayed you need to make sure you set the Limit to be ordered. The reason is, by design, the limit does not look at the view for any information. The syntax to set the limit would be: limit.getSortSet().addSort();. If you do not do this then the effect will be that the once the column is sorted then it will just flip between asc and desc, which is still a really nice effect and is what I would mostly do.
+
+In the API do this:
+
+{{{
+HtmlColumn htmlColumn = (HtmlColumn)firstName;
+htmlColumn.setSortOrder(Order.ASC, Order.DESC);
+}}}
+
+The tag would look like this:
+{{{
+<jmesa:htmlColumn property="name.firstName" titleKey="presidents.firstName" sortOrder="asc,desc">
+}}}
+
+The legal Column sortOrder values are 'asc', 'desc', and 'none'.
+
+=== Modified Features ===
+ * Changed !ContextSupport to be an interface. I also further broke down the interface to extend from the !WebContextSupport and !CoreContextSupport interfaces which actually describe the methods. The reason I did this is so that classes that wanted the !ContextSupport feature would not have to extend a class. In hindsight this should have been done sooner.
+ * The only !FilterMatcher registered by default now is the !StringFilterMatcher for all Object types (which means everything). The !DateFilterMatcher was removed as a default because it didn't make any sense to register a matcher with a hard coded date pattern. So, now if you want to filter a date column you need to register a !DateFilterMatcher for either all dates, or that date property. See the [FilterMatcher] for more details.
+ * In addition I removed the default date pattern for the !DateFilterMatcher and !DateCellEditor. There was no reason to default the date pattern to what I used.
+
+=== New Features ===
+ * Added an onclick, onmouseover, and onmouseout event handling for the row.
+ * Added the ability to get at the original bean from an editor when using the tags.
+ * Added a new !NumberCellEditor (contributed by jackcoll...@wallquest.com)
+ * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter.
+ * Added hooks for the tag library to register !FilterMatchers via the !FilterMatcherMap interface.
+ * Added plugable views for the tag library.
+
+===== Column Onclick Event =====
+The onclick event on the row would be something like this:
+
+{{{
+public String onclick(RowEvent event);
+}}}
+
+The !RowEvent would be a callback interface:
+
+{{{
+public interface RowEvent {
+   public String execute(Object item, int rowcount);
+
+}
+}}}
+
+This would allow custom onclick callback events for each row.
+
+{{{
+HtmlRow row = table.getRow();
+row.setOnclick(new RowEvent() {
+      public String execute(Object Item, int rowcount) {
+           // do something custom for each click on the row
+          //  which contains data from the item.
+      }
+
+};)
+}}} 
+
+The tag would look like this:
+{{{
+<jmesa:htmlRow onclick="org.jmesaweb.controller.TagRowEvent">
+}}}
+
+{{{
+public class TagRowEvent implements RowEvent {
+    public String execute(Object item, int rowcount) {
+        Object bean = ItemUtils.getItemValue(item, "bean");
+        Object id = ItemUtils.getItemValue(bean, "id");
+        return "document.location='http://www.whitehouse.gov/history/presidents?id=" + id + "'";
+    }
+}
+}}}
+
+===== Tags bean value =====
+Currently when using the tag library under the hood the item is swapped out for a Map for each row. Because JMesa works with beans and maps completely transparently this works really well and is completely transparent. However, the map will only contain the values for the columns defined, and not the other values from the original bean. Now the original bean can be recovered from the map in the editor. The bean can be recovered from the map by the !TableFacadeTag var attribute.
+
+For example if the tableFacade looks like this:
+{{{
+<jmesa:tableFacade
+   id="tag" 
+   ...
+   var="bean"
+>
+}}}
+
+Notice how the original item can be recovered by the var attribute! It is recommended that you use the !ItemUtils because that abstracts out whether or not the item is a bean or a map, which is perfect for this.
+
+{{{
+public class TagRowEvent implements RowEvent {
+    public String execute(Object item, int rowcount) {
+        Object bean = ItemUtils.getItemValue(item, "bean");
+        Object id = ItemUtils.getItemValue(bean, "id");
+        return "document.location='http://www.whitehouse.gov/history/presidents?id=" + id + "'";
+    }
+}
+}}}
+
+===== !HeaderEditor =====
+The header now has an editor to break out the logic of what the header looks like and what  kind of element it is.
+
+For instance if you wanted to have a header that displayed a checkbox you would do this:
+{{{
+HtmlColumn htmlColumn = (HtmlColumn)lastName;
+htmlColumn.getHeaderRenderer().setHeaderEditor(new HeaderEditor() {
+    public Object getValue() {
+        return "<input type=\"checkbox\">";
+    }
+});
+}}}
+
+The tag would look like this:
+{{{
+headerEditor="org.jmesaweb.controller.TagHeaderEditor" 
+}}}
+
+===== !FilterEditor =====
+The filter now has an editor to break out the logic of what the filter looks like and what  kind of element it is.
+
+If you wanted to have a filter that displayed a select element you would do this:
+{{{
+HtmlColumn careerColumn = (HtmlColumn)row.getColumn("career");;
+careerColumn.getFilterRenderer().setFilterEditor(new FilterEditor() {
+    public Object getValue() {
+        return "<select><option value=\"career\">Career</option><option value=\"lawyer\">Lawyer</option></select>";
+    }
+});
+}}}
+
+The tag would look like this:
+{{{
+filterEditor="org.jmesaweb.controller.TagFilterEditor"
+}}}
+
+
+Note though that for this filter example you would still need to add the Javascript to interact with the Javascript Limit. If this is something you are interested in you can look at the !HtmlFilterEditor to see the default example.
+
+===== filterMatcherMap (for tag library) =====
+If you have a column that uses a special editor such as the !DateCellEditor and you want to have the JMesa API filter the results you will need to register custom !FilterMatchers. With the tag library you would do this through the filterMatcherMap attribute. 
+
+For instance if you have a column that looks like this:
+{{{
+<jmesa:htmlColumn property="born" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+}}}
+
+You now need to set up a custom !FilterMatcherMap.
+
+{{{
+public class TagFilterMatcherMap implements FilterMatcherMap {
+    public Map<MatcherKey, FilterMatcher> getFilterMatchers() {
+        Map<MatcherKey, FilterMatcher> filterMatcherMap = new HashMap<MatcherKey, FilterMatcher>();
+        filterMatcherMap.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+        filterMatcherMap.put(new MatcherKey(Number.class, "id"), new NumberFilterMatcher("$##0.00"));
+        return filterMatcherMap;
+    }
+}
+}}}
+
+Just make sure you define the filterMatcherMap on the !TableFacadeTag:
+{{{
+<jmesa:tableFacade
+        id="tag" 
+        filterMatcherMap="org.jmesaweb.controller.TagFilterMatcherMap"
+}}}
+
+_For more information about the filter matchers see the [FilterMatcher] page._
+
+
+
+
