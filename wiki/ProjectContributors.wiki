@@ -1,4 +1,3 @@
-#labels Featured
 The following is a list of the people who have helped make JMesa a better component by contributing their time and code to the library. Some developers I only know by their username. If your name is on this list and would like me to put your full name down let me know. Also, if I forgot to mention your name for something you did please let me know so that I can get you on the list!
 
 === Version 2.0 ===
