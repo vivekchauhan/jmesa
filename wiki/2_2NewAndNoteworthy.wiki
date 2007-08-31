@@ -44,13 +44,13 @@ The legal Column sortOrder values are 'asc', 'desc', and 'none'.
  * Added plugable views for the tag library.
 
 ===== Column Onclick Event =====
-The onclick event on the row would be something like this:
+The onclick event on the row:
 
 {{{
 public String onclick(RowEvent event);
 }}}
 
-The !RowEvent would be a callback interface:
+The !RowEvent is a callback interface:
 
 {{{
 public interface RowEvent {
@@ -59,7 +59,7 @@ public interface RowEvent {
 }
 }}}
 
-This would allow custom onclick callback events for each row.
+This allows custom onclick callback events for each row:
 
 {{{
 HtmlRow row = table.getRow();
@@ -72,7 +72,7 @@ row.setOnclick(new RowEvent() {
 };)
 }}} 
 
-The tag would look like this:
+The tag looks like this:
 {{{
 <jmesa:htmlRow onclick="org.jmesaweb.controller.TagRowEvent">
 }}}
@@ -86,6 +86,8 @@ public class TagRowEvent implements RowEvent {
     }
 }
 }}}
+
+_The onmouseover and onmouseout work the same way._
 
 ===== Tags bean value =====
 Currently when using the tag library under the hood the item is swapped out for a Map for each row. Because JMesa works with beans and maps completely transparently this works really well and is completely transparent. However, the map will only contain the values for the columns defined, and not the other values from the original bean. Now the original bean can be recovered from the map in the editor. The bean can be recovered from the map by the !TableFacadeTag var attribute.
