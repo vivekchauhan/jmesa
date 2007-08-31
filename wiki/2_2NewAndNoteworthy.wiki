@@ -35,6 +35,7 @@ The legal Column sortOrder values are 'asc', 'desc', and 'none'.
  * Added an onclick, onmouseover, and onmouseout event handling for the row.
  * Added the ability to get at the original bean from an editor when using the tags.
  * Added a new !NumberCellEditor (contributed by jackcoll...@wallquest.com)
+ * Added a new !NumberFilterMatcher class to allow for filtering columns that are using the !NumberCellEditor.
  * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter.
  * Added hooks for the tag library to register !FilterMatchers via the !FilterMatcherMap interface.
  * Added plugable views for the tag library.
