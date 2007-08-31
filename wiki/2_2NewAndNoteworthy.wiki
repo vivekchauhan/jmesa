@@ -31,7 +31,7 @@ The legal Column sortOrder values are 'asc', 'desc', and 'none'.
 
 === Modified Features ===
  * Changed !ContextSupport to be an interface. I also further broke down the interface to extend from the !WebContextSupport and !CoreContextSupport interfaces which actually describe the methods. The reason I did this is so that classes that wanted the !ContextSupport feature would not have to extend a class. In hindsight this should have been done sooner. If you still want to extend a concrete class then extend !AbstractContextSupport.
- * The only !FilterMatcher registered by default now is the !StringFilterMatcher for all Object types (which means everything). The !DateFilterMatcher was removed as a default because it didn't make any sense to register a matcher with a hard coded date pattern. So, now if you want to filter a date column you need to register a !DateFilterMatcher for either all dates, or that date property. See the [FilterMatcher] for more details.
+ * The only !FilterMatcher registered by default now is the !StringFilterMatcher for all Object types (which means everything). The !DateFilterMatcher was removed as a default because it didn't make any sense to register a matcher with a hard coded date pattern. I am sure it was probably also confusing on why you would specify a new pattern and the filter did not work as expected. It was not clear that you also need to register a new !FilterMatcher so I thought it was better to just include the generic default. So, now if you want to filter a date column, and have it filter with a given pattern, you need to register a !DateFilterMatcher for either all dates, or that specific date property. See the [FilterMatcher] for more details.
  * In addition I removed the default date pattern for the !DateFilterMatcher and !DateCellEditor. There was no reason to default the date pattern to what I used.
 
 === New Features ===
@@ -181,6 +181,7 @@ Just make sure you define the filterMatcherMap on the !TableFacadeTag:
 }}}
 
 _For more information about the filter matchers see the [FilterMatcher] page._
+
 
 
 
