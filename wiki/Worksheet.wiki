@@ -1,0 +1,55 @@
+With the features added to the (upcoming) JMesa 2.2 release we now have everything needed to add support for an editable worksheet. The worksheet will be the main focus of the 2.3 release and should be available by mid October 2007. 
+
+A JMesa worksheet is just how it sounds...you will be able to edit values in the table body and have those changes be reflected as you sort, filter and page. The really slick thing about this feature is how natural JMesa can handle it. I already started drawing up the class diagrams and am compiling a feature list. The following is a rough draft of what is needed to implement this feature.
+
+=== Worksheet ===
+
+The main class is the Worksheet. It will contain !WorksheetRows which contain !WorksheetColumns. A !WorksheetColumn represents the edited !HtmlColumn. The Worksheet will be persisted in the user session so that it will be persisted as a user sorts, filters, and pages. As a developer you will use the Worksheet to know what was modified, added, and deleted. You will also have a way to add an error to individual columns.
+
+To get this functionality you will have to tell the  [TableFacade] that it is editable.
+{{{
+tableFacade.setEditable(true);
+}}}
+
+You will also have to add an id to the !HtmlRow.
+{{{
+htmlRow.setId("id");
+}}}
+
+The id is the item property that is used to uniquely identify the row.
+
+=== !WorksheetCellEditor ===
+Is used to wrap (or decorate) the current !CellEditor to pull changed values from the Worksheet.
+
+=== !DeleteWorksheetRowCellEditor ===
+A !CellEditor that will flag this row as being deleted. The GUI effect is to put a strikeout character through all the columns in the row. The !WorksheetRow will be updated with a status of !WorksheetRowStatus.DELETED.
+
+=== !UndoWorksheetRowCellEditor ===
+A !CellEditor that will flag this row to undo the changes.
+
+=== !WorksheetColumnEvent ===
+As of JMesa 2.2 there is !RowEvent support. The same functionality will be added for the columns. The !WorksheetColumnEvent would trigger a div pop-up through an onclick event. The div pop-up will contain an input field to edit the column value. The div pop-up will operate very much like the filter div, but styled different.
+
+Once the value is changed it will trigger an onchange event. The onchange event will add the changes to the !JavaScript Worksheet object. The !JavaScript Worksheet object functions very much like the !JavaScript Limit object in that the values will be written out to hidden input fields or as a parameter string. This ultimately gets written as part of the Java Worksheet object.
+
+A column parameter looks like this:
+{{{
+id_row_"rowid"_"property"= value
+}}}
+
+An example is:
+{{{
+pres_row_id-5_born=1758
+}}}
+
+The way this reads is the pres table with a row containing a primary property of id and value of 5. The column being edited is the born column. The value is changed to 1758.
+
+====The Worksheet class diagram.====
+
+http://extremecomponents.googlepages.com/worksheet.png
+
+
+
+
+
+
