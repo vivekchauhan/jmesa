@@ -4,7 +4,7 @@ A JMesa worksheet is just how it sounds...you will be able to edit values in the
 
 === Worksheet ===
 
-The main class is the Worksheet. It will contain !WorksheetRows which contain !WorksheetColumns. A !WorksheetColumn represents the edited !HtmlColumn. The Worksheet will be persisted in the user session so that it will be persisted as a user sorts, filters, and pages. As a developer you will use the Worksheet to know what was modified, added, and deleted. You will also have a way to add an error to individual columns.
+The main class is the Worksheet. It will contain !WorksheetRows which contain !WorksheetColumns. A !WorksheetColumn represents the edited !HtmlColumn. As a developer you will use the Worksheet to know what was modified, added, and deleted. You will also have a way to add an error to individual columns.
 
 To get this functionality you will have to tell the  [TableFacade] that it is editable.
 {{{
@@ -47,7 +47,6 @@ The way this reads is the pres table with a row containing a primary property of
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
-
 
 
 
