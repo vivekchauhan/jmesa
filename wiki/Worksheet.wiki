@@ -1,6 +1,8 @@
 With the features added to the (upcoming) JMesa 2.2 release we now have everything needed to add support for an editable worksheet. The worksheet will be the main focus of the 2.3 release and should be available by mid October 2007. 
 
-A JMesa worksheet is just how it sounds...you will be able to edit values in the table body and have those changes be reflected as you sort, filter and page. The really slick thing about this feature is how natural JMesa can handle it. I already started drawing up the class diagrams and am compiling a feature list. The following is a rough draft of what is needed to implement this feature.
+A JMesa worksheet is just how it sounds...you will be able to edit values in the table body and have those changes be reflected as you sort, filter and page. You will also be able to add and remove rows of the table. The really slick thing about this feature is how natural JMesa can handle it. I already started drawing up the class diagrams and am compiling a feature list. The following is a rough draft of what is needed to implement this feature.
+
+Note: I will be using the JQuery !JavaScript library for all the Worksheet functionality. I think the JQuery library offers a lot of advanced functionality that will work perfectly with this feature. In I am going to modify the current jmesa.js file to also use the JQuery library. I think JQuery is an amazing project and there is no reason to create custom !JavaScript for things that a different library does better.
 
 === Worksheet ===
 
@@ -47,6 +49,13 @@ The way this reads is the pres table with a row containing a primary property of
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
+
+
+
+
+
+
+
 
 
 
