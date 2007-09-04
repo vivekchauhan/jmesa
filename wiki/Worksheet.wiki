@@ -6,7 +6,7 @@ Note: I will be using the JQuery !JavaScript library for all the Worksheet funct
 
 === Worksheet Class ===
 
-The main class is the Worksheet. It will contain !WorksheetRows which contain !WorksheetColumns. A !WorksheetColumn represents the edited !HtmlColumn. As a developer you will use the Worksheet to know what was modified, added, and deleted. You will also have a way to add an error to individual columns.
+The main class is the Worksheet and represents what the user changed on the table. It will contain !WorksheetRows which contain !WorksheetColumns. A !WorksheetColumn represents the edited !HtmlColumn. As a developer you will use the Worksheet to know what was modified, added, and deleted. You will also have a way to add an error to individual columns.
 
 To get this functionality you will have to tell the  [TableFacade] that it is editable.
 {{{
@@ -21,7 +21,7 @@ htmlRow.setId("id");
 The id is the item property that is used to uniquely identify the row.
 
 === !WorksheetCellEditor Class ===
-Is used to wrap (or decorate) the current !CellEditor to pull changed values from the Worksheet.
+Is used to wrap (or decorate) the current !CellEditor to pull changed values from the Worksheet. The idea is that if a changed value is in the Worksheet then that will be displayed instead of the backing item value.
 
 === !DeleteWorksheetRowCellEditor Class ===
 A !CellEditor that will flag this row as being deleted. The GUI effect is to put a strikeout character through all the columns in the row. The !WorksheetRow will be updated with a status of !WorksheetRowStatus.DELETED.
@@ -49,7 +49,6 @@ The way this reads is the pres table with a row containing a primary property of
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
-
 
 
 
