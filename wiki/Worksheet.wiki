@@ -29,7 +29,7 @@ A !CellEditor that will flag this row as being deleted. The GUI effect is to put
 === !WorksheetColumnEvent Class ===
 As of JMesa 2.2 there is !RowEvent support. The same functionality will be added for the columns in the form of a !ColumnEvent interface. The !WorksheetColumnEvent would trigger a div pop-up through an onclick event on the column cell. The div pop-up will contain an input field to edit the column value. The div pop-up will operate very much like the filter div, but styled different.
 
-Once the value is changed it will trigger an onchange event. The onchange event will add the changes to the Worksheet object, however, whether that hits the server directly or stays client side is another decision to make.
+Once the value is changed it will trigger an onchange event. The onchange event will add the changes to the Worksheet object via the WorksheetServlet.
 
 A column parameter looks like this:
 {{{
@@ -46,6 +46,5 @@ The way this reads is the pres table with a row containing a primary property of
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
-
 
 
