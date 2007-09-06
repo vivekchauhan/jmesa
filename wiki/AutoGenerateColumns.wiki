@@ -1,0 +1,161 @@
+I was recently asked if there was a way to add columns dynamically with the tag library (similar to the eXtremeTable). Just to see what this would look like I quickly came up with an implementation. I would want to think more about this more before putting this into the library but if someone would like to play with the code here it is.
+
+=== jmesa.tld ===
+{{{
+<tag>
+    <name>htmlColumns</name>
+    <tagclass>org.jmesaweb.tag.HtmlColumnsTag</tagclass>
+    <bodycontent>scriptless</bodycontent>
+    <attribute>
+        <name>autoGenerateColumns</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+}}}
+
+=== !AutoGenerateColumns ===
+This is what the interface would look like.
+
+{{{
+package org.jmesaweb.tag;
+
+import org.jmesa.view.html.HtmlComponentFactory;
+import org.jmesa.view.html.component.HtmlRow;
+
+public interface AutoGenerateColumns {
+    public void addColumns(HtmlRow row, HtmlComponentFactory componentFactory);
+}
+}}}
+
+=== !HtmlColumnsTag ===
+This is what the tag would look like.
+
+{{{
+package org.jmesaweb.tag;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
+
+import org.jmesa.facade.tag.HtmlColumnTag;
+import org.jmesa.facade.tag.HtmlRowTag;
+import org.jmesa.facade.tag.TableFacadeTag;
+import org.jmesa.util.ItemUtils;
+import org.jmesa.util.SupportUtils;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class HtmlColumnsTag extends SimpleTagSupport {
+
+    private Logger logger = LoggerFactory.getLogger(HtmlColumnTag.class);
+
+    private String autoGenerateColumns;
+
+    public String getAutoGenerateColumns() {
+        return autoGenerateColumns;
+    }
+
+    public void setAutoGenerateColumns(String autoGenerateColumns) {
+        this.autoGenerateColumns = autoGenerateColumns;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object getValue(String property) {
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        String var = facadeTag.getVar();
+        Object item = getJspContext().getAttribute(var);
+
+        if (item == null) {
+            return null;
+        }
+
+        return ItemUtils.getItemValue(item, property);
+    }
+
+    public void addColumns() {
+        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
+        List<Column> columns = rowTag.getRow().getColumns();
+        if (columns != null && columns.size() > 0) {
+            return;
+        }
+
+        try {
+            TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+
+            AutoGenerateColumns autoGenerateColumns = (AutoGenerateColumns) Class.forName(getAutoGenerateColumns()).newInstance();
+            autoGenerateColumns.addColumns(rowTag.getRow(), facadeTag.getComponentFactory());
+
+            SupportUtils.setCoreContext(autoGenerateColumns, facadeTag.getCoreContext());
+            SupportUtils.setWebContext(autoGenerateColumns, facadeTag.getWebContext());
+        } catch (Exception e) {
+            logger.error("Could not create the autoGenerateColumns [" + getAutoGenerateColumns() + "]", e);
+        }
+    }
+
+    @Override
+    public void doTag() throws JspException, IOException {
+        addColumns();
+
+        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
+        HtmlRow row = rowTag.getRow();
+        List<Column> columns = row.getColumns();
+        Map<String, Object> pageItem = rowTag.getPageItem();
+        for (Column column : columns) {
+            String property = ((HtmlColumn) column).getProperty();
+            pageItem.put(property, getValue(property));
+        }
+    }
+}
+}}}
+
+=== !AutoGenerateColumns Example ===
+In the jsp page you would just declare the path to the !AutoGenerateColumns implemenation.
+
+{{{
+<jmesa:htmlColumns autoGenerateColumns="org.jmesaweb.tag.TagAutoGenerateColumns"/>
+}}}
+
+Then this demonstrates an implementation of the interface.
+
+{{{
+package org.jmesaweb.tag;
+
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.html.HtmlComponentFactory;
+import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
+
+public class TagAutoGenerateColumns implements AutoGenerateColumns {
+    public void addColumns(HtmlRow row, HtmlComponentFactory componentFactory) {
+
+        CellEditor cellEditor = componentFactory.createBasicCellEditor();
+
+        HtmlColumn firstName = componentFactory.createColumn(cellEditor);
+        firstName.setProperty("name.firstName");
+        firstName.setTitle("First Name");
+        row.addColumn(firstName);
+
+        HtmlColumn lastName = componentFactory.createColumn(cellEditor);
+        lastName.setProperty("name.lastName");
+        lastName.setTitle("Last Name");
+        row.addColumn(lastName);
+
+        HtmlColumn born = componentFactory.createColumn(cellEditor);
+        born.setProperty("born");
+        row.addColumn(born);
+    }
+}
+}}}
+
+
+
+
+
+
