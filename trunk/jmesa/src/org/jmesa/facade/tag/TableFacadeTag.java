@@ -229,7 +229,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The WebContext to use.
      */
-    protected WebContext getWebContext() {
+    public WebContext getWebContext() {
         if (webContext != null) {
             return webContext;
         }
@@ -286,7 +286,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The CoreContext to use.
      */
-    protected CoreContext getCoreContext() {
+    public CoreContext getCoreContext() {
         if (coreContext != null) {
             return coreContext;
         }
@@ -467,7 +467,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * @return The HtmlComponentFactory to use.
      */
-    protected HtmlComponentFactory getComponentFactory() {
+    public HtmlComponentFactory getComponentFactory() {
         if (componentFactory != null) {
             return componentFactory;
         }
