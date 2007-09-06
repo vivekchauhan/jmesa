@@ -199,7 +199,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
         html.tr(1).styleClass(toolbarClass).close();
-        html.td(2).align("left").colspan(String.valueOf(columns.size())).close();
+        html.td(2).colspan(String.valueOf(columns.size())).close();
 
         html.append(toolbar.render());
 
