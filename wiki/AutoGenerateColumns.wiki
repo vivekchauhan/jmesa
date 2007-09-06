@@ -20,11 +20,13 @@ This is what the interface would look like.
 {{{
 package org.jmesaweb.tag;
 
+import java.util.List;
+
 import org.jmesa.view.html.HtmlComponentFactory;
-import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.html.component.HtmlColumn;
 
 public interface AutoGenerateColumns {
-    public void addColumns(HtmlRow row, HtmlComponentFactory componentFactory);
+    public List<HtmlColumn> getColumns(HtmlComponentFactory componentFactory);
 }
 }}}
 
@@ -57,6 +59,8 @@ public class HtmlColumnsTag extends SimpleTagSupport {
     private Logger logger = LoggerFactory.getLogger(HtmlColumnTag.class);
 
     private String autoGenerateColumns;
+    
+    private List<HtmlColumn> columns;
 
     public String getAutoGenerateColumns() {
         return autoGenerateColumns;
@@ -80,8 +84,6 @@ public class HtmlColumnsTag extends SimpleTagSupport {
     }
 
     public void addColumns() {
-        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
-        List<Column> columns = rowTag.getRow().getColumns();
         if (columns != null && columns.size() > 0) {
             return;
         }
@@ -90,7 +92,13 @@ public class HtmlColumnsTag extends SimpleTagSupport {
             TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
             AutoGenerateColumns autoGenerateColumns = (AutoGenerateColumns) Class.forName(getAutoGenerateColumns()).newInstance();
-            autoGenerateColumns.addColumns(rowTag.getRow(), facadeTag.getComponentFactory());
+            this.columns = autoGenerateColumns.getColumns(facadeTag.getComponentFactory());
+            
+            HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
+            HtmlRow row = rowTag.getRow();
+            for (HtmlColumn column : columns) {
+                row.addColumn(column);
+            }
 
             SupportUtils.setCoreContext(autoGenerateColumns, facadeTag.getCoreContext());
             SupportUtils.setWebContext(autoGenerateColumns, facadeTag.getWebContext());
@@ -104,8 +112,6 @@ public class HtmlColumnsTag extends SimpleTagSupport {
         addColumns();
 
         HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
-        HtmlRow row = rowTag.getRow();
-        List<Column> columns = row.getColumns();
         Map<String, Object> pageItem = rowTag.getPageItem();
         for (Column column : columns) {
             String property = ((HtmlColumn) column).getProperty();
@@ -127,29 +133,34 @@ Then this demonstrates an implementation of the interface.
 {{{
 package org.jmesaweb.tag;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.component.HtmlRow;
 
 public class TagAutoGenerateColumns implements AutoGenerateColumns {
-    public void addColumns(HtmlRow row, HtmlComponentFactory componentFactory) {
-
+    public List<HtmlColumn> getColumns(HtmlComponentFactory componentFactory) {
+        List<HtmlColumn> columns = new ArrayList<HtmlColumn>();
+        
         CellEditor cellEditor = componentFactory.createBasicCellEditor();
 
         HtmlColumn firstName = componentFactory.createColumn(cellEditor);
         firstName.setProperty("name.firstName");
         firstName.setTitle("First Name");
-        row.addColumn(firstName);
-
+        columns.add(firstName);
+        
         HtmlColumn lastName = componentFactory.createColumn(cellEditor);
         lastName.setProperty("name.lastName");
         lastName.setTitle("Last Name");
-        row.addColumn(lastName);
+        columns.add(lastName);
 
         HtmlColumn born = componentFactory.createColumn(cellEditor);
         born.setProperty("born");
-        row.addColumn(born);
+        columns.add(born);
+        
+        return columns;
     }
 }
 }}}
