@@ -26,6 +26,7 @@
 			maxRows="8"
 			exportTypes="csv,excel"
 			maxRowsIncrements="8,16,24"
+			filterMatcherMap="org.jmesaweb.controller.TagFilterMatcherMap"
 			stateAttr="restore"
 			var="bean"
 			>
@@ -40,7 +41,7 @@
 					<jmesa:htmlColumn property="name.lastName" title="Last Name"/>
 					<jmesa:htmlColumn property="term"/>
 					<jmesa:htmlColumn property="career"/>
-					<jmesa:htmlColumn property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+					<jmesa:htmlColumn property="born" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
 				</jmesa:htmlRow>
 			</jmesa:htmlTable> 
 		</jmesa:tableFacade>
