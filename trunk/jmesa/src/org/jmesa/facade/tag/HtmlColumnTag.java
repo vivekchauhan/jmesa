@@ -223,8 +223,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
             try {
                 editor = (CellEditor) Class.forName(getCellEditor()).newInstance();
                 SupportUtils.setPattern(editor, getPattern());
-                SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
-                SupportUtils.setWebContext(editor, facadeTag.getWebContext());
             } catch (Exception e) {
                 logger.error("Could not create the cellEditor [" + getCellEditor() + "]", e);
             }
@@ -249,10 +247,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         }
 
         try {
-            TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
             editor = (HeaderEditor) Class.forName(getHeaderEditor()).newInstance();
-            SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
-            SupportUtils.setWebContext(editor, facadeTag.getWebContext());
         } catch (Exception e) {
             logger.error("Could not create the headerEditor [" + getHeaderEditor() + "]", e);
         }
@@ -276,10 +271,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         }
 
         try {
-            TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
             editor = (FilterEditor) Class.forName(getFilterEditor()).newInstance();
-            SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
-            SupportUtils.setWebContext(editor, facadeTag.getWebContext());
         } catch (Exception e) {
             logger.error("Could not create the filterEditor [" + getFilterEditor() + "]", e);
         }
@@ -302,13 +294,11 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         HeaderEditor headerEditor = getColumnHeaderEditor();
         if (headerEditor != null) {
-            SupportUtils.setColumn(headerEditor, column);
             column.getHeaderRenderer().setHeaderEditor(headerEditor);
         }
 
         FilterEditor filterEditor = getColumnFilterEditor();
         if (filterEditor != null) {
-            SupportUtils.setColumn(filterEditor, column);
             column.getFilterRenderer().setFilterEditor(filterEditor);
         }
 

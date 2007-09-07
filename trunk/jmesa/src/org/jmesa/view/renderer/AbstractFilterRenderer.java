@@ -17,6 +17,7 @@ package org.jmesa.view.renderer;
 
 import groovy.lang.Closure;
 
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.FilterEditor;
@@ -43,6 +44,9 @@ public abstract class AbstractFilterRenderer extends AbstractContextSupport impl
 
     public void setFilterEditor(FilterEditor filterEditor) {
         this.filterEditor = filterEditor;
+        SupportUtils.setWebContext(filterEditor, getWebContext());
+        SupportUtils.setCoreContext(filterEditor, getCoreContext());
+        SupportUtils.setColumn(filterEditor, getColumn());
     }
 
     /**

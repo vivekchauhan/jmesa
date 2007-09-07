@@ -17,6 +17,7 @@ package org.jmesa.view.html.component;
 
 import groovy.lang.Closure;
 
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
@@ -46,6 +47,8 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnclick(RowEvent onclick) {
         this.onclick = onclick;
+        SupportUtils.setCoreContext(onclick, getCoreContext());
+        SupportUtils.setWebContext(onclick, getWebContext());
     }
 
     /**
@@ -73,6 +76,8 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnmouseout(RowEvent onmouseout) {
         this.onmouseout = onmouseout;
+        SupportUtils.setCoreContext(onmouseout, getCoreContext());
+        SupportUtils.setWebContext(onmouseout, getWebContext());
     }
 
     /**
@@ -100,6 +105,8 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnmouseover(RowEvent onmouseover) {
         this.onmouseover = onmouseover;
+        SupportUtils.setCoreContext(onmouseover, getCoreContext());
+        SupportUtils.setWebContext(onmouseover, getWebContext());
     }
 
     /**

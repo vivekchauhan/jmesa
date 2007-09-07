@@ -299,7 +299,6 @@ public class TableFacadeTag extends SimpleTagSupport {
             Set<MatcherKey> keys = filterMatchers.keySet();
             for (MatcherKey key : keys) {
                 FilterMatcher matcher = filterMatchers.get(key);
-                SupportUtils.setWebContext(matcher, getWebContext());
                 coreContextFactory.addFilterMatcher(key, matcher);
             }
         }
