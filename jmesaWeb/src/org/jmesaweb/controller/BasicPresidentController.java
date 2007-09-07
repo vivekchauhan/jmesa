@@ -19,10 +19,13 @@ import static org.jmesa.facade.TableFacadeImpl.CSV;
 import static org.jmesa.facade.TableFacadeImpl.EXCEL;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jmesa.core.filter.DateFilterMatcher;
+import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
@@ -30,6 +33,7 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.service.PresidentService;
@@ -48,13 +52,19 @@ public class BasicPresidentController extends AbstractController {
     private String id; // The unique table id.
     private int maxRows; // The max rows to display on the page.
 
+    @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
         Collection<Object> items = presidentService.getPresidents();
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career", "born");
         tableFacade.setExportTypes(response, CSV, EXCEL);
+        
+        // return to the table in the same state that the user left it.
         tableFacade.setStateAttr("restore");
+        
+        // add a custom filter matcher to be the same pattern as the cell editor used.
+        tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         Table table = tableFacade.getTable();
         table.setCaption("Presidents");
@@ -65,29 +75,32 @@ public class BasicPresidentController extends AbstractController {
         Column lastName = table.getRow().getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
+        Column born = table.getRow().getColumn("born");
+        born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+
         Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {
             tableFacade.render(); // Will write the export data out to the response.
             return null; // In Spring returning null tells the controller not to do anything.
-        } else {
-            HtmlTable htmlTable = (HtmlTable) table;
-            htmlTable.getTableRenderer().setWidth("600px");
-
-            // Using an anonymous class to implement a custom editor.
-            firstName.getCellRenderer().setCellEditor(new CellEditor() {
-                public Object getValue(Object item, String property, int rowcount) {
-                    Object value = new BasicCellEditor().getValue(item, property, rowcount);
-                    HtmlBuilder html = new HtmlBuilder();
-                    html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
-                    html.append(value);
-                    html.aEnd();
-                    return html.toString();
-                }
-            });
-
-            String html = tableFacade.render(); // Return the Html.
-            mv.addObject("presidents", html); // Set the Html in the request for the JSP.
         }
+
+        HtmlTable htmlTable = (HtmlTable) table;
+        htmlTable.getTableRenderer().setWidth("600px");
+
+        // Using an anonymous class to implement a custom editor.
+        firstName.getCellRenderer().setCellEditor(new CellEditor() {
+            public Object getValue(Object item, String property, int rowcount) {
+                Object value = new BasicCellEditor().getValue(item, property, rowcount);
+                HtmlBuilder html = new HtmlBuilder();
+                html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+                html.append(value);
+                html.aEnd();
+                return html.toString();
+            }
+        });
+
+        String html = tableFacade.render(); // Return the Html.
+        mv.addObject("presidents", html); // Set the Html in the request for the JSP.
 
         return mv;
     }
