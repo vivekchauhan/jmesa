@@ -33,6 +33,7 @@ import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.core.sort.DefaultColumnSort;
 import org.jmesa.core.sort.MultiColumnSort;
 import org.jmesa.limit.Limit;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.web.WebContext;
 
 /**
@@ -90,6 +91,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     }
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
+        SupportUtils.setWebContext(matcher, webContext);
         getFilterMatcherRegistry().addFilterMatcher(key, matcher);
     }
 

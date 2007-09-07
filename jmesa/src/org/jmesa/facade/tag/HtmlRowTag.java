@@ -25,7 +25,6 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.web.WebContext;
@@ -92,9 +91,6 @@ public class HtmlRowTag extends SimpleTagSupport {
         try {
             Object obj = Class.forName(getOnclick()).newInstance();
             if (obj instanceof RowEvent) {
-                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-                SupportUtils.setCoreContext(obj, facadeTag.getCoreContext());
-                SupportUtils.setWebContext(obj, facadeTag.getWebContext());
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
@@ -115,9 +111,6 @@ public class HtmlRowTag extends SimpleTagSupport {
         try {
             Object obj = Class.forName(getOnmouseover()).newInstance();
             if (obj instanceof RowEvent) {
-                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-                SupportUtils.setCoreContext(obj, facadeTag.getCoreContext());
-                SupportUtils.setWebContext(obj, facadeTag.getWebContext());
                 return (RowEvent) obj;
             }
         } catch (Exception e) {
@@ -138,9 +131,6 @@ public class HtmlRowTag extends SimpleTagSupport {
         try {
             Object obj = Class.forName(getOnmouseout()).newInstance();
             if (obj instanceof RowEvent) {
-                TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-                SupportUtils.setCoreContext(obj, facadeTag.getCoreContext());
-                SupportUtils.setWebContext(obj, facadeTag.getWebContext());
                 return (RowEvent) obj;
             }
         } catch (Exception e) {

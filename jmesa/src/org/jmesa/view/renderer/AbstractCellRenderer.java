@@ -17,6 +17,7 @@ package org.jmesa.view.renderer;
 
 import groovy.lang.Closure;
 
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
@@ -43,6 +44,9 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
 
     public void setCellEditor(CellEditor editor) {
         this.editor = editor;
+        SupportUtils.setWebContext(editor, getWebContext());
+        SupportUtils.setCoreContext(editor, getCoreContext());
+        SupportUtils.setColumn(editor, getColumn());
     }
 
     /**

@@ -16,6 +16,7 @@
 package org.jmesa.view.html;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
@@ -79,6 +80,9 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         HtmlColumnImpl column = new HtmlColumnImpl(property);
         column.setWebContext(getWebContext());
         column.setCoreContext(getCoreContext());
+
+        SupportUtils.setWebContext(editor, getWebContext());
+        SupportUtils.setCoreContext(editor, getCoreContext());
 
         HtmlCellRendererImpl columnRenderer = new HtmlCellRendererImpl(column, editor);
         columnRenderer.setWebContext(getWebContext());

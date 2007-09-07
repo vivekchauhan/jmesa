@@ -17,6 +17,7 @@ package org.jmesa.view.renderer;
 
 import groovy.lang.Closure;
 
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.HeaderEditor;
@@ -43,6 +44,9 @@ public abstract class AbstractHeaderRenderer extends AbstractContextSupport impl
 
     public void setHeaderEditor(HeaderEditor headerEditor) {
         this.headerEditor = headerEditor;
+        SupportUtils.setWebContext(headerEditor, getWebContext());
+        SupportUtils.setCoreContext(headerEditor, getCoreContext());
+        SupportUtils.setColumn(headerEditor, getColumn());
     }
 
     /**
