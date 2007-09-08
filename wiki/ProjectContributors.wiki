@@ -16,7 +16,11 @@ The following is a list of the people who have helped make JMesa a better compon
  * Helped kick start the tag library by contributing the initial code for it .
 
 
-=== Future Release ===
+=== Version 2.2 ===
+
+==== jackcoll...@wallquest.com ====
+ * Contributed the !NumberCellEditor. Once that was included I also added the !NumberFilterMatcher.
 
 ==== xuzhoujun ====
- * Worked on a Chinese Resource Bundle, jmesaResourceBundle_zh_CN.properties. It is already checked in and will be available in the next release.
+ * Worked on a Chinese Resource Bundle, jmesaResourceBundle_zh_CN.properties.
+
