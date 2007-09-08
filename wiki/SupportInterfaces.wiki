@@ -110,6 +110,56 @@ Tag:
 <jmesa:column headerEditor="">
 }}}
 
+=== !PatternSupport === 
+The interface is defined as:
+{{{
+public interface PatternSupport {
+    public String getPattern();
+
+    public void setPattern(String pattern);
+}
+}}}
+
+The following places will inject the !PatternSupport interface for you:
+
+Tag:
+{{{
+<jmesa:tableFacade pattern="" cellEditor=""> // if have the pattern defined
+}}}
+
+=== !ToolbarSupport === 
+The interface is defined as:
+{{{
+public interface ToolbarSupport {
+    public Toolbar getToolbar();
+
+    public void setToolbar(Toolbar toolbar);
+}
+}}}
+
+The following places will inject the !ToolbarSupport interface for you:
+
+Tag:
+{{{
+<jmesa:tableFacade view="">
+}}}
+
+=== !TableSupport === 
+The interface is defined as:
+{{{
+public interface TableSupport {
+    public Table getTable();
+
+    public void setTable(Table table);
+}
+}}}
+
+The following places will inject the !TableSupport interface for you:
+
+Tag:
+{{{
+<jmesa:tableFacade view="">
+}}}
 
 
 
