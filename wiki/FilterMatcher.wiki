@@ -1,12 +1,12 @@
 By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps. The JMesa filtering mechanism is very flexible and allows you to easily plug in your own filter strategy.
 
-You plug in your filter strategy via the [TableFacade]. This allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked.
+You plug in your filter strategy via the [TableFacade] if using the API, or !FilterMatcherMap if using the tag library. This allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked.
 
 {{{
 public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
 }}}
 
-We will start by looking at the !MatcherKey and !FilterMatcher in more depth, and then come back to how we add them to the [TableFacade].
+We will start by looking at the !MatcherKey and !FilterMatcher in more depth, and then come back to how we add them to the [TableFacade] and !FilterMatcherMap.
 
 The !MatcherKey is used to find the proper !FilterMatcher strategy. !MatcherKey is an immutable object that has two constructors. One takes only a class type, and the other takes a class type and property. This allows you to match filters either by a specific class type, or more specifically, by class type and for a given column property.
 
@@ -27,6 +27,8 @@ public interface FilterMatcher {
 }}}
 
 The itemValue is the current item value from the current Bean or Map in the Collection. The filterValue is the value entered by the user in the table filter. With these two pieces of information the !FilterMatcher will evaluate whether a match was or was not found.
+
+=== !TableFacade Example ===
 
 As an example this is what the default string filter matcher looks like:
 {{{
@@ -50,13 +52,43 @@ tableFacade.addFilterMatcher(new MatcherKey(String.class), new StringFilterMatch
 
 This is saying that all filters that represent a string class will be matched against the !StringFilterMatcher, which we now know is case-insensitive. Keep in mind that the (above) example is one of the defaults that is already set up for you. Hopefully by examining this one it should make sense on how you could easily come up with your own filtering strategy. 
 
-Next lets looks at a slightly more complicated filter, the !DateFilterMatcher. *TODO:* Put in more complicated example.
+=== !FilterMatcherMap Example ===
+If using the tag library then you need to implement the !FilterMatcherMap interface and plug it into the tableFacade tag.
+
+For example if you have a column that uses a special editor such as the !DateCellEditor and you want to have the JMesa API filter the results you will need to register custom !FilterMatchers. With the tag library you would do this through the filterMatcherMap attribute. 
+
+For instance if you have a column that looks like this:
+{{{
+<jmesa:htmlColumn property="born" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+}}}
+
+You now need to set up a custom !FilterMatcherMap.
+
+{{{
+public class TagFilterMatcherMap implements FilterMatcherMap {
+    public Map<MatcherKey, FilterMatcher> getFilterMatchers() {
+        Map<MatcherKey, FilterMatcher> filterMatcherMap = new HashMap<MatcherKey, FilterMatcher>();
+        filterMatcherMap.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+        return filterMatcherMap;
+    }
+}
+}}}
+
+Just make sure you define the filterMatcherMap on the !TableFacadeTag:
+{{{
+<jmesa:tableFacade
+        id="tag" 
+        filterMatcherMap="org.jmesaweb.controller.TagFilterMatcherMap"
+}}}
 
 === UML Class Diagrams ===
 
 ==== The Filter class diagram. ====
 
 http://extremecomponents.googlepages.com/filter.png
+
+
+
 
 
 
