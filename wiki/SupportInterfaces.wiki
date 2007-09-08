@@ -28,14 +28,55 @@ public interface WebContextSupport {
 }
 }}}
 
-
 The following places will inject the !WebContext interface for you:
+
 API:
-* tableFacade.addFilterMatcher();
+{{{
+tableFacade.addFilterMatcher();
+
+row.setOnclick(RowEvent event);
+
+row.setOnmouseover(RowEvent event);
+
+row.setOnmouseout(RowEvent event);
+
+column.getCellRenderer().setCellEditor(CellEditor editor);
+
+column.getFilterRenderer().setFilterEditor(FilterEditor filterEditor)
+
+column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
+}}}
 
 Tag:
-* !TagFilterMatcherMap
-** The filter matchers returned from this map will all be injected.
+{{{
+<jmesa:tableFacade filterMatcherMap="">
+
+<jmesa:tableFacade view="">
+
+<jmesa:row onclick="">
+
+<jmesa:row onmouseover="">
+
+<jmesa:row onmouseout="">
+
+<jmesa:column cellEditor="">
+
+<jmesa:column filterEditor="">
+
+<jmesa:column headerEditor="">
+}}}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
