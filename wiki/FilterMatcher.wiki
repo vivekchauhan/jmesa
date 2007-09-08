@@ -1,6 +1,6 @@
 By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps. The JMesa filtering mechanism is very flexible and allows you to easily plug in your own filter strategy.
 
-You plug in your filter strategy via the [TableFacade] if using the API, or !FilterMatcherMap if using the tag library. This allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked.
+You plug in your filter strategy via the [TableFacade] if using the API, or !FilterMatcherMap if using the tag library. This allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked. Note: The only FilterMatcher registered by default now is the StringFilterMatcher for all Object types (which means everything). 
 
 {{{
 public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
@@ -88,7 +88,6 @@ Just make sure you define the filterMatcherMap on the !TableFacadeTag:
 ==== The Filter class diagram. ====
 
 http://extremecomponents.googlepages.com/filter.png
-
 
 
 
