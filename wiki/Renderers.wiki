@@ -116,11 +116,6 @@ The defaultSortOrderable specifies whether or not the header will display in the
 column.getHeaderRenderer().setDefaultSortOrderable(false);
 }}}
 
-You can see an example on the JMesa site example
-[http://extremecomponents.org/jmesa/advanced.run here].
-
-Notice how once you click on the First Name column it never goes back to the default state.
-
 ==== FilterRenderer ====
 Each Column component has a !FilterRenderer. There are no common attributes for a !FilterRenderer between different views. However, an !HtmlFilterRenderer has the following attributes: style, and styleClass.
 
@@ -135,4 +130,3 @@ The styleClass is the class attribute on the html td element. For instance this 
 {{{
 column.getFilterRenderer().setStyleClass("jmesaFilter");
 }}}
-
