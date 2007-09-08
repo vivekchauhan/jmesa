@@ -28,6 +28,8 @@ public interface FilterMatcher {
 
 The itemValue is the current item value from the current Bean or Map in the Collection. The filterValue is the value entered by the user in the table filter. With these two pieces of information the !FilterMatcher will evaluate whether a match was or was not found.
 
+Note: When working with the filter matchers supplied by the JMesa API you do not have to inject the !WebContext specifically into the matchers. See the [SupportInterfaces support interfaces] page for more details on that.
+
 === !TableFacade Example ===
 
 As an example this is what the default string filter matcher looks like:
@@ -86,6 +88,7 @@ Just make sure you define the filterMatcherMap on the !TableFacadeTag:
 ==== The Filter class diagram. ====
 
 http://extremecomponents.googlepages.com/filter.png
+
 
 
 
