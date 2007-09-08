@@ -2,9 +2,6 @@ This page contains the new and noteworthy features for the JMesa 2.2 release. Th
 
 This page also contains the changes that took place from the 2.1 to the 2.2 release. There are only a few changes that may effect some users, but for the most part the changes are transparent. Be sure to read about the deprecated and modified features to see if or what you may need to do.
 
-
-_This page is a work in progress. I will keep working on it while we go through the release candidates._
-
 === Deprecated Features ===
  * Deprecated table.setCaption(key, message) in favor of table.setCaptionKey(key) to make the method to use with the Messages more clear and consistent with the tag library. The deprecated method will be removed in the next release.
  * Deprecated column.setTitle(key, message) in favor of column.setTitleKey(key) to make the method to use with the Messages more clear and consistent with the tag library. The deprecated method will be removed in the next release.
@@ -42,7 +39,7 @@ The legal Column sortOrder values are 'asc', 'desc', and 'none'.
  * Further broke out the column header and filter to include an editor. This works exactly like the cell editor except tailored for the header and filter.
  * Added hooks for the tag library to register !FilterMatchers via the !FilterMatcherMap interface.
  * Added plugable views for the tag library.
- * Added a series of support interfaces for the tag library that will automatically inject certain objects into your custom classes. The interfaces just define getter and setter methods, but using these interfaces makes things very clear and safe. The idea is if you implement a certain interface the API will check for the inclusion of that interface and inject the class for you. This is really nice for the tag library because you would not have any other way to get at the objects you need. The support classes include !WebContextSupport, !CoreContextSupport, !ToolbarSupport, !TableSupport, !ColumnSupport and !PatternSupport. The javadocs will be updated to clearly show what parts of the API have hooks for these support classes.
+ * Added a series of support interfaces for the tag library that will automatically inject certain objects into your custom classes. The interfaces just define getter and setter methods, but using these interfaces makes things very clear and safe. The idea is if you implement a certain interface the API will check for the inclusion of that interface and inject the class for you. This is really nice for the tag library because you would not have any other way to get at the objects you need. The support classes include !WebContextSupport, !CoreContextSupport, !ToolbarSupport, !TableSupport, !ColumnSupport and !PatternSupport.
 
 ===== Column Onclick Event =====
 The onclick event on the row:
@@ -182,7 +179,6 @@ Just make sure you define the filterMatcherMap on the !TableFacadeTag:
 }}}
 
 _For more information about the filter matchers see the [FilterMatcher] page._
-
 
 
 
