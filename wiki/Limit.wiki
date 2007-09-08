@@ -117,11 +117,6 @@ limit.getRowSelect().setPage(2);
 
 http://extremecomponents.googlepages.com/limit.png
 
-====The LimitFactory class diagram.====
-
-http://extremecomponents.googlepages.com/limitFactory.png
-
-
 
 
 
