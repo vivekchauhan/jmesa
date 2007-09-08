@@ -29,14 +29,13 @@ The !CoreContext will filter the items based on the property class type. If you 
 
 === UML Class Diagrams ===
 
-==== The CoreContext class diagram. ====
+==== The !CoreContext class diagram. ====
 
 http://extremecomponents.googlepages.com/coreContext.png
 
 ==== The Sort class diagram. ====
 
 http://extremecomponents.googlepages.com/sort.png
-
 
 
 
