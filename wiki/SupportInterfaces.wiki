@@ -18,6 +18,8 @@ The reason is !DateFilterMatcher implements !WebContextSupport so the API knows 
 
 The support classes include !WebContextSupport, !CoreContextSupport, !ToolbarSupport, !TableSupport, !ColumnSupport and !PatternSupport. Next I will outline when you can count on being able to use the feature. If you have any doubts you can also check out the javadocs. If any of the core classes implement the support interfaces you can be sure the feature is supported. Note: the javadocs are included in with the example war file in the downloads area.
 
+Note: There is also a class called !AbstractContextSupport that implements the !ContextSupport interface. The !ContextSupport interface in turn extends from the !WebContextSupport and !CoreContextSupport interfaces. This abstract class is an easy way to get the !CoreContext and !WebContext.
+
 === !WebContextSupport === 
 The interface is defined as:
 {{{
@@ -190,6 +192,8 @@ Tag:
 
 <jmesa:column headerEditor="">
 }}}
+
+
 
 
 
