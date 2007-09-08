@@ -28,7 +28,7 @@ public interface WebContextSupport {
 }
 }}}
 
-The following places will inject the !WebContext interface for you:
+The following places will inject the !WebContext for you if you define the !WebContextSupport interface in your custom code:
 
 API:
 {{{
@@ -76,7 +76,7 @@ public interface CoreContextSupport {
 }
 }}}
 
-The following places will inject the !CoreContext interface for you:
+The following places will inject the !CoreContext for you if you define the !CoreContextSupport interface in your custom code:
 
 API:
 {{{
@@ -120,7 +120,7 @@ public interface PatternSupport {
 }
 }}}
 
-The following places will inject the !PatternSupport interface for you:
+The following places will inject the pattern attribute for you if you define the !PatternSupport interface in your custom code:
 
 Tag:
 {{{
@@ -137,7 +137,7 @@ public interface ToolbarSupport {
 }
 }}}
 
-The following places will inject the !ToolbarSupport interface for you:
+The following places will inject the Toolbar for you if you define the !ToolbarSupport interface in your custom code:
 
 Tag:
 {{{
@@ -154,14 +154,42 @@ public interface TableSupport {
 }
 }}}
 
-The following places will inject the !TableSupport interface for you:
+The following places will inject the Table for you if you define the !TableSupport interface in your custom code:
 
 Tag:
 {{{
 <jmesa:tableFacade view="">
 }}}
 
+=== !ColumnSupport === 
+The interface is defined as:
+{{{
+public interface ColumnSupport {
+    public Column getColumn();
 
+    public void setColumn(Column column);
+}
+}}}
+
+The following places will inject the Column for you if you define the !ColumnSupport interface in your custom code:
+
+API:
+{{{
+column.getCellRenderer().setCellEditor(CellEditor editor);
+
+column.getFilterRenderer().setFilterEditor(FilterEditor filterEditor)
+
+column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
+}}}
+
+Tag:
+{{{
+<jmesa:column cellEditor="">
+
+<jmesa:column filterEditor="">
+
+<jmesa:column headerEditor="">
+}}}
 
 
 
