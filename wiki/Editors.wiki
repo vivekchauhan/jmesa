@@ -10,12 +10,14 @@ public interface CellEditor {
 }
 }}}
 
-The item is the current row item from the Collection of Beans or Collections of Maps. The property is the current column property that is really a reference to an item attribute. Lastly, the rowcount is the current row. The rowcount does not take in account pagination and with each page starts the count at one. However, if you need to take in account pagination you can find the current page on the Limit object, which can be found on the !CoreContext. Although not a part of the interface, all the !CellEditors that ship with JMesa extend the !ContextSupport class, which contains access to the !CoreContext.
+The item is the current row item from the Collection of Beans or Collections of Maps. The property is the current column property that is really a reference to an item attribute. Lastly, the rowcount is the current row. The rowcount does not take in account pagination and with each page starts the count at one. However, if you need to take in account pagination you can find the current page on the Limit object, which can be found on the !CoreContext. 
+
+Note: Although not a part of the interface, all the !CellEditors that ship with JMesa extend the !AbstractContextSupport class, which contains access to the !CoreContext and !WebContext. See the [SupportInterfaces support interfaces] page for more details on that.
 
 Like most things the best way to understand this is to see an example. The default !CellEditor is the !BasicCellEditor and simply returns the current item property.
 
 {{{
-public class BasicCellEditor extends ContextSupport implements CellEditor {
+public class BasicCellEditor extends AbstractContextSupport implements CellEditor {
     public Object getValue(Object item, String property, int rowcount) {
         Object itemValue = null;
 
@@ -45,4 +47,6 @@ firstName.getCellRenderer().setCellEditor(new CellEditor() {
     }
 });
 }}}
+
+
 
