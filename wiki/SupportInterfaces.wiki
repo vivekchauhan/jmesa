@@ -66,11 +66,49 @@ Tag:
 <jmesa:column headerEditor="">
 }}}
 
+=== !CoreContextSupport === 
+The interface is defined as:
+{{{
+public interface CoreContextSupport {
+    public CoreContext getCoreContext();
 
+    public void setCoreContext(CoreContext coreContext);
+}
+}}}
 
+The following places will inject the !CoreContext interface for you:
 
+API:
+{{{
+row.setOnclick(RowEvent event);
 
+row.setOnmouseover(RowEvent event);
 
+row.setOnmouseout(RowEvent event);
+
+column.getCellRenderer().setCellEditor(CellEditor editor);
+
+column.getFilterRenderer().setFilterEditor(FilterEditor filterEditor)
+
+column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
+}}}
+
+Tag:
+{{{
+<jmesa:tableFacade view="">
+
+<jmesa:row onclick="">
+
+<jmesa:row onmouseover="">
+
+<jmesa:row onmouseout="">
+
+<jmesa:column cellEditor="">
+
+<jmesa:column filterEditor="">
+
+<jmesa:column headerEditor="">
+}}}
 
 
 
