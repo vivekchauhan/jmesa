@@ -4,3 +4,9 @@ The !WebContext is an adapter for the servlet request. A !WebContext allows the 
 TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
 WebContext webContext = tableFacade.getWebContext();
 }}}
+
+=== UML Class Diagrams ===
+
+====The WebContext class diagram.====
+
+http://extremecomponents.googlepages.com/webContext.png
