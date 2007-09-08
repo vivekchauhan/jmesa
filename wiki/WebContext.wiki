@@ -7,6 +7,6 @@ WebContext webContext = tableFacade.getWebContext();
 
 === UML Class Diagrams ===
 
-====The WebContext class diagram.====
+====The !WebContext class diagram.====
 
 http://extremecomponents.googlepages.com/webContext.png
