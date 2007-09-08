@@ -1,0 +1,42 @@
+I added a series of support interfaces to automatically inject certain key classes into your custom code. The interfaces just define getter and setter methods, but using these interfaces makes things very clear and safe. The idea is if you implement a certain interface the API will check for the inclusion of that interface and inject the class for you. This support feature actually started as a tag feature because there was no other way for developers to get at the classes they needed cleanly. It turned out to be a nice addition that bubbled up to the API.
+
+For example the !DateFilterMatcher implements the !WebContextSupport interface. Now when you add a !FilterMatcher to the facade it automatically inserts the !WebContext for you.
+
+So now you can do this:
+{{{
+tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+}}}
+
+Versus this:
+{{{
+DateFilterMatcher matcher = new DateFilterMatcher("MM/yyyy")
+matcher.setWebContext(tableFacade.getWebContext());
+tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), matcher);
+}}}
+
+The reason is !DateFilterMatcher implements !WebContextSupport so the API knows to inject that class if it is not already set. On one hand the feature is a little magical, but on the flip side as a person wanting to implement a custom date filter matcher you really do not care that the class needs a !WebContext. You just want to define your custom pattern!
+
+The support classes include !WebContextSupport, !CoreContextSupport, !ToolbarSupport, !TableSupport, !ColumnSupport and !PatternSupport. Next I will outline when you can count on being able to use the feature. If you have any doubts you can also check out the javadocs. If any of the core classes implement the support interfaces you can be sure the feature is supported. Note: the javadocs are included in with the example war file in the downloads area.
+
+=== !WebContextSupport === 
+The interface is defined as:
+{{{
+public interface WebContextSupport {
+    public WebContext getWebContext();
+
+    public void setWebContext(WebContext webContext);
+}
+}}}
+
+
+The following places will inject the !WebContext interface for you:
+API:
+* tableFacade.addFilterMatcher();
+
+Tag:
+* !TagFilterMatcherMap
+** The filter matchers returned from this map will all be injected.
+
+
+
+
