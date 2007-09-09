@@ -54,6 +54,24 @@ The tag would look like this:
 <jmesa:column cellEditor="org.jmesaweb.controller.TagCellEditor">
 }}}
 
+==== !CellEditor Date Example ====
+If you have a date column chances are you will want to format it. To do that use the !DateCellEditor and pass it a valid date pattern.
+
+{{{
+born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+}}}
+
+Also, if this column is filterable you will want to use the [FilterMatcher DateFilterMatcher] to create a filter strategy that matches your column.
+
+==== !CellEditor Number Example ====
+If you have a numeric column chances are you will want to format it. To do that use the !NumberCellEditor and pass it a valid date pattern.
+
+{{{
+salary.getCellRenderer().setCellEditor(new NumberCellEditor("###,##0.00"));
+}}}
+
+Also, if this column is filterable you will want to use the [FilterMatcher NumberFilterMatcher] to create a filter strategy that matches your column.
+
 === !HeaderEditor ===
 As of the JMesa 2.2 release I further broke out the column header to include an editor. This works exactly like the cell editor except tailored for the header.
 
@@ -99,6 +117,8 @@ Keep in mind though that for this filter example you would still need to add the
 ==== The Editor class diagram. ====
 
 http://extremecomponents.googlepages.com/editor.png
+
+
 
 
 
