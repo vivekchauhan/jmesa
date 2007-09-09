@@ -9,5 +9,14 @@ To set up the properties file specify a context-param in your /WEB-INF/web.xml f
 </context-param>
 }}}
 
+One useful property that you may want to modify is the path to your images directory. The default property setting is as follows:
+
+{{{
+html.imagesPath=/images/table/
+}}}
+
+If you want your images in some other directory just override this property in your custom properties file.
+
+_Here is the complete [http://jmesa.googlecode.com/svn/tags/jmesa-2.2/src/org/jmesa/core/preference/jmesa.properties listing] of all the default properties._
 
 
