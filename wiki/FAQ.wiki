@@ -6,10 +6,8 @@ Now, JMesa is a form component like an input or select field. It is not automati
 If you really miss the autoIncludeParameters feature you might think about coming up with a tag that could be used in conjunction with JMesa that would basically work like
 autoIncludeParameters. This would give you the feature, but be consistent with letting JMesa just render tables. If you look at the !ParametersBuilder class in the test package it would show you how the parameters are built. What you would need to do is not include the JMesa parameters and have the tag build hidden form fields for the parameters you do want passed as you filter, sort and page. This might even be a good thing to include in the distribution as an optional tag and be a start to the tag package.
 
-
-
-
-
+===== How do I format a date or number in my column? =====
+If you have a date or numeric column then chances are that you will want to format it. See the [Editors] page for more details on how to do that. Be sure to add a custom [FilterMatcher filter strategy] if your column is filterable. 
 
 
 
