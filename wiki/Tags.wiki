@@ -91,7 +91,7 @@ public class TagRowEvent implements RowEvent {
 || stateAttr || String || The parameter to use for the [State]. ||
 || exportTypes || String[] || The comma separated list of exports. ||
 || performFilterAndSort || boolean || Whether the API should filter and sort the items. ||
-|| filterMatcherMap || [FilterMatcherMap FilterMatcher] || Used to register custom filter matchers. ||
+|| filterMatcherMap || [FilterMatcher FilterMatcherMap] || Used to register custom filter matchers. ||
 || view || [View] || The View object to use. ||
 || var || String || The value to hold the current bean while iterating over the rows. ||
 
@@ -128,7 +128,6 @@ public class TagRowEvent implements RowEvent {
 || width || String || The width of the column. ||
 || style || String || The css style attribute for the column. ||
 || styleClass || String || The css class attribute for the column. ||
-
 
 
 
