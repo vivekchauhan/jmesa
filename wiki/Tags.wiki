@@ -110,19 +110,19 @@ public class TagRowEvent implements RowEvent {
 ==== !HtmlRowTag ====
 || *Attribute* || *Type* || *Description* ||
 || highlighter || boolean || Whether to show the row highlighter effect. ||
-|| onclick || [RowEvent] || The row onclick event. ||
-|| onmouseout || [RowEvent] || The row onmouseout event. ||
-|| onmouseover || [RowEvent] || The row onmouseover event. ||
+|| onclick || [Components RowEvent] || The row onclick event. ||
+|| onmouseout || [Components RowEvent] || The row onmouseout event. ||
+|| onmouseover || [Components RowEvent] || The row onmouseover event. ||
 
 ==== !HtmlColumnTag ====
 || *Attribute* || *Type* || *Description* ||
-|| property || String || The bean or map attribute ||
-|| title || String || The column header title ||
-|| titleKey || String || The value to find in the messages ||
+|| property || String || The bean or map attribute. ||
+|| title || String || The column header title. ||
+|| titleKey || String || The value to find in the messages. ||
 || cellEditor || [Editors] || The !CellEditor to use. ||
 || headerEditor || [Editors] || The !HeaderEditor to use. ||
 || filterEditor || [Editors] || The !FilterEditor to use. ||
-|| pattern || String || The pattern to inject into the CellEditor class ||
+|| pattern || String || The pattern to inject into the CellEditor. ||
 || filterable || boolean || Whether the column should be filtered. ||
 || sortable || boolean || Whether the column should be sorted. ||
 || width || String || The width of the column. ||
