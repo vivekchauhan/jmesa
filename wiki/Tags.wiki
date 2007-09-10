@@ -114,7 +114,7 @@ public class TagRowEvent implements RowEvent {
 
 ==== !HtmlColumnTag ====
 || *Attribute* || *Type* || *Description* ||
-|| property || String || The bean or map attribute. ||
+|| property || String || The bean or map attribute from the [items]. ||
 || title || String || The column header title. ||
 || titleKey || String || The value to find in the messages. ||
 || cellEditor || [Editors] || The !CellEditor to use. ||
