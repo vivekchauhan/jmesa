@@ -114,7 +114,7 @@ public class TagRowEvent implements RowEvent {
 
 ==== !HtmlColumnTag ====
 || *Attribute* || *Type* || *Description* ||
-|| property || String || The bean or map attribute from the [Items]. ||
+|| property || String || The bean or map attribute from the [Items items]. ||
 || title || String || The column header title. ||
 || titleKey || String || The value to find in the messages. ||
 || cellEditor || [Editors] || The !CellEditor to use. ||
@@ -126,7 +126,6 @@ public class TagRowEvent implements RowEvent {
 || width || String || The width of the column. ||
 || style || String || The css style attribute for the column. ||
 || styleClass || String || The css class attribute for the column. ||
-
 
 
 
