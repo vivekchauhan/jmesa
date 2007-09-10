@@ -13,8 +13,6 @@ public interface CellEditor {
 
 The item is the current row item from the Collection of Beans or Collections of Maps. The property is the current column property that is really a reference to an item attribute. Lastly, the rowcount is the current row. The rowcount does not take in account pagination and with each page starts the count at one. However, if you need to take in account pagination you can find the current page on the Limit object, which can be found on the !CoreContext. 
 
-The !CellEditors that ship with the JMesa API include the !BasicCellEditor, !DateCellEditor and the !NumberCellEditor. 
-
 Like most things the best way to understand this is to see an example. Here is the default !CellEditor named the !BasicCellEditor. It simply returns the current item property. You do not have to do anything to declare this editor as it is the default. I am just showing it as an example of what a !CellEditor looks like.
 
 {{{
@@ -32,6 +30,8 @@ public class BasicCellEditor extends AbstractContextSupport implements CellEdito
     }
 }
 }}}
+
+The !CellEditors that ship with the JMesa API include the !BasicCellEditor, !DateCellEditor and the !NumberCellEditor. Again, you would not normally work directly with the !BasicCellEditor, but be sure to use it as a reference.
 
 ==== !CellEditor Example ====
 If you want to create a custom editor then just implement the !CellEditor interface. Here is an example using an anonymous class to create a !CellEditor.
@@ -130,6 +130,8 @@ Keep in mind though that for this filter example you would still need to add the
 ==== The Editor class diagram. ====
 
 http://extremecomponents.googlepages.com/editor.png
+
+
 
 
 
