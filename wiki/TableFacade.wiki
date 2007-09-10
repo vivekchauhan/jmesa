@@ -1,7 +1,5 @@
 #labels Featured
-_The following technique is available as of the JMesa 2.1 release._
-
-The !TableFacade takes out the complexity of building Html tables by offering a very high level API to work with. However, the way you are able to interact with the facade keeps all the flexibility in tact.
+The !TableFacade takes out the complexity of building Html tables by offering a very high level API to work with. However, the way you are able to interact with the facade still keeps things very flexible.
 
 More examples and documentation can be found here:
  * [FacadeExample Basic Example]
@@ -89,4 +87,3 @@ if (limit.isExportable()) {
 All the boilerplate code of rendering the exports is done for you!
 
 *Note:* Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!
-
