@@ -1,7 +1,7 @@
 #labels Featured
 _The following technique is available as of the JMesa 2.1 release._
 
-I was on vacation recently and during the drive started thinking about what it would mean to create a facade over the existing functionality of JMesa. The idea would be to make creating tables with the API easier without sacrificing any of the flexibility that you are currently used to. It wasn't long before I realized that what I needed was a facade that had a little bit of builder in its veins. I sketched up the class diagram and the interface I came up with is called !TableFacade. The implementation worked out perfectly and reinforced my opinion of how strong the API is!
+The !TableFacade takes out the complexity of building Html tables by offering a very high level API to work with. However, the way you are able to interact with the facade keeps all the flexibility in tact.
 
 More examples and documentation can be found here:
  * [FacadeExample Basic Example]
@@ -67,7 +67,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
 
 _For more information about working with the table, row, and columns read the [Components] section._
 
-Notice how there are no factories to deal with. However any API Object that you would have used before is available through the facade, including the [WebContext], [CoreContext], [Limit], Table, [Toolbar], and [View]. When you ask the facade for a given object it builds everything it needs up to that point. Internally it keeps track of everything you are doing so it also works like a builder. 
+Notice how there are no factories to deal with. However any API Object that you need is available through the facade, including the [WebContext], [CoreContext], [Limit], Table, [Toolbar], and [View]. When you ask the facade for a given object it builds everything it needs up to that point. Internally it keeps track of everything you are doing so it also works like a builder. 
 
 The !TableFacade interface also has setters for all the facade objects including the [WebContext], [CoreContext], [Limit], [Toolbar], and [View]. The reason is if you really need to customize something and want to set your own implementation you can. Your object just goes into the flow of the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when the render() method is called it will use your Toolbar.
 
