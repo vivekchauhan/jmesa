@@ -1,12 +1,12 @@
 By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps. The JMesa filtering mechanism is very flexible and allows you to easily plug in your own filter strategy.
 
-You plug in your filter strategy via the [TableFacade] if using the API, or !FilterMatcherMap if using the tag library. This allows you to set your own filter strategy via the !FilterMatcher interface. The !MatcherKey as you will see is how the proper !FilterMatcher object is found and invoked. Note: The only !FilterMatcher registered by default now is the !StringFilterMatcher for all Object types (which means everything). 
+You plug in your filter strategy via the [TableFacade] if using the API.
 
 {{{
 public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
 }}}
 
-We will start by looking at the !MatcherKey and !FilterMatcher in more depth, and then come back to how we add them to the [TableFacade] and !FilterMatcherMap.
+We will start by looking at the !MatcherKey and !FilterMatcher in more depth, and then come back to how we add them to the [TableFacade].
 
 The !MatcherKey is used to find the proper !FilterMatcher strategy. !MatcherKey is an immutable object that has two constructors. One takes only a class type, and the other takes a class type and property. This allows you to match filters either by a specific class type, or more specifically, by class type and for a given column property.
 
@@ -103,7 +103,8 @@ public class TagFilterMatcherMap implements FilterMatcherMap {
 }
 }}}
 
-Just make sure you define the filterMatcherMap on the !TableFacadeTag:
+Lastly, make sure you define the filterMatcherMap on the !TableFacadeTag:
+
 {{{
 <jmesa:tableFacade
         id="tag" 
@@ -115,6 +116,9 @@ Just make sure you define the filterMatcherMap on the !TableFacadeTag:
 ==== The Filter class diagram. ====
 
 http://extremecomponents.googlepages.com/filter.png
+
+
+
 
 
 
