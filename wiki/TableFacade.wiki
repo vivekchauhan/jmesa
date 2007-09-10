@@ -1,5 +1,5 @@
 #labels Featured
-The !TableFacade takes out the complexity of building Html tables by offering a very high level API to work with. However, the way you are able to interact with the facade still keeps things very flexible.
+The !TableFacade takes out the complexity of building Html tables by offering a very high level API to work with. However, the way you are able to interact with the facade gives you all the flexibility you need.
 
 More examples and documentation can be found here:
  * [FacadeExample Basic Example]
