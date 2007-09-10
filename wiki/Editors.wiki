@@ -15,7 +15,7 @@ The item is the current row item from the Collection of Beans or Collections of 
 
 The !CellEditors that ship with the JMesa API include the !BasicCellEditor, !DateCellEditor and the !NumberCellEditor. 
 
-Like most things the best way to understand this is to see an example. The default !CellEditor is the !BasicCellEditor and simply returns the current item property.
+Like most things the best way to understand this is to see an example. Here is the default !CellEditor named the !BasicCellEditor. It simply returns the current item property. You do not have to do anything to declare this editor as it is the default. I am just showing it as an example of what a !CellEditor looks like.
 
 {{{
 public class BasicCellEditor extends AbstractContextSupport implements CellEditor {
@@ -33,7 +33,8 @@ public class BasicCellEditor extends AbstractContextSupport implements CellEdito
 }
 }}}
 
-Or, more recently, I have started just using anonymous classes to code up my editors. This makes the code very compact and easy to read.
+==== !CellEditor Example ====
+If you want to create a custom editor then just implement the !CellEditor interface. Here is an example using an anonymous class to create a !CellEditor.
 
 {{{
 // Using an anonymous class to implement a custom editor.
@@ -54,7 +55,7 @@ The tag would look like this:
 <jmesa:column cellEditor="org.jmesaweb.controller.TagCellEditor">
 }}}
 
-==== !CellEditor Date Example ====
+==== !DateCellEditor Example ====
 If you have a date column chances are you will want to format it. To do that use the !DateCellEditor and pass it a valid date pattern.
 
 {{{
@@ -69,7 +70,7 @@ Or, use the pattern attribute with the cellEditor if you are using the tag libra
 
 Also, if this column is filterable you will want to use the [FilterMatcher DateFilterMatcher] to create a filter strategy that matches your column.
 
-==== !CellEditor Number Example ====
+==== !NumberCellEditor Example ====
 If you have a numeric column chances are you will want to format it. To do that use the !NumberCellEditor and pass it a valid date pattern.
 
 {{{
@@ -129,6 +130,9 @@ Keep in mind though that for this filter example you would still need to add the
 ==== The Editor class diagram. ====
 
 http://extremecomponents.googlepages.com/editor.png
+
+
+
 
 
 
