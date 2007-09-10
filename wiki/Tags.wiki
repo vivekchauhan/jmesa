@@ -1,7 +1,5 @@
 #labels Featured
-_The following technique is available as of the JMesa 2.1 release._
-
-JMesa now has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade].
+JMesa also has a complete tag library! The tags should be very intuitive and is a very similar facade to the [TableFacade].
 
 An example and more documentation can be found here:
  * [TagsExample Tags Example]
@@ -128,7 +126,6 @@ public class TagRowEvent implements RowEvent {
 || width || String || The width of the column. ||
 || style || String || The css style attribute for the column. ||
 || styleClass || String || The css class attribute for the column. ||
-
 
 
 
