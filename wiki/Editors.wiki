@@ -61,6 +61,12 @@ If you have a date column chances are you will want to format it. To do that use
 born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
 }}}
 
+Or, use the pattern attribute with the cellEditor if you are using the tag library.
+
+{{{
+<jmesa:htmlColumn property="born" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
+}}}
+
 Also, if this column is filterable you will want to use the [FilterMatcher DateFilterMatcher] to create a filter strategy that matches your column.
 
 ==== !CellEditor Number Example ====
@@ -68,6 +74,12 @@ If you have a numeric column chances are you will want to format it. To do that 
 
 {{{
 salary.getCellRenderer().setCellEditor(new NumberCellEditor("###,##0.00"));
+}}}
+
+Or, use the pattern attribute with the cellEditor if you are using the tag library.
+
+{{{
+<jmesa:htmlColumn property="salary" pattern="###,##0.00" cellEditor="org.jmesa.view.editor.NumberCellEditor"/>
 }}}
 
 Also, if this column is filterable you will want to use the [FilterMatcher NumberFilterMatcher] to create a filter strategy that matches your column.
