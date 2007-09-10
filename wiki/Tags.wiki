@@ -120,13 +120,12 @@ public class TagRowEvent implements RowEvent {
 || cellEditor || [Editors] || The !CellEditor to use. ||
 || headerEditor || [Editors] || The !HeaderEditor to use. ||
 || filterEditor || [Editors] || The !FilterEditor to use. ||
-|| pattern || String || The pattern to inject into the [Editors DateCellEditor or NumberCellEditor]. ||
+|| pattern || String || The pattern to inject into the [Editors DateCellEditor] or [Editors  NumberCellEditor]. ||
 || filterable || boolean || Whether the column should be filtered. ||
 || sortable || boolean || Whether the column should be sorted. ||
 || width || String || The width of the column. ||
 || style || String || The css style attribute for the column. ||
 || styleClass || String || The css class attribute for the column. ||
-
 
 
 
