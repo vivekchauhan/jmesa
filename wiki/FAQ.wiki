@@ -23,7 +23,8 @@ _This example is working with the Excel export so be sure to cast to the correct
 
 What this is doing is writing the Excel file out to a local file instead of the response stream. The FileUtils comes from the jakarta commons io package so if you do not use that just output the file however you are used to. If the file looks good then the problem is something in your servlet container. Chances are it is a filter problem at this point. Take a look at your web.xml file and remove servlet filters until you find the filter causing problems.
 
-
+===== How do I limit the column to only sort asc or desc? =====
+You would need to set the sort order on the html column using the [Components sortOrder] method.
 
 
 
