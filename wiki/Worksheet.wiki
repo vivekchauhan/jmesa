@@ -42,7 +42,7 @@ A !CellEditor that will flag this row as being added. The GUI effect is to bring
 === !WorksheetColumnEvent Class ===
 As of JMesa 2.2 there is !RowEvent support. The same functionality will be added for the columns in the form of a !ColumnEvent interface. The !WorksheetColumnEvent would trigger a div pop-up through an onclick event on the column cell. The div pop-up will contain an input field to edit the column value. The div pop-up will operate very much like the filter div, but styled different.
 
-Once the value is changed it will trigger an onchange event. The onchange event will add the changes to the Worksheet object via the WorksheetServlet.
+Once the value is changed it will trigger an onchange event. The onchange event will add the changes to the Worksheet object via the !WorksheetServlet.
 
 A column parameter looks like this:
 {{{
@@ -59,7 +59,7 @@ The way this reads is the pres table with a row containing a primary property of
 === !WorksheetServlet Class ===
 Will store the Worksheet object in the users session by the table  id. However, once the servlet is set up the developer will not ever have to deal with the fact that the Worksheet object is in session. The ajax calls will abstract that out from the html table side. Then the !TableFacade will abstract out the retrieve of the Worksheet in the controller. 
 
-Note: Keep in mind that using the servlet is just one implementation. You could just call a controller and then have the TableFacade get the Worksheet with just the most recent change. However, the servlet allows for a very transparent way to edit tables over a longer session as a user filter, sorts, and paginates.
+Note: Keep in mind that using the servlet is just one implementation. You could just call a controller and then have the !TableFacade get the Worksheet with just the most recent change. However, the servlet allows for a very transparent way to edit tables over a longer session as a user filter, sorts, and paginates. The !TableFacade will first look for changes passed to the controller and then for changes in the session to make things very flexible.
 
 === !SpringWorksheetServlet Class ===
 For Spring users there is a very slick way to get changes to the table. The idea is you have a bean that implements a listener. That listener will listen for the user to either change something on the table, or ask for the table to be saved. The dispatcher will link the different listeners to the servlet. That means you only have to add the dispatcher to the servlet, and then the dispatcher makes sure that the right listener gets invoked.
@@ -70,9 +70,13 @@ Abstracts out where the Worksheet is being held so that the servlet and facade c
 === Other Notes ===
 There will be a custom toolbar that will appear for the Worksheet. It is not completely defined yet but the idea would be to add features such as the ability to save a worksheet and filter to see only the changed values.
 
+=== UML Class Diagrams ===
+
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
+
+
 
 
 
