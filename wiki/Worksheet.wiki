@@ -1,6 +1,6 @@
-With the features added to the JMesa [2_2NewAndNoteworthy 2.2 release] we now have everything needed to add support for an editable worksheet. The worksheet will be the main focus of the 2.3 release and should be available by mid November 2007. 
+With the features added to the JMesa [2_2NewAndNoteworthy 2.2 release] we now have everything needed to add support for an editable Worksheet. The worksheet will be the main focus of the 2.3 release and should be available by mid November 2007. 
 
-A JMesa worksheet is just how it sounds...you will be able to edit values in the table body and have those changes be reflected as you sort, filter and page. You will also be able to add and remove rows of the table. The really slick thing about this feature is how natural JMesa can handle it. I already started drawing up the class diagrams and am compiling a feature list. The following is a rough draft of what is needed to implement this feature.
+A JMesa Worksheet is just how it sounds...you will be able to edit values in the table body and have those changes be reflected as you sort, filter and page. You will also be able to add and remove rows of the table. The really slick thing about this feature is how natural JMesa can handle it. I already started drawing up the class diagrams and am compiling a feature list. The following is a rough draft of what is needed to implement this feature.
 
 Note: I will be using the JQuery !JavaScript library for all the Worksheet functionality. I think the JQuery library offers a lot of advanced functionality that will work perfectly with this feature. I think JQuery is an amazing project and there is no reason to create custom !JavaScript for things that a different library does better.
 
@@ -23,7 +23,7 @@ In this example "id" is the item property that is used to uniquely identify the 
 === !WorksheetRow Class ===
 The !WorksheetRows which contain !WorksheetColumns. A row can have many statuses. It can be a newly added row, a modified row, or a deleted row. 
 
-If a row is modified and then later deleted (before being saved) then it will be deleted from the worksheet. There is no reason for anyone to be aware that a row was almost created. That should make sense. On the other hand if you delete a row that existed previously (ie, the row exists in the database) then you have to flag the row as being deleted so that you would know to delete the row in the database.
+If a row is modified and then later deleted (before being saved) then it will be deleted from the Worksheet. There is no reason for anyone to be aware that a row was almost created. That should make sense. On the other hand if you delete a row that existed previously (ie, the row exists in the database) then you have to flag the row as being deleted so that you would know to delete the row in the database.
 
 === !WorksheetColumn Class ===
 A !WorksheetColumn represents the edited !HtmlColumn. The originalValue is the value that was originally pulled from the bean (ie, pulled from database). This allows a table to revert back to the original value if needed. The changedValue is the value that was modified by the user. 
@@ -68,14 +68,13 @@ For Spring users there is a very slick way to get changes to the table. The idea
 Abstracts out where the Worksheet is being held so that the servlet and facade can work with the Worksheet transparently.
 
 === Other Notes ===
-There will be a custom toolbar that will appear for the Worksheet. It is not completely defined yet but the idea would be to add features such as the ability to save a worksheet and filter to see only the changed values.
+There will be a custom toolbar that will appear for the Worksheet. It is not completely defined yet but the idea would be to add features such as the ability to save a Worksheet and filter to see only the changed values.
 
 === UML Class Diagrams ===
 
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
-
 
 
 
