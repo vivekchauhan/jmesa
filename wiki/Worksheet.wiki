@@ -21,7 +21,7 @@ htmlRow.setUniqueProperties("id");
 In this example "id" is the item property that is used to uniquely identify the row. This can be a comma separated array of properties. On the Worksheet the uniqueProperties is a map in which the map keys are the item properties and the map values are the item values.
 
 === !WorksheetRow Class ===
-The !WorksheetRows which contain !WorksheetColumns. A row can have many statuses. It can be a newly added row, a modified row, or a deleted row. 
+A !WorksheetRow contains !WorksheetColumns. A row also has a given status. It can be a newly added row, a modified row, or a deleted row. 
 
 If a row is modified and then later deleted (before being saved) then it will be deleted from the Worksheet. There is no reason for anyone to be aware that a row was almost created. That should make sense. On the other hand if you delete a row that existed previously (ie, the row exists in the database) then you have to flag the row as being deleted so that you would know to delete the row in the database.
 
@@ -34,10 +34,10 @@ You are also able to register an error with the column. I debated being able to 
 Is used to wrap (or decorate) the current !CellEditor to pull changed values from the Worksheet. The idea is that if a changed value is in the Worksheet then that will be displayed instead of the backing item value.
 
 === !DeleteWorksheetRowCellEditor Class ===
-A !CellEditor that will flag this row as being deleted. The GUI effect is to put a strikeout character through all the columns in the row. The !WorksheetRow will be updated with a status of !WorksheetRowStatus.DELETED.
+A !CellEditor that will flag this row as being deleted. The GUI effect is to put a strikeout character through all the columns in the row. The !WorksheetRow will be updated with a status of !WorksheetRowStatus.DELETE.
 
 === !AddWorksheetRowCellEditor Class ===
-A !CellEditor that will flag this row as being added. The GUI effect is to bring up a div with all the columns in a form. The !WorksheetRow will be updated with a status of !WorksheetRowStatus.NEW.
+A !CellEditor that will flag this row as being added. The GUI effect is to bring up a div with all the columns in a form. The !WorksheetRow will be updated with a status of !WorksheetRowStatus.ADD.
 
 === !WorksheetColumnEvent Class ===
 As of JMesa 2.2 there is !RowEvent support. The same functionality will be added for the columns in the form of a !ColumnEvent interface. The !WorksheetColumnEvent would trigger a div pop-up through an onclick event on the column cell. The div pop-up will contain an input field to edit the column value. The div pop-up will operate very much like the filter div, but styled different.
@@ -59,10 +59,10 @@ The way this reads is the pres table with a row containing a primary property of
 === !WorksheetServlet Class ===
 Will store the Worksheet object in the users session by the table  id. However, once the servlet is set up the developer will not ever have to deal with the fact that the Worksheet object is in session. The ajax calls will abstract that out from the html table side. Then the !TableFacade will abstract out the retrieve of the Worksheet in the controller. 
 
-Note: Keep in mind that using the servlet is just one implementation. You could just call a controller and then have the !TableFacade get the Worksheet with just the most recent change. However, the servlet allows for a very transparent way to edit tables over a longer session as a user filter, sorts, and paginates. The !TableFacade will first look for changes passed to the controller and then for changes in the session to make things very flexible.
+Keep in mind that using the servlet is just one implementation. You could just call a controller and then have the !TableFacade get the Worksheet with just the most recent change. However, the servlet allows for a very transparent way to edit tables over a longer session as a user filter, sorts, and paginates. The !TableFacade will first look for changes passed to the controller and then for changes in the session to make things very flexible.
 
 === !SpringWorksheetServlet Class ===
-For Spring users there is a very slick way to get changes to the table. The idea is you have a bean that implements a listener. That listener will listen for the user to either change something on the table, or ask for the table to be saved. The dispatcher will link the different listeners to the servlet. That means you only have to add the dispatcher to the servlet, and then the dispatcher makes sure that the right listener gets invoked.
+For Spring users there is a very slick way to get changes from the table. The idea is you have a bean that implements a listener. That listener will listen for the user to either change something on the table, or ask for the table to be saved. The dispatcher will link the different listeners to the servlet. That means you only have to add the dispatcher to the servlet, and then the dispatcher makes sure that the right listener gets invoked.
 
 === !WorksheetState Class ===
 Abstracts out where the Worksheet is being held so that the servlet and facade can work with the Worksheet transparently.
@@ -75,3 +75,6 @@ There will be a custom toolbar that will appear for the Worksheet. It is not com
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
+
+
+
