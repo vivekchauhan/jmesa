@@ -18,7 +18,7 @@ You will also have to add the unique item properties to the !HtmlRow.
 htmlRow.setUniqueProperties("id");
 }}}
 
-In this example "id" is the item property that is used to uniquely identify the row. This can be a comma separated array of properties. On the Worksheet the uniqueProperties is a map in which the map keys are the item properties and the value is the item value.
+In this example "id" is the item property that is used to uniquely identify the row. This can be a comma separated array of properties. On the Worksheet the uniqueProperties is a map in which the map keys are the item properties and the map values are the item values.
 
 === !WorksheetRow Class ===
 The !WorksheetRows which contain !WorksheetColumns. A row can have many statuses. It can be a newly added row, a modified row, or a deleted row. 
@@ -75,4 +75,3 @@ There will be a custom toolbar that will appear for the Worksheet. It is not com
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
-
