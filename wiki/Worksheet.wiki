@@ -13,7 +13,7 @@ To get this functionality you will have to tell the  [TableFacade] that it is ed
 tableFacade.setEditable(true);
 }}}
 
-You will also have to add an id to the !HtmlRow.
+You will also have to add the unique item properties to the !HtmlRow.
 {{{
 htmlRow.setUniqueProperties("id");
 }}}
@@ -75,6 +75,5 @@ There will be a custom toolbar that will appear for the Worksheet. It is not com
 ====The Worksheet class diagram.====
 
 http://extremecomponents.googlepages.com/worksheet.png
-
 
 
