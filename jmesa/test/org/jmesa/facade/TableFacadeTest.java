@@ -405,6 +405,8 @@ public class TableFacadeTest extends AbstractTestCase {
         assertTrue("The limit is not exportable" , limit.isExportable());
         
         if (limit.isExportable()) {
+            assertTrue("The limit is not an Excel file." , limit.getExport().getType().equals(TableFacadeImpl.EXCEL));
+            
             ExcelComponentFactory factory = new ExcelComponentFactory(facade.getWebContext(), facade.getCoreContext());
             
             Table table = factory.createTable();
