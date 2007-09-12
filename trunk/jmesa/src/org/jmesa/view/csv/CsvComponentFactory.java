@@ -42,10 +42,6 @@ public class CsvComponentFactory extends AbstractComponentFactory {
         setCoreContext(coreContext);
     }
 
-    public Column createColumn(CellEditor editor) {
-        return createColumn(null, editor);
-    }
-
     public Column createColumn(String property, CellEditor editor) {
         ColumnImpl column = new ColumnImpl(property);
         column.setWebContext(getWebContext());

@@ -15,6 +15,7 @@
  */
 package org.jmesa.view;
 
+import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.component.Table;
@@ -64,5 +65,25 @@ public abstract class AbstractComponentFactory extends AbstractContextSupport im
         editor.setWebContext(getWebContext());
         editor.setCoreContext(getCoreContext());
         return editor;
+    }
+
+    /**
+     * Create a column using the BasicCellEditor.
+     * 
+     * @param property The column property.
+     * @return The HtmlColumn instance.
+     */
+    public Column createColumn(String property) {
+        return createColumn(property, createBasicCellEditor());
+    }
+
+    /**
+     * Create a column that does not require cell editor.
+     * 
+     * @param property The column property.
+     * @return The HtmlColumn instance.
+     */
+    public Column createColumn(CellEditor editor) {
+        return createColumn(null, editor);
     }
 }

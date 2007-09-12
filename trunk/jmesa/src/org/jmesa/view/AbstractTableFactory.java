@@ -25,7 +25,7 @@ import org.jmesa.view.editor.CellEditor;
  * @author Jeff Johnston
  */
 public abstract class AbstractTableFactory extends AbstractContextSupport implements TableFactory {
-    public Table createTable(String... columnNames) {
+    public Table createTable(String... columnProperties) {
         ComponentFactory factory = getComponentFactory();
 
         // create the table
@@ -41,8 +41,8 @@ public abstract class AbstractTableFactory extends AbstractContextSupport implem
 
         // create the columns
 
-        for (int i = 0; i < columnNames.length; i++) {
-            String columnName = columnNames[i];
+        for (int i = 0; i < columnProperties.length; i++) {
+            String columnName = columnProperties[i];
             Column firstNameColumn = factory.createColumn(columnName, editor);
             row.addColumn(firstNameColumn);
         }

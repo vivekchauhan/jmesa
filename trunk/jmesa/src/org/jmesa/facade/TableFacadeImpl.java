@@ -97,7 +97,7 @@ public class TableFacadeImpl implements TableFacade {
     private String id;
     private int maxRows;
     private Collection<Object> items;
-    private String[] columnNames;
+    private String[] columnProperties;
     private String[] exportTypes;
     private WebContext webContext;
     private CoreContext coreContext;
@@ -113,11 +113,15 @@ public class TableFacadeImpl implements TableFacade {
     private boolean performFilterAndSort = true;
 
     /**
+     * <p>
      * This constructor is most useful if you are only using the facade to get at the Limit.
+     * </p>
      * 
+     * <p>
      * This constructor is also useful if you are doing the filtering and sorting manually and
      * building the table using the component factory. However be sure to set the RowSelect object,
      * items, ant table before calling the render method.
+     * </p>
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -128,62 +132,72 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
+     * <p>
      * This constructor is useful if you are doing the filtering and sorting manually. However be
      * sure to set the RowSelect object and items before calling the render method.
+     * </p>
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
-     * @param columnNames The columns to be pulled from the items.
+     * @param columnProperties The columns to be pulled from the items.
      */
-    public TableFacadeImpl(String id, HttpServletRequest request, String... columnNames) {
+    public TableFacadeImpl(String id, HttpServletRequest request, String... columnProperties) {
         this.id = id;
         this.request = request;
-        this.columnNames = columnNames;
+        this.columnProperties = columnProperties;
     }
 
     /**
+     * <p>
      * This constructor is only useful if you are only using the facade for exports, not html
      * tables. This is because you are not setting the maxRows which is always required for the html
      * tables.
+     * </p>
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param items The Collection of Beans or Collection of Maps.
-     * @param columnNames The columns to be pulled from the items.
+     * @param columnProperties The columns to be pulled from the items.
      */
-    public TableFacadeImpl(String id, HttpServletRequest request, Collection<Object> items, String... columnNames) {
+    public TableFacadeImpl(String id, HttpServletRequest request, Collection<Object> items, String... columnProperties) {
         this.id = id;
         this.request = request;
         this.items = items;
-        this.columnNames = columnNames;
+        this.columnProperties = columnProperties;
     }
 
     /**
+     * <p>
      * The most common constructor that will be used to display an html table and exports. The
      * intent is let the API do all the filtering and sorting automatically.
+     * </p>
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param maxRows The max rows to display on a page.
      * @param items The Collection of Beans or Collection of Maps.
-     * @param columnNames The columns to be pulled from the items.
+     * @param columnProperties The columns to be pulled from the items.
      */
-    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<Object> items, String... columnNames) {
+    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<Object> items, String... columnProperties) {
         this.id = id;
         this.request = request;
         this.maxRows = maxRows;
         this.items = items;
-        this.columnNames = columnNames;
+        this.columnProperties = columnProperties;
     }
 
     /**
+     * <p>
      * This constructor is only useful if you are only using the facade for exports, not html
      * tables, and building the table using using the component factory. This is because you are not
      * setting the maxRows which is always required for the html tables.
+     * </p>
      * 
+     * <p>
      * This will not build the table automatically because there are no columns defined so you neeed
      * to build the table (probably using the component factory available) and then set the table on
      * the facade!
+     * </p>
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -196,13 +210,17 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
+     * <p>
      * The most common constructor that will be used to display an html table and exports if you are
      * using the component factory to build the table. The intent is let the API do all the
      * filtering and sorting automatically.
+     * </p>
      * 
+     * <p>
      * This will not build the table automatically because there are no columns defined so you neeed
      * to build the table (probably using the component factory available) and then set the table on
      * the facade!
+     * </p>
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -453,9 +471,9 @@ public class TableFacadeImpl implements TableFacade {
             return table;
         }
 
-        if (columnNames == null || columnNames.length == 0) {
+        if (columnProperties == null || columnProperties.length == 0) {
             throw new IllegalStateException(
-                    "The column names are null. You need to set the columnNames on the facade, or use the contructor with the columnNames.");
+                    "The column properties are null. You need to use the contructor with the columnProperties, or build the table with the factory.");
         }
 
         Limit l = getLimit();
@@ -467,15 +485,15 @@ public class TableFacadeImpl implements TableFacade {
             }
 
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
-            this.table = tableFactory.createTable(columnNames);
+            this.table = tableFactory.createTable(columnProperties);
         } else {
             String exportType = l.getExport().getType();
             if (exportType.equals(CSV)) {
                 TableFactory tableFactory = new CsvTableFactory(getWebContext(), getCoreContext());
-                this.table = tableFactory.createTable(columnNames);
+                this.table = tableFactory.createTable(columnProperties);
             } else if (exportType.equals(EXCEL)) {
                 TableFactory tableFactory = new ExcelTableFactory(getWebContext(), getCoreContext());
-                this.table = tableFactory.createTable(columnNames);
+                this.table = tableFactory.createTable(columnProperties);
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
@@ -543,10 +561,6 @@ public class TableFacadeImpl implements TableFacade {
     public View getView() {
         if (view != null) {
             return view;
-        }
-
-        if (table == null) {
-            throw new IllegalStateException("The table is null. You need to set the table on the facade.");
         }
 
         Limit l = getLimit();
