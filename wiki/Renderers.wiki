@@ -81,7 +81,7 @@ row.getRowRenderer().setOddClass("jmesaRowOdd");
 ==== !CellRenderer ====
 Each Column component has a !CellRenderer. The common attribute for all !CellRenderers, regardless of the view, is the !CellEditor. A !CellEditor is responsible for returning the value that the renderer will render. For more information see the [Editors] article.
 
-A !HtmlCellRenderer has the following attributes: style, and styleClass.
+An !HtmlCellRenderer has the following attributes: style, and styleClass.
 
 The style is the style attribute on the html td element. For instance this would change the font color to blue in the column.
 
@@ -96,7 +96,9 @@ column.getCellRenderer().setStyleClass("jmesaCell");
 }}}
 
 ==== !HeaderRenderer ====
-Each Column component has a !HeaderRenderer. There are no common attributes for a !HeaderRenderer between different views. However, an !HtmlHeaderRenderer has the following attributes: style, styleClass, and defaultSortOrderable.
+Each Column component has a !HeaderRenderer. The common attribute for all !HeaderRenderers, regardless of the view, is the !HeaderEditor. A !HeaderEditor is responsible for returning the value that the renderer will render. For more information see the [Editors] article. 
+
+An !HtmlHeaderRenderer has the following attributes: style, styleClass, and defaultSortOrderable.
 
 The style is the style attribute on the html td element in the header row. For instance this would change the height of the column to 20px.
 
@@ -117,7 +119,9 @@ column.getHeaderRenderer().setDefaultSortOrderable(false);
 }}}
 
 ==== !FilterRenderer ====
-Each Column component has a !FilterRenderer. There are no common attributes for a !FilterRenderer between different views. However, an !HtmlFilterRenderer has the following attributes: style, and styleClass.
+Each Column component has a !FilterRenderer. The common attribute for all !FilterRenderers, regardless of the view, is the !FilterEditor. A !FilterEditor is responsible for returning the value that the renderer will render. For more information see the [Editors] article. 
+
+An !HtmlFilterRenderer has the following attributes: style, and styleClass.
 
 The style is the style attribute on the html td element. For instance this would change the height of the column to 20px.
 
