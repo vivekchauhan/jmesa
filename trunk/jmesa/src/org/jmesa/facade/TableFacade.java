@@ -55,16 +55,18 @@ public interface TableFacade {
     public void setCoreContext(CoreContext coreContext);
 
     public void performFilterAndSort(boolean performFilterAndSort);
-    
+
     public void setMessages(Messages messages);
 
     public void setPreferences(Preferences preferences);
-    
+
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
 
     public void setItems(Collection<Object> items);
 
     public Table getTable();
+
+    public void setTable(Table table);
 
     public Toolbar getToolbar();
 
