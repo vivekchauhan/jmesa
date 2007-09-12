@@ -31,8 +31,8 @@ public class HtmlTableFactory extends AbstractTableFactory {
     }
 
     @Override
-    public HtmlTable createTable(String... columnNames) {
-        return (HtmlTable) super.createTable(columnNames);
+    public HtmlTable createTable(String... columnProperties) {
+        return (HtmlTable) super.createTable(columnProperties);
     }
 
     /**
@@ -55,11 +55,11 @@ public class HtmlTableFactory extends AbstractTableFactory {
      * Groovy 1.1.
      * </p>
      * 
-     * @param columnNames The array of columns, specified as varargs.
+     * @param columnProperties The array of columns, specified as varargs.
      * @return The HtmlTable instance.
      */
-    public HtmlTable createHtmlTable(String... columnNames) {
-        return (HtmlTable) super.createTable(columnNames);
+    public HtmlTable createHtmlTable(String... columnProperties) {
+        return (HtmlTable) super.createTable(columnProperties);
     }
 
     @Override

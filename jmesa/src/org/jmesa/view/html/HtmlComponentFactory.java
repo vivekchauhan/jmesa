@@ -72,6 +72,24 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         return row;
     }
 
+    /**
+     * Create a column using the BasicCellEditor.
+     * 
+     * @param property The column property.
+     * @return The HtmlColumn instance.
+     */
+    @Override
+    public HtmlColumn createColumn(String property) {
+        return createColumn(property, createBasicCellEditor());
+    }
+
+    /**
+     * Create a column that does not require cell editor.
+     * 
+     * @param property The column property.
+     * @return The HtmlColumn instance.
+     */
+    @Override
     public HtmlColumn createColumn(CellEditor editor) {
         return createColumn(null, editor);
     }

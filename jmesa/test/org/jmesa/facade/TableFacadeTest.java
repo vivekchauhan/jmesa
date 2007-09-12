@@ -37,11 +37,17 @@ import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
+import org.jmesa.view.ComponentFactory;
 import org.jmesa.view.View;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
+import org.jmesa.view.excel.ExcelComponentFactory;
+import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.HtmlView;
+import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.toolbar.Toolbar;
@@ -356,6 +362,67 @@ public class TableFacadeTest extends AbstractTestCase {
     }
 
     @Test
+    public void renderWithFactory() {
+        Collection<Object> items = new PresidentDao().getPresidents();
+        HttpServletRequest request = new MockHttpServletRequest();
+
+        TableFacade facade = new TableFacadeImpl("pres", request, 15, items);
+        
+        HtmlComponentFactory factory = new HtmlComponentFactory(facade.getWebContext(), facade.getCoreContext());
+        
+        HtmlTable table = factory.createTable();
+        HtmlRow row = factory.createRow();
+        row.addColumn(factory.createColumn("name.firstName"));
+        row.addColumn(factory.createColumn("name.lastName"));
+        row.addColumn(factory.createColumn("term"));
+        row.addColumn(factory.createColumn("career"));
+        table.setRow(row);
+
+        facade.setTable(table);
+        
+        String html = facade.render();
+        assertNotNull(html);
+        assertTrue("Did not return any markup.", html.length() > 0);
+    }
+    
+    @Test
+    public void renderExportsWithFactory() {
+        Collection<Object> items = new PresidentDao().getPresidents();
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        assertTrue("The response is not empty." , response.getContentAsByteArray().length == 0);
+        
+        SpringParametersAdapter parameters = new SpringParametersAdapter(request);
+        ParametersBuilder builder = new ParametersBuilder(ID, parameters);
+        builder.setExport(TableFacadeImpl.EXCEL);
+
+        TableFacade facade = new TableFacadeImpl(ID, request, items);
+        facade.setExportTypes(response, TableFacadeImpl.EXCEL);
+        
+        Limit limit = facade.getLimit();
+        assertTrue("The limit is not exportable" , limit.isExportable());
+        
+        if (limit.isExportable()) {
+            ExcelComponentFactory factory = new ExcelComponentFactory(facade.getWebContext(), facade.getCoreContext());
+            
+            Table table = factory.createTable();
+            Row row = factory.createRow();
+            row.addColumn(factory.createColumn("name.firstName"));
+            row.addColumn(factory.createColumn("name.lastName"));
+            row.addColumn(factory.createColumn("term"));
+            row.addColumn(factory.createColumn("career"));
+            table.setRow(row);
+
+            facade.setTable(table);
+            assertNull(facade.render()); // exports do not render anything
+            
+            assertTrue("There are no contents in the export.", response.getContentAsByteArray().length > 0);
+        }
+    }
+
+    @Test
     public void renderAndExportable() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
@@ -367,6 +434,7 @@ public class TableFacadeTest extends AbstractTestCase {
         TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
 
         MockHttpServletResponse response = new MockHttpServletResponse();
+        assertTrue("The response is not empty." , response.getContentAsByteArray().length == 0);
         facade.setExportTypes(response, TableFacadeImpl.CSV, TableFacadeImpl.EXCEL);
 
         String markup = facade.render();
