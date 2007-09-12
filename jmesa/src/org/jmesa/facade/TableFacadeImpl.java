@@ -113,7 +113,11 @@ public class TableFacadeImpl implements TableFacade {
     private boolean performFilterAndSort = true;
 
     /**
-     * This constructor is only useful if you are only using the facade to get at the Limit.
+     * This constructor is most useful if you are only using the facade to get at the Limit.
+     * 
+     * This constructor is also useful if you are doing the filtering and sorting manually and
+     * building the table using the component factory. However be sure to set the RowSelect object,
+     * items, ant table before calling the render method.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -124,8 +128,8 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * This constructor is useful if you are doing the filtering and sorting manually. However be sure to 
-     * set the RowSelect object and items before calling the render method.
+     * This constructor is useful if you are doing the filtering and sorting manually. However be
+     * sure to set the RowSelect object and items before calling the render method.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -155,8 +159,8 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * The most common constructor that will be used to display an html table and exports. The intent is
-     * let the API do all the filtering and sorting automatically.
+     * The most common constructor that will be used to display an html table and exports. The
+     * intent is let the API do all the filtering and sorting automatically.
      * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
@@ -170,6 +174,46 @@ public class TableFacadeImpl implements TableFacade {
         this.maxRows = maxRows;
         this.items = items;
         this.columnNames = columnNames;
+    }
+
+    /**
+     * This constructor is only useful if you are only using the facade for exports, not html
+     * tables, and building the table using using the component factory. This is because you are not
+     * setting the maxRows which is always required for the html tables.
+     * 
+     * This will not build the table automatically because there are no columns defined so you neeed
+     * to build the table (probably using the component factory available) and then set the table on
+     * the facade!
+     * 
+     * @param id The unique identifier for this table.
+     * @param request The servlet request object.
+     * @param items The Collection of Beans or Collection of Maps.
+     */
+    public TableFacadeImpl(String id, HttpServletRequest request, Collection<Object> items) {
+        this.id = id;
+        this.request = request;
+        this.items = items;
+    }
+
+    /**
+     * The most common constructor that will be used to display an html table and exports if you are
+     * using the component factory to build the table. The intent is let the API do all the
+     * filtering and sorting automatically.
+     * 
+     * This will not build the table automatically because there are no columns defined so you neeed
+     * to build the table (probably using the component factory available) and then set the table on
+     * the facade!
+     * 
+     * @param id The unique identifier for this table.
+     * @param request The servlet request object.
+     * @param maxRows The max rows to display on a page.
+     * @param items The Collection of Beans or Collection of Maps.
+     */
+    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<Object> items) {
+        this.id = id;
+        this.request = request;
+        this.maxRows = maxRows;
+        this.items = items;
     }
 
     /**
@@ -348,8 +392,8 @@ public class TableFacadeImpl implements TableFacade {
      * Set the items, the Collection of Beans (or Maps), if not already set on the constructor.
      * Useful if performing the sorting and filtering manually and need to set the items on the
      * facade. If you are performing the sorting and filtering manually you should also set the
-     * performFilterAndSort() to false because there is no reason to have the API try to sort
-     * and filter if you have already done so.
+     * performFilterAndSort() to false because there is no reason to have the API try to sort and
+     * filter if you have already done so.
      * 
      * @param The Collecton of Beans (or Maps) to use.
      */
@@ -441,6 +485,15 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
+     * Set the Table on the facade. This will override the Table if it was previously set.
+     * 
+     * @param table The Table to use.
+     */
+    public void setTable(Table table) {
+        this.table = table;
+    }
+
+    /**
      * Get the Toolbar. If the Toolbar does not exist then one will be created.
      * 
      * @return The Toolbar to use.
@@ -490,6 +543,10 @@ public class TableFacadeImpl implements TableFacade {
     public View getView() {
         if (view != null) {
             return view;
+        }
+
+        if (table == null) {
+            throw new IllegalStateException("The table is null. You need to set the table on the facade.");
         }
 
         Limit l = getLimit();
