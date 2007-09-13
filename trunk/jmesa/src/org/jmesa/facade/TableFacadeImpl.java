@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
@@ -404,6 +405,22 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         filterMatchers.put(key, matcher);
+    }
+
+    /**
+     * Add a FilterMatcherMap on the facade. Will add the various FilterMatchers to the facade using
+     * the FilterMatcherMap interface. Most useful for the tag library because they have to use the
+     * FilterMatcherMap to register filter matcher strategies.
+     * 
+     * @param filterMatcherMap The FilterMatcherMap to use.
+     */
+    public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
+        Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
+        Set<MatcherKey> keys = filterMatchers.keySet();
+        for (MatcherKey key : keys) {
+            FilterMatcher matcher = filterMatchers.get(key);
+            addFilterMatcher(key, matcher);
+        }
     }
 
     /**
