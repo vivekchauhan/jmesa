@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
@@ -61,6 +62,8 @@ public interface TableFacade {
     public void setPreferences(Preferences preferences);
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
+    
+    public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap);
 
     public void setItems(Collection<Object> items);
 
