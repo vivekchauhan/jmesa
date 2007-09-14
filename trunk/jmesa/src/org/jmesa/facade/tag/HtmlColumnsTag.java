@@ -60,6 +60,8 @@ public class HtmlColumnsTag extends SimpleTagSupport {
             TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
             HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) Class.forName(getHtmlColumnsGenerator()).newInstance();
+            SupportUtils.setCoreContext(htmlColumnsGenerator, facadeTag.getCoreContext());
+            SupportUtils.setWebContext(htmlColumnsGenerator, facadeTag.getWebContext());
             this.columns = htmlColumnsGenerator.getColumns(facadeTag.getComponentFactory());
 
             HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
@@ -67,9 +69,6 @@ public class HtmlColumnsTag extends SimpleTagSupport {
             for (HtmlColumn column : columns) {
                 row.addColumn(column);
             }
-
-            SupportUtils.setCoreContext(htmlColumnsGenerator, facadeTag.getCoreContext());
-            SupportUtils.setWebContext(htmlColumnsGenerator, facadeTag.getWebContext());
         } catch (Exception e) {
             logger.error("Could not create the autoGenerateColumns [" + getHtmlColumnsGenerator() + "]", e);
         }
