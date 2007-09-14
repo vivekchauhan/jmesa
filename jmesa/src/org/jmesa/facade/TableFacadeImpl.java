@@ -408,9 +408,15 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
+     * <p>
      * Add a FilterMatcherMap on the facade. Will add the various FilterMatchers to the facade using
-     * the FilterMatcherMap interface. Most useful for the tag library because they have to use the
-     * FilterMatcherMap to register filter matcher strategies.
+     * the FilterMatcherMap interface.
+     * </p>
+     * 
+     * <p>
+     * Most useful for the tag library because they have to use the FilterMatcherMap to register
+     * filter matcher strategies, but could also be used as a way to bundle up filter matchers.
+     * </p>
      * 
      * @param filterMatcherMap The FilterMatcherMap to use.
      */
