@@ -76,4 +76,17 @@ public interface HtmlColumn extends Column {
     public HtmlHeaderRenderer getHeaderRenderer();
 
     public HtmlRow getRow();
+
+    /**
+     * @return Is true if generated on the fly through the api.
+     */
+    public boolean isGeneratedOnTheFly();
+
+    /**
+     * Flag the column that it was generated on the fly. Only useful for the internal api so
+     * developers should not use or override this variable.
+     * 
+     * @since 2.2.1
+     */
+    public void setGeneratedOnTheFly(boolean generated);
 }

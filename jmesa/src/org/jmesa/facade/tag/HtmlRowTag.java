@@ -26,6 +26,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.web.WebContext;
 import org.slf4j.Logger;
@@ -45,7 +46,6 @@ public class HtmlRowTag extends SimpleTagSupport {
     private String onmouseover;
     private String onmouseout;
 
-    private HtmlRow row;
     private Map<String, Object> pageItem;
 
     public boolean isHighlighter() {
@@ -143,20 +143,14 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * The row to use. If the row does not exist then one will be created.
      */
-    public HtmlRow getRow() {
-        if (row != null) {
-            return row;
-        }
-
+    private HtmlRow getRow() {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-        this.row = facadeTag.getComponentFactory().createRow();
+
+        HtmlRow row = facadeTag.getComponentFactory().createRow();
         row.setHighlighter(isHighlighter());
         row.setOnclick(getRowOnclick());
         row.setOnmouseover(getRowOnmouseover());
         row.setOnmouseout(getRowOnmouseout());
-
-        HtmlTableTag tableTag = (HtmlTableTag) findAncestorWithClass(this, HtmlTableTag.class);
-        tableTag.getTable().setRow(row);
 
         return row;
     }
@@ -185,7 +179,12 @@ public class HtmlRowTag extends SimpleTagSupport {
         Object bean = webContext.getPageAttribute(var);
         pageItem.put(var, bean);
 
-        getRow();
+        HtmlTable table = facadeTag.getTable();
+        HtmlRow row = table.getRow();
+        if (row == null) {
+            row = getRow();
+            table.setRow(row);
+        }
 
         body.invoke(null);
     }
