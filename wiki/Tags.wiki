@@ -38,6 +38,8 @@ The following will define the html table.
 </jmesa:tableFacade>
 }}}
 
+*New:* _There is now an alternative way to create columns using the !HtmlColumnsTag tag. See the 2.2.1 minor release [2_2_1NewAndNoteworthy documentation] for details._
+
 To generate the exports use the [TableFacade] in your controller.
 
 {{{
@@ -141,3 +143,6 @@ public class TagRowEvent implements RowEvent {
 
 
 
+ 
+ 
+ 
