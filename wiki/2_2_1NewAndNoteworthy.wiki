@@ -1,3 +1,7 @@
+*Note:* See the 2.2 [2_2NewAndNoteworthy documentation] that contains the core features for the 2.2 release.
+
+This is the bug fix report and new features listing for the 2.2.1 minor release.
+
 == Bugs Fixed ==
 The tags were incorrectly creating new table, row and column objects each iteration over the tags. The reason is the !SimpleTagSupport class creates a new object each time they are used, so the local variables were being overwritten. I refactored this back to check and pull values directly from the table on the facade. In hindsight this was a much cleaner way to do it anyway as it keeps everything in the API. This is a performance fix as nothing functionally changed.
 
@@ -104,6 +108,9 @@ if (limit.isExportable()) {
     
 }
 }}}
+ 
+ 
+ 
  
  
  
