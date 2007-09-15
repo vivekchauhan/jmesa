@@ -208,4 +208,15 @@
 		</attribute>
 	</tag>
 
+	<tag>
+	    <name>htmlColumns</name>
+	    <tagclass>org.jmesa.facade.tag.HtmlColumnsTag</tagclass>
+	    <bodycontent>scriptless</bodycontent>
+	    <attribute>
+	        <name>htmlColumnsGenerator</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	</tag>
+
 </taglib>
