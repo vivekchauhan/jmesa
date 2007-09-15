@@ -68,6 +68,8 @@ The !TableFacade interface also has setters for all the facade objects including
 
 However, all this should feel very natural and you should not have to think about what you are doing. Just interact with the facade how you need to and it will take care of everything.
 
+*New: There is now an alternative way to create columns using the API. See the 2.2.1 minor release [2_2_1NewAndNoteworthy documentation] for details.*
+
 Even if you start using the tag library it would still be very handy to use for the exports. The code would be as easy as this:
 
 {{{
@@ -84,3 +86,6 @@ if (limit.isExportable()) {
 All the boilerplate code of rendering the exports is done for you!
 
 *Note:* Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!
+ 
+ 
+ 
