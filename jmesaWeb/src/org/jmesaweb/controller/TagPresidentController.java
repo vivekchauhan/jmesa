@@ -41,13 +41,15 @@ public class TagPresidentController extends AbstractController {
     private String successView;
     private String id; // The unique table id.
 
+    @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
         Collection<Object> items = presidentService.getPresidents();
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career", "born");
         tableFacade.setExportTypes(response, "csv", "excel"); // Tell the tableFacade what exports to use.
+        tableFacade.addFilterMatcherMap(new TagFilterMatcherMap());
 
         Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {
