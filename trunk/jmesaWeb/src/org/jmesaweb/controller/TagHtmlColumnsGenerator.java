@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jmesa.view.AbstractContextSupport;
-import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlColumnsGenerator;
@@ -13,20 +12,15 @@ public class TagHtmlColumnsGenerator extends AbstractContextSupport implements H
     public List<HtmlColumn> getColumns(HtmlComponentFactory componentFactory) {
         List<HtmlColumn> columns = new ArrayList<HtmlColumn>();
 
-        CellEditor cellEditor = componentFactory.createBasicCellEditor();
-
-        HtmlColumn firstName = componentFactory.createColumn(cellEditor);
-        firstName.setProperty("name.firstName");
+        HtmlColumn firstName = componentFactory.createColumn("name.firstName");
         firstName.setTitle("First Name");
         columns.add(firstName);
 
-        HtmlColumn lastName = componentFactory.createColumn(cellEditor);
-        lastName.setProperty("name.lastName");
+        HtmlColumn lastName = componentFactory.createColumn("name.lastName");
         lastName.setTitle("Last Name");
         columns.add(lastName);
 
-        HtmlColumn born = componentFactory.createColumn(cellEditor);
-        born.setProperty("born");
+        HtmlColumn born = componentFactory.createColumn("born");
         columns.add(born);
 
         return columns;
