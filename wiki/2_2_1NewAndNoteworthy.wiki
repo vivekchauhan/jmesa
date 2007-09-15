@@ -1,0 +1,53 @@
+=== Bugs Fixed ===
+The tags were incorrectly creating new table, row and column objects each iteration over the tags. The reason is the SimpleTagSupport class creates a new object each time they are used, so the local variables were being overwritten. I refactored this back to check and pull values directly from the table on the facade. In hindsight this was a much cleaner way to do it anyway as it keeps everything in the API. This is a performance fix as nothing functionally changed.
+
+=== New Features ====
+I added the !FilterMatcherMap to the !TableFacade interface. The !FilterMatcherMap is generally used for the tag library to set the filter matchers. By adding this to the !TableFacade it means you you can use the same object for the exports. You could also use this for the general API if desired.
+
+{{{
+tableFacade.addFilterMatcherMap(new TagFilterMatcherMap());
+}}}
+
+=== !HtmlColumnsGenerator (for tag library) ===
+There is a new tag called the !HtmlColumnsTag. It contains one variable called htmlColumnsGenerator.
+
+{{{
+<jmesa:htmlColumns htmlColumnsGenerator="org.jmesaweb.controller.TagHtmlColumnsGenerator"/>
+}}}
+
+It corresponds with the !HtmlColumnsGenerator interface and is used so that you can add columns on the fly.
+
+{{{
+public interface HtmlColumnsGenerator {
+    public List<HtmlColumn> getColumns(HtmlComponentFactory componentFactory);
+}
+}}}
+
+An example is:
+
+{{{
+public class TagHtmlColumnsGenerator extends AbstractContextSupport implements HtmlColumnsGenerator {
+    public List<HtmlColumn> getColumns(HtmlComponentFactory componentFactory) {
+        List<HtmlColumn> columns = new ArrayList<HtmlColumn>();
+
+        HtmlColumn firstName = componentFactory.createColumn("name.firstName");
+        firstName.setTitle("First Name");
+        columns.add(firstName);
+
+        HtmlColumn lastName = componentFactory.createColumn("name.lastName");
+        lastName.setTitle("Last Name");
+        columns.add(lastName);
+
+        HtmlColumn born = componentFactory.createColumn("born");
+        columns.add(born);
+
+        return columns;
+    }
+}
+}}}
+
+ 
+ 
+ 
+ 
+ 
