@@ -32,6 +32,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     private String width;
     private FilterRenderer filterRenderer;
     private Order[] sortOrder;
+    private boolean generatedOnTheFly;
 
     public HtmlColumnImpl() {
     }
@@ -88,6 +89,20 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 
     public void setFilterRenderer(FilterRenderer filterRenderer) {
         this.filterRenderer = filterRenderer;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isGeneratedOnTheFly() {
+        return generatedOnTheFly;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setGeneratedOnTheFly(boolean generatedOnTheFly) {
+        this.generatedOnTheFly = generatedOnTheFly;
     }
 
     @Override

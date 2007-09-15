@@ -43,8 +43,6 @@ public class HtmlTableTag extends SimpleTagSupport {
     private String cellpadding;
     private String cellspacing;
 
-    private HtmlTable table;
-
     public String getCaption() {
         return caption;
     }
@@ -120,13 +118,10 @@ public class HtmlTableTag extends SimpleTagSupport {
     /**
      * The table to use. If the table does not exist then one will be created.
      */
-    public HtmlTable getTable() {
-        if (table != null) {
-            return table;
-        }
-
+    private HtmlTable getTable() {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-        this.table = facadeTag.getComponentFactory().createTable();
+
+        HtmlTable table = facadeTag.getComponentFactory().createTable();
         table.setCaption(getCaption());
         table.setCaptionKey(getCaptionKey());
         table.setTheme(getTheme());
@@ -136,8 +131,6 @@ public class HtmlTableTag extends SimpleTagSupport {
         table.getTableRenderer().setBorder(getBorder());
         table.getTableRenderer().setCellpadding(getCellpadding());
         table.getTableRenderer().setCellspacing(getCellspacing());
-
-        facadeTag.setTable(table);
 
         return table;
     }
@@ -149,7 +142,12 @@ public class HtmlTableTag extends SimpleTagSupport {
             throw new IllegalStateException("You need to wrap the table in the facade tag.");
         }
 
-        getTable();
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        HtmlTable table = facadeTag.getTable();
+        if (table == null) {
+            table = getTable();
+            facadeTag.setTable(table);
+        }
 
         body.invoke(null);
     }

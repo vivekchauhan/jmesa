@@ -1,6 +1,7 @@
 package org.jmesa.facade.tag;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.jmesa.util.ItemUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.html.component.HtmlColumnsGenerator;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlColumnsGenerator;
 import org.jmesa.view.html.component.HtmlRow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +24,9 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class HtmlColumnsTag extends SimpleTagSupport {
-
     private Logger logger = LoggerFactory.getLogger(HtmlColumnTag.class);
 
     private String htmlColumnsGenerator;
-
-    private List<HtmlColumn> columns;
 
     public String getHtmlColumnsGenerator() {
         return htmlColumnsGenerator;
@@ -51,38 +49,55 @@ public class HtmlColumnsTag extends SimpleTagSupport {
         return ItemUtils.getItemValue(item, property);
     }
 
-    public void addColumns() {
-        if (columns != null && columns.size() > 0) {
-            return;
-        }
+    /**
+     * @return The list of columns generated on the fly.
+     */
+    private List<HtmlColumn> getColumns() {
+        List<HtmlColumn> columns = null;
 
         try {
             TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-
             HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) Class.forName(getHtmlColumnsGenerator()).newInstance();
             SupportUtils.setCoreContext(htmlColumnsGenerator, facadeTag.getCoreContext());
             SupportUtils.setWebContext(htmlColumnsGenerator, facadeTag.getWebContext());
-            this.columns = htmlColumnsGenerator.getColumns(facadeTag.getComponentFactory());
-
-            HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
-            HtmlRow row = rowTag.getRow();
-            for (HtmlColumn column : columns) {
-                row.addColumn(column);
-            }
+            columns = htmlColumnsGenerator.getColumns(facadeTag.getComponentFactory());
         } catch (Exception e) {
-            logger.error("Could not create the autoGenerateColumns [" + getHtmlColumnsGenerator() + "]", e);
+            logger.error("Could not create the htmlColumnsGenerator [" + getHtmlColumnsGenerator() + "]", e);
         }
+
+        return columns;
     }
 
+    /**
+     * Process the list of columns that are generated on the fly.
+     */
     @Override
     public void doTag() throws JspException, IOException {
-        addColumns();
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        Collection<Object> pageItems = facadeTag.getPageItems();
+        if (pageItems.size() == 1) {
+            HtmlRow row = facadeTag.getTable().getRow();
+            List<HtmlColumn> columns = getColumns();
+            for (HtmlColumn column : columns) {
+                column.setGeneratedOnTheFly(true);
+                TagUtils.validateColumn(this, column.getProperty());
+                row.addColumn(column);
+            }
+        }
 
         HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
         Map<String, Object> pageItem = rowTag.getPageItem();
+
+        HtmlRow row = facadeTag.getTable().getRow();
+        List<Column> columns = row.getColumns();
         for (Column column : columns) {
-            String property = ((HtmlColumn) column).getProperty();
-            pageItem.put(property, getValue(property));
+            HtmlColumn htmlColumn = (HtmlColumn) column;
+            if (htmlColumn.isGeneratedOnTheFly()) {
+                String property = htmlColumn.getProperty();
+                if (property != null) {
+                    pageItem.put(property, getValue(property));
+                }
+            }
         }
     }
 }

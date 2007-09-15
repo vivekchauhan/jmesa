@@ -31,11 +31,15 @@ public class RowImpl extends AbstractContextSupport implements Row {
 
     public Column getColumn(String property) {
         for (Column column : columns) {
+            if (column.getProperty() == null) {
+                continue;
+            }
+
             if (column.getProperty().equals(property)) {
                 return column;
             }
         }
-        
+
         return null;
     }
 

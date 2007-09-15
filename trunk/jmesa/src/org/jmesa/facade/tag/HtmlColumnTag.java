@@ -17,6 +17,7 @@ package org.jmesa.facade.tag;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
@@ -32,6 +33,7 @@ import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,8 +57,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String cellEditor;
     private String headerEditor;
     private String filterEditor;
-
-    private HtmlColumn column;
 
     public String getProperty() {
         return property;
@@ -282,15 +282,19 @@ public class HtmlColumnTag extends SimpleTagSupport {
     /**
      * The column to use. If the column does not exist then one will be created.
      */
-    public HtmlColumn getColumn() {
-        if (column != null) {
-            return column;
-        }
-
+    private HtmlColumn getColumn() {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+
         HtmlComponentFactory factory = facadeTag.getComponentFactory();
         CellEditor editor = getColumnCellEditor();
-        this.column = factory.createColumn(getProperty(), editor);
+
+        HtmlColumn column = factory.createColumn(getProperty(), editor);
+        column.setTitle(getTitle());
+        column.setTitleKey(getTitleKey());
+        column.setSortable(isSortable());
+        column.setSortOrder(getColumnSortOrder());
+        column.setFilterable(isFilterable());
+        column.setWidth(getWidth());
 
         HeaderEditor headerEditor = getColumnHeaderEditor();
         if (headerEditor != null) {
@@ -302,9 +306,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
             column.getFilterRenderer().setFilterEditor(filterEditor);
         }
 
-        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
-        rowTag.getRow().addColumn(column);
-
         return column;
     }
 
@@ -315,7 +316,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @return The item to use.
      */
     @SuppressWarnings("unchecked")
-    public Object getValue() throws JspException, IOException {
+    protected Object getValue() throws JspException, IOException {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         String var = facadeTag.getVar();
         Object item = getJspContext().getAttribute(var);
@@ -336,41 +337,17 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        HtmlColumn column = getColumn();
-        column.setTitle(getTitle());
-        column.setTitleKey(getTitleKey());
-        column.setSortable(isSortable());
-        column.setSortOrder(getColumnSortOrder());
-        column.setFilterable(isFilterable());
-        column.setWidth(getWidth());
-
-        validate();
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        Collection<Object> pageItems = facadeTag.getPageItems();
+        if (pageItems.size() == 1) {
+            HtmlRow row = facadeTag.getTable().getRow();
+            HtmlColumn column = getColumn();
+            TagUtils.validateColumn(this, getProperty());
+            row.addColumn(column);
+        }
 
         HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
         Map<String, Object> pageItem = rowTag.getPageItem();
         pageItem.put(getProperty(), getValue());
-    }
-
-    /**
-     * Validate that the HtmlColumnTag is in an expected state.
-     * 
-     * @return Is true is the validation passes
-     */
-    protected boolean validate() {
-        HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
-        Map<String, Object> pageItem = rowTag.getPageItem();
-        if (pageItem.get(getProperty()) != null) {
-            TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-            String var = facadeTag.getVar();
-            String msg = "The column property [" + getProperty() + "] is not unique. One column value will overwrite another.";
-            if (var.equals(getProperty())) {
-                msg = "The column property [" + getProperty() + "] is the same as the TableFacadeTag var attribute [" + var + "].";
-            }
-
-            logger.error(msg);
-            throw new IllegalStateException(msg);
-        }
-
-        return true;
     }
 }
