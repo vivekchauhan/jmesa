@@ -28,7 +28,14 @@
 		<mkdir dir="${dist.dir}" />
 	</target>
 
-	<target name="clean">
+    <target name="test-init">
+        <mkdir dir="${test.dir}" />
+        <mkdir dir="${test.classes.dir}" />
+        <mkdir dir="${test.data.dir}" />
+        <mkdir dir="${test.reports.dir}" />
+    </target>
+
+    <target name="clean">
 		<delete includeemptydirs="true">
 			<fileset dir="${build.dir}" />
 			<fileset dir="${dist.dir}" />
@@ -64,19 +71,42 @@
         </copy>
 	</target>
 	
+    <target name="test-compile" depends="jar">
+        <echo message="You are using java version ${java.version}" />
+        <javac destdir="${test.classes.dir}" 
+            debug="${build.debug}" 
+            includeantruntime="true" 
+            srcdir="test">
+            <classpath refid="test.compile.classpath" />
+        </javac>
+        <copy todir="${test.classes.dir}">
+            <fileset dir="test" includes="${source.files.tocopy}"/>
+        </copy>
+    </target>
+
 	<target name="jar" depends="compile">
 		<jar destfile="${target.jar}">
 		    <fileset dir="${build.classes.dir}" />		
 		</jar>
 	</target>
+	
+	<target name="unit-tests" depends="test-compile">
+		<junit printsummary="true" haltonfailure="true">
+			<classpath refid="test.classpath"/>
+			 <batchtest todir="${test.data.dir}">
+			 	<fileset dir="${test.classes.dir}">
+			 	   <include name="**/*Test.class"/>
+			 	</fileset>
+			 </batchtest>
+		</junit>
+	</target>
 
-    <target name="javadocs" depends="compile">
-        <mkdir dir="${build.dir}" />
-        <mkdir dir="${build.dir}/docs" />
+    <target name="javadocs">
+        <mkdir dir="${dist.dir}/docs" />
 
         <javadoc sourcepath="src" 
-            destdir="${build.dir}/docs" 
-            windowtitle="${ant.name}" 
+            destdir="${dist.dir}/docs" 
+            windowtitle="${project.name}" 
             additionalparam="-breakiterator" 
             source="1.5" 
             linksource="true" 
@@ -90,7 +120,7 @@
                 <![CDATA[<h1>JMesa</h1>]]>
             </doctitle>
 
-            <classpath refid="classes" />
+            <classpath refid="compile.classpath" />
 
             <packageset dir="src">
                 <include name="org/jmesa/**" />
@@ -100,7 +130,7 @@
         </javadoc>
     </target>
 
-	<target name="ivy-init" depends="init">
+	<target name="ivy-init" depends="init,test-init">
 		<property name="ivy.lib.dir" location="${build.dir}/ivy/lib" />
 		<mkdir dir="${ivy.lib.dir}/compile" />
 		<mkdir dir="${ivy.lib.dir}/test" />
