@@ -11,12 +11,14 @@
 
 	<!-- set up the distribution targets -->
 	<property name="dist.dir" location="dist" />
-	<property name="project.name" value="jmesa" />
+	<property name="project.name" value="jmesaWeb" />
 	<property name="project.version" value="2.2.1" />
 	<property name="project.name-ver" value="${project.name}-${project.version}" />
-	<property name="target.name" value="${project.name-ver}.jar" />
-	<property name="target.jar" location="${dist.dir}/${target.name}" />
+	<property name="target.name" value="${project.name-ver}.war" />
+	<property name="target.war" location="${dist.dir}/${target.name}" />
 	
+    <property name="web.dir" location="web" />
+
 	<property name="build.debug" value="true" />
 
 	<!-- pattern of source files to copy -->
@@ -64,10 +66,16 @@
         </copy>
 	</target>
 	
-	<target name="jar" depends="compile">
-		<jar destfile="${target.jar}">
-		    <fileset dir="${build.classes.dir}" />		
-		</jar>
+	<target name="war" depends="compile">
+		<war destfile="${target.war}"
+			webxml="${web.dir}/WEB-INF/web.xml"
+			>
+		    <fileset dir="${web.dir}" />
+			<classes dir="${build.classes.dir}" />
+			<lib dir="${build.dir}/ivy/lib/war">
+				<include name="*.jar"/>
+			</lib>
+		</war>
 	</target>
 
     <target name="javadocs" depends="compile">
@@ -104,6 +112,7 @@
 		<property name="ivy.lib.dir" location="${build.dir}/ivy/lib" />
 		<mkdir dir="${ivy.lib.dir}/compile" />
 		<mkdir dir="${ivy.lib.dir}/test" />
+        <mkdir dir="${ivy.lib.dir}/war" />
 		<ivy:configure file="${basedir}/ivyconf.xml" />
 	</target>
 
@@ -114,10 +123,6 @@
 	<target name="ivy-retrieve" depends="ivy-resolve">
 		<ivy:retrieve pattern="${ivy.lib.dir}/[conf]/[artifact]-[revision].[ext]" sync="true" />
 	</target>
-
-    <target name="ivy-publish" depends="jar">
-        <ivy:publish resolver="local" conf="master" pubrevision="${project.version}" overwrite="true" artifactspattern="${dist.dir}/[artifact]-[revision].[ext]" />
-    </target>
 
 	<target name="ivy-clean-cache">
 		<delete dir="${user.home}/.ivy/cache" />
