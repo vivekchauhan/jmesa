@@ -19,6 +19,7 @@
         <dependency org="apache" name="poi" rev="3.0.1" conf="compile->default" />
         <dependency org="easymock" name="easymock" rev="2.2" conf="test->default" />
         <dependency org="groovy" name="groovy" rev="1.0" conf="compile->default" />
+        <dependency org="junit" name="junit" rev="4.4" conf="test->default" />
         <dependency org="slfj" name="jcl104-over-slf4j" rev="1.3.1" conf="compile->default" />
         <dependency org="slfj" name="slf4j-api" rev="1.3.1" conf="compile->default" />
         <dependency org="slfj" name="slf4j-log4j12" rev="1.3.1" conf="compile->default" />
