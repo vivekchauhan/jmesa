@@ -31,6 +31,7 @@
 	</target>    
 
     <target name="cargostop">
+    
         <echo message="Stopping Cargo..."/>
         
         <cargo containerId="tomcat5x" home="${tomcat.home}" output="${cargo.logs}/output.log" log="${cargo.logs}/cargo.log" action="stop">
