@@ -14,7 +14,7 @@
 	<taskdef name="stop"      classname="org.apache.catalina.ant.StopTask"/>
 	<taskdef name="undeploy"  classname="org.apache.catalina.ant.UndeployTask"/>
     
-    <target name="deploy" description="Install application in Tomcat">
+    <target name="tomcatdeploy" description="Install application in Tomcat">
         <deploy url="${tomcat.manager.url}"
             username="${tomcat.username}"
             password="${tomcat.password}"
@@ -22,35 +22,35 @@
             war="file:${target.war}"/>
     </target>
 
-    <target name="undeploy" description="Remove application in Tomcat">
+    <target name="tomcatundeploy" description="Remove application in Tomcat">
         <undeploy url="${tomcat.manager.url}"
             username="${tomcat.username}"
             password="${tomcat.password}"
             path="/${project.name-ver}"/>
     </target>
 
-    <target name="reload" description="Reload application in Tomcat">
+    <target name="tomcatreload" description="Reload application in Tomcat">
         <reload url="${tomcat.manager.url}"
             username="${tomcat.username}"
             password="${tomcat.password}"
             path="/${project.name-ver}"/>
     </target>
 
-    <target name="start" description="Start Tomcat application">
+    <target name="tomcatstart" description="Start Tomcat application">
         <start url="${tomcat.manager.url}"
             username="${tomcat.username}"
             password="${tomcat.password}"
             path="/${project.name-ver}"/>
     </target>
 
-    <target name="stop" description="Stop Tomcat application">
+    <target name="tomcatstop" description="Stop Tomcat application">
         <stop url="${tomcat.manager.url}"
             username="${tomcat.username}"
             password="${tomcat.password}"
             path="/${project.name-ver}"/>
     </target>
 
-    <target name="list" description="List Tomcat applications">
+    <target name="tomcatlist" description="List Tomcat applications">
         <list url="${tomcat.manager.url}"
             username="${tomcat.username}"
             password="${tomcat.password}"/>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project name="tomcat" basedir=".">
+
+	<taskdef resource="cargo.tasks"/>
+
+    <import file="build.xml" />
+    
+    <property file="cargo.properties"/>
+    <property file="tomcat.properties"/>
+
+	<target name="cargostart">
+        
+        <delete dir="${cargo.conf}" />
+        <delete dir="${cargo.logs}" />
+        
+        <mkdir dir="${cargo.conf}"/>
+        <mkdir dir="${cargo.logs}"/>
+
+        <echo message="Starting Cargo..."/>
+        
+        <cargo containerId="tomcat5x" home="${tomcat.home}" output="${cargo.logs}/output.log" log="${cargo.logs}/cargo.log" action="start">
+	    
+		    <configuration home="${cargo.conf}">
+		       <property name="cargo.servlet.port" value="8080"/>
+		       <property name="cargo.logging" value="high"/>
+		       <deployable type="war" file="${target.war}"/>
+		    </configuration>
+		    
+        </cargo>
+
+	</target>    
+
+    <target name="cargostop">
+        <echo message="Stopping Cargo..."/>
+        
+        <cargo containerId="tomcat5x" home="${tomcat.home}" output="${cargo.logs}/output.log" log="${cargo.logs}/cargo.log" action="stop">
+            <configuration home="${cargo.conf}"/>
+        </cargo>
+
+    </target>    
+    
+</project>
