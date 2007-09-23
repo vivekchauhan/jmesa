@@ -1,6 +1,4 @@
-One of the best features of JMesa over the eXtremeTable is that the table actions are no longer controlled by hidden form fields, but instead a Javascript model is used. The actions, of course, are how the table is filtered, sorted, paginated and the max rows.
-
-The Javascript model looks very close to the Java Limit object. If you remember the Limit represents the table actions. As a matter of fact the point of the model was to represent the Limit in a Javascript format. This makes it very natural to work with the Java Limit and the Javascript Limit in a very consistant manner. 
+The table actions are controlled by a Javascript model that mirrors the Limit object. This makes it very natural to work with the Java Limit and the Javascript Limit in a very consistant manner. The actions, of course, are how the table is filtered, sorted, paginated and the max rows.
 
 For the most part you do not have to be concerned with how the Javascript model looks or even works. What you do need to do is call the correct function to convert the Javascript Limit in a format that can be sent to the server. Your two choices are to either build a parameter string, or create hidden form fields.
 
@@ -109,3 +107,4 @@ function onInvokeExportAction(id) {
 
 
 
+ 
