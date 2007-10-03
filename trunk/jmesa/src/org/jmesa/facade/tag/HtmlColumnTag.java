@@ -53,6 +53,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String sortOrder;
     private boolean filterable = true;
     private String width;
+    private String style;
+    private String styleClass;
     private String pattern;
     private String cellEditor;
     private String headerEditor;
@@ -120,6 +122,22 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     public void setWidth(String width) {
         this.width = width;
+    }
+    
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
     }
 
     public String getPattern() {
@@ -295,6 +313,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setSortOrder(getColumnSortOrder());
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
+        column.getCellRenderer().setStyle(getStyle());
+        column.getCellRenderer().setStyleClass(getStyleClass());
 
         HeaderEditor headerEditor = getColumnHeaderEditor();
         if (headerEditor != null) {
