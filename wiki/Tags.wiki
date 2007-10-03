@@ -126,8 +126,6 @@ public class TagRowEvent implements RowEvent {
 || filterable || boolean || Whether the column should be filtered. ||
 || sortable || boolean || Whether the column should be sorted. ||
 || width || String || The width of the column. ||
-|| style || String || The css style attribute for the column. ||
-|| styleClass || String || The css class attribute for the column. ||
 
 
 
