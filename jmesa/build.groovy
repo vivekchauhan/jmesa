@@ -11,13 +11,25 @@ class Build {
     def libDir = "$targetDir/ivy/lib" 
     def distDir = "${targetDir}/dist"
     
+    def artifact
+    def zipDir
+    
     def sourceFilesTocopy = '**/*.properties,**/*.xml'
+    
+    Build(clean) {
+        if (!clean) {
+            this.artifact = ['jmesa'] as Artifact
+            ant.input(message:'Enter a revision number:', addproperty:'revision', defaultvalue:'snapshot')
+            artifact.revision = ant.antProject.properties."revision"
+            this.zipDir = "${distDir}/${artifact.name}-${artifact.revision}"
+        }
+    }
     
     def clean() {
         ant.delete(dir:targetDir)
     }
     
-    def init(zipDir) {
+    def init() {
         ant.mkdir(dir:targetDir)
         ant.mkdir(dir:"$libDir/compile")
         ant.mkdir(dir:classesDir)
@@ -45,7 +57,7 @@ class Build {
         }
     }
     
-    def jar(artifact) {
+    def jar() {
         def jarFile = "$targetDir/${artifact.name}-${artifact.revision}.jar"
         ant.jar(destfile:jarFile) {
             fileset(dir:classesDir)
@@ -55,7 +67,7 @@ class Build {
         artifact.file = jarFile
     }
     
-    def copy(artifact, zipDir) {
+    def copy() {
         ant.copy(todir:zipDir + '/source') { fileset(dir:'src') }
         ant.copy(todir:zipDir + '/images') { fileset(dir:resourcesDir + '/images') }
         ant.copy(todir:zipDir + '/dist', file:targetDir + "/${artifact.name}-${artifact.revision}.jar")
@@ -64,7 +76,7 @@ class Build {
         ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa.tld')
     }
     
-    def zip(artifact) {
+    def zip() {
         ant.zip(destfile:targetDir + "/${artifact.name}-${artifact.revision}.zip", basedir:distDir)
     }
     
@@ -77,7 +89,7 @@ class Build {
         ivy.retrieve(pattern:"$libDir/[conf]/[artifact]-[revision].[ext]", sync:true)
     }
     
-    def ivypublish(artifact) {
+    def ivypublish() {
         ivy.publish(resolver:'local',
                 conf:'master',
                 pubrevision:"${artifact.revision}",
@@ -86,20 +98,15 @@ class Build {
     }
     
     def execute() {
-        def artifact = ['jmesa'] as Artifact
-        ant.input(message:'Enter a build number:', addproperty:'revision')
-        artifact.revision = ant.antProject.properties."revision"
-        def zipDir = "${distDir}/${artifact.name}-${artifact.revision}"
-        
         clean()
-        init(zipDir)
+        init()
         ivyresolve()
         ivyretrieve()
         classpaths()
         compile()
-        jar(artifact)
-        copy(artifact, zipDir)
-        zip(artifact)
+        jar()
+        copy()
+        zip()
     }
     
     static void main(args) {
@@ -114,7 +121,7 @@ class Build {
             return
         }
 
-        def build = new Build()
+        def build = new Build(options.a == 'clean')
         def action = options.a
         build.invokeMethod(action, null)
     }
