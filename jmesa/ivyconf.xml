@@ -2,8 +2,8 @@
     <conf defaultResolver="default"/>
     <resolvers>
 		<filesystem name="local">
-            <ivy pattern="/home/jeff/ivy/[organisation]/[module]/ivy-[revision].xml"/>
-            <artifact pattern="/home/jeff/ivy/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
+            <ivy pattern="${user.home}/ivy/[organisation]/[module]/ivy-[revision].xml"/>
+            <artifact pattern="${user.home}/ivy/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
 		</filesystem>    
         <chain name="default">
             <resolver ref="local"/>
