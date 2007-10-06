@@ -1,38 +1,141 @@
-ant = new AntBuilder()
+/* The JMesa build. */
+class Build {
+    def ant = new AntBuilder()
+    def ivy = new AntLibHelper(ant:ant, namespace:'fr.jayasoft.ivy.ant')
+    
+    def projectDir = '.'
 
-ant.input(message:"Enter a build number:", addproperty:"version")
-version = ant.antProject.properties."version"
+    def resourcesDir = "${projectDir}/resources"
+    def targetDir = "${projectDir}/target"
+    def classesDir = "${targetDir}/classes"
+    def libDir = "$targetDir/ivy/lib" 
+    def distDir = "${targetDir}/dist"
+    
+    def sourceFilesTocopy = '**/*.properties,**/*.xml'
+    
+    def clean() {
+        ant.delete(dir:targetDir)
+    }
+    
+    def init(zipDir) {
+        ant.mkdir(dir:targetDir)
+        ant.mkdir(dir:"$libDir/compile")
+        ant.mkdir(dir:classesDir)
+        ant.mkdir(dir:zipDir)
+        ant.mkdir(dir:"${zipDir}/dist")
+        ant.mkdir(dir:"${zipDir}/images")
+        ant.mkdir(dir:"${zipDir}/source")
+    }
+    
+    def classpaths() {
+        ant.path(id:'compile.classpath') {
+            fileset(dir:"$libDir/compile", includes:'*.jar')
+        }
+    }
+    
+    def compile() {
+        ant.echo(message:'You are using java version ${java.version}')
 
-src_dir = 'src'
-lib_dir = 'lib'
-resources_dir = 'resources'
-build_dir = 'build'
-classes_dir = build_dir + '/classes'
-zip_dir = build_dir + "/jmesa-${version}"
+        ant.javac(destdir:classesDir, srcdir:"$projectDir/src", debug:false, includeantruntime:false) {
+            classpath(refid:'compile.classpath')
+        }
+        
+        ant.copy(todir:classesDir) {
+            fileset(dir:"$projectDir/src", includes:sourceFilesTocopy)
+        }
+    }
+    
+    def jar(artifact) {
+        def jarFile = "$targetDir/${artifact.name}-${artifact.revision}.jar"
+        ant.jar(destfile:jarFile) {
+            fileset(dir:classesDir)
+        }
+        
+        artifact.ext = 'jar'
+        artifact.file = jarFile
+    }
+    
+    def copy(artifact, zipDir) {
+        ant.copy(todir:zipDir + '/source') { fileset(dir:'src') }
+        ant.copy(todir:zipDir + '/images') { fileset(dir:resourcesDir + '/images') }
+        ant.copy(todir:zipDir + '/dist', file:targetDir + "/${artifact.name}-${artifact.revision}.jar")
+        ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa.js')
+        ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa.css')
+        ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa.tld')
+    }
+    
+    def zip(artifact) {
+        ant.zip(destfile:targetDir + "/${artifact.name}-${artifact.revision}.zip", basedir:distDir)
+    }
+    
+    def ivyresolve() {
+        ivy.configure(file:"$projectDir/ivyconf.xml")
+        ivy.resolve(file:"$projectDir/ivy.xml")
+    }
 
-ant.path(id:'classes') { fileset(dir:lib_dir) { include(name: "**/*.jar") } }
+    def ivyretrieve() {
+        ivy.retrieve(pattern:"$libDir/[conf]/[artifact]-[revision].[ext]", sync:true)
+    }
+    
+    def ivypublish(artifact) {
+        ivy.publish(resolver:'local',
+                conf:'master',
+                pubrevision:"${artifact.revision}",
+                overwrite:'true',
+                artifactspattern:"${targetDir}/[artifact]-[revision].[ext]")
+    }
+    
+    def execute() {
+        def artifact = ['jmesa'] as Artifact
+        ant.input(message:'Enter a build number:', addproperty:'revision')
+        artifact.revision = ant.antProject.properties."revision"
+        def zipDir = "${distDir}/${artifact.name}-${artifact.revision}"
+        
+        clean()
+        init(zipDir)
+        ivyresolve()
+        ivyretrieve()
+        classpaths()
+        compile()
+        jar(artifact)
+        copy(artifact, zipDir)
+        zip(artifact)
+    }
+    
+    static void main(args) {
+        def cli = new CliBuilder(usage:'groovy build.groovy -[ha]')
+        cli.h(longOpt: 'help', 'usage information')
+        cli.a(argName:'action', longOpt:'action', args:1, required:true, 'action(s) [execute, clean]')
+        
+        def options = cli.parse(args)
+        
+        if (options.h) {
+            cli.usage()
+            return
+        }
 
-ant.delete(dir:build_dir)
+        def build = new Build()
+        def action = options.a
+        build.invokeMethod(action, null)
+    }
+}
 
-ant.mkdir(dir:classes_dir)
-ant.mkdir(dir:zip_dir + '/dist')
-ant.mkdir(dir:zip_dir + '/images')
-ant.mkdir(dir:zip_dir + '/source')
+class AntLibHelper {
+    def namespace 
+    def ant
+    
+    Object invokeMethod(String name, Object params) {
+        ant."antlib:$namespace:$name"(*params)
+    }
+}
 
-ant.echo(message:'You are using java version ${java.version}')
-
-ant.javac(srcdir:src_dir, destdir:classes_dir, debug:false) { classpath(refid:'classes') }
-
-ant.jar(jarfile:build_dir + "/jmesa-${version}.jar", basedir:classes_dir) { fileset(dir:src_dir) { include(name:'**/*.properties') }  }
-
-ant.copy(todir:zip_dir + '/source') { fileset(dir:src_dir) }
-ant.copy(todir:zip_dir + '/images') { fileset(dir:resources_dir + "/images") }
-ant.copy(todir:zip_dir + '/dist', file:build_dir + "/jmesa-${version}.jar")
-ant.copy(todir:zip_dir + '/dist', file:resources_dir + "/jmesa.js")
-ant.copy(todir:zip_dir + '/dist', file:resources_dir + "/jmesa.css")
-ant.copy(todir:zip_dir + '/dist', file:resources_dir + "/jmesa.tld")
-
-ant.zip(zipfile:build_dir + "/jmesa-${version}.zip", basedir:zip_dir)
-
-println "Done building jmesa-${version}.zip in ${build_dir} directory."
-
+class Artifact {
+    def name
+    def revision
+    def ext
+    def file
+    
+    Artifact(name) {
+        this.name = name
+    }
+}
