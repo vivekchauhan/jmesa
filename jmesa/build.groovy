@@ -10,6 +10,7 @@ class Build {
     def classesDir = "${targetDir}/classes"
     def libDir = "$targetDir/ivy/lib" 
     def distDir = "${targetDir}/dist"
+    def docsDir = "${targetDir}/docs"
     
     def artifact
     def zipDir
@@ -33,6 +34,7 @@ class Build {
         ant.mkdir(dir:targetDir)
         ant.mkdir(dir:"$libDir/compile")
         ant.mkdir(dir:classesDir)
+        ant.mkdir(dir:docsDir)
         ant.mkdir(dir:zipDir)
         ant.mkdir(dir:"${zipDir}/dist")
         ant.mkdir(dir:"${zipDir}/images")
@@ -97,6 +99,27 @@ class Build {
                 artifactspattern:"${targetDir}/[artifact]-[revision].[ext]")
     }
     
+    def docs() {
+        ant.javadoc(sourcepath:'src',
+                destdir:docsDir,
+                windowtitle:'JMesa',
+                additionalparam:'-breakiterator',
+                source:"1.5",
+                linksource:"true",
+                access:"package",
+                author:"true",
+                version:"true",
+                use:"true",
+                defaultexcludes:"true") {
+            doctitle('<![CDATA[<h1>JMesa</h1>]]>')
+            classpath(refid:"compile.classpath")
+            packageset(dir:"src") {
+                include(name:"org/jmesa/**")
+            }
+            link(href:"http://java.sun.com/j2se/1.5.0/docs/api")
+        }
+    }
+    
     def execute() {
         clean()
         init()
@@ -107,6 +130,7 @@ class Build {
         jar()
         copy()
         zip()
+        docs()
     }
     
     static void main(args) {
