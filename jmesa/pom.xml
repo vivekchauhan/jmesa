@@ -26,15 +26,6 @@
     </resources>
     <testResources>
       <testResource>
-        <directory>testResources</directory>
-      </testResource>
-      <testResource>
-        <directory>src</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </testResource>
-      <testResource>
         <directory>test</directory>
         <includes>
           <include>**/*.properties</include>
