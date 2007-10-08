@@ -13,7 +13,7 @@ class Build {
     def distDir = "${targetDir}/dist"
     def docsDir = "${targetDir}/docs"
 
-    def testDir = " ${targetDir}/test"
+    def testDir = "${targetDir}/test"
     def testClassesDir = "${testDir}/classes"
     def testDataDir = "${testDir}/data"
     
