@@ -72,7 +72,6 @@ class Build {
     def compile() {
         ant.echo(message:'You are using java version ${java.version}')
 
-        // compile source
         ant.javac(destdir:classesDir, srcdir:"$projectDir/src", debug:false, includeantruntime:false) {
             classpath(refid:'compile.classpath')
         }
@@ -85,7 +84,6 @@ class Build {
     def testCompile() {
         ant.echo(message:'You are using java version ${java.version}')
 
-        // compile test source
         ant.javac(destdir:testClassesDir, srcdir:"$projectDir/test", debug:'true', includeantruntime:false) {
             classpath(refid:'test.compile.classpath')
         }
