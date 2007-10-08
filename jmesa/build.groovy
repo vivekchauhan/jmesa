@@ -7,10 +7,15 @@ class Build {
 
     def resourcesDir = "${projectDir}/resources"
     def targetDir = "${projectDir}/target"
+
     def classesDir = "${targetDir}/classes"
     def libDir = "$targetDir/ivy/lib" 
     def distDir = "${targetDir}/dist"
     def docsDir = "${targetDir}/docs"
+
+    def testDir = " ${targetDir}/test"
+    def testClassesDir = "${testDir}/classes"
+    def testDataDir = "${testDir}/data"
     
     def artifact
     def zipDir
@@ -32,7 +37,6 @@ class Build {
     
     def init() {
         ant.mkdir(dir:targetDir)
-        ant.mkdir(dir:"$libDir/compile")
         ant.mkdir(dir:classesDir)
         ant.mkdir(dir:docsDir)
         ant.mkdir(dir:zipDir)
@@ -41,15 +45,34 @@ class Build {
         ant.mkdir(dir:"${zipDir}/source")
     }
     
+    def testInit() {
+        ant.mkdir(dir:testDir)
+        ant.mkdir(dir:testClassesDir)
+        ant.mkdir(dir:testDataDir)
+    }
+    
     def classpaths() {
         ant.path(id:'compile.classpath') {
             fileset(dir:"$libDir/compile", includes:'*.jar')
         }
     }
     
+    def testClasspaths() {
+        ant.path(id:'test.compile.classpath') {
+            fileset(dir:"$libDir/test", includes:'*.jar')
+            pathelement(location:artifact.file)            
+        }
+
+        ant.path(id:'test.classpath') {
+            path(refid:"test.compile.classpath")
+            pathelement(location:testClassesDir)
+        }
+    }
+
     def compile() {
         ant.echo(message:'You are using java version ${java.version}')
 
+        // compile source
         ant.javac(destdir:classesDir, srcdir:"$projectDir/src", debug:false, includeantruntime:false) {
             classpath(refid:'compile.classpath')
         }
@@ -59,6 +82,19 @@ class Build {
         }
     }
     
+    def testCompile() {
+        ant.echo(message:'You are using java version ${java.version}')
+
+        // compile test source
+        ant.javac(destdir:testClassesDir, srcdir:"$projectDir/test", debug:'true', includeantruntime:false) {
+            classpath(refid:'test.compile.classpath')
+        }
+        
+        ant.copy(todir:testClassesDir) {
+            fileset(dir:"$projectDir/test", includes:sourceFilesTocopy)
+        }
+    }
+
     def jar() {
         def jarFile = "$targetDir/${artifact.name}-${artifact.revision}.jar"
         ant.jar(destfile:jarFile) {
@@ -120,14 +156,37 @@ class Build {
         }
     }
     
+    def junit() {
+        ant.junit(printsummary:'no',
+                errorproperty:'test.error',
+                failureproperty:'test.failed',
+                fork:'true',
+                haltonerror:'true',
+                haltonfailure:'true',) {
+            
+            formatter(type:"brief", usefile:"false") 
+            classpath(refid:"test.classpath")
+            batchtest(todir:testDataDir, haltonerror:"true", haltonfailure:"true") {
+                fileset(dir:testClassesDir, includes:"**/*Test.class") 
+            }
+        }
+        
+        ant.fail(if:"test.failed", message:"Unit tests failed.")
+        ant.fail(if:"test.error", message:"Unit tests failed with Errors.")
+    }
+    
     def execute() {
         clean()
         init()
+        testInit()
         ivyresolve()
         ivyretrieve()
         classpaths()
         compile()
         jar()
+        testClasspaths()
+        testCompile()
+        junit()
         copy()
         zip()
         docs()
