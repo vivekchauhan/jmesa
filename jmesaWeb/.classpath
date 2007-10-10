@@ -32,5 +32,6 @@
 	<classpathentry kind="lib" path="web/WEB-INF/lib/poi-3.0.1.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/standard.jar"/>
+	<classpathentry exported="true" kind="lib" path="bin-groovy"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
