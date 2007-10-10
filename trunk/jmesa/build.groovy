@@ -182,6 +182,7 @@ class Build {
         classpaths()
         compile()
         jar()
+        ivypublish()
         testClasspaths()
         testCompile()
         junit()

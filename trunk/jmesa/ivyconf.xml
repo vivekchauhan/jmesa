@@ -11,7 +11,6 @@
         <ibiblio name="maven2" root="${ibiblio-maven2-root}" pattern="${maven2.pattern.ext}" m2compatible="true" />
         <chain name="default">
             <resolver ref="local"/>
-            <resolver ref="maven2"/>
         </chain>
     </resolvers>
 </ivyconf>
