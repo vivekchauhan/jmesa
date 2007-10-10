@@ -9,7 +9,7 @@ class Build {
     def targetDir = "${projectDir}/target"
 
     def classesDir = "${targetDir}/classes"
-    def libDir = "$targetDir/ivy/lib" 
+    def libDir = "$targetDir/ivy/lib"
 
     def artifact
     
