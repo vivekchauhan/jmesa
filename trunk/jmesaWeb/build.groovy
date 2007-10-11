@@ -10,6 +10,8 @@ class Build {
 
     def classesDir = "${targetDir}/classes"
     def libDir = "$targetDir/ivy/lib"
+    
+    def sourceDir = "$targetDir/source"
 
     def artifact
     
@@ -52,7 +54,7 @@ class Build {
     
 
     def war() {
-        def warFile = "$targetDir/${artifact.name}-${artifact.revision}.war"
+        def warFile = "$targetDir/${artifact.name}-${artifact.revision}_examples.war"
         ant.war(destfile:warFile, webxml:projectDir + '/web/WEB-INF/web.xml') {
             fileset(dir:"$projectDir/web")
             classes(dir:classesDir)
@@ -63,6 +65,20 @@ class Build {
         
         artifact.ext = 'war'
         artifact.file = warFile
+    }
+    
+    def source() {
+        ant.mkdir(dir:sourceDir)
+        ant.mkdir(dir:"${sourceDir}/jmesaWeb")
+        ant.mkdir(dir:"${sourceDir}/jmesaWeb/src")
+        ant.mkdir(dir:"${sourceDir}/jmesaWeb/web")
+        
+        ant.copy(todir:"${sourceDir}/jmesaWeb/src") { fileset(dir:'src') }
+        ant.copy(todir:"${sourceDir}/jmesaWeb/web") { 
+            fileset(dir:'web', excludes:"**/classes/**") 
+        }
+        
+        ant.zip(destfile:targetDir + "/${artifact.name}-${artifact.revision}_examples.war-source.zip", basedir:sourceDir)
     }
     
     def ivyresolve() {
@@ -82,6 +98,7 @@ class Build {
         classpaths()
         compile()
         war()
+        source()
     }
     
     static void main(args) {
