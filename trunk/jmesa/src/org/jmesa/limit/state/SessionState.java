@@ -50,6 +50,14 @@ public class SessionState implements State {
             }
             return (Limit) webContext.getSessionAttribute(id);
         }
+        
+        stateAttrValue = (String)webContext.getRequestAttribute(stateAttr);
+        if ("true".equalsIgnoreCase(stateAttrValue)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("The Limit is being retrieved from the users session.");
+            }
+            return (Limit) webContext.getSessionAttribute(id);
+        }
 
         return null;
     }
