@@ -127,6 +127,7 @@ public class TagRowEvent implements RowEvent {
 || sortable || boolean || Whether the column should be sorted. ||
 || width || String || The width of the column. ||
 
+*Note:* There are some attributes that exist on the core API that is not in the tag library yet. They will be added in the upcoming [2_3Roadmap 2.3 release]. Also, for those that do not mind sitting on the bleeding edge of development you can download a [http://builds.jmesa.org/ snapshot release] of JMesa which will include the additional features over time.
 
 
 
