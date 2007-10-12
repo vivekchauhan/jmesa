@@ -13,15 +13,34 @@ The following is a list of attributes that still need to be included in the tag 
 
 ==== !TableFacadeTag ====
 || *Attribute* || *Complete (Y/N)* ||
+|| messages || N ||
+|| preferences || N ||
+|| toolbar || N ||
 
 ==== !HtmlTableTag ====
 || *Attribute* || *Complete (Y/N)* ||
+|| tableRenderer || N ||
 
 ==== !HtmlRowTag ====
 || *Attribute* || *Complete (Y/N)* ||
+|| rowRenderer || N ||
+|| style || N ||
+|| styleClass || N ||
+|| evenClass || N ||
+|| oddClass || N ||
+|| highlightStyle || N ||
+|| highlightClass || N ||
 
 ==== !HtmlColumnTag ====
 || *Attribute* || *Complete (Y/N)* ||
+|| cellRenderer || N ||
+|| filterRenderer || N ||
+|| headerRenderer || N ||
 || style || *Y* ||
 || styleClass || *Y* ||
+|| sortOrder || N ||
+|| headerStyle || N ||
+|| headerClass || N ||
+|| filterStyle || N ||
+|| filterClass || N ||
 
