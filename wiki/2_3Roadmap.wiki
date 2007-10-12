@@ -1,4 +1,4 @@
-The JMesa 2.3 release should be out by the end of November. This page outlines the features that will be included as part of the next release.
+The JMesa 2.3 release should be out by the end of November. This page outlines the features that will be included as part of the next release. If you are interested in trying out the new features, or just like staying on the bleeding edge of development you can download an [http://builds.jmesa.org/ incremental build]. You will be able to use this page to judge how far along the development is as I will be sure to keep this page current.
 
 === Features ===
 
@@ -9,7 +9,7 @@ The JMesa 2.3 release should be out by the end of November. This page outlines t
  * The most exciting feature will be inclusion of the [Worksheet] functionality!
 
 === Tag Attributes To Implement ===
-The following is a list of attributes that still need to be included in the tag library. These attributes exist on the core API and just need to be implemented.
+The following is a list of attributes that still need to be included in the tag library. These attributes exist on the core API and just need to be implemented with the tags.
 
 ==== !TableFacadeTag ====
 || *Attribute* || *Complete (Y/N)* ||
@@ -24,6 +24,4 @@ The following is a list of attributes that still need to be included in the tag 
 || *Attribute* || *Complete (Y/N)* ||
 || style || *Y* ||
 || styleClass || *Y* ||
-
-
 
