@@ -1,6 +1,6 @@
 The JMesa 2.3 release should be out by the end of November. This page outlines the features that will be included as part of the next release. If you are interested in trying out the new features, or just like staying on the bleeding edge of development you can download an [http://builds.jmesa.org/ incremental build]. You will be able to use this page to judge how far along the development is as I will be sure to keep this page current.
 
-=== Features ===
+== Features ==
 
  * [Tags Tag library] will include all the attributes from the API.
  * The filter look and feel will be reworked to be more subtle. It will also make use of the [http://jquery.com/ JQuery] !JavaScript library.
@@ -45,7 +45,5 @@ The following is a list of attributes that still need to be included in the tag 
 || filterClass || N ||
 
 
-=== Bugs Fixed ===
+== Bugs Fixed ==
  * If had multiple tables on the same page then tables with no items would display the last row from the previous table. The reason was because the bean as defined by the var attribute was not being cleaned up in the page scope.
-
-
