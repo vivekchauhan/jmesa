@@ -511,6 +511,8 @@ public class TableFacadeTag extends SimpleTagSupport {
                 body.invoke(null);
             }
         }
+        
+        getWebContext().removePageAttribute(getVar()); // clean up the page scoped bean
 
         tagCoreContext.setPageItems(getPageItems()); // morph the items
 
