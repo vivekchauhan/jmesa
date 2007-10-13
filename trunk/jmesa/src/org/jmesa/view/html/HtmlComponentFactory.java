@@ -86,7 +86,6 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
     /**
      * Create a column that does not require cell editor.
      * 
-     * @param property The column property.
      * @return The HtmlColumn instance.
      */
     @Override

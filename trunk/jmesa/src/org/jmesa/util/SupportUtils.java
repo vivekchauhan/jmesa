@@ -56,7 +56,7 @@ public class SupportUtils {
      * Set the CoreContext on the object being inspected if it is not already set.
      * 
      * @param obj The object being inspected.
-     * @param webContext The object to be injected.
+     * @param coreContext The object to be injected.
      */
     public static void setCoreContext(Object obj, CoreContext coreContext) {
         if ((obj instanceof CoreContextSupport) && ((CoreContextSupport) obj).getCoreContext() == null) {
@@ -68,7 +68,7 @@ public class SupportUtils {
      * Set the String pattern on the object being inspected if it is not already set.
      * 
      * @param obj The object being inspected.
-     * @param webContext The object to be injected.
+     * @param pattern The object to be injected.
      */
     public static void setPattern(Object obj, String pattern) {
         if (obj instanceof PatternSupport && ((PatternSupport) obj).getPattern() == null) {
@@ -80,7 +80,7 @@ public class SupportUtils {
      * Set the Table on the object being inspected if it is not already set.
      * 
      * @param obj The object being inspected.
-     * @param webContext The object to be injected.
+     * @param table The object to be injected.
      */
     public static void setTable(Object obj, Table table) {
         if ((obj instanceof TableSupport) && ((TableSupport) obj).getTable() == null) {
@@ -92,7 +92,7 @@ public class SupportUtils {
      * Set the Column on the object being inspected if it is not already set.
      * 
      * @param obj The object being inspected.
-     * @param webContext The object to be injected.
+     * @param column The object to be injected.
      */
     public static void setColumn(Object obj, Column column) {
         if (obj instanceof ColumnSupport && ((ColumnSupport) obj).getColumn() == null) {
@@ -104,7 +104,7 @@ public class SupportUtils {
      * Set the Toolbar on the object being inspected if it is not already set.
      * 
      * @param obj The object being inspected.
-     * @param webContext The object to be injected.
+     * @param toolbar The object to be injected.
      */
     public static void setToolbar(Object obj, Toolbar toolbar) {
         if ((obj instanceof ToolbarSupport) && ((ToolbarSupport) obj).getToolbar() == null) {

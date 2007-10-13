@@ -78,9 +78,8 @@ public abstract class AbstractComponentFactory extends AbstractContextSupport im
     }
 
     /**
-     * Create a column that does not require cell editor.
+     * Create a column that does not require a property.
      * 
-     * @param property The column property.
      * @return The HtmlColumn instance.
      */
     public Column createColumn(CellEditor editor) {

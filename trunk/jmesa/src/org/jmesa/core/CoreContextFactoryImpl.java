@@ -68,7 +68,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
      * do it again.
      * </p>
      * 
-     * @param Is false if you do not want to have the items filtered and sorted.
+     * @param performFilterAndSort Is false if you do not want to have the items filtered and sorted.
      * @param webContext The WebContext for the table.
      */
     public CoreContextFactoryImpl(boolean performFilterAndSort, WebContext webContext) {

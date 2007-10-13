@@ -436,7 +436,7 @@ public class TableFacadeImpl implements TableFacade {
      * performFilterAndSort() to false because there is no reason to have the API try to sort and
      * filter if you have already done so.
      * 
-     * @param The Collecton of Beans (or Maps) to use.
+     * @param items The Collecton of Beans (or Maps) to use.
      */
     public void setItems(Collection<Object> items) {
         this.items = items;
