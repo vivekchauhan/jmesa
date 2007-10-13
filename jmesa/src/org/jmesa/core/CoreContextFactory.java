@@ -44,7 +44,7 @@ public interface CoreContextFactory {
      * Add a FilterMatcher to the FilterMatcherRegistry..
      * 
      * @param key The MatcherKey instance.
-     * @param key The FilterMatcher instance.
+     * @param matcher The FilterMatcher instance.
      */
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher);
 

@@ -41,7 +41,7 @@ public class ToolbarExport extends Export {
      * If used for an image then this can be used for the alt option. Otherwise
      * it is used as straight text to display.
      * 
-     * @return
+     * @return The text to display.
      */
     public String getText() {
         if (StringUtils.isBlank(text)) {
