@@ -76,7 +76,7 @@ public interface Worksheet {
      *            are the item values.
      * @return The worksheet row.
      */
-    public WorksheetRow getRow(Map uniqueProperties);
+    public WorksheetRow getRow(Map<String, Object> uniqueProperties);
 
     /**
      * Add a row to the worksheet.

@@ -27,7 +27,7 @@ public class WorksheetRowImpl implements WorksheetRow {
     private Map<String, Object> uniqueProperties;
     private WorksheetRowStatus rowStatus;
 
-    private List<WorksheetColumn> columns = new ArrayList();
+    private List<WorksheetColumn> columns = new ArrayList<WorksheetColumn>();
     
     public WorksheetRowImpl(Map<String, Object> uniqueProperties) {
         this.uniqueProperties = uniqueProperties;
