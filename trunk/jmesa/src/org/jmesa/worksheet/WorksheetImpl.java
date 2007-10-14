@@ -42,7 +42,7 @@ public class WorksheetImpl implements Worksheet {
     public void addRow(WorksheetRow row) {
     }
 
-    public WorksheetRow getRow(Map uniqueProperties) {
+    public WorksheetRow getRow(Map<String, Object> uniqueProperties) {
         return null;
     }
 

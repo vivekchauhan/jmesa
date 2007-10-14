@@ -40,7 +40,7 @@ public interface WorksheetRow {
      * @return Map in which the map keys are the item properties and the map values are the item
      *         values.
      */
-    public Map getUniqueProperties();
+    public Map<String, Object> getUniqueProperties();
 
     /**
      * Add a column to the worksheet row.
