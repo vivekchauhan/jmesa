@@ -15,19 +15,27 @@
  */
 package org.jmesa.worksheet.state;
 
+import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
 
 /**
- * <p>
- * Abstracts out where the Worksheet is being held so that the servlet and facade can work with the
- * Worksheet transparently.
- * </p>
- * 
  * @since 2.3
  * @author Jeff Johnston
  */
-public interface WorksheetState {
-    public Worksheet retrieveWorksheet();
+public class SessionWorksheetState implements WorksheetState {
+    private String id;
+    private WebContext webContext;
 
-    public void persistWorksheet(Worksheet worksheet);
+    public SessionWorksheetState(String id, WebContext webContext) {
+        this.id = id + "_WORKSHEET";
+        this.webContext = webContext;
+    }
+
+    public Worksheet retrieveWorksheet() {
+        return (Worksheet) webContext.getSessionAttribute(id);
+    }
+
+    public void persistWorksheet(Worksheet worksheet) {
+        webContext.setSessionAttribute(id, worksheet);
+    }
 }

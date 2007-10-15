@@ -17,6 +17,8 @@ package org.jmesa.worksheet;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 /**
@@ -41,7 +43,8 @@ public class WorksheetRowTest {
 
         assertTrue("The columns are not accounted for.", row.getColumns().size() == 2);
 
-        assertTrue("The column first name exists.", row.getColumns().get(0).getProperty().equals("name.firstName"));
-        assertTrue("The column last name exists.", row.getColumns().get(1).getProperty().equals("name.lastName"));
+        Iterator<WorksheetColumn> iter = row.getColumns().iterator();
+        assertTrue("The column first name exists.", iter.next().getProperty().equals("name.firstName"));
+        assertTrue("The column last name exists.", iter.next().getProperty().equals("name.lastName"));
     }
 }

@@ -15,9 +15,11 @@
  */
 package org.jmesa.worksheet;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @since 2.3
@@ -27,8 +29,8 @@ public class WorksheetRowImpl implements WorksheetRow {
     private Map<String, Object> uniqueProperties;
     private WorksheetRowStatus rowStatus;
 
-    private List<WorksheetColumn> columns = new ArrayList<WorksheetColumn>();
-    
+    private Map<String, WorksheetColumn> columns = new HashMap<String, WorksheetColumn>();
+
     public WorksheetRowImpl(Map<String, Object> uniqueProperties) {
         this.uniqueProperties = uniqueProperties;
     }
@@ -38,25 +40,19 @@ public class WorksheetRowImpl implements WorksheetRow {
     }
 
     public void addColumn(WorksheetColumn column) {
-        columns.add(column);
+        columns.put(column.getProperty(), column);
     }
 
     public WorksheetColumn getColumn(String property) {
-        for (WorksheetColumn column : columns) {
-            if (column.getProperty().equals(property)) {
-                return column;
-            }
-        }
-
-        return null;
+        return columns.get(property);
     }
 
-    public List<WorksheetColumn> getColumns() {
-        return columns;
+    public Collection<WorksheetColumn> getColumns() {
+        return columns.values();
     }
 
     public void removeColumn(WorksheetColumn column) {
-        columns.remove(column);
+        columns.remove(column.getProperty());
     }
 
     public WorksheetRowStatus getRowStatus() {
@@ -65,5 +61,13 @@ public class WorksheetRowImpl implements WorksheetRow {
 
     public void setRowStatus(WorksheetRowStatus rowStatus) {
         this.rowStatus = rowStatus;
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("uniqueProperties", uniqueProperties);
+        builder.append("columns", columns);
+        return builder.toString();
     }
 }

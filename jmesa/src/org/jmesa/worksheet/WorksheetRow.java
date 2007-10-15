@@ -15,7 +15,7 @@
  */
 package org.jmesa.worksheet;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -58,7 +58,7 @@ public interface WorksheetRow {
     /**
      * @return All the row columns in the worksheet.
      */
-    public List<WorksheetColumn> getColumns();
+    public Collection<WorksheetColumn> getColumns();
 
     /**
      * Remove the specified worksheet row column.

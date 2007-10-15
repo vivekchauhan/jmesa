@@ -15,7 +15,7 @@
  */
 package org.jmesa.worksheet;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 import org.jmesa.core.message.Messages;
@@ -65,13 +65,6 @@ public interface Worksheet {
     public Messages getMessages();
 
     /**
-     * Set the Messages on the worksheet.
-     * 
-     * @param messages The Messages to use.
-     */
-    public void setMessages(Messages messages);
-
-    /**
      * @param uniqueProperties Map in which the map keys are the item properties and the map values
      *            are the item values.
      * @return The worksheet row.
@@ -88,7 +81,7 @@ public interface Worksheet {
     /**
      * @return All the rows in the worksheet.
      */
-    public List<WorksheetRow> getRows();
+    public Collection<WorksheetRow> getRows();
 
     /**
      * Remove the specified worksheet row.
