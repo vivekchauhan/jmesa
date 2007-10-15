@@ -15,9 +15,11 @@
  */
 package org.jmesa.worksheet;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.core.message.Messages;
 
 /**
@@ -25,38 +27,53 @@ import org.jmesa.core.message.Messages;
  * @author Jeff Johnston
  */
 public class WorksheetImpl implements Worksheet {
+    private String id;
+    private Messages messages;
 
-    @Override
+    private Map<Map<String, Object>, WorksheetRow> rows = new HashMap<Map<String, Object>, WorksheetRow>();
+
+    public WorksheetImpl(String id, Messages messages) {
+        this.id = id;
+        this.messages = messages;
+    }
+
     public String getId() {
-        return null;
+        return id;
     }
 
     public Messages getMessages() {
-        return null;
-    }
-
-    public void setMessages(Messages messages) {
-
+        return messages;
     }
 
     public void addRow(WorksheetRow row) {
+        rows.put(row.getUniqueProperties(), row);
     }
 
     public WorksheetRow getRow(Map<String, Object> uniqueProperties) {
-        return null;
+        return rows.get(uniqueProperties);
     }
 
-    public List<WorksheetRow> getRows() {
-        return null;
+    public Collection<WorksheetRow> getRows() {
+        return rows.values();
     }
 
     public void removeRow(WorksheetRow row) {
+        rows.remove(row.getUniqueProperties());
     }
 
     public boolean hasChanges() {
-        return false;
+        return rows.size() > 0;
     }
 
     public void removeAllChanges() {
+        rows.clear();
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("id", id);
+        builder.append("rows", rows);
+        return builder.toString();
     }
 }
