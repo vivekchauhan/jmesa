@@ -20,7 +20,6 @@ package org.jmesa.worksheet.servlet;
  * @author Jeff Johnston
  */
 public class WorksheetListenerDispatcherImpl implements WorksheetListenerDispatcher {
-    @Override
     public WorksheetListener getWorksheetListener() {
         return null;
     }
