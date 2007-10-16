@@ -63,9 +63,6 @@ public class PropertiesPreferences implements Preferences {
         return this.getClass().getResourceAsStream(preferencesLocation);
     }
 
-    /**
-     * Get the property.
-     */
     public String getPreference(String name) {
         return (String) properties.get(name);
     }

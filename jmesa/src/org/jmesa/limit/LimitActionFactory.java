@@ -24,8 +24,16 @@ package org.jmesa.limit;
 public interface LimitActionFactory {
     public String getId();
 
+    /**
+     * @return The max rows based on what the user selected. A null returned implies the default
+     *         must be used.
+     */
     public Integer getMaxRows();
 
+    /**
+     * @return The current page based on what the user selected. The default is to return the first
+     *         page.
+     */
     public int getPage();
 
     public FilterSet getFilterSet();

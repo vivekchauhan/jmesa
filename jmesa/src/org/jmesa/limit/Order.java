@@ -22,9 +22,7 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum Order {
-    ASC, 
-    DESC,
-    NONE;
+    ASC, DESC, NONE;
 
     public String toParam() {
         switch (this) {

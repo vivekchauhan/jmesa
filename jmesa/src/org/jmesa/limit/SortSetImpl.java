@@ -27,12 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
- * The SortSet is an Collection of Sort objects. A Sort contains an item property
- * and the sort Order. Or, in other words, it is simply the column that the user
- * is trying to sort in the correct order.
- * </p>
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
@@ -44,28 +38,14 @@ public class SortSetImpl implements Serializable, SortSet {
         sorts = new ArrayList<Sort>();
     }
 
-    /**
-     * @return Is true if there are any columns that need to be sorted.
-     */
     public boolean isSortable() {
         return sorts != null && !sorts.isEmpty();
     }
 
-    /**
-     * @return The set of Sort objects.
-     */
     public Collection<Sort> getSorts() {
         return sorts;
     }
 
-    /**
-     * <p>
-     * For a given item property, retrieve the Sort object based on the property.
-     * </p> 
-     * 
-     * @param property The Sort property, which is also a column property.
-     * @return The Sort object.
-     */
     public Sort getSort(String property) {
         for (Iterator<Sort> iter = sorts.iterator(); iter.hasNext();) {
             Sort sort = iter.next();
@@ -77,52 +57,18 @@ public class SortSetImpl implements Serializable, SortSet {
         return null;
     }
 
-    /**
-     * For a given property, retrieve the Sort Order.
-     * 
-     * @param property The Sort property, which is also a column property.
-     * @return The Sort Order.
-     */
     public Order getSortOrder(String property) {
         return getSort(property).getOrder();
     }
 
-    /**
-     * <p>
-     * The Sort to add to the set in the given position.
-     * </p>
-     * 
-     * @param position The position in the set to add the Sort.
-     * @param property The Sort property, which is also a column property.
-     * @param order The Order to sort the column.
-     */
     public void addSort(int position, String property, Order order) {
         addSort(new Sort(position, property, order));
     }
 
-    /**
-     * <p>
-     * The Sort to add to the set. Will also set the sort position to be when
-     * the sort was added.
-     * </p>
-     * 
-     * <p>
-     * For example if there is already a Sort in the set then calling this
-     * method will add a Sort to the end. If you need to include a Sort in a
-     * given position of the Set then call the other convenience method that
-     * includes the position.
-     * </p>
-     * 
-     * @param property The Sort property, which is also a column property.
-     * @param order The Order to sort the column.
-     */
     public void addSort(String property, Order order) {
         addSort(new Sort(sorts.size(), property, order));
     }
 
-    /**
-     * @param sort The Sort to add to the set.
-     */
     @SuppressWarnings("unchecked")
     public void addSort(Sort sort) {
         if (sorts.contains(sort)) {

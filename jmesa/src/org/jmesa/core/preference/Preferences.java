@@ -20,5 +20,8 @@ package org.jmesa.core.preference;
  * @author Jeff Johnston
  */
 public interface Preferences {
+    /**
+     * Get the property.
+     */
     public String getPreference(String code);
 }

@@ -26,12 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
- * The FilterSet is an Collection of Filter objects. A Filter contains a bean
- * property and the filter value. Or, in other words, it is simply the column
- * that the user is trying to filter and the value that they entered.
- * </p>
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
@@ -44,28 +38,14 @@ public class FilterSetImpl implements Serializable, FilterSet {
         filters = new HashSet<Filter>();
     }
 
-    /**
-     * @return Is true if there are any columns that need to be filtered.
-     */
     public boolean isFilterable() {
         return filters != null && !filters.isEmpty();
     }
 
-    /**
-     * @return The set of Filter objects.
-     */
     public Collection<Filter> getFilters() {
         return filters;
     }
 
-    /**
-     * <p>
-     * For a given item property, retrieve the Filter object based on the property.
-     * </p> 
-     * 
-     * @param property The Filter property, which is also a column property.
-     * @return The Filter object.
-     */
     public Filter getFilter(String property) {
         for (Iterator<Filter> iter = filters.iterator(); iter.hasNext();) {
             Filter filter = iter.next();
@@ -77,33 +57,14 @@ public class FilterSetImpl implements Serializable, FilterSet {
         return null;
     }
 
-    /**
-     * <p>
-     * For a given property, retrieve the Filter value.
-     * </p>
-     * 
-     * @param property The Filter property, which is also a column property.
-     * @return The Filter value.
-     */
     public String getFilterValue(String property) {
         return getFilter(property).getValue();
     }
 
-    /**
-     * <p>
-     * The Filter to add to the set.
-     * </p>
-     * 
-     * @param property The column property to filter.
-     * @param value The value to filter the column.
-     */
     public void addFilter(String property, String value) {
         addFilter(new Filter(property, value));
     }
 
-    /**
-     * @param filter The Filter to add to the set.
-     */
     public void addFilter(Filter filter) {
         if (filters.contains(filter)) {
             filters.remove(filter);
