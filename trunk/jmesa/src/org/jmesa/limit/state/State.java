@@ -19,10 +19,9 @@ import org.jmesa.limit.Limit;
 
 /**
  * <p>
- * The interface to set and retrieve the table Limit. Implementations will set
- * the Limit so that it can be retrieved at a later time. This is useful so a
- * user can return to a specific table with it filtered, sorted, and paged
- * exactly like they left it.
+ * The interface to set and retrieve the table Limit. Implementations will set the Limit so that it
+ * can be retrieved at a later time. This is useful so a user can return to a specific table with it
+ * filtered, sorted, and paged exactly like they left it.
  * </p>
  * 
  * @since 2.0
@@ -35,10 +34,8 @@ public interface State {
     public Limit retrieveLimit();
 
     /**
-     * @param limit
-     *            The Limit that represents the current state of the table.
-     *            Typically the Limit is persisted (long term or temporary) by
-     *            being keyed with the table id.
+     * @param limit The Limit that represents the current state of the table. Typically the Limit is
+     *            persisted (long term or temporary) by being keyed with the table id.
      */
     public void persistLimit(Limit limit);
 }

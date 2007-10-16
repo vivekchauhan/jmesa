@@ -18,19 +18,58 @@ package org.jmesa.limit;
 import java.util.Collection;
 
 /**
+ * <p>
+ * The FilterSet is an Collection of Filter objects. A Filter contains a bean property and the
+ * filter value. Or, in other words, it is simply the column that the user is trying to filter and
+ * the value that they entered.
+ * </p>
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface FilterSet {
+    /**
+     * @return Is true if there are any columns that need to be filtered.
+     */
     public boolean isFilterable();
 
+    /**
+     * @return The set of Filter objects.
+     */
     public Collection<Filter> getFilters();
 
+    /**
+     * <p>
+     * For a given item property, retrieve the Filter object based on the property.
+     * </p>
+     * 
+     * @param property The Filter property, which is also a column property.
+     * @return The Filter object.
+     */
     public Filter getFilter(String property);
 
+    /**
+     * <p>
+     * For a given property, retrieve the Filter value.
+     * </p>
+     * 
+     * @param property The Filter property, which is also a column property.
+     * @return The Filter value.
+     */
     public String getFilterValue(String property);
 
+    /**
+     * <p>
+     * The Filter to add to the set.
+     * </p>
+     * 
+     * @param property The column property to filter.
+     * @param value The value to filter the column.
+     */
     public void addFilter(String property, String value);
 
+    /**
+     * @param filter The Filter to add to the set.
+     */
     public void addFilter(Filter filter);
 }

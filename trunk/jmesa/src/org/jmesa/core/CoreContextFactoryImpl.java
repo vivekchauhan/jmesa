@@ -37,10 +37,6 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.web.WebContext;
 
 /**
- * <p>
- * Used to construct a CoreContext.
- * </p>
- * 
  * @since 2.0
  * @author Jeff Johnston
  */

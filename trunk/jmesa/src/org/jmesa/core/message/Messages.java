@@ -20,7 +20,13 @@ package org.jmesa.core.message;
  * @author Jeff Johnston
  */
 public interface Messages {
+    /**
+     * Get the resource property.
+     */
     public String getMessage(String code);
 
+    /**
+     * Get the resource property.
+     */
     public String getMessage(String code, Object[] args);
 }

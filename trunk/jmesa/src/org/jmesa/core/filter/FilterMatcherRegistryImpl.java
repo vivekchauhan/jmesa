@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Register and then retrive Match objects.
- * 
  * @since 2.0
  * @author Jeff Johnston
  */

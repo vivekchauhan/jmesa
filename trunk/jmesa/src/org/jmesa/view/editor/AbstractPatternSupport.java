@@ -26,16 +26,10 @@ import org.jmesa.view.AbstractContextSupport;
 public abstract class AbstractPatternSupport extends AbstractContextSupport implements CellEditor, PatternSupport {
     private String pattern;
 
-    /**
-     * {@inheritDoc}
-     */
     public String getPattern() {
         return pattern;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void setPattern(String pattern) {
         this.pattern = pattern;
     }

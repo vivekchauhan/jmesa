@@ -57,9 +57,6 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         this.sortable = sortable;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public Order[] getSortOrder() {
         if (sortOrder == null) {
             sortOrder = new Order[] { Order.NONE, Order.ASC, Order.DESC };
@@ -68,9 +65,6 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return sortOrder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void setSortOrder(Order... sortOrder) {
         this.sortOrder = sortOrder;
     }
@@ -91,16 +85,10 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         this.filterRenderer = filterRenderer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public boolean isGeneratedOnTheFly() {
         return generatedOnTheFly;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void setGeneratedOnTheFly(boolean generatedOnTheFly) {
         this.generatedOnTheFly = generatedOnTheFly;
     }

@@ -18,11 +18,6 @@ package org.jmesa.limit;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * <p>
- * Used to figure out the row information so the proper page of information can
- * be retrieved.
- * </p>
- * 
  * @since 2.0
  * @author Jeff Johnston
  */
@@ -39,46 +34,26 @@ public class RowSelectImpl implements RowSelect {
         init(page);
     }
 
-    /**
-     * @return The current page that is being displayed.
-     */
     public int getPage() {
         return page;
     }
 
-    /**
-     * @param page The page that should be displayed. Implementations are
-     *        responsible for recalculating the row information if a page is
-     *        set.
-     */
     public void setPage(int page) {
         init(page);
     }
 
-    /**
-     * @return The first row to display.
-     */
     public int getRowStart() {
         return rowStart;
     }
 
-    /**
-     * @return The last row to display.
-     */
     public int getRowEnd() {
         return rowEnd;
     }
 
-    /**
-     * @return The maximum possible rows that could be displayed on one page.
-     */
     public int getMaxRows() {
         return maxRows;
     }
 
-    /**
-     * @return The total possible rows, including those that are paginated.
-     */
     public int getTotalRows() {
         return totalRows;
     }
@@ -111,9 +86,8 @@ public class RowSelectImpl implements RowSelect {
     }
 
     /**
-     * Testing that the page returned is not greater than the pages that are
-     * able to be displayed. The problem arises if using the state feature and
-     * rows are deleted.
+     * Testing that the page returned is not greater than the pages that are able to be displayed.
+     * The problem arises if using the state feature and rows are deleted.
      */
     private boolean isValidPage(int page, int maxRows, int totalRows) {
         if (page == 1) {

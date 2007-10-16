@@ -45,7 +45,7 @@ public interface WorksheetRow {
     /**
      * Add a column to the worksheet row.
      * 
-     * @param row The worksheet row column.
+     * @param column The worksheet row column.
      */
     public void addColumn(WorksheetColumn column);
 
@@ -63,7 +63,7 @@ public interface WorksheetRow {
     /**
      * Remove the specified worksheet row column.
      * 
-     * @param row The worksheet row column to remove.
+     * @param column The worksheet row column to remove.
      */
     public void removeColumn(WorksheetColumn column);
 

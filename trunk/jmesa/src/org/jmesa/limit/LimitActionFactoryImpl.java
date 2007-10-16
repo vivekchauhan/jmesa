@@ -43,10 +43,6 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
         return id;
     }
 
-    /**
-     * @return The max rows based on what the user selected. A null returned
-     *         implies the default must be used.
-     */
     public Integer getMaxRows() {
         String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.toParam()));
         if (StringUtils.isNotBlank(maxRows)) {
@@ -59,10 +55,6 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
         return null;
     }
 
-    /**
-     * @return The current page based on what the user selected. The default is
-     *         to return the first page.
-     */
     public int getPage() {
         String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.toParam()));
         if (StringUtils.isNotBlank(page)) {
@@ -71,11 +63,11 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
             }
             return Integer.parseInt(page);
         }
-        
+
         if (logger.isDebugEnabled()) {
-        	logger.debug("Defaulting to Page 1");
+            logger.debug("Defaulting to Page 1");
         }
-        
+
         return 1;
     }
 
