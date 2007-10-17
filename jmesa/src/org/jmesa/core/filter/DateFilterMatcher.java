@@ -39,6 +39,7 @@ public class DateFilterMatcher implements FilterMatcher, PatternSupport, WebCont
     private WebContext webContext;
 
     public DateFilterMatcher() {
+    	// default constructor
     }
 
     /**

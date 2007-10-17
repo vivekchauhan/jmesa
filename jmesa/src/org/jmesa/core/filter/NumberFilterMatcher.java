@@ -35,6 +35,7 @@ public class NumberFilterMatcher implements FilterMatcher, PatternSupport, WebCo
     private WebContext webContext;
 
     public NumberFilterMatcher() {
+    	// default constructor
     }
 
     /**
