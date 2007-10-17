@@ -20,11 +20,12 @@ import java.util.Collection;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
+import org.jmesa.worksheet.state.WorksheetState;
 
 /**
  * <p>
- * The CoreContext encapsulates the core package and is used to Filter and Sort the items. 
- * It also gives easy access to the Preferences and Messages as well as a reference to the Limit.
+ * The CoreContext encapsulates the core package and is used to Filter and Sort the items. It also
+ * gives easy access to the Preferences and Messages as well as a reference to the Limit.
  * </p>
  * 
  * @since 2.0
@@ -35,6 +36,8 @@ public class CoreContextImpl implements CoreContext {
     private Limit limit;
     private Preferences preferences;
     private Messages messages;
+    private WorksheetState worksheetState;
+    private boolean editable;
 
     public CoreContextImpl(Items items, Limit limit, Preferences preferences, Messages messages) {
         this.items = items;
@@ -69,6 +72,22 @@ public class CoreContextImpl implements CoreContext {
 
     public String getPreference(String code) {
         return preferences.getPreference(code);
+    }
+
+    public WorksheetState getWorksheetState() {
+        return worksheetState;
+    }
+    
+    public void setWorksheetState(WorksheetState worksheetState) {
+        this.worksheetState = worksheetState;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     public Limit getLimit() {

@@ -16,6 +16,7 @@
 package org.jmesa.view.component;
 
 import java.util.List;
+import java.util.Map;
 
 import org.jmesa.view.renderer.RowRenderer;
 
@@ -24,10 +25,20 @@ import org.jmesa.view.renderer.RowRenderer;
  * @author Jeff Johnston
  */
 public interface Row {
+    /**
+     * @since 2.3
+     */
+    public Map<String, Object> getUniqueProperties(Object item);
+
+    /**
+     * @since 2.3
+     */
+    public void setUniqueProperties(String... uniqueProperties);
+
     public List<Column> getColumns();
-    
+
     public Column getColumn(String property);
-    
+
     public Column getColumn(int index);
 
     public void addColumn(Column column);

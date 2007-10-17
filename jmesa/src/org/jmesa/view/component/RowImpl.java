@@ -16,8 +16,11 @@
 package org.jmesa.view.component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.jmesa.util.ItemUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.RowRenderer;
 
@@ -26,8 +29,26 @@ import org.jmesa.view.renderer.RowRenderer;
  * @author Jeff Johnston
  */
 public class RowImpl extends AbstractContextSupport implements Row {
-    List<Column> columns = new ArrayList<Column>();
+    private String[] uniqueProperties;
+
     private RowRenderer rowRenderer;
+
+    private List<Column> columns = new ArrayList<Column>();
+
+    public Map<String, Object> getUniqueProperties(Object item) {
+        Map<String, Object> results = new HashMap<String, Object>();
+
+        for (String property : uniqueProperties) {
+            Object value = ItemUtils.getItemValue(item, property);
+            results.put(property, value);
+        }
+
+        return results;
+    }
+
+    public void setUniqueProperties(String... uniqueProperties) {
+        this.uniqueProperties = uniqueProperties;
+    }
 
     public Column getColumn(String property) {
         for (Column column : columns) {
