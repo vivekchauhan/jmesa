@@ -30,19 +30,19 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
     }
 
     public FilterMatcher getFilterMatcher(MatcherKey key) {
-        FilterMatcher matcher = getFilterMatchByProperty(key.getProperty());
+        FilterMatcher matcher = getFilterMatcherByProperty(key.getProperty());
 
         if (matcher != null) {
             return matcher;
         }
 
-        matcher = getFilterMatchByType(key.getType());
+        matcher = getFilterMatcherByType(key.getType());
 
         if (matcher != null) {
             return matcher;
         }
 
-        matcher = getFilterMatchByObject(key.getType());
+        matcher = getFilterMatcherByObject(key.getType());
 
         if (matcher != null) {
             return matcher;
@@ -52,14 +52,14 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
     }
 
     /**
-     * If there is a FilterMatch that is registered by the specific property
+     * If there is a FilterMatcher that is registered by the specific property
      * name then use that, otherwise return null. The most specific search
      * because we matching based on the property.
      * 
      * @param property The column property for the current column item.
-     * @return The FilterMatch object that will do the comparison.
+     * @return The FilterMatcher object that will do the comparison.
      */
-    private FilterMatcher getFilterMatchByProperty(String property) {
+    private FilterMatcher getFilterMatcherByProperty(String property) {
         if (property == null) {
             return null;
         }
@@ -75,14 +75,14 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
     }
 
     /**
-     * If there is a FilterMatch that is registered by the specific class type
+     * If there is a FilterMatcher that is registered by the specific class type
      * then use that, otherwise return null. The intermediate search. To find a
      * match here means that a FilterMatch only has to match by the class type.
      * 
      * @param type The Class type for the current column item.
-     * @return The FilterMatch object that will do the comparison.
+     * @return The FilterMatcher object that will do the comparison.
      */
-    private FilterMatcher getFilterMatchByType(Class<?> type) {
+    private FilterMatcher getFilterMatcherByType(Class<?> type) {
         for (MatcherKey key : matchers.keySet()) {
             Class<?> typ = key.getType();
             if (typ.equals(type)) {
@@ -94,16 +94,16 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
     }
 
     /**
-     * If there is a FilterMatch that is registered by the specific class
+     * If there is a FilterMatcher that is registered by the specific class
      * instance then use that, otherwise return null. Is the most general search
      * because will return the first match that is an instanceof the current
      * column.
      * 
      * @param type The Class type for the current column item.
-     * @return The FilterMatch object that will do the comparison.
+     * @return The FilterMatcher object that will do the comparison.
      */
     @SuppressWarnings("unchecked")
-    private FilterMatcher getFilterMatchByObject(Class type) {
+    private FilterMatcher getFilterMatcherByObject(Class type) {
         FilterMatcher result = null;
 
         for (MatcherKey key : matchers.keySet()) {
