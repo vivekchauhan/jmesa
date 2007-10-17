@@ -39,6 +39,8 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
+import org.jmesa.view.pdf.PdfView;
+import org.jmesa.view.pdf.PdfViewExporter;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.state.SessionWorksheetState;
@@ -92,6 +94,7 @@ public class TableFacadeImpl implements TableFacade {
 
     public static String CSV = "csv";
     public static String EXCEL = "excel";
+    public static String PDF = "pdf";
 
     private HttpServletRequest request;
     private HttpServletResponse response;
@@ -419,6 +422,9 @@ public class TableFacadeImpl implements TableFacade {
             } else if (exportType.equals(EXCEL)) {
                 TableFactory tableFactory = new ExcelTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
+            } else if (exportType.equals(PDF)) {
+                TableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
+                this.table = tableFactory.createTable(columnProperties);
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
@@ -472,6 +478,8 @@ public class TableFacadeImpl implements TableFacade {
                 this.view = new CsvView(getTable(), getCoreContext());
             } else if (exportType.equals(EXCEL)) {
                 this.view = new ExcelView(getTable(), getCoreContext());
+            } else if (exportType.equals(PDF)) {
+                this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getCoreContext());
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
@@ -501,6 +509,13 @@ public class TableFacadeImpl implements TableFacade {
             }
         } else if (exportType.equals(EXCEL)) {
             ViewExporter exporter = new ExcelViewExporter(getView(), response);
+            try {
+                exporter.export();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (exportType.equals(PDF)) {
+            ViewExporter exporter = new PdfViewExporter(getView(), response);
             try {
                 exporter.export();
             } catch (Exception e) {
