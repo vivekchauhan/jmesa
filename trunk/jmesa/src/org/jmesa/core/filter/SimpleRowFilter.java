@@ -47,8 +47,8 @@ public class SimpleRowFilter implements RowFilter {
 
         if (filtered) {
             Collection<Object> collection = new ArrayList<Object>();
-            Map<Filter, FilterMatcher> matches = getMatches(items, limit, filterSet);
-            FilterPredicate filterPredicate = new FilterPredicate(matches, filterSet);
+            Map<Filter, FilterMatcher> filterMatchers = getFilterMatchers(items, limit, filterSet);
+            FilterPredicate filterPredicate = new FilterPredicate(filterMatchers, filterSet);
             CollectionUtils.select(items, filterPredicate, collection);
 
             return collection;
@@ -57,11 +57,11 @@ public class SimpleRowFilter implements RowFilter {
         return items;
     }
 
-    private Map<Filter, FilterMatcher> getMatches(Collection<Object> items, Limit limit, FilterSet filterSet) {
-        Map<Filter, FilterMatcher> matches = new HashMap<Filter, FilterMatcher>();
+    private Map<Filter, FilterMatcher> getFilterMatchers(Collection<Object> items, Limit limit, FilterSet filterSet) {
+        Map<Filter, FilterMatcher> filterMatchers = new HashMap<Filter, FilterMatcher>();
 
         if (items == null || !items.iterator().hasNext()) {
-            return matches;
+            return filterMatchers;
         }
 
         try {
@@ -73,14 +73,14 @@ public class SimpleRowFilter implements RowFilter {
 
                 if (value != null) {
                     MatcherKey key = new MatcherKey(value.getClass(), property);
-                    FilterMatcher match = registry.getFilterMatcher(key);
-                    matches.put(filter, match);
+                    FilterMatcher filterMatcher = registry.getFilterMatcher(key);
+                    filterMatchers.put(filter, filterMatcher);
                 }
             }
         } catch (Exception e) {
-            logger.error("Had problems getting the Filter / Match values.", e);
+            logger.error("Had problems getting the Filter / FilterMatcher values.", e);
         }
 
-        return matches;
+        return filterMatchers;
     }
 }

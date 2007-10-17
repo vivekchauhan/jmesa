@@ -33,6 +33,7 @@ public class PresidentDao {
 
         President president = new President();
         Name name = new Name("George", "Washington", "Father of His Country");
+        president.setId(1);
         president.setName(name);
         president.setTerm("1789-1797");
         president.setBorn(getDate("02/22/1732"));
@@ -44,6 +45,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(2);
         name = new Name("John", "Adams", "Atlas of Independence");
         president.setName(name);
         president.setTerm("1797-1801");

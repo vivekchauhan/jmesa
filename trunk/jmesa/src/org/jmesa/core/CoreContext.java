@@ -18,11 +18,32 @@ package org.jmesa.core;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
+import org.jmesa.worksheet.state.WorksheetState;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface CoreContext extends Items, Messages, Preferences {
+    /**
+     * @since 2.3
+     */
+    public WorksheetState getWorksheetState();
+    
+    /**
+     * @since 2.3
+     */
+    public void setWorksheetState(WorksheetState worksheetState);
+
+    /**
+     * @since 2.3
+     */
+    public boolean isEditable();
+
+    /**
+     * @since 2.3
+     */
+    public void setEditable(boolean editable);
+
     public Limit getLimit();
 }

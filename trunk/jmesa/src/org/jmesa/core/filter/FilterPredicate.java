@@ -33,11 +33,11 @@ import org.slf4j.LoggerFactory;
 public final class FilterPredicate implements Predicate {
     private Logger logger = LoggerFactory.getLogger(FilterPredicate.class);
 
-    private Map<Filter, FilterMatcher> matches;
+    private Map<Filter, FilterMatcher> filterMatchers;
     private FilterSet filterSet;
 
-    public FilterPredicate(Map<Filter, FilterMatcher> matches, FilterSet filterSet) {
-        this.matches = matches;
+    public FilterPredicate(Map<Filter, FilterMatcher> filterMatchers, FilterSet filterSet) {
+        this.filterMatchers = filterMatchers;
         this.filterSet = filterSet;
     }
 
@@ -53,7 +53,7 @@ public final class FilterPredicate implements Predicate {
                 Object value = PropertyUtils.getProperty(item, property);
 
                 if (value != null) {
-                    FilterMatcher match = matches.get(filter);
+                    FilterMatcher match = filterMatchers.get(filter);
                     result = match.evaluate(value, filter.getValue());
                 }
 

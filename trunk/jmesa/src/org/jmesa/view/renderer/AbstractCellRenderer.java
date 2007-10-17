@@ -21,6 +21,7 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.worksheet.editor.WorksheetCellEditor;
 
 /**
  * @since 2.0
@@ -28,7 +29,8 @@ import org.jmesa.view.editor.CellEditor;
  */
 public abstract class AbstractCellRenderer extends AbstractContextSupport implements CellRenderer {
     private Column column;
-    private CellEditor editor;
+    private CellEditor cellEditor;
+    private WorksheetCellEditor worksheetCellEditor;
 
     public Column getColumn() {
         return column;
@@ -38,15 +40,34 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
         this.column = column;
     }
 
+    /**
+     * Return the CellEditor for this column. If this is an editable worksheet then return the
+     * WorksheetCellEditor.
+     * 
+     * @return The CellEditor.
+     */
     public CellEditor getCellEditor() {
-        return editor;
+        if (getCoreContext().isEditable()) {
+            if (worksheetCellEditor == null) {
+                worksheetCellEditor = new WorksheetCellEditor();
+            }
+
+            worksheetCellEditor.setCellEditor(cellEditor);
+            worksheetCellEditor.setColumn(column);
+            worksheetCellEditor.setCoreContext(getCoreContext());
+            worksheetCellEditor.setWebContext(getWebContext());
+
+            return worksheetCellEditor;
+        }
+
+        return cellEditor;
     }
 
-    public void setCellEditor(CellEditor editor) {
-        this.editor = editor;
-        SupportUtils.setWebContext(editor, getWebContext());
-        SupportUtils.setCoreContext(editor, getCoreContext());
-        SupportUtils.setColumn(editor, getColumn());
+    public void setCellEditor(CellEditor cellEditor) {
+        this.cellEditor = cellEditor;
+        SupportUtils.setWebContext(cellEditor, getWebContext());
+        SupportUtils.setCoreContext(cellEditor, getCoreContext());
+        SupportUtils.setColumn(cellEditor, getColumn());
     }
 
     /**
@@ -71,7 +92,7 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
      * @param closure The Groovy closure to use.
      */
     public void setCellEditor(final Closure closure) {
-        this.editor = new CellEditor() {
+        this.cellEditor = new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
                 return closure.call(new Object[] { item, property, rowcount });
             }
