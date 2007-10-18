@@ -125,9 +125,9 @@ public class LimitFactoryImpl implements LimitFactory {
 
         Export export = limitActionFactory.getExport();
         limit.setExport(export);
-        
-        if (!limit.isExportable()) {
-            setStateLimit(limit);
+
+        if (state != null && !limit.isExportable()) {
+            state.persistLimit(limit);
         }
 
         return limit;
@@ -183,11 +183,5 @@ public class LimitFactoryImpl implements LimitFactory {
         }
 
         return null;
-    }
-
-    private void setStateLimit(Limit limit) {
-        if (state != null) {
-            state.persistLimit(limit);
-        }
     }
 }
