@@ -17,6 +17,7 @@ package org.jmesa.view.pdf;
 
 import java.io.ByteArrayInputStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,11 +35,13 @@ import org.xhtmlrenderer.util.XRLog;
  */
 public class PdfViewExporter extends AbstractViewExporter {
     private View view;
+    private HttpServletRequest request;
     private HttpServletResponse response;
     private String fileName;
 
-    public PdfViewExporter(View view, HttpServletResponse response) {
+    public PdfViewExporter(View view, HttpServletRequest request, HttpServletResponse response) {
         this.view = view;
+        this.request = request;
         this.response = response;
 
         String caption = view.getTable().getCaption();
@@ -48,7 +51,7 @@ public class PdfViewExporter extends AbstractViewExporter {
         }
     }
 
-    public PdfViewExporter(View view, String fileName, HttpServletResponse response) {
+    public PdfViewExporter(View view, String fileName, HttpServletRequest request, HttpServletResponse response) {
         this.view = view;
         this.response = response;
         this.fileName = fileName;
@@ -101,9 +104,15 @@ public class PdfViewExporter extends AbstractViewExporter {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(contents));
 
-        String baseUrl = ((PdfView) view).getBaseUrl();
-        renderer.setDocument(doc, baseUrl);
+        renderer.setDocument(doc, getBaseUrl());
         renderer.layout();
         renderer.createPDF(response.getOutputStream());
+    }
+    
+    /**
+     * @return The base url to the web application.
+     */
+    private String getBaseUrl() {
+        return request.getRequestURL().toString();
     }
 }

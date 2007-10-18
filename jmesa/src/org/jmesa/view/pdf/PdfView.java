@@ -15,9 +15,6 @@
  */
 package org.jmesa.view.pdf;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
@@ -39,18 +36,16 @@ public class PdfView implements View {
     private HtmlSnippets snippets;
     private WebContext webContext;
 
-    private String baseUrl;
     private String css;
-    private String pageStyle;
+    private String style;
 
     public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
         this.table = table;
         this.webContext = webContext;
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
 
-        this.baseUrl = coreContext.getPreference("pdf.baseUrl");
         this.css = coreContext.getPreference("pdf.css");
-        this.pageStyle = coreContext.getPreference("pdf.pageStyle");
+        this.style = coreContext.getPreference("pdf.style");
     }
 
     public HtmlTable getTable() {
@@ -59,33 +54,6 @@ public class PdfView implements View {
 
     public void setTable(Table table) {
         this.table = (HtmlTable) table;
-    }
-
-    /**
-     * @return The base url to the web application.
-     */
-    public String getBaseUrl() {
-        if (baseUrl == null) {
-            Object req = webContext.getBackingObject();
-            if (req instanceof HttpServletRequest) {
-                HttpServletRequest request = (HttpServletRequest)req;
-                String requestUrl = request.getRequestURL().toString();
-                String contextPath = webContext.getContextPath();
-                return StringUtils.substringBefore(requestUrl, contextPath);
-            }
-        }
-        
-        return baseUrl;
-    }
-
-    /**
-     * Get the base url to the web application. By default will pull from the current web
-     * application up to, but not including the servlet context.
-     * 
-     * @param baseUrl The base url to the web application.
-     */
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
     }
 
     /**
@@ -113,15 +81,15 @@ public class PdfView implements View {
     /**
      * @return The inline page stylesheet for this pdf.
      */
-    public String getPageStyle() {
-        return pageStyle;
+    public String getStyle() {
+        return style;
     }
 
     /**
      * @param pageStyle The inline page stylesheet for this pdf.
      */
-    public void setPageStyle(String pageStyle) {
-        this.pageStyle = pageStyle;
+    public void setStyle(String style) {
+        this.style = style;
     }
 
     public Object render() {
@@ -138,7 +106,7 @@ public class PdfView implements View {
 
         html.link().rel("stylesheet").type("text/css").href(contextPath + css).media("print").end();
         html.style().type("text/css").media("print").close();
-        html.append("@page { ").append(pageStyle).append(" }");
+        html.append("@page { ").append(style).append(" }");
         html.append(".jmesa .table {width: 100%;border: none;-fs-table-paginate: paginate;}");
         html.styleEnd();
         
