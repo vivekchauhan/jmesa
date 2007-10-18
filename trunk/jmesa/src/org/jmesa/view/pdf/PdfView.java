@@ -15,6 +15,9 @@
  */
 package org.jmesa.view.pdf;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
@@ -23,26 +26,31 @@ import org.jmesa.view.html.HtmlSnippets;
 import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
+import org.jmesa.web.WebContext;
 
 /**
+ * Use the Flying Saucer API to generate Pdf documents.
+ * 
  * @since 2.3
  * @author Paul Horn
  */
 public class PdfView implements View {
     private HtmlTable table;
     private HtmlSnippets snippets;
+    private WebContext webContext;
 
-    private String baseURL;
-    private String jmesaCssURL;
-    private String pageStyles;
+    private String baseUrl;
+    private String css;
+    private String pageStyle;
 
-    public PdfView(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
+    public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
         this.table = table;
+        this.webContext = webContext;
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
 
-        this.baseURL = coreContext.getPreference("pdf.baseURL");
-        this.jmesaCssURL = coreContext.getPreference("pdf.jmesaCssURL");
-        this.pageStyles = coreContext.getPreference("pdf.pageStyles");
+        this.baseUrl = coreContext.getPreference("pdf.baseUrl");
+        this.css = coreContext.getPreference("pdf.css");
+        this.pageStyle = coreContext.getPreference("pdf.pageStyle");
     }
 
     public HtmlTable getTable() {
@@ -53,20 +61,90 @@ public class PdfView implements View {
         this.table = (HtmlTable) table;
     }
 
+    /**
+     * @return The base url to the web application.
+     */
+    public String getBaseUrl() {
+        if (baseUrl == null) {
+            Object req = webContext.getBackingObject();
+            if (req instanceof HttpServletRequest) {
+                HttpServletRequest request = (HttpServletRequest)req;
+                String requestUrl = request.getRequestURL().toString();
+                String contextPath = webContext.getContextPath();
+                return StringUtils.substringBefore(requestUrl, contextPath);
+            }
+        }
+        
+        return baseUrl;
+    }
+
+    /**
+     * Get the base url to the web application. By default will pull from the current web
+     * application up to, but not including the servlet context.
+     * 
+     * @param baseUrl The base url to the web application.
+     */
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    /**
+     * @return The stylesheet to use for this pdf.
+     */
+    public String getCss() {
+        return css;
+    }
+
+    /**
+     * <p>
+     * The css to use for this pdf file. Will be relative to the servlet context.
+     * </p>
+     * 
+     * <p>
+     * example: /css/jmesa.css
+     * <p>
+     * 
+     * @param css The path and name of the jmesa css file.
+     */
+    public void setCss(String css) {
+        this.css = css;
+    }
+
+    /**
+     * @return The inline page stylesheet for this pdf.
+     */
+    public String getPageStyle() {
+        return pageStyle;
+    }
+
+    /**
+     * @param pageStyle The inline page stylesheet for this pdf.
+     */
+    public void setPageStyle(String pageStyle) {
+        this.pageStyle = pageStyle;
+    }
+
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
+        
+        String contextPath = webContext.getContextPath();
 
         html.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" ");
         html.append("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
-        html.append("<html>");
-        html.append("<head>");
-        html.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"").append(jmesaCssURL).append("\" media=\"print\"/>");
-        html.append("<style type=\"text/css\" media=\"print\">");
-        html.append("@page { ").append(pageStyles).append(" }");
+        
+        html.html().close();
+        
+        html.head().close();
+
+        html.link().rel("stylesheet").type("text/css").href(contextPath + css).media("print").end();
+        html.style().type("text/css").media("print").close();
+        html.append("@page { ").append(pageStyle).append(" }");
         html.append(".jmesa .table {width: 100%;border: none;-fs-table-paginate: paginate;}");
-        html.append("</style>");
-        html.append("</head>");
-        html.append("<body>");
+        html.styleEnd();
+        
+        html.headEnd();
+        
+        html.body().close();
 
         html.append(snippets.themeStart());
 
@@ -92,14 +170,9 @@ public class PdfView implements View {
 
         html.append(snippets.themeEnd());
 
-        html.append("</body>");
-        html.append("</html>");
+        html.bodyEnd();
+        html.htmlEnd();
 
         return html.toString();
     }
-
-    public String getBaseURL() {
-        return this.baseURL;
-    }
-
 }

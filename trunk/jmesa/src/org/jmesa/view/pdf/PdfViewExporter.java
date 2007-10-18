@@ -101,7 +101,8 @@ public class PdfViewExporter extends AbstractViewExporter {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(contents));
 
-        renderer.setDocument(doc, ((PdfView) view).getBaseURL());
+        String baseUrl = ((PdfView) view).getBaseUrl();
+        renderer.setDocument(doc, baseUrl);
         renderer.layout();
         renderer.createPDF(response.getOutputStream());
     }
