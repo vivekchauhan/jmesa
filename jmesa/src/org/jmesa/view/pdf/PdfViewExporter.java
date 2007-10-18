@@ -53,8 +53,9 @@ public class PdfViewExporter extends AbstractViewExporter {
 
     public PdfViewExporter(View view, String fileName, HttpServletRequest request, HttpServletResponse response) {
         this.view = view;
-        this.response = response;
         this.fileName = fileName;
+        this.request = request;
+        this.response = response;
     }
 
     public View getView() {
