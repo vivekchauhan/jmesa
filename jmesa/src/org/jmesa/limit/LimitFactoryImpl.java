@@ -125,8 +125,10 @@ public class LimitFactoryImpl implements LimitFactory {
 
         Export export = limitActionFactory.getExport();
         limit.setExport(export);
-
-        setStateLimit(limit);
+        
+        if (!limit.isExportable()) {
+            setStateLimit(limit);
+        }
 
         return limit;
     }

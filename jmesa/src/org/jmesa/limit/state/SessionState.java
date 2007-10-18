@@ -37,7 +37,7 @@ public class SessionState implements State {
     private WebContext webContext;
 
     public SessionState(String id, String stateAttr, WebContext webContext) {
-        this.id = id;
+        this.id = id + "_LIMIT";
         this.stateAttr = stateAttr;
         this.webContext = webContext;
     }
