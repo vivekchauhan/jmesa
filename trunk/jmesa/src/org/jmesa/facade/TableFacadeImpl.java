@@ -525,7 +525,7 @@ public class TableFacadeImpl implements TableFacade {
                 e.printStackTrace();
             }
         } else if (exportType.equals(PDF)) {
-            ViewExporter exporter = new PdfViewExporter(getView(), response);
+            ViewExporter exporter = new PdfViewExporter(getView(), request, response);
             try {
                 exporter.export();
             } catch (Exception e) {
