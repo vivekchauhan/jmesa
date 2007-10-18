@@ -69,13 +69,10 @@ public class SimpleRowFilter implements RowFilter {
 
             for (Filter filter : filterSet.getFilters()) {
                 String property = filter.getProperty();
-                Object value = PropertyUtils.getProperty(item, property);
-
-                if (value != null) {
-                    MatcherKey key = new MatcherKey(value.getClass(), property);
-                    FilterMatcher filterMatcher = registry.getFilterMatcher(key);
-                    filterMatchers.put(filter, filterMatcher);
-                }
+                Class<?> type = PropertyUtils.getPropertyType(item, property);
+                MatcherKey key = new MatcherKey(type, property);
+                FilterMatcher filterMatcher = registry.getFilterMatcher(key);
+                filterMatchers.put(filter, filterMatcher);
             }
         } catch (Exception e) {
             logger.error("Had problems getting the Filter / FilterMatcher values.", e);
