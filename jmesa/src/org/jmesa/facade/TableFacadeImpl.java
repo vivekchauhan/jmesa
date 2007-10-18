@@ -339,6 +339,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                    "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
+        }
+
         if (filterMatchers == null) {
             filterMatchers = new HashMap<MatcherKey, FilterMatcher>();
         }
@@ -347,6 +352,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                    "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
+        }
+
         Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
         Set<MatcherKey> keys = filterMatchers.keySet();
         for (MatcherKey key : keys) {
@@ -479,7 +489,7 @@ public class TableFacadeImpl implements TableFacade {
             } else if (exportType.equals(EXCEL)) {
                 this.view = new ExcelView(getTable(), getCoreContext());
             } else if (exportType.equals(PDF)) {
-                this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getCoreContext());
+                this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getWebContext(), getCoreContext());
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }

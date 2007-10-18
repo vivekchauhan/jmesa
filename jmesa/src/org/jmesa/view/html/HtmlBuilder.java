@@ -343,6 +343,28 @@ public class HtmlBuilder {
         return this;
     }
 
+    public HtmlBuilder link() {
+        append("<link");
+
+        return this;
+    }
+
+    public HtmlBuilder rel(String rel) {
+        if (StringUtils.isNotBlank(rel)) {
+            append(" rel=\"").append(rel).append("\" ");
+        }
+
+        return this;
+    }
+
+    public HtmlBuilder media(String media) {
+        if (StringUtils.isNotBlank(media)) {
+            append(" media=\"").append(media).append("\" ");
+        }
+
+        return this;
+    }
+
     /**
      * <p>
      * The name attribute [name=].
@@ -1381,6 +1403,54 @@ public class HtmlBuilder {
 
     public HtmlBuilder captionEnd() {
         append("</caption>");
+
+        return this;
+    }
+
+    public HtmlBuilder html() {
+        append("<html");
+
+        return this;
+    }
+
+    public HtmlBuilder htmlEnd() {
+        append("</html>");
+
+        return this;
+    }
+
+    public HtmlBuilder body() {
+        append("<body");
+
+        return this;
+    }
+
+    public HtmlBuilder bodyEnd() {
+        append("</body>");
+
+        return this;
+    }
+ 
+    public HtmlBuilder head() {
+        append("<head");
+
+        return this;
+    }
+
+    public HtmlBuilder headEnd() {
+        append("</head>");
+
+        return this;
+    }
+    
+    public HtmlBuilder style() {
+        append("<style");
+
+        return this;
+    }
+
+    public HtmlBuilder styleEnd() {
+        append("</style>");
 
         return this;
     }
