@@ -37,7 +37,7 @@ public class SessionStateTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
 
-        webContext.setSessionAttribute(ID, new LimitImpl(ID));
+        webContext.setSessionAttribute(ID + "_LIMIT", new LimitImpl(ID));
 
         SessionState state = new SessionState(ID, "restore", webContext);
 
@@ -57,7 +57,7 @@ public class SessionStateTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
 
-        webContext.setSessionAttribute(ID, new LimitImpl(ID));
+        webContext.setSessionAttribute(ID + "_LIMIT", new LimitImpl(ID));
 
         SessionState state = new SessionState(ID, "restore", webContext);
 

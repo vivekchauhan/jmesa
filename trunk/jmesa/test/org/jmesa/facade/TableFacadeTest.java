@@ -29,17 +29,13 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
-import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
-import org.jmesa.view.ComponentFactory;
 import org.jmesa.view.View;
-import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
@@ -206,7 +202,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
-        assertNotNull(request.getSession().getAttribute("pres"));
+        assertNotNull(request.getSession().getAttribute("pres_LIMIT"));
 
         TableFacade facadeWithState = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
         facadeWithState.setStateAttr("restore");
