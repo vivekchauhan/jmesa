@@ -136,5 +136,20 @@
       <artifactId>poi</artifactId>
       <version>3.0-FINAL</version>
     </dependency>
+    <dependency>
+      <groupId>xhtmlrenderer</groupId>
+      <artifactId>core-renderer</artifactId>
+      <version>R8pre1</version>
+    </dependency>
+    <dependency>
+      <groupId>xhtmlrenderer</groupId>
+      <artifactId>itext-paulo</artifactId>
+      <version>155</version>
+    </dependency>
+    <dependency>
+      <groupId>tagsoup</groupId>
+      <artifactId>tagsoup</artifactId>
+      <version>1.1.3</version>
+    </dependency>    
   </dependencies>
 </project>
