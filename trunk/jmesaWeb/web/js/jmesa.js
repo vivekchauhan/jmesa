@@ -299,21 +299,26 @@ function DynFilter(filter, id, property) {
 function createDynFilter(filter, id, property) {
     dynFilter = new DynFilter(filter, id, property);
     
+    /* If already have a filter input box create. */
     if ($('#dynFilterDiv').size() > 0) {
         return; //already created
     }
     
+    /* Get the original value from the filter. */
     var originalValue = $(filter).text();
     $(filter).text('')
 
+    /* Create the dynamic filter input box. */
     $(filter).append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter"/></div>');
     
+    /* Set the value on the filter input box and focus. */ 
     $('#dynFilterInput').val(originalValue);
     $('#dynFilterInput').width($(filter).width() -1);
     $('#dynFilterInput').focus();
     
+    /* The event if press keys in the filter input box. */
     $('#dynFilterInput').keypress(function(event) {
-	    if (event.keyCode == 13) {
+	    if (event.keyCode == 13) { // press the enter key 
 	       var value = $('#dynFilterInput').val();
 	       $(filter).text(value);
 	       addFilterToLimit(dynFilter.id, dynFilter.property, value);
@@ -321,6 +326,7 @@ function createDynFilter(filter, id, property) {
 	    }
     });
     
+    /* The event if leaves the filter input box. */
     $('#dynFilterInput').blur(function() {
         var value = $('#dynFilterInput').val();
         $(filter).text(value);
