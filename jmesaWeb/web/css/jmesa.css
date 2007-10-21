@@ -40,6 +40,7 @@
 
 .jmesa .filter .dynfilter {
     position: relative;
+    font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
 	height: 16px;
 	border: solid 1px #444444;
@@ -55,6 +56,7 @@
 
 .jmesa .filter #dynfilterInput {
 	vertical-align: top;
+	font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
     border: solid;
     border-width: 1px 1px 3px 1px;
