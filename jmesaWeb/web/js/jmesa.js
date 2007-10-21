@@ -299,33 +299,32 @@ function DynFilter(filter, id, property) {
 function createDynFilter(filter, id, property) {
     dynFilter = new DynFilter(filter, id, property);
     
-    if ($('#dynfilterDiv').size() > 0) {
+    if ($('#dynFilterDiv').size() > 0) {
         return; //already created
     }
     
     var originalValue = $(filter).text();
     $(filter).text('')
 
-    $(filter).append('<div id="dynfilterDiv"><input id="dynfilterInput" name="filter"/></div>');
+    $(filter).append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter"/></div>');
     
-    $('#dynfilterInput').val(originalValue);
-    $('#dynfilterInput').width($(filter).width() -1);
-    $('#dynfilterInput').focus();
+    $('#dynFilterInput').val(originalValue);
+    $('#dynFilterInput').width($(filter).width() -1);
+    $('#dynFilterInput').focus();
     
-    $('#dynfilterInput').keypress(function(event) {
+    $('#dynFilterInput').keypress(function(event) {
 	    if (event.keyCode == 13) {
-	       var value = $('#dynfilterInput').val();
+	       var value = $('#dynFilterInput').val();
 	       $(filter).text(value);
 	       addFilterToLimit(dynFilter.id, dynFilter.property, value);
 	       onInvokeAction(dynFilter.id);
 	    }
     });
     
-    
-    $('#dynfilterInput').blur(function() {
-        var value = $('#dynfilterInput').val();
+    $('#dynFilterInput').blur(function() {
+        var value = $('#dynFilterInput').val();
         $(filter).text(value);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, value);
-	    $('#dynfilterDiv').remove();
+	    $('#dynFilterDiv').remove();
     });
 }

@@ -46,7 +46,7 @@ public class HtmlFilterEditor extends AbstractFilterEditor {
             filterValue = filter.getValue();
         }
 
-        html.div().styleClass("dynfilter");
+        html.div().styleClass("dynFilter");
         html.onclick("createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
         html.close();
         html.append(filterValue);
