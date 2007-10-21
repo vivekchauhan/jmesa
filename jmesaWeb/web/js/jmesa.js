@@ -90,65 +90,55 @@ Limit.prototype.setExport = function(exportType) {
  /*other helper methods*/
 
 Limit.prototype.createHiddenInputFields = function(form) {
-	/* the current page */
-	var input = document.createElement('input');
-	input.type = 'hidden';
-	input.name = this.id + '_' + 'p_';
-	input.value = this.page;
-	form.appendChild(input);
+    var limit = this;
 
-	/* the max rows */
-	var input = document.createElement('input');
-	input.type = 'hidden';
-	input.name = this.id + '_' + 'mr_';
-	input.value = this.maxRows;
-	form.appendChild(input);
-	
+	/* the current page */
+	$(form).append('<input type="hidden" name="' + limit.id + '_' + 'p_' + '" value="' + limit.page + '"/>');
+    $(form).append('<input type="hidden" name="' + limit.id + '_' + 'mr_' + '" value="' + limit.maxRows + '"/>');
+
 	/* the sort objects */
-	for (var i = 0; i < this.sortSet.length; i++) {
-		var sort = this.sortSet[i];
-		var input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = this.id + '_' + 's_' + sort.position + '_' + sort.property;
-		input.value = sort.order;
-		form.appendChild(input);
-	}
+	var sortSet = limit.getSortSet();
+	$(sortSet).each(function(i) {
+        var sort = sortSet[i];
+        $(form).append('<input type="hidden" name="' + limit.id + '_' + 's_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
+	});
 
 	/* the filter objects */
-	for (var i = 0; i < this.filterSet.length; i++) {
-		var filter = this.filterSet[i];
-		var input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = this.id + '_' + 'f_' + filter.property;
-		input.value = filter.value;
-		form.appendChild(input);
-	}
+	var filterSet = limit.getFilterSet();
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        $(form).append('<input type="hidden" name="' + limit.id + '_' + 'f_' + filter.property + '" value="' + filter.value + '"/>');
+    });
 }
 
 Limit.prototype.createParameterString = function() {
+    var limit = this;
+
 	var url = '';
 
 	/* the current page */
-	url += this.id + '_' + 'p_=' + this.page;
+	url += limit.id + '_' + 'p_=' + limit.page;
 
 	/* the max rows */
-	url += '&' + this.id + '_' + 'mr_=' + this.maxRows;
+	url += '&' + limit.id + '_' + 'mr_=' + limit.maxRows;
 	
 	/* the sort objects */
-	for (var i = 0; i < this.sortSet.length; i++) {
-		var sort = this.sortSet[i];
-		url += '&' + this.id + '_' + 's_' + sort.position + '_' + sort.property + '=' + sort.order;
-	}
+	var sortSet = limit.getSortSet();
+    $(sortSet).each(function(i) {
+        var sort = sortSet[i];
+        url += '&' + limit.id + '_' + 's_' + sort.position + '_' + sort.property + '=' + sort.order;
+    });
 
 	/* the filter objects */
-	for (var i = 0; i < this.filterSet.length; i++) {
-		var filter = this.filterSet[i];
-		url += '&' + this.id + '_' + 'f_' + filter.property + '=' + filter.value;
-	}
+	var filterSet = limit.getFilterSet();
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        url += '&' + limit.id + '_' + 'f_' + filter.property + '=' + encodeURIComponent(filter.value);
+    });
 	
 	/* the export */
-	if (this.exportType) {
-		url += '&' + this.id + '_' + 'e_=' + this.exportType;
+	if (limit.exportType) {
+		url += '&' + limit.id + '_' + 'e_=' + limit.exportType;
 	}
 	
 	return url;
@@ -185,12 +175,12 @@ function removeSortFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var sortSet = limit.getSortSet();
 	
-	for (var i = 0; i < sortSet.length; i++) {
-		var sort = sortSet[i];
-		if (sort.property == property) {
-			sortSet.splice(i, 1);
-		}
-	}
+	$(sortSet).each(function(i) {
+        var sort = limit.sortSet[i];
+        if (sort.property == property) {
+            sortSet.splice(i, 1);
+        }
+    });
 }
 
 function removeAllSortsFromLimit(id) {
@@ -203,12 +193,12 @@ function getSortFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var sortSet = limit.getSortSet();
 	
-	for (var i = 0; i < sortSet.length; i++) {
-		var sort = sortSet[i];
-		if (sort.property == property) {
-			return sort;
-		}
-	}
+    $(sortSet).each(function(i) {
+        var sort = limit.sortSet[i];
+        if (sort.property == property) {
+            return sort;
+        }
+    });
 }
 
 function addFilterToLimit(id, property, value) {
@@ -226,12 +216,12 @@ function removeFilterFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var filterSet = limit.getFilterSet();
 	
-	for (var i = 0; i < filterSet.length; i++) {
-		var filter = filterSet[i];
-		if (filter.property == property) {
-			filterSet.splice(i, 1);
-		}
-	}
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        if (filter.property == property) {
+            filterSet.splice(i, 1);
+        }
+    });
 }
 
 function removeAllFiltersFromLimit(id) {
@@ -244,12 +234,12 @@ function getFilterFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var filterSet = limit.getFilterSet();
 	
-	for (var i = 0; i < filterSet.length; i++) {
-		var filter = filterSet[i];
-		if (filter.property == property) {
-			return filter;
-		}
-	}
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        if (filter.property == property) {
+            return filter;
+        }
+    });
 }
 
 function setExportToLimit(id, exportType) {
