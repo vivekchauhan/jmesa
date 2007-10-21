@@ -38,7 +38,7 @@
 	padding: 2px 2px 4px 2px;
 }
 
-.jmesa .filter .dynfilter {
+.jmesa .filter .dynFilter {
     position: relative;
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
@@ -48,14 +48,13 @@
 	padding-left: 1px;
 }
 
-.jmesa .filter #dynfilterDiv {
+.jmesa .filter #dynFilterDiv {
     position: absolute;
     top: -2px;
     left: -1px;
 }
 
-.jmesa .filter #dynfilterInput {
-	vertical-align: top;
+.jmesa .filter #dynFilterInput {
 	font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
     border: solid;
