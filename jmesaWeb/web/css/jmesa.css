@@ -35,39 +35,33 @@
 }
 
 .jmesa .filter td {
-	padding: 2px;
+	padding: 2px 2px 4px 2px;
 }
 
-.jmesa .filter div {
-	font-size: 11px;
-	height: 15px;
+.jmesa .filter .dynfilter {
+    position: relative;
+    font-size: 11px;
+	height: 16px;
 	border: solid 1px #444444;
 	background-color: #efebe7;
-	position: relative;
+	padding-left: 1px;
 }
 
-.jmesa .filter img {
-	display: inline;
-	position: absolute;
-	right: 2px;
-	top: 4px
+.jmesa .filter #dynfilterDiv {
+    position: absolute;
+    top: -2px;
+    left: -1px;
 }
 
-.jmesa .filter #dynFilterDiv {
-	position: absolute;
-	top: 16px;
-	width: 131px;
-	height: 29px;
-	background-color: #edd400;
-	padding-left: 3px;
-}
-
-.jmesa .filter #dynFilterInput {
-	margin-top: 4px;
-	background-color: #eee;
-	border-style: none;
-	border: solid 1px #444444;
-	width: 124px;
+.jmesa .filter #dynfilterInput {
+	vertical-align: top;
+    font-size: 11px;
+    border: solid;
+    border-width: 1px 1px 3px 1px;
+    border-color: #605a54;
+	background-color: #ecf4fb;
+	padding-left: 1px;
+	height: 16px;
 }
 
 .jmesa .header td {
