@@ -330,10 +330,10 @@ function addDropShadow(imagesPath, theme) {
     if (!theme) {
         theme = 'jmesa';
     }
-    $('div.' + theme + ' table:first').wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='wrap3'></div></div></div></div>");
+    $('div.' + theme + ' table:first').wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>");
     $('div.' + theme + ' table:first').css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
-    $('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat'});
-    $('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
-    $('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
-    $('.' + theme + ' div.wrap3').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
+    $('.' + theme + ' div.wrap0').css({'display':'inline-table', 'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
+    $('.' + theme + ' div.wrap1').css({'display':'inline-table', 'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
+    $('.' + theme + ' div.wrap2').css({'display':'inline-table', 'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
+    $('.' + theme + ' div.dropShadow').css({'display':'inline-table', 'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
 }
