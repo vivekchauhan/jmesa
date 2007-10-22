@@ -32,6 +32,7 @@ class Build {
     def init() {
         ant.mkdir(dir:targetDir)
         ant.mkdir(dir:classesDir)
+        ant.delete(dir:System.getProperty('user.home') + '/.ivy/cache/jmesa')
     }
     
     def classpaths() {
