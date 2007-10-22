@@ -119,21 +119,6 @@
 	padding: 2px;
 }
 
-/* 
- * Create a dropshadow for the table. The example code and images are all taken from the jQuery site. 
- *
- * http://docs.jquery.com/Tutorials:Wrapping_Images_With_A_Drop_Shadow
- */
-
-.jmesa .wrap0, .jmesa .wrap1, .jmesa .wrap2, .jmesa .wrap3 {
-	display:inline-table;
-	/* \*/display:block;/**/
-}
-
-.jmesa .wrap0 {
-	float:left;
-}
-
-.jmesa .wrap3 {
+.jmesa .dropShadow {
 	padding: 10px 14px 14px 10px;
 }
