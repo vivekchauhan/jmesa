@@ -22,9 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.AbstractViewExporter;
 import org.jmesa.view.View;
+import org.jmesa.view.ViewUtils;
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.util.XRLog;
@@ -43,12 +43,7 @@ public class PdfViewExporter extends AbstractViewExporter {
         this.view = view;
         this.request = request;
         this.response = response;
-
-        String caption = view.getTable().getCaption();
-        if (StringUtils.isNotBlank(caption)) {
-            StringUtils.replace(caption, " ", "_");
-            this.fileName = caption.toLowerCase() + ".pdf";
-        }
+        this.fileName = ViewUtils.exportFileName(view, "pdf");
     }
 
     public PdfViewExporter(View view, String fileName, HttpServletRequest request, HttpServletResponse response) {

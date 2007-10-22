@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewExporter;
+import org.jmesa.view.ViewUtils;
 
 /**
  * @since 2.1
@@ -33,7 +34,7 @@ public class ExcelViewExporter implements ViewExporter {
     public ExcelViewExporter(View view, HttpServletResponse response) {
         this.view = view;
         this.response = response;
-        this.fileName = view.getTable().getCaption() + ".xls";
+        this.fileName = ViewUtils.exportFileName(view, "xls");
     }
     
     public ExcelViewExporter(View view, String fileName, HttpServletResponse response) {
