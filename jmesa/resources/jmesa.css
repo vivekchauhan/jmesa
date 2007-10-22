@@ -125,15 +125,15 @@
  * http://docs.jquery.com/Tutorials:Wrapping_Images_With_A_Drop_Shadow
  */
 
-.wrap0, .wrap1, .wrap2, .wrap3 {
+.jmesa .wrap0, .jmesa .wrap1, .jmesa .wrap2, .jmesa .wrap3 {
 	display:inline-table;
 	/* \*/display:block;/**/
 }
 
-.wrap0 {
+.jmesa .wrap0 {
 	float:left;
 }
 
-.wrap3 {
+.jmesa .wrap3 {
 	padding: 10px 14px 14px 10px;
 }
