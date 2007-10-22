@@ -90,65 +90,55 @@ Limit.prototype.setExport = function(exportType) {
  /*other helper methods*/
 
 Limit.prototype.createHiddenInputFields = function(form) {
-	/* the current page */
-	var input = document.createElement('input');
-	input.type = 'hidden';
-	input.name = this.id + '_' + 'p_';
-	input.value = this.page;
-	form.appendChild(input);
+    var limit = this;
 
-	/* the max rows */
-	var input = document.createElement('input');
-	input.type = 'hidden';
-	input.name = this.id + '_' + 'mr_';
-	input.value = this.maxRows;
-	form.appendChild(input);
-	
+	/* the current page */
+	$(form).append('<input type="hidden" name="' + limit.id + '_' + 'p_' + '" value="' + limit.page + '"/>');
+    $(form).append('<input type="hidden" name="' + limit.id + '_' + 'mr_' + '" value="' + limit.maxRows + '"/>');
+
 	/* the sort objects */
-	for (var i = 0; i < this.sortSet.length; i++) {
-		var sort = this.sortSet[i];
-		var input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = this.id + '_' + 's_' + sort.position + '_' + sort.property;
-		input.value = sort.order;
-		form.appendChild(input);
-	}
+	var sortSet = limit.getSortSet();
+	$(sortSet).each(function(i) {
+        var sort = sortSet[i];
+        $(form).append('<input type="hidden" name="' + limit.id + '_' + 's_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
+	});
 
 	/* the filter objects */
-	for (var i = 0; i < this.filterSet.length; i++) {
-		var filter = this.filterSet[i];
-		var input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = this.id + '_' + 'f_' + filter.property;
-		input.value = filter.value;
-		form.appendChild(input);
-	}
+	var filterSet = limit.getFilterSet();
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        $(form).append('<input type="hidden" name="' + limit.id + '_' + 'f_' + filter.property + '" value="' + filter.value + '"/>');
+    });
 }
 
 Limit.prototype.createParameterString = function() {
+    var limit = this;
+
 	var url = '';
 
 	/* the current page */
-	url += this.id + '_' + 'p_=' + this.page;
+	url += limit.id + '_' + 'p_=' + limit.page;
 
 	/* the max rows */
-	url += '&' + this.id + '_' + 'mr_=' + this.maxRows;
+	url += '&' + limit.id + '_' + 'mr_=' + limit.maxRows;
 	
 	/* the sort objects */
-	for (var i = 0; i < this.sortSet.length; i++) {
-		var sort = this.sortSet[i];
-		url += '&' + this.id + '_' + 's_' + sort.position + '_' + sort.property + '=' + sort.order;
-	}
+	var sortSet = limit.getSortSet();
+    $(sortSet).each(function(i) {
+        var sort = sortSet[i];
+        url += '&' + limit.id + '_' + 's_' + sort.position + '_' + sort.property + '=' + sort.order;
+    });
 
 	/* the filter objects */
-	for (var i = 0; i < this.filterSet.length; i++) {
-		var filter = this.filterSet[i];
-		url += '&' + this.id + '_' + 'f_' + filter.property + '=' + filter.value;
-	}
+	var filterSet = limit.getFilterSet();
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        url += '&' + limit.id + '_' + 'f_' + filter.property + '=' + encodeURIComponent(filter.value);
+    });
 	
 	/* the export */
-	if (this.exportType) {
-		url += '&' + this.id + '_' + 'e_=' + this.exportType;
+	if (limit.exportType) {
+		url += '&' + limit.id + '_' + 'e_=' + limit.exportType;
 	}
 	
 	return url;
@@ -185,12 +175,12 @@ function removeSortFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var sortSet = limit.getSortSet();
 	
-	for (var i = 0; i < sortSet.length; i++) {
-		var sort = sortSet[i];
-		if (sort.property == property) {
-			sortSet.splice(i, 1);
-		}
-	}
+	$(sortSet).each(function(i) {
+        var sort = limit.sortSet[i];
+        if (sort.property == property) {
+            sortSet.splice(i, 1);
+        }
+    });
 }
 
 function removeAllSortsFromLimit(id) {
@@ -203,12 +193,12 @@ function getSortFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var sortSet = limit.getSortSet();
 	
-	for (var i = 0; i < sortSet.length; i++) {
-		var sort = sortSet[i];
-		if (sort.property == property) {
-			return sort;
-		}
-	}
+    $(sortSet).each(function(i) {
+        var sort = limit.sortSet[i];
+        if (sort.property == property) {
+            return sort;
+        }
+    });
 }
 
 function addFilterToLimit(id, property, value) {
@@ -226,12 +216,12 @@ function removeFilterFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var filterSet = limit.getFilterSet();
 	
-	for (var i = 0; i < filterSet.length; i++) {
-		var filter = filterSet[i];
-		if (filter.property == property) {
-			filterSet.splice(i, 1);
-		}
-	}
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        if (filter.property == property) {
+            filterSet.splice(i, 1);
+        }
+    });
 }
 
 function removeAllFiltersFromLimit(id) {
@@ -244,12 +234,12 @@ function getFilterFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var filterSet = limit.getFilterSet();
 	
-	for (var i = 0; i < filterSet.length; i++) {
-		var filter = filterSet[i];
-		if (filter.property == property) {
-			return filter;
-		}
-	}
+    $(filterSet).each(function(i) {
+        var filter = filterSet[i];
+        if (filter.property == property) {
+            return filter;
+        }
+    });
 }
 
 function setExportToLimit(id, exportType) {
@@ -297,79 +287,53 @@ function DynFilter(filter, id, property) {
 }
 
 function createDynFilter(filter, id, property) {
-	dynFilter = new DynFilter(filter, id, property);
+    dynFilter = new DynFilter(filter, id, property);
+    
+    /* If already have a filter input box create. */
+    if ($('#dynFilterDiv').size() > 0) {
+        return; //already created
+    }
+    
+    /* Get the original value from the filter. */
+    var originalValue = $(filter).text();
+    $(filter).text('')
 
-	var dynFilterDiv = document.getElementById('dynFilterDiv');
-	
-	// already have a filter
-	if (dynFilterDiv) {
-		return; 
-	}
-	
-	// create the div tag
-	dynFilterDiv = document.createElement('div');
-	dynFilterDiv.id = 'dynFilterDiv';
-	filter.appendChild(dynFilterDiv);
-
-	// create the input tag
-	var dynFilterInput = document.createElement('input');
-	dynFilterInput.type = 'text';
-	dynFilterInput.id = 'dynFilterInput';
-	dynFilterInput.name = 'filter';
-	
-	var inputValue = filter.firstChild.nodeValue;
-	if (!inputValue) {
-		inputValue = '';
-	}
-	
-	dynFilterInput.value = inputValue;
-	addEvent(dynFilterInput, 'keypress', keypressDynFilterInput, false);
-	addEvent(dynFilterInput, 'blur', blurDynFilterInput, false);
-	dynFilterDiv.appendChild(dynFilterInput);
-	dynFilterInput.focus();
+    /* Create the dynamic filter input box. */
+    $(filter).append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter"/></div>');
+    
+    /* Set the value on the filter input box and focus. */ 
+    $('#dynFilterInput').val(originalValue);
+    $('#dynFilterInput').width($(filter).width() -1);
+    $('#dynFilterInput').focus();
+    
+    /* The event if press keys in the filter input box. */
+    $('#dynFilterInput').keypress(function(event) {
+	    if (event.keyCode == 13) { // press the enter key 
+	       var value = $('#dynFilterInput').val();
+	       $(filter).text(value);
+	       addFilterToLimit(dynFilter.id, dynFilter.property, value);
+	       onInvokeAction(dynFilter.id);
+	    }
+    });
+    
+    /* The event if leaves the filter input box. */
+    $('#dynFilterInput').blur(function() {
+        var value = $('#dynFilterInput').val();
+        $(filter).text(value);
+	    addFilterToLimit(dynFilter.id, dynFilter.property, value);
+	    $('#dynFilterDiv').remove();
+    });
 }
 
-function blurDynFilterInput(event) {
-	var dynFilterDiv = document.getElementById('dynFilterDiv');
-	var dynFilterInput = document.getElementById('dynFilterInput');
-	addFilterText(dynFilter.filter, dynFilterDiv)
-	addFilterToLimit(dynFilter.id, dynFilter.property, dynFilterInput.value);
-}
-
-function keypressDynFilterInput(event) {
-	if (event.keyCode == 13) {
-		var dynFilterDiv = document.getElementById('dynFilterDiv');
-		var dynFilterInput = document.getElementById('dynFilterInput');
-		addFilterText(dynFilter.filter, dynFilterDiv)
-		addFilterToLimit(dynFilter.id, dynFilter.property, dynFilterInput.value);
-		onInvokeAction(dynFilter.id);
-	}
-}
-
-function addFilterText(filter, dynFilterDiv) {
-	var dynFilterInput = document.getElementById('dynFilterInput');
-	var inputValue = dynFilterInput.value;
-	var textNode = document.createTextNode(inputValue);
-	
-	var node = filter.firstChild;
-	if (node.nodeType == 3) { // node type of text
-		filter.replaceChild(textNode, node);
-	} else {
-		filter.insertBefore(textNode, node);
-	}
-	
-	filter.removeChild(dynFilterDiv);
-}
-
-/*A cross browser way to add events to different objects.*/
-function addEvent(obj, evType, fn, useCapture){
-	if (obj.addEventListener){
-		obj.addEventListener(evType, fn, useCapture);
-		return true;
-	} else if (obj.attachEvent){
-		var r = obj.attachEvent("on"+evType, fn);
-		return r;
-	} else {
-		alert("Handler could not be attached");
-	}
+/* Create a dropshadow for the tables */
+function addDropShadow(imagesPath, theme) {
+    if (!theme) {
+        theme = 'jmesa';
+    }
+    $('div.' + theme).wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='wrap3'></div></div></div></div>");
+    $('div.' + theme).css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
+    $('div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat'});
+    $('div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
+    $('div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
+    $('div.wrap3').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
 }
