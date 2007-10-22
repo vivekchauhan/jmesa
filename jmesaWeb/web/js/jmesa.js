@@ -324,3 +324,13 @@ function createDynFilter(filter, id, property) {
 	    $('#dynFilterDiv').remove();
     });
 }
+
+/* Create a dropshadow for tables */
+
+function addDropShadow(theme) {
+    if (!theme) {
+        theme = 'jmesa';
+    }
+
+    $('div.' + theme).wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='wrap3'></div></div></div></div>");
+}

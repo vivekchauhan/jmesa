@@ -118,3 +118,36 @@
 	background-color: #efebe7;
 	padding: 2px;
 }
+
+/* 
+ * Create a dropshadow for the table. The example code and images are all taken from the jQuery site. 
+ *
+ * http://docs.jquery.com/Tutorials:Wrapping_Images_With_A_Drop_Shadow
+ */
+
+.wrap0, .wrap1, .wrap2, .wrap3 {
+  display:inline-table;
+  /* \*/display:block;/**/
+}
+
+.wrap0 {
+  float:left;
+  background:url(../images/table/shadow.gif) right bottom no-repeat;
+}
+
+.wrap1 {
+  background:url(../images/table/shadow180.gif) no-repeat;
+}
+
+.wrap2 {
+  background:url(../images/table/corner_bl.gif) -18px 100% no-repeat;
+}
+
+.wrap3 {
+  padding:10px 14px 14px 10px;
+  background:url(../images/table/corner_tr.gif) 100% -18px no-repeat;
+}
+
+.jmesa {
+  background:url(../images/table/shadow_back.gif) 100% repeat;
+}

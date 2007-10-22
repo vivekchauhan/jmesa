@@ -2,6 +2,13 @@
 
 <head>
 	<title>Basic JMesa Example</title>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	   addDropShadow();
+	});
+</script>
+	
 </head>
 
 <body>
@@ -20,13 +27,14 @@
 	</p>
 	
 	<form name="presidentsForm" action="${pageContext.request.contextPath}/basic.run">
-		${presidents}
+	   ${presidents}
 	</form>
 	
-	<p class="content">
+	<p class="content" style="clear: both">
 		This example source code can be found 
 		<a href="http://code.google.com/p/jmesa/wiki/FacadeExample">here</a>.
 	</p>
+	
 	
 <script type="text/javascript">
 function onInvokeAction(id) {

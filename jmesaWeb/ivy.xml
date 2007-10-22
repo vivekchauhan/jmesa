@@ -14,7 +14,7 @@
         <artifact conf="master"/>
     </publications>
     <dependencies>
-        <dependency org="jmesa" name="jmesa" rev="latest.integration" changing="true" conf="compile->default;master->default" />
+        <dependency org="jmesa" name="jmesa" rev="snapshot" changing="true" conf="compile->default;master->default" />
         
         <dependency org="antlr" name="antlr" rev="2.7.6" conf="eclipse->default;compile->default;master->default" />
         <dependency org="asm" name="asm" rev="2.2" conf="eclipse->default;compile->default;master->default" />
@@ -42,9 +42,9 @@
         <dependency org="org.slf4j" name="slf4j-api" rev="1.3.1" conf="eclipse->default;compile->default;master->default" />
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.3.1" conf="eclipse->default;compile->default;master->default" />
         <dependency org="poi" name="poi" rev="3.0-FINAL" conf="eclipse->default;compile->default;master->default" />
-        <dependency org="xhtmlrenderer" name="core-renderer" rev="R8pre1" conf="compile->default" />
-        <dependency org="xhtmlrenderer" name="itext-paulo" rev="155" conf="compile->default" />
-        <dependency org="tagsoup" name="tagsoup" rev="1.1.3" conf="compile->default" />
+        <dependency org="xhtmlrenderer" name="core-renderer" rev="R8pre1" conf="eclipse->default;compile->default" />
+        <dependency org="xhtmlrenderer" name="itext-paulo" rev="155" conf="eclipse->default;compile->default" />
+        <dependency org="tagsoup" name="tagsoup" rev="1.1.3" conf="eclipse->default;compile->default" />
         <dependency org="taglibs" name="standard" rev="1.1.2" conf="eclipse->default;compile->default" />
         <dependency org="xerces" name="xercesImpl" rev="2.6.1" conf="eclipse->default;compile->default;master->default" />
     </dependencies>
