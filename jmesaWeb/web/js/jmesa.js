@@ -325,12 +325,15 @@ function createDynFilter(filter, id, property) {
     });
 }
 
-/* Create a dropshadow for tables */
-
-function addDropShadow(theme) {
+/* Create a dropshadow for the tables */
+function addDropShadow(imagesPath, theme) {
     if (!theme) {
         theme = 'jmesa';
     }
-
     $('div.' + theme).wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='wrap3'></div></div></div></div>");
+    $('div.' + theme).css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
+    $('div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat'});
+    $('div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
+    $('div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
+    $('div.wrap3').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
 }
