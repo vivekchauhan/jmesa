@@ -17,9 +17,9 @@ package org.jmesa.view.csv;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.AbstractViewExporter;
 import org.jmesa.view.View;
+import org.jmesa.view.ViewUtils;
 
 /**
  * @since 2.0
@@ -33,12 +33,7 @@ public class CsvViewExporter extends AbstractViewExporter {
     public CsvViewExporter(View view, HttpServletResponse response) {
         this.view = view;
         this.response = response;
-
-        String caption = view.getTable().getCaption();
-        if (StringUtils.isNotBlank(caption)) {
-            StringUtils.replace(caption, " ", "_");
-            this.fileName = caption.toLowerCase() + ".txt";
-        }
+        this.fileName = ViewUtils.exportFileName(view, "txt");
     }
 
     public CsvViewExporter(View view, String fileName, HttpServletResponse response) {

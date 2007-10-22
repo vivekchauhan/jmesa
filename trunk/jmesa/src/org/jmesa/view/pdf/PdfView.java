@@ -86,7 +86,7 @@ public class PdfView implements View {
     }
 
     /**
-     * @param pageStyle The inline page stylesheet for this pdf.
+     * @param style The inline page stylesheet for this pdf.
      */
     public void setStyle(String style) {
         this.style = style;

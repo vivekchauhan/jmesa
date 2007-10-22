@@ -29,8 +29,7 @@ public class ViewUtils {
     }
 
     /**
-     * Convert camelCase text to a readable word. example: camelCaseToWord -->
-     * Camel Case To Word
+     * Convert camelCase text to a readable word. example: camelCaseToWord --> Camel Case To Word
      */
     public static String camelCaseToWord(String camelCaseText) {
         if (StringUtils.isEmpty(camelCaseText)) {
@@ -56,6 +55,23 @@ public class ViewUtils {
         }
 
         return build;
+    }
+
+    /**
+     * Use the view caption for the export. If the caption is not defined then use a default.
+     * 
+     * @param view The view to export.
+     * @param exportType The type of view to export.
+     * @return The file name of export.
+     */
+    public static String exportFileName(View view, String exportType) {
+        String caption = view.getTable().getCaption();
+        if (StringUtils.isNotBlank(caption)) {
+            StringUtils.replace(caption, " ", "_");
+            return caption.toLowerCase() + "." + exportType;
+        } else {
+            return "table-data." + exportType;
+        }
     }
 
     /**
