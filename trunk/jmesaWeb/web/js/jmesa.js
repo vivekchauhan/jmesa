@@ -303,7 +303,11 @@ function createDynFilter(filter, id, property) {
     
     /* Set the value on the filter input box and focus. */ 
     $('#dynFilterInput').val(originalValue);
-    $('#dynFilterInput').width($(filter).width() -1);
+    if(jQuery.browser.msie) {
+    	$('#dynFilterInput').width($(filter).width() -4);
+    } else {
+    	$('#dynFilterInput').width($(filter).width() -3);
+    }
     $('#dynFilterInput').focus();
     
     /* The event if press keys in the filter input box. */
