@@ -35,39 +35,34 @@
 }
 
 .jmesa .filter td {
-	padding: 2px;
+	padding: 2px 2px 4px 2px;
 }
 
-.jmesa .filter div {
-	font-size: 11px;
-	height: 15px;
+.jmesa .filter .dynFilter {
+    position: relative;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+	height: 16px;
 	border: solid 1px #444444;
 	background-color: #efebe7;
-	position: relative;
-}
-
-.jmesa .filter img {
-	display: inline;
-	position: absolute;
-	right: 2px;
-	top: 4px
+	padding-left: 1px;
 }
 
 .jmesa .filter #dynFilterDiv {
-	position: absolute;
-	top: 16px;
-	width: 131px;
-	height: 29px;
-	background-color: #edd400;
-	padding-left: 3px;
+    position: absolute;
+    top: -2px;
+    left: -1px;
 }
 
 .jmesa .filter #dynFilterInput {
-	margin-top: 4px;
-	background-color: #eee;
-	border-style: none;
-	border: solid 1px #444444;
-	width: 124px;
+	font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    border: solid;
+    border-width: 1px 1px 2px 2px;
+    border-color: #605a54;
+	background-color: #ecf4fb;
+	padding-left: 1px;
+	height: 16px;
 }
 
 .jmesa .header td {
@@ -122,4 +117,23 @@
 	border-top: 1px solid silver;
 	background-color: #efebe7;
 	padding: 2px;
+}
+
+/* 
+ * Create a dropshadow for the table. The example code and images are all taken from the jQuery site. 
+ *
+ * http://docs.jquery.com/Tutorials:Wrapping_Images_With_A_Drop_Shadow
+ */
+
+.wrap0, .wrap1, .wrap2, .wrap3 {
+	display:inline-table;
+	/* \*/display:block;/**/
+}
+
+.wrap0 {
+	float:left;
+}
+
+.wrap3 {
+	padding: 10px 14px 14px 10px;
 }
