@@ -5,7 +5,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	   addDropShadow();
+	   addDropShadow('${imagesPath}');
 	});
 </script>
 	

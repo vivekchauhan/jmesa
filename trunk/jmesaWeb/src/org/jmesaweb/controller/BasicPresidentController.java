@@ -68,7 +68,6 @@ public class BasicPresidentController extends AbstractController {
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         Table table = tableFacade.getTable();
-        table.setCaption("Presidents");
 
         Column firstName = table.getRow().getColumn("name.firstName");
         firstName.setTitle("First Name");
@@ -101,7 +100,10 @@ public class BasicPresidentController extends AbstractController {
         });
 
         String html = tableFacade.render(); // Return the Html.
+        
         mv.addObject("presidents", html); // Set the Html in the request for the JSP.
+        String imagesPath = tableFacade.getCoreContext().getPreference("html.imagesPath");
+        mv.addObject("imagesPath", request.getContextPath() + imagesPath);
 
         return mv;
     }
