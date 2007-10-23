@@ -302,13 +302,11 @@ function createDynFilter(filter, id, property) {
     $(filter).append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter"/></div>');
     
     /* Set the value on the filter input box and focus. */ 
-    $('#dynFilterInput').val(originalValue);
     if(jQuery.browser.msie) {
-    	$('#dynFilterInput').width($(filter).width() -4);
+    	$('#dynFilterInput').width($(filter).width() -4).val(originalValue).focus();
     } else {
-    	$('#dynFilterInput').width($(filter).width() -3);
+    	$('#dynFilterInput').width($(filter).width() -3).val(originalValue).focus();
     }
-    $('#dynFilterInput').focus();
     
     /* The event if press keys in the filter input box. */
     $('#dynFilterInput').keypress(function(event) {
@@ -334,8 +332,10 @@ function addDropShadow(imagesPath, theme) {
     if (!theme) {
         theme = 'jmesa';
     }
-    $('div.' + theme + ' table:first').wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>");
-    $('div.' + theme + ' table:first').css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
+    $('div.' + theme + ' table:first')
+        .wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>")
+        .css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
+    
     $('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
     $('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
     $('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
