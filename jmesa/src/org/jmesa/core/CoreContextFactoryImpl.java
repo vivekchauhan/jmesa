@@ -72,7 +72,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
         this.webContext = webContext;
     }
 
-    protected FilterMatcherRegistry getFilterMatcherRegistry() {
+    public FilterMatcherRegistry getFilterMatcherRegistry() {
         if (registry == null) {
             registry = new FilterMatcherRegistryImpl();
             StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();

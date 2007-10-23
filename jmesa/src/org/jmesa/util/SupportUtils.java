@@ -17,6 +17,8 @@ package org.jmesa.util;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextSupport;
+import org.jmesa.core.filter.FilterMatcherRegistry;
+import org.jmesa.core.filter.FilterMatcherRegistrySupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
 import org.jmesa.view.component.Table;
@@ -109,6 +111,18 @@ public class SupportUtils {
     public static void setToolbar(Object obj, Toolbar toolbar) {
         if ((obj instanceof ToolbarSupport) && ((ToolbarSupport) obj).getToolbar() == null) {
             ((ToolbarSupport) obj).setToolbar(toolbar);
+        }
+    }
+
+    /**
+     * Set the FilterMatcherRegistry on the object being inspected if it is not already set.
+     * 
+     * @param obj The object being inspected.
+     * @param registry The object to be injected.
+     */
+    public static void setFilterMatcherRegistry(Object obj, FilterMatcherRegistry registry) {
+        if ((obj instanceof FilterMatcherRegistrySupport) && ((FilterMatcherRegistrySupport) obj).getFilterMatcherRegistry() == null) {
+            ((FilterMatcherRegistrySupport) obj).setFilterMatcherRegistry(registry);
         }
     }
 }
