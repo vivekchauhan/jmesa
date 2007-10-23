@@ -23,8 +23,10 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.view.View;
@@ -166,6 +168,20 @@ public interface TableFacade {
      * @param filterMatcherMap The FilterMatcherMap to use.
      */
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap);
+
+    /**
+     * Set the ColumnSort on the facade. This will override the ColumnSort if it was previously set.
+     * 
+     * @param columnSort The ColumnSort to use.
+     */
+    public void setColumnSort(ColumnSort columnSort);
+
+    /**
+     * Set the RowFilter on the facade. This will override the RowFilter if it was previously set.
+     * 
+     * @param rowFilter The RowFilter to use.
+     */
+    public void setRowFilter(RowFilter rowFilter);
 
     /**
      * Set the items, the Collection of Beans (or Maps), if not already set on the constructor.

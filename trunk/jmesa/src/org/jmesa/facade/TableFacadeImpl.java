@@ -16,8 +16,10 @@ import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -109,6 +111,8 @@ public class TableFacadeImpl implements TableFacade {
     private Messages messages;
     private Preferences preferences;
     private Map<MatcherKey, FilterMatcher> filterMatchers;
+    private RowFilter rowFilter;
+    private ColumnSort columnSort;
     private boolean editable;
     private Limit limit;
     private String stateAttr;
@@ -364,6 +368,24 @@ public class TableFacadeImpl implements TableFacade {
             addFilterMatcher(key, matcher);
         }
     }
+    
+    public void setColumnSort(ColumnSort columnSort) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                    "It is too late to add this ColumnSort. You need to add the ColumnSort right after constructing the TableFacade.");
+        }
+
+        this.columnSort = columnSort;
+    }
+
+    public void setRowFilter(RowFilter rowFilter) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                    "It is too late to add this RowFilter. You need to add the RowFilter right after constructing the TableFacade.");
+        }
+
+        this.rowFilter = rowFilter;
+    }
 
     public void setItems(Collection<Object> items) {
         this.items = items;
@@ -379,8 +401,14 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
+        
         factory.setPreferences(preferences);
         factory.setMessages(messages);
+        
+        factory.setColumnSort(columnSort);
+        
+        factory.setRowFilter(rowFilter);
+        
         if (filterMatchers != null) {
             Set<MatcherKey> keySet = filterMatchers.keySet();
             for (MatcherKey key : keySet) {
