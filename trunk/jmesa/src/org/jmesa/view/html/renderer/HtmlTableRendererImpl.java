@@ -113,7 +113,9 @@ public class HtmlTableRendererImpl extends AbstractTableRenderer implements Html
         html.width(getWidth());
         html.close();
 
-        html.caption().close().append(getTable().getCaption()).captionEnd();
+        if (StringUtils.isNotBlank(getTable().getCaption())) {
+            html.caption().close().append(getTable().getCaption()).captionEnd();
+        }
 
         return html;
     }
