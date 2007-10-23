@@ -36,7 +36,6 @@ import org.jmesa.core.ItemsImpl;
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherMap;
-import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
@@ -414,7 +413,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         factory.setPreferences(getTableFacadePreferences());
         factory.setMessages(getTableFacadeMessages());
         factory.setColumnSort(getTableFacadeColumnSort());
-        factory.setRowFilter(getTableFacadeRowFilter(factory.getFilterMatcherRegistry()));
+        factory.setRowFilter(getTableFacadeRowFilter());
 
         FilterMatcherMap filterMatcherMap = getTableFacadeFilterMatcherMap();
         if (filterMatcherMap != null) {
@@ -487,7 +486,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         return preferences;
     }
 
-    protected RowFilter getTableFacadeRowFilter(FilterMatcherRegistry registry) {
+    protected RowFilter getTableFacadeRowFilter() {
         RowFilter rowFilter = null;
 
         if (StringUtils.isEmpty(getRowFilter())) {
@@ -495,9 +494,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         }
 
         try {
-            Object obj = Class.forName(getRowFilter()).newInstance();
-            rowFilter = (RowFilter) obj;
-            SupportUtils.setFilterMatcherRegistry(rowFilter, registry);
+            rowFilter = (RowFilter) Class.forName(getRowFilter()).newInstance();
             SupportUtils.setWebContext(rowFilter, getWebContext());
         } catch (Exception e) {
             logger.error("Could not create the rowFilter [" + getRowFilter() + "]", e);
@@ -514,8 +511,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         }
 
         try {
-            Object obj = Class.forName(getColumnSort()).newInstance();
-            columnSort = (ColumnSort) obj;
+            columnSort = (ColumnSort) Class.forName(getColumnSort()).newInstance();
             SupportUtils.setWebContext(columnSort, getWebContext());
         } catch (Exception e) {
             logger.error("Could not create the columnSort [" + getColumnSort() + "]", e);
