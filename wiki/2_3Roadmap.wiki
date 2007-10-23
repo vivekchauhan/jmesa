@@ -23,9 +23,11 @@ The following is a list of attributes that still need to be included in the tag 
 
 ==== !TableFacadeTag ====
 || *Attribute* || *Complete (Y/N)* ||
-|| messages || N ||
-|| preferences || N ||
-|| toolbar || N ||
+|| messages || Y ||
+|| preferences || Y ||
+|| columnSort || Y ||
+|| rowFilter || Y ||
+|| toolbar || Y ||
 
 ==== !HtmlTableTag ====
 || *Attribute* || *Complete (Y/N)* ||
