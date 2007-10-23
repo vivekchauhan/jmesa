@@ -38,6 +38,7 @@ public interface CoreContextFactory {
      * 
      * @param registry The FilterMatcherRegistry instance.
      */
+    @Deprecated /* No reason to give access to the underlying implementation of the RowFilter. */
     public void setFilterMatcherRegistry(FilterMatcherRegistry registry);
 
     /**

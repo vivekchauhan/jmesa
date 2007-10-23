@@ -72,7 +72,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
         this.webContext = webContext;
     }
 
-    public FilterMatcherRegistry getFilterMatcherRegistry() {
+    protected FilterMatcherRegistry getFilterMatcherRegistry() {
         if (registry == null) {
             registry = new FilterMatcherRegistryImpl();
             StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();
@@ -82,6 +82,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
         return registry;
     }
 
+    @Deprecated /* No reason to give access to the underlying implementation of the RowFilter. */
     public void setFilterMatcherRegistry(FilterMatcherRegistry registry) {
         this.registry = registry;
     }
