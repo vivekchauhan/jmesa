@@ -70,27 +70,27 @@ public class TableFacadeTag extends SimpleTagSupport {
     // facade attributes
     private String id;
     private Collection<Object> items;
+    private Limit limit;
     private int maxRows;
     private String maxRowsIncrements;
     private String stateAttr;
     private boolean performFilterAndSort = true;
     private String exportTypes;
+    private String messages;
+    private String preferences;
+    private String rowFilter;
+    private String columnSort;
+    private String filterMatcherMap;
+    private String view;
+    private String toolbar;
 
     // tag attributes
     private String var;
 
     // core attributes
     private WebContext webContext;
-    private Limit limit;
     private CoreContext coreContext;
-    private String messages;
-    private String preferences;
-    private String rowFilter;
-    private String columnSort;
-    private String filterMatcherMap;
     private HtmlTable table;
-    private String view;
-    private String toolbar;
     private HtmlComponentFactory componentFactory;
     private Collection<Object> pageItems = new ArrayList<Object>();
 
