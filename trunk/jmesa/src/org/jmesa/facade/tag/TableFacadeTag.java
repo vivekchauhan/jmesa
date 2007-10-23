@@ -416,11 +416,6 @@ public class TableFacadeTag extends SimpleTagSupport {
         factory.setColumnSort(getTableFacadeColumnSort());
         factory.setRowFilter(getTableFacadeRowFilter(factory.getFilterMatcherRegistry()));
 
-        if (rowFilter != null) {
-            SupportUtils.setWebContext(rowFilter, getWebContext());
-            SupportUtils.setFilterMatcherRegistry(columnSort, factory.getFilterMatcherRegistry());
-        }
-
         FilterMatcherMap filterMatcherMap = getTableFacadeFilterMatcherMap();
         if (filterMatcherMap != null) {
             Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
