@@ -34,8 +34,6 @@ import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Represents an HtmlColumn.
@@ -44,8 +42,6 @@ import org.slf4j.LoggerFactory;
  * @author jeff jie
  */
 public class HtmlColumnTag extends SimpleTagSupport {
-    private Logger logger = LoggerFactory.getLogger(HtmlColumnTag.class);
-
     private String property;
     private String title;
     private String titleKey;
@@ -123,7 +119,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     public void setWidth(String width) {
         this.width = width;
     }
-    
+
     public String getStyle() {
         return style;
     }
@@ -195,7 +191,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      * @return The sort order array for the column.
      */
-    protected Order[] getColumnSortOrder() {
+    private Order[] getColumnSortOrder() {
         if (StringUtils.isBlank(sortOrder)) {
             return null;
         }
@@ -229,22 +225,18 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * 
      * @return The CellEditor to use.
      */
-    protected CellEditor getColumnCellEditor() {
-        CellEditor editor = null;
-
+    private CellEditor getColumnCellEditor() {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
         if (StringUtils.isEmpty(getCellEditor())) {
             HtmlComponentFactory factory = facadeTag.getComponentFactory();
-            editor = factory.createBasicCellEditor();
-        } else {
-            try {
-                editor = (CellEditor) Class.forName(getCellEditor()).newInstance();
-                SupportUtils.setPattern(editor, getPattern());
-            } catch (Exception e) {
-                logger.error("Could not create the cellEditor [" + getCellEditor() + "]", e);
-            }
+            return factory.createBasicCellEditor();
         }
+
+        CellEditor editor = (CellEditor) ClassUtils.createInstance(getCellEditor());
+        SupportUtils.setPattern(editor, getPattern());
+        SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(editor, facadeTag.getWebContext());
 
         return editor;
     }
@@ -257,18 +249,16 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * 
      * @return The HeaderEditor to use.
      */
-    protected HeaderEditor getColumnHeaderEditor() {
-        HeaderEditor editor = null;
-
+    private HeaderEditor getColumnHeaderEditor() {
         if (StringUtils.isEmpty(getHeaderEditor())) {
             return null;
         }
 
-        try {
-            editor = (HeaderEditor) Class.forName(getHeaderEditor()).newInstance();
-        } catch (Exception e) {
-            logger.error("Could not create the headerEditor [" + getHeaderEditor() + "]", e);
-        }
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+
+        HeaderEditor editor = (HeaderEditor) ClassUtils.createInstance(getHeaderEditor());
+        SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(editor, facadeTag.getWebContext());
 
         return editor;
     }
@@ -281,18 +271,16 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * 
      * @return The FilterEditor to use.
      */
-    protected FilterEditor getColumnFilterEditor() {
-        FilterEditor editor = null;
-
+    private FilterEditor getColumnFilterEditor() {
         if (StringUtils.isEmpty(getFilterEditor())) {
             return null;
         }
 
-        try {
-            editor = (FilterEditor) Class.forName(getFilterEditor()).newInstance();
-        } catch (Exception e) {
-            logger.error("Could not create the filterEditor [" + getFilterEditor() + "]", e);
-        }
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+
+        FilterEditor editor = (FilterEditor) ClassUtils.createInstance(getFilterEditor());
+        SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(editor, facadeTag.getWebContext());
 
         return editor;
     }
@@ -336,7 +324,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @return The item to use.
      */
     @SuppressWarnings("unchecked")
-    protected Object getValue() throws JspException, IOException {
+    private Object getValue() throws JspException, IOException {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         String var = facadeTag.getVar();
         Object item = getJspContext().getAttribute(var);

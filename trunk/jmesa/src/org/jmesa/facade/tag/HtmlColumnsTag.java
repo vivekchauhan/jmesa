@@ -14,8 +14,6 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlColumnsGenerator;
 import org.jmesa.view.html.component.HtmlRow;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Used to generate columns on the fly for the tag library.
@@ -24,8 +22,6 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class HtmlColumnsTag extends SimpleTagSupport {
-    private Logger logger = LoggerFactory.getLogger(HtmlColumnTag.class);
-
     private String htmlColumnsGenerator;
 
     public String getHtmlColumnsGenerator() {
@@ -37,7 +33,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
     }
 
     @SuppressWarnings("unchecked")
-    public Object getValue(String property) {
+    private Object getValue(String property) {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         String var = facadeTag.getVar();
         Object item = getJspContext().getAttribute(var);
@@ -53,19 +49,13 @@ public class HtmlColumnsTag extends SimpleTagSupport {
      * @return The list of columns generated on the fly.
      */
     private List<HtmlColumn> getColumns() {
-        List<HtmlColumn> columns = null;
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
-        try {
-            TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-            HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) Class.forName(getHtmlColumnsGenerator()).newInstance();
-            SupportUtils.setCoreContext(htmlColumnsGenerator, facadeTag.getCoreContext());
-            SupportUtils.setWebContext(htmlColumnsGenerator, facadeTag.getWebContext());
-            columns = htmlColumnsGenerator.getColumns(facadeTag.getComponentFactory());
-        } catch (Exception e) {
-            logger.error("Could not create the htmlColumnsGenerator [" + getHtmlColumnsGenerator() + "]", e);
-        }
+        HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) ClassUtils.createInstance(getHtmlColumnsGenerator());
+        SupportUtils.setCoreContext(htmlColumnsGenerator, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(htmlColumnsGenerator, facadeTag.getWebContext());
 
-        return columns;
+        return htmlColumnsGenerator.getColumns(facadeTag.getComponentFactory());
     }
 
     /**
