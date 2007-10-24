@@ -29,6 +29,10 @@ import org.jmesa.web.WebContext;
 public class ToolbarImpl implements Toolbar {
     private ToolbarItemFactory toolbarItemFactory;
     private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
+    
+    public ToolbarImpl() {
+        // default constructor
+    }
 
     public ToolbarImpl(WebContext webContext, CoreContext coreContext) {
         this.toolbarItemFactory = new ToolbarItemFactoryImpl(webContext, coreContext);
