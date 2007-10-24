@@ -14,6 +14,8 @@ http://extremecomponents.googlepages.com/JMesa-2.3.gif
  * Drop Shadow option for table, which gives a nice aesthetic effect (preview above). *(complete)*
  * The most exciting feature will be inclusion of the [Worksheet] functionality!
 
+*Note:* The look and feel changes require an updated jmesa.js and jmesa.css files. In addition with the new jmesa.js file you will need to start using the jQuery library as I utilized that heavily. You can get that at the jQuery [http://jquery.com homepage].
+
 The following Locales are added:
  * Dutch (nl_NL) (contributed by Tom Kalmijn and Marco de Booy)
  * Spanish (es_MX) (contributed by Jesús Morones)
