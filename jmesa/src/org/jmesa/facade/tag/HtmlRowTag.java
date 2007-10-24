@@ -25,12 +25,11 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.web.WebContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Represents an HtmlRow.
@@ -39,8 +38,6 @@ import org.slf4j.LoggerFactory;
  * @author jeff jie
  */
 public class HtmlRowTag extends SimpleTagSupport {
-    private Logger logger = LoggerFactory.getLogger(HtmlRowTag.class);
-
     private boolean highlighter = true;
     private String onclick;
     private String onmouseover;
@@ -83,61 +80,52 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * Get the row Onclick RowEvent object.
      */
-    protected RowEvent getRowOnclick() {
+    private RowEvent getRowOnclick() {
         if (StringUtils.isBlank(getOnclick())) {
             return null;
         }
 
-        try {
-            Object obj = Class.forName(getOnclick()).newInstance();
-            if (obj instanceof RowEvent) {
-                return (RowEvent) obj;
-            }
-        } catch (Exception e) {
-            logger.error("Could not create the onclick RowEvent [" + getOnclick() + "]", e);
-        }
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
-        return null;
+        RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnclick());
+        SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(rowEvent, facadeTag.getWebContext());
+
+        return rowEvent;
     }
 
     /**
      * Get the row Onmouseover RowEvent object.
      */
-    protected RowEvent getRowOnmouseover() {
+    private RowEvent getRowOnmouseover() {
         if (StringUtils.isBlank(getOnmouseover())) {
             return null;
         }
 
-        try {
-            Object obj = Class.forName(getOnmouseover()).newInstance();
-            if (obj instanceof RowEvent) {
-                return (RowEvent) obj;
-            }
-        } catch (Exception e) {
-            logger.error("Could not create the onmouseover RowEvent [" + getOnmouseover() + "]", e);
-        }
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
-        return null;
+        RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnmouseover());
+        SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(rowEvent, facadeTag.getWebContext());
+
+        return rowEvent;
     }
 
     /**
      * Get the row Onmouseout RowEvent object.
      */
-    protected RowEvent getRowOnmouseout() {
+    private RowEvent getRowOnmouseout() {
         if (StringUtils.isBlank(getOnmouseout())) {
             return null;
         }
 
-        try {
-            Object obj = Class.forName(getOnmouseout()).newInstance();
-            if (obj instanceof RowEvent) {
-                return (RowEvent) obj;
-            }
-        } catch (Exception e) {
-            logger.error("Could not create the onmouseout RowEvent [" + getOnmouseout() + "]", e);
-        }
+        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
-        return null;
+        RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnmouseout());
+        SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(rowEvent, facadeTag.getWebContext());
+
+        return rowEvent;
     }
 
     /**
@@ -158,7 +146,7 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * @return The current page item.
      */
-    public Map<String, Object> getPageItem() {
+    Map<String, Object> getPageItem() {
         return pageItem;
     }
 
