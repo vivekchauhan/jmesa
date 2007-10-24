@@ -332,7 +332,7 @@ function addDropShadow(imagesPath, theme) {
     if (!theme) {
         theme = 'jmesa';
     }
-    $('div.' + theme + ' table:first')
+    $('div.' + theme + ' .table')
         .wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>")
         .css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
     
