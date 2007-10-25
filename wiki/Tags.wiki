@@ -93,6 +93,11 @@ public class TagRowEvent implements RowEvent {
 || performFilterAndSort || boolean || Whether the API should filter and sort the items. ||
 || filterMatcherMap || [FilterMatcher FilterMatcherMap] || Used to register custom filter matchers. ||
 || view || [View] || The View object to use. ||
+|| messages || [Messages] || The Messages to use. ||
+|| preferences || [Preferences] || The Preferences to use. ||
+|| columnSort || !ColumnSort || The !ColumnSort to use. ||
+|| rowFilter || !RowFilter || The !RowFilter to use. ||
+|| toolbar || Toolbar || The Toolbar to use. ||
 || var || String || The value to hold the current bean while iterating over the rows. ||
 
 ==== !HtmlTableTag ====
@@ -126,6 +131,8 @@ public class TagRowEvent implements RowEvent {
 || filterable || boolean || Whether the column should be filtered. ||
 || sortable || boolean || Whether the column should be sorted. ||
 || width || String || The width of the column. ||
+|| style || String || The css style attribute for the column. ||
+|| styleClass || String || The css class attribute for the column. ||
 
 *Note:* There are some attributes that exist on the core API that is not in the tag library yet. They will be added in the upcoming [2_3Roadmap 2.3 release]. Also, for those that do not mind sitting on the bleeding edge of development you can download a [http://builds.jmesa.org/ snapshot release] of JMesa which will include the additional features as I work towards the 2.3 release.
 
