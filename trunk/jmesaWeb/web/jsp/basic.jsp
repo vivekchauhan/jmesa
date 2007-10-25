@@ -30,7 +30,7 @@
 	   ${presidents}
 	</form>
 	
-	<p class="content" style="clear: both">
+	<p class="content">
 		This example source code can be found 
 		<a href="http://code.google.com/p/jmesa/wiki/FacadeExample">here</a>.
 	</p>

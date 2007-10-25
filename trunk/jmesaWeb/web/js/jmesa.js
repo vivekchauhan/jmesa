@@ -340,4 +340,6 @@ function addDropShadow(imagesPath, theme) {
     $('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
     $('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
     $('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
+    
+    $('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
 }
