@@ -9,14 +9,25 @@ http://extremecomponents.googlepages.com/JMesa-2.3.gif
  * New PDF View implementation (contributed by Paul Horn)
  * The State feature will look for the stateAttr in the request scope if it is not found in the parameters. This allows for more flexibility in various frameworks.
  * The exports will default to 'table-data._exportType_' if no caption is specified.
- * Improved look and feel for filter. Now very subtle effect (preview above).
- * Drop Shadow option for table, which gives a nice aesthetic effect (preview above). 
+ * Switched to using .gif files instead of .png files as the default. The reason is .gif files did not display correct on IE. The .gif files are included in the distribution so just drag them into your project. I still included .png files as those are easier to customize.
+ * Improved look and feel for filter. Now very subtle effect (preview above). 
+  * The look and feel changes require an updated jmesa.js and jmesa.css files. In addition with the new jmesa.js file you will need to start using the jQuery library as I utilized that heavily. You can get that at the jQuery [http://jquery.com homepage].
 
-*Note:* The look and feel changes require an updated jmesa.js and jmesa.css files. In addition with the new jmesa.js file you will need to start using the jQuery library as I utilized that heavily. You can get that at the jQuery [http://jquery.com homepage].
+ * Drop Shadow option for table, which gives a nice aesthetic effect (preview above).
+  * To make it work put the following script in your code to execute when the page is loaded. Here the imagesPath is the path to your images directory. The following imagesPath in the JMesa web site resolves to '/jmesa/images/table'
 
-The following Locales are added:
- * Dutch (nl_NL) (contributed by Tom Kalmijn and Marco de Booy)
- * Spanish (es_MX) (contributed by Jesús Morones)
+{{{
+<script type="text/javascript">
+	$(document).ready(function() {
+	   addDropShadow('${imagesPath}');
+	});
+</script>
+}}}
+
+
+ * The following Locales are added:
+  * Dutch (nl_NL) (contributed by Tom Kalmijn and Marco de Booy)
+  * Spanish (es_MX) (contributed by Jesús Morones)
 
 === Tag Attributes Implemented ===
 The following is a list of attributes that exists on the core API and needed to be implemented with the tags.
