@@ -1,4 +1,4 @@
-The JMesa 2.3 release should be out by the end of November. This page outlines the features that will be included as part of the next release. If you are interested in trying out the new features, or just like staying on the bleeding edge of development you can download an [http://builds.jmesa.org/ incremental build]. You will be able to use this page to judge how far along the development is as I will be sure to keep this page current.
+The JMesa 2.3 release should be out by the end of December. This page outlines the features that will be included as part of the next release. If you are interested in trying out the new features, or just like staying on the bleeding edge of development you can download an [http://builds.jmesa.org/ incremental build]. You will be able to use this page to judge how far along the development is as I will be sure to keep this page current.
 
 *Update*
 
