@@ -1,4 +1,4 @@
-This is the bug fix report and new features listing for the 2.2.2 minor release. A lot of these features were not going to be included until the 2.3 release, but there was no reason to wait to release any of these features and I wanted developers to be able to take advantage of them right away.
+This is the bug fix report and new features listing for the 2.2.2 minor release. A lot of these features were not going to be included until the [2_3Roadmap 2.3 release], but there was no reason to wait to release any of these features and I wanted developers to be able to take advantage of them right away.
 
 *See the 2.2 [2_2NewAndNoteworthy documentation] that contains the core features for the 2.2 release.*
 
