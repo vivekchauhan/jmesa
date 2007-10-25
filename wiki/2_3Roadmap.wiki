@@ -2,7 +2,7 @@ The JMesa 2.3 release should be out by the end of December. This page outlines t
 
 *Update*
 
-A good deal of the features for JMesa 2.3 were released as part of the 2.2.2 incremental release. I did not see any reason to hold on to the changes when developers could be utilizing the features right away.
+A good deal of the features for JMesa 2.3 were released as part of the 2.2.2 minor release. I did not see any reason to hold on to the changes when developers could be utilizing the features right away.
 
 
 http://extremecomponents.googlepages.com/JMesa-2.3.gif
