@@ -7,6 +7,7 @@ http://extremecomponents.googlepages.com/JMesa-2.3.gif
 == Features ==
 
  * New PDF View implementation (contributed by Paul Horn)
+  * You will need the pdf files included in the export-dependencies.zip (available in the downloads area of this site).
  * The State feature will look for the stateAttr in the request scope if it is not found in the parameters. This allows for more flexibility in various frameworks.
  * The exports will default to 'table-data._exportType_' if no caption is specified.
  * Switched to using .gif files instead of .png files as the default. The reason is .gif files did not display correct on IE. The .gif files are included in the distribution so just drag them into your project. I still included .png files as those are easier to customize.
