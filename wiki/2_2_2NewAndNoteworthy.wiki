@@ -1,3 +1,5 @@
+This is the bug fix report and new features listing for the 2.2.2 minor release.
+
 *See the 2.2 [2_2NewAndNoteworthy documentation] that contains the core features for the 2.2 release.*
 
 *See the 2.2.1 [2_2_1NewAndNoteworthy documentation] that contains the features for the 2.2.1 release.*
