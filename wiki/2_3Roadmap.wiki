@@ -23,19 +23,19 @@ The following is a list of attributes that still need to be included in the tag 
 ==== !HtmlRowTag ====
 || *Attribute* || *Complete (Y/N)* ||
 || rowRenderer || N ||
-|| style || N ||
-|| styleClass || N ||
-|| evenClass || N ||
-|| oddClass || N ||
-|| highlightStyle || N ||
-|| highlightClass || N ||
+|| style || *Y* ||
+|| styleClass || *Y* ||
+|| evenClass || *Y* ||
+|| oddClass || *Y* ||
+|| highlightStyle || *Y* ||
+|| highlightClass || *Y* ||
 
 ==== !HtmlColumnTag ====
 || *Attribute* || *Complete (Y/N)* ||
 || cellRenderer || N ||
 || filterRenderer || N ||
 || headerRenderer || N ||
-|| headerStyle || Y ||
-|| headerClass || Y ||
-|| filterStyle || Y ||
-|| filterClass || Y ||
+|| headerStyle || *Y* ||
+|| headerClass || *Y* ||
+|| filterStyle || *Y* ||
+|| filterClass || *Y* ||
