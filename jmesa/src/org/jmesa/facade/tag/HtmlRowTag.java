@@ -29,6 +29,7 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.event.RowEvent;
+import org.jmesa.view.renderer.RowRenderer;
 import org.jmesa.web.WebContext;
 
 /**
@@ -38,12 +39,119 @@ import org.jmesa.web.WebContext;
  * @author jeff jie
  */
 public class HtmlRowTag extends SimpleTagSupport {
+    private String rowRenderer;
+    private String style;
+    private String styleClass;
+    private String evenClass;
+    private String oddClass;
+    private String highlightStyle;
+    private String highlightClass;
+
     private boolean highlighter = true;
+
     private String onclick;
     private String onmouseover;
     private String onmouseout;
 
     private Map<String, Object> pageItem;
+
+    /**
+     * @since 2.3
+     */
+    public String getRowRenderer() {
+        return rowRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setRowRenderer(String rowRenderer) {
+        this.rowRenderer = rowRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getStyle() {
+        return style;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getEvenClass() {
+        return evenClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setEvenClass(String evenClass) {
+        this.evenClass = evenClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getOddClass() {
+        return oddClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setOddClass(String oddClass) {
+        this.oddClass = oddClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getHighlightStyle() {
+        return highlightStyle;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setHighlightStyle(String highlightStyle) {
+        this.highlightStyle = highlightStyle;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getHighlightClass() {
+        return highlightClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setHighlightClass(String highlightClass) {
+        this.highlightClass = highlightClass;
+    }
 
     public boolean isHighlighter() {
         return highlighter;
@@ -78,14 +186,29 @@ public class HtmlRowTag extends SimpleTagSupport {
     }
 
     /**
-     * Get the row Onclick RowEvent object.
+     * Get the row RowRenderer object.
+     * 
+     * @since 2.3
      */
-    private RowEvent getRowOnclick() {
-        if (StringUtils.isBlank(getOnclick())) {
+    private RowRenderer getRowRowRenderer(TableFacadeTag facadeTag) {
+        if (StringUtils.isBlank(getRowRenderer())) {
             return null;
         }
 
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+        RowRenderer rowRenderer = (RowRenderer) ClassUtils.createInstance(getRowRenderer());
+        SupportUtils.setCoreContext(rowRenderer, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(rowRenderer, facadeTag.getWebContext());
+
+        return rowRenderer;
+    }
+
+    /**
+     * Get the row Onclick RowEvent object.
+     */
+    private RowEvent getRowOnclick(TableFacadeTag facadeTag) {
+        if (StringUtils.isBlank(getOnclick())) {
+            return null;
+        }
 
         RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnclick());
         SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
@@ -97,12 +220,10 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * Get the row Onmouseover RowEvent object.
      */
-    private RowEvent getRowOnmouseover() {
+    private RowEvent getRowOnmouseover(TableFacadeTag facadeTag) {
         if (StringUtils.isBlank(getOnmouseover())) {
             return null;
         }
-
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
         RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnmouseover());
         SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
@@ -114,12 +235,10 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * Get the row Onmouseout RowEvent object.
      */
-    private RowEvent getRowOnmouseout() {
+    private RowEvent getRowOnmouseout(TableFacadeTag facadeTag) {
         if (StringUtils.isBlank(getOnmouseout())) {
             return null;
         }
-
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
         RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnmouseout());
         SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
@@ -131,14 +250,27 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * The row to use. If the row does not exist then one will be created.
      */
-    private HtmlRow getRow() {
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-
+    private HtmlRow getRow(TableFacadeTag facadeTag) {
         HtmlRow row = facadeTag.getComponentFactory().createRow();
+
+        RowRenderer rowRenderer = getRowRowRenderer(facadeTag);
+        if (rowRenderer != null) {
+            row.setRowRenderer(rowRenderer);
+            rowRenderer.setRow(row);
+        }
+
+        row.getRowRenderer().setStyle(getStyle());
+        row.getRowRenderer().setStyleClass(getStyleClass());
+        row.getRowRenderer().setEvenClass(getEvenClass());
+        row.getRowRenderer().setOddClass(getOddClass());
+        row.getRowRenderer().setHighlightStyle(getHighlightClass());
+        row.getRowRenderer().setStyleClass(getStyleClass());
+
         row.setHighlighter(isHighlighter());
-        row.setOnclick(getRowOnclick());
-        row.setOnmouseover(getRowOnmouseover());
-        row.setOnmouseout(getRowOnmouseout());
+
+        row.setOnclick(getRowOnclick(facadeTag));
+        row.setOnmouseover(getRowOnmouseover(facadeTag));
+        row.setOnmouseout(getRowOnmouseout(facadeTag));
 
         return row;
     }
@@ -170,7 +302,7 @@ public class HtmlRowTag extends SimpleTagSupport {
         HtmlTable table = facadeTag.getTable();
         HtmlRow row = table.getRow();
         if (row == null) {
-            row = getRow();
+            row = getRow(facadeTag);
             table.setRow(row);
         }
 
