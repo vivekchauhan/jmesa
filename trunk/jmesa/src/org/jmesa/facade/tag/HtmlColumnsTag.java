@@ -33,8 +33,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
     }
 
     @SuppressWarnings("unchecked")
-    private Object getValue(String property) {
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
+    private Object getValue(String property, TableFacadeTag facadeTag) {
         String var = facadeTag.getVar();
         Object item = getJspContext().getAttribute(var);
 
@@ -48,9 +47,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
     /**
      * @return The list of columns generated on the fly.
      */
-    private List<HtmlColumn> getColumns() {
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-
+    private List<HtmlColumn> getColumns(TableFacadeTag facadeTag) {
         HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) ClassUtils.createInstance(getHtmlColumnsGenerator());
         SupportUtils.setCoreContext(htmlColumnsGenerator, facadeTag.getCoreContext());
         SupportUtils.setWebContext(htmlColumnsGenerator, facadeTag.getWebContext());
@@ -67,7 +64,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
         Collection<Object> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
-            List<HtmlColumn> columns = getColumns();
+            List<HtmlColumn> columns = getColumns(facadeTag);
             for (HtmlColumn column : columns) {
                 column.setGeneratedOnTheFly(true);
                 TagUtils.validateColumn(this, column.getProperty());
@@ -85,7 +82,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
             if (htmlColumn.isGeneratedOnTheFly()) {
                 String property = htmlColumn.getProperty();
                 if (property != null) {
-                    pageItem.put(property, getValue(property));
+                    pageItem.put(property, getValue(property, facadeTag));
                 }
             }
         }

@@ -34,6 +34,9 @@ import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.view.renderer.HeaderRenderer;
 
 /**
  * Represents an HtmlColumn.
@@ -49,8 +52,15 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String sortOrder;
     private boolean filterable = true;
     private String width;
+    private String cellRenderer;
+    private String filterRenderer;
+    private String headerRenderer;
     private String style;
     private String styleClass;
+    private String filterStyle;
+    private String filterClass;
+    private String headerStyle;
+    private String headerClass;
     private String pattern;
     private String cellEditor;
     private String headerEditor;
@@ -120,20 +130,130 @@ public class HtmlColumnTag extends SimpleTagSupport {
         this.width = width;
     }
 
+    /**
+     * @since 2.3
+     */
+    public String getCellRenderer() {
+        return cellRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setCellRenderer(String cellRenderer) {
+        this.cellRenderer = cellRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getFilterRenderer() {
+        return filterRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setFilterRenderer(String filterRenderer) {
+        this.filterRenderer = filterRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getHeaderRenderer() {
+        return headerRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setHeaderRenderer(String headerRenderer) {
+        this.headerRenderer = headerRenderer;
+    }
+
+    /**
+     * @since 2.2.1
+     */
     public String getStyle() {
         return style;
     }
 
+    /**
+     * @since 2.2.1
+     */
     public void setStyle(String style) {
         this.style = style;
     }
 
+    /**
+     * @since 2.2.1
+     */
     public String getStyleClass() {
         return styleClass;
     }
 
+    /**
+     * @since 2.2.1
+     */
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getFilterStyle() {
+        return filterStyle;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setFilterStyle(String filterStyle) {
+        this.filterStyle = filterStyle;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getFilterClass() {
+        return filterClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setFilterClass(String filterClass) {
+        this.filterClass = filterClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getHeaderStyle() {
+        return headerStyle;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setHeaderStyle(String headerStyle) {
+        this.headerStyle = headerStyle;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getHeaderClass() {
+        return headerClass;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setHeaderClass(String headerClass) {
+        this.headerClass = headerClass;
     }
 
     public String getPattern() {
@@ -185,6 +305,54 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
+     * @since 2.3
+     * @return The column CellRenderer object.
+     */
+    private CellRenderer getColumnCellRenderer(TableFacadeTag facadeTag) {
+        if (StringUtils.isBlank(getCellRenderer())) {
+            return null;
+        }
+
+        CellRenderer cellRenderer = (CellRenderer) ClassUtils.createInstance(getCellRenderer());
+        SupportUtils.setCoreContext(cellRenderer, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(cellRenderer, facadeTag.getWebContext());
+
+        return cellRenderer;
+    }
+
+    /**
+     * @since 2.3
+     * @return The column FilterRenderer object.
+     */
+    private FilterRenderer getColumnFilterRenderer(TableFacadeTag facadeTag) {
+        if (StringUtils.isBlank(getFilterRenderer())) {
+            return null;
+        }
+
+        FilterRenderer filterRenderer = (FilterRenderer) ClassUtils.createInstance(getFilterRenderer());
+        SupportUtils.setCoreContext(filterRenderer, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(filterRenderer, facadeTag.getWebContext());
+
+        return filterRenderer;
+    }
+
+    /**
+     * @since 2.3
+     * @return The column HeaderRenderer object.
+     */
+    private HeaderRenderer getColumnHeaderRenderer(TableFacadeTag facadeTag) {
+        if (StringUtils.isBlank(getHeaderRenderer())) {
+            return null;
+        }
+
+        HeaderRenderer headerRenderer = (HeaderRenderer) ClassUtils.createInstance(getHeaderRenderer());
+        SupportUtils.setCoreContext(headerRenderer, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(headerRenderer, facadeTag.getWebContext());
+
+        return headerRenderer;
+    }
+
+    /**
      * Take the comma separted Order values and convert them into an Array. The legal values include
      * "none, asc, desc".
      * 
@@ -225,9 +393,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * 
      * @return The CellEditor to use.
      */
-    private CellEditor getColumnCellEditor() {
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-
+    private CellEditor getColumnCellEditor(TableFacadeTag facadeTag) {
         if (StringUtils.isEmpty(getCellEditor())) {
             HtmlComponentFactory factory = facadeTag.getComponentFactory();
             return factory.createBasicCellEditor();
@@ -249,12 +415,10 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * 
      * @return The HeaderEditor to use.
      */
-    private HeaderEditor getColumnHeaderEditor() {
+    private HeaderEditor getColumnHeaderEditor(TableFacadeTag facadeTag) {
         if (StringUtils.isEmpty(getHeaderEditor())) {
             return null;
         }
-
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
         HeaderEditor editor = (HeaderEditor) ClassUtils.createInstance(getHeaderEditor());
         SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
@@ -271,12 +435,10 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * 
      * @return The FilterEditor to use.
      */
-    private FilterEditor getColumnFilterEditor() {
+    private FilterEditor getColumnFilterEditor(TableFacadeTag facadeTag) {
         if (StringUtils.isEmpty(getFilterEditor())) {
             return null;
         }
-
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
 
         FilterEditor editor = (FilterEditor) ClassUtils.createInstance(getFilterEditor());
         SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
@@ -288,11 +450,9 @@ public class HtmlColumnTag extends SimpleTagSupport {
     /**
      * The column to use. If the column does not exist then one will be created.
      */
-    private HtmlColumn getColumn() {
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-
+    private HtmlColumn getColumn(TableFacadeTag facadeTag) {
         HtmlComponentFactory factory = facadeTag.getComponentFactory();
-        CellEditor editor = getColumnCellEditor();
+        CellEditor editor = getColumnCellEditor(facadeTag);
 
         HtmlColumn column = factory.createColumn(getProperty(), editor);
         column.setTitle(getTitle());
@@ -301,15 +461,40 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setSortOrder(getColumnSortOrder());
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
+
+        CellRenderer cellRenderer = getColumnCellRenderer(facadeTag);
+        if (cellRenderer != null) {
+            column.setCellRenderer(cellRenderer);
+            cellRenderer.setColumn(column);
+        }
+
         column.getCellRenderer().setStyle(getStyle());
         column.getCellRenderer().setStyleClass(getStyleClass());
 
-        HeaderEditor headerEditor = getColumnHeaderEditor();
+        FilterRenderer filterRenderer = getColumnFilterRenderer(facadeTag);
+        if (filterRenderer != null) {
+            column.setFilterRenderer(filterRenderer);
+            filterRenderer.setColumn(column);
+        }
+
+        column.getFilterRenderer().setStyle(getFilterStyle());
+        column.getFilterRenderer().setStyleClass(getFilterClass());
+
+        HeaderRenderer headerRenderer = getColumnHeaderRenderer(facadeTag);
+        if (headerRenderer != null) {
+            column.setHeaderRenderer(headerRenderer);
+            headerRenderer.setColumn(column);
+        }
+
+        column.getHeaderRenderer().setStyle(getHeaderStyle());
+        column.getHeaderRenderer().setStyleClass(getHeaderClass());
+
+        HeaderEditor headerEditor = getColumnHeaderEditor(facadeTag);
         if (headerEditor != null) {
             column.getHeaderRenderer().setHeaderEditor(headerEditor);
         }
 
-        FilterEditor filterEditor = getColumnFilterEditor();
+        FilterEditor filterEditor = getColumnFilterEditor(facadeTag);
         if (filterEditor != null) {
             column.getFilterRenderer().setFilterEditor(filterEditor);
         }
@@ -349,7 +534,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         Collection<Object> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
-            HtmlColumn column = getColumn();
+            HtmlColumn column = getColumn(facadeTag);
             TagUtils.validateColumn(this, getProperty());
             row.addColumn(column);
         }

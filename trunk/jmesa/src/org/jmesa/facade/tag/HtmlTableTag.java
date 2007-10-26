@@ -21,7 +21,10 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.renderer.TableRenderer;
 
 /**
  * Represents an HtmlTable.
@@ -36,6 +39,7 @@ public class HtmlTableTag extends SimpleTagSupport {
 
     // style attributes
     private String theme;
+    private String tableRenderer;
     private String style;
     private String styleClass;
     private String width;
@@ -65,6 +69,20 @@ public class HtmlTableTag extends SimpleTagSupport {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public String getTableRenderer() {
+        return tableRenderer;
+    }
+
+    /**
+     * @since 2.3
+     */
+    public void setTableRenderer(String tableRenderer) {
+        this.tableRenderer = tableRenderer;
     }
 
     public String getStyle() {
@@ -116,16 +134,38 @@ public class HtmlTableTag extends SimpleTagSupport {
     }
 
     /**
+     * Get the table TableRenderer object.
+     * 
+     * @since 2.3
+     */
+    private TableRenderer getTableTableRenderer(TableFacadeTag facadeTag) {
+        if (StringUtils.isBlank(getTableRenderer())) {
+            return null;
+        }
+
+        TableRenderer tableRenderer = (TableRenderer) ClassUtils.createInstance(getTableRenderer());
+        SupportUtils.setCoreContext(tableRenderer, facadeTag.getCoreContext());
+        SupportUtils.setWebContext(tableRenderer, facadeTag.getWebContext());
+
+        return tableRenderer;
+    }
+
+    /**
      * The table to use. If the table does not exist then one will be created.
      */
-    private HtmlTable getTable() {
-        TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-
+    private HtmlTable getTable(TableFacadeTag facadeTag) {
         HtmlTable table = facadeTag.getComponentFactory().createTable();
         table.setCaption(getCaption());
         table.setCaptionKey(getCaptionKey());
         table.setTheme(getTheme());
         table.getTableRenderer().setWidth(getWidth());
+
+        TableRenderer tableRenderer = getTableTableRenderer(facadeTag);
+        if (tableRenderer != null) {
+            table.setTableRenderer(tableRenderer);
+            tableRenderer.setTable(table);
+        }
+
         table.getTableRenderer().setStyle(getStyle());
         table.getTableRenderer().setStyleClass(getStyleClass());
         table.getTableRenderer().setBorder(getBorder());
@@ -145,7 +185,7 @@ public class HtmlTableTag extends SimpleTagSupport {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         HtmlTable table = facadeTag.getTable();
         if (table == null) {
-            table = getTable();
+            table = getTable(facadeTag);
             facadeTag.setTable(table);
         }
 
