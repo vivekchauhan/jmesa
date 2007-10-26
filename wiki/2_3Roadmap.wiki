@@ -13,8 +13,8 @@ http://extremecomponents.googlepages.com/JMesa-2.3.gif
  * The filter will include a droplist feature. Again, this feature will be implemented using [http://jquery.com/ JQuery] for the !JavaScript.
  * The most exciting feature will be inclusion of the [Worksheet] functionality!
 
-=== Tag Attributes To Implement ===
-The following is a list of attributes that still need to be included in the tag library. These attributes exist on the core API and just need to be implemented with the tags.
+=== Tag Attributes (completed) ===
+The following is a list of attributes that will be included in the tag library. These attributes exist on the core API and are now implemented on the tags.
 
 ==== !HtmlTableTag ====
 || *Attribute* || *Complete (Y/N)* ||
@@ -32,9 +32,9 @@ The following is a list of attributes that still need to be included in the tag 
 
 ==== !HtmlColumnTag ====
 || *Attribute* || *Complete (Y/N)* ||
-|| cellRenderer || N ||
-|| filterRenderer || N ||
-|| headerRenderer || N ||
+|| cellRenderer || *Y* ||
+|| filterRenderer || *Y* ||
+|| headerRenderer || *Y* ||
 || headerStyle || *Y* ||
 || headerClass || *Y* ||
 || filterStyle || *Y* ||
