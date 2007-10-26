@@ -35,8 +35,7 @@ The following is a list of attributes that still need to be included in the tag 
 || cellRenderer || N ||
 || filterRenderer || N ||
 || headerRenderer || N ||
-|| sortOrder || N ||
-|| headerStyle || N ||
-|| headerClass || N ||
-|| filterStyle || N ||
-|| filterClass || N ||
+|| headerStyle || Y ||
+|| headerClass || Y ||
+|| filterStyle || Y ||
+|| filterClass || Y ||
