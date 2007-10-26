@@ -18,7 +18,7 @@ The following is a list of attributes that still need to be included in the tag 
 
 ==== !HtmlTableTag ====
 || *Attribute* || *Complete (Y/N)* ||
-|| tableRenderer || N ||
+|| tableRenderer || *Y* ||
 
 ==== !HtmlRowTag ====
 || *Attribute* || *Complete (Y/N)* ||
