@@ -12,7 +12,7 @@ http://extremecomponents.googlepages.com/JMesa-2.3.gif
   * You will need the pdf files included in the export-dependencies.zip (available in the downloads area of this site).
  * The State feature will look for the stateAttr in the request scope if it is not found in the parameters. This allows for more flexibility in various frameworks.
  * The exports will default to 'table-data._exportType_' if no caption is specified.
- * Switched to using .gif files instead of .png files as the default. The reason is .gif files did not display correctly in IE. The .gif files are included in the distribution so just drag them into your project. I still included .png files as those are easier to customize. If you want to still use the .png files in your project then you can override the defaults in your [Preferences] file.
+ * Switched to using .gif files instead of .png files as the default. The reason is .png files did not display correctly in IE. The .gif files are included in the distribution so just drag them into your project. I still included .png files as those are easier to customize. If you want to still use the .png files in your project then you can override the defaults in your [Preferences] file.
  * Improved look and feel for filter. Now very subtle effect (preview above). 
   * The look and feel changes require an updated jmesa.js and jmesa.css files. In addition with the new jmesa.js file you will need to start using the jQuery library as I utilized that heavily. You can get that at the jQuery [http://jquery.com homepage].
 
