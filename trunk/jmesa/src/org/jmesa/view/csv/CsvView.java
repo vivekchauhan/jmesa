@@ -44,6 +44,11 @@ public class CsvView implements View {
         this.table = table;
     }
 
+    public byte[] getBytes() {
+        String render = (String) render();
+        return render.getBytes();
+    }
+
     public Object render() {
         StringBuilder data = new StringBuilder();
 

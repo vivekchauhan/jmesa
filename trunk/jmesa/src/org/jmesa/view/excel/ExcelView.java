@@ -52,6 +52,11 @@ public class ExcelView implements View {
         this.table = table;
     }
 
+    public byte[] getBytes() {
+        HSSFWorkbook render = (HSSFWorkbook) render();
+        return render.getBytes();
+    }
+
     public Object render() {
         HSSFWorkbook workbook = new HSSFWorkbook();
         String caption = table.getCaption();
