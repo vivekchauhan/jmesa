@@ -13,7 +13,7 @@ http://extremecomponents.googlepages.com/JMesa-2.3.gif
  * [Tags Tag library] will include all the attributes from the API *(completed)*.
  * The filter will include a droplist feature. Again, this feature will be implemented using [http://jquery.com/ JQuery] for the !JavaScript.
  * Add a getBytes() method on the View to make testing exports easier.
- * Passing in the action invoked string now as the second parameter on the !JavaScript. Could be very useful in custom circumstances. Like any !JavaScript method this additional parameter is optional.
+ * Passing in the action invoked string now as the second parameter on the !JavaScript. Could be very useful in custom circumstances. Like any !JavaScript method this additional parameter is optional *(completed)*.
 
 For example this is a custom handling of the sorting that overrides the default behavior and to only allow one column to be sorted at a time.
 {{{
