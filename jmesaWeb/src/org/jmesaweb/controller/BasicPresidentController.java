@@ -67,8 +67,6 @@ public class BasicPresidentController extends AbstractController {
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         HtmlTable table = (HtmlTable) tableFacade.getTable();
-        
-        table.getRow().setOnmouseover(new CustomRowEvent());
 
         Column firstName = table.getRow().getColumn("name.firstName");
         firstName.setTitle("First Name");
