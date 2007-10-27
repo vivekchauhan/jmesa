@@ -23,7 +23,7 @@ import org.jmesa.core.President;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlRowImpl;
-import org.jmesa.view.html.event.RowEvent;
+import org.jmesa.view.html.event.AbstractRowEvent;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
 
@@ -39,7 +39,7 @@ public class HtmlRowRendererTest extends AbstractTestCase {
 
         HtmlRow row = new HtmlRowImpl();
 
-        row.setOnclick(new RowEvent() {
+        row.setOnclick(new AbstractRowEvent() {
             public String execute(Object item, int rowcount) {
                 President president = (President) item;
                 Integer id = president.getId();

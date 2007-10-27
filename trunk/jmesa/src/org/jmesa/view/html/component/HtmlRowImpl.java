@@ -19,6 +19,7 @@ import groovy.lang.Closure;
 
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.RowImpl;
+import org.jmesa.view.html.event.AbstractRowEvent;
 import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
@@ -47,6 +48,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnclick(RowEvent onclick) {
         this.onclick = onclick;
+        this.onclick.setRow(this);
         SupportUtils.setCoreContext(onclick, getCoreContext());
         SupportUtils.setWebContext(onclick, getWebContext());
     }
@@ -59,7 +61,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
      * @param closure The Groovy closure to use.
      */
     public void setOnclick(final Closure closure) {
-        this.onclick = new RowEvent() {
+        this.onclick = new AbstractRowEvent() {
             public String execute(Object item, int rowcount) {
                 return closure.call(new Object[] { item, rowcount }).toString();
             }
@@ -68,7 +70,8 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public RowEvent getOnmouseout() {
         if (onmouseout == null) {
-            onmouseout = new MouseRowEvent(isHighlighter());
+            onmouseout = new MouseRowEvent();
+            onmouseout.setRow(this);
         }
 
         return onmouseout;
@@ -76,6 +79,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnmouseout(RowEvent onmouseout) {
         this.onmouseout = onmouseout;
+        this.onmouseout.setRow(this);
         SupportUtils.setCoreContext(onmouseout, getCoreContext());
         SupportUtils.setWebContext(onmouseout, getWebContext());
     }
@@ -88,7 +92,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
      * @param closure The Groovy closure to use.
      */
     public void setOnmouseout(final Closure closure) {
-        this.onmouseout = new RowEvent() {
+        this.onmouseout = new AbstractRowEvent() {
             public String execute(Object item, int rowcount) {
                 return closure.call(new Object[] { item, rowcount }).toString();
             }
@@ -97,7 +101,8 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public RowEvent getOnmouseover() {
         if (onmouseover == null) {
-            onmouseover = new MouseRowEvent(isHighlighter());
+            onmouseover = new MouseRowEvent();
+            onmouseover.setRow(this);
         }
 
         return onmouseover;
@@ -105,6 +110,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnmouseover(RowEvent onmouseover) {
         this.onmouseover = onmouseover;
+        this.onmouseover.setRow(this);
         SupportUtils.setCoreContext(onmouseover, getCoreContext());
         SupportUtils.setWebContext(onmouseover, getWebContext());
     }
@@ -117,7 +123,7 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
      * @param closure The Groovy closure to use.
      */
     public void setOnmouseover(final Closure closure) {
-        this.onmouseover = new RowEvent() {
+        this.onmouseover = new AbstractRowEvent() {
             public String execute(Object item, int rowcount) {
                 return closure.call(new Object[] { item, rowcount }).toString();
             }

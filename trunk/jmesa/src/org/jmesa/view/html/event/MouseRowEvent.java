@@ -19,16 +19,22 @@ package org.jmesa.view.html.event;
  * @since 2.2
  * @author Jeff Johnston
  */
-public class MouseRowEvent implements RowEvent {
-    private boolean highlighter;
+public class MouseRowEvent extends AbstractRowEvent {
     private String styleClass;
 
+    public MouseRowEvent() {
+        // default constructor
+    }
+
+    /**
+     * This constructor is no longer valid, or used, now that the interface is bi-directional
+     */
+    @Deprecated
     public MouseRowEvent(boolean highlighter) {
-        this.highlighter = highlighter;
     }
 
     protected boolean isHighlighter() {
-        return highlighter;
+        return getRow().isHighlighter();
     }
 
     protected String getStyleClass() {

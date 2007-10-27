@@ -18,15 +18,19 @@ package org.jmesa.view.html.event;
 import org.jmesa.view.html.component.HtmlRow;
 
 /**
- * A callback interface that allows custom onclick callback events for each row.
+ * The abstract RowEvent that handles the Row.
  * 
- * @since 2.2
+ * @since 2.3
  * @author Jeff Johnston
  */
-public interface RowEvent {
-    public HtmlRow getRow();
+public abstract class AbstractRowEvent implements RowEvent {
+    private HtmlRow row;
 
-    public void setRow(HtmlRow row);
+    public HtmlRow getRow() {
+        return row;
+    }
 
-    public String execute(Object item, int rowcount);
+    public void setRow(HtmlRow row) {
+        this.row = row;
+    }
 }
