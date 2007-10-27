@@ -26,5 +26,10 @@ public interface View {
 
     public void setTable(Table table);
 
+    /**
+     * @return The byte array that represents this view.
+     */
+    public byte[] getBytes();
+
     public Object render();
 }

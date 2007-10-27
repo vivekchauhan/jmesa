@@ -92,16 +92,21 @@ public class PdfView implements View {
         this.style = style;
     }
 
+    public byte[] getBytes() {
+        String render = (String) render();
+        return render.getBytes();
+    }
+
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
-        
+
         String contextPath = webContext.getContextPath();
 
         html.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" ");
         html.append("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
-        
+
         html.html().close();
-        
+
         html.head().close();
 
         html.link().rel("stylesheet").type("text/css").href(contextPath + css).media("print").end();
@@ -109,9 +114,9 @@ public class PdfView implements View {
         html.append("@page { ").append(style).append(" }");
         html.append(".jmesa .table {width: 100%;border: none;-fs-table-paginate: paginate;}");
         html.styleEnd();
-        
+
         html.headEnd();
-        
+
         html.body().close();
 
         html.append(snippets.themeStart());

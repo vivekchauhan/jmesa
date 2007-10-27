@@ -47,6 +47,11 @@ public class HtmlView implements View {
         this.table = (HtmlTable) table;
     }
 
+    public byte[] getBytes() {
+        String render = (String) render();
+        return render.getBytes();
+    }
+
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
