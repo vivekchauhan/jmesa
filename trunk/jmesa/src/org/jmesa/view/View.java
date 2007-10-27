@@ -27,6 +27,8 @@ public interface View {
     public void setTable(Table table);
 
     /**
+     * Great tool for debugging views by being able to look at the byte array.
+     * 
      * @return The byte array that represents this view.
      */
     public byte[] getBytes();
