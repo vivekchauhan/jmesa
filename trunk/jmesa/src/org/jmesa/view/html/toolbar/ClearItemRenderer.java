@@ -30,9 +30,8 @@ public class ClearItemRenderer extends AbstractItemRenderer {
 
     public String render() {
         Limit limit = getCoreContext().getLimit();
-        StringBuilder action = new StringBuilder("javascript:removeAllFiltersFromLimit('" + limit.getId() + "');" + getOnInvokeAction() + "('"
-                + limit.getId() + "')");
         ToolbarItem item = getToolbarItem();
+        StringBuilder action = new StringBuilder("javascript:removeAllFiltersFromLimit('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
         return item.enabled();
     }

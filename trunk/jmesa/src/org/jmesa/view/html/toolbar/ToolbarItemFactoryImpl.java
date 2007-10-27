@@ -61,6 +61,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public ImageItem createFirstPageItem() {
         ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.FIRST_PAGE_ITEM.valueOfCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FIRST_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE));
@@ -76,6 +77,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public ImageItem createPrevPageItem() {
         ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.PREV_PAGE_ITEM.valueOfCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_PREV_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_PREV_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_PREV_PAGE));
@@ -91,6 +93,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public ImageItem createNextPageItem() {
         ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.NEXT_PAGE_ITEM.valueOfCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_NEXT_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE));
@@ -106,6 +109,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public ImageItem createLastPageItem() {
         ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.LAST_PAGE_ITEM.valueOfCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_LAST_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_LAST_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_LAST_PAGE));
@@ -121,6 +125,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public ImageItem createFilterItem() {
         ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.FILTER_ITEM.valueOfCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER));
         item.setImage(getImage(TOOLBAR_IMAGE_FILTER));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER));
@@ -135,6 +140,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public ImageItem createClearItem() {
         ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.CLEAR_ITEM.valueOfCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR));
         item.setImage(getImage(TOOLBAR_IMAGE_CLEAR));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_CLEAR));
@@ -149,6 +155,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public MaxRowsItem createMaxRowsItem() {
         MaxRowsItemImpl item = new MaxRowsItemImpl();
+        item.setCode(ToolbarItemType.MAX_ROWS_ITEM.valueOfCode());
 
         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
@@ -159,6 +166,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
     public ImageItem createExportItem(ToolbarExport export) {
         ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.EXPORT_ITEM.valueOfCode());
 
         item.setTooltip(getExportTooltip(export));
         item.setImage(imagesPath + getExportImage(export));

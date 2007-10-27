@@ -16,9 +16,11 @@
 package org.jmesa.view.html.toolbar;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public abstract class AbstractItem implements ToolbarItem {
+    private String code;
     private String action;
     private String onmouseover;
     private String onmouseout;
@@ -26,6 +28,14 @@ public abstract class AbstractItem implements ToolbarItem {
     private String style;
     private String tooltip;
     private ToolbarItemRenderer renderer;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getAction() {
         return action;

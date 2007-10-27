@@ -27,5 +27,32 @@ public enum ToolbarItemType {
     MAX_ROWS_ITEM, 
     FILTER_ITEM, 
     CLEAR_ITEM, 
+    SORT_ITEM, 
+    EXPORT_ITEM, 
     SEPARATOR;
+
+    public String valueOfCode() {
+        switch (this) {
+        case FIRST_PAGE_ITEM:
+            return "first_page";
+        case PREV_PAGE_ITEM:
+            return "prev_page";
+        case NEXT_PAGE_ITEM:
+            return "next_page";
+        case LAST_PAGE_ITEM:
+            return "last_page";
+        case MAX_ROWS_ITEM:
+            return "max_rows";
+        case FILTER_ITEM:
+            return "filter";
+        case CLEAR_ITEM:
+            return "clear";
+        case SORT_ITEM:
+            return "sort";
+        case EXPORT_ITEM:
+            return "export";
+        default:
+            return "";
+        }
+    }
 }

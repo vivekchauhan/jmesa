@@ -52,8 +52,8 @@ public class MaxRowsItemRenderer extends AbstractItemRenderer {
         int maxRows = limit.getRowSelect().getMaxRows();
         item.setMaxRows(maxRows);
 
-        StringBuilder action = new StringBuilder("setMaxRowsToLimit('" + limit.getId()
-                + "', this.options[this.selectedIndex].value);onInvokeAction('" + limit.getId() + "')");
+        StringBuilder action = new StringBuilder("setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);"
+                + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 
         return item.enabled();

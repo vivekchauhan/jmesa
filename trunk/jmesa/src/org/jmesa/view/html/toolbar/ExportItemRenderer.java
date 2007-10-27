@@ -18,6 +18,10 @@ package org.jmesa.view.html.toolbar;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
 
+/**
+ * @since 2.0
+ * @author Jeff Johnston
+ */
 public class ExportItemRenderer extends AbstractItemRenderer {
     private ToolbarExport export;
 
@@ -29,9 +33,9 @@ public class ExportItemRenderer extends AbstractItemRenderer {
 
     public String render() {
         Limit limit = getCoreContext().getLimit();
-        StringBuilder action = new StringBuilder("javascript:setExportToLimit('" + limit.getId() + "','" + export.getType() + "');"
-                + getOnInvokeAction() + "('" + limit.getId() + "')");
         ToolbarItem item = getToolbarItem();
+        StringBuilder action = new StringBuilder("javascript:setExportToLimit('" + limit.getId() + "','" + export.getType() + "');"
+                + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
         return item.enabled();
     }
