@@ -23,6 +23,7 @@ import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.toolbar.ToolbarItemType;
 
 /**
  * The default editor for the column header. Will handle all the sorting.
@@ -106,7 +107,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
             html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('" + limit.getId() + "')");
         } else {
             html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + currentOrder.toParam()
-                    + "');onInvokeAction('" + limit.getId() + "')");
+                    + "');" + getOnInvokeActionJavaScript(limit));
         }
 
         return html.toString();
@@ -133,5 +134,8 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
 
         return Order.NONE;
     }
-
+    
+    public String getOnInvokeActionJavaScript(Limit limit) {
+        return "onInvokeAction('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.valueOfCode() + "')";
+    }
 }

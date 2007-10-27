@@ -16,9 +16,17 @@
 package org.jmesa.view.html.toolbar;
 
 /**
+ * @since 2.0
  * @author Jeff Johnston
  */
 public interface ToolbarItem {
+    /**
+     * @since 2.3
+     * @return The name that identifies this toolbar item. Will be passed to the javascript
+     *         functions.
+     */
+    public String getCode();
+
     public String getAction();
 
     public void setAction(String action);

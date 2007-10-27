@@ -30,8 +30,8 @@ public class FilterItemRenderer extends AbstractItemRenderer {
 
     public String render() {
         Limit limit = getCoreContext().getLimit();
-        StringBuilder action = new StringBuilder("javascript:" + getOnInvokeAction() + "('" + limit.getId() + "')");
         ToolbarItem item = getToolbarItem();
+        StringBuilder action = new StringBuilder("javascript:" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
         return item.enabled();
     }

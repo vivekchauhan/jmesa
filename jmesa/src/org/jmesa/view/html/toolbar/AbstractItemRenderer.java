@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.limit.Limit;
 import org.jmesa.view.AbstractContextSupport;
 
 /**
@@ -31,6 +32,10 @@ public abstract class AbstractItemRenderer extends AbstractContextSupport implem
 
     public void setOnInvokeAction(String onInvokeAction) {
         this.onInvokeAction = onInvokeAction;
+    }
+
+    public String getOnInvokeActionJavaScript(Limit limit, ToolbarItem toolbarItem) {
+        return getOnInvokeAction() + "('" + limit.getId() + "', '" + toolbarItem.getCode() + "')";
     }
 
     public ToolbarItem getToolbarItem() {

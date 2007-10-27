@@ -34,9 +34,9 @@ public class LastPageItemRenderer extends AbstractItemRenderer {
         int page = limit.getRowSelect().getPage();
         int totalPages = HtmlUtils.totalPages(getCoreContext());
 
-        StringBuilder action = new StringBuilder("javascript:");
-        action.append("setPageToLimit('" + limit.getId() + "','" + totalPages + "');" + getOnInvokeAction() + "('" + limit.getId() + "')");
         ToolbarItem item = getToolbarItem();
+        StringBuilder action = new StringBuilder("javascript:");
+        action.append("setPageToLimit('" + limit.getId() + "','" + totalPages + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 
         if (!HtmlUtils.isLastPageEnabled(page, totalPages)) {
