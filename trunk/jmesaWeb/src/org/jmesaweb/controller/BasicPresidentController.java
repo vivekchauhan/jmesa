@@ -31,7 +31,6 @@ import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
@@ -60,14 +59,16 @@ public class BasicPresidentController extends AbstractController {
 
         TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career", "born");
         tableFacade.setExportTypes(response, CSV, EXCEL, PDF);
-        
+
         // return to the table in the same state that the user left it.
         tableFacade.setStateAttr("restore");
-        
+
         // add a custom filter matcher to be the same pattern as the cell editor used.
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
-        Table table = tableFacade.getTable();
+        HtmlTable table = (HtmlTable) tableFacade.getTable();
+        
+        table.getRow().setOnmouseover(new CustomRowEvent());
 
         Column firstName = table.getRow().getColumn("name.firstName");
         firstName.setTitle("First Name");
@@ -84,8 +85,7 @@ public class BasicPresidentController extends AbstractController {
             return null; // In Spring returning null tells the controller not to do anything.
         }
 
-        HtmlTable htmlTable = (HtmlTable) table;
-        htmlTable.getTableRenderer().setWidth("600px");
+        table.getTableRenderer().setWidth("600px");
 
         // Using an anonymous class to implement a custom editor.
         firstName.getCellRenderer().setCellEditor(new CellEditor() {
@@ -100,7 +100,7 @@ public class BasicPresidentController extends AbstractController {
         });
 
         String html = tableFacade.render(); // Return the Html.
-        
+
         mv.addObject("presidents", html); // Set the Html in the request for the JSP.
         String imagesPath = tableFacade.getCoreContext().getPreference("html.imagesPath");
         mv.addObject("imagesPath", request.getContextPath() + imagesPath);
