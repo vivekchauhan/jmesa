@@ -85,10 +85,22 @@
 
 .jmesa .odd td,.jmesa .even td {
     font-size: .7em;
-    padding-top: 2px;
-    padding-right: 3px;
-    padding-bottom: 2px;
-    padding-left: 3px;
+    padding-top: 1px;
+    padding-right: 2px;
+    padding-bottom: 1px;
+    padding-left: 2px;
+}
+
+.jmesa .odd td {
+    border: solid;
+    border-width: 1px;
+    border-color: #ffffff;
+}
+
+.jmesa .even td {
+    border: solid;
+    border-width: 1px;
+    border-color: #e3e3e3;
 }
 
 .jmesa .odd {
@@ -121,4 +133,28 @@
 
 .jmesa .dropShadow {
     padding: 10px 15px 15px 10px;
+}
+
+.jmesa .wsColumn {
+    position: relative;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    height: 16px;
+}
+
+.jmesa .wsColumn #wsColumnDiv {
+    position: absolute;
+    top: -2px;
+    left: -1px;
+}
+
+.jmesa .wsColumn #wsColumnInput {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    border: solid;
+    border-width: 1px;
+    border-color: #605a54;
+    background-color: #ecf4fb;
+    padding-left: 1px;
+    height: 16px;
 }

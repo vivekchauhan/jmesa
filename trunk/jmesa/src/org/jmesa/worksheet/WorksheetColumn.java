@@ -40,19 +40,19 @@ public interface WorksheetColumn {
     /**
      * @return The original column value before editing it.
      */
-    public Object getOriginalValue();
+    public String getOriginalValue();
 
     /**
      * @return The value of the column after it was edited.
      */
-    public Object getChangedValue();
+    public String getChangedValue();
 
     /**
      * Set the changed value for this column.
      * 
      * @param changedValue The edited column value.
      */
-    public void setChangedValue(Object changedValue);
+    public void setChangedValue(String changedValue);
 
     /**
      * Set the error for this column.

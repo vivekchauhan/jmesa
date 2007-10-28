@@ -27,10 +27,10 @@ public class WorksheetColumnImpl implements WorksheetColumn {
     private String property;
     private Messages messages;
     private String error;
-    private Object originalValue;
-    private Object changedValue;
+    private String originalValue;
+    private String changedValue;
 
-    public WorksheetColumnImpl(String property, Object originalValue, Messages messages) {
+    public WorksheetColumnImpl(String property, String originalValue, Messages messages) {
         this.property = property;
         this.originalValue = originalValue;
         this.messages = messages;
@@ -40,15 +40,15 @@ public class WorksheetColumnImpl implements WorksheetColumn {
         return property;
     }
 
-    public Object getOriginalValue() {
+    public String getOriginalValue() {
         return originalValue;
     }
 
-    public Object getChangedValue() {
+    public String getChangedValue() {
         return changedValue;
     }
 
-    public void setChangedValue(Object changedValue) {
+    public void setChangedValue(String changedValue) {
         this.changedValue = changedValue;
     }
 
