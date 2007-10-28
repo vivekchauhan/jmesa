@@ -289,7 +289,7 @@ function DynFilter(filter, id, property) {
 function createDynFilter(filter, id, property) {
     dynFilter = new DynFilter(filter, id, property);
     
-    /* If already have a filter input box create. */
+    /* If already have a filter input box. */
     if ($('#dynFilterDiv').size() > 0) {
         return; //already created
     }
@@ -342,4 +342,50 @@ function addDropShadow(imagesPath, theme) {
     $('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
     
     $('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
+}
+
+/* Worksheet */
+
+var wsColumn;
+
+function WsColumn(column, id, property) {
+    this.column = column;
+    this.id = id;
+    this.property = property;
+}
+
+function createWsColumn(column, id, property) {
+    wsColumn = new WsColumn(column, id, property);
+    
+    /* If already have a column input box. */
+    if ($('#wsColumnDiv').size() > 0) {
+        return; //already created
+    }
+    
+    $(column).parent().removeAttr('style');
+    
+    /* Get the original value from the column. */
+    var originalValue = $(column).text();
+    $(column).text('')
+
+    /* Create the dynamic column input box. */
+    $(column).append('<div id="wsColumnDiv"><input id="wsColumnInput" name="column"/></div>');
+    
+    /* Set the value on the column input box and focus. */ 
+    $('#wsColumnInput').width($(column).width()).val(originalValue).focus();
+    
+    /* The event if press keys in the column input box. */
+    $('#wsColumnInput').keypress(function(event) {
+        if (event.keyCode == 13) { // press the enter key 
+           var value = $('#wsColumnInput').val();
+           $(column).text(value);
+        }
+    });
+    
+    /* The event if leaves the column input box. */
+    $('#wsColumnInput').blur(function() {
+        var value = $('#wsColumnInput').val();
+        $(column).text(value);
+        $('#wsColumnDiv').remove();
+    });
 }

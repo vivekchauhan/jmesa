@@ -58,6 +58,7 @@ public class BasicPresidentController extends AbstractController {
         Collection<Object> items = presidentService.getPresidents();
 
         TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career", "born");
+        tableFacade.setEditable(true);
         tableFacade.setExportTypes(response, CSV, EXCEL, PDF);
 
         // return to the table in the same state that the user left it.
@@ -67,6 +68,8 @@ public class BasicPresidentController extends AbstractController {
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         HtmlTable table = (HtmlTable) tableFacade.getTable();
+        
+        table.getRow().setHighlighter(false);
 
         Column firstName = table.getRow().getColumn("name.firstName");
         firstName.setTitle("First Name");

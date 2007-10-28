@@ -15,9 +15,11 @@
  */
 package org.jmesa.worksheet.editor;
 
+import org.jmesa.limit.Limit;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
@@ -48,7 +50,7 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
     public void setColumn(Column column) {
         this.column = column;
     }
-
+    
     /**
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */
@@ -60,11 +62,30 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
             if (worksheetRow != null) {
                 WorksheetColumn worksheetColumn = worksheetRow.getColumn(property);
                 if (worksheetColumn != null) {
-                    return worksheetColumn.getChangedValue();
+                    String changedValue = worksheetColumn.getChangedValue();
+                    return getWsColumn(changedValue);
                 }
             }
         }
 
-        return cellEditor.getValue(item, property, rowcount);
+        Object value = cellEditor.getValue(item, property, rowcount);
+        
+        return getWsColumn(value);
+    }
+
+    private String getWsColumn(Object columnValue) {
+        HtmlBuilder html = new HtmlBuilder();
+
+        Limit limit = getCoreContext().getLimit();
+        
+        html.div().styleClass("wsColumn");
+        html.onmouseover("if ($('#wsColumnDiv').size() > 0){return;}$(this).parent().css('border-color', '#605a54;')");
+        html.onmouseout("$(this).parent().removeAttr('style')");
+        html.onclick("createWsColumn(this, '" + limit.getId() + "','" + column.getProperty() + "')");
+        html.close();
+        html.append(columnValue);
+        html.divEnd();
+
+        return html.toString();
     }
 }
