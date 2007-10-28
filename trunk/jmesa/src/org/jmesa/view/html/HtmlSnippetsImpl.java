@@ -239,11 +239,14 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         html.newline();
         html.script().type("text/javascript").close();
+
         html.newline();
         
         html.append("$(document).ready(function() {");
         html.append("if (typeof onInvokeAction != 'function') {alert('The onInvokeAction() JavaScript method must be declared for the JMesa table to function.');}");
         html.append("});");
+
+        html.newline();
 
         Limit limit = coreContext.getLimit();
 
