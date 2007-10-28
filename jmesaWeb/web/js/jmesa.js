@@ -294,35 +294,41 @@ function createDynFilter(filter, id, property) {
         return; //already created
     }
     
+    var cell = $(filter);
+    
     /* Get the original value from the filter. */
-    var originalValue = $(filter).text();
-    $(filter).text('')
+    var originalValue = cell.text();
+    cell.text('')
+    
+    var width = cell.width();
 
     /* Create the dynamic filter input box. */
-    $(filter).append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter"/></div>');
-    
-    /* Set the value on the filter input box and focus. */ 
     if(jQuery.browser.msie) {
-    	$('#dynFilterInput').width($(filter).width() -4).val(originalValue).focus();
+        $('#dynFilterInput').width($(filter).width() -4).val(originalValue).focus();
+        cell.append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + (width - 4) + 'px" value="' + originalValue + '"/></div>');
     } else {
-    	$('#dynFilterInput').width($(filter).width() -3).val(originalValue).focus();
+        cell.append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + (width - 3) + 'px" value="' + originalValue + '"/></div>');
+        $('#dynFilterInput').width($(filter).width() -3).val(originalValue).focus();
     }
+    
+    var input = $('#dynFilterInput'); 
+    input.focus();
     
     /* The event if press keys in the filter input box. */
     $('#dynFilterInput').keypress(function(event) {
 	    if (event.keyCode == 13) { // press the enter key 
-	       var value = $('#dynFilterInput').val();
-	       $(filter).text(value);
-	       addFilterToLimit(dynFilter.id, dynFilter.property, value);
+	       var changedValue = input.val();
+	       cell.text(changedValue);
+	       addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	       onInvokeAction(dynFilter.id);
 	    }
     });
     
     /* The event if leaves the filter input box. */
     $('#dynFilterInput').blur(function() {
-        var value = $('#dynFilterInput').val();
-        $(filter).text(value);
-	    addFilterToLimit(dynFilter.id, dynFilter.property, value);
+        var changedValue = input.val();
+        cell.text(changedValue);
+	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	    $('#dynFilterDiv').remove();
     });
 }
@@ -348,44 +354,64 @@ function addDropShadow(imagesPath, theme) {
 
 var wsColumn;
 
-function WsColumn(column, id, property) {
+function WsColumn(column, id, uniqueProperties, property) {
     this.column = column;
     this.id = id;
+    this.uniqueProperties = uniqueProperties;
     this.property = property;
 }
 
-function createWsColumn(column, id, property) {
-    wsColumn = new WsColumn(column, id, property);
+function createWsColumn(column, id, uniqueProperties, property) {
+    wsColumn = new WsColumn(column, id, uniqueProperties, property);
     
     /* If already have a column input box. */
     if ($('#wsColumnDiv').size() > 0) {
         return; //already created
     }
     
-    $(column).parent().removeAttr('style');
+    var cell = $(column);
+    
+    cell.parent().removeAttr('style');
     
     /* Get the original value from the column. */
-    var originalValue = $(column).text();
-    $(column).text('')
-
-    /* Create the dynamic column input box. */
-    $(column).append('<div id="wsColumnDiv"><input id="wsColumnInput" name="column"/></div>');
+    var originalValue = cell.text();
+    cell.text('')
     
-    /* Set the value on the column input box and focus. */ 
-    $('#wsColumnInput').width($(column).width()).val(originalValue).focus();
+    var width = cell.width();
+
+    /* Create the worksheet column input box. */
+    cell.append('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + width + 'px" value="' + originalValue + '"/></div>');
+    
+    var input = $('#wsColumnInput'); 
+    input.focus();
     
     /* The event if press keys in the column input box. */
     $('#wsColumnInput').keypress(function(event) {
         if (event.keyCode == 13) { // press the enter key 
-           var value = $('#wsColumnInput').val();
-           $(column).text(value);
+           var changedValue = input.val();
+           cell.text(changedValue);
+           if (changedValue != originalValue) {
+           
+               var data = '{ "id" : "' + wsColumn.id + '"';
+               
+               var props = wsColumn.uniqueProperties;
+               $.each(props, function(key, value) {
+                   data += ', "up_' + key + '" : "' + value + '"';
+               });
+               
+               data += '}'
+
+               $.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {
+               
+               });               
+           }
         }
     });
     
     /* The event if leaves the column input box. */
     $('#wsColumnInput').blur(function() {
-        var value = $('#wsColumnInput').val();
-        $(column).text(value);
+        var changedValue = input.val();
+        cell.text(changedValue);
         $('#wsColumnDiv').remove();
     });
 }

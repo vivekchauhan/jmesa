@@ -35,6 +35,7 @@ import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
@@ -69,15 +70,17 @@ public class BasicPresidentController extends AbstractController {
 
         HtmlTable table = (HtmlTable) tableFacade.getTable();
         
-        table.getRow().setHighlighter(false);
+        HtmlRow row = table.getRow();
+        row.setHighlighter(false);
+        row.setUniqueProperties("name.firstName");
 
-        Column firstName = table.getRow().getColumn("name.firstName");
+        Column firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
 
-        Column lastName = table.getRow().getColumn("name.lastName");
+        Column lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
-        Column born = table.getRow().getColumn("born");
+        Column born = row.getColumn("born");
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
 
         Limit limit = tableFacade.getLimit();
