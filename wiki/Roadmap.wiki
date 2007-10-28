@@ -14,10 +14,8 @@ An Excel View, using Apache POI, is implemented and will be available in the nex
 See the 2.2 [2_2NewAndNoteworthy New And Noteworthy] list for more deails.
 
 
-==== version 2.3, (end of November) ====
+==== version 2.3, (end of December) ====
 The JMesa [2_3Roadmap 2.3 roadmap] is available.
-
-
 
 
 
