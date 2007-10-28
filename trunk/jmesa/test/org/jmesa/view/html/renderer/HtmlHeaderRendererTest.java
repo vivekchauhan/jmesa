@@ -38,9 +38,5 @@ public class HtmlHeaderRendererTest extends AbstractTestCase {
 		HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
 		headerRenderer.setWebContext(webContext);
 		headerRenderer.setCoreContext(coreContext);
-
-//		String styleClass = headerRenderer.getStyleClass();
-//		assertNotNull(styleClass);
-//		assertTrue(styleClass.equals("header"));
 	}
 }

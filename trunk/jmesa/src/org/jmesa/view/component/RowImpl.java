@@ -37,10 +37,12 @@ public class RowImpl extends AbstractContextSupport implements Row {
 
     public Map<String, Object> getUniqueProperties(Object item) {
         Map<String, Object> results = new HashMap<String, Object>();
-
-        for (String property : uniqueProperties) {
-            Object value = ItemUtils.getItemValue(item, property);
-            results.put(property, value);
+        
+        if (uniqueProperties != null) {
+            for (String property : uniqueProperties) {
+                Object value = ItemUtils.getItemValue(item, property);
+                results.put(property, value);
+            }
         }
 
         return results;

@@ -15,9 +15,12 @@
  */
 package org.jmesa.worksheet.editor;
 
+import java.util.Map;
+
 import org.jmesa.limit.Limit;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Row;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.Worksheet;
@@ -50,7 +53,7 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
     public void setColumn(Column column) {
         this.column = column;
     }
-    
+
     /**
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */
@@ -58,34 +61,53 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
         WorksheetState worksheetState = getCoreContext().getWorksheetState();
         Worksheet worksheet = worksheetState.retrieveWorksheet();
         if (worksheet != null) {
-            WorksheetRow worksheetRow = worksheet.getRow(column.getRow().getUniqueProperties(item));
-            if (worksheetRow != null) {
-                WorksheetColumn worksheetColumn = worksheetRow.getColumn(property);
-                if (worksheetColumn != null) {
-                    String changedValue = worksheetColumn.getChangedValue();
-                    return getWsColumn(changedValue);
+            Map<String, Object> uniqueProperties = column.getRow().getUniqueProperties(item);
+            if (uniqueProperties != null) {
+                WorksheetRow worksheetRow = worksheet.getRow(uniqueProperties);
+                if (worksheetRow != null) {
+                    WorksheetColumn worksheetColumn = worksheetRow.getColumn(property);
+                    if (worksheetColumn != null) {
+                        String changedValue = worksheetColumn.getChangedValue();
+                        return getWsColumn(changedValue, item);
+                    }
                 }
             }
         }
 
         Object value = cellEditor.getValue(item, property, rowcount);
-        
-        return getWsColumn(value);
+
+        return getWsColumn(value, item);
     }
 
-    private String getWsColumn(Object columnValue) {
+    private String getWsColumn(Object columnValue, Object item) {
         HtmlBuilder html = new HtmlBuilder();
 
         Limit limit = getCoreContext().getLimit();
-        
+
         html.div().styleClass("wsColumn");
-        html.onmouseover("if ($('#wsColumnDiv').size() > 0){return;}$(this).parent().css('border-color', '#605a54;')");
+        html.onmouseover("if ($('#wsColumnDiv').size() > 0){return;};$(this).parent().css('border-color', '#605a54')");
         html.onmouseout("$(this).parent().removeAttr('style')");
-        html.onclick("createWsColumn(this, '" + limit.getId() + "','" + column.getProperty() + "')");
+        html.onclick(getUniqueProperties(item) + "createWsColumn(this, '" + limit.getId() + "', uniqueProperties, '" + column.getProperty() + "')");
         html.close();
         html.append(columnValue);
         html.divEnd();
 
         return html.toString();
+    }
+
+    private String getUniqueProperties(Object item) {
+        StringBuilder sb = new StringBuilder();
+
+        Row row = column.getRow();
+        Map<String, Object> uniqueProperties = row.getUniqueProperties(item);
+
+        sb.append("var uniqueProperties = {};");
+
+        for (String key : uniqueProperties.keySet()) {
+            Object value = uniqueProperties.get(key);
+            sb.append("uniqueProperties['" + key + "']='" + value + "';");
+        }
+
+        return sb.toString();
     }
 }

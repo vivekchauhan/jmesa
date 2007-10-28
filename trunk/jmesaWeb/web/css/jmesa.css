@@ -23,9 +23,7 @@
 }
 
 .jmesa .toolbar td {
-    padding: 0px 3px 0px 3px;
-    padding-left: 1px;
-    padding-right: 1px;
+    padding: 0px 1px 0px 1px;
 }
 
 .jmesa .toolbar select {
@@ -50,30 +48,24 @@
 
 .jmesa .filter #dynFilterDiv {
     position: absolute;
-    top: -2px;
+    top: -1px;
     left: -1px;
 }
 
 .jmesa .filter #dynFilterInput {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
-    border: solid;
-    border-width: 1px;
-    border-color: #605a54;
-    background-color: #ecf4fb;
+    border: 1px solid #605a54;
+    background-color: #ededed;
     padding-left: 1px;
-    height: 16px;
 }
 
 .jmesa .header td {
     background-color: #729fcf;
     color: white;
-    font-size: .8em;
+    font-size: 11px;
     font-weight: bold;
-    padding-right: 3px;
-    padding-left: 3px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding: 4px 3px 4px 3px;
     border-right-style: solid;
     border-right-width: 1px;
     border-color: white;
@@ -84,23 +76,17 @@
 }
 
 .jmesa .odd td,.jmesa .even td {
-    font-size: .7em;
-    padding-top: 1px;
-    padding-right: 2px;
-    padding-bottom: 1px;
-    padding-left: 2px;
+    font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
+    padding: 1px 2px 1px 2px;
 }
 
 .jmesa .odd td {
-    border: solid;
-    border-width: 1px;
-    border-color: #ffffff;
+    border: 1px solid #ffffff;
 }
 
 .jmesa .even td {
-    border: solid;
-    border-width: 1px;
-    border-color: #e3e3e3;
+    border: 1px solid #e3e3e3;
 }
 
 .jmesa .odd {
@@ -112,12 +98,10 @@
 }
 
 .jmesa .highlight td {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    padding: 2px 3px 2px 3px;
     background-color: #fdecae;
-    font-size: .7em;
-    padding-top: 2px;
-    padding-right: 3px;
-    padding-bottom: 2px;
-    padding-left: 3px;
 }
 
 .jmesa .highlight a,.highlight a {
@@ -125,7 +109,8 @@
 }
 
 .jmesa .statusBar td {
-    font-size: .7em;
+    font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 11px;
     border-top: 1px solid silver;
     background-color: #efebe7;
     padding: 2px;
@@ -154,7 +139,7 @@
     border: solid;
     border-width: 1px;
     border-color: #605a54;
-    background-color: #ecf4fb;
+    background-color: #ededed;
     padding-left: 1px;
     height: 16px;
 }
