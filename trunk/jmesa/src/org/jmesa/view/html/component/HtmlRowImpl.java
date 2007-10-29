@@ -48,7 +48,9 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnclick(RowEvent onclick) {
         this.onclick = onclick;
-        this.onclick.setRow(this);
+        if (onclick != null) {
+            this.onclick.setRow(this);
+        }
         SupportUtils.setCoreContext(onclick, getCoreContext());
         SupportUtils.setWebContext(onclick, getWebContext());
     }
@@ -79,7 +81,9 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnmouseout(RowEvent onmouseout) {
         this.onmouseout = onmouseout;
-        this.onmouseout.setRow(this);
+        if (onmouseout != null) {
+            this.onmouseout.setRow(this);
+        }
         SupportUtils.setCoreContext(onmouseout, getCoreContext());
         SupportUtils.setWebContext(onmouseout, getWebContext());
     }
@@ -110,7 +114,10 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
 
     public void setOnmouseover(RowEvent onmouseover) {
         this.onmouseover = onmouseover;
-        this.onmouseover.setRow(this);
+        if (onmouseover != null) {
+            this.onmouseover.setRow(this);
+        }
+
         SupportUtils.setCoreContext(onmouseover, getCoreContext());
         SupportUtils.setWebContext(onmouseover, getWebContext());
     }
