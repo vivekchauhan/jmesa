@@ -48,7 +48,7 @@
 
 .jmesa .filter #dynFilterDiv {
     position: absolute;
-    top: -1px;
+    top: -2px;
     left: -1px;
 }
 
@@ -58,6 +58,7 @@
     border: 1px solid #605a54;
     background-color: #ededed;
     padding-left: 1px;
+    height: 15px;
 }
 
 .jmesa .header td {
