@@ -35,7 +35,7 @@ public abstract class AbstractItemRenderer extends AbstractContextSupport implem
     }
 
     public String getOnInvokeActionJavaScript(Limit limit, ToolbarItem toolbarItem) {
-        return getOnInvokeAction() + "('" + limit.getId() + "', '" + toolbarItem.getCode() + "')";
+        return getOnInvokeAction() + "('" + limit.getId() + "','" + toolbarItem.getCode() + "')";
     }
 
     public ToolbarItem getToolbarItem() {
