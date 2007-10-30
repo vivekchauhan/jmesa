@@ -98,15 +98,13 @@ Limit.prototype.createHiddenInputFields = function(form) {
 
 	/* the sort objects */
 	var sortSet = limit.getSortSet();
-	$(sortSet).each(function(i) {
-        var sort = sortSet[i];
+	$.each(sortSet, function(index, sort) {
         $(form).append('<input type="hidden" name="' + limit.id + '_' + 's_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
 	});
 
 	/* the filter objects */
 	var filterSet = limit.getFilterSet();
-    $(filterSet).each(function(i) {
-        var filter = filterSet[i];
+    $.each(filterSet, function(index, filter) {
         $(form).append('<input type="hidden" name="' + limit.id + '_' + 'f_' + filter.property + '" value="' + filter.value + '"/>');
     });
 }
@@ -124,15 +122,13 @@ Limit.prototype.createParameterString = function() {
 	
 	/* the sort objects */
 	var sortSet = limit.getSortSet();
-    $(sortSet).each(function(i) {
-        var sort = sortSet[i];
+    $.each(sortSet, function(index, sort) {
         url += '&' + limit.id + '_' + 's_' + sort.position + '_' + sort.property + '=' + sort.order;
     });
 
 	/* the filter objects */
 	var filterSet = limit.getFilterSet();
-    $(filterSet).each(function(i) {
-        var filter = filterSet[i];
+    $.each(filterSet, function(index, filter) {
         url += '&' + limit.id + '_' + 'f_' + filter.property + '=' + encodeURIComponent(filter.value);
     });
 	
@@ -174,11 +170,10 @@ function addSortToLimit(id, position, property, order) {
 function removeSortFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var sortSet = limit.getSortSet();
-	
-	$(sortSet).each(function(i) {
-        var sort = limit.sortSet[i];
+	$.each(sortSet, function(index, sort) {
         if (sort.property == property) {
-            sortSet.splice(i, 1);
+            sortSet.splice(index, 1);
+            return false;
         }
     });
 }
@@ -192,9 +187,7 @@ function removeAllSortsFromLimit(id) {
 function getSortFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var sortSet = limit.getSortSet();
-	
-    $(sortSet).each(function(i) {
-        var sort = limit.sortSet[i];
+    $.each(sortSet, function(index, sort) {
         if (sort.property == property) {
             return sort;
         }
@@ -215,11 +208,10 @@ function addFilterToLimit(id, property, value) {
 function removeFilterFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var filterSet = limit.getFilterSet();
-	
-    $(filterSet).each(function(i) {
-        var filter = filterSet[i];
+    $.each(filterSet, function(index, filter) {
         if (filter.property == property) {
-            filterSet.splice(i, 1);
+            filterSet.splice(index, 1);
+            return false;
         }
     });
 }
@@ -233,9 +225,7 @@ function removeAllFiltersFromLimit(id) {
 function getFilterFromLimit(id, property) {
 	var limit = LimitManager.getLimit(id);
 	var filterSet = limit.getFilterSet();
-	
-    $(filterSet).each(function(i) {
-        var filter = filterSet[i];
+    $.each(filterSet, function(index, filter) {
         if (filter.property == property) {
             return filter;
         }
