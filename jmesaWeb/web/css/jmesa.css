@@ -79,7 +79,7 @@
 .jmesa .odd td,.jmesa .even td {
     font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 11px;
-    padding: 1px 2px 1px 2px;
+    padding: 2px 3px 2px 3px;
 }
 
 .jmesa .odd td {
@@ -101,7 +101,7 @@
 .jmesa .highlight td {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
-    padding: 2px 3px 2px 3px;
+    padding: 3px 4px 3px 4px;
     background-color: #fdecae;
 }
 
@@ -125,7 +125,7 @@
     position: relative;
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
-    height: 16px;
+    height: 15px;
 }
 
 .jmesa .wsColumn #wsColumnDiv {
@@ -142,5 +142,5 @@
     border-color: #605a54;
     background-color: #ededed;
     padding-left: 1px;
-    height: 16px;
+    height: 15px;
 }
