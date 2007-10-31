@@ -72,7 +72,7 @@
     border-color: white;
 }
 
-.jmesa .odd a,.even a {
+.jmesa .odd a,.jmesa .even a {
     color: black;
 }
 
@@ -105,7 +105,7 @@
     background-color: #fdecae;
 }
 
-.jmesa .highlight a,.highlight a {
+.jmesa .highlight a {
     color: black;
 }
 
