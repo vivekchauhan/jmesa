@@ -3,7 +3,7 @@ The only core dependencies are a few Apache Commons libraries in which JMesa is 
 
 === Requirements ===
  * JDK1.5 (or higher)
- * jQuery (required as of JMesa 2.2.3)
+ * [http://jquery.com jQuery] (required as of JMesa 2.2.3)
 
 === Minimum Jars Needed ===
  * commons-beanutils-1.7.0.jar
@@ -38,8 +38,6 @@ In the jmesa.zip file you will find everything you need to get started:
 The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directory and you are all ready to start coding your table. Of course to render correctly on the web page you will need to install the !JavaScript, CSS, and Images. Your project probably has plenty of those resources and should be used consistently.
 
 If you need to do more customization you might need to set up the [Messages] and [Preferences].
-
-
 
 
 
