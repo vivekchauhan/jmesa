@@ -9,7 +9,7 @@ This is the bug fix report and new features listing for the 2.2.3 minor release.
 == Features ==
 
  * Added a getBytes() method on the View to make testing exports easier.
- * Passing in the action invoked string now as the second parameter on the !JavaScript. Could be very useful in custom circumstances. Like any !JavaScript method this additional parameter is optional *(completed)*.
+ * Passing in the action invoked string now as the second parameter on the !JavaScript. Could be very useful in custom circumstances. Like any !JavaScript method this additional parameter is optional.
 
 For example this is a custom handling of the sorting that overrides the default behavior and to only allow one column to be sorted at a time.
 {{{
@@ -29,7 +29,7 @@ function onInvokeAction(id, action) {
 }
 }}}
 
-=== Tag Attributes (completed) ===
+=== Tag Attributes ===
 The following is a list of attributes that are included in the tag library. These attributes exist on the core API and are now implemented on the tags.
 
 ==== !HtmlTableTag ====
