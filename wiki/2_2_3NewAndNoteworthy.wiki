@@ -8,7 +8,7 @@ This is the bug fix report and new features listing for the 2.2.3 minor release.
 
 == Features ==
 
- * Add a getBytes() method on the View to make testing exports easier.
+ * Added a getBytes() method on the View to make testing exports easier.
  * Passing in the action invoked string now as the second parameter on the !JavaScript. Could be very useful in custom circumstances. Like any !JavaScript method this additional parameter is optional *(completed)*.
 
 For example this is a custom handling of the sorting that overrides the default behavior and to only allow one column to be sorted at a time.
