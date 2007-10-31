@@ -2,7 +2,7 @@ The JMesa 2.3 release should be out by the end of December. This page outlines t
 
 *Update*
 
-A good deal of the features for JMesa 2.3 were released as part of the 2.2.2 minor release. I did not see any reason to hold on to the changes when developers could be utilizing the features right away.
+A good deal of the features for JMesa 2.3 were released as part of the 2.2.3 minor release. I did not see any reason to hold on to the changes when developers could be utilizing the features right away.
 
 
 http://extremecomponents.googlepages.com/JMesa-2.3.gif
@@ -10,52 +10,4 @@ http://extremecomponents.googlepages.com/JMesa-2.3.gif
 == Features ==
 
  * The most exciting feature will be inclusion of the [Worksheet] functionality!
- * [Tags Tag library] will include all the attributes from the API *(completed)*.
  * The filter will include a droplist feature. Again, this feature will be implemented using [http://jquery.com/ JQuery] for the !JavaScript.
- * Add a getBytes() method on the View to make testing exports easier.
- * Passing in the action invoked string now as the second parameter on the !JavaScript. Could be very useful in custom circumstances. Like any !JavaScript method this additional parameter is optional *(completed)*.
-
-For example this is a custom handling of the sorting that overrides the default behavior and to only allow one column to be sorted at a time.
-{{{
-function onInvokeAction(id, action) {
-    setExportToLimit(id, '');
-
-    if (action == 'sort') {
-        var limit = LimitManager.getLimit(id);
-        var sortSet = limit.getSortSet();
-        if (sortSet) {
-            var sort = limit.sortSet[limit.sortSet.length - 1];
-            removeAllSortsFromLimit(id)
-            limit.sortSet[0] = sort;
-        }
-    }
-	createHiddenInputFieldsForLimitAndSubmit(id);
-}
-}}}
-
-=== Tag Attributes (completed) ===
-The following is a list of attributes that will be included in the tag library. These attributes exist on the core API and are now implemented on the tags.
-
-==== !HtmlTableTag ====
-|| *Attribute* || *Complete (Y/N)* ||
-|| tableRenderer || *Y* ||
-
-==== !HtmlRowTag ====
-|| *Attribute* || *Complete (Y/N)* ||
-|| rowRenderer || *Y* ||
-|| style || *Y* ||
-|| styleClass || *Y* ||
-|| evenClass || *Y* ||
-|| oddClass || *Y* ||
-|| highlightStyle || *Y* ||
-|| highlightClass || *Y* ||
-
-==== !HtmlColumnTag ====
-|| *Attribute* || *Complete (Y/N)* ||
-|| cellRenderer || *Y* ||
-|| filterRenderer || *Y* ||
-|| headerRenderer || *Y* ||
-|| headerStyle || *Y* ||
-|| headerClass || *Y* ||
-|| filterStyle || *Y* ||
-|| filterClass || *Y* ||
