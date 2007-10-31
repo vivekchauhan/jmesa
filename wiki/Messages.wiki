@@ -16,8 +16,8 @@ To set up the resource bundle specify a context-param in your /WEB-INF/web.xml f
 The current Locales supported include:
  * English (default)
  * Chinese (zh_CN)
- * Dutch (nl_NL) *(coming in 2.3 release)*
- * Spanish (es_MX) *(coming in 2.3 release)*
+ * Dutch (nl_NL)
+ * Spanish (es_MX)
 
 If you would like to have your native language supported out of the box in JMesa just send me a messages file to _extremecomponents@gmail.com_ and I will include that right away.
 
@@ -48,8 +48,6 @@ html.toolbar.text.pdf=PDF
 html.toolbar.text.csv=CSV
 html.toolbar.text.xml=XML
 }}}
-
-
 
 
 
