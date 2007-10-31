@@ -1,4 +1,4 @@
-This is the bug fix report and new features listing for the 2.2.3 minor release. There were two bugs discovered with the new jmesa.js file, which was the main reason for this release. In addition I decided to release some minor features that were completed.
+This is the bug fix report and new features listing for the 2.2.3 minor release. There were two bugs discovered with the new jmesa.js file, which was the main reason for this release. In addition I decided to release some minor features that are positioning the component for the worksheet functionality.
 
 *See the 2.2 [2_2NewAndNoteworthy documentation] that contains the core features for the 2.2 release.*
 
@@ -59,5 +59,3 @@ The following is a list of attributes that are included in the tag library. Thes
 == Bugs Fixed ==
  * The jmesa.js file had a bug that appeared when sorting multiple columns. The error was a result of bailing out of a .each loop incorrectly.
  * Fixed bug that appeared when clicking twice on an action in the toolbar (next page for example) and before the table reloads. The problem is when there is a double submission to the server the post parameters are duplicated.
-
-
