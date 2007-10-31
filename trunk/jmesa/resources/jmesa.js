@@ -91,11 +91,16 @@ Limit.prototype.setExport = function(exportType) {
 
 Limit.prototype.createHiddenInputFields = function(form) {
     var limit = this;
+    
+    var exists = $(form).find(':hidden[@name=' + limit.id + '_' + 'p_' + ']').val();
+    if (exists) {
+        return false;
+    }
 
 	/* the current page */
 	$(form).append('<input type="hidden" name="' + limit.id + '_' + 'p_' + '" value="' + limit.page + '"/>');
     $(form).append('<input type="hidden" name="' + limit.id + '_' + 'mr_' + '" value="' + limit.maxRows + '"/>');
-
+    
 	/* the sort objects */
 	var sortSet = limit.getSortSet();
 	$.each(sortSet, function(index, sort) {
@@ -107,6 +112,8 @@ Limit.prototype.createHiddenInputFields = function(form) {
     $.each(filterSet, function(index, filter) {
         $(form).append('<input type="hidden" name="' + limit.id + '_' + 'f_' + filter.property + '" value="' + filter.value + '"/>');
     });
+    
+    return true;
 }
 
 Limit.prototype.createParameterString = function() {
@@ -245,8 +252,10 @@ function createHiddenInputFieldsForLimit(id) {
 function createHiddenInputFieldsForLimitAndSubmit(id) {
 	var limit = LimitManager.getLimit(id);
 	var form = getFormByTableId(id);
-	limit.createHiddenInputFields(form);
-	form.submit();
+	var created = limit.createHiddenInputFields(form);
+	if (created) {
+	   form.submit();
+	}
 }
 
 function createParameterStringForLimit(id) {
