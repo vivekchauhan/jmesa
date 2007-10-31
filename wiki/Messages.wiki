@@ -32,7 +32,7 @@ html.toolbar.tooltip.prevPage=Previous Page
 html.toolbar.tooltip.nextPage=Next Page
 html.toolbar.tooltip.filter=Filter
 html.toolbar.tooltip.clear=Clear
-html.toolbar.tooltip.xls=XLS Export
+html.toolbar.tooltip.excel=XLS Export
 html.toolbar.tooltip.pdf=PDF Export
 html.toolbar.tooltip.csv=CSV Export
 html.toolbar.tooltip.xml=XML Export
@@ -43,12 +43,10 @@ html.toolbar.text.nextPage=Next
 html.toolbar.text.prevPage=Prev
 html.toolbar.text.filter=Filter
 html.toolbar.text.clear=Clear
-html.toolbar.text.xls=XLS
+html.toolbar.text.excel=XLS
 html.toolbar.text.pdf=PDF
 html.toolbar.text.csv=CSV
 html.toolbar.text.xml=XML
 }}}
-
-
 
 
