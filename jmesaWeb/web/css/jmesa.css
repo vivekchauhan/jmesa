@@ -39,32 +39,32 @@
 .jmesa .filter .dynFilter {
     position: relative;
     font-family: verdana, arial, helvetica, sans-serif;
-    border: 1px solid #c0c0c0;
     font-size: 11px;
-    background-color: #efebe7;
     padding: 0;
     margin: 0;
-    height: 14px;
+    border: 1px solid #c0c0c0;
+    background-color: #efebe7;
+    height: 15px;
 }
 
 .jmesa .filter #dynFilterDiv {
     position: absolute;
-    top: -1px;
-    left: -1px;
+    top: -2px;
+    left: -2px;
     padding: 0;
     margin: 0;
-    height: 15px;
+    height: 17px;
     border: 1px solid #3666a5;
     background-color: #e1ebf4;
 }
 
 .jmesa .filter #dynFilterInput {
     font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 11px;
-    border-style: none;
-    background-color: #e1ebf4;
+    font-size: 12px;
     padding: 0;
     margin: 0;
+    border-style: none;
+    background-color: #e1ebf4;
 }
 
 .jmesa .header td {
