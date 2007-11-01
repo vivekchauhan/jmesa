@@ -59,7 +59,7 @@ public class BasicPresidentController extends AbstractController {
         Collection<Object> items = presidentService.getPresidents();
 
         TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career", "born");
-        tableFacade.setEditable(true);
+        tableFacade.setEditable(false);
         tableFacade.setExportTypes(response, CSV, EXCEL, PDF);
 
         // return to the table in the same state that the user left it.
