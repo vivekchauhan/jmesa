@@ -33,32 +33,38 @@
 }
 
 .jmesa .filter td {
-    padding: 2px 2px 3px 2px;
+	padding: 2px 2px 3px 2px;
 }
 
 .jmesa .filter .dynFilter {
     position: relative;
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
-    height: 16px;
-    border: solid 1px #444444;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #c0c0c0;
     background-color: #efebe7;
-    padding-left: 1px;
+    height: 15px;
 }
 
 .jmesa .filter #dynFilterDiv {
     position: absolute;
     top: -2px;
-    left: -1px;
+    left: -2px;
+    padding: 0;
+    margin: 0;
+    height: 17px;
+    border: 1px solid #3666a5;
+    background-color: #e1ebf4;
 }
 
 .jmesa .filter #dynFilterInput {
     font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 11px;
-    border: 1px solid #605a54;
-    background-color: #ededed;
-    padding-left: 1px;
-    height: 15px;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    border-style: none;
+    background-color: #e1ebf4;
 }
 
 .jmesa .header td {
