@@ -302,10 +302,10 @@ function createDynFilter(filter, id, property) {
     var width = cell.width();
 
     /* Create the dynamic filter input box. */
-    cell.append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter"/></div>');
+    cell.append('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="' + originalValue + '" /></div>');
 
     var input = $('#dynFilterInput');
-    input.width(width).val(originalValue).focus();
+    input.focus();
     
     /* The event if press keys in the filter input box. */
     $('#dynFilterInput').keypress(function(event) {
