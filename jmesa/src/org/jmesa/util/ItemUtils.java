@@ -52,7 +52,7 @@ public class ItemUtils {
                 itemValue = PropertyUtils.getProperty(item, property);
             }
         } catch (Exception e) {
-            logger.warn("item class " + item.getClass().getName() + " doesn't have property " + property);
+            logger.debug("item class " + item.getClass().getName() + " doesn't have property " + property);
         }
 
         return itemValue;
