@@ -326,6 +326,56 @@ function createDynFilter(filter, id, property) {
     });
 }
 
+function createDynDroplistFilter(filter, id, property, options) {
+    dynFilter = new DynFilter(filter, id, property);
+    
+    /* If already have a filter input box. */
+    if ($('#dynFilterDiv').size() > 0) {
+        return; //already created
+    }
+    
+    var cell = $(filter);
+    
+    /* Get the original value from the filter. */
+    var originalValue = cell.text();
+    cell.text('')
+    
+    var width = cell.width();
+
+    /* Create the dynamic select input box. */
+    html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter" style="width:' + width + 'px">';
+    html += '<option value=""> </option>';
+    $.each(options, function(key, value) {
+    	if (this == originalValue) {
+    		html += '<option selected="selected" value="' + key + '">' + value + '</option>';
+    	} else {
+    		html += '<option value="' + key + '">' + value + '</option>';
+    	}
+    });
+    html += '</select></div>';
+    
+    cell.append(html);
+    
+    var input = $('#dynFilterInput');
+    input.focus();
+
+    /* Something was selected */
+    $('#dynFilterInput').change(function() {
+        var changedValue = $("#dynFilterInput option:selected").text();
+        cell.text(changedValue);
+	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+	    $('#dynFilterDiv').remove();
+	    onInvokeAction(dynFilter.id);
+    });
+
+    $('#dynFilterInput').blur(function() {
+        var changedValue = $("#dynFilterInput option:selected").text();
+        cell.text(changedValue);
+	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+	    $('#dynFilterDiv').remove();
+    });
+}
+
 /* Create a dropshadow for the tables */
 function addDropShadow(imagesPath, theme) {
     if (!theme) {
