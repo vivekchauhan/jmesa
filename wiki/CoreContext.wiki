@@ -17,7 +17,7 @@ CoreContext coreContext = tableFacade.getCoreContext();
 }}}
 
 ==== Example (disable filtering and sorting) ====
-If you are manually filtering and sorting be sure to call the performFilterAndSort() method. And, just to be clear, you would call this method is because you have already filtered and sorted the items so there is no reason to do it again. This does not mean that the table does not show up in the filtered or sorted state.
+If you are manually filtering and sorting be sure to call the performFilterAndSort() method. And, just to be clear, the reason you would call this method is because you have already filtered and sorted the items, so there is no reason to do it again. This does not mean that the table does not show up in the filtered or sorted state.
 
 {{{
 tableFacade.performFilterAndSort(false);
@@ -36,8 +36,6 @@ http://extremecomponents.googlepages.com/coreContext.png
 ==== The Sort class diagram. ====
 
 http://extremecomponents.googlepages.com/sort.png
-
-
 
 
 
