@@ -1,4 +1,4 @@
-This is the bug fix report and new features listing for the 2.2.3 minor release. There were two bugs discovered with the new jmesa.js file, which was the main reason for this release. In addition I decided to release some minor features that are positioning the component for the worksheet functionality.
+This is the bug fix report and new features listing for the 2.2.3 - 2.2.4 minor release. There were two bugs discovered with the new jmesa.js file, which was the main reason for this release. In addition I decided to release some minor features that are positioning the component for the worksheet functionality.
 
 *See the 2.2 [2_2NewAndNoteworthy documentation] that contains the core features for the 2.2 release.*
 
