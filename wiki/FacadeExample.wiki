@@ -1,4 +1,3 @@
-#labels Featured
 The easiest way to work with JMesa is to create a new [TableFacade] and tweak it however you need to. 
 
 === Example ===
