@@ -32,7 +32,6 @@ public class HtmlColumnsTag extends SimpleTagSupport {
         this.htmlColumnsGenerator = htmlColumnsGenerator;
     }
 
-    @SuppressWarnings("unchecked")
     private Object getValue(String property, TableFacadeTag facadeTag) {
         String var = facadeTag.getVar();
         Object item = getJspContext().getAttribute(var);

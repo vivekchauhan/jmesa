@@ -42,7 +42,6 @@ import org.junit.Test;
  */
 public class ColumnSortTest extends AbstractTestCase {
 	@Test
-    @SuppressWarnings({"unchecked"})
 	public void sortItems() {
 		WebContext webContext = createWebContext();
         
@@ -59,7 +58,7 @@ public class ColumnSortTest extends AbstractTestCase {
 		MultiColumnSort itemsSort = new MultiColumnSort();
 		
 		PresidentDao dao = new PresidentDao();
-		Collection<Object> items = dao.getPresidents();
+		Collection items = dao.getPresidents();
 		items = itemsSort.sortItems(items, limit);
 
 		assertNotNull(items);
@@ -74,7 +73,6 @@ public class ColumnSortTest extends AbstractTestCase {
 	}
 
     @Test
-    @SuppressWarnings({"unchecked"})
     public void sortNullComposedItems() {
         WebContext webContext = createWebContext();
         
@@ -90,7 +88,7 @@ public class ColumnSortTest extends AbstractTestCase {
         
         MultiColumnSort itemsSort = new MultiColumnSort();
         
-        Collection<Object> items = new ArrayList<Object>();
+        Collection items = new ArrayList<President>();
         
         President president = new President();
         Name  name = new Name("James", "Monroe");
@@ -121,7 +119,6 @@ public class ColumnSortTest extends AbstractTestCase {
     }
 
     @Test
-    @SuppressWarnings({"unchecked"})
     public void sortEmptyComposedItems() {
         WebContext webContext = createWebContext();
         
@@ -137,7 +134,7 @@ public class ColumnSortTest extends AbstractTestCase {
         
         MultiColumnSort itemsSort = new MultiColumnSort();
         
-        Collection<Object> items = new ArrayList<Object>();
+        Collection items = new ArrayList<President>();
         
         President president = new President();
         Name  name = new Name("James", "Monroe");
@@ -168,7 +165,6 @@ public class ColumnSortTest extends AbstractTestCase {
     }
 
     @Test
-    @SuppressWarnings({"unchecked"})
     public void sortNullItems() {
         WebContext webContext = createWebContext();
         
@@ -183,7 +179,7 @@ public class ColumnSortTest extends AbstractTestCase {
         
         MultiColumnSort itemsSort = new MultiColumnSort();
         
-        Collection<Object> items = new ArrayList<Object>();
+        Collection items = new ArrayList<President>();
         
         President president = new President();
         Name name = new Name("Thomas", "Jefferson");
@@ -217,7 +213,6 @@ public class ColumnSortTest extends AbstractTestCase {
     }
     
     @Test
-    @SuppressWarnings({"unchecked"})
     public void sortEmptyItems() {
         WebContext webContext = createWebContext();
         
@@ -232,7 +227,7 @@ public class ColumnSortTest extends AbstractTestCase {
         
         MultiColumnSort itemsSort = new MultiColumnSort();
         
-        Collection<Object> items = new ArrayList<Object>();
+        Collection items = new ArrayList<President>();
         
         President president = new President();
         president.setTerm(""); // The empty object

@@ -69,7 +69,6 @@ public class SortSetImpl implements Serializable, SortSet {
         addSort(new Sort(sorts.size(), property, order));
     }
 
-    @SuppressWarnings("unchecked")
     public void addSort(Sort sort) {
         if (sorts.contains(sort)) {
             sorts.remove(sort);

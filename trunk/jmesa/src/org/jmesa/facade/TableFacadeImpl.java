@@ -169,7 +169,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param items The Collection of Beans or Collection of Maps.
      * @param columnProperties The columns to be pulled from the items.
      */
-    public TableFacadeImpl(String id, HttpServletRequest request, Collection<Object> items, String... columnProperties) {
+    public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items, String... columnProperties) {
         this.id = id;
         this.request = request;
         this.items = items;
@@ -188,7 +188,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param items The Collection of Beans or Collection of Maps.
      * @param columnProperties The columns to be pulled from the items.
      */
-    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<Object> items, String... columnProperties) {
+    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items, String... columnProperties) {
         this.id = id;
         this.request = request;
         this.maxRows = maxRows;
@@ -213,7 +213,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param request The servlet request object.
      * @param items The Collection of Beans or Collection of Maps.
      */
-    public TableFacadeImpl(String id, HttpServletRequest request, Collection<Object> items) {
+    public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items) {
         this.id = id;
         this.request = request;
         this.items = items;
@@ -237,7 +237,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param maxRows The max rows to display on a page.
      * @param items The Collection of Beans or Collection of Maps.
      */
-    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<Object> items) {
+    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items) {
         this.id = id;
         this.request = request;
         this.maxRows = maxRows;

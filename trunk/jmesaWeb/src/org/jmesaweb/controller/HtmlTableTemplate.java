@@ -19,6 +19,8 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jmesaweb.domain.President;
+
 /**
  * An interface to bridge Groovy and Java code.
  * 
@@ -26,5 +28,5 @@ import javax.servlet.http.HttpServletRequest;
  * @author Jeff Johnston
  */
 public interface HtmlTableTemplate {
-    public String build(Collection<Object> items, HttpServletRequest request);
+    public String build(Collection<President> items, HttpServletRequest request);
 }

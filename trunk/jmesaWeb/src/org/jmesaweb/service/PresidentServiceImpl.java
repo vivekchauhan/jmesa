@@ -20,6 +20,7 @@ import java.util.Collection;
 import org.jmesaweb.dao.PresidentDao;
 import org.jmesaweb.dao.PresidentFilter;
 import org.jmesaweb.dao.PresidentSort;
+import org.jmesaweb.domain.President;
 
 /**
  * @since 2.0
@@ -28,7 +29,7 @@ import org.jmesaweb.dao.PresidentSort;
 public class PresidentServiceImpl implements PresidentService {
     private PresidentDao presidentDao;
 
-    public Collection<Object> getPresidents() {
+    public Collection<President> getPresidents() {
         return presidentDao.getPresidents();
     }
 
@@ -36,7 +37,7 @@ public class PresidentServiceImpl implements PresidentService {
         return presidentDao.getPresidentsCountWithFilter(filter);
     }
 
-    public Collection<Object> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd) {
+    public Collection<President> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd) {
         return presidentDao.getPresidentsWithFilterAndSort(filter, sort, rowStart, rowEnd);
     }
 

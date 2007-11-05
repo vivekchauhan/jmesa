@@ -78,7 +78,7 @@ public class ExcelView implements View {
         }
 
         // renderer body
-        Collection<Object> items = coreContext.getPageItems();
+        Collection<?> items = coreContext.getPageItems();
         int rowcount = 1;
         for (Object item : items) {
             HSSFRow r = sheet.createRow(rowcount++);

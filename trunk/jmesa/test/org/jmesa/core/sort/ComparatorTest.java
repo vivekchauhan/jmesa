@@ -29,7 +29,6 @@ import org.junit.Test;
 
 public class ComparatorTest {
 	@Test
-    @SuppressWarnings("unchecked")
 	public void go() {
 		List<BeanComparator> sortFields = new ArrayList<BeanComparator>();
 		sortFields.add(new BeanComparator("name", new NullComparator()));

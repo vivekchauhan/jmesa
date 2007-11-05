@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
+import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -45,7 +46,7 @@ public class TagPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        Collection<Object> items = presidentService.getPresidents();
+        Collection<President> items = presidentService.getPresidents();
 
         TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career", "born");
         tableFacade.setExportTypes(response, "csv", "excel"); // Tell the tableFacade what exports to use.

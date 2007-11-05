@@ -60,14 +60,13 @@ public class RowFilterTest extends AbstractTestCase {
         Limit limit = limitFactory.createLimit();
 
         PresidentDao dao = new PresidentDao();
-        Collection<Object> items = dao.getPresidents();
+        Collection items = dao.getPresidents();
         items = itemsFilter.filterItems(items, limit);
 
         assertTrue(items.size() == 3);
     }
 
     @Test
-    @SuppressWarnings({"unchecked"})
     public void filterNullItems() {
         FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
         MatcherKey key = new MatcherKey(String.class);
@@ -87,7 +86,7 @@ public class RowFilterTest extends AbstractTestCase {
         LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
         Limit limit = limitFactory.createLimit();
 
-        Collection<Object> items = new ArrayList<Object>();
+        Collection items = new ArrayList<President>();
         
         President president = new President();
         Name  name = new Name("James", "Monroe");

@@ -20,6 +20,7 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -39,7 +40,7 @@ public class GroovyPresidentController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-        Collection<Object> items = presidentService.getPresidents();
+        Collection<President> items = presidentService.getPresidents();
         String html = htmlTableTemplate.build(items, request);
         mv.addObject("presidents", html); // Set the Html in the request for the JSP.
         return mv;

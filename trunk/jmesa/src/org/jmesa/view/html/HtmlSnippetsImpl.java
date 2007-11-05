@@ -157,7 +157,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             rowcount = (page - 1) * maxRows;
         }
         
-        Collection<Object> items = coreContext.getPageItems();
+        Collection<?> items = coreContext.getPageItems();
         for (Object item : items) {
             rowcount++;
 

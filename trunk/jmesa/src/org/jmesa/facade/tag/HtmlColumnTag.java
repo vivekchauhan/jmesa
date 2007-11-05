@@ -508,7 +508,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * 
      * @return The item to use.
      */
-    @SuppressWarnings("unchecked")
     private Object getValue() throws JspException, IOException {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         String var = facadeTag.getVar();

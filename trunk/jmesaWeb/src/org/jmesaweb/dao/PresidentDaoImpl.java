@@ -31,8 +31,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author Jeff Johnston
  */
 public class PresidentDaoImpl extends HibernateDaoSupport implements PresidentDao {
-    @SuppressWarnings("unchecked")
-    public List<Object> getPresidents() {
+    public List<President> getPresidents() {
         return getHibernateTemplate().find("from President");
     }
 
@@ -50,8 +49,7 @@ public class PresidentDaoImpl extends HibernateDaoSupport implements PresidentDa
         return count.intValue();
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Object> getPresidentsWithFilterAndSort(final PresidentFilter filter, final PresidentSort sort, final int rowStart, final int rowEnd) {
+    public List<President> getPresidentsWithFilterAndSort(final PresidentFilter filter, final PresidentSort sort, final int rowStart, final int rowEnd) {
         List applications = (List) getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException, SQLException {

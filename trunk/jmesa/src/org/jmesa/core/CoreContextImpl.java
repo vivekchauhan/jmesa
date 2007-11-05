@@ -46,19 +46,19 @@ public class CoreContextImpl implements CoreContext {
         this.messages = messages;
     }
 
-    public Collection<Object> getAllItems() {
+    public Collection<?> getAllItems() {
         return items.getAllItems();
     }
 
-    public Collection<Object> getFilteredItems() {
+    public Collection<?> getFilteredItems() {
         return items.getFilteredItems();
     }
 
-    public Collection<Object> getSortedItems() {
+    public Collection<?> getSortedItems() {
         return items.getSortedItems();
     }
 
-    public Collection<Object> getPageItems() {
+    public Collection<?> getPageItems() {
         return items.getPageItems();
     }
 

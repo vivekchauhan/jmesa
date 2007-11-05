@@ -64,7 +64,7 @@ import org.jmesa.web.WebContext;
 public class TableFacadeTag extends SimpleTagSupport {
     // facade attributes
     private String id;
-    private Collection<Object> items;
+    private Collection<?> items;
     private Limit limit;
     private int maxRows;
     private String maxRowsIncrements;
@@ -107,7 +107,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * The Collecton of Beans (or Maps) to use.
      */
-    public Collection<Object> getItems() {
+    public Collection<?> getItems() {
         return items;
     }
 
@@ -119,7 +119,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param items The Collecton of Beans (or Maps) to use.
      */
-    public void setItems(Collection<Object> items) {
+    public void setItems(Collection<?> items) {
         this.items = items;
     }
 
@@ -623,7 +623,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         if (tagCoreContext.getPageItems().size() == 0) {
             body.invoke(null);
         } else {
-            for (Iterator<Object> iterator = tagCoreContext.getPageItems().iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = tagCoreContext.getPageItems().iterator(); iterator.hasNext();) {
                 Object item = iterator.next();
                 getWebContext().setPageAttribute(getVar(), item);
                 body.invoke(null);
@@ -645,18 +645,18 @@ public class TableFacadeTag extends SimpleTagSupport {
      * page items. See the getPageItems() method for more information.
      */
     private static class TagCoreContext extends CoreContextImpl {
-        private Collection<Object> pageItems;
+        private Collection<?> pageItems;
 
         public TagCoreContext(Items items, Limit limit, Preferences preferences, Messages messages) {
             super(items, limit, preferences, messages);
         }
 
-        public void setPageItems(Collection<Object> pageItems) {
+        public void setPageItems(Collection<?> pageItems) {
             this.pageItems = pageItems;
         }
 
         @Override
-        public Collection<Object> getPageItems() {
+        public Collection<?> getPageItems() {
             if (pageItems == null) {
                 return super.getPageItems();
             }
