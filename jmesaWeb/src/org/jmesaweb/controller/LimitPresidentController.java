@@ -38,6 +38,7 @@ import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.dao.PresidentFilter;
 import org.jmesaweb.dao.PresidentSort;
+import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -162,7 +163,7 @@ public class LimitPresidentController extends AbstractController {
         PresidentSort presidentSort = getPresidentSort(limit);
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
-        Collection<Object> items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
+        Collection<President> items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
         tableFacade.setItems(items); // Do not forget to set the items back on the tableFacade.
     }
 

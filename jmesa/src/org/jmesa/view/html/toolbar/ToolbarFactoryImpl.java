@@ -54,7 +54,6 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
         this.enableSeparators = isEnabled;
     }
 
-    @SuppressWarnings("unchecked")
     public Toolbar createToolbar() {
         Toolbar toolbar = new ToolbarImpl(webContext, coreContext);
         toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);

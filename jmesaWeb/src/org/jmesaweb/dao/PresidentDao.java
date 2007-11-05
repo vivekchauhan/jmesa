@@ -17,14 +17,16 @@ package org.jmesaweb.dao;
 
 import java.util.List;
 
+import org.jmesaweb.domain.President;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface PresidentDao {
-    public List<Object> getPresidents();
+    public List<President> getPresidents();
 
     public int getPresidentsCountWithFilter(PresidentFilter filter);
 
-    public List<Object> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+    public List<President> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
 }

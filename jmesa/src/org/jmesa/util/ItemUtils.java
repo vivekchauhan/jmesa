@@ -41,7 +41,6 @@ public class ItemUtils {
      * @param property The Bean attribute or Map key.
      * @return The value from the Bean or Map.
      */
-    @SuppressWarnings("unchecked")
     public static Object getItemValue(Object item, String property) {
         Object itemValue = null;
 

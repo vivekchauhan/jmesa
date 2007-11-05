@@ -34,10 +34,10 @@ import org.slf4j.LoggerFactory;
 public class ItemsImpl implements Items {
     private Logger logger = LoggerFactory.getLogger(ItemsImpl.class);
 
-    private Collection<Object> allItems;
-    private Collection<Object> filteredItems;
-    private Collection<Object> pageItems;
-    private Collection<Object> sortedItems;
+    private Collection<?> allItems;
+    private Collection<?> filteredItems;
+    private Collection<?> pageItems;
+    private Collection<?> sortedItems;
 
     public ItemsImpl(Collection<?> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
         this.allItems = new ArrayList<Object>(items); // copy for thread safety
@@ -57,19 +57,19 @@ public class ItemsImpl implements Items {
         }
     }
 
-    public Collection<Object> getAllItems() {
+    public Collection<?> getAllItems() {
         return allItems;
     }
 
-    public Collection<Object> getFilteredItems() {
+    public Collection<?> getFilteredItems() {
         return filteredItems;
     }
 
-    public Collection<Object> getPageItems() {
+    public Collection<?> getPageItems() {
         return pageItems;
     }
 
-    public Collection<Object> getSortedItems() {
+    public Collection<?> getSortedItems() {
         return sortedItems;
     }
 
@@ -80,7 +80,7 @@ public class ItemsImpl implements Items {
      * @param filteredItems
      * @param limit
      */
-    private void recalculateRowSelect(Collection<Object> filteredItems, Limit limit) {
+    private void recalculateRowSelect(Collection<?> filteredItems, Limit limit) {
         RowSelect rowSelect = limit.getRowSelect();
         int page = rowSelect.getPage();
         int maxRows = rowSelect.getMaxRows();
@@ -88,7 +88,7 @@ public class ItemsImpl implements Items {
         limit.setRowSelect(recalcRowSelect);
     }
 
-    private Collection<Object> getPageItems(Collection<Object> items, Limit limit) {
+    private Collection<?> getPageItems(Collection<?> items, Limit limit) {
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 
@@ -109,9 +109,9 @@ public class ItemsImpl implements Items {
             rowEnd = items.size();
         }
 
-        Collection<Object> results = new ArrayList<Object>();
+        Collection results = new ArrayList();
         for (int i = rowStart; i < rowEnd; i++) {
-            Object item = ((List<Object>) items).get(i);
+            Object item = ((List) items).get(i);
             results.add(item);
         }
 

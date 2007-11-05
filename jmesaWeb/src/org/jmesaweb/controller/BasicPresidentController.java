@@ -37,6 +37,7 @@ import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -56,7 +57,7 @@ public class BasicPresidentController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-        Collection<Object> items = presidentService.getPresidents();
+        Collection<President> items = presidentService.getPresidents();
 
         TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career", "born");
         tableFacade.setEditable(false);

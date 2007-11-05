@@ -41,7 +41,7 @@ public class SimpleRowFilter implements RowFilter {
         this.registry = registry;
     }
 
-    public Collection<Object> filterItems(Collection<Object> items, Limit limit) {
+    public Collection<?> filterItems(Collection<?> items, Limit limit) {
         FilterSet filterSet = limit.getFilterSet();
         boolean filtered = filterSet.isFilterable();
 
@@ -57,7 +57,7 @@ public class SimpleRowFilter implements RowFilter {
         return items;
     }
 
-    private Map<Filter, FilterMatcher> getFilterMatchers(Collection<Object> items, FilterSet filterSet) {
+    private Map<Filter, FilterMatcher> getFilterMatchers(Collection<?> items, FilterSet filterSet) {
         Map<Filter, FilterMatcher> filterMatchers = new HashMap<Filter, FilterMatcher>();
 
         if (items == null || !items.iterator().hasNext()) {

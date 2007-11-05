@@ -102,7 +102,6 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
      * @param type The Class type for the current column item.
      * @return The FilterMatcher object that will do the comparison.
      */
-    @SuppressWarnings("unchecked")
     private FilterMatcher getFilterMatcherByObject(Class type) {
         FilterMatcher result = null;
 

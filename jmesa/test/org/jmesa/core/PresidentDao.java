@@ -28,8 +28,8 @@ import java.util.List;
  * @author Jeff Johnston
  */
 public class PresidentDao {
-    public Collection<Object> getPresidents() {
-        List<Object> presidents = new ArrayList<Object>();
+    public Collection<President> getPresidents() {
+        List<President> presidents = new ArrayList<President>();
 
         President president = new President();
         Name name = new Name("George", "Washington", "Father of His Country");
