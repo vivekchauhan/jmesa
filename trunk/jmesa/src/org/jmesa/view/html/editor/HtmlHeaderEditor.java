@@ -136,6 +136,6 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
     }
     
     public String getOnInvokeActionJavaScript(Limit limit) {
-        return "onInvokeAction('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.valueOfCode() + "')";
+        return "onInvokeAction('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.toCode() + "')";
     }
 }
