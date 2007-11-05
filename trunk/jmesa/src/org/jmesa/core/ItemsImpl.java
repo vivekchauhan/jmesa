@@ -109,7 +109,7 @@ public class ItemsImpl implements Items {
             rowEnd = items.size();
         }
 
-        Collection<? super Object> results = new ArrayList<Object>();
+        Collection<Object> results = new ArrayList<Object>();
         for (int i = rowStart; i < rowEnd; i++) {
             Object item = ((List<?>) items).get(i);
             results.add(item);
