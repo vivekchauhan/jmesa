@@ -84,5 +84,5 @@ public interface CoreContextFactory {
      * @param limit The Limit instance.
      * @return The newly created CoreContext object.
      */
-    public CoreContext createCoreContext(Collection<Object> items, Limit limit);
+    public CoreContext createCoreContext(Collection<?> items, Limit limit);
 }

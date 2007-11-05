@@ -39,7 +39,7 @@ public class ItemsImpl implements Items {
     private Collection<Object> pageItems;
     private Collection<Object> sortedItems;
 
-    public ItemsImpl(Collection<Object> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
+    public ItemsImpl(Collection<?> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
         this.allItems = new ArrayList<Object>(items); // copy for thread safety
 
         this.filteredItems = rowFilter.filterItems(allItems, limit);

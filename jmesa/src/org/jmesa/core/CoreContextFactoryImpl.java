@@ -156,7 +156,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
      * @param limit The Limit object.
      * @return The CoreContext object.
      */
-    public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
+    public CoreContext createCoreContext(Collection<?> items, Limit limit) {
         Items itemsImpl;
 
         if (isPerformFilterAndSort()) {

@@ -192,7 +192,7 @@ public interface TableFacade {
      * 
      * @param items The Collecton of Beans (or Maps) to use.
      */
-    public void setItems(Collection<Object> items);
+    public void setItems(Collection<?> items);
 
     /**
      * Get the Table. If the Table does not exist then one will be created.
