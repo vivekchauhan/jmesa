@@ -346,7 +346,7 @@ function createDynDroplistFilter(filter, id, property, options) {
     html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter" style="width:' + width + 'px">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
-    	if (this == originalValue) {
+    	if (key == originalValue) {
     		html += '<option selected="selected" value="' + key + '">' + value + '</option>';
     	} else {
     		html += '<option value="' + key + '">' + value + '</option>';
@@ -361,7 +361,7 @@ function createDynDroplistFilter(filter, id, property, options) {
 
     /* Something was selected */
     $('#dynFilterInput').change(function() {
-        var changedValue = $("#dynFilterInput option:selected").text();
+        var changedValue = $("#dynFilterInput option:selected").val();
         cell.text(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	    $('#dynFilterDiv').remove();
@@ -369,7 +369,7 @@ function createDynDroplistFilter(filter, id, property, options) {
     });
 
     $('#dynFilterInput').blur(function() {
-        var changedValue = $("#dynFilterInput option:selected").text();
+        var changedValue = $("#dynFilterInput option:selected").val();
         cell.text(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	    $('#dynFilterDiv').remove();
