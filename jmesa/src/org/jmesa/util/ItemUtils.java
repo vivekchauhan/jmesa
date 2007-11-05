@@ -32,6 +32,7 @@ public class ItemUtils {
     private static Logger logger = LoggerFactory.getLogger(ItemUtils.class);
 
     private ItemUtils() {
+        // hide constructor
     }
 
     /**
@@ -46,7 +47,7 @@ public class ItemUtils {
 
         try {
             if (item instanceof Map) {
-                itemValue = ((Map) item).get(property);
+                itemValue = ((Map<?,?>) item).get(property);
             } else {
                 itemValue = PropertyUtils.getProperty(item, property);
             }

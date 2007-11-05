@@ -35,6 +35,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     private boolean generatedOnTheFly;
 
     public HtmlColumnImpl() {
+        // default constructor
     }
 
     public HtmlColumnImpl(String property) {

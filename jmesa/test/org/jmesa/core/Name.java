@@ -20,7 +20,8 @@ public class Name {
     private String lastName;
     private String nickName;
     
-    public Name() {        
+    public Name() {
+        // default constructor
     }
 
     public Name(String firstName, String lastName) {

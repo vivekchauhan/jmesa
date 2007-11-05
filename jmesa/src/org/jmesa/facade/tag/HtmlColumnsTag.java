@@ -1,11 +1,9 @@
 package org.jmesa.facade.tag;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.jmesa.util.ItemUtils;
@@ -58,7 +56,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
      * Process the list of columns that are generated on the fly.
      */
     @Override
-    public void doTag() throws JspException, IOException {
+    public void doTag() {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         Collection<Object> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {

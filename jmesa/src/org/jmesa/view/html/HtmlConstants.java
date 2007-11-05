@@ -21,6 +21,7 @@ package org.jmesa.view.html;
  */
 public class HtmlConstants {
     private HtmlConstants() {
+        // hide constructor
     }
 
     public final static String IMAGES_PATH = "html.imagesPath";

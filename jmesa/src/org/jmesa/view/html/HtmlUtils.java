@@ -24,6 +24,7 @@ import org.jmesa.web.WebContext;
  */
 public class HtmlUtils {
     private HtmlUtils() {
+        // hide constructor
     }
 
     public static boolean isFirstPageEnabled(int page) {

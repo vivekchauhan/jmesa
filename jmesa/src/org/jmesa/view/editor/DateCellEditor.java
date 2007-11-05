@@ -33,6 +33,7 @@ public class DateCellEditor extends AbstractPatternSupport {
     private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
 
     public DateCellEditor() {
+        // default constructor
     }
 
     /**
