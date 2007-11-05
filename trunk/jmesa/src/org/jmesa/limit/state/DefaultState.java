@@ -27,6 +27,7 @@ import org.jmesa.limit.Limit;
  */
 public class DefaultState implements State {
     public void persistLimit(Limit limit) {
+        // do nothing
     }
 
     public Limit retrieveLimit() {

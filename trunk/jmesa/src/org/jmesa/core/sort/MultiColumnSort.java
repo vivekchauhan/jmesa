@@ -45,7 +45,7 @@ public class MultiColumnSort implements ColumnSort {
         }
 
         if (chain.size() > 0) {
-            Collections.sort((List) items, chain);
+            Collections.sort((List<?>) items, chain);
         }
 
         return items;

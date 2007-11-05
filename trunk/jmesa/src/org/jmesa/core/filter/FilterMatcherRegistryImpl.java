@@ -77,7 +77,7 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
     /**
      * If there is a FilterMatcher that is registered by the specific class type
      * then use that, otherwise return null. The intermediate search. To find a
-     * match here means that a FilterMatch only has to match by the class type.
+     * match here means that a FilterMatcher only has to match by the class type.
      * 
      * @param type The Class type for the current column item.
      * @return The FilterMatcher object that will do the comparison.
@@ -102,11 +102,11 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
      * @param type The Class type for the current column item.
      * @return The FilterMatcher object that will do the comparison.
      */
-    private FilterMatcher getFilterMatcherByObject(Class type) {
+    private FilterMatcher getFilterMatcherByObject(Class<?> type) {
         FilterMatcher result = null;
 
         for (MatcherKey key : matchers.keySet()) {
-            Class typ = key.getType();
+            Class<?> typ = key.getType();
             if (typ.isAssignableFrom(type)) {
                 FilterMatcher matcher = matchers.get(key);
                 if (key.getType().equals(Object.class)) {

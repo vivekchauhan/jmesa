@@ -20,6 +20,7 @@ import java.util.Collection;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
+import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
@@ -43,7 +44,7 @@ public abstract class AbstractTestCase {
     }
     
     protected CoreContext createCoreContext(WebContext webContext) {
-        Collection items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
         Limit limit = limitFactory.createLimit();

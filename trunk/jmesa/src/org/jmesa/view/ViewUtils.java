@@ -26,6 +26,7 @@ import org.jmesa.view.html.component.HtmlColumn;
  */
 public class ViewUtils {
     private ViewUtils() {
+        // hide constructor
     }
 
     /**
@@ -69,9 +70,9 @@ public class ViewUtils {
         if (StringUtils.isNotBlank(caption)) {
             StringUtils.replace(caption, " ", "_");
             return caption.toLowerCase() + "." + exportType;
-        } else {
-            return "table-data." + exportType;
-        }
+        } 
+        
+        return "table-data." + exportType;
     }
 
     /**

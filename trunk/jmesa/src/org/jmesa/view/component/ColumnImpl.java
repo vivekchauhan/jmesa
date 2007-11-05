@@ -33,6 +33,7 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
     private Row row;
 
     public ColumnImpl() {
+        // default constructor
     }
 
     public ColumnImpl(String property) {
