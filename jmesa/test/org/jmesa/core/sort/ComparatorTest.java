@@ -40,12 +40,12 @@ public class ComparatorTest {
 		compChain.addComparator(new BeanComparator("name"));
 		compChain.addComparator(new BeanComparator("zipCode"), true);
 
-		Vector entries = new Vector();
+		Vector<MyClass> entries = new Vector<MyClass>();
 		entries.add(new MyClass("Robert", 34547));
 		entries.add(new MyClass("Albert", 57334));
 		entries.add(new MyClass("Robert", 78425));
 
-		Collections.sort(entries, multiSort);
+		Collections.<MyClass>sort(entries, multiSort);
 
 		assertNotNull(entries);
 	}

@@ -40,7 +40,7 @@ class TagUtils {
         }
 
         HtmlRowTag rowTag = (HtmlRowTag) SimpleTagSupport.findAncestorWithClass(simpleTagSupport, HtmlRowTag.class);
-        Map<String, Object> pageItem = rowTag.getPageItem();
+        Map<String, ?> pageItem = rowTag.getPageItem();
         if (pageItem.get(property) != null) {
             String msg = "The column property [" + property + "] is not unique. One column value will overwrite another.";
             logger.error(msg);

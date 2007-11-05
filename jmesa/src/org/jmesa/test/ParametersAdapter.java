@@ -22,9 +22,9 @@ import java.util.Map;
  * @author Jeff Johnston
  */
 public class ParametersAdapter implements Parameters {
-    private final Map<String, Object> parameters;
+    private final Map<String, ? super Object> parameters;
 
-    public ParametersAdapter(Map<String, Object> parameters) {
+    public ParametersAdapter(Map<String, ? super Object> parameters) {
         this.parameters = parameters;
     }
 

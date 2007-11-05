@@ -530,7 +530,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-        Collection<Object> pageItems = facadeTag.getPageItems();
+        Collection<Map<String, ?>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
             HtmlColumn column = getColumn(facadeTag);
@@ -539,7 +539,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         }
 
         HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
-        Map<String, Object> pageItem = rowTag.getPageItem();
+        Map<String, ? super Object> pageItem = rowTag.getPageItem();
         pageItem.put(getProperty(), getValue());
     }
 }

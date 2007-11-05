@@ -53,7 +53,7 @@ public class HtmlRowTag extends SimpleTagSupport {
     private String onmouseover;
     private String onmouseout;
 
-    private Map<String, Object> pageItem;
+    private Map<String, ? super Object> pageItem;
 
     /**
      * @since 2.3
@@ -278,7 +278,7 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * @return The current page item.
      */
-    Map<String, Object> getPageItem() {
+    Map<String, ? super Object> getPageItem() {
         return pageItem;
     }
 
@@ -290,7 +290,7 @@ public class HtmlRowTag extends SimpleTagSupport {
         }
 
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
-        Collection<Object> pageItems = facadeTag.getPageItems();
+        Collection<Map<String, ?>> pageItems = facadeTag.getPageItems();
         this.pageItem = new HashMap<String, Object>();
         pageItems.add(pageItem);
 

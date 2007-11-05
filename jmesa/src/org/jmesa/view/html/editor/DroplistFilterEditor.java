@@ -57,7 +57,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         StringBuilder javascript = new StringBuilder();
         javascript.append("var ").append(name).append("={};");
 
-        Collection<Object> options = getOptions();
+        Collection<?> options = getOptions();
         for (Object option : options) {
             option = StringEscapeUtils.escapeJavaScript(option.toString());
             javascript.append(name).append("['");
@@ -74,7 +74,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         return html.toString();
     }
 
-    private Collection<Object> getOptions() {
+    private Collection<?> getOptions() {
         Set<String> options = new HashSet<String>();
 
         String property = getColumn().getProperty();
@@ -86,7 +86,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
             }
         }
 
-        List<Object> results = Arrays.asList(options.toArray());
+        List<?> results = Arrays.asList(options.toArray());
         if (results != null && results.size() > 0) {
             Collections.sort(results, null);
         }
