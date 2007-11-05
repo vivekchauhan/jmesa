@@ -31,7 +31,7 @@ public enum ToolbarItemType {
     EXPORT_ITEM, 
     SEPARATOR;
 
-    public String valueOfCode() {
+    public String toCode() {
         switch (this) {
         case FIRST_PAGE_ITEM:
             return "first_page";
