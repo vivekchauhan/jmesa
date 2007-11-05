@@ -68,6 +68,7 @@
 }
 
 .jmesa .header td {
+	white-space: nowrap;
     background-color: #729fcf;
     color: white;
     font-size: 11px;
