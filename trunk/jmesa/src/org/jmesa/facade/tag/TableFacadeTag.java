@@ -674,7 +674,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         }
 
         @Override
-        public CoreContext createCoreContext(Collection<Object> items, Limit limit) {
+        public CoreContext createCoreContext(Collection<?> items, Limit limit) {
             Items itemsImpl;
 
             if (isPerformFilterAndSort()) {

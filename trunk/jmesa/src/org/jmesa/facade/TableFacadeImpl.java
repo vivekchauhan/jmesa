@@ -103,7 +103,7 @@ public class TableFacadeImpl implements TableFacade {
 
     private String id;
     private int maxRows;
-    private Collection<Object> items;
+    private Collection<?> items;
     private String[] columnProperties;
     private String[] exportTypes;
     private WebContext webContext;
@@ -387,7 +387,7 @@ public class TableFacadeImpl implements TableFacade {
         this.rowFilter = rowFilter;
     }
 
-    public void setItems(Collection<Object> items) {
+    public void setItems(Collection<?> items) {
         this.items = items;
     }
 
