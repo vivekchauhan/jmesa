@@ -46,7 +46,7 @@ public class SimpleRowFilter implements RowFilter {
         boolean filtered = filterSet.isFilterable();
 
         if (filtered) {
-            Collection<Object> collection = new ArrayList<Object>();
+            Collection<?> collection = new ArrayList<Object>();
             Map<Filter, FilterMatcher> filterMatchers = getFilterMatchers(items, filterSet);
             FilterPredicate filterPredicate = new FilterPredicate(filterMatchers, filterSet);
             CollectionUtils.select(items, filterPredicate, collection);
