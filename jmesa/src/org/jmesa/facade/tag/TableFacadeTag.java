@@ -87,7 +87,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private CoreContext coreContext;
     private HtmlTable table;
     private HtmlComponentFactory componentFactory;
-    private Collection<Map<String, ?>> pageItems = new ArrayList<Map<String, ?>>();
+    private Collection<Map<String, Object>> pageItems = new ArrayList<Map<String, Object>>();
 
     /**
      * The id to use.
@@ -603,7 +603,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @return The converted items.
      */
-    Collection<Map<String, ?>> getPageItems() {
+    Collection<Map<String, Object>> getPageItems() {
         return pageItems;
     }
 
