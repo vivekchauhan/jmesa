@@ -35,8 +35,8 @@ public class RowImpl extends AbstractContextSupport implements Row {
 
     private List<Column> columns = new ArrayList<Column>();
 
-    public Map<String, Object> getUniqueProperties(Object item) {
-        Map<String, Object> results = new HashMap<String, Object>();
+    public Map<String, ? super Object> getUniqueProperties(Object item) {
+        Map<String, ? super Object> results = new HashMap<String, Object>();
         
         if (uniqueProperties != null) {
             for (String property : uniqueProperties) {

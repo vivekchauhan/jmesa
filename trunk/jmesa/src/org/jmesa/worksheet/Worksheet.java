@@ -69,7 +69,7 @@ public interface Worksheet {
      *            are the item values.
      * @return The worksheet row.
      */
-    public WorksheetRow getRow(Map<String, Object> uniqueProperties);
+    public WorksheetRow getRow(Map<String, ?> uniqueProperties);
 
     /**
      * Add a row to the worksheet.

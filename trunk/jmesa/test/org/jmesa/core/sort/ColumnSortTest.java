@@ -58,12 +58,12 @@ public class ColumnSortTest extends AbstractTestCase {
 		MultiColumnSort itemsSort = new MultiColumnSort();
 		
 		PresidentDao dao = new PresidentDao();
-		Collection items = dao.getPresidents();
+		Collection<?> items = dao.getPresidents();
 		items = itemsSort.sortItems(items, limit);
 
 		assertNotNull(items);
 		
-		Iterator iterator = items.iterator();
+		Iterator<?> iterator = items.iterator();
 		
 		President first = (President)iterator.next();
 		assertTrue("the first sort order is wrong", first.getName().getFirstName().equals("Abraham"));

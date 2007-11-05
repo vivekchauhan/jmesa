@@ -61,7 +61,7 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
         WorksheetState worksheetState = getCoreContext().getWorksheetState();
         Worksheet worksheet = worksheetState.retrieveWorksheet();
         if (worksheet != null) {
-            Map<String, Object> uniqueProperties = column.getRow().getUniqueProperties(item);
+            Map<String, ?> uniqueProperties = column.getRow().getUniqueProperties(item);
             if (uniqueProperties != null) {
                 WorksheetRow worksheetRow = worksheet.getRow(uniqueProperties);
                 if (worksheetRow != null) {
@@ -99,7 +99,7 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
         StringBuilder sb = new StringBuilder();
 
         Row row = column.getRow();
-        Map<String, Object> uniqueProperties = row.getUniqueProperties(item);
+        Map<String, ?> uniqueProperties = row.getUniqueProperties(item);
 
         sb.append("var uniqueProperties = {};");
 

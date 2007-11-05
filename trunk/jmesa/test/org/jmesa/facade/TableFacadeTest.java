@@ -132,7 +132,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
         assertNotNull(facade.getCoreContext());
 
-        Collection  filteredObjects = facade.getCoreContext().getPageItems();
+        Collection<?>  filteredObjects = facade.getCoreContext().getPageItems();
         assertNotNull(filteredObjects);
         assertTrue("There are two many filtered items.", filteredObjects.size() == 1);
     }

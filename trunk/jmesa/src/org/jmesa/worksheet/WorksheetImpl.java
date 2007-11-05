@@ -30,7 +30,7 @@ public class WorksheetImpl implements Worksheet {
     private String id;
     private Messages messages;
 
-    private Map<Map<String, Object>, WorksheetRow> rows = new HashMap<Map<String, Object>, WorksheetRow>();
+    private Map<Map<String, ?>, WorksheetRow> rows = new HashMap<Map<String, ?>, WorksheetRow>();
 
     public WorksheetImpl(String id, Messages messages) {
         this.id = id;
@@ -49,7 +49,7 @@ public class WorksheetImpl implements Worksheet {
         rows.put(row.getUniqueProperties(), row);
     }
 
-    public WorksheetRow getRow(Map<String, Object> uniqueProperties) {
+    public WorksheetRow getRow(Map<String, ?> uniqueProperties) {
         return rows.get(uniqueProperties);
     }
 
