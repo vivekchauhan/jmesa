@@ -173,6 +173,23 @@ class Build {
         ant.fail(if:"test.error", message:"Unit tests failed with Errors.")
     }
     
+    /*
+     * Retrieve the dependant jars from the ivy repository and put 
+     * them in the lib folder of the project
+     */
+    static eclipse() {
+		def ant = [] as AntBuilder
+		def libDir = 'lib'	
+		
+		ant.mkdir(dir:libDir)
+	
+		def ivy = [ant:ant, namespace:'fr.jayasoft.ivy.ant'] as AntLibHelper
+		ant.property(file:'ivy.properties')
+		ivy.configure(file:'ivyconf.xml')
+		ivy.resolve(file:'ivy.xml')
+		ivy.retrieve(pattern:"$libDir/[artifact]-[revision].[ext]", sync:true, conf:'test')
+	}    
+    
     def execute() {
         clean()
         init()
@@ -194,7 +211,7 @@ class Build {
     static void main(args) {
         def cli = new CliBuilder(usage:'groovy build.groovy -[ha]')
         cli.h(longOpt: 'help', 'usage information')
-        cli.a(argName:'action', longOpt:'action', args:1, required:true, 'action(s) [execute, clean]')
+        cli.a(argName:'action', longOpt:'action', args:1, required:true, 'action(s) [execute, clean, eclipse]')
         
         def options = cli.parse(args)
         
@@ -203,7 +220,7 @@ class Build {
             return
         }
 
-        def build = new Build(options.a == 'clean')
+        def build = new Build(options.a == 'clean' || options.a == 'eclipse')
         def action = options.a
         build.invokeMethod(action, null)
     }
