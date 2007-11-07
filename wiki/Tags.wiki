@@ -80,6 +80,7 @@ public class TagRowEvent implements RowEvent {
 }}}
 
 === The following are the tags defined by JMesa. ===
+++ _Denotes an attribute in which you need to specify the fully qualified path to the class implementation._
 
 ==== !TableFacadeTag ====
 || *Attribute* || *Type* || *Description* ||
@@ -91,13 +92,13 @@ public class TagRowEvent implements RowEvent {
 || stateAttr || String || The parameter to use for the [State]. ||
 || exportTypes || String[] || The comma separated list of exports. ||
 || performFilterAndSort || boolean || Whether the API should filter and sort the items. ||
-|| filterMatcherMap || [FilterMatcher FilterMatcherMap] || Used to register custom filter matchers. ||
-|| view || [View] || The View object to use. ||
-|| messages || [Messages] || The Messages to use. ||
-|| preferences || [Preferences] || The Preferences to use. ||
-|| columnSort || !ColumnSort || The !ColumnSort to use. ||
-|| rowFilter || !RowFilter || The !RowFilter to use. ||
-|| toolbar || Toolbar || The Toolbar to use. ||
+|| filterMatcherMap || [FilterMatcher FilterMatcherMap] ++ || Used to register custom filter matchers. ||
+|| view || [View] ++ || The View object to use. ||
+|| messages || [Messages] ++ || The Messages to use. ||
+|| preferences || [Preferences] ++ || The Preferences to use. ||
+|| columnSort || !ColumnSort ++ || The !ColumnSort to use. ||
+|| rowFilter || !RowFilter ++ || The !RowFilter to use. ||
+|| toolbar || Toolbar ++ || The Toolbar to use. ||
 || var || String || The value to hold the current bean while iterating over the rows. ||
 
 ==== !HtmlTableTag ====
@@ -106,6 +107,7 @@ public class TagRowEvent implements RowEvent {
 || captionKey || String || The caption value to find in the messages. ||
 || theme || String || The css style sheet to use. ||
 || width || String || The width of the table. ||
+|| tableRenderer || [Renderers TableRenderer] ++ || The !TableRenderer to use. ||
 || style || String || The css style attribute for the table. ||
 || styleClass || String || The css class attribute for the table. ||
 || border || String || The table border attribute. ||
@@ -115,43 +117,37 @@ public class TagRowEvent implements RowEvent {
 ==== !HtmlRowTag ====
 || *Attribute* || *Type* || *Description* ||
 || highlighter || boolean || Whether to show the row highlighter effect. ||
-|| onclick || [Components RowEvent] || The row onclick event. ||
-|| onmouseout || [Components RowEvent] || The row onmouseout event. ||
-|| onmouseover || [Components RowEvent] || The row onmouseover event. ||
+|| highlightStyle || String || The css style attribute for the row highlighter. ||
+|| highlightClass || String || The css class attribute for the row highlighter. ||
+|| onclick || [Components RowEvent] ++ || The row onclick event. ||
+|| onmouseout || [Components RowEvent] ++ || The row onmouseout event. ||
+|| onmouseover || [Components RowEvent] ++ || The row onmouseover event. ||
+|| rowRenderer || [Renderers RowRenderer] ++ || The !RowRenderer to use. ||
+|| style || String || The css style attribute for the row. ||
+|| styleClass || String || The css class attribute for the row. ||
+|| evenClass || String || The css class attribute for the even rows. ||
+|| oddClass || String || The css class attribute for the odd rows. ||
 
 ==== !HtmlColumnTag ====
 || *Attribute* || *Type* || *Description* ||
 || property || String || The bean or map attribute from the [Items items]. ||
 || title || String || The column header title. ||
 || titleKey || String || The value to find in the messages. ||
-|| cellEditor || [Editors] || The !CellEditor to use. ||
-|| headerEditor || [Editors] || The !HeaderEditor to use. ||
-|| filterEditor || [Editors] || The !FilterEditor to use. ||
+|| cellEditor || [Editors CellEditor] ++ || The !CellEditor to use. ||
+|| headerEditor || [Editors HeaderEditor] ++ || The !HeaderEditor to use. ||
+|| filterEditor || [Editors FilterEditor] ++ || The !FilterEditor to use. ||
 || pattern || String || The pattern to inject into the [Editors DateCellEditor] or [Editors  NumberCellEditor]. ||
 || filterable || boolean || Whether the column should be filtered. ||
 || sortable || boolean || Whether the column should be sorted. ||
 || sortOrder || String[] || The comma separated way a column is sorted. ||
 || width || String || The width of the column. ||
+|| cellRenderer || [Renderers CellRenderer] ++ || The !CellRenderer to use. ||
+|| filterRenderer || [Renderers FilterRenderer] ++ || The !FilterRenderer to use. ||
+|| headerRenderer || [Renderers HeaderRenderer] ++ || The !HeaderRenderer to use. ||
 || style || String || The css style attribute for the column. ||
 || styleClass || String || The css class attribute for the column. ||
-
-*Note:* There are some attributes that exist on the core API that is not in the tag library yet. They will be added in the upcoming [2_3Roadmap 2.3 release]. Also, for those that do not mind sitting on the bleeding edge of development you can download a [http://builds.jmesa.org/ snapshot release] of JMesa which will include the additional features as I work towards the 2.3 release.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
+|| headerStyle || String || The css style attribute for the column header. ||
+|| headerClass || String || The css class attribute for the column header. ||
+|| filterStyle || String || The css style attribute for the column filter. ||
+|| filterClass || String || The css class attribute for the column filter. ||
  
