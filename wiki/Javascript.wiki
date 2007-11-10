@@ -10,26 +10,30 @@ createHiddenInputFieldsForLimitAndSubmit(id); // create hidden form fields and s
 createHiddenInputFieldsForLimit(id) // just create hidden form fields
 }}}
 
-It really is that easy. However, you might be wondering when you should invoke one of these functions. 
+It really is that easy. However, you might be wondering when you should invoke one of these functions.
+
+=== Example ===
 
 What you need to understand is that when you click on one of the table actions it will invoke a local Javascript function called onInvokeAction(id) that you implement. This is what a typical implementation looks like:
 
 {{{
 <script type="text/javascript">
-function onInvokeAction(id) {
+function onInvokeAction(id, action) {
     setExportToLimit(id, '');
     createHiddenInputFieldsForLimitAndSubmit(id);
 }
 </script>
 }}}
 
-This will create hidden input fields that represent the Limit, and also submit the form that wraps the table. The function setExportToLimit() probably looks a little odd, but it is neccessary because it is up to your client side code to reset the export in case an export was done on the previous call. If you are not doing any exporting then you can exclude the setExportToLimit() call.
+The id parameter is the table id that was invoked, and the action is what the user was doing, such as filtering, sorting, paging, etc.... The action is optional and can be very useful in custom circumstances.
+
+The previous example will create hidden input fields that represent the Limit, and also submit the form that wraps the table. The function setExportToLimit() probably looks a little odd, but it is neccessary because it is up to your client side code to reset the export in case an export was done on the previous call. If you are not doing any exporting then you can exclude the setExportToLimit() call.
 
 If you are doing exporting then you will need to implement the export function onInvokeExportAction(id). This is what a typical implementation of that looks like:
 
 {{{
 <script type="text/javascript">
-function onInvokeExportAction(id) {
+function onInvokeExportAction(id, action) {
     var parameterString = createParameterStringForLimit(id);
     location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
 }
@@ -37,6 +41,29 @@ function onInvokeExportAction(id) {
 }}}
 
 This will create a parameter string that represents the Limit. When exporting you should use a parameter string, and not hidden input fields. This is because an export does not refresh the page so if you create hidden input fields there is no way to delete the hidden input fields once the call to the server completes. This is also why you need to make sure you reset the export for the onInvokeAction() function.
+
+=== Action Example ===
+
+The action parameter, for example, would be useful for custom handling of the sorting that overrides the default behavior and to only allow one column to be sorted at a time.
+
+{{{
+function onInvokeAction(id, action) {
+    setExportToLimit(id, '');
+
+    if (action == 'sort') {
+        var limit = LimitManager.getLimit(id);
+        var sortSet = limit.getSortSet();
+        if (sortSet) {
+            var sort = limit.sortSet[limit.sortSet.length - 1];
+            removeAllSortsFromLimit(id)
+            limit.sortSet[0] = sort;
+        }
+    }
+    createHiddenInputFieldsForLimitAndSubmit(id);
+}
+}}}
+
+=== AJAX Example ===
 
 What makes this all the more appealing is when you decide you want to use AJAX. As you will see nothing changes other than you would use the createParameterStringForLimit() function for both table actions as well as the exports. This example makes use of the JQuery toolkit for the AJAX call.
 
@@ -76,35 +103,3 @@ function onInvokeExportAction(id) {
 }
 </script>
 }}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
