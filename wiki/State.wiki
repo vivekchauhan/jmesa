@@ -1,6 +1,6 @@
 The State interface is used to set and retrieve the table [Limit]. Implementations will set the Limit so that it can be retrieved at a later time. This is useful so a user can return to a specific table with it filtered, sorted, and paged exactly like they left it.
 
-All you have to do is set the stateAttr to the parameter to look for in the request, or the attribute in the request, to tip the table off that the Limit in the users session should be used. 
+All you have to do is set the stateAttr to the parameter to look for in the url, or the attribute in the request, to tip the table off that the Limit in the users session should be used. 
 
 ==== Example ===
 
