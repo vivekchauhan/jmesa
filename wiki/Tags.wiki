@@ -54,8 +54,6 @@ if (limit.isExportable()) {
 }}}
 
 === Tags bean value ===
-As of JMesa 2.2 I added the ability to get at the original bean from an editor when using the tags.
-
 Technically, when using the tag library, under the hood the item is swapped out for a Map for each row. Because JMesa works with beans and maps completely transparently this works really well and is completely transparent. However, the map will only contain the values for the columns defined, and not the other values from the original bean. Now the original bean can be recovered from the map in the editor. The bean can be recovered from the map by the !TableFacadeTag var attribute.
 
 For example if the tableFacade looks like this:
