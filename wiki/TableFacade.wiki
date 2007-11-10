@@ -115,7 +115,7 @@ if (limit.isExportable()) {
 
 All the boilerplate code of rendering the exports is done for you!
 
-*Note* The exports will default to 'table-data.exportType' if no caption is specified.
+_The exports will default to 'table-data.exportType' if no caption is specified._
 
 ==== Exports !ComponentFactory Option ====
 There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
