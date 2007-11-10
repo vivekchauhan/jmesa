@@ -73,7 +73,7 @@ However, all this should feel very natural and you should not have to think abou
 
 _Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!_
 
-== !ComponentFactory Option ===
+==== !ComponentFactory Option ====
 There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
 
 All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
@@ -117,7 +117,7 @@ All the boilerplate code of rendering the exports is done for you!
 
 *Note* The exports will default to 'table-data.exportType' if no caption is specified.
 
-=== Exports !ComponentFactory Option ===
+==== Exports !ComponentFactory Option ====
 There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
 
 All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
