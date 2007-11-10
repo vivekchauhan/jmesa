@@ -1,4 +1,3 @@
-#labels Featured
 The !TableFacade takes out the complexity of building Html tables by offering a very high level API to work with.
 
 More examples and documentation can be found here:
@@ -7,12 +6,16 @@ More examples and documentation can be found here:
  * [TagsExample Tags Example]
  * [FacadeGroovyExample Groovy Example]
 
+=== Minimal Example ===
+
 The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. For instance to render an html table all you would have to do is this:
 
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
 String html = tableFacade.render(); 
 }}}
+
+=== Basic Example ===
 
 The approach that the !TableFacade takes is you declare the whole table with all the defaults, and then customize things as needed. For instance if you want to customize the previous example you can do this (Spring MVC example): 
 
@@ -68,8 +71,35 @@ The !TableFacade interface also has setters for all the facade objects including
 
 However, all this should feel very natural and you should not have to think about what you are doing. Just interact with the facade how you need to and it will take care of everything.
 
-*New!* _There is now an alternative way to create columns using the API. See the 2.2.1 minor release [2_2_1NewAndNoteworthy documentation] for details._
+_Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!_
 
+== !ComponentFactory Option ===
+There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
+
+All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
+
+{{{
+TableFacade tableFacade = new TableFacadeImpl(id, request, maxItems, items);
+
+HtmlComponentFactory factory = new HtmlComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
+
+HtmlTable table = factory.createTable();
+
+HtmlRow row = factory.createRow();
+row.addColumn(factory.createColumn("name.firstName"));
+row.addColumn(factory.createColumn("name.lastName"));
+row.addColumn(factory.createColumn("term"));
+
+HtmlColumn career = factory.createColumn("career");
+career.setFilterable(false);
+row.addColumn(career);
+
+table.setRow(row); // be sure to set the row on the table
+
+tableFacade.setTable(table);
+}}}
+
+=== Exports ===
 Even if you start using the tag library it would still be very handy to use for the exports. The code would be as easy as this:
 
 {{{
@@ -85,10 +115,36 @@ if (limit.isExportable()) {
 
 All the boilerplate code of rendering the exports is done for you!
 
-*Note:* Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!
- 
- 
- 
- 
- 
- 
+*Note* The exports will default to 'table-data.exportType' if no caption is specified.
+
+=== Exports !ComponentFactory Option ===
+There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
+
+All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
+
+{{{
+TableFacade tableFacade = new TableFacadeImpl(id, request, items); // do not need maxItems for exports
+tableFacade.setExportTypes(response, "excel");
+
+Limit limit = tableFacade.getLimit();
+
+if (limit.isExportable()) {
+
+    if (limit.getExport().getType().equals("excel")) {
+        ExcelComponentFactory factory = new ExcelComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
+
+        Table table = factory.createTable();
+
+        Row row = factory.createRow();
+        row.addColumn(factory.createColumn("name.firstName"));
+        row.addColumn(factory.createColumn("name.lastName"));
+        row.addColumn(factory.createColumn("term"));
+        row.addColumn(factory.createColumn("career"));
+
+        table.setRow(row); // be sure to set the row on the table
+
+        tableFacade.setTable(table);
+    }
+    
+}
+}}}
