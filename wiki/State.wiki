@@ -1,7 +1,8 @@
 The State interface is used to set and retrieve the table [Limit]. Implementations will set the Limit so that it can be retrieved at a later time. This is useful so a user can return to a specific table with it filtered, sorted, and paged exactly like they left it.
 
+All you have to do is set the stateAttr to the parameter to look for in the request, or the attribute in the request, to tip the table off that the Limit in the users session should be used. 
+
 ==== Example ===
-All you have to do is set the stateAttr to the parameter to look for in the request to tip the table off that the Limit in the users session should be used. 
 
 For example in the [TableFacade] just pass in the name of the parameter to use:
 {{{
@@ -29,5 +30,3 @@ http://extremecomponents.googlepages.com/basic.png
 ====The State class diagram.====
 
 http://extremecomponents.googlepages.com/state.png
-
-
