@@ -148,4 +148,9 @@ public class TagRowEvent implements RowEvent {
 || headerClass || String || The css class attribute for the column header. ||
 || filterStyle || String || The css style attribute for the column filter. ||
 || filterClass || String || The css class attribute for the column filter. ||
- 
+
+==== !HtmlColumnsTag ====
+|| *Attribute* || *Type* || *Description* ||
+|| htmlColumnsGenerator || [HtmlColumnsGenerator] ++ || The !HtmlColumnsGenerator to use. ||
+
+
