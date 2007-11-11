@@ -1,7 +1,5 @@
 This page contains the new and noteworthy features for the JMesa 2.2 release. The JMesa API is really that easy to add features into and part of the proof is being shown in just how advanced some of these features are and the ease in which it was to put them in!
 
-*There is also the minor release (2.2.1) [2_2_1NewAndNoteworthy documentation] and (2.2.2) [2_2_2NewAndNoteworthy documentation] and (2.2.3) [2_2_3NewAndNoteworthy documentation] that contains the bug fix report and new features listing.*
-
 This page also contains the changes that took place from the 2.1 to the 2.2 release. There are only a few changes that may effect some users, but for the most part the changes are transparent. Be sure to read about the deprecated and modified features to see if or what you may need to do.
 
 == Bugs Fixed ==
