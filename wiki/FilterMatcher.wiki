@@ -30,7 +30,7 @@ The itemValue is the current item value from the current Bean or Map in the Coll
 
 Note: When working with the filter matchers supplied by the JMesa API you do not have to inject the !WebContext specifically into the matchers. See the [SupportInterfaces support interfaces] page for more details on that.
 
-=== !FilterMatcher Example ===
+=== Example ===
 As an example this is what the default string filter matcher looks like:
 {{{
 public class StringFilterMatcher implements FilterMatcher {
