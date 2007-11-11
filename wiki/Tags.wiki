@@ -77,7 +77,7 @@ public class TagRowEvent implements RowEvent {
 }
 }}}
 
-=== The following are the tags defined by JMesa. ===
+=== Tags Listing ===
 ++ _Denotes an attribute in which you need to specify the fully qualified path to the class implementation._
 
 ==== !TableFacadeTag ====
