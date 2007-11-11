@@ -45,7 +45,7 @@ That should make sense. Because you are passing in all the items the API knows e
 
 However, if you want to return only one page of data to work the most efficiently with your data then you will need to not only use the Limit, but, in addition, you will need to help finish completing the Limit object by setting the !RowSelect. I will explain that next.
 
-==== Example ====
+=== Example ===
 For the purposes of this next example I am going to further explain how to work with the Limit using the [TableFacade] when you want to efficiently return only one page of data at a time. To see more details, and a complete example go to the [FacadeLimitExample limit example] page.
 
 First we start with a [TableFacade]. Notice how we do not pass in the maxRows. The reason is because we will take care of this in the next step anyway so there is no reason to do it here.
@@ -85,7 +85,7 @@ int rowEnd = limit.getRowSelect().getRowEnd();
 
 Again, how you use this information to get the rows selected is up to you. The Limit merely provides you with how the user wishes the table to be sorted, filtered, and paged.
 
-==== Example If Using Tags ====
+=== Example Using Tags ===
 If you are using the tag library there is no difference to how you use the Limit. However, there is a convenience constructor that does not care anything about the columns, as that information is defined on the tags themselves. 
 
 {{{
@@ -116,40 +116,3 @@ limit.getRowSelect().setPage(2);
 ====The Limit class diagram.====
 
 http://extremecomponents.googlepages.com/limit.png
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
