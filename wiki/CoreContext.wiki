@@ -1,4 +1,4 @@
-The !CoreContext interface represents the core package and is the real plumbing. With the !CoreContext you have direct access to the Items, Messages and Preferences. 
+The !CoreContext interface represents the core package and is the real plumbing. With the !CoreContext you have direct access to the Items, Messages and Preferences. In addition you can specify your own filter matching strategy by type or item property if needed.
 
 The Items are the Collection of Beans or Collection of Maps broken down after it is filtered, after it is sorted, and by the current page. The !CoreContext extends Items so you always have direct access to the data.
 
@@ -8,7 +8,7 @@ The [Messages] are the Locale specific text. The default implementation uses Jav
 
 The [Preferences] are used for a lot of the configuration instead of hardcoding the values. The default implementation uses Java Properties. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then change the values you want. The !CoreContext extends Preferences so you always have direct access to how things are configured.
 
-==== Example ====
+=== Example ===
 You can get the !CoreContext directly from the Limit:
 
 {{{
@@ -16,15 +16,15 @@ TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name
 CoreContext coreContext = tableFacade.getCoreContext();
 }}}
 
-==== Example (disable filtering and sorting) ====
+==== Disabling Filtering And Sorting ====
 If you are manually filtering and sorting be sure to call the performFilterAndSort() method. And, just to be clear, the reason you would call this method is because you have already filtered and sorted the items, so there is no reason to do it again. This does not mean that the table does not show up in the filtered or sorted state.
 
 {{{
 tableFacade.performFilterAndSort(false);
 }}}
 
-==== Add Custom Filters ====
-The !CoreContext will filter the items based on the property class type. If you need to add a custom filter or are trying to support a custom class type then you need to add your own [FilterMatcher filter matching strategy].
+=== Custom Filters ===
+The !CoreContext will filter the items based on the class type and/or property. If you need to add a custom filter or are trying to support a custom class type then you need to add your own [FilterMatcher filter matching strategy].
 
 
 === UML Class Diagrams ===
@@ -36,24 +36,3 @@ http://extremecomponents.googlepages.com/coreContext.png
 ==== The Sort class diagram. ====
 
 http://extremecomponents.googlepages.com/sort.png
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
