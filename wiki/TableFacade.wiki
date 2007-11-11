@@ -6,8 +6,6 @@ More examples and documentation can be found here:
  * [TagsExample Tags Example]
  * [FacadeGroovyExample Groovy Example]
 
-=== Minimal Example ===
-
 The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. For instance to render an html table all you would have to do is this:
 
 {{{
