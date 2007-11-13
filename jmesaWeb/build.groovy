@@ -105,7 +105,7 @@ class Build {
         ant.property(file:'ivy.properties')
         ivy.configure(file:'ivyconf.xml')
         ivy.resolve(file:'ivy.xml')
-        ivy.retrieve(pattern:"$libDir/[artifact]-[revision].[ext]", sync:true, conf:'test')
+        ivy.retrieve(pattern:"$libDir/[artifact]-[revision].[ext]", sync:true, conf:'eclipse')
     }    
     
     def execute() {
