@@ -66,7 +66,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FIRST_PAGE));
-        item.setStyle("border:0");
 
         ToolbarItemRenderer renderer = new FirstPageItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
@@ -82,7 +81,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_PREV_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_PREV_PAGE));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_PREV_PAGE));
-        item.setStyle("border:0");
 
         ToolbarItemRenderer renderer = new PrevPageItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
@@ -98,7 +96,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_NEXT_PAGE));
-        item.setStyle("border:0");
 
         ToolbarItemRenderer renderer = new NextPageItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
@@ -114,7 +111,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_LAST_PAGE_DISABLED));
         item.setImage(getImage(TOOLBAR_IMAGE_LAST_PAGE));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_LAST_PAGE));
-        item.setStyle("border:0");
 
         ToolbarItemRenderer renderer = new LastPageItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
@@ -129,7 +125,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER));
         item.setImage(getImage(TOOLBAR_IMAGE_FILTER));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER));
-        item.setStyle("border:0");
 
         ToolbarItemRenderer renderer = new FilterItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
@@ -144,7 +139,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR));
         item.setImage(getImage(TOOLBAR_IMAGE_CLEAR));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_CLEAR));
-        item.setStyle("border:0");
 
         ToolbarItemRenderer renderer = new ClearItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
@@ -172,7 +166,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setImage(imagesPath + getExportImage(export));
 
         item.setAlt(export.getText());
-        item.setStyle("border:0");
 
         ToolbarItemRenderer renderer = new ExportItemRenderer(item, export, coreContext);
         renderer.setOnInvokeAction("onInvokeExportAction");
@@ -186,7 +179,6 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
         item.setImage(getImage(TOOLBAR_IMAGE_SEPARATOR));
         item.setAlt("Separator");
-        item.setStyle("border:0");
 
         return item;
     }
