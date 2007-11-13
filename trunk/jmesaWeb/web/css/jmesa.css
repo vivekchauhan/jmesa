@@ -32,6 +32,10 @@
     width: 75px;
 }
 
+.jmesa .toolbar img {
+    border:1px;
+}
+
 .jmesa .filter td {
 	padding: 2px 2px 3px 2px;
 }
