@@ -72,8 +72,7 @@ public class PdfViewExporter extends AbstractViewExporter {
     }
 
     public void export() throws Exception {
-        String viewData = (String) view.render();
-        byte[] contents = (viewData).getBytes();
+        byte[] contents = view.getBytes();
         responseHeaders(contents, response);
 
         System.setProperty("xr.load.xml-reader", "org.ccil.cowan.tagsoup.Parser");
