@@ -20,7 +20,7 @@ import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.excel.renderer.ExcelCellRender;
+import org.jmesa.view.excel.renderer.ExcelCellRenderer;
 import org.jmesa.web.WebContext;
 
 /**
@@ -38,7 +38,7 @@ public class ExcelComponentFactory extends AbstractComponentFactory {
         column.setWebContext(getWebContext());
         column.setCoreContext(getCoreContext());
 
-        ExcelCellRender exr = new ExcelCellRender(column, editor);
+        ExcelCellRenderer exr = new ExcelCellRenderer(column, editor);
         exr.setCoreContext(getCoreContext());
         exr.setWebContext(getWebContext());
         column.setCellRenderer(exr);

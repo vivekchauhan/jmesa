@@ -13,24 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.event;
+package org.jmesa.view.jexcel.renderer;
 
-import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.renderer.AbstractCellRenderer;
 
 /**
- * The abstract RowEvent that handles the Row.
+ * <p>
+ * The cell renderer for the JExcel export.
+ * </p>
  * 
  * @since 2.2
- * @author Jeff Johnston
+ * @author Paul Horn
  */
-public abstract class AbstractRowEvent implements RowEvent {
-    private HtmlRow row;
-
-    public HtmlRow getRow() {
-        return row;
+public class JExcelCellRenderer extends AbstractCellRenderer {
+    public JExcelCellRenderer(Column column, CellEditor editor) {
+        setColumn(column);
+        setCellEditor(editor);
     }
 
-    public void setRow(HtmlRow row) {
-        this.row = row;
+    public Object render(Object item, int rowcount) {
+        return getCellEditor().getValue(item, getColumn().getProperty(), rowcount);
     }
 }

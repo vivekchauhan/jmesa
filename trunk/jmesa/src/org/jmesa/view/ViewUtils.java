@@ -59,12 +59,19 @@ public class ViewUtils {
     }
 
     /**
+     * <p>
+     * <b>Use the ExportUtils.exportFileName() method instead.</b>
+     * </p>
+     * 
+     * <p>
      * Use the view caption for the export. If the caption is not defined then use a default.
+     * </p>
      * 
      * @param view The view to export.
      * @param exportType The type of view to export.
      * @return The file name of export.
      */
+    @Deprecated
     public static String exportFileName(View view, String exportType) {
         String caption = view.getTable().getCaption();
         if (StringUtils.isNotBlank(caption)) {

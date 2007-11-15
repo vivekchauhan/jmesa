@@ -41,6 +41,9 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarFactory;
 import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
+import org.jmesa.view.jexcel.JExcelTableFactory;
+import org.jmesa.view.jexcel.JExcelView;
+import org.jmesa.view.jexcel.JExcelViewExporter;
 import org.jmesa.view.pdf.PdfView;
 import org.jmesa.view.pdf.PdfViewExporter;
 import org.jmesa.web.HttpServletRequestWebContext;
@@ -96,6 +99,7 @@ public class TableFacadeImpl implements TableFacade {
 
     public static String CSV = "csv";
     public static String EXCEL = "excel";
+    public static String JEXCEL = "jexcel";
     public static String PDF = "pdf";
 
     private HttpServletRequest request;
@@ -368,7 +372,7 @@ public class TableFacadeImpl implements TableFacade {
             addFilterMatcher(key, matcher);
         }
     }
-    
+
     public void setColumnSort(ColumnSort columnSort) {
         if (coreContext != null) {
             throw new IllegalStateException(
@@ -401,14 +405,14 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
-        
+
         factory.setPreferences(preferences);
         factory.setMessages(messages);
-        
+
         factory.setColumnSort(columnSort);
-        
+
         factory.setRowFilter(rowFilter);
-        
+
         if (filterMatchers != null) {
             Set<MatcherKey> keySet = filterMatchers.keySet();
             for (MatcherKey key : keySet) {
@@ -462,6 +466,9 @@ public class TableFacadeImpl implements TableFacade {
                 this.table = tableFactory.createTable(columnProperties);
             } else if (exportType.equals(PDF)) {
                 TableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
+                this.table = tableFactory.createTable(columnProperties);
+            } else if (exportType.equals(JEXCEL)) {
+                TableFactory tableFactory = new JExcelTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
@@ -518,6 +525,8 @@ public class TableFacadeImpl implements TableFacade {
                 this.view = new ExcelView(getTable(), getCoreContext());
             } else if (exportType.equals(PDF)) {
                 this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getWebContext(), getCoreContext());
+            } else if (exportType.equals(JEXCEL)) {
+                this.view = new JExcelView(getTable(), getCoreContext());
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
@@ -554,6 +563,13 @@ public class TableFacadeImpl implements TableFacade {
             }
         } else if (exportType.equals(PDF)) {
             ViewExporter exporter = new PdfViewExporter(getView(), request, response);
+            try {
+                exporter.export();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (exportType.equals(JEXCEL)) {
+            ViewExporter exporter = new JExcelViewExporter(getView(), response);
             try {
                 exporter.export();
             } catch (Exception e) {

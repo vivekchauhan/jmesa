@@ -56,98 +56,98 @@ public class HtmlRowTag extends SimpleTagSupport {
     private Map<String, Object> pageItem;
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getRowRenderer() {
         return rowRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setRowRenderer(String rowRenderer) {
         this.rowRenderer = rowRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getStyle() {
         return style;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setStyle(String style) {
         this.style = style;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getStyleClass() {
         return styleClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getEvenClass() {
         return evenClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setEvenClass(String evenClass) {
         this.evenClass = evenClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getOddClass() {
         return oddClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setOddClass(String oddClass) {
         this.oddClass = oddClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getHighlightStyle() {
         return highlightStyle;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setHighlightStyle(String highlightStyle) {
         this.highlightStyle = highlightStyle;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getHighlightClass() {
         return highlightClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setHighlightClass(String highlightClass) {
         this.highlightClass = highlightClass;
@@ -188,7 +188,7 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * Get the row RowRenderer object.
      * 
-     * @since 2.3
+     * @since 2.2
      */
     private RowRenderer getRowRowRenderer(TableFacadeTag facadeTag) {
         if (StringUtils.isBlank(getRowRenderer())) {

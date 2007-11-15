@@ -28,7 +28,7 @@ import org.jmesa.web.WebContext;
 /**
  * Use the Flying Saucer API to generate Pdf documents.
  * 
- * @since 2.3
+ * @since 2.2
  * @author Paul Horn
  */
 public class PdfView implements View {
@@ -37,7 +37,7 @@ public class PdfView implements View {
     private WebContext webContext;
 
     private String css;
-    private String style;
+    private String doctype;
 
     public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
         this.table = table;
@@ -45,7 +45,7 @@ public class PdfView implements View {
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
 
         this.css = coreContext.getPreference("pdf.css");
-        this.style = coreContext.getPreference("pdf.style");
+        this.doctype = coreContext.getPreference("pdf.doctype");
     }
 
     public HtmlTable getTable() {
@@ -78,20 +78,6 @@ public class PdfView implements View {
         this.css = css;
     }
 
-    /**
-     * @return The inline page stylesheet for this pdf.
-     */
-    public String getStyle() {
-        return style;
-    }
-
-    /**
-     * @param style The inline page stylesheet for this pdf.
-     */
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
     public byte[] getBytes() {
         String render = (String) render();
         return render.getBytes();
@@ -102,18 +88,13 @@ public class PdfView implements View {
 
         String contextPath = webContext.getContextPath();
 
-        html.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" ");
-        html.append("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+        html.append(doctype);
 
         html.html().close();
 
         html.head().close();
 
         html.link().rel("stylesheet").type("text/css").href(contextPath + css).media("print").end();
-        html.style().type("text/css").media("print").close();
-        html.append("@page { ").append(style).append(" }");
-        html.append(".jmesa .table {width: 100%;border: none;-fs-table-paginate: paginate;}");
-        html.styleEnd();
 
         html.headEnd();
 

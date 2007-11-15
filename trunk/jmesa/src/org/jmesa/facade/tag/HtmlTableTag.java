@@ -72,14 +72,14 @@ public class HtmlTableTag extends SimpleTagSupport {
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getTableRenderer() {
         return tableRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setTableRenderer(String tableRenderer) {
         this.tableRenderer = tableRenderer;
@@ -136,7 +136,7 @@ public class HtmlTableTag extends SimpleTagSupport {
     /**
      * Get the table TableRenderer object.
      * 
-     * @since 2.3
+     * @since 2.2
      */
     private TableRenderer getTableTableRenderer(TableFacadeTag facadeTag) {
         if (StringUtils.isBlank(getTableRenderer())) {
