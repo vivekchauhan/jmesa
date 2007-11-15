@@ -37,7 +37,9 @@ import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.editor.DroplistFilterEditor;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
@@ -91,6 +93,9 @@ public class BasicPresidentController extends AbstractController {
             tableFacade.render(); // Will write the export data out to the response.
             return null; // In Spring returning null tells the controller not to do anything.
         }
+
+        HtmlColumn career = (HtmlColumn)row.getColumn("career");
+        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
 
         ((HtmlTable) table).getTableRenderer().setWidth("600px");
 

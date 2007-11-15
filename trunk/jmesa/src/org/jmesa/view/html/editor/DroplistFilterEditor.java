@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.util.ItemUtils;
@@ -51,7 +51,6 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
             filterValue = filter.getValue();
         }
 
-        
         String name = limit.getId() + property + "FilterOptions";
 
         StringBuilder javascript = new StringBuilder();
@@ -59,7 +58,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         Collection<?> options = getOptions();
         for (Object option : options) {
-            option = StringEscapeUtils.escapeJavaScript(option.toString());
+            option = escapeJavaScript(option.toString());
             javascript.append(name).append("['");
             javascript.append(option).append("']='").append(option).append("';");
         }
@@ -74,7 +73,10 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         return html.toString();
     }
 
-    private Collection<?> getOptions() {
+    /**
+     * @return The unique list of options for the droplist values.
+     */
+    protected Collection<?> getOptions() {
         Set<String> options = new HashSet<String>();
 
         String property = getColumn().getProperty();
@@ -93,5 +95,4 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         return results;
     }
-
 }
