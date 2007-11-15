@@ -31,16 +31,18 @@ import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Row;
+import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+
 
 /**
  * Create a new TableFacade and tweak it out.
@@ -69,11 +71,11 @@ public class BasicPresidentController extends AbstractController {
         // add a custom filter matcher to be the same pattern as the cell editor used.
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
-        HtmlTable table = (HtmlTable) tableFacade.getTable();
-        
-        HtmlRow row = table.getRow();
-        row.setHighlighter(true);
-        row.setUniqueProperties("name.firstName");
+        Table table = tableFacade.getTable();
+
+        Row row = table.getRow();
+        // row.setHighlighter(true);
+        // row.setUniqueProperties("name.firstName");
 
         Column firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
@@ -83,14 +85,14 @@ public class BasicPresidentController extends AbstractController {
 
         Column born = row.getColumn("born");
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
-
+        
         Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {
             tableFacade.render(); // Will write the export data out to the response.
             return null; // In Spring returning null tells the controller not to do anything.
         }
 
-        table.getTableRenderer().setWidth("600px");
+        ((HtmlTable) table).getTableRenderer().setWidth("600px");
 
         // Using an anonymous class to implement a custom editor.
         firstName.getCellRenderer().setCellEditor(new CellEditor() {
