@@ -23,8 +23,8 @@ import org.jmesa.view.renderer.AbstractCellRenderer;
  * @since 2.1
  * @author jeff jie
  */
-public class ExcelCellRender extends AbstractCellRenderer {
-    public ExcelCellRender(Column column, CellEditor editor) {
+public class ExcelCellRenderer extends AbstractCellRenderer {
+    public ExcelCellRenderer(Column column, CellEditor editor) {
         setColumn(column);
         setCellEditor(editor);
     }

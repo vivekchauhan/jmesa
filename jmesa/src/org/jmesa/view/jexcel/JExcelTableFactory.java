@@ -13,24 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.event;
+package org.jmesa.view.jexcel;
 
-import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.core.CoreContext;
+import org.jmesa.view.AbstractTableFactory;
+import org.jmesa.view.ComponentFactory;
+import org.jmesa.web.WebContext;
 
 /**
- * The abstract RowEvent that handles the Row.
+ * <p>
+ * The table factory specific to the JExcel export.
+ * </p>
  * 
  * @since 2.2
- * @author Jeff Johnston
+ * @author Paul Horn
  */
-public abstract class AbstractRowEvent implements RowEvent {
-    private HtmlRow row;
-
-    public HtmlRow getRow() {
-        return row;
+public class JExcelTableFactory extends AbstractTableFactory {
+    public JExcelTableFactory(WebContext webContext, CoreContext coreContext) {
+        setWebContext(webContext);
+        setCoreContext(coreContext);
     }
 
-    public void setRow(HtmlRow row) {
-        this.row = row;
+    @Override
+    protected ComponentFactory getComponentFactory() {
+        return new JExcelComponentFactory(getWebContext(), getCoreContext());
     }
 }

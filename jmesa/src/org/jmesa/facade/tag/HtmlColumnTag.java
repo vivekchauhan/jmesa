@@ -131,42 +131,42 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getCellRenderer() {
         return cellRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setCellRenderer(String cellRenderer) {
         this.cellRenderer = cellRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getFilterRenderer() {
         return filterRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setFilterRenderer(String filterRenderer) {
         this.filterRenderer = filterRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getHeaderRenderer() {
         return headerRenderer;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setHeaderRenderer(String headerRenderer) {
         this.headerRenderer = headerRenderer;
@@ -201,56 +201,56 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getFilterStyle() {
         return filterStyle;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setFilterStyle(String filterStyle) {
         this.filterStyle = filterStyle;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getFilterClass() {
         return filterClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setFilterClass(String filterClass) {
         this.filterClass = filterClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getHeaderStyle() {
         return headerStyle;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setHeaderStyle(String headerStyle) {
         this.headerStyle = headerStyle;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public String getHeaderClass() {
         return headerClass;
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      */
     public void setHeaderClass(String headerClass) {
         this.headerClass = headerClass;
@@ -305,7 +305,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      * @return The column CellRenderer object.
      */
     private CellRenderer getColumnCellRenderer(TableFacadeTag facadeTag) {
@@ -321,7 +321,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      * @return The column FilterRenderer object.
      */
     private FilterRenderer getColumnFilterRenderer(TableFacadeTag facadeTag) {
@@ -337,7 +337,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
-     * @since 2.3
+     * @since 2.2
      * @return The column HeaderRenderer object.
      */
     private HeaderRenderer getColumnHeaderRenderer(TableFacadeTag facadeTag) {

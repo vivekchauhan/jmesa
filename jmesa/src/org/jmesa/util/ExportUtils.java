@@ -13,67 +13,62 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.pdf;
+package org.jmesa.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jmesa.view.AbstractViewExporter;
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeImpl;
+import org.jmesa.limit.Limit;
 import org.jmesa.view.View;
-import org.jmesa.view.ViewUtils;
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.util.XRLog;
 
 /**
+ * <p>
+ * Utility class to work with the Exports.
+ * </p>
+ * 
  * @since 2.2
- * @author Paul Horn
+ * @author Jeff Johnston
  */
-public class PdfViewExporter extends AbstractViewExporter {
-    private View view;
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-    private String fileName;
-
-    public PdfViewExporter(View view, HttpServletRequest request, HttpServletResponse response) {
-        this.view = view;
-        this.request = request;
-        this.response = response;
-        this.fileName = ViewUtils.exportFileName(view, "pdf");
+public class ExportUtils {
+    
+    /**
+     * Use the view caption for the export. If the caption is not defined then use a default.
+     * 
+     * @param view The view to export.
+     * @param exportType The type of view to export.
+     * @return The file name of export.
+     */
+    public static String exportFileName(View view, String exportType) {
+        String caption = view.getTable().getCaption();
+        if (StringUtils.isNotBlank(caption)) {
+            StringUtils.replace(caption, " ", "_");
+            return caption.toLowerCase() + "." + exportType;
+        } 
+        
+        return "table-data." + exportType;
     }
 
-    public PdfViewExporter(View view, String fileName, HttpServletRequest request, HttpServletResponse response) {
-        this.view = view;
-        this.fileName = fileName;
-        this.request = request;
-        this.response = response;
+    public static void exportToFile(TableFacade tableFacade, String filePath) {
+        Limit limit = tableFacade.getLimit();
+        if (!limit.isExportable() || !limit.getExport().getType().equals(TableFacadeImpl.PDF)) {
+            exportPdf(tableFacade, filePath);
+        }
     }
 
-    public View getView() {
-        return this.view;
-    }
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    @Override
-    public void responseHeaders(byte[] contents, HttpServletResponse response) throws Exception {
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        response.setHeader("Pragma", "public");
-        response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
-        response.setContentLength(contents.length);
-    }
-
-    public void export() throws Exception {
+    private static void exportPdf(TableFacade tableFacade, String filePath) {
+        View view = tableFacade.getView();
         byte[] contents = view.getBytes();
-        responseHeaders(contents, response);
 
         System.setProperty("xr.load.xml-reader", "org.ccil.cowan.tagsoup.Parser");
         System.setProperty("xr.util-logging.loggingEnabled", "false");
@@ -96,18 +91,20 @@ public class PdfViewExporter extends AbstractViewExporter {
 
         ITextRenderer renderer = new ITextRenderer();
 
-        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document doc = builder.parse(new ByteArrayInputStream(contents));
+        try {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc = builder.parse(new ByteArrayInputStream(contents));
 
-        renderer.setDocument(doc, getBaseUrl());
-        renderer.layout();
-        renderer.createPDF(response.getOutputStream());
-    }
-    
-    /**
-     * @return The base url to the web application.
-     */
-    private String getBaseUrl() {
-        return request.getRequestURL().toString();
+            HttpServletRequest request = (HttpServletRequest) tableFacade.getWebContext().getBackingObject();
+            renderer.setDocument(doc, request.getRequestURL().toString());
+            renderer.layout();
+
+            File file = new File(filePath);
+            FileOutputStream output = new FileOutputStream(file);
+            renderer.createPDF(output);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Not able to generate the PDF");
+        }
     }
 }

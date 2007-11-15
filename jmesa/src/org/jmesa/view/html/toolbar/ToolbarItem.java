@@ -21,7 +21,7 @@ package org.jmesa.view.html.toolbar;
  */
 public interface ToolbarItem {
     /**
-     * @since 2.3
+     * @since 2.2
      * @return The name that identifies this toolbar item. Will be passed to the javascript
      *         functions.
      */

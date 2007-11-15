@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Utilities to create objects and throw runtime exceptions.
  * 
- * @since 2.3
+ * @since 2.2
  * @author Jeff Johnston
  */
 class ClassUtils {

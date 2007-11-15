@@ -33,7 +33,7 @@ import org.jmesa.view.html.component.HtmlColumn;
 /**
  * Create a droplist for the filter.
  * 
- * @since 2.3
+ * @since 2.2
  * @author Jeff Johnston
  */
 public class DroplistFilterEditor extends AbstractFilterEditor {
