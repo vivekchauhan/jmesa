@@ -16,7 +16,7 @@
 package org.jmesaweb.controller;
 
 import static org.jmesa.facade.TableFacadeImpl.CSV;
-import static org.jmesa.facade.TableFacadeImpl.EXCEL;
+import static org.jmesa.facade.TableFacadeImpl.JEXCEL;
 import static org.jmesa.facade.TableFacadeImpl.PDF;
 
 import java.util.Collection;
@@ -63,7 +63,7 @@ public class BasicPresidentController extends AbstractController {
 
         TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career", "born");
         tableFacade.setEditable(false);
-        tableFacade.setExportTypes(response, CSV, EXCEL, PDF);
+        tableFacade.setExportTypes(response, CSV, JEXCEL, PDF);
 
         // return to the table in the same state that the user left it.
         tableFacade.setStateAttr("restore");
