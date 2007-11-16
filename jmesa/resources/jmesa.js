@@ -339,11 +339,11 @@ function createDynDroplistFilter(filter, id, property, options) {
     /* Get the original value from the filter. */
     var originalValue = cell.text();
     cell.text('')
-    
-    var width = cell.width();
 
+    var width = cell.width();
+    
     /* Create the dynamic select input box. */
-    html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter" style="width:' + width + 'px">';
+    html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
     	if (key == originalValue) {
@@ -356,7 +356,26 @@ function createDynDroplistFilter(filter, id, property, options) {
     
     cell.append(html);
     
+    var div = $('#dynFilterDiv');
     var input = $('#dynFilterInput');
+    
+    // IE will not resize options automatically.
+    if ($.browser.msie) {
+	    var selectWidth = input.width();
+	    if (selectWidth > width) {
+            width = selectWidth;
+	    }
+        // Now show select list. This keeps the screen from blinking.
+        input.width(width)
+        div.width(width);
+	    div.css( {visibility:"visible", borderStyle:"none"} ) 
+    } else {
+        // Now show select list. This keeps the screen from blinking.
+	    input.width(width)
+	    div.width(width);
+        div.css( {visibility:"visible"} ) 
+    }
+
     input.focus();
 
     /* Something was selected */
