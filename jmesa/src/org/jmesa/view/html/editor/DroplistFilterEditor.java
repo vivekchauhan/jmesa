@@ -51,7 +51,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
             filterValue = filter.getValue();
         }
 
-        String name = limit.getId() + property + "FilterOptions";
+        String name = limit.getId() + "_" + property.replace(".", "_") + "_" + "options";
 
         StringBuilder javascript = new StringBuilder();
         javascript.append("var ").append(name).append("={};");

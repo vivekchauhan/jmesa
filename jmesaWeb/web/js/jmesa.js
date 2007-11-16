@@ -355,10 +355,11 @@ function createDynDroplistFilter(filter, id, property, options) {
     html += '</select></div>';
     
     cell.append(html);
-
+    
     var div = $('#dynFilterDiv');
     var input = $('#dynFilterInput');
     
+    // IE will not resize options automatically.
     if ($.browser.msie) {
 	    var selectWidth = input.width();
 	    if (selectWidth > width) {
@@ -370,6 +371,7 @@ function createDynDroplistFilter(filter, id, property, options) {
 	    div.width(width);
     }
 
+	// Now show select list. This keeps the screen from blinking.
     div.css( {visibility: "visible"} ) 
     input.focus();
 
