@@ -14,7 +14,7 @@ TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name
 String html = tableFacade.render(); 
 }}}
 
-=== Basic Example ===
+=== Example ===
 
 The approach that the !TableFacade takes is you declare the whole table with all the defaults, and then customize things as needed. For instance if you want to customize the previous example you can do this (Spring MVC example): 
 
