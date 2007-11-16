@@ -97,6 +97,8 @@ public class BasicPresidentController extends AbstractController {
         HtmlColumn career = (HtmlColumn)row.getColumn("career");
         career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
 
+        ((HtmlColumn)lastName).getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+
         ((HtmlTable) table).getTableRenderer().setWidth("600px");
 
         // Using an anonymous class to implement a custom editor.
