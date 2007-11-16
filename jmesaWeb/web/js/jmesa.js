@@ -339,11 +339,11 @@ function createDynDroplistFilter(filter, id, property, options) {
     /* Get the original value from the filter. */
     var originalValue = cell.text();
     cell.text('')
-    
-    var width = cell.width();
 
+    var width = cell.width();
+    
     /* Create the dynamic select input box. */
-    html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter" style="width:' + width + 'px">';
+    html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
     	if (key == originalValue) {
@@ -355,9 +355,13 @@ function createDynDroplistFilter(filter, id, property, options) {
     html += '</select></div>';
     
     cell.append(html);
-    
+
     var input = $('#dynFilterInput');
+    var div = $('#dynFilterDiv');
+
+    var selectWidth = input.width();
     input.focus();
+    div.width(selectWidth);
 
     /* Something was selected */
     $('#dynFilterInput').change(function() {
