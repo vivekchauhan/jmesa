@@ -358,7 +358,6 @@ function createDynDroplistFilter(filter, id, property, options) {
 
     var div = $('#dynFilterDiv');
     var input = $('#dynFilterInput');
-    input.focus();
     
     if ($.browser.msie) {
 	    var selectWidth = input.width();
@@ -372,6 +371,7 @@ function createDynDroplistFilter(filter, id, property, options) {
     }
 
     div.css( {visibility: "visible"} ) 
+    input.focus();
 
     /* Something was selected */
     $('#dynFilterInput').change(function() {
