@@ -61,7 +61,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         Collection<Option> options = getOptions();
         for (Option option : options) {
             String value = escapeJavaScript(option.getValue());
-            String label = option.getLabel();
+            String label = escapeJavaScript(option.getLabel());
             javascript.append(name).append("['");
             javascript.append(value).append("']='").append(label).append("';");
         }

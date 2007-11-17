@@ -15,6 +15,8 @@
  */
 package org.jmesa.view.html;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -257,7 +259,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {
-            html.append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + filter.getValue() + "')").semicolon().newline();
+            String value = escapeJavaScript(filter.getValue());
+            html.append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
         }
 
         html.scriptEnd();
