@@ -15,14 +15,16 @@
  */
 package org.jmesa.view.html.editor;
 
-import java.util.Arrays;
+import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.util.ItemUtils;
@@ -56,11 +58,12 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         StringBuilder javascript = new StringBuilder();
         javascript.append("var ").append(name).append("={};");
 
-        Collection<?> options = getOptions();
-        for (Object option : options) {
-            option = escapeJavaScript(option.toString());
+        Collection<Option> options = getOptions();
+        for (Option option : options) {
+            String value = escapeJavaScript(option.getValue());
+            String label = option.getLabel();
             javascript.append(name).append("['");
-            javascript.append(option).append("']='").append(option).append("';");
+            javascript.append(value).append("']='").append(label).append("';");
         }
 
         html.script().type("text/javascript").close().append(javascript).scriptEnd();
@@ -76,23 +79,69 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
     /**
      * @return The unique list of options for the droplist values.
      */
-    protected Collection<?> getOptions() {
-        Set<String> options = new HashSet<String>();
+    protected List<Option> getOptions() {
+        Set<String> values = new HashSet<String>();
 
         String property = getColumn().getProperty();
 
         for (Object item : getCoreContext().getAllItems()) {
-            Object val = ItemUtils.getItemValue(item, property);
-            if (val != null && String.valueOf(val).length() > 0) {
-                options.add(String.valueOf(val));
+            Object value = ItemUtils.getItemValue(item, property);
+
+            if (value == null) {
+                continue;
             }
+
+            String valueStr = String.valueOf(value);
+
+            if (valueStr.length() == 0) {
+                continue;
+            }
+
+            values.add(valueStr);
         }
 
-        List<?> results = Arrays.asList(options.toArray());
-        if (results != null && results.size() > 0) {
-            Collections.sort(results, null);
+        List<Option> options = new ArrayList<Option>();
+
+        for (String value : values) {
+            Option option = new Option(value, value);
+            options.add(option);
         }
 
-        return results;
+        Collections.sort(options, null);
+
+        return options;
+    }
+
+    /**
+     * Represents an Html Select Option.
+     */
+    protected static class Option implements Comparable<Option> {
+        private final String value;
+        private final String label;
+
+        public Option(String value, String label) {
+            this.value = value;
+            this.label = label;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public int compareTo(Option option) {
+            return this.getLabel().compareToIgnoreCase(option.getLabel());
+        }
+
+        @Override
+        public String toString() {
+            ToStringBuilder builder = new ToStringBuilder(this);
+            builder.append("value", getValue());
+            builder.append("label", getLabel());
+            return builder.toString();
+        }
     }
 }
