@@ -51,6 +51,10 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         return table;
     }
 
+    protected Toolbar getToolbar() {
+        return toolbar;
+    }
+
     protected CoreContext getCoreContext() {
         return coreContext;
     }
@@ -149,16 +153,16 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
     public String body() {
         HtmlBuilder html = new HtmlBuilder();
-        
+
         int rowcount = 0;
-        
+
         boolean rowcountIncludePagination = new Boolean(coreContext.getPreference(HtmlConstants.ROWCOUNT_INCLUDE_PAGINATION));
         if (rowcountIncludePagination) {
             int page = coreContext.getLimit().getRowSelect().getPage();
             int maxRows = coreContext.getLimit().getRowSelect().getMaxRows();
             rowcount = (page - 1) * maxRows;
         }
-        
+
         Collection<?> items = coreContext.getPageItems();
         for (Object item : items) {
             rowcount++;
@@ -234,7 +238,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
     }
 
     /*
-     * TODO: Move this into the LimitImpl class as a toJavaScript() method. 
+     * TODO: Move this into the LimitImpl class as a toJavaScript() method.
      */
     public String initJavascriptLimit() {
         HtmlBuilder html = new HtmlBuilder();
