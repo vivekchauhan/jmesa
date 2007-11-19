@@ -25,6 +25,7 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.TableFactory;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewExporter;
@@ -340,10 +341,12 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setMessages(Messages messages) {
         this.messages = messages;
+        SupportUtils.setWebContext(messages, getWebContext());
     }
 
     public void setPreferences(Preferences preferences) {
         this.preferences = preferences;
+        SupportUtils.setWebContext(preferences, getWebContext());
     }
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
@@ -380,6 +383,7 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         this.columnSort = columnSort;
+        SupportUtils.setWebContext(columnSort, getWebContext());
     }
 
     public void setRowFilter(RowFilter rowFilter) {
@@ -389,6 +393,7 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         this.rowFilter = rowFilter;
+        SupportUtils.setWebContext(rowFilter, getWebContext());
     }
 
     public void setItems(Collection<?> items) {
@@ -434,6 +439,7 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setCoreContext(CoreContext coreContext) {
         this.coreContext = coreContext;
+        SupportUtils.setWebContext(coreContext, getWebContext());
     }
 
     public Table getTable() {
@@ -502,6 +508,9 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
+        SupportUtils.setTable(toolbar, getTable());
+        SupportUtils.setCoreContext(toolbar, getCoreContext());
+        SupportUtils.setWebContext(toolbar, getWebContext());
     }
 
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
@@ -537,46 +546,39 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setView(View view) {
         this.view = view;
+        SupportUtils.setTable(view, getTable());
+        SupportUtils.setToolbar(view, getToolbar());
+        SupportUtils.setCoreContext(view, getCoreContext());
+        SupportUtils.setWebContext(view, getWebContext());
     }
 
     public String render() {
         Limit l = getLimit();
 
+        View view = getView();
+
         if (!l.isExportable()) {
-            return getView().render().toString();
+            return view.render().toString();
         }
 
         String exportType = l.getExport().getType();
-        if (exportType.equals(CSV)) {
-            ViewExporter exporter = new CsvViewExporter(getView(), response);
-            try {
+
+        try {
+            if (exportType.equals(CSV)) {
+                ViewExporter exporter = new CsvViewExporter(view, response);
                 exporter.export();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (exportType.equals(EXCEL)) {
-            ViewExporter exporter = new ExcelViewExporter(getView(), response);
-            try {
+            } else if (exportType.equals(EXCEL)) {
+                ViewExporter exporter = new ExcelViewExporter(view, response);
                 exporter.export();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (exportType.equals(PDF)) {
-            ViewExporter exporter = new PdfViewExporter(getView(), request, response);
-            try {
+            } else if (exportType.equals(JEXCEL)) {
+                ViewExporter exporter = new JExcelViewExporter(view, response);
                 exporter.export();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (exportType.equals(JEXCEL)) {
-            ViewExporter exporter = new JExcelViewExporter(getView(), response);
-            try {
+            } else if (exportType.equals(PDF)) {
+                ViewExporter exporter = new PdfViewExporter(view, request, response);
                 exporter.export();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        } else {
-            throw new IllegalStateException("Not able to handle the export of type: " + exportType);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return null;

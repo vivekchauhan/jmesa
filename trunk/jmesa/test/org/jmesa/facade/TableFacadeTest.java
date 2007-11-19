@@ -46,7 +46,6 @@ import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
@@ -74,7 +73,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getWebContext() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
 
@@ -102,7 +101,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getCoreContext() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
 
@@ -117,7 +116,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void addFilterMatcher() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
@@ -132,14 +131,14 @@ public class TableFacadeTest extends AbstractTestCase {
 
         assertNotNull(facade.getCoreContext());
 
-        Collection<?>  filteredObjects = facade.getCoreContext().getPageItems();
+        Collection<?> filteredObjects = facade.getCoreContext().getPageItems();
         assertNotNull(filteredObjects);
         assertTrue("There are two many filtered items.", filteredObjects.size() == 1);
     }
 
     @Test
     public void getLimit() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("restore", "true");
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -147,7 +146,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertTrue(limit.isComplete());
-        
+
         // Test the baking in of the State feature.
         TableFacade facadeStateLimit = new TableFacadeImpl("pres", request);
         facadeStateLimit.setStateAttr("restore");
@@ -162,7 +161,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitAndExportable() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
@@ -180,7 +179,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitAndNotExportable() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -194,7 +193,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitWithState() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -220,7 +219,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExport(TableFacadeImpl.CSV);
 
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         TableFacade facade = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
         facade.setRowSelect(15, items.size());
@@ -247,7 +246,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getTableAndNotExportable() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -262,7 +261,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExport(TableFacadeImpl.CSV);
 
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
         Table table = facade.getTable();
@@ -276,7 +275,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExport("foo");
 
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
         try {
@@ -289,7 +288,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getToolbar() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -305,7 +304,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getToolbarMaxRowsIncrements() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -317,7 +316,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getView() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -325,8 +324,7 @@ public class TableFacadeTest extends AbstractTestCase {
         View view = facade.getView();
         assertNotNull(view);
 
-        View viewToSet = new HtmlView(new HtmlTableImpl(), new HtmlSnippetsImpl((HtmlTable) facade.getTable(), facade.getToolbar(), facade
-                .getCoreContext()));
+        View viewToSet = new HtmlView(new HtmlSnippetsImpl((HtmlTable) facade.getTable(), facade.getToolbar(), facade.getCoreContext()));
         facade.setView(viewToSet); // The view set should now be the one used.
         assertTrue("The view is not the same.", viewToSet == facade.getView());
     }
@@ -338,7 +336,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExport(TableFacadeImpl.CSV);
 
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
         View view = facade.getView();
@@ -348,7 +346,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void render() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
@@ -360,13 +358,13 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void renderWithFactory() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = new TableFacadeImpl("pres", request, 15, items);
-        
+
         HtmlComponentFactory factory = new HtmlComponentFactory(facade.getWebContext(), facade.getCoreContext());
-        
+
         HtmlTable table = factory.createTable();
         HtmlRow row = factory.createRow();
         row.addColumn(factory.createColumn("name.firstName"));
@@ -376,36 +374,36 @@ public class TableFacadeTest extends AbstractTestCase {
         table.setRow(row);
 
         facade.setTable(table);
-        
+
         String html = facade.render();
         assertNotNull(html);
         assertTrue("Did not return any markup.", html.length() > 0);
     }
-    
+
     @Test
     public void renderExportsWithFactory() {
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 
         MockHttpServletResponse response = new MockHttpServletResponse();
-        assertTrue("The response is not empty." , response.getContentAsByteArray().length == 0);
-        
+        assertTrue("The response is not empty.", response.getContentAsByteArray().length == 0);
+
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExport(TableFacadeImpl.EXCEL);
 
         TableFacade facade = new TableFacadeImpl(ID, request, items);
         facade.setExportTypes(response, TableFacadeImpl.EXCEL);
-        
+
         Limit limit = facade.getLimit();
-        assertTrue("The limit is not exportable" , limit.isExportable());
-        
+        assertTrue("The limit is not exportable", limit.isExportable());
+
         if (limit.isExportable()) {
-            assertTrue("The limit is not an Excel file." , limit.getExport().getType().equals(TableFacadeImpl.EXCEL));
-            
+            assertTrue("The limit is not an Excel file.", limit.getExport().getType().equals(TableFacadeImpl.EXCEL));
+
             ExcelComponentFactory factory = new ExcelComponentFactory(facade.getWebContext(), facade.getCoreContext());
-            
+
             Table table = factory.createTable();
             Row row = factory.createRow();
             row.addColumn(factory.createColumn("name.firstName"));
@@ -416,7 +414,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
             facade.setTable(table);
             assertNull(facade.render()); // exports do not render anything
-            
+
             assertTrue("There are no contents in the export.", response.getContentAsByteArray().length > 0);
         }
     }
@@ -428,12 +426,12 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExport(TableFacadeImpl.CSV);
 
-        Collection<President>  items = new PresidentDao().getPresidents();
+        Collection<President> items = new PresidentDao().getPresidents();
 
         TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
 
         MockHttpServletResponse response = new MockHttpServletResponse();
-        assertTrue("The response is not empty." , response.getContentAsByteArray().length == 0);
+        assertTrue("The response is not empty.", response.getContentAsByteArray().length == 0);
         facade.setExportTypes(response, TableFacadeImpl.CSV, TableFacadeImpl.EXCEL);
 
         String markup = facade.render();

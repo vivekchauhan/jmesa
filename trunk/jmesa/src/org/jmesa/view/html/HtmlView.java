@@ -16,43 +16,33 @@
 package org.jmesa.view.html;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.View;
-import org.jmesa.view.component.Table;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
 
 /**
+ * Default html view.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlView implements View {
-    private HtmlTable table;
-    private HtmlSnippets snippets;
+public class HtmlView extends AbstractHtmlView {
+    public HtmlView() {
+        // default constructor
+    }
 
     public HtmlView(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
-        this.table = table;
-        this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
+        setTable(table);
+        setToolbar(toolbar);
+        setCoreContext(coreContext);
     }
 
-    public HtmlView(HtmlTable table, HtmlSnippets snippets) {
-        this.table = table;
-        this.snippets = snippets;
-    }
-
-    public HtmlTable getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = (HtmlTable) table;
-    }
-
-    public byte[] getBytes() {
-        String render = (String) render();
-        return render.getBytes();
+    public HtmlView(HtmlSnippets snippets) {
+        setHtmlSnippets(snippets);
     }
 
     public Object render() {
+        HtmlSnippets snippets = getHtmlSnippets();
+
         HtmlBuilder html = new HtmlBuilder();
 
         html.append(snippets.themeStart());
