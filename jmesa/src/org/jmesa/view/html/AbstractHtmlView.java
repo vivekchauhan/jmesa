@@ -55,6 +55,11 @@ public abstract class AbstractHtmlView extends AbstractContextSupport implements
         return render.getBytes();
     }
 
+    /**
+     * Return the HtmlSnippets object. If the snippets is null then the default one will be created.
+     * 
+     * @return The HtmlSnippets object.
+     */
     public HtmlSnippets getHtmlSnippets() {
         if (snippets == null) {
             this.snippets = new HtmlSnippetsImpl(getTable(), getToolbar(), getCoreContext());
