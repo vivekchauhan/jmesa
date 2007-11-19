@@ -36,19 +36,19 @@ API:
 {{{
 tableFacade.addFilterMatcher();
 
-tableFacade.setMessages(Messages messages);
+tableFacade.setMessages(Messages messages); (since 2.2.5)
 
-tableFacade.setPreferences(Preferences preferences);
+tableFacade.setPreferences(Preferences preferences); (since 2.2.5)
 
-tableFacade.setRowFilter(RowFilter rowFilter);
+tableFacade.setRowFilter(RowFilter rowFilter); (since 2.2.5)
 
-tableFacade.setColumnSort(ColumnSort columnSort);
+tableFacade.setColumnSort(ColumnSort columnSort); (since 2.2.5)
 
-tableFacade.setCoreContext(CoreContext coreContext);
+tableFacade.setCoreContext(CoreContext coreContext); (since 2.2.5)
 
-tableFacade.setToolbar(Toolbar toolbar);
+tableFacade.setToolbar(Toolbar toolbar); (since 2.2.5)
 
-tableFacade.setView(View view);
+tableFacade.setView(View view); (since 2.2.5)
 
 row.setOnclick(RowEvent event);
 
@@ -67,15 +67,15 @@ Tag:
 {{{
 <jmesa:tableFacade filterMatcherMap="">
 
-<jmesa:tableFacade messages="">
+<jmesa:tableFacade messages=""> (since 2.2.5)
 
-<jmesa:tableFacade preferences="">
+<jmesa:tableFacade preferences=""> (since 2.2.5)
 
-<jmesa:tableFacade rowFilter="">
+<jmesa:tableFacade rowFilter=""> (since 2.2.5)
 
-<jmesa:tableFacade columnSort="">
+<jmesa:tableFacade columnSort=""> (since 2.2.5)
 
-<jmesa:tableFacade toolbar="">
+<jmesa:tableFacade toolbar=""> (since 2.2.5)
 
 <jmesa:tableFacade view="">
 
@@ -106,9 +106,9 @@ The following places will inject the !CoreContext for you if you define the !Cor
 
 API:
 {{{
-tableFacade.setView(View view);
+tableFacade.setView(View view); (since 2.2.5)
 
-tableFacade.setToolbar(Toolbar toolbar);
+tableFacade.setToolbar(Toolbar toolbar); (since 2.2.5)
 
 row.setOnclick(RowEvent event);
 
@@ -127,7 +127,7 @@ Tag:
 {{{
 <jmesa:tableFacade view="">
 
-<jmesa:tableFacade toolbar="">
+<jmesa:tableFacade toolbar=""> (since 2.2.5)
 
 <jmesa:row onclick="">
 
@@ -173,7 +173,7 @@ The following places will inject the Toolbar for you if you define the !ToolbarS
 
 API:
 {{{
-tableFacade.setView(View view);
+tableFacade.setView(View view); (since 2.2.5)
 }}}
 
 Tag:
@@ -195,14 +195,14 @@ The following places will inject the Table for you if you define the !TableSuppo
 
 API:
 {{{
-tableFacade.setToolbar(Toolbar toolbar);
+tableFacade.setToolbar(Toolbar toolbar); (since 2.2.5)
 }}}
 
 Tag:
 {{{
 <jmesa:tableFacade view="">
 
-<jmesa:tableFacade toolbar="">
+<jmesa:tableFacade toolbar=""> (since 2.2.5)
 }}}
 
 === !ColumnSupport === 
