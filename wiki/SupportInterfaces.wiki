@@ -36,6 +36,20 @@ API:
 {{{
 tableFacade.addFilterMatcher();
 
+tableFacade.setMessages(Messages messages);
+
+tableFacade.setPreferences(Preferences preferences);
+
+tableFacade.setRowFilter(RowFilter rowFilter);
+
+tableFacade.setColumnSort(ColumnSort columnSort);
+
+tableFacade.setCoreContext(CoreContext coreContext);
+
+tableFacade.setToolbar(Toolbar toolbar);
+
+tableFacade.setView(View view);
+
 row.setOnclick(RowEvent event);
 
 row.setOnmouseover(RowEvent event);
@@ -52,6 +66,16 @@ column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
 Tag:
 {{{
 <jmesa:tableFacade filterMatcherMap="">
+
+<jmesa:tableFacade messages="">
+
+<jmesa:tableFacade preferences="">
+
+<jmesa:tableFacade rowFilter="">
+
+<jmesa:tableFacade columnSort="">
+
+<jmesa:tableFacade toolbar="">
 
 <jmesa:tableFacade view="">
 
@@ -82,6 +106,10 @@ The following places will inject the !CoreContext for you if you define the !Cor
 
 API:
 {{{
+tableFacade.setView(View view);
+
+tableFacade.setToolbar(Toolbar toolbar);
+
 row.setOnclick(RowEvent event);
 
 row.setOnmouseover(RowEvent event);
@@ -98,6 +126,8 @@ column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
 Tag:
 {{{
 <jmesa:tableFacade view="">
+
+<jmesa:tableFacade toolbar="">
 
 <jmesa:row onclick="">
 
@@ -141,6 +171,11 @@ public interface ToolbarSupport {
 
 The following places will inject the Toolbar for you if you define the !ToolbarSupport interface in your custom code:
 
+API:
+{{{
+tableFacade.setView(View view);
+}}}
+
 Tag:
 {{{
 <jmesa:tableFacade view="">
@@ -158,9 +193,16 @@ public interface TableSupport {
 
 The following places will inject the Table for you if you define the !TableSupport interface in your custom code:
 
+API:
+{{{
+tableFacade.setToolbar(Toolbar toolbar);
+}}}
+
 Tag:
 {{{
 <jmesa:tableFacade view="">
+
+<jmesa:tableFacade toolbar="">
 }}}
 
 === !ColumnSupport === 
@@ -192,12 +234,3 @@ Tag:
 
 <jmesa:column headerEditor="">
 }}}
-
-
-
-
-
-
-
-
-
