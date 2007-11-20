@@ -366,9 +366,8 @@ function createDynDroplistFilter(filter, id, property, options) {
             width = selectWidth;
 	    }
         // Now show select list. This keeps the screen from blinking.
-        input.width(width)
-        div.width(width);
-	    div.css( {visibility:"visible", borderStyle:"none"} ) 
+        input.width(width);
+        div.width(width).bgiframe().css({visibility:"visible", borderStyle:"none"});
     } else {
         // Now show select list. This keeps the screen from blinking.
 	    input.width(width)
