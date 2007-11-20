@@ -359,6 +359,8 @@ function createDynDroplistFilter(filter, id, property, options) {
     var div = $('#dynFilterDiv');
     var input = $('#dynFilterInput');
     
+    $(div).bgiframe();
+    
     // IE will not resize options automatically.
     if ($.browser.msie) {
 	    var selectWidth = input.width();
