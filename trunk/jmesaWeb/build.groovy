@@ -95,20 +95,15 @@ class Build {
      * Retrieve the dependant jars from the ivy repository and put 
      * them in the lib folder of the project
      */
-    static eclipse() {
-        def ant = [] as AntBuilder
+    def lib() {
         def libDir = 'web/WEB-INF/lib'
-        
         ant.mkdir(dir:libDir)
-    
-        def ivy = [ant:ant, namespace:'fr.jayasoft.ivy.ant'] as AntLibHelper
-        ant.property(file:'ivy.properties')
         ivy.configure(file:'ivyconf.xml')
         ivy.resolve(file:'ivy.xml')
-        ivy.retrieve(pattern:"$libDir/[artifact]-[revision].[ext]", sync:true, conf:'eclipse')
+        ivy.retrieve(pattern:"$libDir/[artifact]-[revision].[ext]", sync:true, conf:'ide')
     }    
     
-    def execute() {
+    def dist() {
         clean()
         init()
         ivyresolve()
@@ -122,7 +117,7 @@ class Build {
     static void main(args) {
         def cli = new CliBuilder(usage:'groovy build.groovy -[ha]')
         cli.h(longOpt: 'help', 'usage information')
-        cli.a(argName:'action', longOpt:'action', args:1, required:true, 'action(s) [execute, clean, eclipse]')
+        cli.a(argName:'action', longOpt:'action', args:1, required:true, 'action(s) [dist, clean, lib]')
         
         def options = cli.parse(args)
         
@@ -131,7 +126,7 @@ class Build {
             return
         }
 
-        def build = new Build(options.a == 'clean' || options.a == 'eclipse')
+        def build = new Build(options.a == 'clean' || options.a == 'lib')
         def action = options.a
         build.invokeMethod(action, null)
     }
