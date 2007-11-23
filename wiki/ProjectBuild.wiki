@@ -41,4 +41,4 @@ Lastly, if you want to just get all the jar files and place then in the lib dire
 jeff@jeff-desktop:~/workspace/jmesa$ groovy build.groovy -a lib
 }}}
 
-Building the JMesa examples project (jmesaWeb) works the same. Just be sure that you build the JMesa project (jmesa) first. The examples project uses an in-memory database so there is nothing more to running the project than checking it out and running it in your favorite servlet container.
+_Building the JMesa examples project (jmesaWeb) works the same. Just be sure that you build the JMesa project (jmesa) first. The examples project uses an in-memory database so there is nothing more to running the project than checking it out and running it in your favorite servlet container._
