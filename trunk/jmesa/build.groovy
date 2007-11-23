@@ -178,7 +178,7 @@ class Build {
      * Retrieve the dependant jars from the ivy repository and put 
      * them in the lib folder of the project
      */
-    static eclipse() {
+    static jars() {
 		def ant = [] as AntBuilder
 		def libDir = 'lib'	
 		
@@ -191,7 +191,7 @@ class Build {
 		ivy.retrieve(pattern:"$libDir/[artifact]-[revision].[ext]", sync:true, conf:'test')
 	}    
     
-    def execute() {
+    def dist() {
         clean()
         init()
         testInit()
@@ -212,7 +212,7 @@ class Build {
     static void main(args) {
         def cli = new CliBuilder(usage:'groovy build.groovy -[ha]')
         cli.h(longOpt: 'help', 'usage information')
-        cli.a(argName:'action', longOpt:'action', args:1, required:true, 'action(s) [execute, clean, eclipse]')
+        cli.a(argName:'action', longOpt:'action', args:1, required:true, 'action(s) [dist, clean, jars]')
         
         def options = cli.parse(args)
         
@@ -221,7 +221,7 @@ class Build {
             return
         }
 
-        def build = new Build(options.a == 'clean' || options.a == 'eclipse')
+        def build = new Build(options.a == 'clean' || options.a == 'jars')
         def action = options.a
         build.invokeMethod(action, null)
     }
