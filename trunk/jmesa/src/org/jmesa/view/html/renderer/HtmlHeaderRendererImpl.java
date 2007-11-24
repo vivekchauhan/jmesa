@@ -17,6 +17,7 @@ package org.jmesa.view.html.renderer;
 
 import org.jmesa.limit.Order;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractHeaderRenderer;
 
@@ -82,14 +83,24 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
-        html.td(2);
+        String element = getCoreContext().getPreference(HtmlConstants.HEADER_RENDERER_ELEMENT);
+        if (element.equalsIgnoreCase("td")) {
+            html.td(2);
+        } else {
+            html.th(2);
+        }
+        
         html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
 
         html.append(getHeaderEditor().getValue());
 
-        html.tdEnd();
+        if (element.equalsIgnoreCase("td")) {
+            html.tdEnd();
+        } else {
+            html.thEnd();
+        }
 
         return html.toString();
     }
