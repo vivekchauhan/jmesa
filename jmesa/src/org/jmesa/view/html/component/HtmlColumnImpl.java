@@ -16,6 +16,7 @@
 package org.jmesa.view.html.component;
 
 import org.jmesa.limit.Order;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
@@ -84,6 +85,9 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 
     public void setFilterRenderer(FilterRenderer filterRenderer) {
         this.filterRenderer = filterRenderer;
+        SupportUtils.setWebContext(filterRenderer, getWebContext());
+        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
+        SupportUtils.setColumn(filterRenderer, this);
     }
 
     public boolean isGeneratedOnTheFly() {

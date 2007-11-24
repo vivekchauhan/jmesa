@@ -25,9 +25,14 @@ import org.jmesa.view.renderer.AbstractHeaderRenderer;
  * @author Jeff Johnston
  */
 public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements HtmlHeaderRenderer {
+
     private String style;
     private String styleClass;
     private boolean defaultSortOrderable = true;
+
+    public HtmlHeaderRendererImpl() {
+    // default constructor
+    }
 
     public HtmlHeaderRendererImpl(HtmlColumn column) {
         setColumn(column);
@@ -68,7 +73,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     @Deprecated
     public void setDefaultSortOrderable(boolean defaultSortOrderable) {
         if (!defaultSortOrderable) {
-            getColumn().setSortOrder(new Order[] { Order.ASC, Order.DESC });
+            getColumn().setSortOrder(new Order[]{Order.ASC, Order.DESC});
         }
 
         this.defaultSortOrderable = defaultSortOrderable;

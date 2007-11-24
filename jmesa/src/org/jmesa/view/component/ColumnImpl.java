@@ -16,6 +16,7 @@
 package org.jmesa.view.component;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.renderer.CellRenderer;
@@ -28,7 +29,7 @@ import org.jmesa.view.renderer.HeaderRenderer;
 public class ColumnImpl extends AbstractContextSupport implements Column {
     private String property;
     private String title;
-    private CellRenderer columnRenderer;
+    private CellRenderer cellRenderer;
     private HeaderRenderer headerRenderer;
     private Row row;
 
@@ -79,11 +80,14 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
     }
 
     public CellRenderer getCellRenderer() {
-        return columnRenderer;
+        return cellRenderer;
     }
 
-    public void setCellRenderer(CellRenderer columnRenderer) {
-        this.columnRenderer = columnRenderer;
+    public void setCellRenderer(CellRenderer cellRenderer) {
+        this.cellRenderer = cellRenderer;
+        SupportUtils.setWebContext(cellRenderer, getWebContext());
+        SupportUtils.setCoreContext(cellRenderer, getCoreContext());
+        SupportUtils.setColumn(cellRenderer, this);
     }
 
     public HeaderRenderer getHeaderRenderer() {
@@ -92,6 +96,9 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
 
     public void setHeaderRenderer(HeaderRenderer headerRenderer) {
         this.headerRenderer = headerRenderer;
+        SupportUtils.setWebContext(headerRenderer, getWebContext());
+        SupportUtils.setCoreContext(headerRenderer, getCoreContext());
+        SupportUtils.setColumn(headerRenderer, this);
     }
 
     public Row getRow() {
