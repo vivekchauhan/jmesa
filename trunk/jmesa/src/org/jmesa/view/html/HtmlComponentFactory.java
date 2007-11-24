@@ -100,11 +100,28 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 
         SupportUtils.setWebContext(editor, getWebContext());
         SupportUtils.setCoreContext(editor, getCoreContext());
+        
+        // cell
 
-        HtmlCellRendererImpl columnRenderer = new HtmlCellRendererImpl(column, editor);
-        columnRenderer.setWebContext(getWebContext());
-        columnRenderer.setCoreContext(getCoreContext());
-        column.setCellRenderer(columnRenderer);
+        HtmlCellRendererImpl cellRenderer = new HtmlCellRendererImpl(column, editor);
+        cellRenderer.setWebContext(getWebContext());
+        cellRenderer.setCoreContext(getCoreContext());
+        column.setCellRenderer(cellRenderer);
+
+        // filter
+        
+        HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
+        filterRenderer.setWebContext(getWebContext());
+        filterRenderer.setCoreContext(getCoreContext());
+        column.setFilterRenderer(filterRenderer);
+
+        HtmlFilterEditor filterEditor = new HtmlFilterEditor();
+        filterEditor.setWebContext(getWebContext());
+        filterEditor.setCoreContext(getCoreContext());
+        filterEditor.setColumn(column);
+        filterRenderer.setFilterEditor(filterEditor);
+        
+        // header
 
         HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
         headerRenderer.setWebContext(getWebContext());
@@ -116,17 +133,6 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         headerEditor.setCoreContext(getCoreContext());
         headerEditor.setColumn(column);
         headerRenderer.setHeaderEditor(headerEditor);
-
-        HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
-        filterRenderer.setWebContext(getWebContext());
-        filterRenderer.setCoreContext(getCoreContext());
-        column.setFilterRenderer(filterRenderer);
-
-        HtmlFilterEditor filterEditor = new HtmlFilterEditor();
-        filterEditor.setWebContext(getWebContext());
-        filterEditor.setCoreContext(getCoreContext());
-        filterEditor.setColumn(column);
-        filterRenderer.setFilterEditor(filterEditor);
 
         return column;
     }

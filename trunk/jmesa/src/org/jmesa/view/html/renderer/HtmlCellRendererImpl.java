@@ -25,8 +25,13 @@ import org.jmesa.view.renderer.AbstractCellRenderer;
  * @author Jeff Johnston
  */
 public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCellRenderer {
+
     private String style;
     private String styleClass;
+
+    public HtmlCellRendererImpl() {
+        // default constructor
+    }
 
     public HtmlCellRendererImpl(HtmlColumn column, CellEditor editor) {
         setColumn(column);

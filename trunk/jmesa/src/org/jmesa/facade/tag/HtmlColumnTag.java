@@ -25,6 +25,7 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Order;
 import org.jmesa.util.ItemUtils;
 import org.jmesa.util.SupportUtils;
@@ -34,9 +35,10 @@ import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.renderer.CellRenderer;
-import org.jmesa.view.renderer.FilterRenderer;
-import org.jmesa.view.renderer.HeaderRenderer;
+import org.jmesa.view.html.renderer.HtmlCellRenderer;
+import org.jmesa.view.html.renderer.HtmlFilterRenderer;
+import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
+import org.jmesa.web.WebContext;
 
 /**
  * Represents an HtmlColumn.
@@ -308,48 +310,101 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      * @return The column CellRenderer object.
      */
-    private CellRenderer getColumnCellRenderer(TableFacadeTag facadeTag) {
+    private HtmlCellRenderer getColumnCellRenderer(HtmlColumn column) {
         if (StringUtils.isBlank(getCellRenderer())) {
-            return null;
+            return column.getCellRenderer();
         }
-
-        CellRenderer cellRenderer = (CellRenderer) ClassUtils.createInstance(getCellRenderer());
-        SupportUtils.setCoreContext(cellRenderer, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(cellRenderer, facadeTag.getWebContext());
+        
+        HtmlCellRenderer cellRenderer = (HtmlCellRenderer) ClassUtils.createInstance(getCellRenderer());
+        cellRenderer.setCellEditor(column.getCellRenderer().getCellEditor()); // reset the default
 
         return cellRenderer;
     }
+    
+    /**
+     * <p>
+     * If the cellEditor is not defined then create a BasicCellEditor.
+     * </p>
+     * 
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor. If a setPattern() method is defined on your editor and you have defined the column
+     * pattern attribute on the tag it will be set on your CellEditor automatically.
+     * </p>
+     * 
+     * @return The CellEditor to use.
+     */
+    private CellEditor getColumnCellEditor(HtmlColumn column) {
+        if (StringUtils.isEmpty(getCellEditor())) {
+            return column.getCellRenderer().getCellEditor();
+        }
 
+        CellEditor editor = (CellEditor) ClassUtils.createInstance(getCellEditor());
+        SupportUtils.setPattern(editor, getPattern());
+
+        return editor;
+    }
+    
     /**
      * @since 2.2
      * @return The column FilterRenderer object.
      */
-    private FilterRenderer getColumnFilterRenderer(TableFacadeTag facadeTag) {
+    private HtmlFilterRenderer getColumnFilterRenderer(HtmlColumn column) {
         if (StringUtils.isBlank(getFilterRenderer())) {
-            return null;
+            return column.getFilterRenderer();
         }
-
-        FilterRenderer filterRenderer = (FilterRenderer) ClassUtils.createInstance(getFilterRenderer());
-        SupportUtils.setCoreContext(filterRenderer, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(filterRenderer, facadeTag.getWebContext());
+        
+        HtmlFilterRenderer filterRenderer = (HtmlFilterRenderer) ClassUtils.createInstance(getFilterRenderer());
+        filterRenderer.setFilterEditor(column.getFilterRenderer().getFilterEditor()); // reset the default
 
         return filterRenderer;
+    }
+    
+    /**
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor.
+     * </p>
+     * 
+     * @return The FilterEditor to use.
+     */
+    private FilterEditor getColumnFilterEditor(HtmlColumn column) {
+        if (StringUtils.isEmpty(getFilterEditor())) {
+            return column.getFilterRenderer().getFilterEditor();
+        }
+
+        return (FilterEditor) ClassUtils.createInstance(getFilterEditor());
     }
 
     /**
      * @since 2.2
      * @return The column HeaderRenderer object.
      */
-    private HeaderRenderer getColumnHeaderRenderer(TableFacadeTag facadeTag) {
+    private HtmlHeaderRenderer getColumnHeaderRenderer(HtmlColumn column) {
         if (StringUtils.isBlank(getHeaderRenderer())) {
-            return null;
+            return column.getHeaderRenderer();
         }
-
-        HeaderRenderer headerRenderer = (HeaderRenderer) ClassUtils.createInstance(getHeaderRenderer());
-        SupportUtils.setCoreContext(headerRenderer, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(headerRenderer, facadeTag.getWebContext());
+        
+        HtmlHeaderRenderer headerRenderer = (HtmlHeaderRenderer) ClassUtils.createInstance(getHeaderRenderer());
+        headerRenderer.setHeaderEditor(column.getHeaderRenderer().getHeaderEditor()); // reset the default
 
         return headerRenderer;
+    }
+    
+    /**
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor.
+     * </p>
+     * 
+     * @return The HeaderEditor to use.
+     */
+    private HeaderEditor getColumnHeaderEditor(HtmlColumn column) {
+        if (StringUtils.isEmpty(getHeaderEditor())) {
+            return column.getHeaderRenderer().getHeaderEditor();
+        }
+
+        return (HeaderEditor) ClassUtils.createInstance(getHeaderEditor());
     }
 
     /**
@@ -381,80 +436,10 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
-     * <p>
-     * If the cellEditor is not defined then create a BasicCellEditor.
-     * </p>
-     * 
-     * <p>
-     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
-     * editor. If a setPattern() method is defined on your editor and you have defined the column
-     * pattern attribute on the tag it will be set on your CellEditor automatically.
-     * </p>
-     * 
-     * @return The CellEditor to use.
-     */
-    private CellEditor getColumnCellEditor(TableFacadeTag facadeTag) {
-        if (StringUtils.isEmpty(getCellEditor())) {
-            HtmlComponentFactory factory = facadeTag.getComponentFactory();
-            return factory.createBasicCellEditor();
-        }
-
-        CellEditor editor = (CellEditor) ClassUtils.createInstance(getCellEditor());
-        SupportUtils.setPattern(editor, getPattern());
-        SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(editor, facadeTag.getWebContext());
-
-        return editor;
-    }
-
-    /**
-     * <p>
-     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
-     * editor.
-     * </p>
-     * 
-     * @return The HeaderEditor to use.
-     */
-    private HeaderEditor getColumnHeaderEditor(TableFacadeTag facadeTag) {
-        if (StringUtils.isEmpty(getHeaderEditor())) {
-            return null;
-        }
-
-        HeaderEditor editor = (HeaderEditor) ClassUtils.createInstance(getHeaderEditor());
-        SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(editor, facadeTag.getWebContext());
-
-        return editor;
-    }
-
-    /**
-     * <p>
-     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
-     * editor.
-     * </p>
-     * 
-     * @return The FilterEditor to use.
-     */
-    private FilterEditor getColumnFilterEditor(TableFacadeTag facadeTag) {
-        if (StringUtils.isEmpty(getFilterEditor())) {
-            return null;
-        }
-
-        FilterEditor editor = (FilterEditor) ClassUtils.createInstance(getFilterEditor());
-        SupportUtils.setCoreContext(editor, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(editor, facadeTag.getWebContext());
-
-        return editor;
-    }
-
-    /**
      * The column to use. If the column does not exist then one will be created.
      */
-    private HtmlColumn getColumn(TableFacadeTag facadeTag) {
-        HtmlComponentFactory factory = facadeTag.getComponentFactory();
-        CellEditor editor = getColumnCellEditor(facadeTag);
-
-        HtmlColumn column = factory.createColumn(getProperty(), editor);
+    private HtmlColumn getColumn(HtmlComponentFactory factory, WebContext webContext, CoreContext coreContext) {
+        HtmlColumn column = factory.createColumn(getProperty());
         column.setTitle(getTitle());
         column.setTitleKey(getTitleKey());
         column.setSortable(isSortable());
@@ -462,42 +447,35 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
 
-        CellRenderer cellRenderer = getColumnCellRenderer(facadeTag);
-        if (cellRenderer != null) {
-            column.setCellRenderer(cellRenderer);
-            cellRenderer.setColumn(column);
-        }
+        // cell
+        
+        HtmlCellRenderer cellRenderer = getColumnCellRenderer(column);
+        cellRenderer.setStyle(getStyle());
+        cellRenderer.setStyleClass(getStyleClass());
+        column.setCellRenderer(cellRenderer);
+        
+        CellEditor cellEditor = getColumnCellEditor(column);
+        cellRenderer.setCellEditor(cellEditor);
 
-        column.getCellRenderer().setStyle(getStyle());
-        column.getCellRenderer().setStyleClass(getStyleClass());
+        // filter
 
-        FilterRenderer filterRenderer = getColumnFilterRenderer(facadeTag);
-        if (filterRenderer != null) {
-            column.setFilterRenderer(filterRenderer);
-            filterRenderer.setColumn(column);
-        }
+        HtmlFilterRenderer filterRenderer = getColumnFilterRenderer(column);
+        filterRenderer.setStyle(getFilterStyle());
+        filterRenderer.setStyleClass(getFilterClass());
+        column.setFilterRenderer(filterRenderer);
 
-        column.getFilterRenderer().setStyle(getFilterStyle());
-        column.getFilterRenderer().setStyleClass(getFilterClass());
+        FilterEditor filterEditor = getColumnFilterEditor(column);
+        filterRenderer.setFilterEditor(filterEditor);
 
-        HeaderRenderer headerRenderer = getColumnHeaderRenderer(facadeTag);
-        if (headerRenderer != null) {
-            column.setHeaderRenderer(headerRenderer);
-            headerRenderer.setColumn(column);
-        }
+        // header
 
-        column.getHeaderRenderer().setStyle(getHeaderStyle());
-        column.getHeaderRenderer().setStyleClass(getHeaderClass());
+        HtmlHeaderRenderer headerRenderer = getColumnHeaderRenderer(column);
+        headerRenderer.setStyle(getHeaderStyle());
+        headerRenderer.setStyleClass(getHeaderClass());
+        column.setHeaderRenderer(headerRenderer);
 
-        HeaderEditor headerEditor = getColumnHeaderEditor(facadeTag);
-        if (headerEditor != null) {
-            column.getHeaderRenderer().setHeaderEditor(headerEditor);
-        }
-
-        FilterEditor filterEditor = getColumnFilterEditor(facadeTag);
-        if (filterEditor != null) {
-            column.getFilterRenderer().setFilterEditor(filterEditor);
-        }
+        HeaderEditor headerEditor = getColumnHeaderEditor(column);
+        headerRenderer.setHeaderEditor(headerEditor);
 
         return column;
     }
@@ -533,7 +511,12 @@ public class HtmlColumnTag extends SimpleTagSupport {
         Collection<Map<String, Object>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
-            HtmlColumn column = getColumn(facadeTag);
+            
+            HtmlComponentFactory factory = facadeTag.getComponentFactory();
+            WebContext webContext = facadeTag.getWebContext();
+            CoreContext coreContext = facadeTag.getCoreContext();
+            
+            HtmlColumn column = getColumn(factory, webContext, coreContext);
             TagUtils.validateColumn(this, getProperty());
             row.addColumn(column);
         }

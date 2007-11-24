@@ -20,13 +20,14 @@ import groovy.lang.Closure;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.component.ColumnSupport;
 import org.jmesa.view.editor.FilterEditor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractFilterRenderer extends AbstractContextSupport implements FilterRenderer {
+public abstract class AbstractFilterRenderer extends AbstractContextSupport implements FilterRenderer, ColumnSupport {
     private Column column;
     private FilterEditor filterEditor;
 

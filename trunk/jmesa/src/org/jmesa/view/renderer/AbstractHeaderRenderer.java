@@ -20,13 +20,14 @@ import groovy.lang.Closure;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.component.ColumnSupport;
 import org.jmesa.view.editor.HeaderEditor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractHeaderRenderer extends AbstractContextSupport implements HeaderRenderer {
+public abstract class AbstractHeaderRenderer extends AbstractContextSupport implements HeaderRenderer, ColumnSupport {
     private Column column;
     private HeaderEditor headerEditor;
 
