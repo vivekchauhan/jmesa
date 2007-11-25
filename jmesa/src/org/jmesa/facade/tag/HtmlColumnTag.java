@@ -438,7 +438,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     /**
      * The column to use. If the column does not exist then one will be created.
      */
-    private HtmlColumn getColumn(HtmlComponentFactory factory, WebContext webContext, CoreContext coreContext) {
+    private HtmlColumn getColumn(HtmlComponentFactory factory) {
         HtmlColumn column = factory.createColumn(getProperty());
         column.setTitle(getTitle());
         column.setTitleKey(getTitleKey());
@@ -511,12 +511,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
         Collection<Map<String, Object>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
-            
             HtmlComponentFactory factory = facadeTag.getComponentFactory();
-            WebContext webContext = facadeTag.getWebContext();
-            CoreContext coreContext = facadeTag.getCoreContext();
-            
-            HtmlColumn column = getColumn(factory, webContext, coreContext);
+            HtmlColumn column = getColumn(factory);
             TagUtils.validateColumn(this, getProperty());
             row.addColumn(column);
         }

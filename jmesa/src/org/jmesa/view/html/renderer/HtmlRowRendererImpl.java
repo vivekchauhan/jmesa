@@ -36,6 +36,10 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
     private String evenClass;
     private String oddClass;
 
+    public HtmlRowRendererImpl() {
+        // default constructor
+    }
+
     public HtmlRowRendererImpl(HtmlRow row) {
         setRow(row);
     }

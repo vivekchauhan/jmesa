@@ -6,12 +6,15 @@ import java.util.Map;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.jmesa.core.CoreContext;
 import org.jmesa.util.ItemUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlColumnsGenerator;
 import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.web.WebContext;
 
 /**
  * Used to generate columns on the fly for the tag library.
@@ -20,6 +23,7 @@ import org.jmesa.view.html.component.HtmlRow;
  * @author Jeff Johnston
  */
 public class HtmlColumnsTag extends SimpleTagSupport {
+
     private String htmlColumnsGenerator;
 
     public String getHtmlColumnsGenerator() {
@@ -30,8 +34,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
         this.htmlColumnsGenerator = htmlColumnsGenerator;
     }
 
-    private Object getValue(String property, TableFacadeTag facadeTag) {
-        String var = facadeTag.getVar();
+    private Object getValue(String property, String var) {
         Object item = getJspContext().getAttribute(var);
 
         if (item == null) {
@@ -44,12 +47,12 @@ public class HtmlColumnsTag extends SimpleTagSupport {
     /**
      * @return The list of columns generated on the fly.
      */
-    private List<HtmlColumn> getColumns(TableFacadeTag facadeTag) {
+    private List<HtmlColumn> getColumns(HtmlComponentFactory factory, WebContext webContext, CoreContext coreContext) {
         HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) ClassUtils.createInstance(getHtmlColumnsGenerator());
-        SupportUtils.setCoreContext(htmlColumnsGenerator, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(htmlColumnsGenerator, facadeTag.getWebContext());
+        SupportUtils.setWebContext(htmlColumnsGenerator, webContext);
+        SupportUtils.setCoreContext(htmlColumnsGenerator, coreContext);
 
-        return htmlColumnsGenerator.getColumns(facadeTag.getComponentFactory());
+        return htmlColumnsGenerator.getColumns(factory);
     }
 
     /**
@@ -61,7 +64,10 @@ public class HtmlColumnsTag extends SimpleTagSupport {
         Collection<Map<String, Object>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
-            List<HtmlColumn> columns = getColumns(facadeTag);
+            HtmlComponentFactory factory = facadeTag.getComponentFactory();
+            WebContext webContext = facadeTag.getWebContext();
+            CoreContext coreContext = facadeTag.getCoreContext();
+            List<HtmlColumn> columns = getColumns(factory, webContext, coreContext);
             for (HtmlColumn column : columns) {
                 column.setGeneratedOnTheFly(true);
                 TagUtils.validateColumn(this, column.getProperty());
@@ -79,7 +85,8 @@ public class HtmlColumnsTag extends SimpleTagSupport {
             if (htmlColumn.isGeneratedOnTheFly()) {
                 String property = htmlColumn.getProperty();
                 if (property != null) {
-                    pageItem.put(property, getValue(property, facadeTag));
+                    String var = facadeTag.getVar();
+                    pageItem.put(property, getValue(property, var));
                 }
             }
         }

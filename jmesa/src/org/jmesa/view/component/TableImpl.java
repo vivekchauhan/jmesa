@@ -16,6 +16,7 @@
 package org.jmesa.view.component;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.TableRenderer;
 
@@ -68,5 +69,8 @@ public class TableImpl extends AbstractContextSupport implements Table {
 
     public void setTableRenderer(TableRenderer tableRenderer) {
         this.tableRenderer = tableRenderer;
+        SupportUtils.setWebContext(tableRenderer, getWebContext());
+        SupportUtils.setCoreContext(tableRenderer, getCoreContext());
+        tableRenderer.setTable(this);
     }
 }
