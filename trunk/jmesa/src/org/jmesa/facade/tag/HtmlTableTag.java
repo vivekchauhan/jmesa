@@ -22,9 +22,9 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.util.SupportUtils;
+import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.renderer.TableRenderer;
+import org.jmesa.view.html.renderer.HtmlTableRenderer;
 
 /**
  * Represents an HtmlTable.
@@ -138,39 +138,32 @@ public class HtmlTableTag extends SimpleTagSupport {
      * 
      * @since 2.2
      */
-    private TableRenderer getTableTableRenderer(TableFacadeTag facadeTag) {
+    private HtmlTableRenderer getTableTableRenderer(HtmlTable table) {
         if (StringUtils.isBlank(getTableRenderer())) {
-            return null;
+            return table.getTableRenderer();
         }
 
-        TableRenderer tableRenderer = (TableRenderer) ClassUtils.createInstance(getTableRenderer());
-        SupportUtils.setCoreContext(tableRenderer, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(tableRenderer, facadeTag.getWebContext());
-
-        return tableRenderer;
+        return (HtmlTableRenderer) ClassUtils.createInstance(getTableRenderer());
     }
 
     /**
      * The table to use. If the table does not exist then one will be created.
      */
-    private HtmlTable getTable(TableFacadeTag facadeTag) {
-        HtmlTable table = facadeTag.getComponentFactory().createTable();
+    private HtmlTable getTable(HtmlComponentFactory factory) {
+        HtmlTable table = factory.createTable();
         table.setCaption(getCaption());
         table.setCaptionKey(getCaptionKey());
         table.setTheme(getTheme());
-        table.getTableRenderer().setWidth(getWidth());
 
-        TableRenderer tableRenderer = getTableTableRenderer(facadeTag);
-        if (tableRenderer != null) {
-            table.setTableRenderer(tableRenderer);
-            tableRenderer.setTable(table);
-        }
+        HtmlTableRenderer tableRenderer = getTableTableRenderer(table);
+        table.setTableRenderer(tableRenderer);
 
-        table.getTableRenderer().setStyle(getStyle());
-        table.getTableRenderer().setStyleClass(getStyleClass());
-        table.getTableRenderer().setBorder(getBorder());
-        table.getTableRenderer().setCellpadding(getCellpadding());
-        table.getTableRenderer().setCellspacing(getCellspacing());
+        tableRenderer.setWidth(getWidth());
+        tableRenderer.setStyle(getStyle());
+        tableRenderer.setStyleClass(getStyleClass());
+        tableRenderer.setBorder(getBorder());
+        tableRenderer.setCellpadding(getCellpadding());
+        tableRenderer.setCellspacing(getCellspacing());
 
         return table;
     }
@@ -185,7 +178,8 @@ public class HtmlTableTag extends SimpleTagSupport {
         TableFacadeTag facadeTag = (TableFacadeTag) findAncestorWithClass(this, TableFacadeTag.class);
         HtmlTable table = facadeTag.getTable();
         if (table == null) {
-            table = getTable(facadeTag);
+            HtmlComponentFactory factory = facadeTag.getComponentFactory();
+            table = getTable(factory);
             facadeTag.setTable(table);
         }
 

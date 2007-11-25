@@ -29,6 +29,10 @@ public class HtmlTableRendererImpl extends AbstractTableRenderer implements Html
     private String cellspacing;
     private String width;
 
+    public HtmlTableRendererImpl() {
+        // default constructor
+    }
+
     public HtmlTableRendererImpl(HtmlTable table) {
         setTable(table);
     }

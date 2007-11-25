@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jmesa.util.ItemUtils;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.RowRenderer;
 
@@ -85,5 +86,8 @@ public class RowImpl extends AbstractContextSupport implements Row {
 
     public void setRowRenderer(RowRenderer rowRenderer) {
         this.rowRenderer = rowRenderer;
+        SupportUtils.setWebContext(rowRenderer, getWebContext());
+        SupportUtils.setCoreContext(rowRenderer, getCoreContext());
+        rowRenderer.setRow(this);
     }
 }

@@ -25,11 +25,11 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.util.SupportUtils;
+import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.event.RowEvent;
-import org.jmesa.view.renderer.RowRenderer;
+import org.jmesa.view.html.renderer.HtmlRowRenderer;
 import org.jmesa.web.WebContext;
 
 /**
@@ -46,13 +46,10 @@ public class HtmlRowTag extends SimpleTagSupport {
     private String oddClass;
     private String highlightStyle;
     private String highlightClass;
-
     private boolean highlighter = true;
-
     private String onclick;
     private String onmouseover;
     private String onmouseout;
-
     private Map<String, Object> pageItem;
 
     /**
@@ -190,87 +187,66 @@ public class HtmlRowTag extends SimpleTagSupport {
      * 
      * @since 2.2
      */
-    private RowRenderer getRowRowRenderer(TableFacadeTag facadeTag) {
+    private HtmlRowRenderer getRowRowRenderer(HtmlRow row) {
         if (StringUtils.isBlank(getRowRenderer())) {
-            return null;
+            return row.getRowRenderer();
         }
 
-        RowRenderer rowRenderer = (RowRenderer) ClassUtils.createInstance(getRowRenderer());
-        SupportUtils.setCoreContext(rowRenderer, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(rowRenderer, facadeTag.getWebContext());
-
-        return rowRenderer;
+        return (HtmlRowRenderer) ClassUtils.createInstance(getRowRenderer());
     }
 
     /**
      * Get the row Onclick RowEvent object.
      */
-    private RowEvent getRowOnclick(TableFacadeTag facadeTag) {
+    private RowEvent getRowOnclick(HtmlRow row) {
         if (StringUtils.isBlank(getOnclick())) {
-            return null;
+            return row.getOnclick();
         }
 
-        RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnclick());
-        SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(rowEvent, facadeTag.getWebContext());
-
-        return rowEvent;
+        return (RowEvent) ClassUtils.createInstance(getOnclick());
     }
 
     /**
      * Get the row Onmouseover RowEvent object.
      */
-    private RowEvent getRowOnmouseover(TableFacadeTag facadeTag) {
+    private RowEvent getRowOnmouseover(HtmlRow row) {
         if (StringUtils.isBlank(getOnmouseover())) {
-            return null;
+            return row.getOnmouseover();
         }
 
-        RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnmouseover());
-        SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(rowEvent, facadeTag.getWebContext());
-
-        return rowEvent;
+        return (RowEvent) ClassUtils.createInstance(getOnmouseover());
     }
 
     /**
      * Get the row Onmouseout RowEvent object.
      */
-    private RowEvent getRowOnmouseout(TableFacadeTag facadeTag) {
+    private RowEvent getRowOnmouseout(HtmlRow row) {
         if (StringUtils.isBlank(getOnmouseout())) {
-            return null;
+            return row.getOnmouseout();
         }
 
-        RowEvent rowEvent = (RowEvent) ClassUtils.createInstance(getOnmouseout());
-        SupportUtils.setCoreContext(rowEvent, facadeTag.getCoreContext());
-        SupportUtils.setWebContext(rowEvent, facadeTag.getWebContext());
-
-        return rowEvent;
+        return (RowEvent) ClassUtils.createInstance(getOnmouseout());
     }
 
     /**
      * The row to use. If the row does not exist then one will be created.
      */
-    private HtmlRow getRow(TableFacadeTag facadeTag) {
-        HtmlRow row = facadeTag.getComponentFactory().createRow();
-
-        RowRenderer rowRenderer = getRowRowRenderer(facadeTag);
-        if (rowRenderer != null) {
-            row.setRowRenderer(rowRenderer);
-            rowRenderer.setRow(row);
-        }
-
-        row.getRowRenderer().setStyle(getStyle());
-        row.getRowRenderer().setStyleClass(getStyleClass());
-        row.getRowRenderer().setEvenClass(getEvenClass());
-        row.getRowRenderer().setOddClass(getOddClass());
-        row.getRowRenderer().setHighlightStyle(getHighlightClass());
-        row.getRowRenderer().setStyleClass(getStyleClass());
-
+    private HtmlRow getRow(HtmlComponentFactory factory) {
+        HtmlRow row = factory.createRow();
         row.setHighlighter(isHighlighter());
+        row.setOnclick(getRowOnclick(row));
+        row.setOnmouseover(getRowOnmouseover(row));
+        row.setOnmouseout(getRowOnmouseout(row));
 
-        row.setOnclick(getRowOnclick(facadeTag));
-        row.setOnmouseover(getRowOnmouseover(facadeTag));
-        row.setOnmouseout(getRowOnmouseout(facadeTag));
+        HtmlRowRenderer rowRenderer = getRowRowRenderer(row);
+        row.setRowRenderer(rowRenderer);
+
+        rowRenderer.setStyle(getStyle());
+        rowRenderer.setStyleClass(getStyleClass());
+        rowRenderer.setEvenClass(getEvenClass());
+        rowRenderer.setOddClass(getOddClass());
+        rowRenderer.setHighlightStyle(getHighlightClass());
+        rowRenderer.setStyleClass(getStyleClass());
 
         return row;
     }
@@ -302,7 +278,8 @@ public class HtmlRowTag extends SimpleTagSupport {
         HtmlTable table = facadeTag.getTable();
         HtmlRow row = table.getRow();
         if (row == null) {
-            row = getRow(facadeTag);
+            HtmlComponentFactory factory = facadeTag.getComponentFactory();
+            row = getRow(factory);
             table.setRow(row);
         }
 
