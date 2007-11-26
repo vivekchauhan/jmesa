@@ -15,13 +15,14 @@
  */
 package org.jmesa.facade.tag;
 
+import static org.jmesa.facade.tag.TagUtils.getTableTableRenderer;
+
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
@@ -134,19 +135,6 @@ public class HtmlTableTag extends SimpleTagSupport {
     }
 
     /**
-     * Get the table TableRenderer object.
-     * 
-     * @since 2.2
-     */
-    private HtmlTableRenderer getTableTableRenderer(HtmlTable table) {
-        if (StringUtils.isBlank(getTableRenderer())) {
-            return table.getTableRenderer();
-        }
-
-        return (HtmlTableRenderer) ClassUtils.createInstance(getTableRenderer());
-    }
-
-    /**
      * The table to use. If the table does not exist then one will be created.
      */
     private HtmlTable getTable(HtmlComponentFactory factory) {
@@ -155,7 +143,7 @@ public class HtmlTableTag extends SimpleTagSupport {
         table.setCaptionKey(getCaptionKey());
         table.setTheme(getTheme());
 
-        HtmlTableRenderer tableRenderer = getTableTableRenderer(table);
+        HtmlTableRenderer tableRenderer = getTableTableRenderer(table, getTableRenderer());
         table.setTableRenderer(tableRenderer);
 
         tableRenderer.setWidth(getWidth());

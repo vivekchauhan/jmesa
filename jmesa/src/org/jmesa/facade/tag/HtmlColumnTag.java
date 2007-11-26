@@ -15,6 +15,14 @@
  */
 package org.jmesa.facade.tag;
 
+import static org.jmesa.facade.tag.TagUtils.getColumnCellRenderer;
+import static org.jmesa.facade.tag.TagUtils.getColumnCellEditor;
+import static org.jmesa.facade.tag.TagUtils.getColumnFilterRenderer;
+import static org.jmesa.facade.tag.TagUtils.getColumnFilterEditor;
+import static org.jmesa.facade.tag.TagUtils.getColumnHeaderRenderer;
+import static org.jmesa.facade.tag.TagUtils.getColumnHeaderEditor;
+import static org.jmesa.facade.tag.TagUtils.getColumnSortOrder;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -307,135 +315,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
-     * @since 2.2
-     * @return The column CellRenderer object.
-     */
-    private HtmlCellRenderer getColumnCellRenderer(HtmlColumn column) {
-        if (StringUtils.isBlank(getCellRenderer())) {
-            return column.getCellRenderer();
-        }
-        
-        HtmlCellRenderer cellRenderer = (HtmlCellRenderer) ClassUtils.createInstance(getCellRenderer());
-        cellRenderer.setCellEditor(column.getCellRenderer().getCellEditor()); // reset the default
-
-        return cellRenderer;
-    }
-    
-    /**
-     * <p>
-     * If the cellEditor is not defined then create a BasicCellEditor.
-     * </p>
-     * 
-     * <p>
-     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
-     * editor. If a setPattern() method is defined on your editor and you have defined the column
-     * pattern attribute on the tag it will be set on your CellEditor automatically.
-     * </p>
-     * 
-     * @return The CellEditor to use.
-     */
-    private CellEditor getColumnCellEditor(HtmlColumn column) {
-        if (StringUtils.isEmpty(getCellEditor())) {
-            return column.getCellRenderer().getCellEditor();
-        }
-
-        CellEditor editor = (CellEditor) ClassUtils.createInstance(getCellEditor());
-        SupportUtils.setPattern(editor, getPattern());
-
-        return editor;
-    }
-    
-    /**
-     * @since 2.2
-     * @return The column FilterRenderer object.
-     */
-    private HtmlFilterRenderer getColumnFilterRenderer(HtmlColumn column) {
-        if (StringUtils.isBlank(getFilterRenderer())) {
-            return column.getFilterRenderer();
-        }
-        
-        HtmlFilterRenderer filterRenderer = (HtmlFilterRenderer) ClassUtils.createInstance(getFilterRenderer());
-        filterRenderer.setFilterEditor(column.getFilterRenderer().getFilterEditor()); // reset the default
-
-        return filterRenderer;
-    }
-    
-    /**
-     * <p>
-     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
-     * editor.
-     * </p>
-     * 
-     * @return The FilterEditor to use.
-     */
-    private FilterEditor getColumnFilterEditor(HtmlColumn column) {
-        if (StringUtils.isEmpty(getFilterEditor())) {
-            return column.getFilterRenderer().getFilterEditor();
-        }
-
-        return (FilterEditor) ClassUtils.createInstance(getFilterEditor());
-    }
-
-    /**
-     * @since 2.2
-     * @return The column HeaderRenderer object.
-     */
-    private HtmlHeaderRenderer getColumnHeaderRenderer(HtmlColumn column) {
-        if (StringUtils.isBlank(getHeaderRenderer())) {
-            return column.getHeaderRenderer();
-        }
-        
-        HtmlHeaderRenderer headerRenderer = (HtmlHeaderRenderer) ClassUtils.createInstance(getHeaderRenderer());
-        headerRenderer.setHeaderEditor(column.getHeaderRenderer().getHeaderEditor()); // reset the default
-
-        return headerRenderer;
-    }
-    
-    /**
-     * <p>
-     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
-     * editor.
-     * </p>
-     * 
-     * @return The HeaderEditor to use.
-     */
-    private HeaderEditor getColumnHeaderEditor(HtmlColumn column) {
-        if (StringUtils.isEmpty(getHeaderEditor())) {
-            return column.getHeaderRenderer().getHeaderEditor();
-        }
-
-        return (HeaderEditor) ClassUtils.createInstance(getHeaderEditor());
-    }
-
-    /**
-     * Take the comma separted Order values and convert them into an Array. The legal values include
-     * "none, asc, desc".
-     * 
-     * @since 2.2
-     * @return The sort order array for the column.
-     */
-    private Order[] getColumnSortOrder() {
-        if (StringUtils.isBlank(sortOrder)) {
-            return null;
-        }
-
-        String[] orders = StringUtils.split(sortOrder, ",");
-
-        Order[] results = new Order[orders.length];
-
-        for (int i = 0; i < orders.length; i++) {
-            String order = orders[i];
-            Order valueOfParam = Order.valueOfParam(order);
-            if (valueOfParam == null) {
-                throw new IllegalStateException("The sortOrder must consist of comma separated values of asc, desc, and none.");
-            }
-            results[i] = valueOfParam;
-        }
-
-        return results;
-    }
-
-    /**
      * The column to use. If the column does not exist then one will be created.
      */
     private HtmlColumn getColumn(HtmlComponentFactory factory) {
@@ -443,38 +322,38 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setTitle(getTitle());
         column.setTitleKey(getTitleKey());
         column.setSortable(isSortable());
-        column.setSortOrder(getColumnSortOrder());
+        column.setSortOrder(getColumnSortOrder(getSortOrder()));
         column.setFilterable(isFilterable());
         column.setWidth(getWidth());
 
         // cell
         
-        HtmlCellRenderer cellRenderer = getColumnCellRenderer(column);
+        HtmlCellRenderer cellRenderer = getColumnCellRenderer(column, getCellRenderer());
         cellRenderer.setStyle(getStyle());
         cellRenderer.setStyleClass(getStyleClass());
         column.setCellRenderer(cellRenderer);
         
-        CellEditor cellEditor = getColumnCellEditor(column);
+        CellEditor cellEditor = getColumnCellEditor(column, getCellEditor(), getPattern());
         cellRenderer.setCellEditor(cellEditor);
 
         // filter
 
-        HtmlFilterRenderer filterRenderer = getColumnFilterRenderer(column);
+        HtmlFilterRenderer filterRenderer = getColumnFilterRenderer(column, getFilterRenderer());
         filterRenderer.setStyle(getFilterStyle());
         filterRenderer.setStyleClass(getFilterClass());
         column.setFilterRenderer(filterRenderer);
 
-        FilterEditor filterEditor = getColumnFilterEditor(column);
+        FilterEditor filterEditor = getColumnFilterEditor(column, getFilterEditor());
         filterRenderer.setFilterEditor(filterEditor);
 
         // header
 
-        HtmlHeaderRenderer headerRenderer = getColumnHeaderRenderer(column);
+        HtmlHeaderRenderer headerRenderer = getColumnHeaderRenderer(column, getHeaderRenderer());
         headerRenderer.setStyle(getHeaderStyle());
         headerRenderer.setStyleClass(getHeaderClass());
         column.setHeaderRenderer(headerRenderer);
 
-        HeaderEditor headerEditor = getColumnHeaderEditor(column);
+        HeaderEditor headerEditor = getColumnHeaderEditor(column, getHeaderEditor());
         headerRenderer.setHeaderEditor(headerEditor);
 
         return column;
