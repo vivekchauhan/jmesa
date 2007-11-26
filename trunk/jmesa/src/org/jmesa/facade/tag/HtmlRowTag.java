@@ -15,6 +15,11 @@
  */
 package org.jmesa.facade.tag;
 
+import static org.jmesa.facade.tag.TagUtils.getRowRowRenderer;
+import static org.jmesa.facade.tag.TagUtils.getRowOnclick;
+import static org.jmesa.facade.tag.TagUtils.getRowOnmouseover;
+import static org.jmesa.facade.tag.TagUtils.getRowOnmouseout;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,11 +29,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 import org.jmesa.web.WebContext;
 
@@ -183,62 +186,16 @@ public class HtmlRowTag extends SimpleTagSupport {
     }
 
     /**
-     * Get the row RowRenderer object.
-     * 
-     * @since 2.2
-     */
-    private HtmlRowRenderer getRowRowRenderer(HtmlRow row) {
-        if (StringUtils.isBlank(getRowRenderer())) {
-            return row.getRowRenderer();
-        }
-
-        return (HtmlRowRenderer) ClassUtils.createInstance(getRowRenderer());
-    }
-
-    /**
-     * Get the row Onclick RowEvent object.
-     */
-    private RowEvent getRowOnclick(HtmlRow row) {
-        if (StringUtils.isBlank(getOnclick())) {
-            return row.getOnclick();
-        }
-
-        return (RowEvent) ClassUtils.createInstance(getOnclick());
-    }
-
-    /**
-     * Get the row Onmouseover RowEvent object.
-     */
-    private RowEvent getRowOnmouseover(HtmlRow row) {
-        if (StringUtils.isBlank(getOnmouseover())) {
-            return row.getOnmouseover();
-        }
-
-        return (RowEvent) ClassUtils.createInstance(getOnmouseover());
-    }
-
-    /**
-     * Get the row Onmouseout RowEvent object.
-     */
-    private RowEvent getRowOnmouseout(HtmlRow row) {
-        if (StringUtils.isBlank(getOnmouseout())) {
-            return row.getOnmouseout();
-        }
-
-        return (RowEvent) ClassUtils.createInstance(getOnmouseout());
-    }
-
-    /**
      * The row to use. If the row does not exist then one will be created.
      */
     private HtmlRow getRow(HtmlComponentFactory factory) {
         HtmlRow row = factory.createRow();
         row.setHighlighter(isHighlighter());
-        row.setOnclick(getRowOnclick(row));
-        row.setOnmouseover(getRowOnmouseover(row));
-        row.setOnmouseout(getRowOnmouseout(row));
+        row.setOnclick(getRowOnclick(row, getOnclick()));
+        row.setOnmouseover(getRowOnmouseover(row, getOnmouseover()));
+        row.setOnmouseout(getRowOnmouseout(row, getOnmouseout()));
 
-        HtmlRowRenderer rowRenderer = getRowRowRenderer(row);
+        HtmlRowRenderer rowRenderer = getRowRowRenderer(row, getRowRenderer());
         row.setRowRenderer(rowRenderer);
 
         rowRenderer.setStyle(getStyle());

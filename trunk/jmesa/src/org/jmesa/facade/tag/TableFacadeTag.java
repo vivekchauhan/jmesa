@@ -15,6 +15,15 @@
  */
 package org.jmesa.facade.tag;
 
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeFilterMatcherMap;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeMessages;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadePreferences;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeRowFilter;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeColumnSort;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeToolbar;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeMaxRowIncrements;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,19 +35,12 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.apache.commons.lang.StringUtils;
-import org.jmesa.core.filter.FilterMatcherMap;
-import org.jmesa.core.filter.RowFilter;
-import org.jmesa.core.message.Messages;
-import org.jmesa.core.preference.Preferences;
-import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
 
@@ -353,80 +355,6 @@ public class TableFacadeTag extends SimpleTagSupport {
     }
 
     /**
-     * @return Get the FilterMatcherMap object.
-     */
-    private FilterMatcherMap getTableFacadeFilterMatcherMap() {
-        return (FilterMatcherMap) ClassUtils.createInstance(getFilterMatcherMap());
-    }
-
-    /**
-     * @return Get the Messages object.
-     */
-    private Messages getTableFacadeMessages() {
-        return (Messages) ClassUtils.createInstance(getMessages());
-    }
-
-    /**
-     * @return Get the Preferences object.
-     */
-    private Preferences getTableFacadePreferences() {
-        return (Preferences) ClassUtils.createInstance(getPreferences());
-    }
-
-    /**
-     * @return Get the RowFilter object.
-     */
-    private RowFilter getTableFacadeRowFilter() {
-        return (RowFilter) ClassUtils.createInstance(getRowFilter());
-    }
-
-    /**
-     * @return Get the ColumnSort object.
-     */
-    private ColumnSort getTableFacadeColumnSort() {
-        return (ColumnSort) ClassUtils.createInstance(getColumnSort());
-    }
-
-    /**
-     * Get the Toolbar. If the Toolbar does not exist then one will be created.
-     * 
-     * @return Get the Toolbar object.
-     */
-    private Toolbar getTableFacadeToolbar() {
-        return (Toolbar) ClassUtils.createInstance(getToolbar());
-    }
-
-    /**
-     * Convert the max row increments from a string to an int array.
-     * 
-     * @return Get the max row increments.
-     */
-    private int[] getTableFacadeMaxRowIncrements() {
-        if (StringUtils.isEmpty(getMaxRowsIncrements())) {
-            return null;
-        }
-
-        String[] maxRowIncrements = StringUtils.split(getMaxRowsIncrements(), ",");
-
-        int[] toolbarMaxRowIncrements = new int[maxRowIncrements.length];
-
-        for (int i = 0; i < maxRowIncrements.length; i++) {
-            toolbarMaxRowIncrements[i] = Integer.parseInt(maxRowIncrements[i]);
-        }
-
-        return toolbarMaxRowIncrements;
-    }
-
-    /**
-     * Get the View. If the View does not exist then one will be created.
-     * 
-     * @return Get the View object.
-     */
-    private View getTableFacadeView() {
-        return (View) ClassUtils.createInstance(getView());
-    }
-
-    /**
      * @return Get the TableFacade.
      */
     TableFacade getTableFacade() {
@@ -493,15 +421,15 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
 
-        tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements());
+        tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements(getMaxRowsIncrements()));
         tableFacade.setStateAttr(getStateAttr());
 
         tableFacade.performFilterAndSort(isPerformFilterAndSort());
-        tableFacade.setPreferences(getTableFacadePreferences());
-        tableFacade.setMessages(getTableFacadeMessages());
-        tableFacade.setColumnSort(getTableFacadeColumnSort());
-        tableFacade.setRowFilter(getTableFacadeRowFilter());
-        tableFacade.addFilterMatcherMap(getTableFacadeFilterMatcherMap());
+        tableFacade.setPreferences(getTableFacadePreferences(getPreferences()));
+        tableFacade.setMessages(getTableFacadeMessages(getMessages()));
+        tableFacade.setColumnSort(getTableFacadeColumnSort(getColumnSort()));
+        tableFacade.setRowFilter(getTableFacadeRowFilter(getRowFilter()));
+        tableFacade.addFilterMatcherMap(getTableFacadeFilterMatcherMap(getFilterMatcherMap()));
 
         Collection<?> pageItems = tableFacade.getCoreContext().getPageItems();
 
@@ -518,8 +446,8 @@ public class TableFacadeTag extends SimpleTagSupport {
         webContext.removePageAttribute(getVar()); // clean up the page scoped bean
 
         tableFacade.setTable(getTable());
-        tableFacade.setToolbar(getTableFacadeToolbar());
-        tableFacade.setView(getTableFacadeView());
+        tableFacade.setToolbar(getTableFacadeToolbar(getToolbar()));
+        tableFacade.setView(getTableFacadeView(getView()));
         tableFacade.getCoreContext().setPageItems(getPageItems());
 
         View view = tableFacade.getView();

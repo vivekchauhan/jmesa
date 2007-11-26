@@ -19,6 +19,28 @@ import java.util.Map;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.filter.FilterMatcherMap;
+import org.jmesa.core.filter.RowFilter;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.sort.ColumnSort;
+import org.jmesa.limit.Order;
+import org.jmesa.util.SupportUtils;
+import org.jmesa.view.View;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.FilterEditor;
+import org.jmesa.view.editor.HeaderEditor;
+import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.event.RowEvent;
+import org.jmesa.view.html.renderer.HtmlCellRenderer;
+import org.jmesa.view.html.renderer.HtmlFilterRenderer;
+import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
+import org.jmesa.view.html.renderer.HtmlRowRenderer;
+import org.jmesa.view.html.renderer.HtmlTableRenderer;
+import org.jmesa.view.html.toolbar.Toolbar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +51,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 class TagUtils {
+
     private static Logger logger = LoggerFactory.getLogger(TagUtils.class);
 
     /**
@@ -56,5 +79,267 @@ class TagUtils {
         }
 
         return true;
+    }
+
+    /**
+     * @return Get the FilterMatcherMap object.
+     */
+    static FilterMatcherMap getTableFacadeFilterMatcherMap(String filterMatcherMap) {
+        return (FilterMatcherMap) ClassUtils.createInstance(filterMatcherMap);
+    }
+
+    /**
+     * @return Get the Messages object.
+     */
+    static Messages getTableFacadeMessages(String messages) {
+        return (Messages) ClassUtils.createInstance(messages);
+    }
+
+    /**
+     * @return Get the Preferences object.
+     */
+    static Preferences getTableFacadePreferences(String preferences) {
+        return (Preferences) ClassUtils.createInstance(preferences);
+    }
+
+    /**
+     * @return Get the RowFilter object.
+     */
+    static RowFilter getTableFacadeRowFilter(String rowFilter) {
+        return (RowFilter) ClassUtils.createInstance(rowFilter);
+    }
+
+    /**
+     * @return Get the ColumnSort object.
+     */
+    static ColumnSort getTableFacadeColumnSort(String columnSort) {
+        return (ColumnSort) ClassUtils.createInstance(columnSort);
+    }
+
+    /**
+     * Get the Toolbar. If the Toolbar does not exist then one will be created.
+     * 
+     * @return Get the Toolbar object.
+     */
+    static Toolbar getTableFacadeToolbar(String toolbar) {
+        return (Toolbar) ClassUtils.createInstance(toolbar);
+    }
+
+    /**
+     * Convert the max row increments from a string to an int array.
+     * 
+     * @return Get the max row increments.
+     */
+    static int[] getTableFacadeMaxRowIncrements(String maxRowsIncrements) {
+        if (StringUtils.isEmpty(maxRowsIncrements)) {
+            return null;
+        }
+
+        String[] results = StringUtils.split(maxRowsIncrements, ",");
+
+        int[] toolbarMaxRowIncrements = new int[results.length];
+
+        for (int i = 0; i < results.length; i++) {
+            toolbarMaxRowIncrements[i] = Integer.parseInt(results[i]);
+        }
+
+        return toolbarMaxRowIncrements;
+    }
+
+    /**
+     * Get the View. If the View does not exist then one will be created.
+     * 
+     * @return Get the View object.
+     */
+    static View getTableFacadeView(String view) {
+        return (View) ClassUtils.createInstance(view);
+    }
+
+    /**
+     * Get the table TableRenderer object.
+     * 
+     * @since 2.2
+     */
+    static HtmlTableRenderer getTableTableRenderer(HtmlTable table, String tableRenderer) {
+        if (StringUtils.isBlank(tableRenderer)) {
+            return table.getTableRenderer();
+        }
+
+        return (HtmlTableRenderer) ClassUtils.createInstance(tableRenderer);
+    }
+
+    /**
+     * Get the row RowRenderer object.
+     * 
+     * @since 2.2
+     */
+    static HtmlRowRenderer getRowRowRenderer(HtmlRow row, String rowRenderer) {
+        if (StringUtils.isBlank(rowRenderer)) {
+            return row.getRowRenderer();
+        }
+
+        return (HtmlRowRenderer) ClassUtils.createInstance(rowRenderer);
+    }
+
+    /**
+     * Get the row Onclick RowEvent object.
+     */
+    static RowEvent getRowOnclick(HtmlRow row, String onclick) {
+        if (StringUtils.isBlank(onclick)) {
+            return row.getOnclick();
+        }
+
+        return (RowEvent) ClassUtils.createInstance(onclick);
+    }
+
+    /**
+     * Get the row Onmouseover RowEvent object.
+     */
+    static RowEvent getRowOnmouseover(HtmlRow row, String onmouseover) {
+        if (StringUtils.isBlank(onmouseover)) {
+            return row.getOnmouseover();
+        }
+
+        return (RowEvent) ClassUtils.createInstance(onmouseover);
+    }
+
+    /**
+     * Get the row Onmouseout RowEvent object.
+     */
+    static RowEvent getRowOnmouseout(HtmlRow row, String onmouseout) {
+        if (StringUtils.isBlank(onmouseout)) {
+            return row.getOnmouseout();
+        }
+
+        return (RowEvent) ClassUtils.createInstance(onmouseout);
+    }
+
+    /**
+     * @since 2.2
+     * @return The column CellRenderer object.
+     */
+    static HtmlCellRenderer getColumnCellRenderer(HtmlColumn column, String cellRenderer) {
+        if (StringUtils.isBlank(cellRenderer)) {
+            return column.getCellRenderer();
+        }
+
+        HtmlCellRenderer result = (HtmlCellRenderer) ClassUtils.createInstance(cellRenderer);
+        result.setCellEditor(column.getCellRenderer().getCellEditor()); // reset the default
+
+        return result;
+    }
+
+    /**
+     * <p>
+     * If the cellEditor is not defined then create a BasicCellEditor.
+     * </p>
+     * 
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor. If a setPattern() method is defined on your editor and you have defined the column
+     * pattern attribute on the tag it will be set on your CellEditor automatically.
+     * </p>
+     * 
+     * @return The CellEditor to use.
+     */
+    static CellEditor getColumnCellEditor(HtmlColumn column, String cellEditor, String pattern) {
+        if (StringUtils.isEmpty(cellEditor)) {
+            return column.getCellRenderer().getCellEditor();
+        }
+
+        CellEditor result = (CellEditor) ClassUtils.createInstance(cellEditor);
+        SupportUtils.setPattern(result, pattern);
+
+        return result;
+    }
+
+    /**
+     * @since 2.2
+     * @return The column FilterRenderer object.
+     */
+    static HtmlFilterRenderer getColumnFilterRenderer(HtmlColumn column, String filterRenderer) {
+        if (StringUtils.isBlank(filterRenderer)) {
+            return column.getFilterRenderer();
+        }
+
+        HtmlFilterRenderer result = (HtmlFilterRenderer) ClassUtils.createInstance(filterRenderer);
+        result.setFilterEditor(column.getFilterRenderer().getFilterEditor()); // reset the default
+
+        return result;
+    }
+
+    /**
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor.
+     * </p>
+     * 
+     * @return The FilterEditor to use.
+     */
+    static FilterEditor getColumnFilterEditor(HtmlColumn column, String filterEditor) {
+        if (StringUtils.isEmpty(filterEditor)) {
+            return column.getFilterRenderer().getFilterEditor();
+        }
+
+        return (FilterEditor) ClassUtils.createInstance(filterEditor);
+    }
+
+    /**
+     * @since 2.2
+     * @return The column HeaderRenderer object.
+     */
+    static HtmlHeaderRenderer getColumnHeaderRenderer(HtmlColumn column, String headerRenderer) {
+        if (StringUtils.isBlank(headerRenderer)) {
+            return column.getHeaderRenderer();
+        }
+
+        HtmlHeaderRenderer result = (HtmlHeaderRenderer) ClassUtils.createInstance(headerRenderer);
+        result.setHeaderEditor(column.getHeaderRenderer().getHeaderEditor()); // reset the default
+
+        return result;
+    }
+
+    /**
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor.
+     * </p>
+     * 
+     * @return The HeaderEditor to use.
+     */
+    static HeaderEditor getColumnHeaderEditor(HtmlColumn column, String headerEditor) {
+        if (StringUtils.isEmpty(headerEditor)) {
+            return column.getHeaderRenderer().getHeaderEditor();
+        }
+
+        return (HeaderEditor) ClassUtils.createInstance(headerEditor);
+    }
+
+    /**
+     * Take the comma separted Order values and convert them into an Array. The legal values include
+     * "none, asc, desc".
+     * 
+     * @since 2.2
+     * @return The sort order array for the column.
+     */
+    static Order[] getColumnSortOrder(String sortOrder) {
+        if (StringUtils.isBlank(sortOrder)) {
+            return null;
+        }
+
+        String[] orders = StringUtils.split(sortOrder, ",");
+
+        Order[] results = new Order[orders.length];
+
+        for (int i = 0; i < orders.length; i++) {
+            String order = orders[i];
+            Order valueOfParam = Order.valueOfParam(order);
+            if (valueOfParam == null) {
+                throw new IllegalStateException("The sortOrder must consist of comma separated values of asc, desc, and none.");
+            }
+            results[i] = valueOfParam;
+        }
+
+        return results;
     }
 }
