@@ -39,6 +39,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public interface TableFacade {
+
     /**
      * Set the comma separated list of export types. The currently supported types are
      * TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
@@ -193,6 +194,14 @@ public interface TableFacade {
      * @param items The Collecton of Beans (or Maps) to use.
      */
     public void setItems(Collection<?> items);
+
+    /**
+     * Set the maxRows on the facade. The max rows is the total rows that will display
+     * on one page. This will override the maxRows if it was previously set.
+     * 
+     * @param maxRows The maxRows to use.
+     */
+    public void setMaxRows(int maxRows);
 
     /**
      * Get the Table. If the Table does not exist then one will be created.

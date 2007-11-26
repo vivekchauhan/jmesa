@@ -15,6 +15,7 @@
  */
 package org.jmesa.facade.tag;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,10 @@ class ClassUtils {
     }
 
     public static Object createInstance(String className) {
+        if (StringUtils.isEmpty(className)) {
+            return null;
+        }
+        
         try {
             return Class.forName(className).newInstance();
         } catch (Exception e) {

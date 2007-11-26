@@ -61,6 +61,10 @@ public class CoreContextImpl implements CoreContext {
     public Collection<?> getPageItems() {
         return items.getPageItems();
     }
+    
+    public void setPageItems(Collection<?> pageItems) {
+        this.items.setPageItems(pageItems);
+    }
 
     public String getMessage(String code) {
         return messages.getMessage(code);

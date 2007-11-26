@@ -65,8 +65,8 @@ public class HtmlColumnsTag extends SimpleTagSupport {
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
             HtmlComponentFactory factory = facadeTag.getComponentFactory();
-            WebContext webContext = facadeTag.getWebContext();
-            CoreContext coreContext = facadeTag.getCoreContext();
+            WebContext webContext = facadeTag.getTableFacade().getWebContext();
+            CoreContext coreContext = facadeTag.getTableFacade().getCoreContext();
             List<HtmlColumn> columns = getColumns(factory, webContext, coreContext);
             for (HtmlColumn column : columns) {
                 column.setGeneratedOnTheFly(true);
