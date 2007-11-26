@@ -68,6 +68,10 @@ public class ItemsImpl implements Items {
     public Collection<?> getPageItems() {
         return pageItems;
     }
+    
+    public void setPageItems(Collection<?> pageItems) {
+        this.pageItems = pageItems;
+    }
 
     public Collection<?> getSortedItems() {
         return sortedItems;

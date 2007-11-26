@@ -271,7 +271,7 @@ public class HtmlRowTag extends SimpleTagSupport {
         pageItems.add(pageItem);
 
         String var = facadeTag.getVar();
-        WebContext webContext = facadeTag.getWebContext();
+        WebContext webContext = facadeTag.getTableFacade().getWebContext();
         Object bean = webContext.getPageAttribute(var);
         pageItem.put(var, bean);
 

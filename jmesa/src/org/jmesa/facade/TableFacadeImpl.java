@@ -1,5 +1,17 @@
-/**
- * 
+/*
+ * Copyright 2004 original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.jmesa.facade;
 
@@ -126,6 +138,16 @@ public class TableFacadeImpl implements TableFacade {
     private int[] maxRowsIncrements;
     private View view;
     private boolean performFilterAndSort = true;
+    
+    /**
+     * The constructor is most useful if just want to start with a facade and will
+     * add objects to it. The tag library uses this constructor.
+     * 
+     * @param id The unique identifier for this table.
+     */
+    public TableFacadeImpl(String id) {
+        this.id = id;
+    }
 
     /**
      * <p>
@@ -400,6 +422,15 @@ public class TableFacadeImpl implements TableFacade {
         this.items = items;
     }
 
+    public void setMaxRows(int maxRows) {
+        if (limit != null) {
+            throw new IllegalStateException(
+                    "It is too late to add the maxRows. You need to add the maxRows right after constructing the TableFacade.");
+        }
+
+        this.maxRows = maxRows;
+    }
+
     public CoreContext getCoreContext() {
         if (coreContext != null) {
             return coreContext;
@@ -485,6 +516,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setTable(Table table) {
+        if (view != null) {
+            throw new IllegalStateException(
+                    "It is too late to add this Table. You need to add the Table before calling the Toolbar or View.");
+        }
+
         this.table = table;
     }
 
@@ -507,6 +543,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setToolbar(Toolbar toolbar) {
+        if (view != null) {
+            throw new IllegalStateException(
+                    "It is too late to add this Toolbar. You need to add the Toolbar before calling the View.");
+        }
+        
         this.toolbar = toolbar;
         SupportUtils.setTable(toolbar, getTable());
         SupportUtils.setCoreContext(toolbar, getCoreContext());
@@ -514,6 +555,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
+        if (toolbar != null) {
+            throw new IllegalStateException(
+                    "It is too late to add the maxRowsIncrements. You need to add the maxRowsIncrements before calling the Toolbar or View.");
+        }
+
         this.maxRowsIncrements = maxRowsIncrements;
     }
 

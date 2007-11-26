@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -28,30 +27,18 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactoryImpl;
-import org.jmesa.core.CoreContextImpl;
-import org.jmesa.core.Items;
-import org.jmesa.core.ItemsImpl;
-import org.jmesa.core.filter.DefaultRowFilter;
-import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherMap;
-import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
-import org.jmesa.core.sort.DefaultColumnSort;
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
-import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
-import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
 
@@ -78,13 +65,12 @@ public class TableFacadeTag extends SimpleTagSupport {
     private String filterMatcherMap;
     private String view;
     private String toolbar;
-
+    
     // tag attributes
     private String var;
-
+    
     // core attributes
-    private WebContext webContext;
-    private CoreContext coreContext;
+    private TableFacade tableFacade;
     private HtmlTable table;
     private HtmlComponentFactory componentFactory;
     private Collection<Map<String, Object>> pageItems = new ArrayList<Map<String, Object>>();
@@ -226,25 +212,12 @@ public class TableFacadeTag extends SimpleTagSupport {
 
     /**
      * <p>
-     * Get the Limit. If the Limit does not exist then one will be created.
+     * Get the Limit.
      * </p>
      * 
      * @return The Limit to use.
      */
     public Limit getLimit() {
-        if (limit != null) {
-            return limit;
-        }
-
-        LimitFactory limitFactory = new LimitFactoryImpl(getId(), getWebContext());
-        limitFactory.setStateAttr(stateAttr);
-        this.limit = limitFactory.createLimit();
-        if (limit.isComplete()) {
-            return limit;
-        }
-
-        limitFactory.createRowSelect(getMaxRows(), getItems().size(), limit);
-
         return limit;
     }
 
@@ -380,120 +353,38 @@ public class TableFacadeTag extends SimpleTagSupport {
     }
 
     /**
-     * Get the WebContext. If the WebContext does not exist then one will be created.
-     * 
-     * @return Get the WebContext object.
-     */
-    WebContext getWebContext() {
-        if (webContext != null) {
-            return webContext;
-        }
-
-        this.webContext = new JspPageWebContext((PageContext) getJspContext());
-
-        return webContext;
-    }
-
-    /**
-     * Get the CoreContext. If the CoreContext does not exist then one will be created.
-     * 
-     * @return Get the CoreContext object.
-     */
-    CoreContext getCoreContext() {
-        if (coreContext != null) {
-            return coreContext;
-        }
-
-        TagCoreContextFactory factory = new TagCoreContextFactory(isPerformFilterAndSort(), getWebContext());
-
-        factory.setPreferences(getTableFacadePreferences());
-        factory.setMessages(getTableFacadeMessages());
-        factory.setColumnSort(getTableFacadeColumnSort());
-        factory.setRowFilter(getTableFacadeRowFilter());
-
-        FilterMatcherMap filterMatcherMap = getTableFacadeFilterMatcherMap();
-        if (filterMatcherMap != null) {
-            Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
-            Set<MatcherKey> keys = filterMatchers.keySet();
-            for (MatcherKey key : keys) {
-                FilterMatcher matcher = filterMatchers.get(key);
-                factory.addFilterMatcher(key, matcher);
-            }
-        }
-
-        this.coreContext = factory.createCoreContext(getItems(), getLimit());
-
-        return coreContext;
-    }
-
-    /**
      * @return Get the FilterMatcherMap object.
      */
     private FilterMatcherMap getTableFacadeFilterMatcherMap() {
-        if (StringUtils.isEmpty(getFilterMatcherMap())) {
-            return null;
-        }
-
-        FilterMatcherMap filterMatcherMap = (FilterMatcherMap) ClassUtils.createInstance(getFilterMatcherMap());
-        SupportUtils.setWebContext(filterMatcherMap, getWebContext());
-
-        return filterMatcherMap;
+        return (FilterMatcherMap) ClassUtils.createInstance(getFilterMatcherMap());
     }
 
     /**
      * @return Get the Messages object.
      */
     private Messages getTableFacadeMessages() {
-        if (StringUtils.isEmpty(getMessages())) {
-            return null;
-        }
-
-        Messages messages = (Messages) ClassUtils.createInstance(getMessages());
-        SupportUtils.setWebContext(messages, getWebContext());
-
-        return messages;
+        return (Messages) ClassUtils.createInstance(getMessages());
     }
 
     /**
      * @return Get the Preferences object.
      */
     private Preferences getTableFacadePreferences() {
-        if (StringUtils.isEmpty(getPreferences())) {
-            return null;
-        }
-
-        Preferences preferences = (Preferences) ClassUtils.createInstance(getPreferences());
-        SupportUtils.setWebContext(preferences, getWebContext());
-
-        return preferences;
+        return (Preferences) ClassUtils.createInstance(getPreferences());
     }
 
     /**
      * @return Get the RowFilter object.
      */
     private RowFilter getTableFacadeRowFilter() {
-        if (StringUtils.isEmpty(getRowFilter())) {
-            return null;
-        }
-
-        RowFilter rowFilter = (RowFilter) ClassUtils.createInstance(getRowFilter());
-        SupportUtils.setWebContext(rowFilter, getWebContext());
-
-        return rowFilter;
+        return (RowFilter) ClassUtils.createInstance(getRowFilter());
     }
 
     /**
      * @return Get the ColumnSort object.
      */
     private ColumnSort getTableFacadeColumnSort() {
-        if (StringUtils.isEmpty(getColumnSort())) {
-            return null;
-        }
-
-        ColumnSort columnSort = (ColumnSort) ClassUtils.createInstance(getColumnSort());
-        SupportUtils.setWebContext(columnSort, getWebContext());
-
-        return columnSort;
+        return (ColumnSort) ClassUtils.createInstance(getColumnSort());
     }
 
     /**
@@ -502,27 +393,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * @return Get the Toolbar object.
      */
     private Toolbar getTableFacadeToolbar() {
-        if (StringUtils.isEmpty(getToolbar())) {
-            ToolbarFactoryImpl toolbarFactory;
-
-            String[] exportTypes = StringUtils.split(getExportTypes(), ",");
-
-            int[] toolbarMaxRowIncrements = getTableFacadeMaxRowIncrements();
-            if (toolbarMaxRowIncrements != null && toolbarMaxRowIncrements.length > 0) {
-                toolbarFactory = new ToolbarFactoryImpl(getTable(), toolbarMaxRowIncrements, getWebContext(), getCoreContext(), exportTypes);
-            } else {
-                toolbarFactory = new ToolbarFactoryImpl(getTable(), getWebContext(), getCoreContext(), exportTypes);
-            }
-
-            return toolbarFactory.createToolbar();
-        }
-
-        Toolbar toolbar = (Toolbar) ClassUtils.createInstance(getToolbar());
-        SupportUtils.setTable(toolbar, getTable());
-        SupportUtils.setCoreContext(toolbar, getCoreContext());
-        SupportUtils.setWebContext(toolbar, getWebContext());
-
-        return toolbar;
+        return (Toolbar) ClassUtils.createInstance(getToolbar());
     }
 
     /**
@@ -552,30 +423,14 @@ public class TableFacadeTag extends SimpleTagSupport {
      * @return Get the View object.
      */
     private View getTableFacadeView() {
-        if (StringUtils.isEmpty(getView())) {
-            return new HtmlView(getTable(), getTableFacadeToolbar(), getCoreContext());
-        }
-
-        View view = (View) ClassUtils.createInstance(getView());
-        SupportUtils.setTable(view, getTable());
-        SupportUtils.setToolbar(view, getTableFacadeToolbar());
-        SupportUtils.setCoreContext(view, getCoreContext());
-        SupportUtils.setWebContext(view, getWebContext());
-
-        return view;
+        return (View) ClassUtils.createInstance(getView());
     }
 
     /**
-     * @return Get the HtmlComponentFactory.
+     * @return Get the TableFacade.
      */
-    HtmlComponentFactory getComponentFactory() {
-        if (componentFactory != null) {
-            return componentFactory;
-        }
-
-        this.componentFactory = new HtmlComponentFactory(getWebContext(), getCoreContext());
-
-        return componentFactory;
+    TableFacade getTableFacade() {
+        return tableFacade;
     }
 
     /**
@@ -592,6 +447,19 @@ public class TableFacadeTag extends SimpleTagSupport {
      */
     void setTable(HtmlTable table) {
         this.table = table;
+    }
+
+    /**
+     * @return Get the HtmlComponentFactory.
+     */
+    HtmlComponentFactory getComponentFactory() {
+        if (componentFactory != null) {
+            return componentFactory;
+        }
+
+        this.componentFactory = new HtmlComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
+
+        return componentFactory;
     }
 
     /**
@@ -618,73 +486,44 @@ public class TableFacadeTag extends SimpleTagSupport {
             throw new IllegalStateException("You need to wrap the table in the facade tag.");
         }
 
-        TagCoreContext tagCoreContext = (TagCoreContext) getCoreContext();
+        WebContext webContext = new JspPageWebContext((PageContext) getJspContext());
 
-        if (tagCoreContext.getPageItems().size() == 0) {
+        this.tableFacade = new TableFacadeImpl(id);
+        tableFacade.setWebContext(webContext);
+        tableFacade.setItems(getItems());
+        tableFacade.setMaxRows(getMaxRows());
+
+        tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements());
+        tableFacade.setStateAttr(getStateAttr());
+
+        tableFacade.performFilterAndSort(isPerformFilterAndSort());
+        tableFacade.setPreferences(getTableFacadePreferences());
+        tableFacade.setMessages(getTableFacadeMessages());
+        tableFacade.setColumnSort(getTableFacadeColumnSort());
+        tableFacade.setRowFilter(getTableFacadeRowFilter());
+        tableFacade.addFilterMatcherMap(getTableFacadeFilterMatcherMap());
+
+        Collection<?> pageItems = tableFacade.getCoreContext().getPageItems();
+
+        if (pageItems.size() == 0) {
             body.invoke(null);
         } else {
-            for (Iterator<?> iterator = tagCoreContext.getPageItems().iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = pageItems.iterator(); iterator.hasNext();) {
                 Object item = iterator.next();
-                getWebContext().setPageAttribute(getVar(), item);
+                webContext.setPageAttribute(getVar(), item);
                 body.invoke(null);
             }
         }
 
-        getWebContext().removePageAttribute(getVar()); // clean up the page scoped bean
+        webContext.removePageAttribute(getVar()); // clean up the page scoped bean
 
-        tagCoreContext.setPageItems(getPageItems()); // morph the items
+        tableFacade.setTable(getTable());
+        tableFacade.setToolbar(getTableFacadeToolbar());
+        tableFacade.setView(getTableFacadeView());
+        tableFacade.getCoreContext().setPageItems(getPageItems());
 
-        View view = getTableFacadeView();
+        View view = tableFacade.getView();
         String html = view.render().toString();
         getJspContext().getOut().print(html);
-    }
-
-    /**
-     * An abstract to work with the items in a polymorphic manner. Will work with the regular items
-     * until all the rows and columns are processed. Then will swap out regular items with the new
-     * page items. See the getPageItems() method for more information.
-     */
-    private static class TagCoreContext extends CoreContextImpl {
-        private Collection<?> pageItems;
-
-        public TagCoreContext(Items items, Limit limit, Preferences preferences, Messages messages) {
-            super(items, limit, preferences, messages);
-        }
-
-        public void setPageItems(Collection<?> pageItems) {
-            this.pageItems = pageItems;
-        }
-
-        @Override
-        public Collection<?> getPageItems() {
-            if (pageItems == null) {
-                return super.getPageItems();
-            }
-
-            return pageItems;
-        }
-    }
-
-    /**
-     * An implementation specifically for the tags to work with the TagCoreContext.
-     */
-    private static class TagCoreContextFactory extends CoreContextFactoryImpl {
-        public TagCoreContextFactory(boolean performFilterAndSort, WebContext webContext) {
-            super(performFilterAndSort, webContext);
-        }
-
-        @Override
-        public CoreContext createCoreContext(Collection<?> items, Limit limit) {
-            Items itemsImpl;
-
-            if (isPerformFilterAndSort()) {
-                itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
-            } else {
-                itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
-            }
-
-            CoreContext coreContextImpl = new TagCoreContext(itemsImpl, limit, getPreferences(), getMessages());
-            return coreContextImpl;
-        }
     }
 }

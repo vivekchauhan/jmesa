@@ -26,6 +26,8 @@ public interface Items {
 
     public Collection<?> getPageItems();
 
+    public void setPageItems(Collection<?> items);
+            
     public Collection<?> getFilteredItems();
 
     public Collection<?> getSortedItems();
