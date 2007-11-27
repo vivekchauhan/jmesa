@@ -5,7 +5,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	   addDropShadow('${imagesPath}');
+	   addDropShadow('${pageContext.request.contextPath}/images/table/');
 	});
 </script>
 	
