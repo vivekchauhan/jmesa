@@ -153,11 +153,11 @@ public class LimitPresidentController extends AbstractController {
          */
         if (!limit.isComplete()) {
             int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
-            tableFacade.setLimitRowSelect(totalRows); /*
-                                                       * Very important to set the RowSelect
-                                                       * on the Limit before trying to get the
-                                                       * row start and row end variables.
-                                                       */
+            tableFacade.setTotalRows(totalRows); /*
+                                                  * Very important to set the totalRow
+                                                  * before trying to get the
+                                                  * row start and row end variables.
+                                                  */
         }
 
         PresidentSort presidentSort = getPresidentSort(limit);
