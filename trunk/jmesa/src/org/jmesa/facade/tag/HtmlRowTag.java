@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
@@ -228,8 +229,8 @@ public class HtmlRowTag extends SimpleTagSupport {
         pageItems.add(pageItem);
 
         String var = facadeTag.getVar();
-        WebContext webContext = facadeTag.getTableFacade().getWebContext();
-        Object bean = webContext.getPageAttribute(var);
+        
+        Object bean = getJspContext().getAttribute(var);
         pageItem.put(var, bean);
 
         HtmlTable table = facadeTag.getTable();

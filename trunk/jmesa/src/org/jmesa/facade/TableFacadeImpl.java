@@ -140,24 +140,9 @@ public class TableFacadeImpl implements TableFacade {
     private boolean performFilterAndSort = true;
     
     /**
-     * The constructor is most useful if just want to start with a facade and will
-     * add objects to it. The tag library uses this constructor.
-     * 
-     * @param id The unique identifier for this table.
-     */
-    public TableFacadeImpl(String id) {
-        this.id = id;
-    }
-
-    /**
      * <p>
-     * This constructor is most useful if you are only using the facade to get at the Limit.
-     * </p>
-     * 
-     * <p>
-     * This constructor is also useful if you are doing the filtering and sorting manually and
-     * building the table using the component factory. However be sure to set the RowSelect object,
-     * items, ant table before calling the render method.
+     * Create the table without the column properties. Will need to either add the 
+     * column properties or create the table using one of the factories.
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -170,8 +155,7 @@ public class TableFacadeImpl implements TableFacade {
 
     /**
      * <p>
-     * This constructor is useful if you are doing the filtering and sorting manually. However be
-     * sure to set the RowSelect object and items before calling the render method.
+     * Create the table with all the column properties.
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -196,6 +180,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param items The Collection of Beans or Collection of Maps.
      * @param columnProperties The columns to be pulled from the items.
      */
+    @Deprecated
     public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items, String... columnProperties) {
         this.id = id;
         this.request = request;
@@ -215,6 +200,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param items The Collection of Beans or Collection of Maps.
      * @param columnProperties The columns to be pulled from the items.
      */
+    @Deprecated
     public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items, String... columnProperties) {
         this.id = id;
         this.request = request;
@@ -240,6 +226,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param request The servlet request object.
      * @param items The Collection of Beans or Collection of Maps.
      */
+    @Deprecated
     public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items) {
         this.id = id;
         this.request = request;
@@ -264,6 +251,7 @@ public class TableFacadeImpl implements TableFacade {
      * @param maxRows The max rows to display on a page.
      * @param items The Collection of Beans or Collection of Maps.
      */
+    @Deprecated
     public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items) {
         this.id = id;
         this.request = request;
@@ -430,6 +418,15 @@ public class TableFacadeImpl implements TableFacade {
 
         this.maxRows = maxRows;
     }
+    
+    public void setColumnProperties(String... columnProperties) {
+        if (table != null) {
+            throw new IllegalStateException(
+                    "The table is already constructed. It is too late to add the column properties.");
+        }
+        
+        this.columnProperties = columnProperties;
+    }
 
     public CoreContext getCoreContext() {
         if (coreContext != null) {
@@ -444,9 +441,7 @@ public class TableFacadeImpl implements TableFacade {
 
         factory.setPreferences(preferences);
         factory.setMessages(messages);
-
         factory.setColumnSort(columnSort);
-
         factory.setRowFilter(rowFilter);
 
         if (filterMatchers != null) {

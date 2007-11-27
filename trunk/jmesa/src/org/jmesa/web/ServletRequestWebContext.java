@@ -23,50 +23,64 @@ import java.util.Map;
 import javax.servlet.ServletRequest;
 
 /**
+ *  
+ * This class has been deprecated in favor of using the HttpServletRequestWebContext.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
+@Deprecated
 public class ServletRequestWebContext implements WebContext {
     private ServletRequest request;
     private Map<?,?> parameterMap;
     private Locale locale;
 
+    @Deprecated
     public ServletRequestWebContext(ServletRequest request) {
         this.request = request;
     }
 
+    @Deprecated
     public Object getApplicationInitParameter(String name) {
         throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
+    @Deprecated
     public Object getApplicationAttribute(String name) {
         throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
+    @Deprecated
     public void setApplicationAttribute(String name, Object value) {
         throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
+    @Deprecated
     public void removeApplicationAttribute(String name) {
         throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
+    @Deprecated
     public Object getPageAttribute(String name) {
         return request.getAttribute(name);
     }
 
+    @Deprecated
     public void setPageAttribute(String name, Object value) {
         request.setAttribute(name, value);
     }
 
+    @Deprecated
     public void removePageAttribute(String name) {
         request.removeAttribute(name);
     }
 
+    @Deprecated
     public String getParameter(String name) {
         return request.getParameter(name);
     }
 
+    @Deprecated
     public Map<?,?> getParameterMap() {
         if (parameterMap != null) {
             return parameterMap;
@@ -75,38 +89,47 @@ public class ServletRequestWebContext implements WebContext {
         return request.getParameterMap();
     }
 
+    @Deprecated
     public void setParameterMap(Map<?,?> parameterMap) {
         this.parameterMap = parameterMap;
     }
 
+    @Deprecated
     public Object getRequestAttribute(String name) {
         return request.getAttribute(name);
     }
 
+    @Deprecated
     public void setRequestAttribute(String name, Object value) {
         request.setAttribute(name, value);
     }
 
+    @Deprecated
     public void removeRequestAttribute(String name) {
         request.removeAttribute(name);
     }
 
+    @Deprecated
     public Object getSessionAttribute(String name) {
         throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
+    @Deprecated
     public void setSessionAttribute(String name, Object value) {
         throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
+    @Deprecated
     public void removeSessionAttribute(String name) {
         throw new UnsupportedOperationException("There is no session associated with the request.");
     }
 
+    @Deprecated
     public Writer getWriter() {
         return new StringWriter();
     }
 
+    @Deprecated
     public Locale getLocale() {
         if (locale != null) {
             return locale;
@@ -115,18 +138,22 @@ public class ServletRequestWebContext implements WebContext {
         return request.getLocale();
     }
 
+    @Deprecated
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
 
+    @Deprecated
     public String getContextPath() {
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
     
+    @Deprecated
     public String getRealPath(String path) {
         throw new UnsupportedOperationException("There is no real path associated with the request.");
     }
 
+    @Deprecated
     public Object getBackingObject() {
         return request;
     }
