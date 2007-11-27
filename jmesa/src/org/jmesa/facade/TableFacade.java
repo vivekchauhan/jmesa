@@ -202,6 +202,13 @@ public interface TableFacade {
      * @param maxRows The maxRows to use.
      */
     public void setMaxRows(int maxRows);
+    
+    /**
+     * Set the column properties used for the table.
+     * 
+     * @param columnProperties The columns to be pulled from the items.
+     */
+    public void setColumnProperties(String... columnProperties);
 
     /**
      * Get the Table. If the Table does not exist then one will be created.

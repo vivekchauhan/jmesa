@@ -416,7 +416,7 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         WebContext webContext = new JspPageWebContext((PageContext) getJspContext());
 
-        this.tableFacade = new TableFacadeImpl(id);
+        this.tableFacade = new TableFacadeImpl(id, null);
         tableFacade.setWebContext(webContext);
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
@@ -438,12 +438,12 @@ public class TableFacadeTag extends SimpleTagSupport {
         } else {
             for (Iterator<?> iterator = pageItems.iterator(); iterator.hasNext();) {
                 Object item = iterator.next();
-                webContext.setPageAttribute(getVar(), item);
+                getJspContext().setAttribute(getVar(), item);
                 body.invoke(null);
             }
         }
 
-        webContext.removePageAttribute(getVar()); // clean up the page scoped bean
+        getJspContext().removeAttribute(getVar()); // clean up the page scoped bean
 
         tableFacade.setTable(getTable());
         tableFacade.setToolbar(getTableFacadeToolbar(getToolbar()));
