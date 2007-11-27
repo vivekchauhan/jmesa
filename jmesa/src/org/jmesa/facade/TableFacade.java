@@ -103,12 +103,11 @@ public interface TableFacade {
     
     /**
      * If you are manually sorting and filtering the table then you still need to ensure that you
-     * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit. You
-     * can also override any previously set RowSelect object.
+     * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit.
      * 
-     * @return The RowSelect set on the Limit.
+     * @return The totalRows to set on the Limit.
      */
-    public RowSelect setLimitRowSelect(int totalRows);
+    public RowSelect setTotalRows(int totalRows);
 
     /**
      * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
