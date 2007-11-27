@@ -1,5 +1,7 @@
 package org.jmesa.facade.tag;
 
+import static org.jmesa.facade.tag.TagUtils.createInstance;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
      * @return The list of columns generated on the fly.
      */
     private List<HtmlColumn> getColumns(HtmlComponentFactory factory, WebContext webContext, CoreContext coreContext) {
-        HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) ClassUtils.createInstance(getHtmlColumnsGenerator());
+        HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) createInstance(getHtmlColumnsGenerator());
         SupportUtils.setWebContext(htmlColumnsGenerator, webContext);
         SupportUtils.setCoreContext(htmlColumnsGenerator, coreContext);
 

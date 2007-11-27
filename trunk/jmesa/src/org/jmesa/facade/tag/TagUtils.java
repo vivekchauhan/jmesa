@@ -53,6 +53,19 @@ import org.slf4j.LoggerFactory;
 class TagUtils {
 
     private static Logger logger = LoggerFactory.getLogger(TagUtils.class);
+    
+    static Object createInstance(String className) {
+        if (StringUtils.isEmpty(className)) {
+            return null;
+        }
+        
+        try {
+            return Class.forName(className).newInstance();
+        } catch (Exception e) {
+            logger.error("Could not create the columnSort [" + className + "]", e);
+            throw new RuntimeException("Could not create the class [" + className + "]", e);
+        }
+    }
 
     /**
      * @return Is true is the validation passes
@@ -85,35 +98,35 @@ class TagUtils {
      * @return Get the FilterMatcherMap object.
      */
     static FilterMatcherMap getTableFacadeFilterMatcherMap(String filterMatcherMap) {
-        return (FilterMatcherMap) ClassUtils.createInstance(filterMatcherMap);
+        return (FilterMatcherMap) createInstance(filterMatcherMap);
     }
 
     /**
      * @return Get the Messages object.
      */
     static Messages getTableFacadeMessages(String messages) {
-        return (Messages) ClassUtils.createInstance(messages);
+        return (Messages) createInstance(messages);
     }
 
     /**
      * @return Get the Preferences object.
      */
     static Preferences getTableFacadePreferences(String preferences) {
-        return (Preferences) ClassUtils.createInstance(preferences);
+        return (Preferences) createInstance(preferences);
     }
 
     /**
      * @return Get the RowFilter object.
      */
     static RowFilter getTableFacadeRowFilter(String rowFilter) {
-        return (RowFilter) ClassUtils.createInstance(rowFilter);
+        return (RowFilter) createInstance(rowFilter);
     }
 
     /**
      * @return Get the ColumnSort object.
      */
     static ColumnSort getTableFacadeColumnSort(String columnSort) {
-        return (ColumnSort) ClassUtils.createInstance(columnSort);
+        return (ColumnSort) createInstance(columnSort);
     }
 
     /**
@@ -122,7 +135,7 @@ class TagUtils {
      * @return Get the Toolbar object.
      */
     static Toolbar getTableFacadeToolbar(String toolbar) {
-        return (Toolbar) ClassUtils.createInstance(toolbar);
+        return (Toolbar) createInstance(toolbar);
     }
 
     /**
@@ -152,7 +165,7 @@ class TagUtils {
      * @return Get the View object.
      */
     static View getTableFacadeView(String view) {
-        return (View) ClassUtils.createInstance(view);
+        return (View) createInstance(view);
     }
 
     /**
@@ -165,7 +178,7 @@ class TagUtils {
             return table.getTableRenderer();
         }
 
-        return (HtmlTableRenderer) ClassUtils.createInstance(tableRenderer);
+        return (HtmlTableRenderer) createInstance(tableRenderer);
     }
 
     /**
@@ -178,7 +191,7 @@ class TagUtils {
             return row.getRowRenderer();
         }
 
-        return (HtmlRowRenderer) ClassUtils.createInstance(rowRenderer);
+        return (HtmlRowRenderer) createInstance(rowRenderer);
     }
 
     /**
@@ -189,7 +202,7 @@ class TagUtils {
             return row.getOnclick();
         }
 
-        return (RowEvent) ClassUtils.createInstance(onclick);
+        return (RowEvent) createInstance(onclick);
     }
 
     /**
@@ -200,7 +213,7 @@ class TagUtils {
             return row.getOnmouseover();
         }
 
-        return (RowEvent) ClassUtils.createInstance(onmouseover);
+        return (RowEvent) createInstance(onmouseover);
     }
 
     /**
@@ -211,7 +224,7 @@ class TagUtils {
             return row.getOnmouseout();
         }
 
-        return (RowEvent) ClassUtils.createInstance(onmouseout);
+        return (RowEvent) createInstance(onmouseout);
     }
 
     /**
@@ -223,7 +236,7 @@ class TagUtils {
             return column.getCellRenderer();
         }
 
-        HtmlCellRenderer result = (HtmlCellRenderer) ClassUtils.createInstance(cellRenderer);
+        HtmlCellRenderer result = (HtmlCellRenderer) createInstance(cellRenderer);
         result.setCellEditor(column.getCellRenderer().getCellEditor()); // reset the default
 
         return result;
@@ -247,7 +260,7 @@ class TagUtils {
             return column.getCellRenderer().getCellEditor();
         }
 
-        CellEditor result = (CellEditor) ClassUtils.createInstance(cellEditor);
+        CellEditor result = (CellEditor) createInstance(cellEditor);
         SupportUtils.setPattern(result, pattern);
 
         return result;
@@ -262,7 +275,7 @@ class TagUtils {
             return column.getFilterRenderer();
         }
 
-        HtmlFilterRenderer result = (HtmlFilterRenderer) ClassUtils.createInstance(filterRenderer);
+        HtmlFilterRenderer result = (HtmlFilterRenderer) createInstance(filterRenderer);
         result.setFilterEditor(column.getFilterRenderer().getFilterEditor()); // reset the default
 
         return result;
@@ -281,7 +294,7 @@ class TagUtils {
             return column.getFilterRenderer().getFilterEditor();
         }
 
-        return (FilterEditor) ClassUtils.createInstance(filterEditor);
+        return (FilterEditor) createInstance(filterEditor);
     }
 
     /**
@@ -293,7 +306,7 @@ class TagUtils {
             return column.getHeaderRenderer();
         }
 
-        HtmlHeaderRenderer result = (HtmlHeaderRenderer) ClassUtils.createInstance(headerRenderer);
+        HtmlHeaderRenderer result = (HtmlHeaderRenderer) createInstance(headerRenderer);
         result.setHeaderEditor(column.getHeaderRenderer().getHeaderEditor()); // reset the default
 
         return result;
@@ -312,7 +325,7 @@ class TagUtils {
             return column.getHeaderRenderer().getHeaderEditor();
         }
 
-        return (HeaderEditor) ClassUtils.createInstance(headerEditor);
+        return (HeaderEditor) createInstance(headerEditor);
     }
 
     /**
