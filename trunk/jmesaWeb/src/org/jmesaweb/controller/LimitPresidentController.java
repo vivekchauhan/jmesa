@@ -87,9 +87,9 @@ public class LimitPresidentController extends AbstractController {
      */
     protected String render(HttpServletRequest request, HttpServletResponse response) {
         TableFacade tableFacade = new TableFacadeImpl(id, request, "name.firstName", "name.lastName", "term", "career");
-        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to
-        // use.
+        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
         tableFacade.setStateAttr("restore");
+        tableFacade.setMaxRows(maxRows);
 
         setDataAndLimitVariables(tableFacade); // Find the data to display and build the Limit.
 
@@ -153,11 +153,11 @@ public class LimitPresidentController extends AbstractController {
          */
         if (!limit.isComplete()) {
             int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
-            tableFacade.setRowSelect(maxRows, totalRows); /*
-                                                             * Very important to set the RowSelect
-                                                             * on the Limit before trying to get the
-                                                             * row start and row end variables.
-                                                             */
+            tableFacade.setLimitRowSelect(totalRows); /*
+                                                       * Very important to set the RowSelect
+                                                       * on the Limit before trying to get the
+                                                       * row start and row end variables.
+                                                       */
         }
 
         PresidentSort presidentSort = getPresidentSort(limit);

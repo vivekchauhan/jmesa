@@ -40,7 +40,7 @@ function onInvokeAction(id) {
 
 function onInvokeExportAction(id) {
 	var parameterString = createParameterStringForLimit(id);
-	location.href = '${pageContext.request.contextPath}/presidents.run?ajax=true&' + parameterString;
+	location.href = '${pageContext.request.contextPath}/limit.run?ajax=false&' + parameterString;
 }
 </script>
 
