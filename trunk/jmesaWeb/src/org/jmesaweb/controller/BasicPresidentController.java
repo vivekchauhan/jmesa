@@ -38,13 +38,13 @@ import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-
 
 /**
  * Create a new TableFacade and tweak it out.
@@ -53,6 +53,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Jeff Johnston
  */
 public class BasicPresidentController extends AbstractController {
+
     private PresidentService presidentService;
     private String successView;
     private String id; // The unique table id.
@@ -63,43 +64,55 @@ public class BasicPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
         Collection<President> items = presidentService.getPresidents();
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career", "born");
-        tableFacade.setEditable(false);
+        TableFacade tableFacade = new TableFacadeImpl(id, request);
+
+        // set the max rows
+        tableFacade.setMaxRows(maxRows);
+
+        // set the items
+        tableFacade.setItems(items);
+
+        // set the exports allowed
         tableFacade.setExportTypes(response, CSV, JEXCEL, PDF);
 
         // return to the table in the same state that the user left it.
         tableFacade.setStateAttr("restore");
 
+        Limit limit = tableFacade.getLimit();
+        if (limit.isExportable()) {
+            export(tableFacade);
+            return null; // In Spring returning null tells the controller not to do anything.
+        } else {
+            String html = html(tableFacade);
+            mv.addObject("presidents", html); // Set the Html in the request for the JSP.
+        }
+
+        return mv;
+    }
+
+    private String html(TableFacade tableFacade) {
+        // set the column properties
+        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
+
         // add a custom filter matcher to be the same pattern as the cell editor used.
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
-        Table table = tableFacade.getTable();
+        HtmlTable table = (HtmlTable) tableFacade.getTable();
+        table.getTableRenderer().setWidth("600px");
 
-        Row row = table.getRow();
-        // row.setHighlighter(true);
-        // row.setUniqueProperties("name.firstName");
+        HtmlRow row = table.getRow();
 
-        Column firstName = row.getColumn("name.firstName");
+        HtmlColumn firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
 
-        Column lastName = row.getColumn("name.lastName");
+        HtmlColumn lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
+
+        HtmlColumn career = row.getColumn("career");
+        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
 
         Column born = row.getColumn("born");
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
-        
-        Limit limit = tableFacade.getLimit();
-        if (limit.isExportable()) {
-            tableFacade.render(); // Will write the export data out to the response.
-            return null; // In Spring returning null tells the controller not to do anything.
-        }
-
-        HtmlColumn career = (HtmlColumn)row.getColumn("career");
-        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
-
-        ((HtmlColumn)lastName).getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
-
-        ((HtmlTable) table).getTableRenderer().setWidth("600px");
 
         // Using an anonymous class to implement a custom editor.
         firstName.getCellRenderer().setCellEditor(new CellEditor() {
@@ -113,13 +126,23 @@ public class BasicPresidentController extends AbstractController {
             }
         });
 
-        String html = tableFacade.render(); // Return the Html.
+        return tableFacade.render(); // Return the Html.
+    }
 
-        mv.addObject("presidents", html); // Set the Html in the request for the JSP.
-        String imagesPath = tableFacade.getCoreContext().getPreference("html.imagesPath");
-        mv.addObject("imagesPath", request.getContextPath() + imagesPath);
+    private void export(TableFacade tableFacade) {
+        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
-        return mv;
+        Table table = tableFacade.getTable();
+
+        Row row = table.getRow();
+
+        Column firstName = row.getColumn("name.firstName");
+        firstName.setTitle("First Name");
+
+        Column lastName = row.getColumn("name.lastName");
+        lastName.setTitle("Last Name");
+
+        tableFacade.render(); // Will write the export data out to the response.
     }
 
     public void setPresidentService(PresidentService presidentService) {
