@@ -108,16 +108,14 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class TableFacadeImpl implements TableFacade {
-    private Logger logger = LoggerFactory.getLogger(TableFacadeImpl.class);
 
+    private Logger logger = LoggerFactory.getLogger(TableFacadeImpl.class);
     public static String CSV = "csv";
     public static String EXCEL = "excel";
     public static String JEXCEL = "jexcel";
     public static String PDF = "pdf";
-
     private HttpServletRequest request;
     private HttpServletResponse response;
-
     private String id;
     private int maxRows;
     private Collection<?> items;
@@ -138,7 +136,7 @@ public class TableFacadeImpl implements TableFacade {
     private int[] maxRowsIncrements;
     private View view;
     private boolean performFilterAndSort = true;
-    
+
     /**
      * <p>
      * Create the table without the column properties. Will need to either add the 
@@ -319,6 +317,21 @@ public class TableFacadeImpl implements TableFacade {
         this.limit = limit;
     }
 
+    public RowSelect setLimitRowSelect(int totalRows) {
+        if (maxRows == 0) {
+            throw new IllegalStateException(
+                    "You need to set the maxRows before setting the Limit RowSelect object.");
+        }
+
+        return setRowSelect(this.maxRows, totalRows);
+    }
+
+    /**
+     * Use the setLimitRowSelect method for consistency. Be sure to set the maxRows on the 
+     * facade after constructing a new TableFacadeImpl object.
+     * 
+     */
+    @Deprecated
     public RowSelect setRowSelect(int maxRows, int totalRows) {
         this.maxRows = maxRows;
 
@@ -411,20 +424,20 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setMaxRows(int maxRows) {
-        if (limit != null) {
+        if (coreContext != null) {
             throw new IllegalStateException(
                     "It is too late to add the maxRows. You need to add the maxRows right after constructing the TableFacade.");
         }
 
         this.maxRows = maxRows;
     }
-    
+
     public void setColumnProperties(String... columnProperties) {
         if (table != null) {
             throw new IllegalStateException(
                     "The table is already constructed. It is too late to add the column properties.");
         }
-        
+
         this.columnProperties = columnProperties;
     }
 
@@ -542,7 +555,7 @@ public class TableFacadeImpl implements TableFacade {
             throw new IllegalStateException(
                     "It is too late to add this Toolbar. You need to add the Toolbar before calling the View.");
         }
-        
+
         this.toolbar = toolbar;
         SupportUtils.setTable(toolbar, getTable());
         SupportUtils.setCoreContext(toolbar, getCoreContext());
