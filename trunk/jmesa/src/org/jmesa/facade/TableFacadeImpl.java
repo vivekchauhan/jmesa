@@ -317,7 +317,7 @@ public class TableFacadeImpl implements TableFacade {
         this.limit = limit;
     }
 
-    public RowSelect setLimitRowSelect(int totalRows) {
+    public RowSelect setTotalRows(int totalRows) {
         if (maxRows == 0) {
             throw new IllegalStateException(
                     "You need to set the maxRows before setting the Limit RowSelect object.");
@@ -327,7 +327,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
-     * Use the setLimitRowSelect method for consistency. Be sure to set the maxRows on the 
+     * Use the setTotalRows method, which should be easier to understand. Be sure to set the maxRows on the 
      * facade after constructing a new TableFacadeImpl object.
      * 
      */
