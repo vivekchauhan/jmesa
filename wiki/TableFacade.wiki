@@ -122,7 +122,7 @@ There is now an alternative way to create columns using the API. This technique 
 All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request, items); // do not need maxItems for exports
+TableFacade tableFacade = new TableFacadeImpl(id, request, items); // do not need maxRows for exports
 tableFacade.setExportTypes(response, "excel");
 
 Limit limit = tableFacade.getLimit();
