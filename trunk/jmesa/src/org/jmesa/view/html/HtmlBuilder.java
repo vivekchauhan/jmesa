@@ -33,6 +33,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Jeff Johnston
  */
 public class HtmlBuilder {
+
     private StringBuilder builder;
 
     /**
@@ -838,7 +839,7 @@ public class HtmlBuilder {
 
     /**
      * <p>
-     * The start of the a element attribute [<a href=].
+     * The start of the a element attribute [<a].
      * </p>
      */
     public HtmlBuilder a() {
@@ -846,37 +847,53 @@ public class HtmlBuilder {
 
         return this;
     }
-    
-    public HtmlBuilder a(String url, String displayText) {
-	return a(url, displayText, null);
+
+    /**
+     * <p>
+     * The a element attribute with the href attribute [<a href=].
+     * </p>
+     * 
+     * @param url The web url string.
+     * @displayText The text to display for the url.
+     */
+    public HtmlBuilder ahref(String url, String displayText) {
+        return ahref(url, displayText, null);
     }
 
-    public HtmlBuilder a(String url, String displayText, Map<String, String> params) {
-	StringBuilder urlBuilder = new StringBuilder(url);
-	if (params != null && params.size() > 0) {
-	    boolean firstRow = true;
-	    for (Map.Entry<String, String> entry : params.entrySet()) {
-		if (firstRow) {
-		    urlBuilder.append("?");
-		} else {
-		    urlBuilder.append("&amp;");
-		}
-		String key = entry.getKey();
-		String val = entry.getValue();
-		try {
-		    key = URLEncoder.encode(key, "UTF-8");
-		    val = URLEncoder.encode(val, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-		    e.printStackTrace();
-		}
-		urlBuilder.append(key).append("=").append(val);
-		firstRow = false;
-	    }
-	}
-	a().href().quote().append(urlBuilder.toString()).quote().close().append(displayText).aEnd();	
-	return this;
+    /**
+     * <p>
+     * The a element attribute with the href attribute [<a href=].
+     * </p>
+     * @param url The web url string.
+     * @displayText The text to display for the url.
+     * @params A map of name/value pair of parameter.
+     */
+    public HtmlBuilder ahref(String url, String displayText, Map<String, String> params) {
+        StringBuilder urlBuilder = new StringBuilder(url);
+        if (params != null && params.size() > 0) {
+            boolean firstRow = true;
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                if (firstRow) {
+                    urlBuilder.append("?");
+                } else {
+                    urlBuilder.append("&amp;");
+                }
+                String key = entry.getKey();
+                String val = entry.getValue();
+                try {
+                    key = URLEncoder.encode(key, "UTF-8");
+                    val = URLEncoder.encode(val, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                urlBuilder.append(key).append("=").append(val);
+                firstRow = false;
+            }
+        }
+        a().href().quote().append(urlBuilder.toString()).quote().close().append(displayText).aEnd();
+        return this;
     }
-    
+
     public HtmlBuilder href(String href) {
         if (StringUtils.isNotBlank(href)) {
             append(" href=\"").append(href).append("\" ");
@@ -1464,7 +1481,7 @@ public class HtmlBuilder {
 
         return this;
     }
- 
+
     public HtmlBuilder head() {
         append("<head");
 
@@ -1476,7 +1493,7 @@ public class HtmlBuilder {
 
         return this;
     }
-    
+
     public HtmlBuilder style() {
         append("<style");
 
