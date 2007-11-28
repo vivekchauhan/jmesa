@@ -15,15 +15,27 @@
  */
 package org.jmesa.view.pdf;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.View;
+import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Table;
+import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlSnippets;
 import org.jmesa.view.html.HtmlSnippetsImpl;
+import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Use the Flying Saucer API to generate Pdf documents.
@@ -32,16 +44,19 @@ import org.jmesa.web.WebContext;
  * @author Paul Horn
  */
 public class PdfView implements View {
+
+    private static Logger logger = LoggerFactory.getLogger(PdfView.class);
     private HtmlTable table;
     private HtmlSnippets snippets;
     private WebContext webContext;
-
+    private CoreContext coreContext;
     private String css;
     private String doctype;
 
     public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
         this.table = table;
         this.webContext = webContext;
+        this.coreContext = coreContext;
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
 
         this.css = coreContext.getPreference("pdf.css");
@@ -80,6 +95,13 @@ public class PdfView implements View {
 
     public byte[] getBytes() {
         String render = (String) render();
+
+        try {
+            return render.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            logger.info("Not able to process the PDF file using the UTF-8 encoding.");
+        }
+
         return render.getBytes();
     }
 
@@ -112,7 +134,7 @@ public class PdfView implements View {
 
         html.append(snippets.tbodyStart());
 
-        html.append(snippets.body());
+        html.append(body());
 
         html.append(snippets.tbodyEnd());
 
@@ -125,8 +147,70 @@ public class PdfView implements View {
         html.append(snippets.themeEnd());
 
         html.bodyEnd();
+
         html.htmlEnd();
 
         return html.toString();
+    }
+
+    /**
+     * Custom body so can decorate the cellEditors to escape xml values.
+     */
+    protected String body() {
+        HtmlBuilder html = new HtmlBuilder();
+
+        EscapeXmlCellEditor escapeXmlCellEditor = new EscapeXmlCellEditor();
+
+        int rowcount = 0;
+
+        Collection<?> items = coreContext.getPageItems();
+        for (Object item : items) {
+            rowcount++;
+
+            HtmlRow row = table.getRow();
+            List<Column> columns = row.getColumns();
+
+            html.append(row.getRowRenderer().render(item, rowcount));
+
+            for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
+                HtmlColumn column = (HtmlColumn) iter.next();
+                HtmlCellRenderer cellRenderer = column.getCellRenderer();
+
+                CellEditor cellEditor = cellRenderer.getCellEditor();
+
+                // decorate the pdf view
+                escapeXmlCellEditor.setCellEditor(cellEditor);
+                cellRenderer.setCellEditor(escapeXmlCellEditor);
+
+                html.append(cellRenderer.render(item, rowcount));
+
+                // have to set the editor back or will recurse infinitely
+                cellRenderer.setCellEditor(cellEditor);
+            }
+
+            html.trEnd(1);
+        }
+        return html.toString();
+    }
+
+    /**
+     * Decorate the cell editor with one that can escape values.
+     */
+    protected static class EscapeXmlCellEditor implements CellEditor {
+
+        private CellEditor cellEditor;
+
+        public void setCellEditor(CellEditor cellEditor) {
+            this.cellEditor = cellEditor;
+        }
+
+        public Object getValue(Object item, String property, int rowcount) {
+            String value = (String) cellEditor.getValue(item, property, rowcount);
+            if (value != null) {
+                return StringEscapeUtils.escapeXml(value);
+            }
+
+            return null;
+        }
     }
 }
