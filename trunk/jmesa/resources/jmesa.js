@@ -338,12 +338,11 @@ function createDynDroplistFilter(filter, id, property, options) {
     
     /* Get the original value from the filter. */
     var originalValue = cell.text();
-    cell.text('')
 
     var width = cell.width();
     
     /* Create the dynamic select input box. */
-    html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter">';
+    html = '<div id="dynFilterDiv" style="top:16px"><select id="dynFilterInput" name="filter" size="10">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
     	if (key == originalValue) {
@@ -374,6 +373,9 @@ function createDynDroplistFilter(filter, id, property, options) {
 	    div.width(width);
         div.css( {visibility:"visible"} ) 
     }
+    
+	var originalBackgroundColor = cell.css("backgroundColor");
+	cell.css({backgroundColor:div.css("backgroundColor")});
 
     input.focus();
 
@@ -391,6 +393,7 @@ function createDynDroplistFilter(filter, id, property, options) {
         cell.text(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	    $('#dynFilterDiv').remove();
+	    cell.css({backgroundColor:originalBackgroundColor});
     });
 }
 
