@@ -91,11 +91,11 @@ public class BasicPresidentController extends AbstractController {
     }
 
     private String html(TableFacade tableFacade) {
-        // set the column properties
-        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-
         // add a custom filter matcher to be the same pattern as the cell editor used.
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+
+        // set the column properties
+        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
 
         HtmlTable table = (HtmlTable) tableFacade.getTable();
         table.getTableRenderer().setWidth("600px");
@@ -130,6 +130,7 @@ public class BasicPresidentController extends AbstractController {
     }
 
     private void export(TableFacade tableFacade) {
+        // set the column properties
         tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         Table table = tableFacade.getTable();
