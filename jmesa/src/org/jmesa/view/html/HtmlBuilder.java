@@ -15,6 +15,10 @@
  */
 package org.jmesa.view.html;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -841,6 +845,36 @@ public class HtmlBuilder {
         append("<a");
 
         return this;
+    }
+    
+    public HtmlBuilder a(String url, String displayText) {
+	return a(url, displayText, null);
+    }
+
+    public HtmlBuilder a(String url, String displayText, Map<String, String> params) {
+	StringBuilder urlBuilder = new StringBuilder(url);
+	if (params != null && params.size() > 0) {
+	    boolean firstRow = true;
+	    for (Map.Entry<String, String> entry : params.entrySet()) {
+		if (firstRow) {
+		    urlBuilder.append("?");
+		} else {
+		    urlBuilder.append("&amp;");
+		}
+		String key = entry.getKey();
+		String val = entry.getValue();
+		try {
+		    key = URLEncoder.encode(key, "UTF-8");
+		    val = URLEncoder.encode(val, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+		    e.printStackTrace();
+		}
+		urlBuilder.append(key).append("=").append(val);
+		firstRow = false;
+	    }
+	}
+	a().href().quote().append(urlBuilder.toString()).quote().close().append(displayText).aEnd();	
+	return this;
     }
     
     public HtmlBuilder href(String href) {
