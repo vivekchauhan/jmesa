@@ -133,8 +133,10 @@ public class PdfView implements View {
         html.append(snippets.theadEnd());
 
         html.append(snippets.tbodyStart());
-
-        html.append(body());
+        
+        decorateCellEditors();
+        
+        html.append(snippets.body());
 
         html.append(snippets.tbodyEnd());
 
@@ -154,49 +156,27 @@ public class PdfView implements View {
     }
 
     /**
-     * Custom body so can decorate the cellEditors to escape xml values.
+     * Decorate the cellEditors to escape xml values.
      */
-    protected String body() {
-        HtmlBuilder html = new HtmlBuilder();
-
-        EscapeXmlCellEditor escapeXmlCellEditor = new EscapeXmlCellEditor();
-
-        int rowcount = 0;
-
-        Collection<?> items = coreContext.getPageItems();
-        for (Object item : items) {
-            rowcount++;
-
-            HtmlRow row = table.getRow();
-            List<Column> columns = row.getColumns();
-
-            html.append(row.getRowRenderer().render(item, rowcount));
-
-            for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
-                HtmlColumn column = (HtmlColumn) iter.next();
-                HtmlCellRenderer cellRenderer = column.getCellRenderer();
-
-                CellEditor cellEditor = cellRenderer.getCellEditor();
-
-                // decorate the pdf view
-                escapeXmlCellEditor.setCellEditor(cellEditor);
-                cellRenderer.setCellEditor(escapeXmlCellEditor);
-
-                html.append(cellRenderer.render(item, rowcount));
-
-                // have to set the editor back or will recurse infinitely
-                cellRenderer.setCellEditor(cellEditor);
-            }
-
-            html.trEnd(1);
+    protected void decorateCellEditors() {
+        HtmlRow row = table.getRow();
+        List<Column> columns = row.getColumns();
+        for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
+            HtmlColumn column = (HtmlColumn) iter.next();
+            HtmlCellRenderer cellRenderer = column.getCellRenderer();
+            CellEditor cellEditor = cellRenderer.getCellEditor();
+            
+            // decorate the cell editors
+            EscapeXmlCellEditor escapeXmlCellEditor = new EscapeXmlCellEditor();
+            escapeXmlCellEditor.setCellEditor(cellEditor);
+            cellRenderer.setCellEditor(escapeXmlCellEditor);
         }
-        return html.toString();
     }
 
     /**
      * Decorate the cell editor with one that can escape values.
      */
-    protected static class EscapeXmlCellEditor implements CellEditor {
+    private static class EscapeXmlCellEditor implements CellEditor {
 
         private CellEditor cellEditor;
 
