@@ -185,9 +185,9 @@ public class PdfView implements View {
         }
 
         public Object getValue(Object item, String property, int rowcount) {
-            String value = (String) cellEditor.getValue(item, property, rowcount);
+            Object value = cellEditor.getValue(item, property, rowcount);
             if (value != null) {
-                return StringEscapeUtils.escapeXml(value);
+                return StringEscapeUtils.escapeXml(value.toString());
             }
 
             return null;
