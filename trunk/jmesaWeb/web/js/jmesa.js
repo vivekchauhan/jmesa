@@ -338,12 +338,11 @@ function createDynDroplistFilter(filter, id, property, options) {
     
     /* Get the original value from the filter. */
     var originalValue = cell.text();
-    cell.text('')
 
     var width = cell.width();
     
     /* Create the dynamic select input box. */
-    html = '<div id="dynFilterDiv"><select id="dynFilterInput" name="filter">';
+    html = '<div id="dynFilterDiv" style="top:17px"><select id="dynFilterInput" name="filter">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
     	if (key == originalValue) {
@@ -359,21 +358,21 @@ function createDynDroplistFilter(filter, id, property, options) {
     var div = $('#dynFilterDiv');
     var input = $('#dynFilterInput');
     
-    // IE will not resize options automatically.
-    if ($.browser.msie) {
-	    var selectWidth = input.width();
-	    if (selectWidth > width) {
-            width = selectWidth;
-	    }
-        // Now show select list. This keeps the screen from blinking.
-        input.width(width);
-        div.width(width).bgiframe().css({visibility:"visible", borderStyle:"none"});
-    } else {
-        // Now show select list. This keeps the screen from blinking.
-	    input.width(width)
-	    div.width(width);
-        div.css( {visibility:"visible"} ) 
+    var selectWidth = input.width();
+    if (selectWidth > width) {
+        width = selectWidth;
     }
+    // Now show select list. This keeps the screen from blinking.
+    input.width(width).attr('size','10');
+    div.width(width).css( {visibility:"visible"} ) 
+    
+    // IE needs the border to look good
+    if ($.browser.msie) {
+        div.css({borderStyle:"none"});
+    }
+
+	var originalBackgroundColor = cell.css("backgroundColor");
+	cell.css({backgroundColor:div.css("backgroundColor")});
 
     input.focus();
 
@@ -391,6 +390,7 @@ function createDynDroplistFilter(filter, id, property, options) {
         cell.text(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	    $('#dynFilterDiv').remove();
+	    cell.css({backgroundColor:originalBackgroundColor});
     });
 }
 
