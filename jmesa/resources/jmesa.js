@@ -341,10 +341,13 @@ function createDynDroplistFilter(filter, id, property, options) {
 
     var width = cell.width();
     
+    var size = 0;
+
     /* Create the dynamic select input box. */
-    html = '<div id="dynFilterDiv" style="top:16px"><select id="dynFilterInput" name="filter" size="10">';
+    html = '<div id="dynFilterDiv" style="top:17px"><select id="dynFilterDroplist" name="filter">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
+        size++;
     	if (key == originalValue) {
     		html += '<option selected="selected" value="' + key + '">' + value + '</option>';
     	} else {
@@ -356,40 +359,37 @@ function createDynDroplistFilter(filter, id, property, options) {
     cell.append(html);
     
     var div = $('#dynFilterDiv');
-    var input = $('#dynFilterInput');
+    var input = $('#dynFilterDroplist');
     
-    // IE will not resize options automatically.
-    if ($.browser.msie) {
-	    var selectWidth = input.width();
-	    if (selectWidth > width) {
-            width = selectWidth;
-	    }
-        // Now show select list. This keeps the screen from blinking.
-        input.width(width);
-        div.width(width).bgiframe().css({visibility:"visible", borderStyle:"none"});
-    } else {
-        // Now show select list. This keeps the screen from blinking.
-	    input.width(width)
-	    div.width(width);
-        div.css( {visibility:"visible"} ) 
+    var selectWidth = input.width();
+    if (selectWidth > width) {
+        width = selectWidth;
     }
     
-	var originalBackgroundColor = cell.css("backgroundColor");
+    if (size > 10) {
+        size = 10;
+    }
+    
+    // Now show select list. This keeps the screen from blinking.
+    input.width(width).attr('size',size);
+    div.width(width).css( {visibility:"visible", borderStyle:"none"} ) 
+    
+    var originalBackgroundColor = cell.css("backgroundColor");
 	cell.css({backgroundColor:div.css("backgroundColor")});
 
     input.focus();
 
     /* Something was selected */
-    $('#dynFilterInput').change(function() {
-        var changedValue = $("#dynFilterInput option:selected").val();
+    $('#dynFilterDroplist').change(function() {
+        var changedValue = $("#dynFilterDroplist option:selected").val();
         cell.text(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	    $('#dynFilterDiv').remove();
 	    onInvokeAction(dynFilter.id);
     });
 
-    $('#dynFilterInput').blur(function() {
-        var changedValue = $("#dynFilterInput option:selected").val();
+    $('#dynFilterDroplist').blur(function() {
+        var changedValue = $("#dynFilterDroplist option:selected").val();
         cell.text(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	    $('#dynFilterDiv').remove();
