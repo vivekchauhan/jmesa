@@ -49,6 +49,7 @@
     border: 1px solid #c0c0c0;
     background-color: #efebe7;
     height: 15px;
+    white-space: nowrap;
 }
 
 .jmesa .filter #dynFilterDiv {
