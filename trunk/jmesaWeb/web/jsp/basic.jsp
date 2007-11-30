@@ -2,13 +2,6 @@
 
 <head>
 	<title>Basic JMesa Example</title>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-	   addDropShadow('${pageContext.request.contextPath}/images/table/');
-	});
-</script>
-	
 </head>
 
 <body>
