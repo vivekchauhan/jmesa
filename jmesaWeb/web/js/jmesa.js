@@ -341,13 +341,10 @@ function createDynDroplistFilter(filter, id, property, options) {
 
     var width = cell.width();
     
-    var size = 0;
-
     /* Create the dynamic select input box. */
-    html = '<div id="dynFilterDiv" style="top:17px"><select id="dynFilterDroplist" name="filter">';
+    html = '<div id="dynFilterDiv" style="top:17px"><select id="dynFilterDroplist" name="filter" size="10">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
-        size++;
     	if (key == originalValue) {
     		html += '<option selected="selected" value="' + key + '">' + value + '</option>';
     	} else {
@@ -366,12 +363,8 @@ function createDynDroplistFilter(filter, id, property, options) {
         width = selectWidth;
     }
     
-    if (size > 10) {
-        size = 10;
-    }
-    
     // Now show select list. This keeps the screen from blinking.
-    input.width(width).attr('size',size);
+    input.width(width);
     div.width(width).css( {visibility:"visible", borderStyle:"none"} ) 
     
     var originalBackgroundColor = cell.css("backgroundColor");
