@@ -48,7 +48,9 @@ public class TagPresidentController extends AbstractController {
 
         Collection<President> items = presidentService.getPresidents();
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career", "born");
+        TableFacade tableFacade = new TableFacadeImpl(id, request);
+        tableFacade.setItems(items);
+        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
         tableFacade.setExportTypes(response, "csv", "excel"); // Tell the tableFacade what exports to use.
         tableFacade.addFilterMatcherMap(new TagFilterMatcherMap());
 
