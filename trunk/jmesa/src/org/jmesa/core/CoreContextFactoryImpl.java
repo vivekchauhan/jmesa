@@ -41,6 +41,9 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class CoreContextFactoryImpl implements CoreContextFactory {
+    public static final String JMESA_PREFERENCES_LOCATION = "jmesaPreferencesLocation";
+    public static final String JMESA_MESSAGES_LOCATION = "jmesaMessagesLocation";
+    
     private WebContext webContext;
     private FilterMatcherRegistry registry;
     private RowFilter rowFilter;
@@ -118,7 +121,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
 
     protected Preferences getPreferences() {
         if (preferences == null) {
-            String jmesaPreferencesLocation = (String) webContext.getApplicationInitParameter("jmesaPreferencesLocation");
+            String jmesaPreferencesLocation = (String) webContext.getApplicationInitParameter(JMESA_PREFERENCES_LOCATION);
             preferences = new PropertiesPreferences(jmesaPreferencesLocation, webContext);
         }
 
@@ -131,7 +134,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
 
     protected Messages getMessages() {
         if (messages == null) {
-            String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter("jmesaMessagesLocation");
+            String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
             messages = new ResourceBundleMessages(jmesaMessagesLocation, webContext);
         }
 

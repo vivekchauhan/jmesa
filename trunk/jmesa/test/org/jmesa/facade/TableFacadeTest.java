@@ -59,6 +59,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
  * @author Jeff Johnston
  */
 public class TableFacadeTest extends AbstractTestCase {
+
     private static final String ID = "pres";
 
     @Test
@@ -95,7 +96,7 @@ public class TableFacadeTest extends AbstractTestCase {
             facade.getCoreContext();
             fail("You should have needed the items.");
         } catch (IllegalStateException e) {
-            // pass
+        // pass
         }
     }
 
@@ -240,7 +241,7 @@ public class TableFacadeTest extends AbstractTestCase {
             facade.getTable();
             fail("Should be an invalid facade.");
         } catch (IllegalStateException e) {
-            // pass
+        // pass
         }
     }
 
@@ -282,7 +283,7 @@ public class TableFacadeTest extends AbstractTestCase {
             facade.getTable();
             fail("Should be an invalid facade.");
         } catch (IllegalStateException e) {
-            // pass
+        // pass
         }
     }
 
@@ -437,5 +438,15 @@ public class TableFacadeTest extends AbstractTestCase {
         String markup = facade.render();
         assertNull(markup);
         assertTrue("There are no contents in the export.", response.getContentAsByteArray().length > 0);
+    }
+
+    @Test
+    public void getMaxRows() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        TableFacadeImpl facade = new TableFacadeImpl(ID, request);
+
+        int maxRows = facade.getMaxRows();
+        
+        assertTrue("The maxRows is not set.", maxRows == 15);
     }
 }
