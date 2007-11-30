@@ -64,15 +64,9 @@ public class BasicPresidentController extends AbstractController {
         Collection<President> items = presidentService.getPresidents();
 
         TableFacade tableFacade = new TableFacadeImpl(id, request);
-        
-        // set the items
-        tableFacade.setItems(items);
-
-        // set the exports allowed
-        tableFacade.setExportTypes(response, CSV, JEXCEL, PDF);
-
-        // return to the table in the same state that the user left it.
-        tableFacade.setStateAttr("restore");
+        tableFacade.setItems(items); // set the items
+        tableFacade.setExportTypes(response, CSV, JEXCEL, PDF); // set the exports allowed
+        tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it.
 
         Limit limit = tableFacade.getLimit();
         if (limit.isExportable()) {

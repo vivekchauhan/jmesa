@@ -56,7 +56,6 @@ public class LimitPresidentController extends AbstractController {
     private PresidentService presidentService;
     private String successView;
     private String id; // The unique table id.
-    private int maxRows; // The max rows to display on the page.
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
@@ -86,10 +85,10 @@ public class LimitPresidentController extends AbstractController {
      * @param response The HttpServletResponse to use.
      */
     protected String render(HttpServletRequest request, HttpServletResponse response) {
-        TableFacade tableFacade = new TableFacadeImpl(id, request, "name.firstName", "name.lastName", "term", "career");
+        TableFacade tableFacade = new TableFacadeImpl(id, request);
+        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career"); // define the column properties
         tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
         tableFacade.setStateAttr("restore");
-        tableFacade.setMaxRows(maxRows);
 
         setDataAndLimitVariables(tableFacade); // Find the data to display and build the Limit.
 
@@ -218,9 +217,5 @@ public class LimitPresidentController extends AbstractController {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setMaxRows(int maxRows) {
-        this.maxRows = maxRows;
     }
 }

@@ -41,11 +41,12 @@ import org.jmesaweb.controller.HtmlTableTemplate;
  */
 class BasicGroovyPresident implements HtmlTableTemplate {
     String id;
-    int maxRows;
     
     String build(Collection<Object> items, HttpServletRequest request) {
-        def tableFacade = [id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career"] as TableFacadeImpl
-        tableFacade.stateAttr = "restore";
+        def tableFacade = [id, request] as TableFacadeImpl
+        tableFacade.items = items
+        tableFacade.columnProperties = ["name.firstName", "name.lastName", "term", "career"]
+        tableFacade.stateAttr = "restore"
 
         def table = tableFacade.table
         table.caption = "Presidents"
