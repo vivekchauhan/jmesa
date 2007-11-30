@@ -15,6 +15,9 @@
  */
 package org.jmesa.facade;
 
+import static org.jmesa.core.CoreContextFactoryImpl.JMESA_PREFERENCES_LOCATION;
+import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +34,7 @@ import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
@@ -139,8 +143,7 @@ public class TableFacadeImpl implements TableFacade {
 
     /**
      * <p>
-     * Create the table without the column properties. Will need to either add the 
-     * column properties or create the table using one of the factories.
+     * Create the table with the id.
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -156,10 +159,16 @@ public class TableFacadeImpl implements TableFacade {
      * Create the table with all the column properties.
      * </p>
      * 
+     * <p>
+     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
+     *    an id and request object.</b>
+     * </p>
+     * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param columnProperties The columns to be pulled from the items.
      */
+    @Deprecated
     public TableFacadeImpl(String id, HttpServletRequest request, String... columnProperties) {
         this.id = id;
         this.request = request;
@@ -171,6 +180,11 @@ public class TableFacadeImpl implements TableFacade {
      * This constructor is only useful if you are only using the facade for exports, not html
      * tables. This is because you are not setting the maxRows which is always required for the html
      * tables.
+     * </p>
+     * 
+     * <p>
+     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
+     *    an id and request object.</b>
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -190,6 +204,11 @@ public class TableFacadeImpl implements TableFacade {
      * <p>
      * The most common constructor that will be used to display an html table and exports. The
      * intent is let the API do all the filtering and sorting automatically.
+     * </p>
+     * 
+     * <p>
+     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
+     *    an id and request object.</b>
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -220,6 +239,11 @@ public class TableFacadeImpl implements TableFacade {
      * the facade!
      * </p>
      * 
+     * <p>
+     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
+     *    an id and request object.</b>
+     * </p>
+     * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param items The Collection of Beans or Collection of Maps.
@@ -242,6 +266,11 @@ public class TableFacadeImpl implements TableFacade {
      * This will not build the table automatically because there are no columns defined so you neeed
      * to build the table (probably using the component factory available) and then set the table on
      * the facade!
+     * </p>
+     * 
+     * <p>
+     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
+     *    an id and request object.</b>
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -296,9 +325,7 @@ public class TableFacadeImpl implements TableFacade {
             if (l.isExportable()) {
                 l.setRowSelect(new RowSelectImpl(1, items.size(), items.size()));
             } else {
-                if (maxRows > 0) {
-                    limitFactory.createRowSelect(maxRows, items.size(), l);
-                }
+                limitFactory.createRowSelect(getMaxRows(), items.size(), l);
             }
         }
 
@@ -318,12 +345,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public RowSelect setTotalRows(int totalRows) {
-        if (maxRows == 0) {
-            throw new IllegalStateException(
-                    "You need to set the maxRows before setting the Limit RowSelect object.");
-        }
-
-        return setRowSelect(this.maxRows, totalRows);
+        return setRowSelect(getMaxRows(), totalRows);
     }
 
     /**
@@ -367,6 +389,20 @@ public class TableFacadeImpl implements TableFacade {
         SupportUtils.setWebContext(messages, getWebContext());
     }
 
+    /**
+     * @return Get the preferences if they are not set.
+     */
+    Preferences getPreferences() {
+        if (preferences != null) {
+            return preferences;
+        }
+
+        WebContext wc = getWebContext();
+        String jmesaPreferencesLocation = (String) wc.getApplicationInitParameter(JMESA_PREFERENCES_LOCATION);
+        this.preferences = new PropertiesPreferences(jmesaPreferencesLocation, wc);
+        return preferences;
+    }
+
     public void setPreferences(Preferences preferences) {
         this.preferences = preferences;
         SupportUtils.setWebContext(preferences, getWebContext());
@@ -375,7 +411,7 @@ public class TableFacadeImpl implements TableFacade {
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                    "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
+                "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
         }
 
         if (filterMatchers == null) {
@@ -388,7 +424,7 @@ public class TableFacadeImpl implements TableFacade {
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                    "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
+                "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
         }
 
         Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
@@ -402,7 +438,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setColumnSort(ColumnSort columnSort) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                    "It is too late to add this ColumnSort. You need to add the ColumnSort right after constructing the TableFacade.");
+                "It is too late to add this ColumnSort. You need to add the ColumnSort right after constructing the TableFacade.");
         }
 
         this.columnSort = columnSort;
@@ -412,7 +448,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setRowFilter(RowFilter rowFilter) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                    "It is too late to add this RowFilter. You need to add the RowFilter right after constructing the TableFacade.");
+                "It is too late to add this RowFilter. You need to add the RowFilter right after constructing the TableFacade.");
         }
 
         this.rowFilter = rowFilter;
@@ -423,10 +459,23 @@ public class TableFacadeImpl implements TableFacade {
         this.items = items;
     }
 
+    /**
+     * @return Get the maxRows if they are not set.
+     */
+    int getMaxRows() {
+        if (maxRows == 0) {
+            Preferences pref = getPreferences();
+            String mr = pref.getPreference(LIMIT_ROWSELECT_MAXROWS);
+            this.maxRows = Integer.valueOf(mr);
+        }
+
+        return maxRows;
+    }
+
     public void setMaxRows(int maxRows) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                    "It is too late to add the maxRows. You need to add the maxRows right after constructing the TableFacade.");
+                "It is too late to add the maxRows. You need to add the maxRows right after constructing the TableFacade.");
         }
 
         this.maxRows = maxRows;
@@ -435,7 +484,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setColumnProperties(String... columnProperties) {
         if (table != null) {
             throw new IllegalStateException(
-                    "The table is already constructed. It is too late to add the column properties.");
+                "The table is already constructed. It is too late to add the column properties.");
         }
 
         this.columnProperties = columnProperties;
@@ -488,7 +537,7 @@ public class TableFacadeImpl implements TableFacade {
 
         if (columnProperties == null || columnProperties.length == 0) {
             throw new IllegalStateException(
-                    "The column properties are null. You need to use the contructor with the columnProperties, or build the table with the factory.");
+                "The column properties are null. You need to use the contructor with the columnProperties, or build the table with the factory.");
         }
 
         Limit l = getLimit();
@@ -496,7 +545,7 @@ public class TableFacadeImpl implements TableFacade {
         if (!l.isExportable()) {
             if (l.getRowSelect() == null) {
                 throw new IllegalStateException(
-                        "The RowSelect is null. You need to set the Limit RowSelect on the facade, or use the contructor with the maxRows.");
+                    "The RowSelect is null. You need to set the Limit RowSelect on the facade, or use the contructor with the maxRows.");
             }
 
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
@@ -526,7 +575,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setTable(Table table) {
         if (view != null) {
             throw new IllegalStateException(
-                    "It is too late to add this Table. You need to add the Table before calling the Toolbar or View.");
+                "It is too late to add this Table. You need to add the Table before calling the Toolbar or View.");
         }
 
         this.table = table;
@@ -553,7 +602,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setToolbar(Toolbar toolbar) {
         if (view != null) {
             throw new IllegalStateException(
-                    "It is too late to add this Toolbar. You need to add the Toolbar before calling the View.");
+                "It is too late to add this Toolbar. You need to add the Toolbar before calling the View.");
         }
 
         this.toolbar = toolbar;
@@ -565,7 +614,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
         if (toolbar != null) {
             throw new IllegalStateException(
-                    "It is too late to add the maxRowsIncrements. You need to add the maxRowsIncrements before calling the Toolbar or View.");
+                "It is too late to add the maxRowsIncrements. You need to add the maxRowsIncrements before calling the Toolbar or View.");
         }
 
         this.maxRowsIncrements = maxRowsIncrements;
@@ -609,26 +658,26 @@ public class TableFacadeImpl implements TableFacade {
     public String render() {
         Limit l = getLimit();
 
-        View view = getView();
+        View v = getView();
 
         if (!l.isExportable()) {
-            return view.render().toString();
+            return v.render().toString();
         }
 
         String exportType = l.getExport().getType();
 
         try {
             if (exportType.equals(CSV)) {
-                ViewExporter exporter = new CsvViewExporter(view, response);
+                ViewExporter exporter = new CsvViewExporter(v, response);
                 exporter.export();
             } else if (exportType.equals(EXCEL)) {
-                ViewExporter exporter = new ExcelViewExporter(view, response);
+                ViewExporter exporter = new ExcelViewExporter(v, response);
                 exporter.export();
             } else if (exportType.equals(JEXCEL)) {
-                ViewExporter exporter = new JExcelViewExporter(view, response);
+                ViewExporter exporter = new JExcelViewExporter(v, response);
                 exporter.export();
             } else if (exportType.equals(PDF)) {
-                ViewExporter exporter = new PdfViewExporter(view, request, response);
+                ViewExporter exporter = new PdfViewExporter(v, request, response);
                 exporter.export();
             }
         } catch (Exception e) {
