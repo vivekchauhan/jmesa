@@ -37,7 +37,6 @@
 		<property name="successView" value="jsp/basic.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
 		<property name="id" value="basic"/>
-		<property name="maxRows" value="12"/>
 	</bean>
 
 	<bean id="limit" class="org.jmesaweb.controller.LimitPresidentController">

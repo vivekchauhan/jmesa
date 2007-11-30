@@ -57,7 +57,6 @@ public class BasicPresidentController extends AbstractController {
     private PresidentService presidentService;
     private String successView;
     private String id; // The unique table id.
-    private int maxRows; // The max rows to display on the page.
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -65,10 +64,7 @@ public class BasicPresidentController extends AbstractController {
         Collection<President> items = presidentService.getPresidents();
 
         TableFacade tableFacade = new TableFacadeImpl(id, request);
-
-        // set the max rows
-        tableFacade.setMaxRows(maxRows);
-
+        
         // set the items
         tableFacade.setItems(items);
 
@@ -157,9 +153,5 @@ public class BasicPresidentController extends AbstractController {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setMaxRows(int maxRows) {
-        this.maxRows = maxRows;
     }
 }

@@ -365,7 +365,7 @@ function createDynDroplistFilter(filter, id, property, options) {
     
     // Now show select list. This keeps the screen from blinking.
     input.width(width);
-    div.width(width).css( {visibility:"visible", borderStyle:"none"} ) 
+    div.width(width).css( {borderStyle:"none"} ) 
     
     var originalBackgroundColor = cell.css("backgroundColor");
 	cell.css({backgroundColor:div.css("backgroundColor")});
