@@ -333,7 +333,7 @@ public class TableFacadeImpl implements TableFacade {
 
         if (logger.isDebugEnabled()) {
             if (limit.getRowSelect() == null) {
-                logger.debug("The RowSelect is not set on the Limit. Be sure to call the setRowSelect() method on the facade.");
+                logger.debug("The RowSelect is not set on the Limit. Be sure to call the totalRows() method on the facade.");
             }
         }
 
