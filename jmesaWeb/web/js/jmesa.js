@@ -288,9 +288,8 @@ function DynFilter(filter, id, property) {
 function createDynFilter(filter, id, property) {
     dynFilter = new DynFilter(filter, id, property);
     
-    /* If already have a filter input box. */
     if ($('#dynFilterDiv').size() > 0) {
-        return; //already created
+        return; // filter already created
     }
     
     var cell = $(filter);
@@ -339,10 +338,10 @@ function createDynDroplistFilter(filter, id, property, options) {
     /* Get the original value from the filter. */
     var originalValue = cell.text();
 
-    var width = cell.width();
-    
     /* Create the dynamic select input box. */
-    html = '<div id="dynFilterDiv" style="top:17px"><select id="dynFilterDroplist" name="filter" size="10">';
+    cell.append('<div id="dynFilterDiv" style="top:17px">');
+    
+    var html = '<select id="dynFilterDroplist" name="filter" size="10">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
     	if (key == originalValue) {
@@ -353,38 +352,24 @@ function createDynDroplistFilter(filter, id, property, options) {
     });
     html += '</select></div>';
     
-    cell.append(html);
-    
     var div = $('#dynFilterDiv');
+    div.append(html).css({borderStyle:"none"});
+
     var input = $('#dynFilterDroplist');
-    
-    var selectWidth = input.width();
-    if (selectWidth > width) {
-        width = selectWidth;
-    }
-    
-    // Now show select list. This keeps the screen from blinking.
-    input.width(width);
-    div.width(width).css( {borderStyle:"none"} ) 
-    
+    input.focus();
+
     var originalBackgroundColor = cell.css("backgroundColor");
 	cell.css({backgroundColor:div.css("backgroundColor")});
 
-    input.focus();
-
     /* Something was selected */
-    $('#dynFilterDroplist').change(function() {
+    $(input).change(function() {
         var changedValue = $("#dynFilterDroplist option:selected").val();
         cell.text(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-	    $('#dynFilterDiv').remove();
 	    onInvokeAction(dynFilter.id);
     });
 
-    $('#dynFilterDroplist').blur(function() {
-        var changedValue = $("#dynFilterDroplist option:selected").val();
-        cell.text(changedValue);
-	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+    $(input).blur(function() {
 	    $('#dynFilterDiv').remove();
 	    cell.css({backgroundColor:originalBackgroundColor});
     });
