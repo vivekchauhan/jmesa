@@ -371,7 +371,7 @@ function createDynDroplistFilter(filter, id, property, options) {
     /* Resize the column if it is not at least as wide as the column. */    
     var selectWidth = input.width();
     if (selectWidth < width) {
-        input.width(width + 17); // always make the droplist overlap some
+        input.width(width + 5); // always make the droplist overlap some
     }
     
     input.focus();
