@@ -327,6 +327,10 @@ function createDynFilter(filter, id, property) {
 
 function createDynDroplistFilter(filter, id, property, options) {
     dynFilter = new DynFilter(filter, id, property);
+    
+    if ($('#dynFilterDroplistDiv').size() > 0) {
+        return; // filter already created
+    }
 
     /* The cell that represents the filter. */
     var cell = $(filter);
@@ -385,6 +389,8 @@ function createDynDroplistFilter(filter, id, property, options) {
     });
 
     $(input).blur(function() {
+        var changedValue = $("#dynFilterDroplistDiv option:selected").val();
+        cell.text(changedValue);
 	    $('#dynFilterDroplistDiv').remove();
 	    cell.css({backgroundColor:originalBackgroundColor});
     });
