@@ -327,21 +327,28 @@ function createDynFilter(filter, id, property) {
 
 function createDynDroplistFilter(filter, id, property, options) {
     dynFilter = new DynFilter(filter, id, property);
-    
-    /* If already have a filter input box. */
-    if ($('#dynFilterDiv').size() > 0) {
-        return; //already created
-    }
-    
+
+    /* The cell that represents the filter. */
     var cell = $(filter);
     
-    /* Get the original value from the filter. */
+    /* Get the original filter value and width. */
     var originalValue = cell.text();
+    var width = cell.width();
+    
+    /* Need to first get the size of the arrary. */
+    var size = 1;
+    $.each(options, function() {
+        size++;
+        if (size > 10) {
+            size = 10;
+            return false;
+        }
+    });
 
     /* Create the dynamic select input box. */
     cell.html('<div id="dynFilterDroplistDiv" style="top:17px">');
     
-    var html = '<select id="dynFilterDroplist" name="filter" size="10">';
+    var html = '<select id="dynFilterDroplist" name="filter" size="' + size + '">';
     html += '<option value=""> </option>';
     $.each(options, function(key, value) {
     	if (key == originalValue) {
@@ -356,12 +363,20 @@ function createDynDroplistFilter(filter, id, property, options) {
     div.html(html);
 
     var input = $('#dynFilterDroplist');
+
+    /* Resize the column if it is not at least as wide as the column. */    
+    var selectWidth = input.width();
+    if (selectWidth < width) {
+        input.width(width + 17); // always make the droplist overlap some
+    }
+    
     input.focus();
 
     var originalBackgroundColor = cell.css("backgroundColor");
 	cell.css({backgroundColor:div.css("backgroundColor")});
 
-    /* Something was selected */
+    /* Something was selected or the clicked off the droplist. */
+
     $(input).change(function() {
         var changedValue = $("#dynFilterDroplistDiv option:selected").val();
         cell.text(changedValue);
