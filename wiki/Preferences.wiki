@@ -9,6 +9,14 @@ To set up the properties file specify a context-param in your /WEB-INF/web.xml f
 </context-param>
 }}}
 
+You can also place it relative to the WEB-INF directory:
+{{{
+<context-param>
+    <param-name>jmesaPreferencesLocation</param-name>
+    <param-value>WEB-INF/jmesa.properties</param-value>
+</context-param>	
+}}}
+
 *Note:* Be sure to pay attention to the beginning forward slash and the ending .properties syntax. Both are necessary.
 
 ==== Customization Example ====
@@ -22,5 +30,4 @@ html.imagesPath=/images/table/
 If you want your images in some other directory just override this property in your custom properties file.
 
 _Here is the complete [http://jmesa.googlecode.com/svn/tags/jmesa-2.2/src/org/jmesa/core/preference/jmesa.properties listing] of all the default properties._
-
 
