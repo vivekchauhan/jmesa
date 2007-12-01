@@ -84,31 +84,21 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         String property = getColumn().getProperty();
 
-//        for (Object item : getCoreContext().getAllItems()) {
-//            Object value = ItemUtils.getItemValue(item, property);
-//
-//            if (value == null) {
-//                continue;
-//            }
-//
-//            String valueStr = String.valueOf(value);
-//
-//            if (valueStr.length() == 0) {
-//                continue;
-//            }
-//
-//            values.add(valueStr);
-//        }
+        for (Object item : getCoreContext().getAllItems()) {
+            Object value = ItemUtils.getItemValue(item, property);
 
-        values.add("foo");
-        values.add("foo2");
-        values.add("foo4");
-        values.add("foo5");
-        values.add("foo6");
-        values.add("foo7");
-        values.add("foo8");
-        values.add("foo9");
-        
+            if (value == null) {
+                continue;
+            }
+
+            String valueStr = String.valueOf(value);
+
+            if (valueStr.length() == 0) {
+                continue;
+            }
+
+            values.add(valueStr);
+        }
         
         List<Option> options = new ArrayList<Option>();
 
