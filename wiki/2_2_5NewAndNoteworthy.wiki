@@ -40,7 +40,7 @@ limit.rowSelect.maxRows=15
 The default css file is defined in the [Preferences]:
 
 {{{
-pdf.css=/css/jmesa-pdf.css
+pdf.cssLocation=/css/jmesa-pdf.css
 }}}
 
 This means that the application will look for the jmesa-pdf.css in the css folder directly under the web application context. Remember that you can override any default setting by defining your own [Preferences].
@@ -51,7 +51,7 @@ Or you could specify the css using the css attribute and set it at runtime befor
 String exportType = tableFacade.getLimit().getExport().getType();
 if (exportType.equals(PDF)) {
     PdfView pdfView = (PdfView)tableFacade.getView();
-    pdfView.setCss("/css/jmesa-pdf-landscape.css");
+    pdfView.setCssLocation("/css/jmesa-pdf-landscape.css");
 }
 tableFacade.render();
 }}}
@@ -83,7 +83,5 @@ In the tags:
 {{{
 <jmesa:htmlColumn filterEditor="org.jmesa.view.html.editor.DroplistFilterEditor"/>;
 }}}
-
-
 
 
