@@ -854,7 +854,7 @@ public class HtmlBuilder {
      * </p>
      * 
      * @param url The web url string.
-     * @displayText The text to display for the url.
+     * @param displayText The text to display for the url.
      */
     public HtmlBuilder ahref(String url, String displayText) {
         return ahref(url, displayText, null);
@@ -865,8 +865,8 @@ public class HtmlBuilder {
      * The a element attribute with the href attribute [<a href=].
      * </p>
      * @param url The web url string.
-     * @displayText The text to display for the url.
-     * @params A map of name/value pair of parameter.
+     * @param displayText The text to display for the url.
+     * @param params A Map of name/value pair of parameters.
      */
     public HtmlBuilder ahref(String url, String displayText, Map<String, String> params) {
         StringBuilder urlBuilder = new StringBuilder(url);
