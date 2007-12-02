@@ -1,0 +1,25 @@
+===  Improvements ===
+
+ * Although backwards compatible, I am only going with one constructor for the !TableFacadeImpl. The other constructors are deprecated now. The thing with the !TableFacade is that there are many use cases with how to use it. For instance if you just want the Limit you don't need the table. If you just want exports you do not need the maxRows. If you want different columns for exports versus html you need to work with that different. The facade can handle all that but I would like developers to work with it and not really have to think too much about what is happening behind the scenes. I took the approach of just having different constructors, but that felt wrong at the time and now it looks messy.
+
+As an example in the case where you want a basic table it looks like this now.
+
+{{{
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setItems(items);
+tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+String html = tableFacade.render();
+}}}
+
+This will keep things more consistent and should be easier to work with.
+
+ * The maxRows is now defaulted (to 15) in the Preferences. This means that you no longer have to define it on each table if you have a consistent maxRows in your application. Remember that you can override any default setting by defining your own [Preferences].
+
+{{{
+limit.rowSelect.maxRows=15
+}}}
+
+ * Based on the input from the community I have increased the flexibility of the API quite a bit. One really nice refactor is I was able to move quite a bit of the code from the tags and into the core API, so now the tags are able to use the !TableFacadeImpl. This means that the tags now only contain tag specific logic and will make the code more maintainable and easier to port JMesa to other view technologies.
+
+
+
