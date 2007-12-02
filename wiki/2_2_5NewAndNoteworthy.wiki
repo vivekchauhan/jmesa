@@ -1,5 +1,7 @@
 ===  Improvements ===
 
+===== One !TableFacadeImpl Constructor Now =====
+
  * Although backwards compatible, I am only going with one constructor for the !TableFacadeImpl. The other constructors are deprecated now. The thing with the !TableFacade is that there are many use cases with how to use it. For instance if you just want the Limit you don't need the table. If you just want exports you do not need the maxRows. If you want different columns for exports versus html you need to work with that different. The facade can handle all that but I would like developers to work with it and not really have to think too much about what is happening behind the scenes. I took the approach of just having different constructors, but that felt wrong at the time and now it looks messy.
 
 As an example in the case where you want a basic table it looks like this now.
@@ -13,13 +15,45 @@ String html = tableFacade.render();
 
 This will keep things more consistent and should be easier to work with.
 
+===== maxRows Defaulted =====
+
  * The maxRows is now defaulted (to 15) in the Preferences. This means that you no longer have to define it on each table if you have a consistent maxRows in your application. Remember that you can override any default setting by defining your own [Preferences].
 
 {{{
 limit.rowSelect.maxRows=15
 }}}
 
+===== PDF Export =====
+ * In general the PDF's has been worked on quite a bit and should work much better now.
+ * The PDF export now uses a separate jmesa-pdf.css file now. The PDF export was having problems with the standard stylesheet so I split it out. 
+
+The default css file is defined in the [Preferences]:
+
+{{{
+pdf.css=/css/jmesa-pdf.css
+}}}
+
+This means that the application will look for the jmesa-pdf.css in the css folder directly under the web application context. Remember that you can override any default setting by defining your own [Preferences].
+
+Or you could specify the css using the css attribute and set it at runtime before you call the render method.
+
+{{{
+String exportType = tableFacade.getLimit().getExport().getType();
+if (exportType.equals(PDF)) {
+    PdfView pdfView = (PdfView)tableFacade.getView();
+    pdfView.setCss("/css/jmesa-pdf-landscape.css");
+}
+tableFacade.render();
+}}}
+
+===== General Tag Refactorings =====
+
  * Based on the input from the community I have increased the flexibility of the API quite a bit. One really nice refactor is I was able to move quite a bit of the code from the tags and into the core API, so now the tags are able to use the !TableFacadeImpl. This means that the tags now only contain tag specific logic and will make the code more maintainable and easier to port JMesa to other view technologies.
 
+=== New ===
+
+===== JExcel Export =====
+
+ * The Excel exports are also implemented using JExcel as an option. So use !TableFacadeImpl.EXCEL ("excel") like you are used to using the POI library, or use the new !TableFacadeImpl.EXCEL ("jexcel") and use the JExcel library. The JExcel implementation was contributed by Paul Horn.
 
 
