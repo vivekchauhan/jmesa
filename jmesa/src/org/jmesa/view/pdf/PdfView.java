@@ -50,7 +50,7 @@ public class PdfView implements View {
     private HtmlSnippets snippets;
     private WebContext webContext;
     private CoreContext coreContext;
-    private String css;
+    private String cssLocation;
     private String doctype;
 
     public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
@@ -59,7 +59,7 @@ public class PdfView implements View {
         this.coreContext = coreContext;
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
 
-        this.css = coreContext.getPreference("pdf.css");
+        this.cssLocation = coreContext.getPreference("pdf.cssLocation");
         this.doctype = coreContext.getPreference("pdf.doctype");
     }
 
@@ -74,8 +74,8 @@ public class PdfView implements View {
     /**
      * @return The stylesheet to use for this pdf.
      */
-    public String getCss() {
-        return css;
+    public String getCssLocation() {
+        return cssLocation;
     }
 
     /**
@@ -84,13 +84,13 @@ public class PdfView implements View {
      * </p>
      * 
      * <p>
-     * example: /css/jmesa.css
+     * example: /css/jmesa-pdf-landscape.css
      * <p>
      * 
-     * @param css The path and name of the jmesa css file.
+     * @param cssLocation The path and name of the jmesa css file.
      */
-    public void setCss(String css) {
-        this.css = css;
+    public void setCssLocation(String cssLocation) {
+        this.cssLocation = cssLocation;
     }
 
     public byte[] getBytes() {
@@ -116,7 +116,7 @@ public class PdfView implements View {
 
         html.head().close();
 
-        html.link().rel("stylesheet").type("text/css").href(contextPath + css).media("print").end();
+        html.link().rel("stylesheet").type("text/css").href(contextPath + cssLocation).media("print").end();
 
         html.headEnd();
 
