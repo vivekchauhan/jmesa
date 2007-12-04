@@ -69,7 +69,7 @@ public class BasicPresidentController extends AbstractController {
         tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it.
 
         Limit limit = tableFacade.getLimit();
-        if (limit.isExportable()) {
+        if (limit.isExported()) {
             export(tableFacade);
             return null; // In Spring returning null tells the controller not to do anything.
         } else {

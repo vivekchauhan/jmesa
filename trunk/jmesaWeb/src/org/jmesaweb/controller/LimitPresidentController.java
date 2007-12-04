@@ -102,7 +102,7 @@ public class LimitPresidentController extends AbstractController {
         lastName.setTitle("Last Name");
 
         Limit limit = tableFacade.getLimit();
-        if (limit.isExportable()) {
+        if (limit.isExported()) {
             tableFacade.render(); // Will write the export data out to the response.
             return null; // In Spring return null tells the controller not to do anything.
         } else {

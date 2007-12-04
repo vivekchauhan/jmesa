@@ -55,7 +55,7 @@ public class TagPresidentController extends AbstractController {
         tableFacade.addFilterMatcherMap(new TagFilterMatcherMap());
 
         Limit limit = tableFacade.getLimit();
-        if (limit.isExportable()) {
+        if (limit.isExported()) {
             tableFacade.getTable().setCaption("Presidents");
             tableFacade.getTable().getRow().getColumn("name.firstName").setTitle("First Name");
             tableFacade.getTable().getRow().getColumn("name.lastName").setTitle("Last Name");

@@ -40,7 +40,7 @@ public class CareerFilterEditor extends AbstractFilterEditor {
 
         
         String selected = getWebContext().getParameter("career");
-        if (!limit.getFilterSet().isFilterable()) {
+        if (!limit.getFilterSet().isFiltered()) {
             selected = null;
         }
 
