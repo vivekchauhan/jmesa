@@ -41,6 +41,7 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
+import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
@@ -86,6 +87,10 @@ public class BasicPresidentController extends AbstractController {
 
         // set the column properties
         tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
+        
+        // set the custom toolbar
+        Toolbar toolbar = new CustomToolbar();
+        tableFacade.setToolbar(toolbar);
 
         HtmlTable table = (HtmlTable) tableFacade.getTable();
         table.setCaption("Presidents");
