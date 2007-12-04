@@ -60,7 +60,9 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
 
     @Deprecated
     public Toolbar createToolbar() {
-        Toolbar toolbar = null;
+        DefaultToolbar toolbar = new DefaultToolbar();
+        toolbar.setWebContext(webContext);
+        toolbar.setCoreContext(coreContext);
 
         toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
