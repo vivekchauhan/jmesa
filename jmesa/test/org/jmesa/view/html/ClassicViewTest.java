@@ -61,19 +61,15 @@ public class ClassicViewTest extends AbstractTestCase {
 
         // create the columns
         HtmlColumn firstNameColumn = factory.createColumn("name.firstName", editor);
-        firstNameColumn.getHeaderRenderer().setStyleClass("header"); // TODO: this should default
         row.addColumn(firstNameColumn);
 
         HtmlColumn lastNameColumn = factory.createColumn("name.lastName", editor);
-        lastNameColumn.getHeaderRenderer().setStyleClass("header");
         row.addColumn(lastNameColumn);
 
         HtmlColumn termColumn = factory.createColumn("term", editor);
-        termColumn.getHeaderRenderer().setStyleClass("header");
         row.addColumn(termColumn);
 
         HtmlColumn careerColumn = factory.createColumn("career", editor);
-        careerColumn.getHeaderRenderer().setStyleClass("header");
         row.addColumn(careerColumn);
 
         // create the view

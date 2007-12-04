@@ -237,8 +237,10 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         return html.toString();
     }
 
-    /*
-     * TODO: Move this into the LimitImpl class as a toJavaScript() method.
+    /**
+     * Create a Limit implementation in JavaScript. Will be invoked when the page is loaded.
+     * 
+     * @return The JavaScript Limit.
      */
     public String initJavascriptLimit() {
         HtmlBuilder html = new HtmlBuilder();

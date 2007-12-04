@@ -39,6 +39,10 @@ public class FilterSetImpl implements Serializable, FilterSet {
     }
 
     public boolean isFilterable() {
+        return isFiltered();
+    }
+
+    public boolean isFiltered() {
         return filters != null && !filters.isEmpty();
     }
 

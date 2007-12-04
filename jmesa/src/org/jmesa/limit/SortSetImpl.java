@@ -39,6 +39,10 @@ public class SortSetImpl implements Serializable, SortSet {
     }
 
     public boolean isSortable() {
+        return isSorted();
+    }
+    
+    public boolean isSorted() {
         return sorts != null && !sorts.isEmpty();
     }
 

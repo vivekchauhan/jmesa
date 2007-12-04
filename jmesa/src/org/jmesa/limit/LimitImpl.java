@@ -64,6 +64,10 @@ public class LimitImpl implements Limit {
     }
 
     public boolean isExportable() {
+        return isExported();
+    }
+
+    public boolean isExported() {
         return getExport() != null;
     }
 

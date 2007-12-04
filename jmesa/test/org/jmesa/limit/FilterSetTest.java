@@ -30,11 +30,11 @@ public class FilterSetTest {
     @Test
     public void isFiltered() {
         FilterSet filterSet = new FilterSetImpl();
-        boolean filterable = filterSet.isFilterable();
+        boolean filterable = filterSet.isFiltered();
         assertFalse("default constructor", filterable);
 
         filterSet = getFilterSet();
-        filterable = filterSet.isFilterable();
+        filterable = filterSet.isFiltered();
         assertTrue("filtered", filterable);
     }
 
