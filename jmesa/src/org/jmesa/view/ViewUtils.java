@@ -113,4 +113,8 @@ public class ViewUtils {
 
         return false;
     }
+    
+    public static boolean isExportable(String... exportTypes) {
+        return  exportTypes != null && exportTypes.length > 0;
+    }
 }

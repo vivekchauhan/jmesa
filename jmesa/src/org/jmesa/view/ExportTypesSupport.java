@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.toolbar;
+package org.jmesa.view;
 
 /**
- * @since 2.0
+ * @since 2.2
  * @author Jeff Johnston
  */
-@Deprecated
-public interface ToolbarFactory {
-    @Deprecated
-    public Toolbar createToolbar();
+public interface ExportTypesSupport {
+    public String[] getExportTypes();
+
+    public void setExportTypes(String... exportTypes);
 }

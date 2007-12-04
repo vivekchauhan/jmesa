@@ -17,11 +17,13 @@ package org.jmesa.util;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextSupport;
+import org.jmesa.view.ExportTypesSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.component.TableSupport;
 import org.jmesa.view.editor.PatternSupport;
+import org.jmesa.view.html.toolbar.MaxRowsIncrementsSupport;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarSupport;
 import org.jmesa.web.WebContext;
@@ -38,7 +40,7 @@ import org.jmesa.web.WebContextSupport;
 public class SupportUtils {
 
     private SupportUtils() {
-        // cannot instantiate object.
+    // cannot instantiate object.
     }
 
     /**
@@ -110,6 +112,30 @@ public class SupportUtils {
     public static void setToolbar(Object obj, Toolbar toolbar) {
         if ((obj instanceof ToolbarSupport) && ((ToolbarSupport) obj).getToolbar() == null) {
             ((ToolbarSupport) obj).setToolbar(toolbar);
+        }
+    }
+
+    /**
+     * Set the exportTypes on the object being inspected if it is not already set.
+     * 
+     * @param obj The object being inspected.
+     * @param exportTypes The object to be injected.
+     */
+    public static void setExportTypes(Object obj, String... exportTypes) {
+        if ((obj instanceof ExportTypesSupport) && ((ExportTypesSupport) obj).getExportTypes() == null) {
+            ((ExportTypesSupport) obj).setExportTypes(exportTypes);
+        }
+    }
+
+    /**
+     * Set the maxRowsIncrements on the object being inspected if it is not already set.
+     * 
+     * @param obj The object being inspected.
+     * @param maxRowsIncrements The object to be injected.
+     */
+    public static void setMaxRowsIncrements(Object obj, int[] maxRowsIncrements) {
+        if ((obj instanceof MaxRowsIncrementsSupport) && ((MaxRowsIncrementsSupport) obj).getMaxRowsIncrements() == null) {
+            ((MaxRowsIncrementsSupport) obj).setMaxRowsIncrements(maxRowsIncrements);
         }
     }
 }

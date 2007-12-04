@@ -16,11 +16,11 @@
 package org.jmesa.view.html.toolbar;
 
 /**
- * @since 2.0
+ * @since 2.2
  * @author Jeff Johnston
  */
-@Deprecated
-public interface ToolbarFactory {
-    @Deprecated
-    public Toolbar createToolbar();
+public interface MaxRowsIncrementsSupport {
+    public int[] getMaxRowsIncrements();
+
+    public void setMaxRowsIncrements(int[] maxRowsIncrements);
 }
