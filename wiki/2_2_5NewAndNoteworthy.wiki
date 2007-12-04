@@ -15,6 +15,25 @@ String html = tableFacade.render();
 
 This will keep things more consistent and should be easier to work with.
 
+===== Export, Filter and Sort Naming =====
+In an effort to make the Limit more clear, some of the methods were deprecated and renamed. Everything is backwards compatible so change them as you get time.
+
+The current methods:
+
+{{{
+limit.isExportable();
+limit.getFilterSet().isFilterable();
+limit.getSortSet().isSortable();
+}}}
+
+Are changed to:
+
+{{{
+limit.isExported();
+limit.getFilterSet().isFiltered();
+limit.getSortSet().isSorted();
+}}}
+
 ===== !TableFacade.setTotalRows() =====
 
 The call for !TableFacade.setRowSelect() will now just be !TableFacade.setTotalRows() and you only have to send in the total rows, which make things more intuitive. Plus the maxRows can now be defaulted so there is no reason to have that required anymore.
