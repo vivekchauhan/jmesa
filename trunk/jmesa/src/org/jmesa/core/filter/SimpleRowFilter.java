@@ -43,7 +43,7 @@ public class SimpleRowFilter implements RowFilter {
 
     public Collection<?> filterItems(Collection<?> items, Limit limit) {
         FilterSet filterSet = limit.getFilterSet();
-        boolean filtered = filterSet.isFilterable();
+        boolean filtered = filterSet.isFiltered();
 
         if (filtered) {
             Collection<?> collection = new ArrayList<Object>();

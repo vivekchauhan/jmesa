@@ -61,7 +61,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     }
 
     /**
-     * TODO: This should move to the HtmlColumn class.
+     * Note: should now use the HtmlColumn getSortOrder() method.
      */
     @Deprecated
     public boolean isDefaultSortOrderable() {
@@ -69,7 +69,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
     }
 
     /**
-     * TODO: This should move to the HtmlColumn class.
+     * Note: should now use the HtmlColumn setSortOrder() method.
      */
     @Deprecated
     public void setDefaultSortOrderable(boolean defaultSortOrderable) {

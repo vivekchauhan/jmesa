@@ -83,10 +83,24 @@ public interface Limit extends Serializable {
      * <p>
      * Check to see if the user is trying to export a table.
      * </p>
+     *
+     * <p>
+     * Note: Should be using the isExported() method now.
+     * </p>
      * 
      * @return Is true if the user invoked an export.
      */
+    @Deprecated
     public boolean isExportable();
+
+    /**
+     * <p>
+     * Check to see if the user is trying to export a table.
+     * </p>
+     * 
+     * @return Is true if the user invoked an export.
+     */
+    public boolean isExported();
 
     /**
      * <p>
