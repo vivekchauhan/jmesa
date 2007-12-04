@@ -79,6 +79,15 @@ tableFacade.render();
 
  * Based on the input from the community I have increased the flexibility of the API quite a bit. One really nice refactor is I was able to move quite a bit of the code from the tags and into the core API, so now the tags are able to use the !TableFacadeImpl. This means that the tags now only contain tag specific logic and will make the code more maintainable and easier to port JMesa to other view technologies.
 
+===== Header Column Tag (TH versus TD) =====
+
+A few developers requested that there be a way to default the html header column element to a <th> versus a <td> definition.
+
+The default is still a <td> element but you can redefine it in the [Preference] if needed.
+{{{
+html.column.header.renderer.element=td
+}}}
+
 === New ===
 
 ===== JExcel Export =====
