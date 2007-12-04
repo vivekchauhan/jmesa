@@ -46,8 +46,8 @@ import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.toolbar.DefaultToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -297,7 +297,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Toolbar toolbar = facade.getToolbar();
         assertNotNull(toolbar);
 
-        Toolbar toolbarToSet = new ToolbarImpl(facade.getWebContext(), facade.getCoreContext());
+        DefaultToolbar toolbarToSet = new DefaultToolbar();
+        toolbarToSet.setWebContext(facade.getWebContext());
+        toolbarToSet.setCoreContext(facade.getCoreContext());
         facade.setToolbar(toolbarToSet); // The toolbar set should now be the
         // one used.
         assertTrue("The toolbar is not the same.", toolbarToSet == facade.getToolbar());

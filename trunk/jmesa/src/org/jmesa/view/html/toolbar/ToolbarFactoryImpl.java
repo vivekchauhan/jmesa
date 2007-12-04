@@ -27,6 +27,7 @@ import org.jmesa.web.WebContext;
  * @since 2.0
  * @author Jeff Johnston
  */
+@Deprecated
 public class ToolbarFactoryImpl implements ToolbarFactory {
     private HtmlTable table;
     private int[] maxRowsIncrements;
@@ -35,6 +36,7 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
     private CoreContext coreContext;
     private boolean enableSeparators = true;
 
+    @Deprecated
     public ToolbarFactoryImpl(HtmlTable table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
         this.table = table;
         this.webContext = webContext;
@@ -42,6 +44,7 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
         this.exportTypes = exportTypes;
     }
 
+    @Deprecated
     public ToolbarFactoryImpl(HtmlTable table, int[] maxRowsIncrements, WebContext webContext, CoreContext coreContext, String... exportTypes) {
         this.table = table;
         this.maxRowsIncrements = maxRowsIncrements;
@@ -50,12 +53,15 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
         this.exportTypes = exportTypes;
     }
     
+    @Deprecated
     public void enableSeparators(boolean isEnabled) {
         this.enableSeparators = isEnabled;
     }
 
+    @Deprecated
     public Toolbar createToolbar() {
-        Toolbar toolbar = new ToolbarImpl(webContext, coreContext);
+        Toolbar toolbar = null;
+
         toolbar.addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         toolbar.addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
@@ -70,7 +76,7 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
             maxRowsItem.setIncrements(maxRowsIncrements);
         }
         
-        boolean exportable = exportTypes != null && exportTypes.length > 0;
+        boolean exportable = ViewUtils.isExportable(exportTypes);
 
         if (exportable && enableSeparators) {
             toolbar.addToolbarItem(ToolbarItemType.SEPARATOR);

@@ -55,9 +55,8 @@ import org.jmesa.view.excel.ExcelViewExporter;
 import org.jmesa.view.html.HtmlTableFactory;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.toolbar.DefaultToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.html.toolbar.ToolbarFactory;
-import org.jmesa.view.html.toolbar.ToolbarFactoryImpl;
 import org.jmesa.view.jexcel.JExcelTableFactory;
 import org.jmesa.view.jexcel.JExcelView;
 import org.jmesa.view.jexcel.JExcelViewExporter;
@@ -586,15 +585,12 @@ public class TableFacadeImpl implements TableFacade {
             return toolbar;
         }
 
-        ToolbarFactory toolbarFactory;
-
-        if (maxRowsIncrements != null && maxRowsIncrements.length > 0) {
-            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), maxRowsIncrements, getWebContext(), getCoreContext(), exportTypes);
-        } else {
-            toolbarFactory = new ToolbarFactoryImpl((HtmlTable) getTable(), getWebContext(), getCoreContext(), exportTypes);
-        }
-
-        this.toolbar = toolbarFactory.createToolbar();
+        this.toolbar = new DefaultToolbar();
+        SupportUtils.setTable(toolbar, getTable());
+        SupportUtils.setCoreContext(toolbar, getCoreContext());
+        SupportUtils.setWebContext(toolbar, getWebContext());
+        SupportUtils.setMaxRowsIncrements(toolbar, maxRowsIncrements);
+        SupportUtils.setExportTypes(toolbar, exportTypes);
 
         return toolbar;
     }
@@ -609,6 +605,8 @@ public class TableFacadeImpl implements TableFacade {
         SupportUtils.setTable(toolbar, getTable());
         SupportUtils.setCoreContext(toolbar, getCoreContext());
         SupportUtils.setWebContext(toolbar, getWebContext());
+        SupportUtils.setMaxRowsIncrements(toolbar, maxRowsIncrements);
+        SupportUtils.setExportTypes(toolbar, exportTypes);
     }
 
     public void setMaxRowsIncrements(int... maxRowsIncrements) {

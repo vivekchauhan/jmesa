@@ -17,25 +17,25 @@ package org.jmesa.view.html.toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jmesa.core.CoreContext;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.web.WebContext;
 
 /**
- * @since 2.0
+ * @since 2.2
  * @author Jeff Johnston
  */
-public class ToolbarImpl implements Toolbar {
+public abstract class ToolbarImpl extends AbstractContextSupport implements Toolbar {
     private ToolbarItemFactory toolbarItemFactory;
     private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
-    
-    public ToolbarImpl() {
-        // default constructor
-    }
 
-    public ToolbarImpl(WebContext webContext, CoreContext coreContext) {
-        this.toolbarItemFactory = new ToolbarItemFactoryImpl(webContext, coreContext);
+    private ToolbarItemFactory getToolbarItemFactory() {
+        if (toolbarItemFactory == null) {
+            this.toolbarItemFactory = new ToolbarItemFactoryImpl(getWebContext(), getCoreContext());
+        }
+
+        return toolbarItemFactory;
     }
 
     public void addToolbarItem(ToolbarItem item) {
@@ -45,31 +45,33 @@ public class ToolbarImpl implements Toolbar {
     public ToolbarItem addToolbarItem(ToolbarItemType type) {
         ToolbarItem item = null;
 
+        ToolbarItemFactory toolbarItemFactory = getToolbarItemFactory();
+
         switch (type) {
-        case FIRST_PAGE_ITEM:
-            item = toolbarItemFactory.createFirstPageItem();
-            break;
-        case PREV_PAGE_ITEM:
-            item = toolbarItemFactory.createPrevPageItem();
-            break;
-        case NEXT_PAGE_ITEM:
-            item = toolbarItemFactory.createNextPageItem();
-            break;
-        case LAST_PAGE_ITEM:
-            item = toolbarItemFactory.createLastPageItem();
-            break;
-        case MAX_ROWS_ITEM:
-            item = toolbarItemFactory.createMaxRowsItem();
-            break;
-        case FILTER_ITEM:
-            item = toolbarItemFactory.createFilterItem();
-            break;
-        case CLEAR_ITEM:
-            item = toolbarItemFactory.createClearItem();
-            break;
-        case SEPARATOR:
-            item = toolbarItemFactory.createSeparatorItem();
-            break;
+            case FIRST_PAGE_ITEM:
+                item = toolbarItemFactory.createFirstPageItem();
+                break;
+            case PREV_PAGE_ITEM:
+                item = toolbarItemFactory.createPrevPageItem();
+                break;
+            case NEXT_PAGE_ITEM:
+                item = toolbarItemFactory.createNextPageItem();
+                break;
+            case LAST_PAGE_ITEM:
+                item = toolbarItemFactory.createLastPageItem();
+                break;
+            case MAX_ROWS_ITEM:
+                item = toolbarItemFactory.createMaxRowsItem();
+                break;
+            case FILTER_ITEM:
+                item = toolbarItemFactory.createFilterItem();
+                break;
+            case CLEAR_ITEM:
+                item = toolbarItemFactory.createClearItem();
+                break;
+            case SEPARATOR:
+                item = toolbarItemFactory.createSeparatorItem();
+                break;
         }
 
         if (item != null) {
@@ -96,6 +98,7 @@ public class ToolbarImpl implements Toolbar {
 
     public ToolbarItem addExportToolbarItem(String exportType) {
         ToolbarExport export = new ToolbarExport(exportType);
+        ToolbarItemFactory toolbarItemFactory = getToolbarItemFactory();
         ToolbarItem item = toolbarItemFactory.createExportItem(export);
         toolbarItems.add(item);
         return item;
