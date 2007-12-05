@@ -54,7 +54,7 @@ limit.rowSelect.maxRows=15
 
 ===== PDF Export =====
  * In general the PDF's has been worked on quite a bit and should work much better now.
- * The PDF export now uses a separate jmesa-pdf.css file now. The PDF export was having problems with the standard stylesheet so I split it out. 
+ * The PDF export now uses a separate jmesa-pdf.css file. The PDF export was having problems with the standard stylesheet so I split it out. 
 
 The default css file is defined in the [Preferences]:
 
@@ -83,7 +83,7 @@ tableFacade.render();
 
 A few developers requested that there be a way to default the html header column element to a <th> versus a <td> definition.
 
-The default is still a <td> element but you can redefine it in the [Preference] if needed.
+The default is still a <td> element but you can redefine it in the [Preferences] if needed.
 {{{
 html.column.header.renderer.element=td
 }}}
