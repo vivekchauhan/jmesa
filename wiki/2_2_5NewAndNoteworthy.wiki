@@ -100,7 +100,7 @@ You can now define a droplist for the filters. The default filter implementation
 
 http://jmesa.org/wiki/images/filter-droplist.gif
 
-To use your filter using the API:
+To use the filter using the API:
 
 {{{
 column.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
