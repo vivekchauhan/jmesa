@@ -1,14 +1,9 @@
-The JMesa 2.3 release should be out by the end of December. This page outlines the features that will be included as part of the next release. If you are interested in trying out the new features, or just like staying on the bleeding edge of development you can download an [http://builds.jmesa.org/ incremental build].
-
-*Update*
-
-A good deal of the features for JMesa 2.3 were released as part of the 2.2.1 through the 2.2.4 minor releases. I did not see any reason to hold on to the changes when developers could be utilizing the features right away.
-
+The JMesa 2.3 release should be out the first quarter of 2008. This page outlines the features that will be included as part of the next release. If you are interested in trying out the new features, or just like staying on the bleeding edge of development you can download an [http://builds.jmesa.org/ incremental build].
 
 http://extremecomponents.googlepages.com/JMesa-2.3.gif
 
 == Features ==
+The primary feature will be inclusion of the [Worksheet] functionality!
 
- * The most exciting feature will be inclusion of the [Worksheet] functionality!
- * The filter will include a droplist feature. Again, this feature will be implemented using [http://jquery.com/ JQuery] for the !JavaScript. *(will be part of the upcoming 2.2.5 release)*
+_A good deal of the features for JMesa 2.3 were released as part of the 2.2.1 through the 2.2.5 minor releases. I did not see any reason to hold on to the changes when developers could be utilizing the features right away._
  
