@@ -251,23 +251,27 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.newline();
 
         Limit limit = coreContext.getLimit();
+        
+        html.append("$(document).ready(function(){").newline();
 
-        html.append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
+        html.tab().append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
 
-        html.append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+        html.tab().append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
 
-        html.append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
+        html.tab().append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 
         for (Sort sort : limit.getSortSet().getSorts()) {
-            html.append(
+            html.tab().append(
                     "addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
                             + "')").semicolon().newline();
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {
             String value = escapeJavaScript(filter.getValue());
-            html.append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
+            html.tab().append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
         }
+        
+        html.append("});").newline();
 
         html.scriptEnd();
 
