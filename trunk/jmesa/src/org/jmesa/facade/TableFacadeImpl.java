@@ -425,6 +425,10 @@ public class TableFacadeImpl implements TableFacade {
             throw new IllegalStateException(
                 "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
         }
+        
+        if (filterMatcherMap == null) {
+            return;
+        }
 
         Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
         Set<MatcherKey> keys = filterMatchers.keySet();

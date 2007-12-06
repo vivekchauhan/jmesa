@@ -17,10 +17,8 @@ package org.jmesa.view.html.toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.web.WebContext;
 
 /**
  * @since 2.2
@@ -38,10 +36,14 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         return toolbarItemFactory;
     }
 
+    public List<ToolbarItem> getToolbarItems() {
+        return toolbarItems;
+    }
+
     public void addToolbarItem(ToolbarItem item) {
         toolbarItems.add(item);
     }
-
+    
     public ToolbarItem addToolbarItem(ToolbarItemType type) {
         ToolbarItem item = null;
 
