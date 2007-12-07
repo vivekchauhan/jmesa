@@ -72,11 +72,11 @@ public interface TableFacade {
      * <p>
      * Get the Limit. If the Limit does not exist then one will be created. If you are manually
      * sorting and filtering the table then as much of the Limit will be created as is possible. You
-     * still might need to set the RowSelect on the facade, which will set it on the Limit.
+     * still might need to set the totalRows on the facade, which will set it on the Limit.
      * </p>
      * 
      * <p>
-     * If using the State interface then be sure to call the setState() method on the facade before
+     * If using the State interface then be sure to call the setStateAttr() method on the facade before
      * calling the Limit.
      * </p>
      * 
@@ -92,15 +92,21 @@ public interface TableFacade {
     public void setLimit(Limit limit);
 
     /**
+     * <p>
      * If you are manually sorting and filtering the table then you still need to ensure that you
      * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit. You
      * can also override any previously set RowSelect object.
+     * </p>
+     * 
+     * <p>
+     * Note: you should now use the setTotalRows() method instead.
+     * </p>
      * 
      * @return The RowSelect set on the Limit.
      */
     @Deprecated
     public RowSelect setRowSelect(int maxRows, int totalRows);
-    
+
     /**
      * If you are manually sorting and filtering the table then you still need to ensure that you
      * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit.
@@ -194,11 +200,9 @@ public interface TableFacade {
     public void setRowFilter(RowFilter rowFilter);
 
     /**
-     * Set the items, the Collection of Beans (or Maps), if not already set on the constructor.
-     * Useful if performing the sorting and filtering manually and need to set the items on the
-     * facade. If you are performing the sorting and filtering manually you should also set the
-     * performFilterAndSort() to false because there is no reason to have the API try to sort and
-     * filter if you have already done so.
+     * Set the items, the Collection of Beans (or Maps).If you are performing the sorting and filtering 
+     * manually you should also set the performFilterAndSort() to false because there is no reason to 
+     * have the API try to sort and filter if you have already done so.
      * 
      * @param items The Collecton of Beans (or Maps) to use.
      */
@@ -211,7 +215,7 @@ public interface TableFacade {
      * @param maxRows The maxRows to use.
      */
     public void setMaxRows(int maxRows);
-    
+
     /**
      * Set the column properties used for the table.
      * 
