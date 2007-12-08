@@ -23,6 +23,7 @@ import static org.jmesa.facade.tag.TagUtils.getTableFacadeColumnSort;
 import static org.jmesa.facade.tag.TagUtils.getTableFacadeToolbar;
 import static org.jmesa.facade.tag.TagUtils.getTableFacadeMaxRowIncrements;
 import static org.jmesa.facade.tag.TagUtils.getTableFacadeView;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeExportTypes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -422,6 +423,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setMaxRows(getMaxRows());
 
         tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements(getMaxRowsIncrements()));
+        tableFacade.setExportTypes(null, getTableFacadeExportTypes(getExportTypes()));
         tableFacade.setStateAttr(getStateAttr());
 
         tableFacade.performFilterAndSort(isPerformFilterAndSort());

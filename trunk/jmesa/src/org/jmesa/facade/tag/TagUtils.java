@@ -355,4 +355,12 @@ class TagUtils {
 
         return results;
     }
+    
+    static String[] getTableFacadeExportTypes(String exportTypes) {
+        if (StringUtils.isBlank(exportTypes)) {
+            return null;
+        }
+        
+        return StringUtils.split(exportTypes, ",");
+    }
 }
