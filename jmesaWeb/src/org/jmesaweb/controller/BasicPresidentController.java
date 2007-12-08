@@ -88,10 +88,6 @@ public class BasicPresidentController extends AbstractController {
         // set the column properties
         tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
         
-        // set the custom toolbar
-        Toolbar toolbar = new CustomToolbar();
-        tableFacade.setToolbar(toolbar);
-
         HtmlTable table = (HtmlTable) tableFacade.getTable();
         table.setCaption("Presidents");
         table.getTableRenderer().setWidth("600px");
