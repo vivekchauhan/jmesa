@@ -252,7 +252,11 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         Limit limit = coreContext.getLimit();
         
-        html.append("$(document).ready(function(){").newline();
+        boolean useDocumentReady = HtmlUtils.useDocumentReadyToInitJavascriptLimit(coreContext);
+        
+        if (useDocumentReady) {
+            html.append("$(document).ready(function(){").newline();
+        }
 
         html.tab().append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
 
@@ -271,7 +275,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             html.tab().append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
         }
         
-        html.append("});").newline();
+        if (useDocumentReady) {
+            html.append("});").newline();
+        }
 
         html.scriptEnd();
 

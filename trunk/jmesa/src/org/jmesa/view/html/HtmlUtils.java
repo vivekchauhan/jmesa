@@ -80,6 +80,17 @@ public class HtmlUtils {
 
         return totalPages;
     }
+    
+    /**
+     * Look in the preferences to find out if the document.ready script should be used.
+     * 
+     * @since 2.2
+     * @return Is true if including the document.ready script to initialize limit.
+     */
+    public static boolean useDocumentReadyToInitJavascriptLimit(CoreContext coreContext) {
+        String useDocumentReady = coreContext.getPreference(HtmlConstants.SNIPPETS_INIT_JAVASCRIPT_LIMIT_USE_DOCUMENT_READY);
+        return useDocumentReady.equals("true");
+    }
 
     public static String imagesPath(WebContext webContext, CoreContext coreContext) {
         String contextPath = webContext.getContextPath();

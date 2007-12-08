@@ -85,4 +85,6 @@ public class HtmlConstants {
     // statusbar text messages
     public final static String STATUSBAR_RESULTS_FOUND = "html.statusbar.resultsFound";
     public final static String STATUSBAR_NO_RESULTS_FOUND = "html.statusbar.noResultsFound";
+    
+    public final static String SNIPPETS_INIT_JAVASCRIPT_LIMIT_USE_DOCUMENT_READY = "html.snippets.initJavascriptLimit.useDocumentReady";
 }
