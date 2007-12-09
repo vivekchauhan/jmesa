@@ -1,6 +1,8 @@
-This page contains the new and noteworthy features for the JMesa 2.2 release. The JMesa API is really that easy to add features into and part of the proof is being shown in just how advanced some of these features are and the ease in which it was to put them in!
+This page contains the new and noteworthy features for the JMesa 2.2 release. Be sure to also look at the new 2.2.5 [2_2_5NewAndNoteworthy new and noteworthy] features.
 
 This page also contains the changes that took place from the 2.1 to the 2.2 release. There are only a few changes that may effect some users, but for the most part the changes are transparent. Be sure to read about the deprecated and modified features to see if or what you may need to do.
+
+_The images have been changed from .png files to .gif files and if you want the new look and feel you will need to update your jmesa.js and jmesa.css files. Also, JMesa is now using the [http://jquery.com jQuery] !JavaScript library. Your existing jmesa.js file does still work as expected, but if you want to use the new jmesa.js file you will need to include jQuery as well._
 
 == Bugs Fixed ==
  * The tags were incorrectly creating new table, row and column objects each iteration over the tags. The reason is the !SimpleTagSupport class creates a new object each time they are used, so the local variables were being overwritten. I refactored this back to check and pull values directly from the table on the facade. In hindsight this was a much cleaner way to do it anyway as it keeps everything in the API. This is a performance fix as nothing functionally changed.
