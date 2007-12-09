@@ -25,7 +25,7 @@
 
 	<p>
 		<a href="${pageContext.request.contextPath}/presidents.run">
-			<img src="${pageContext.request.contextPath}/images/jmesa.jpg" alt="JMesa"/>
+			<img src="${pageContext.request.contextPath}/images/jmesa-2.2.gif" alt="JMesa"/>
 		</a>
 	</p>
 	
