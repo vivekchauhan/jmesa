@@ -15,9 +15,7 @@ The following will define the html table.
 <jmesa:tableFacade
     id="pres" 
     items="${presidents}"
-    maxRows="8"
     exportTypes="csv,excel"
-    maxRowsIncrements="8,16,24"
     stateAttr="restore"
     var="bean"
     >
@@ -41,11 +39,13 @@ The following will define the html table.
 To generate the exports use the [TableFacade] in your controller.
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+tableFacade.setItems(items);
 tableFacade.setExportTypes(response, "csv", "excel");
 
 Limit limit = tableFacade.getLimit();
-if (limit.isExportable()) {
+if (limit.isExported()) {
     tableFacade.render();
     return null;
 }
