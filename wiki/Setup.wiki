@@ -20,6 +20,9 @@ _See the [SLF4J] page for details about working with the slf4j logging framework
 ==== Excel Export ====
  * poi-3.0.1.jar
 
+==== JExcel Export ====
+ * jexcel-2.6.6.jar
+
 ==== PDF Export ====
  * core-renderer-R8pre1.jar
  * itext-paulo-155.jar
@@ -35,6 +38,7 @@ First download the [http://code.google.com/p/jmesa/downloads/list distribution].
 In the jmesa.zip file you will find everything you need to get started:
  * jmesa.jar
  * jmesa.css
+ * jmesa-pdf.css
  * jmesa.js
  * jmesa.tld
  * default images
