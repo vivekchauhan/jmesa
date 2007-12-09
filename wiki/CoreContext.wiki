@@ -13,7 +13,6 @@ You can get the !CoreContext directly from the Limit:
 
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request);
-tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 tableFacade.setItems(items);
 CoreContext coreContext = tableFacade.getCoreContext();
 }}}
