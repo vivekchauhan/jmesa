@@ -1,7 +1,7 @@
 The !WebContext is an adapter for the servlet request. A !WebContext allows the table to be used in multiple containers. 
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+TableFacade tableFacade = new TableFacadeImpl(id, request);
 WebContext webContext = tableFacade.getWebContext();
 }}}
 
