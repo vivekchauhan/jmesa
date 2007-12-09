@@ -7,7 +7,7 @@ FilterSet filterSet = limit.getFilterSet();
 
 The Limit object can also tell you what was sorted by calling the !SortSet:
 {{{
-SortSet sortSet = getSortSet();
+SortSet sortSet = limit.getSortSet();
 }}}
 
 To find out if a table was exported call the boolean:
@@ -35,17 +35,14 @@ int page = rowSelect.getPage();
 
 This should be very self explanatory. Once you have a complete !RowSelect object you have all this information available. 
 
-There is only one thing to consider. If you pass in all the items then you do not need to do anything else. The most common [TableFacade] constructor to use when you are just passing in the complete items object is:
+There is only one thing to consider. If you pass in all the items then you do not need to do anything else. That should make sense. Because you are passing in all the items the API knows everything it needs to create the complete Limit object.
 
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request);
-tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 tableFacade.setItems(items);
 }}}
 
-That should make sense. Because you are passing in all the items the API knows everything it needs to create the complete Limit object.
-
-However, if you want to return only one page of data to work the most efficiently with your data then you will need to not only use the Limit, but, in addition, you will need to help finish completing the Limit object by setting the !RowSelect. I will explain that next.
+However, if you want to return only one page of data to work the most efficiently with your data then you will need to not only use the Limit, but, in addition, you will need to help finish completing the Limit object by setting the totalRows. I will explain that next.
 
 === Example ===
 For the purposes of this next example I am going to further explain how to work with the Limit using the [TableFacade] when you want to efficiently return only one page of data at a time. To see more details, and a complete example go to the [FacadeLimitExample limit example] page.
@@ -53,8 +50,6 @@ For the purposes of this next example I am going to further explain how to work 
 First we start with a [TableFacade].
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request);
-tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
-tableFacade.setItems(items);
 }}}
 
 Now get the Limit from the !TableFacade.
@@ -90,15 +85,7 @@ int rowEnd = limit.getRowSelect().getRowEnd();
 Again, how you use this information to get the rows selected is up to you. The Limit merely provides you with how the user wishes the table to be sorted, filtered, and paged.
 
 === Example Using Tags ===
-If you are using the tag library there is no difference to how you use the Limit. However, there is a convenience constructor that does not care anything about the columns, as that information is defined on the tags themselves. 
-
-{{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
-}}}
-
-The only thing you need to keep in mind though is the only thing you can pull back from the facade is the Limit object. The rest of the facade is not available, but you will not care anyway.
-
-Once you have the Limit completed (along with your data), you can pass this information to your table defined in the tags:
+If you are using the tag library there is no difference to how you use the Limit. However, once you have the Limit completed (along with your data), you can pass this information to your table defined in the tags:
 
 {{{
 <jmesa:tableFacade limit="${limit}">
