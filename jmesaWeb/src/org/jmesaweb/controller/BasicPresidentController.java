@@ -126,6 +126,7 @@ public class BasicPresidentController extends AbstractController {
         tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         Table table = tableFacade.getTable();
+        table.setCaption("Presidents");
 
         Row row = table.getRow();
 
