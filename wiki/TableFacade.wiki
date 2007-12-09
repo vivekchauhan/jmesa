@@ -10,8 +10,10 @@ More examples and documentation can be found here:
 The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. For instance to render an html table all you would have to do is this:
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
-String html = tableFacade.render(); 
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
+tableFacade.setItems(items);
+String html = tableFacade.render();
 }}}
 
 === Example ===
@@ -23,7 +25,9 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
     ModelAndView mv = new ModelAndView(successView);
     Collection<Object> items = presidentService.getPresidents();
 
-    TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, "name.firstName", "name.lastName", "term", "career");
+    TableFacade tableFacade = new TableFacadeImpl(id, request);
+    tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
+    tableFacade.setItems(items);
     tableFacade.setExportTypes(response, "csv", "excel");
 
     Table table = tableFacade.getTable();
@@ -36,7 +40,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
     lastName.setTitle("Last Name");
 
     Limit limit = tableFacade.getLimit();
-    if (limit.isExportable()) {
+    if (limit.isExported()) {
         facade.render();
         return null;
     } else {
@@ -78,7 +82,8 @@ There is now an alternative way to create columns using the API. This technique 
 All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items);
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setItems(items);
 
 HtmlComponentFactory factory = new HtmlComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
 
@@ -102,11 +107,13 @@ tableFacade.setTable(table);
 Even if you start using the tag library it would still be very handy to use for the exports. The code would be as easy as this:
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request, items, "name.firstName", "name.lastName", "term", "career");
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+tableFacade.setItems(items);
 tableFacade.setExportTypes(response, "csv", "excel");
 
 Limit limit = tableFacade.getLimit();
-if (limit.isExportable()) {
+if (limit.isExported()) {
     tableFacade.render();
     return null;
 }
@@ -122,12 +129,13 @@ There is now an alternative way to create columns using the API. This technique 
 All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request, items); // do not need maxRows for exports
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setItems(items);
 tableFacade.setExportTypes(response, "excel");
 
 Limit limit = tableFacade.getLimit();
 
-if (limit.isExportable()) {
+if (limit.isExported()) {
 
     if (limit.getExport().getType().equals("excel")) {
         ExcelComponentFactory factory = new ExcelComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
