@@ -1,4 +1,4 @@
-This page contains the new and noteworthy features for the JMesa 2.2 release. Be sure to also look at the new 2.2.5 [2_2_5NewAndNoteworthy new and noteworthy] features.
+This page contains the new and noteworthy features for the JMesa 2.2 release. Be sure to also look at the [2_2_5NewAndNoteworthy 2.2.5 new and noteworthy] features.
 
 This page also contains the changes that took place from the 2.1 to the 2.2 release. There are only a few changes that may effect some users, but for the most part the changes are transparent. Be sure to read about the deprecated and modified features to see if or what you may need to do.
 
