@@ -56,7 +56,7 @@ class Build {
 
     def war() {
         def warFile = "$targetDir/${artifact.name}-${artifact.revision}_examples.war"
-        ant.war(destfile:warFile, webxml:projectDir + '/web/WEB-INF/web.xml') {
+        ant.war(destfile:warFile, webxml:projectDir + '/web/WEB-INF/web.xml', duplicate:'preserve') {
             fileset(dir:"$projectDir/web")
             classes(dir:classesDir)
             lib(dir:"$targetDir/ivy/lib/master") {
@@ -76,7 +76,7 @@ class Build {
         
         ant.copy(todir:"${sourceDir}/jmesaWeb/src") { fileset(dir:'src') }
         ant.copy(todir:"${sourceDir}/jmesaWeb/web") { 
-            fileset(dir:'web', excludes:"**/classes/**") 
+            fileset(dir:'web', excludes:"**/classes/**", excludes:"**/lib/**") 
         }
         
         ant.zip(destfile:targetDir + "/${artifact.name}-${artifact.revision}_examples.war-source.zip", basedir:sourceDir)
