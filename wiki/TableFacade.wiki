@@ -126,7 +126,7 @@ _The exports will default to 'table-data.exportType' if no caption is specified.
 ==== Exports !ComponentFactory Option ====
 There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
 
-All you have to do is use one of the new constructors on the !TableFacadeImpl in which you do not declare the columns, and then set the table on the facade. 
+All you have to do is set the table on the facade. 
 
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request);
