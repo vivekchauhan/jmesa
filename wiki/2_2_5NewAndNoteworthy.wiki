@@ -2,7 +2,7 @@
 
 ===== One !TableFacadeImpl Constructor Now =====
 
- * Although backwards compatible, I am only going with one constructor for the !TableFacadeImpl. The other constructors are deprecated now. The thing with the !TableFacade is that there are many use cases with how to use it. For instance if you just want the Limit you don't need the table. If you just want exports you do not need the maxRows. If you want different columns for exports versus html you need to work with that different. The facade can handle all that but I would like developers to work with it and not really have to think too much about what is happening behind the scenes. I took the approach of just having different constructors, but that felt wrong at the time and now it looks messy.
+ * Although backwards compatible, I am only going with one constructor for the !TableFacadeImpl. The other constructors are deprecated now. The thing with the !TableFacade is that there are many use cases with how to use it. For instance if you just want the Limit you don't need the table. If you just want exports you do not need the maxRows. If you want different columns for exports versus html you need to work with that different. The facade can handle all that but I would like developers to work with it and not really have to think too much about what is happening behind the scenes. I took the approach of just having different constructors which worked ok at first but now it looks messy.
 
 As an example in the case where you want a basic table it looks like this now.
 
