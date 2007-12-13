@@ -46,8 +46,8 @@ tableFacade.setExportTypes(response, "csv", "excel");
 
 Limit limit = tableFacade.getLimit();
 if (limit.isExported()) {
-    tableFacade.render();
-    return null;
+    tableFacade.render(); // Will write out to the response.
+    return null; // In Spring and Struts return null when writing straight out to the response.
 }
 }}}
 
