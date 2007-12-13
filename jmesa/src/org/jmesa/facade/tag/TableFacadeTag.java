@@ -417,7 +417,7 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         WebContext webContext = new JspPageWebContext((PageContext) getJspContext());
 
-        this.tableFacade = new TableFacadeImpl(id, null);
+        this.tableFacade = new TableFacadeImpl(getId(), null);
         tableFacade.setWebContext(webContext);
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
