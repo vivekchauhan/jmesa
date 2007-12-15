@@ -2,3 +2,5 @@ The upcoming features in 2.2.7:
 
  * New !AbstractCellEditor that serves as a more logic extension point for custom [Editors CellEditors].
  * The exportTypes are enums now. Should be using the tableFacade.setExportType(!ExportType... exportTypes) enum now. The current Export object is deprecated, but will work as developers transition over.
+  * I was trying to buffer the API in case more information was useful in the Export object. However that didn't pan out and the current method is too verbose. Like always it will be backwards compatible and easy to switch over.
+  * ex: instead of limit.getExport().getType(); it will be limit.getExportType();
