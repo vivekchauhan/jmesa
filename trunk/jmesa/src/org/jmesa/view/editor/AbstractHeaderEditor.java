@@ -20,6 +20,8 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
 
 /**
+ * Abstract header editor that contains the column.
+ * 
  * @since 2.2
  * @author Jeff Johnston
  */

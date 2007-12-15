@@ -27,6 +27,7 @@ public class LimitImpl implements Limit {
     private FilterSet filterSet;
     private SortSet sortSet;
     private Export export;
+    private ExportType exportType;
 
     /**
      * @param id The code to uniquely identify the table.
@@ -68,7 +69,7 @@ public class LimitImpl implements Limit {
     }
 
     public boolean isExported() {
-        return getExport() != null;
+        return getExportType() != null;
     }
 
     public Export getExport() {
@@ -77,6 +78,14 @@ public class LimitImpl implements Limit {
 
     public void setExport(Export export) {
         this.export = export;
+    }
+    
+    public ExportType getExportType() {
+        return exportType;
+    }
+    
+    public void setExportType(ExportType exportType) {
+        this.exportType = exportType;
     }
 
     public boolean isComplete() {

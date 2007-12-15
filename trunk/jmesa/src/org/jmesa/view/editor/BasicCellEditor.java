@@ -16,13 +16,12 @@
 package org.jmesa.view.editor;
 
 import org.jmesa.util.ItemUtils;
-import org.jmesa.view.AbstractContextSupport;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class BasicCellEditor extends AbstractContextSupport implements CellEditor {
+public class BasicCellEditor extends AbstractCellEditor {
     public Object getValue(Object item, String property, int rowcount) {
         return ItemUtils.getItemValue(item, property);
     }

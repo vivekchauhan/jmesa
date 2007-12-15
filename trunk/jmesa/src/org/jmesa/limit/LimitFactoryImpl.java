@@ -123,10 +123,14 @@ public class LimitFactoryImpl implements LimitFactory {
         SortSet sortSet = limitActionFactory.getSortSet();
         limit.setSortSet(sortSet);
 
+        ExportType exportType = limitActionFactory.getExportType();
+        limit.setExportType(exportType);
+        
+        // just keep so existing code still works.
         Export export = limitActionFactory.getExport();
         limit.setExport(export);
 
-        if (state != null && !limit.isExportable()) {
+        if (state != null && !limit.isExported()) {
             state.persistLimit(limit);
         }
 
@@ -154,7 +158,7 @@ public class LimitFactoryImpl implements LimitFactory {
             return limit;
         }
 
-        if (limit.isExportable()) {
+        if (limit.isExported()) {
             RowSelect rowSelect = new RowSelectImpl(1, totalRows, totalRows);
             limit.setRowSelect(rowSelect);
         } else {

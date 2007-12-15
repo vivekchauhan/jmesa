@@ -18,6 +18,7 @@ package org.jmesa.view;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.limit.ExportType;
 import org.jmesa.view.html.component.HtmlColumn;
 
 /**
@@ -70,9 +71,9 @@ public class ViewUtils {
      * @param view The view to export.
      * @param exportType The type of view to export.
      * @return The file name of export.
+     * @deprecated Replaced by {@link #exportFileName(View,String)}
      */
-    @Deprecated
-    public static String exportFileName(View view, String exportType) {
+    @Deprecated public static String exportFileName(View view, String exportType) {
         String caption = view.getTable().getCaption();
         if (StringUtils.isNotBlank(caption)) {
             StringUtils.replace(caption, " ", "_");
@@ -114,7 +115,11 @@ public class ViewUtils {
         return false;
     }
     
-    public static boolean isExportable(String... exportTypes) {
+    /**
+     * @param exportTypes The array of export types to check.
+     * @return Is true if there is an export to do.
+     */
+    public static boolean isExportable(ExportType... exportTypes) {
         return  exportTypes != null && exportTypes.length > 0;
     }
 }

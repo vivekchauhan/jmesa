@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.limit.ExportType;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
@@ -47,8 +48,8 @@ public class CsvViewTest extends AbstractTestCase {
 
         CoreContext coreContext = createCoreContext(webContext);
 
-        assertTrue(coreContext.getLimit().isExportable());
-        assertTrue(coreContext.getLimit().getExport().getType().equals("csv"));
+        assertTrue(coreContext.getLimit().isExported());
+        assertTrue(coreContext.getLimit().getExportType() == ExportType.CSV);
 
         CsvComponentFactory factory = new CsvComponentFactory(webContext, coreContext);
 

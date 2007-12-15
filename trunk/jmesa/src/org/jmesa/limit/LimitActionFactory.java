@@ -22,6 +22,7 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public interface LimitActionFactory {
+
     public String getId();
 
     /**
@@ -40,5 +41,14 @@ public interface LimitActionFactory {
 
     public SortSet getSortSet();
 
+    /**
+     * @deprecated Replaced by {@link #getExportType()}
+     */
+    @Deprecated
     public Export getExport();
+
+    /**
+     * @return The current export type based on what the user selected.
+     */
+    public ExportType getExportType();
 }

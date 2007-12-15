@@ -18,34 +18,34 @@ package org.jmesa.view.html.toolbar;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.limit.ExportType;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.web.WebContext;
 
 /**
+ * A factory is no longer used to build the toolbar.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
-@Deprecated
-public class ToolbarFactoryImpl implements ToolbarFactory {
+@Deprecated public class ToolbarFactoryImpl implements ToolbarFactory {
     private HtmlTable table;
     private int[] maxRowsIncrements;
-    private String[] exportTypes;
+    private ExportType[] exportTypes;
     private WebContext webContext;
     private CoreContext coreContext;
     private boolean enableSeparators = true;
 
-    @Deprecated
-    public ToolbarFactoryImpl(HtmlTable table, WebContext webContext, CoreContext coreContext, String... exportTypes) {
+    @Deprecated public ToolbarFactoryImpl(HtmlTable table, WebContext webContext, CoreContext coreContext, ExportType... exportTypes) {
         this.table = table;
         this.webContext = webContext;
         this.coreContext = coreContext;
         this.exportTypes = exportTypes;
     }
 
-    @Deprecated
-    public ToolbarFactoryImpl(HtmlTable table, int[] maxRowsIncrements, WebContext webContext, CoreContext coreContext, String... exportTypes) {
+    @Deprecated public ToolbarFactoryImpl(HtmlTable table, int[] maxRowsIncrements, WebContext webContext, CoreContext coreContext, ExportType... exportTypes) {
         this.table = table;
         this.maxRowsIncrements = maxRowsIncrements;
         this.webContext = webContext;
@@ -53,13 +53,11 @@ public class ToolbarFactoryImpl implements ToolbarFactory {
         this.exportTypes = exportTypes;
     }
     
-    @Deprecated
-    public void enableSeparators(boolean isEnabled) {
+    @Deprecated public void enableSeparators(boolean isEnabled) {
         this.enableSeparators = isEnabled;
     }
 
-    @Deprecated
-    public Toolbar createToolbar() {
+    @Deprecated public Toolbar createToolbar() {
         DefaultToolbar toolbar = new DefaultToolbar();
         toolbar.setWebContext(webContext);
         toolbar.setCoreContext(coreContext);

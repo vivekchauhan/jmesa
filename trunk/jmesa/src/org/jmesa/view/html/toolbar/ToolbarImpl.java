@@ -17,6 +17,7 @@ package org.jmesa.view.html.toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jmesa.limit.ExportType;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.html.HtmlBuilder;
 
@@ -83,7 +84,7 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         return item;
     }
 
-    public List<ToolbarItem> addExportToolbarItems(String... exportTypes) {
+    public List<ToolbarItem> addExportToolbarItems(ExportType... exportTypes) {
         List<ToolbarItem> items = new ArrayList<ToolbarItem>();
 
         if (exportTypes == null || exportTypes.length == 0) {
@@ -91,14 +92,14 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         }
 
         for (int i = 0; i < exportTypes.length; i++) {
-            String exportType = exportTypes[i];
+            ExportType exportType = exportTypes[i];
             items.add(addExportToolbarItem(exportType));
         }
 
         return items;
     }
 
-    public ToolbarItem addExportToolbarItem(String exportType) {
+    public ToolbarItem addExportToolbarItem(ExportType exportType) {
         ToolbarExport export = new ToolbarExport(exportType);
         ToolbarItemFactory toolbarItemFactory = getToolbarItemFactory();
         ToolbarItem item = toolbarItemFactory.createExportItem(export);

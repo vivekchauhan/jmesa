@@ -36,6 +36,7 @@ import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.core.sort.ColumnSort;
+import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -82,8 +83,10 @@ import org.slf4j.LoggerFactory;
  * </p>
  * 
  * <pre>
- * TableFacade tableFacade = new TableFacadeImpl(id, request, maxRows, items, &quot;name.firstName&quot;, &quot;name.lastName&quot;, &quot;term&quot;, &quot;career&quot;);
- * String html = tableFacade.render();
+ *  TableFacade tableFacade = new TableFacadeImpl(id, request);
+ *  tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");\
+ *  tableFacade.setItems(items);
+ *  String html = tableFacade.render();
  * </pre>
  * 
  * <p>
@@ -123,7 +126,7 @@ public class TableFacadeImpl implements TableFacade {
     private int maxRows;
     private Collection<?> items;
     private String[] columnProperties;
-    private String[] exportTypes;
+    private ExportType[] exportTypes;
     private WebContext webContext;
     private CoreContext coreContext;
     private Messages messages;
@@ -166,9 +169,9 @@ public class TableFacadeImpl implements TableFacade {
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param columnProperties The columns to be pulled from the items.
+     * @deprecated Replaced by {@link #TableFacadeImpl(String,HttpServletRequest)}
      */
-    @Deprecated
-    public TableFacadeImpl(String id, HttpServletRequest request, String... columnProperties) {
+    @Deprecated public TableFacadeImpl(String id, HttpServletRequest request, String... columnProperties) {
         this.id = id;
         this.request = request;
         this.columnProperties = columnProperties;
@@ -190,9 +193,9 @@ public class TableFacadeImpl implements TableFacade {
      * @param request The servlet request object.
      * @param items The Collection of Beans or Collection of Maps.
      * @param columnProperties The columns to be pulled from the items.
+     * @deprecated Replaced by {@link #TableFacadeImpl(String,HttpServletRequest)}
      */
-    @Deprecated
-    public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items, String... columnProperties) {
+    @Deprecated public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items, String... columnProperties) {
         this.id = id;
         this.request = request;
         this.items = items;
@@ -215,9 +218,9 @@ public class TableFacadeImpl implements TableFacade {
      * @param maxRows The max rows to display on a page.
      * @param items The Collection of Beans or Collection of Maps.
      * @param columnProperties The columns to be pulled from the items.
+     * @deprecated Replaced by {@link #TableFacadeImpl(String,HttpServletRequest)}
      */
-    @Deprecated
-    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items, String... columnProperties) {
+    @Deprecated public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items, String... columnProperties) {
         this.id = id;
         this.request = request;
         this.maxRows = maxRows;
@@ -246,9 +249,9 @@ public class TableFacadeImpl implements TableFacade {
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param items The Collection of Beans or Collection of Maps.
+     * @deprecated Replaced by {@link #TableFacadeImpl(String,HttpServletRequest)}
      */
-    @Deprecated
-    public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items) {
+    @Deprecated public TableFacadeImpl(String id, HttpServletRequest request, Collection<?> items) {
         this.id = id;
         this.request = request;
         this.items = items;
@@ -276,16 +279,25 @@ public class TableFacadeImpl implements TableFacade {
      * @param request The servlet request object.
      * @param maxRows The max rows to display on a page.
      * @param items The Collection of Beans or Collection of Maps.
+     * @deprecated Replaced by {@link #TableFacadeImpl(String,HttpServletRequest)}
      */
-    @Deprecated
-    public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items) {
+    @Deprecated public TableFacadeImpl(String id, HttpServletRequest request, int maxRows, Collection<?> items) {
         this.id = id;
         this.request = request;
         this.maxRows = maxRows;
         this.items = items;
     }
 
-    public void setExportTypes(HttpServletResponse response, String... exportTypes) {
+    @Deprecated public void setExportTypes(HttpServletResponse response, String... exportTypes) {
+        this.response = response;
+        
+        this.exportTypes = new ExportType[exportTypes.length];
+        for (int i = 0; i < exportTypes.length; i++) {
+            this.exportTypes[i] = ExportType.valueOfParam(exportTypes[i]);
+        }
+    }
+    
+    public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
         this.response = response;
         this.exportTypes = exportTypes;
     }
@@ -321,7 +333,7 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         if (items != null) {
-            if (l.isExportable()) {
+            if (l.isExported()) {
                 l.setRowSelect(new RowSelectImpl(1, items.size(), items.size()));
             } else {
                 limitFactory.createRowSelect(getMaxRows(), items.size(), l);
@@ -425,7 +437,7 @@ public class TableFacadeImpl implements TableFacade {
             throw new IllegalStateException(
                 "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
         }
-        
+
         if (filterMatcherMap == null) {
             return;
         }
@@ -545,7 +557,7 @@ public class TableFacadeImpl implements TableFacade {
 
         Limit l = getLimit();
 
-        if (!l.isExportable()) {
+        if (!l.isExported()) {
             if (l.getRowSelect() == null) {
                 throw new IllegalStateException(
                     "The RowSelect is null. You need to set the Limit RowSelect on the facade, or use the contructor with the maxRows.");
@@ -554,17 +566,17 @@ public class TableFacadeImpl implements TableFacade {
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
             this.table = tableFactory.createTable(columnProperties);
         } else {
-            String exportType = l.getExport().getType();
-            if (exportType.equals(CSV)) {
+            ExportType exportType = l.getExportType();
+            if (exportType == ExportType.CSV) {
                 TableFactory tableFactory = new CsvTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType.equals(EXCEL)) {
+            } else if (exportType == ExportType.EXCEL) {
                 TableFactory tableFactory = new ExcelTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType.equals(PDF)) {
+            } else if (exportType == ExportType.PDF) {
                 TableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType.equals(JEXCEL)) {
+            } else if (exportType == ExportType.JEXCEL) {
                 TableFactory tableFactory = new JExcelTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
             } else {
@@ -629,17 +641,17 @@ public class TableFacadeImpl implements TableFacade {
 
         Limit l = getLimit();
 
-        if (!l.isExportable()) {
+        if (!l.isExported()) {
             this.view = new HtmlView((HtmlTable) getTable(), getToolbar(), getCoreContext());
         } else {
-            String exportType = l.getExport().getType();
-            if (exportType.equals(CSV)) {
+            ExportType exportType = l.getExportType();
+            if (exportType == ExportType.CSV) {
                 this.view = new CsvView(getTable(), getCoreContext());
-            } else if (exportType.equals(EXCEL)) {
+            } else if (exportType == ExportType.EXCEL) {
                 this.view = new ExcelView(getTable(), getCoreContext());
-            } else if (exportType.equals(PDF)) {
+            } else if (exportType == ExportType.PDF) {
                 this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getWebContext(), getCoreContext());
-            } else if (exportType.equals(JEXCEL)) {
+            } else if (exportType == ExportType.JEXCEL) {
                 this.view = new JExcelView(getTable(), getCoreContext());
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
@@ -662,23 +674,23 @@ public class TableFacadeImpl implements TableFacade {
 
         View v = getView();
 
-        if (!l.isExportable()) {
+        if (!l.isExported()) {
             return v.render().toString();
         }
 
-        String exportType = l.getExport().getType();
+        ExportType exportType = l.getExportType();
 
         try {
-            if (exportType.equals(CSV)) {
+            if (exportType == ExportType.CSV) {
                 ViewExporter exporter = new CsvViewExporter(v, response);
                 exporter.export();
-            } else if (exportType.equals(EXCEL)) {
+            } else if (exportType == ExportType.EXCEL) {
                 ViewExporter exporter = new ExcelViewExporter(v, response);
                 exporter.export();
-            } else if (exportType.equals(JEXCEL)) {
+            } else if (exportType == ExportType.JEXCEL) {
                 ViewExporter exporter = new JExcelViewExporter(v, response);
                 exporter.export();
-            } else if (exportType.equals(PDF)) {
+            } else if (exportType == ExportType.PDF) {
                 ViewExporter exporter = new PdfViewExporter(v, request, response);
                 exporter.export();
             }
