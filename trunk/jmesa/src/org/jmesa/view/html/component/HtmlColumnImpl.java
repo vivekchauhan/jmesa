@@ -28,8 +28,8 @@ import org.jmesa.view.renderer.FilterRenderer;
  * @author Jeff Johnston
  */
 public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
-    private boolean filterable = true;
-    private boolean sortable = true;
+    private Boolean filterable;
+    private Boolean sortable;
     private String width;
     private FilterRenderer filterRenderer;
     private Order[] sortOrder;
@@ -44,18 +44,36 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     }
 
     public boolean isFilterable() {
-        return filterable;
+        if (filterable != null) {
+            return filterable.booleanValue();
+        }
+        
+        HtmlRow row = getRow();
+        if (row != null && row.isFilterable() != null) {
+            return row.isFilterable().booleanValue();
+        }
+        
+        return true;
     }
 
-    public void setFilterable(boolean filterable) {
+    public void setFilterable(Boolean filterable) {
         this.filterable = filterable;
     }
 
     public boolean isSortable() {
-        return sortable;
+        if (sortable != null) {
+            return sortable.booleanValue();
+        }
+        
+        HtmlRow row = getRow();
+        if (row != null && row.isSortable() != null) {
+            return row.isSortable().booleanValue();
+        }
+        
+        return true;
     }
 
-    public void setSortable(boolean sortable) {
+    public void setSortable(Boolean sortable) {
         this.sortable = sortable;
     }
 

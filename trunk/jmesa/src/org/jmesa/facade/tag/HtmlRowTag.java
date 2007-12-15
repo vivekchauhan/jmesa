@@ -43,6 +43,7 @@ import org.jmesa.web.WebContext;
  * @author jeff jie
  */
 public class HtmlRowTag extends SimpleTagSupport {
+
     private String rowRenderer;
     private String style;
     private String styleClass;
@@ -51,6 +52,8 @@ public class HtmlRowTag extends SimpleTagSupport {
     private String highlightStyle;
     private String highlightClass;
     private boolean highlighter = true;
+    private Boolean sortable;
+    private Boolean filterable;
     private String onclick;
     private String onmouseover;
     private String onmouseout;
@@ -162,6 +165,34 @@ public class HtmlRowTag extends SimpleTagSupport {
         this.highlighter = highlighter;
     }
 
+    /**
+     * @since 2.2
+     */
+    public Boolean isSortable() {
+        return sortable;
+    }
+
+    /**
+     * @since 2.2
+     */
+    public void setSortable(Boolean sortable) {
+        this.sortable = sortable;
+    }
+
+    /**
+     * @since 2.2
+     */
+    public Boolean isFilterable() {
+        return filterable;
+    }
+
+    /**
+     * @since 2.2
+     */
+    public void setFilterable(Boolean filterable) {
+        this.filterable = filterable;
+    }
+
     public String getOnclick() {
         return onclick;
     }
@@ -192,6 +223,8 @@ public class HtmlRowTag extends SimpleTagSupport {
     private HtmlRow getRow(HtmlComponentFactory factory) {
         HtmlRow row = factory.createRow();
         row.setHighlighter(isHighlighter());
+        row.setSortable(isSortable());
+        row.setFilterable(isFilterable());
         row.setOnclick(getRowOnclick(row, getOnclick()));
         row.setOnmouseover(getRowOnmouseover(row, getOnmouseover()));
         row.setOnmouseout(getRowOnmouseout(row, getOnmouseout()));
@@ -229,7 +262,7 @@ public class HtmlRowTag extends SimpleTagSupport {
         pageItems.add(pageItem);
 
         String var = facadeTag.getVar();
-        
+
         Object bean = getJspContext().getAttribute(var);
         pageItem.put(var, bean);
 

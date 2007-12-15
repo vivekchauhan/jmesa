@@ -29,11 +29,11 @@ import org.jmesa.view.renderer.FilterRenderer;
 public interface HtmlColumn extends Column {
     public boolean isFilterable();
 
-    public void setFilterable(boolean filterable);
+    public void setFilterable(Boolean filterable);
 
     public boolean isSortable();
 
-    public void setSortable(boolean sortable);
+    public void setSortable(Boolean sortable);
 
     /**
      * @since 2.2
