@@ -44,7 +44,7 @@ public interface TableFacade {
     /**
      * Set the comma separated list of export types. The currently supported types are
      * TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
-     * @deprecated Replaced by {@link #setExportType(ExportType)}
+     * @deprecated Replaced by {@link #setExportTypes(HttpServletResponse,ExportType...)}
      */
     @Deprecated public void setExportTypes(HttpServletResponse response, String... exportTypes);
 
