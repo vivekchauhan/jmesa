@@ -15,9 +15,9 @@
  */
 package org.jmesaweb.controller;
 
-import static org.jmesa.facade.TableFacadeImpl.CSV;
-import static org.jmesa.facade.TableFacadeImpl.JEXCEL;
-import static org.jmesa.facade.TableFacadeImpl.PDF;
+import static org.jmesa.limit.ExportType.CSV;
+import static org.jmesa.limit.ExportType.JEXCEL;
+import static org.jmesa.limit.ExportType.PDF;
 
 import java.util.Collection;
 import java.util.Date;
@@ -41,7 +41,6 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
-import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
