@@ -24,6 +24,15 @@ import org.jmesa.view.html.renderer.HtmlRowRenderer;
  * @author Jeff Johnston
  */
 public interface HtmlRow extends Row {
+
+    public Boolean isFilterable();
+
+    public void setFilterable(Boolean filterable);
+
+    public Boolean isSortable();
+
+    public void setSortable(Boolean sortable);
+
     public boolean isHighlighter();
 
     public void setHighlighter(boolean highlighter);
@@ -41,7 +50,7 @@ public interface HtmlRow extends Row {
     public void setOnmouseout(RowEvent onmouseout);
 
     public HtmlColumn getColumn(String property);
-    
+
     public HtmlColumn getColumn(int index);
 
     public HtmlRowRenderer getRowRenderer();

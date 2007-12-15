@@ -32,11 +32,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.apache.commons.lang.StringUtils;
-import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Order;
 import org.jmesa.util.ItemUtils;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
@@ -46,7 +42,6 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
-import org.jmesa.web.WebContext;
 
 /**
  * Represents an HtmlColumn.
@@ -58,9 +53,9 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String property;
     private String title;
     private String titleKey;
-    private boolean sortable = true;
+    private Boolean sortable;
     private String sortOrder;
-    private boolean filterable = true;
+    private Boolean filterable;
     private String width;
     private String cellRenderer;
     private String filterRenderer;
@@ -100,11 +95,11 @@ public class HtmlColumnTag extends SimpleTagSupport {
         this.titleKey = titleKey;
     }
 
-    public boolean isSortable() {
+    public Boolean isSortable() {
         return sortable;
     }
 
-    public void setSortable(boolean sortable) {
+    public void setSortable(Boolean sortable) {
         this.sortable = sortable;
     }
 
@@ -124,11 +119,11 @@ public class HtmlColumnTag extends SimpleTagSupport {
         this.sortOrder = sortOrder;
     }
 
-    public boolean isFilterable() {
+    public Boolean isFilterable() {
         return filterable;
     }
 
-    public void setFilterable(boolean filterable) {
+    public void setFilterable(Boolean filterable) {
         this.filterable = filterable;
     }
 

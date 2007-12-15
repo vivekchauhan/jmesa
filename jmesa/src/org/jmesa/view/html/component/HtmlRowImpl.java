@@ -29,10 +29,28 @@ import org.jmesa.view.html.renderer.HtmlRowRenderer;
  * @author Jeff Johnston
  */
 public class HtmlRowImpl extends RowImpl implements HtmlRow {
+    private Boolean filterable;
+    private Boolean sortable;
     private boolean highlighter = true;
     private RowEvent onclick;
     private RowEvent onmouseout;
     private RowEvent onmouseover;
+
+    public Boolean isFilterable() {
+        return filterable;
+    }
+
+    public void setFilterable(Boolean filterable) {
+        this.filterable = filterable;
+    }
+
+    public Boolean isSortable() {
+        return sortable;
+    }
+
+    public void setSortable(Boolean sortable) {
+        this.sortable = sortable;
+    }
 
     public boolean isHighlighter() {
         return highlighter;
