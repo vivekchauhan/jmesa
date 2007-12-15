@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class LimitActionFactoryImpl implements LimitActionFactory {
-    private Logger logger = LoggerFactory.getLogger(LimitActionFactoryImpl.class);
 
+    private Logger logger = LoggerFactory.getLogger(LimitActionFactoryImpl.class);
     private final Map<?, ?> parameters;
     private final String id;
     private final String prefixId;
@@ -117,13 +117,30 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
         return sortSet;
     }
 
-    public Export getExport() {
+    @Deprecated public Export getExport() {
         String export = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
         if (StringUtils.isNotBlank(export)) {
             if (logger.isDebugEnabled()) {
                 logger.debug("Export: " + export);
             }
             return new Export(export);
+        }
+
+        return null;
+    }
+
+    public ExportType getExportType() {
+        String exportType = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
+        if (StringUtils.isNotBlank(exportType)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("ExportType: " + exportType);
+            }
+            ExportType et = ExportType.valueOfParam(exportType);
+            if (et != null) {
+                return et;
+            }
+            
+            throw new IllegalStateException("Not able to handle the export of type: " + exportType);
         }
 
         return null;

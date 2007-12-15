@@ -16,6 +16,7 @@
 package org.jmesa.view.html.toolbar;
 
 import java.util.List;
+import org.jmesa.limit.ExportType;
 
 /**
  * @since 2.0
@@ -26,9 +27,9 @@ public interface Toolbar {
 
     public ToolbarItem addToolbarItem(ToolbarItemType type);
 
-    public List<ToolbarItem> addExportToolbarItems(String... exportTypes);
+    public List<ToolbarItem> addExportToolbarItems(ExportType... exportTypes);
 
-    public ToolbarItem addExportToolbarItem(String exportType);
+    public ToolbarItem addExportToolbarItem(ExportType exportType);
 
     public String render();
 }

@@ -24,15 +24,16 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * 
  * @since 2.0
  * @author Jeff Johnston
+ * @deprecated Replaced by ExportType enum.
  */
-public class Export {
+@Deprecated public class Export {
     private final String type;
 
-    public Export(String type) {
+    @Deprecated public Export(String type) {
         this.type = type;
     }
 
-    public String getType() {
+    @Deprecated public String getType() {
         return type;
     }
 

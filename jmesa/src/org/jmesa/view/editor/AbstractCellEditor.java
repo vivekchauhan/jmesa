@@ -13,16 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.editor;
 
-import org.jmesa.limit.ExportType;
+import org.jmesa.view.AbstractContextSupport;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.ColumnSupport;
 
 /**
+ * Abstract cell editor that contains the column.
+ * 
  * @since 2.2
  * @author Jeff Johnston
  */
-public interface ExportTypesSupport {
-    public ExportType[] getExportTypes();
+public abstract class AbstractCellEditor extends AbstractContextSupport implements CellEditor, ColumnSupport {
 
-    public void setExportTypes(ExportType... exportTypes);
+    private Column column;
+
+    public Column getColumn() {
+        return column;
+    }
+
+    public void setColumn(Column column) {
+        this.column = column;
+    }
 }

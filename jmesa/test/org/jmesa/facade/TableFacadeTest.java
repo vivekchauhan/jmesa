@@ -274,7 +274,7 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport("foo");
+        builder.setExport("foo"); // an invalid export
 
         Collection<President> items = new PresidentDao().getPresidents();
 

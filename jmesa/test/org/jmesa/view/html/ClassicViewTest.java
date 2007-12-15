@@ -18,6 +18,7 @@ package org.jmesa.view.html;
 import static org.junit.Assert.assertNotNull;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.limit.ExportType;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.View;
 import org.jmesa.view.editor.CellEditor;
@@ -25,7 +26,6 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.DefaultToolbar;
-import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
 
@@ -76,7 +76,7 @@ public class ClassicViewTest extends AbstractTestCase {
         toolbar.setTable(table);
         toolbar.setWebContext(webContext);
         toolbar.setCoreContext(coreContext);
-        toolbar.setExportTypes("csv");
+        toolbar.setExportTypes(ExportType.CSV);
         View view = new HtmlView(table, toolbar, coreContext);
         Object html = view.render();
 

@@ -27,6 +27,7 @@ import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
+import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.view.View;
@@ -43,8 +44,15 @@ public interface TableFacade {
     /**
      * Set the comma separated list of export types. The currently supported types are
      * TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
+     * @deprecated Replaced by {@link #setExportType(ExportType)}
      */
-    public void setExportTypes(HttpServletResponse response, String... exportTypes);
+    @Deprecated public void setExportTypes(HttpServletResponse response, String... exportTypes);
+
+    /**
+     * Set the comma separated list of export types. The currently supported types are
+     * ExportType.CVS, ExportType.EXCEL, ExportType.JEXCEL, and ExportType.PDF.
+     */
+    public void setExportTypes(HttpServletResponse response, ExportType... exportTypes);
 
     /**
      * Get the WebContext. If the WebContext does not exist then one will be created.
@@ -104,8 +112,7 @@ public interface TableFacade {
      * 
      * @return The RowSelect set on the Limit.
      */
-    @Deprecated
-    public RowSelect setRowSelect(int maxRows, int totalRows);
+    @Deprecated public RowSelect setRowSelect(int maxRows, int totalRows);
 
     /**
      * If you are manually sorting and filtering the table then you still need to ensure that you

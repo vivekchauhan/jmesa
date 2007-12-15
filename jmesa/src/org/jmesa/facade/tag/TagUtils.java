@@ -25,6 +25,7 @@ import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
+import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
@@ -53,12 +54,12 @@ import org.slf4j.LoggerFactory;
 class TagUtils {
 
     private static Logger logger = LoggerFactory.getLogger(TagUtils.class);
-    
+
     static Object createInstance(String className) {
         if (StringUtils.isEmpty(className)) {
             return null;
         }
-        
+
         try {
             return Class.forName(className).newInstance();
         } catch (Exception e) {
@@ -355,12 +356,19 @@ class TagUtils {
 
         return results;
     }
-    
-    static String[] getTableFacadeExportTypes(String exportTypes) {
+
+    static ExportType[] getTableFacadeExportTypes(String exportTypes) {
         if (StringUtils.isBlank(exportTypes)) {
             return null;
         }
-        
-        return StringUtils.split(exportTypes, ",");
+
+        String[] types = StringUtils.split(exportTypes, ",");
+
+        ExportType[] et = new ExportType[types.length];
+        for (int i = 0; i < types.length; i++) {
+            et[i] = ExportType.valueOfParam(types[i]);
+        }
+
+        return et;
     }
 }

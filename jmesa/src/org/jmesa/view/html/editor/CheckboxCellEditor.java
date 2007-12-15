@@ -15,13 +15,15 @@
  */
 package org.jmesa.view.html.editor;
 
-import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.AbstractCellEditor;
 
 /**
+ * Defines a checkbox.
+ * 
  * @since 2.3
  * @author Jeff Johnston
  */
-public class CheckboxCellEditor implements CellEditor {
+public class CheckboxCellEditor extends AbstractCellEditor {
     public Object getValue(Object item, String property, int rowcount) {
         return null;
     }

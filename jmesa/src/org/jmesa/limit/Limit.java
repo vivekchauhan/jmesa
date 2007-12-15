@@ -34,6 +34,7 @@ import java.io.Serializable;
  * @author Jeff Johnston
  */
 public interface Limit extends Serializable {
+
     /**
      * @return The code to uniquely identify the table.
      */
@@ -105,11 +106,27 @@ public interface Limit extends Serializable {
     /**
      * <p>
      * The Export represents the export that the user invoked.
+     * @deprecated Replaced by {@link #getExportType()}
      * </p>
      */
+    @Deprecated
     public Export getExport();
 
+    /**
+     * @param export The current export requested.
+     * @deprecated Replaced by {@link #setExportType(ExportType)}
+     */
+    @Deprecated
     public void setExport(Export export);
+
+    /**
+     * <p>
+     * The ExportType represents the export that the user invoked.
+     * </p>
+     */
+    public ExportType getExportType();
+
+    public void setExportType(ExportType exportType);
 
     public boolean isComplete();
 }

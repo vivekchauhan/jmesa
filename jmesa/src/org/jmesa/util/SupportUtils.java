@@ -17,6 +17,7 @@ package org.jmesa.util;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextSupport;
+import org.jmesa.limit.ExportType;
 import org.jmesa.view.ExportTypesSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
@@ -121,7 +122,7 @@ public class SupportUtils {
      * @param obj The object being inspected.
      * @param exportTypes The object to be injected.
      */
-    public static void setExportTypes(Object obj, String... exportTypes) {
+    public static void setExportTypes(Object obj, ExportType... exportTypes) {
         if ((obj instanceof ExportTypesSupport) && ((ExportTypesSupport) obj).getExportTypes() == null) {
             ((ExportTypesSupport) obj).setExportTypes(exportTypes);
         }
