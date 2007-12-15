@@ -43,6 +43,7 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.web.WebContext;
 
@@ -150,6 +151,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
     public MaxRowsItem createMaxRowsItem() {
         MaxRowsItemImpl item = new MaxRowsItemImpl();
         item.setCode(ToolbarItemType.MAX_ROWS_ITEM.toCode());
+        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_TEXT_MAX_ROWS_DROPLIST));
 
         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
