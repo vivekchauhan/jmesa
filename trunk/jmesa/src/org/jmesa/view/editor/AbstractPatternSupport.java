@@ -15,15 +15,13 @@
  */
 package org.jmesa.view.editor;
 
-import org.jmesa.view.AbstractContextSupport;
-
 /**
  * Abstract class to hold the pattern information for supporting classes.
  * 
  * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractPatternSupport extends AbstractContextSupport implements CellEditor, PatternSupport {
+public abstract class AbstractPatternSupport extends AbstractCellEditor implements CellEditor, PatternSupport {
     private String pattern;
 
     public String getPattern() {
