@@ -6,3 +6,4 @@ The upcoming features in 2.2.7:
   * ex: instead of limit.getExport().getType(); it will be limit.getExportType();
  * Can place some text next to the max rows increments label. Just specify the text in the [Messages].
   * html.toolbar.text.maxRowsDroplist
+ * Can set a global filterable and sortable on the row. Also have the ability to override the row settings on a column by column basis.
