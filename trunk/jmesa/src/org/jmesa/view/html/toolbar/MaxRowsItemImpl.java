@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
@@ -23,7 +24,16 @@ import org.jmesa.view.html.HtmlBuilder;
  */
 public class MaxRowsItemImpl extends AbstractItem implements MaxRowsItem {
     private int maxRows;
+    private String text;
     private int[] increments = new int[0];
+    
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     public int getMaxRows() {
         return maxRows;
@@ -50,7 +60,11 @@ public class MaxRowsItemImpl extends AbstractItem implements MaxRowsItem {
     @Override
     public String enabled() {
         HtmlBuilder html = new HtmlBuilder();
-
+        
+        if (StringUtils.isEmpty(text)) {
+            text = "";
+        }
+        
         html.select().name("maxRows");
         html.onchange(getAction());
         html.close();
@@ -66,7 +80,7 @@ public class MaxRowsItemImpl extends AbstractItem implements MaxRowsItem {
                 html.selected();
             }
             html.close();
-            html.append(String.valueOf(increment));
+            html.append(String.valueOf(increment) + " " + text);
             html.optionEnd();
         }
 

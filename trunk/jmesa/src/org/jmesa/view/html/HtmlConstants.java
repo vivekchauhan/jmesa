@@ -81,6 +81,7 @@ public class HtmlConstants {
     public final static String TOOLBAR_TEXT_PREV_PAGE = "html.toolbar.text.prevPage";
     public final static String TOOLBAR_TEXT_FILTER = "html.toolbar.text.filter";
     public final static String TOOLBAR_TEXT_CLEAR = "html.toolbar.text.clear";
+    public final static String TOOLBAR_TEXT_MAX_ROWS_DROPLIST = "html.toolbar.text.maxRowsDroplist";
 
     // statusbar text messages
     public final static String STATUSBAR_RESULTS_FOUND = "html.statusbar.resultsFound";

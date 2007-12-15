@@ -24,6 +24,10 @@ public interface MaxRowsItem extends ToolbarItem {
 
     public void setMaxRows(int maxRows);
 
+    public String getText();
+
+    public void setText(String text);
+
     public int[] getIncrements();
 
     public void setIncrements(int[] increments);
