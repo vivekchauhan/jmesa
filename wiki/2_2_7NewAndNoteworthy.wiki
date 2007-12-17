@@ -1,8 +1,8 @@
 The upcoming features in 2.2.7:
 
- * New !AbstractCellEditor that serves as a more logic extension point for custom [Editors CellEditors].
- * The exportTypes are enums now. Developers should be using the tableFacade.setExportTypes(!ExportType... exportTypes) enum now. The current Export object is deprecated, but will work as developers transition over.
-  * I was trying to buffer the API in case more information was useful in the Export object. However that didn't pan out and the current method is too verbose. Like always it will be backwards compatible and easy to switch over.
+ * New !AbstractCellEditor that serves as a more logical extension point for custom [Editors CellEditors].
+ * The exportTypes are enums now. Developers should be using the tableFacade.setExportTypes(!ExportType... exportTypes) enum.
+  * I was trying to buffer the API in case more information was useful in the Export object. However that didn't pan out and the current method is too verbose. Like always it is backwards compatible and easy to switch over.
   * Example: instead of limit.getExport().getType(); it will be limit.getExportType();
  * Can place some text next to the max rows increments label. Just specify the text in the [Messages].
   * html.toolbar.text.maxRowsDroplist
