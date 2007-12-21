@@ -368,7 +368,7 @@ public class TableFacadeImpl implements TableFacade {
 
         Limit l = getLimit();
 
-        if (l.isExportable()) {
+        if (l.isExported()) {
             rowSelect = new RowSelectImpl(1, totalRows, totalRows);
             l.setRowSelect(rowSelect);
         } else {
