@@ -59,8 +59,6 @@ class BasicGroovyPresident implements HtmlTableTemplate {
 
         table.tableRenderer.width = "600px"
 
-        firstName.headerRenderer.defaultSortOrderable = false
-
         // Using a closure to implement a custom editor.
         firstName.cellRenderer.setCellEditor({item, property, rowcount -> 
             def value = new BasicCellEditor().getValue(item, property, rowcount);
