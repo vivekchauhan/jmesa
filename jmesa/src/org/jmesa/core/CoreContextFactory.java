@@ -34,14 +34,6 @@ import org.jmesa.limit.Limit;
  */
 public interface CoreContextFactory {
     /**
-     * Set the FilterMatcherRegistry. Will overrirde the default.
-     * 
-     * @param registry The FilterMatcherRegistry instance.
-     */
-    @Deprecated /* No reason to give access to the underlying implementation of the RowFilter. */
-    public void setFilterMatcherRegistry(FilterMatcherRegistry registry);
-
-    /**
      * Add a FilterMatcher to the FilterMatcherRegistry..
      * 
      * @param key The MatcherKey instance.

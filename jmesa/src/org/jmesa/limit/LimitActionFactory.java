@@ -44,8 +44,7 @@ public interface LimitActionFactory {
     /**
      * @deprecated Replaced by {@link #getExportType()}
      */
-    @Deprecated
-    public Export getExport();
+    @Deprecated public Export getExport();
 
     /**
      * @return The current export type based on what the user selected.

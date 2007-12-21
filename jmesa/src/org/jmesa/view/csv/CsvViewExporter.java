@@ -17,9 +17,9 @@ package org.jmesa.view.csv;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.jmesa.util.ExportUtils;
 import org.jmesa.view.AbstractViewExporter;
 import org.jmesa.view.View;
-import org.jmesa.view.ViewUtils;
 
 /**
  * @since 2.0
@@ -33,7 +33,7 @@ public class CsvViewExporter extends AbstractViewExporter {
     public CsvViewExporter(View view, HttpServletResponse response) {
         this.view = view;
         this.response = response;
-        this.fileName = ViewUtils.exportFileName(view, "txt");
+        this.fileName = ExportUtils.exportFileName(view, "txt");
     }
 
     public CsvViewExporter(View view, String fileName, HttpServletResponse response) {

@@ -85,14 +85,10 @@ public interface Limit extends Serializable {
      * Check to see if the user is trying to export a table.
      * </p>
      *
-     * <p>
-     * Note: Should be using the isExported() method now.
-     * </p>
-     * 
      * @return Is true if the user invoked an export.
+     * @deprecated Replaced by {@link #isExported()}
      */
-    @Deprecated
-    public boolean isExportable();
+    @Deprecated public boolean isExportable();
 
     /**
      * <p>
@@ -109,15 +105,13 @@ public interface Limit extends Serializable {
      * @deprecated Replaced by {@link #getExportType()}
      * </p>
      */
-    @Deprecated
-    public Export getExport();
+    @Deprecated public Export getExport();
 
     /**
      * @param export The current export requested.
      * @deprecated Replaced by {@link #setExportType(ExportType)}
      */
-    @Deprecated
-    public void setExport(Export export);
+    @Deprecated public void setExport(Export export);
 
     /**
      * <p>

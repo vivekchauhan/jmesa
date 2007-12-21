@@ -29,14 +29,10 @@ import java.util.Collection;
  */
 public interface SortSet {
     /**
-     * <p>
-     * Note: Should be using the isSorted() method now.
-     * </p>
-     * 
      * @return Is true if there are any columns that need to be sorted.
+     * @deprecated Replaced by {@link #isSorted()}
      */
-    @Deprecated
-    public boolean isSortable();
+    @Deprecated public boolean isSortable();
     
     /**
      * @return Is true if there are any columns that need to be sorted.

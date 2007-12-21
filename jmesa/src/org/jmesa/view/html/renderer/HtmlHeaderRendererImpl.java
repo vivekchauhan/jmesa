@@ -29,7 +29,6 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
 
     private String style;
     private String styleClass;
-    private boolean defaultSortOrderable = true;
 
     public HtmlHeaderRendererImpl() {
     // default constructor
@@ -58,26 +57,6 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
-    }
-
-    /**
-     * Note: should now use the HtmlColumn getSortOrder() method.
-     */
-    @Deprecated
-    public boolean isDefaultSortOrderable() {
-        return defaultSortOrderable;
-    }
-
-    /**
-     * Note: should now use the HtmlColumn setSortOrder() method.
-     */
-    @Deprecated
-    public void setDefaultSortOrderable(boolean defaultSortOrderable) {
-        if (!defaultSortOrderable) {
-            getColumn().setSortOrder(new Order[]{Order.ASC, Order.DESC});
-        }
-
-        this.defaultSortOrderable = defaultSortOrderable;
     }
 
     public Object render() {

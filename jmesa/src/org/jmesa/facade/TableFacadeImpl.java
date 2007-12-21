@@ -161,11 +161,6 @@ public class TableFacadeImpl implements TableFacade {
      * Create the table with all the column properties.
      * </p>
      * 
-     * <p>
-     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
-     *    an id and request object.</b>
-     * </p>
-     * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param columnProperties The columns to be pulled from the items.
@@ -182,11 +177,6 @@ public class TableFacadeImpl implements TableFacade {
      * This constructor is only useful if you are only using the facade for exports, not html
      * tables. This is because you are not setting the maxRows which is always required for the html
      * tables.
-     * </p>
-     * 
-     * <p>
-     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
-     *    an id and request object.</b>
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -206,11 +196,6 @@ public class TableFacadeImpl implements TableFacade {
      * <p>
      * The most common constructor that will be used to display an html table and exports. The
      * intent is let the API do all the filtering and sorting automatically.
-     * </p>
-     * 
-     * <p>
-     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
-     *    an id and request object.</b>
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -241,11 +226,6 @@ public class TableFacadeImpl implements TableFacade {
      * the facade!
      * </p>
      * 
-     * <p>
-     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
-     *    an id and request object.</b>
-     * </p>
-     * 
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      * @param items The Collection of Beans or Collection of Maps.
@@ -268,11 +248,6 @@ public class TableFacadeImpl implements TableFacade {
      * This will not build the table automatically because there are no columns defined so you neeed
      * to build the table (probably using the component factory available) and then set the table on
      * the facade!
-     * </p>
-     * 
-     * <p>
-     * <b>Note: this method is deprecated and should be only be using the lone constructor that takes
-     *    an id and request object.</b>
      * </p>
      * 
      * @param id The unique identifier for this table.
@@ -362,10 +337,9 @@ public class TableFacadeImpl implements TableFacade {
     /**
      * Use the setTotalRows method, which should be easier to understand. Be sure to set the maxRows on the 
      * facade after constructing a new TableFacadeImpl object.
-     * 
+     * @deprecated Replaced by {@link #setTotalRows(int)}
      */
-    @Deprecated
-    public RowSelect setRowSelect(int maxRows, int totalRows) {
+    @Deprecated public RowSelect setRowSelect(int maxRows, int totalRows) {
         this.maxRows = maxRows;
 
         RowSelect rowSelect;

@@ -29,10 +29,9 @@ public interface Table {
     public void setCaptionKey(String key);
 
     /**
-     * Use the setCaptionKey instead. This makes it consistent with the tag library.
+     * @deprecated Replaced by {@link #setCaptionKey(String)}
      */
-    @Deprecated
-    public void setCaption(String caption, boolean message);
+    @Deprecated public void setCaption(String caption, boolean message);
 
     public Row getRow();
 

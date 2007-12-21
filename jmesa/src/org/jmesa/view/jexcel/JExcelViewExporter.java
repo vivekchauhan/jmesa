@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import jxl.write.WritableWorkbook;
 
+import org.jmesa.util.ExportUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewExporter;
-import org.jmesa.view.ViewUtils;
 
 /**
  * <p>
@@ -39,7 +39,7 @@ public class JExcelViewExporter implements ViewExporter {
     public JExcelViewExporter(View view, HttpServletResponse response) {
         this.view = view;
         this.response = response;
-        this.fileName = ViewUtils.exportFileName(view, "xls");
+        this.fileName = ExportUtils.exportFileName(view, "xls");
     }
 
     public JExcelViewExporter(View view, String fileName, HttpServletResponse response) {

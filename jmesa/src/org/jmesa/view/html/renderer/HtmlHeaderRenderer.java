@@ -32,10 +32,4 @@ public interface HtmlHeaderRenderer extends HeaderRenderer {
     public String getStyleClass();
 
     public void setStyleClass(String styleClass);
-    
-    @Deprecated
-    public boolean isDefaultSortOrderable();
-
-    @Deprecated
-    public void setDefaultSortOrderable(boolean defaultSortOrderable);
 }

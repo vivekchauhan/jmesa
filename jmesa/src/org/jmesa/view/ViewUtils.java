@@ -60,30 +60,6 @@ public class ViewUtils {
     }
 
     /**
-     * <p>
-     * <b>Use the ExportUtils.exportFileName() method instead.</b>
-     * </p>
-     * 
-     * <p>
-     * Use the view caption for the export. If the caption is not defined then use a default.
-     * </p>
-     * 
-     * @param view The view to export.
-     * @param exportType The type of view to export.
-     * @return The file name of export.
-     * @deprecated Replaced by {@link #exportFileName(View,String)}
-     */
-    @Deprecated public static String exportFileName(View view, String exportType) {
-        String caption = view.getTable().getCaption();
-        if (StringUtils.isNotBlank(caption)) {
-            StringUtils.replace(caption, " ", "_");
-            return caption.toLowerCase() + "." + exportType;
-        } 
-        
-        return "table-data." + exportType;
-    }
-
-    /**
      * Find out if the column is sitting on an even row.
      */
     public static boolean isRowEven(int rowcount) {
