@@ -559,7 +559,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setCoreContext(CoreContext coreContext) {
         if (view != null) {
             throw new IllegalStateException(
-                "It is too late to set the CoreContext. You need to set the CoreContext before using the Toolbar or View.");
+                "It is too late to set the CoreContext. You need to set the CoreContext before using the View.");
         }
 
         this.coreContext = coreContext;
@@ -611,7 +611,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setTable(Table table) {
         if (view != null) {
             throw new IllegalStateException(
-                "It is too late to set the Table. You need to set the Table before using the Toolbar or View.");
+                "It is too late to set the Table. You need to set the Table before using the View.");
         }
 
         this.table = table;
@@ -649,7 +649,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
         if (toolbar != null) {
             throw new IllegalStateException(
-                "It is too late to set the maxRowsIncrements. You need to set the maxRowsIncrements before using the Toolbar or View.");
+                "It is too late to set the maxRowsIncrements. You need to set the maxRowsIncrements before using the Toolbar.");
         }
 
         this.maxRowsIncrements = maxRowsIncrements;
