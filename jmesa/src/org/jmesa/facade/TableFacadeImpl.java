@@ -273,6 +273,11 @@ public class TableFacadeImpl implements TableFacade {
     }
     
     public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
+        if (toolbar != null) {
+            throw new IllegalStateException(
+                "It is too late to set the exportTypes. You need to set the exportTypes before using the Toolbar.");
+        }
+
         this.response = response;
         this.exportTypes = exportTypes;
     }
@@ -319,7 +324,7 @@ public class TableFacadeImpl implements TableFacade {
 
         if (logger.isDebugEnabled()) {
             if (limit.getRowSelect() == null) {
-                logger.debug("The RowSelect is not set on the Limit. Be sure to call the totalRows() method on the facade.");
+                logger.debug("The RowSelect is not set on the Limit. Be sure to set the totalRows on the facade.");
             }
         }
 
@@ -327,6 +332,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setLimit(Limit limit) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                "It is too late to set the Limit. You need to set the Limit before using the CoreContext.");
+        }
+
         this.limit = limit;
     }
 
@@ -335,8 +345,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     /**
+     * <p>
      * Use the setTotalRows method, which should be easier to understand. Be sure to set the maxRows on the 
      * facade after constructing a new TableFacadeImpl object.
+     * </p>
+     * 
      * @deprecated Replaced by {@link #setTotalRows(int)}
      */
     @Deprecated public RowSelect setRowSelect(int maxRows, int totalRows) {
@@ -362,14 +375,29 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setStateAttr(String stateAttr) {
+        if (limit != null) {
+            throw new IllegalStateException(
+                "It is too late to set the stateAttr. You need to set the stateAttr before using the Limit.");
+        }
+
         this.stateAttr = stateAttr;
     }
 
     public void performFilterAndSort(boolean performFilterAndSort) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                "It is too late to set the performFilterAndSort. You need to set the performFilterAndSort before using the CoreContext.");
+        }
+
         this.performFilterAndSort = performFilterAndSort;
     }
 
     public void setMessages(Messages messages) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                "It is too late to set the Messages. You need to set the Messages before using the CoreContext.");
+        }
+
         this.messages = messages;
         SupportUtils.setWebContext(messages, getWebContext());
     }
@@ -389,6 +417,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setPreferences(Preferences preferences) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                "It is too late to set the Preferences. You need to set the Preferences before using the CoreContext.");
+        }
+
         this.preferences = preferences;
         SupportUtils.setWebContext(preferences, getWebContext());
     }
@@ -396,7 +429,7 @@ public class TableFacadeImpl implements TableFacade {
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
+                "It is too late to add the FilterMatcher. You need to add the FilterMatcher before using the CoreContext.");
         }
 
         if (filterMatchers == null) {
@@ -409,7 +442,7 @@ public class TableFacadeImpl implements TableFacade {
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                "It is too late to add this FilterMatcher. You need to add the FilterMatcher right after constructing the TableFacade.");
+                "It is too late to add the FilterMatcher. You need to add the FilterMatcher before using the CoreContext.");
         }
 
         if (filterMatcherMap == null) {
@@ -427,7 +460,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setColumnSort(ColumnSort columnSort) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                "It is too late to add this ColumnSort. You need to add the ColumnSort right after constructing the TableFacade.");
+                "It is too late to set the ColumnSort. You need to set the ColumnSort before using the CoreContext.");
         }
 
         this.columnSort = columnSort;
@@ -437,7 +470,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setRowFilter(RowFilter rowFilter) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                "It is too late to add this RowFilter. You need to add the RowFilter right after constructing the TableFacade.");
+                "It is too late to set the RowFilter. You need to set the RowFilter before using the CoreContext.");
         }
 
         this.rowFilter = rowFilter;
@@ -464,7 +497,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setMaxRows(int maxRows) {
         if (coreContext != null) {
             throw new IllegalStateException(
-                "It is too late to add the maxRows. You need to add the maxRows right after constructing the TableFacade.");
+                "It is too late to set the maxRows. You need to set the maxRows before using the CoreContext.");
         }
 
         this.maxRows = maxRows;
@@ -473,7 +506,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setColumnProperties(String... columnProperties) {
         if (table != null) {
             throw new IllegalStateException(
-                "The table is already constructed. It is too late to add the column properties.");
+                "It is too late to set the columnProperties. You need to set the columnProperties before using the Table.");
         }
 
         this.columnProperties = columnProperties;
@@ -485,7 +518,7 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         if (items == null) {
-            throw new IllegalStateException("The items is null. You need to set the items on the facade.");
+            throw new IllegalStateException("The items are null. You need to set the items on the facade.");
         }
 
         CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
@@ -515,6 +548,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setCoreContext(CoreContext coreContext) {
+        if (view != null) {
+            throw new IllegalStateException(
+                "It is too late to set the CoreContext. You need to set the CoreContext before using the Toolbar or View.");
+        }
+
         this.coreContext = coreContext;
         SupportUtils.setWebContext(coreContext, getWebContext());
     }
@@ -526,7 +564,7 @@ public class TableFacadeImpl implements TableFacade {
 
         if (columnProperties == null || columnProperties.length == 0) {
             throw new IllegalStateException(
-                "The column properties are null. You need to use the contructor with the columnProperties, or build the table with the factory.");
+                "The column properties are null. You need to set the columnProperties, or build the Table with the factory.");
         }
 
         Limit l = getLimit();
@@ -534,7 +572,7 @@ public class TableFacadeImpl implements TableFacade {
         if (!l.isExported()) {
             if (l.getRowSelect() == null) {
                 throw new IllegalStateException(
-                    "The RowSelect is null. You need to set the Limit RowSelect on the facade, or use the contructor with the maxRows.");
+                    "The RowSelect is null. You need to set the totalRows on the facade.");
             }
 
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
@@ -564,7 +602,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setTable(Table table) {
         if (view != null) {
             throw new IllegalStateException(
-                "It is too late to add this Table. You need to add the Table before calling the Toolbar or View.");
+                "It is too late to set the Table. You need to set the Table before using the Toolbar or View.");
         }
 
         this.table = table;
@@ -588,7 +626,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setToolbar(Toolbar toolbar) {
         if (view != null) {
             throw new IllegalStateException(
-                "It is too late to add this Toolbar. You need to add the Toolbar before calling the View.");
+                "It is too late to set the Toolbar. You need to set the Toolbar before using the View.");
         }
 
         this.toolbar = toolbar;
@@ -602,7 +640,7 @@ public class TableFacadeImpl implements TableFacade {
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
         if (toolbar != null) {
             throw new IllegalStateException(
-                "It is too late to add the maxRowsIncrements. You need to add the maxRowsIncrements before calling the Toolbar or View.");
+                "It is too late to set the maxRowsIncrements. You need to set the maxRowsIncrements before using the Toolbar or View.");
         }
 
         this.maxRowsIncrements = maxRowsIncrements;
