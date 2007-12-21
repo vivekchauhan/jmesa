@@ -43,11 +43,7 @@ public class TableImpl extends AbstractContextSupport implements Table {
         }
     }
 
-    /**
-     * Use the setCaptionKey instead. This makes it consistent with the tag library.
-     */
-    @Deprecated
-    public void setCaption(String caption, boolean message) {
+    @Deprecated public void setCaption(String caption, boolean message) {
         if (message) {
             this.caption = getCoreContext().getMessage(caption);
         } else {

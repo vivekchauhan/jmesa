@@ -67,11 +67,7 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
         }
     }
 
-    /**
-     * Use the setTitleKey instead. This makes it consistent with the tag library.
-     */
-    @Deprecated
-    public void setTitle(String title, boolean message) {
+    @Deprecated public void setTitle(String title, boolean message) {
         if (message) {
             this.title = getCoreContext().getMessage(title);
         } else {

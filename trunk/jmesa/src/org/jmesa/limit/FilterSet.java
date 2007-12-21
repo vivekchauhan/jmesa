@@ -29,14 +29,10 @@ import java.util.Collection;
  */
 public interface FilterSet {
     /**
-     * <p>
-     * Note: Should be using the isFiltered() method now.
-     * </p>
-     * 
      * @return Is true if there are any columns that need to be filtered.
+     * @deprecated Replaced by {@link #isFiltered()}
      */
-    @Deprecated
-    public boolean isFilterable();
+    @Deprecated public boolean isFilterable();
     
     /**
      * @return Is true if there are any columns that need to be filtered.

@@ -85,11 +85,6 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
         return registry;
     }
 
-    @Deprecated /* No reason to give access to the underlying implementation of the RowFilter. */
-    public void setFilterMatcherRegistry(FilterMatcherRegistry registry) {
-        this.registry = registry;
-    }
-
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
         SupportUtils.setWebContext(matcher, webContext);
         getFilterMatcherRegistry().addFilterMatcher(key, matcher);

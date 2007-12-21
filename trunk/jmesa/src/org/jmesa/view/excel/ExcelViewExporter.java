@@ -18,9 +18,9 @@ package org.jmesa.view.excel;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.jmesa.util.ExportUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewExporter;
-import org.jmesa.view.ViewUtils;
 
 /**
  * @since 2.1
@@ -34,7 +34,7 @@ public class ExcelViewExporter implements ViewExporter {
     public ExcelViewExporter(View view, HttpServletResponse response) {
         this.view = view;
         this.response = response;
-        this.fileName = ViewUtils.exportFileName(view, "xls");
+        this.fileName = ExportUtils.exportFileName(view, "xls");
     }
     
     public ExcelViewExporter(View view, String fileName, HttpServletResponse response) {

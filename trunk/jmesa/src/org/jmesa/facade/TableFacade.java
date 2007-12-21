@@ -111,6 +111,7 @@ public interface TableFacade {
      * </p>
      * 
      * @return The RowSelect set on the Limit.
+     * @deprecated Replaced by {@link #setTotalRows(int)}
      */
     @Deprecated public RowSelect setRowSelect(int maxRows, int totalRows);
 

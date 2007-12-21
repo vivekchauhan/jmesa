@@ -25,7 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeImpl;
+import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.View;
 import org.w3c.dom.Document;
@@ -61,7 +61,7 @@ public class ExportUtils {
 
     public static void exportToFile(TableFacade tableFacade, String filePath) {
         Limit limit = tableFacade.getLimit();
-        if (!limit.isExportable() || !limit.getExport().getType().equals(TableFacadeImpl.PDF)) {
+        if (limit.isExported() && limit.getExportType() == ExportType.PDF) {
             exportPdf(tableFacade, filePath);
         }
     }
