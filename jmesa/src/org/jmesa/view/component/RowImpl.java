@@ -36,6 +36,14 @@ public class RowImpl extends AbstractContextSupport implements Row {
 
     private List<Column> columns = new ArrayList<Column>();
 
+    /**
+     * <p>
+     * Until the 2.3 release is officially out this code is in a very alpha state.
+     * </p>
+     * 
+     * @param item The Bean (or Map) for the current row.
+     * @since 2.3
+     */
     public Map<String, Object> getUniqueProperties(Object item) {
         Map<String, Object> results = new HashMap<String, Object>();
         
@@ -49,6 +57,14 @@ public class RowImpl extends AbstractContextSupport implements Row {
         return results;
     }
 
+    /**
+     * <p>
+     * Until the 2.3 release is officially out this code is in a very alpha state.
+     * </p>
+     * 
+     * @param uniqueProperties The array of column properties that uniquely identify the row.
+     * @since 2.3
+     */
     public void setUniqueProperties(String... uniqueProperties) {
         this.uniqueProperties = uniqueProperties;
     }
