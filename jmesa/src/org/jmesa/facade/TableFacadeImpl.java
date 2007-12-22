@@ -458,10 +458,10 @@ public class TableFacadeImpl implements TableFacade {
             return;
         }
 
-        Map<MatcherKey, FilterMatcher> filterMatchers = filterMatcherMap.getFilterMatchers();
-        Set<MatcherKey> keys = filterMatchers.keySet();
+        Map<MatcherKey, FilterMatcher> matchers = filterMatcherMap.getFilterMatchers();
+        Set<MatcherKey> keys = matchers.keySet();
         for (MatcherKey key : keys) {
-            FilterMatcher matcher = filterMatchers.get(key);
+            FilterMatcher matcher = matchers.get(key);
             addFilterMatcher(key, matcher);
         }
     }
