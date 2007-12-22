@@ -48,7 +48,5 @@ The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directo
 
 If you need to do more customization you might need to set up the [Messages] and [Preferences].
 
-== Building From Source ===
+=== Building From Source ===
 I know that some developers like to check out JMesa from subversion and build it directly to get the latest. For those developers I wrote up an [ProjectBuild article] that explains how to build the project directly from source code.
-
-
