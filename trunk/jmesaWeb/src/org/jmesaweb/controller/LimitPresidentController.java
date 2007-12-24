@@ -15,8 +15,8 @@
  */
 package org.jmesaweb.controller;
 
-import static org.jmesa.facade.TableFacadeImpl.CSV;
-import static org.jmesa.facade.TableFacadeImpl.EXCEL;
+import static org.jmesa.limit.ExportType.CSV;
+import static org.jmesa.limit.ExportType.EXCEL;
 
 import java.util.Collection;
 
