@@ -15,6 +15,9 @@
  */
 package org.jmesaweb.controller;
 
+import static org.jmesa.limit.ExportType.CSV;
+import static org.jmesa.limit.ExportType.EXCEL;
+
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +54,7 @@ public class TagPresidentController extends AbstractController {
         TableFacade tableFacade = new TableFacadeImpl(id, request);
         tableFacade.setItems(items);
         tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-        tableFacade.setExportTypes(response, "csv", "excel"); // Tell the tableFacade what exports to use.
+        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
         tableFacade.addFilterMatcherMap(new TagFilterMatcherMap());
 
         Limit limit = tableFacade.getLimit();
