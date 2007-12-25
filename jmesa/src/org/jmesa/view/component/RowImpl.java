@@ -59,7 +59,7 @@ public class RowImpl extends AbstractContextSupport implements Row {
 
     /**
      * <p>
-     * Until the 2.3 release is officially out this code is in a very alpha state.
+     * Until the 2.3 release is officially out this feature is in an alpha state.
      * </p>
      * 
      * @param uniqueProperties The array of column properties that uniquely identify the row.

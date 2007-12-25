@@ -297,7 +297,7 @@ public class TableFacadeImpl implements TableFacade {
     /**
      * <p>
      * This feature will enable the table to be put in an editable state. Until the 2.3 release is officially out
-     * this code is in a very alpha state.
+     * this feature is in an alpha state.
      * </p>
      * 
      * @param editable If true will put table in an editable state.
