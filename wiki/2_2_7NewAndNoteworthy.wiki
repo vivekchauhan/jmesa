@@ -1,4 +1,4 @@
-The upcoming features in 2.2.7:
+=== Improvements ===
 
  * New !AbstractCellEditor that serves as a more logical extension point for custom [Editors CellEditors]. 
   * Remember that when you implement the [SupportInterfaces support interfaces], as included in the abstract class, the JMesa API will automatically inject the key API classes that you need.
