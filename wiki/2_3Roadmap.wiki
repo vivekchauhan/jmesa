@@ -1,9 +1,7 @@
 The JMesa 2.3 release should be out the first quarter of 2008.
 
-http://extremecomponents.googlepages.com/JMesa-2.3.gif
-
 == Features ==
 The primary feature will be inclusion of the [Worksheet] functionality!
 
-_A good deal of the features for JMesa 2.3 were released as part of the 2.2.1 through the 2.2.5 minor releases. I did not see any reason to hold on to the changes when developers could be utilizing the features right away._
+_A good deal of the features for JMesa 2.3 were released as part of the 2.2.1 through the 2.2.7 minor releases. I did not see any reason to hold on to the changes when developers could be utilizing the features right away._
  
