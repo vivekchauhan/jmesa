@@ -137,7 +137,7 @@ Limit limit = tableFacade.getLimit();
 
 if (limit.isExported()) {
 
-    if (limit.getExport().getType().equals("excel")) {
+    if (limit.getExportType() == ExportType.EXCEL) {
         ExcelComponentFactory factory = new ExcelComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
 
         Table table = factory.createTable();
