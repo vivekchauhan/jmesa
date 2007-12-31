@@ -487,6 +487,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setItems(Collection<?> items) {
+        if (coreContext != null) {
+            throw new IllegalStateException(
+                "It is too late to set the items. You need to set the items before using the CoreContext.");
+        }
+
         this.items = items;
     }
 
@@ -557,9 +562,9 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setCoreContext(CoreContext coreContext) {
-        if (view != null) {
+        if (table != null) {
             throw new IllegalStateException(
-                "It is too late to set the CoreContext. You need to set the CoreContext before using the View.");
+                "It is too late to set the CoreContext. You need to set the CoreContext before using the Table.");
         }
 
         this.coreContext = coreContext;
@@ -633,9 +638,9 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setToolbar(Toolbar toolbar) {
-        if (view != null) {
+        if (table != null) {
             throw new IllegalStateException(
-                "It is too late to set the Toolbar. You need to set the Toolbar before using the View.");
+                "It is too late to set the Toolbar. You need to set the Toolbar before using the Table.");
         }
 
         this.toolbar = toolbar;
@@ -683,6 +688,11 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setView(View view) {
+        if (table != null) {
+            throw new IllegalStateException(
+                "It is too late to set the View. You need to set the View before using the Table.");
+        }
+
         this.view = view;
         SupportUtils.setTable(view, getTable());
         SupportUtils.setToolbar(view, getToolbar());
