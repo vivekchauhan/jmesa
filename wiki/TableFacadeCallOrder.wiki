@@ -1,0 +1,33 @@
+The grid (below) demonstrates the order that things are called when using the !TableFacade. The way to read this grid is when you are working with the !TableFacade you need to be careful that you do not try to set any attributes after they have been initialized. Remember that everything in the !TableFacade is lazy loaded. This means when you ask the facade for a given object it builds up everything it needs up to that point, either using the attributes you set, or pulling the defaults. The !TableFacadeImpl will throw an !IllegalStateException if you try to add something after it is too late, however, this grid should help you clarify what is going on internally.
+
+For example once you ask the facade for the Table, via the getTable() method, it is too late to add the stateAttr. The reason is because when the Table is constructed in the facade it internally also built the Limit object, which is required by the Table.  
+
+|| *Order Of Calls* || *Required* ||
+|| setWebContext() ||  ||
+|| setStateAttr() ||  ||
+|| *getLimit()* ||  ||
+|| setTotalRows() ||  ||
+|| setMaxRows() ||  ||
+|| setItems() || Yes ||
+|| setRowFilter() ||  ||
+|| setColumnSort() ||  ||
+|| addFilterMatcherMap() ||  ||
+|| addFilterMatcher() ||  ||
+|| setPreferences() ||  ||
+|| setMessages() ||  ||
+|| performFilterAndSort() ||  ||
+|| setLimit() ||  ||
+|| *getCoreContext()* ||  ||
+|| setColumnProperties() || Yes (unless set table explicitly) ||
+|| setCoreContext() ||  ||
+|| *getTable()* ||  ||
+|| setExportTypes() || Yes (if exporting) ||
+|| setMaxRowsIncrements() ||  ||
+|| setTable() ||  ||
+|| *getToolbar()* ||  ||
+|| setToolbar() ||  ||
+|| *getView()* ||  ||
+|| setView() ||  ||
+|| *render()* ||  ||
+
+_Note: between the getter method calls the order of the setters do not matter. What does matter is that by the time a getter method is called that everything that you want set is already set._
