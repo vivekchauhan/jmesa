@@ -72,7 +72,7 @@ Notice how there are no factories to deal with. However any API Object that you 
 
 The !TableFacade interface also has setters for all the facade objects including the [WebContext], [CoreContext], [Limit], [Toolbar], and [View]. The reason is if you really need to customize something and want to set your own implementation you can. Your object just goes into the flow of the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when the render() method is called it will use your Toolbar.
 
-However, all this should feel very natural and you should not have to think about what you are doing. Just interact with the facade how you need to and it will take care of everything. *New:* I created a [TableFacadeCallOrder grid] that shows the order of the calls when using the !TableFacadeImpl to help make things clearer.
+However, all this should feel very natural and you should not have to think about what you are doing. Just interact with the facade how you need to and it will take care of everything. *New:* I created a grid that shows the [TableFacadeCallOrder order of the calls] when using the !TableFacadeImpl to help make things clearer.
 
 _Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!_
 
