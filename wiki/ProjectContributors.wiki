@@ -37,3 +37,6 @@ The following is a list of the people who have helped make JMesa a better compon
 
 ==== Jesús Morones ====
  * Added the Spanish (es_MX) Locale.
+
+==== Mario Pasqui ====
+ * Added the Italian (it_IT) Locale.
