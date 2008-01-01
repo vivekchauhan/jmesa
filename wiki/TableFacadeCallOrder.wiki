@@ -7,6 +7,7 @@ Another way to look at this is sometimes you do not need to worry about ever set
 || *Order Of Calls* || *Required* ||
 || setWebContext() ||  ||
 || setStateAttr() ||  ||
+|| setItems() ||  ||
 || *getLimit()* ||  ||
 || setTotalRows() ||  ||
 || setMaxRows() ||  ||
