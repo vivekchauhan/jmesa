@@ -4,6 +4,8 @@ For example once you ask the facade for the Table, via the getTable() method, it
 
 Another way to look at this is sometimes you do not need to worry about ever setting certain attributes. For instance if you are creating the !TableFacadeImpl just to get at the Limit then you do not have to set the items. However, the grid doesn't describe everything perfectly. In this instance even though you do not have to set the items, you would need to set the total rows to make a complete, and valid, Limit object. But the grid does still clearly show that you would only set the total rows after the getting the Limit object. 
 
+Also, just to clarify the setItems() a little more. If you do set the items before getting the Limit then the Limit will use the items to figure out the total rows. You still can override the total rows after getting the Limit. The reason the setItems() shows up twice in the grid is because it is optional to just get the Limit, but required if you want to get the !CoreContext.
+
 || *Order Of Calls* || *Required* ||
 || setWebContext() ||  ||
 || setStateAttr() ||  ||
