@@ -104,7 +104,7 @@ tableFacade.setTable(table);
 }}}
 
 === Exports ===
-Even if you start using the tag library it would still be very handy to use for the exports. The code would be as easy as this:
+Even if you start using the tag library it would still be very handy to use the !TableFacade for the exports. The code would be as easy as this:
 
 {{{
 TableFacade tableFacade = new TableFacadeImpl(id, request);
