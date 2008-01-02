@@ -125,11 +125,10 @@ firstName.getCellRenderer().setCellEditor(new CellEditor() {
 }}}
 
 
-==== Look And Feel Finished ====
+==== Modifications Finished ====
 
 Thats it! We now have a fully functional, and good looking, html table!
 
 http://www.jmesa.org/wiki/images/api-example-after.gif
 
  
-
