@@ -421,11 +421,11 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setWebContext(webContext);
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
+        tableFacade.setStateAttr(getStateAttr());
         tableFacade.setLimit(getLimit());
 
         tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements(getMaxRowsIncrements()));
         tableFacade.setExportTypes(null, getTableFacadeExportTypes(getExportTypes()));
-        tableFacade.setStateAttr(getStateAttr());
 
         tableFacade.performFilterAndSort(isPerformFilterAndSort());
         tableFacade.setPreferences(getTableFacadePreferences(getPreferences()));
