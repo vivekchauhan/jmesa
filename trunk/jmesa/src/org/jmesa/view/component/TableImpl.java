@@ -43,6 +43,9 @@ public class TableImpl extends AbstractContextSupport implements Table {
         }
     }
 
+    /**
+     * @deprecated Replaced by {@link #setCaptionKey(String)}
+     */
     @Deprecated public void setCaption(String caption, boolean message) {
         if (message) {
             this.caption = getCoreContext().getMessage(caption);

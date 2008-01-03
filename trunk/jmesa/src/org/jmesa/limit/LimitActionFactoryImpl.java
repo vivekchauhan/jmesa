@@ -117,6 +117,9 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
         return sortSet;
     }
 
+    /**
+     * @deprecated Replaced by {@link #getExportType()}
+     */
     @Deprecated public Export getExport() {
         String export = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
         if (StringUtils.isNotBlank(export)) {
