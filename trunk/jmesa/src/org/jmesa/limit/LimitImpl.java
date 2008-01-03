@@ -64,7 +64,10 @@ public class LimitImpl implements Limit {
         this.rowSelect = rowSelect;
     }
 
-    public boolean isExportable() {
+    /**
+     * @deprecated Replaced by {@link #isExported()}
+     */
+    @Deprecated public boolean isExportable() {
         return isExported();
     }
 
@@ -72,11 +75,17 @@ public class LimitImpl implements Limit {
         return getExportType() != null;
     }
 
-    public Export getExport() {
+    /**
+     * @deprecated Replaced by {@link #getExportType()}
+     */
+    @Deprecated public Export getExport() {
         return export;
     }
 
-    public void setExport(Export export) {
+    /**
+     * @deprecated Replaced by {@link #setExportType(ExportType)}
+     */
+    @Deprecated public void setExport(Export export) {
         this.export = export;
     }
     
