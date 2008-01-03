@@ -638,7 +638,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setToolbar(Toolbar toolbar) {
-        if (table != null) {
+        if (toolbar != null) {
             throw new IllegalStateException(
                 "It is too late to set the Toolbar. You need to set the Toolbar before using the Table.");
         }
@@ -688,7 +688,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setView(View view) {
-        if (table != null) {
+        if (view != null) {
             throw new IllegalStateException(
                 "It is too late to set the View. You need to set the View before using the Table.");
         }
