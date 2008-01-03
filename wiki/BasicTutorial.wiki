@@ -131,4 +131,8 @@ Thats it! We now have a fully functional, and good looking, html table!
 
 http://www.jmesa.org/wiki/images/api-example-after.gif
 
- 
+==== Pass Html To View ====
+...
+
+=== View ===
+...
