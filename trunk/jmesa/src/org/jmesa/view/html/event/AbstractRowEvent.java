@@ -15,7 +15,9 @@
  */
 package org.jmesa.view.html.event;
 
-import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.AbstractContextSupport;
+import org.jmesa.view.component.Row;
+import org.jmesa.view.component.RowSupport;
 
 /**
  * The abstract RowEvent that handles the Row.
@@ -23,14 +25,14 @@ import org.jmesa.view.html.component.HtmlRow;
  * @since 2.2
  * @author Jeff Johnston
  */
-public abstract class AbstractRowEvent implements RowEvent {
-    private HtmlRow row;
+public abstract class AbstractRowEvent extends AbstractContextSupport implements RowEvent, RowSupport {
+    private Row row;
 
-    public HtmlRow getRow() {
+    public Row getRow() {
         return row;
     }
 
-    public void setRow(HtmlRow row) {
+    public void setRow(Row row) {
         this.row = row;
     }
 }

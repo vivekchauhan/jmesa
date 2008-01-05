@@ -13,14 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.event;
+package org.jmesa.view.component;
 
 /**
- * A callback interface that allows custom onclick callback events for each row.
+ * Support to handle a Row.
  * 
  * @since 2.2
  * @author Jeff Johnston
  */
-public interface RowEvent {
-    public String execute(Object item, int rowcount);
+public interface RowSupport {
+    /**
+     * @return The Row to use.
+     */
+    public Row getRow();
+
+    /**
+     * @param row The Row to use.
+     */
+    public void setRow(Row row);
 }
