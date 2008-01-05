@@ -21,6 +21,8 @@ import org.jmesa.limit.ExportType;
 import org.jmesa.view.ExportTypesSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
+import org.jmesa.view.component.Row;
+import org.jmesa.view.component.RowSupport;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.component.TableSupport;
 import org.jmesa.view.editor.PatternSupport;
@@ -89,6 +91,18 @@ public class SupportUtils {
     public static void setTable(Object obj, Table table) {
         if ((obj instanceof TableSupport) && ((TableSupport) obj).getTable() == null) {
             ((TableSupport) obj).setTable(table);
+        }
+    }
+
+    /**
+     * Set the Row on the object being inspected if it is not already set.
+     * 
+     * @param obj The object being inspected.
+     * @param column The object to be injected.
+     */
+    public static void setRow(Object obj, Row row) {
+        if (obj instanceof RowSupport && ((RowSupport) obj).getRow() == null) {
+            ((RowSupport) obj).setRow(row);
         }
     }
 
