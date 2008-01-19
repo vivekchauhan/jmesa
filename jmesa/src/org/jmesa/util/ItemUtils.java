@@ -29,10 +29,12 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class ItemUtils {
+
     private static Logger logger = LoggerFactory.getLogger(ItemUtils.class);
+    public static String JMESA_ITEM = "jmesa-item";
 
     private ItemUtils() {
-        // hide constructor
+    // hide constructor
     }
 
     /**
@@ -47,12 +49,25 @@ public class ItemUtils {
 
         try {
             if (item instanceof Map) {
-                itemValue = ((Map<?,?>) item).get(property);
+                itemValue = ((Map<?, ?>) item).get(property);
+                if (itemValue != null) {
+                    return itemValue;
+                }
+
+                // ports such as the tags will store the original bean
+                Object bean = ((Map<?, ?>) item).get(JMESA_ITEM);
+
+                if (bean == null) {
+                    logger.debug("the map does not have property " + property);
+                    return null;
+                }
+
+                itemValue = getItemValue(bean, property);
             } else {
                 itemValue = PropertyUtils.getProperty(item, property);
             }
         } catch (Exception e) {
-            logger.debug("item class " + item.getClass().getName() + " doesn't have property " + property);
+            logger.debug("item class " + item.getClass().getName() + " does not have property " + property);
         }
 
         return itemValue;

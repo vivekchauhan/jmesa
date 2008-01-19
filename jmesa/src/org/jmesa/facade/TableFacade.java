@@ -70,9 +70,12 @@ public interface TableFacade {
     public void setWebContext(WebContext webContext);
 
     /**
-     * Set to editable worksheet mode on the facade.
+     * <p>
+     * This feature will enable the table to be put in an editable state. Until the 2.3 release is officially out
+     * this feature is in an alpha state.
+     * </p>
      * 
-     * @param editable Is true if the table is editable.
+     * @param editable If true will put table in an editable state.
      * @since 2.3
      */
     public void setEditable(boolean editable);

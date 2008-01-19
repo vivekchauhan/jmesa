@@ -18,6 +18,15 @@ package org.jmesa.facade;
 import static org.jmesa.core.CoreContextFactoryImpl.JMESA_PREFERENCES_LOCATION;
 import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
 
+import static org.jmesa.facade.TableFacadeExceptions.validateCoreContext;
+import static org.jmesa.facade.TableFacadeExceptions.validateTable;
+import static org.jmesa.facade.TableFacadeExceptions.validateView;
+import static org.jmesa.facade.TableFacadeExceptions.validateToolbar;
+import static org.jmesa.facade.TableFacadeExceptions.validateLimit;
+import static org.jmesa.facade.TableFacadeExceptions.validateColumnProperties;
+import static org.jmesa.facade.TableFacadeExceptions.validateRowSelect;
+import static org.jmesa.facade.TableFacadeExceptions.validateItems;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +54,6 @@ import org.jmesa.limit.RowSelectImpl;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.TableFactory;
 import org.jmesa.view.View;
-import org.jmesa.view.ViewExporter;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvTableFactory;
 import org.jmesa.view.csv.CsvView;
@@ -116,10 +124,12 @@ import org.slf4j.LoggerFactory;
 public class TableFacadeImpl implements TableFacade {
 
     private Logger logger = LoggerFactory.getLogger(TableFacadeImpl.class);
+    
     public static String CSV = "csv";
     public static String EXCEL = "excel";
     public static String JEXCEL = "jexcel";
     public static String PDF = "pdf";
+    
     private HttpServletRequest request;
     private HttpServletResponse response;
     private String id;
@@ -277,13 +287,10 @@ public class TableFacadeImpl implements TableFacade {
             this.exportTypes[i] = ExportType.valueOfParam(exportTypes[i]);
         }
     }
-    
-    public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
-        if (toolbar != null) {
-            throw new IllegalStateException(
-                "It is too late to set the exportTypes. You need to set the exportTypes before using the Toolbar.");
-        }
 
+    public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
+        validateToolbar(toolbar, "exportTypes");
+    
         this.response = response;
         this.exportTypes = exportTypes;
     }
@@ -300,15 +307,6 @@ public class TableFacadeImpl implements TableFacade {
         this.webContext = webContext;
     }
 
-    /**
-     * <p>
-     * This feature will enable the table to be put in an editable state. Until the 2.3 release is officially out
-     * this feature is in an alpha state.
-     * </p>
-     * 
-     * @param editable If true will put table in an editable state.
-     * @since 2.3
-     */
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
@@ -347,10 +345,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setLimit(Limit limit) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the Limit. You need to set the Limit before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "Limit");
 
         this.limit = limit;
     }
@@ -390,29 +385,20 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setStateAttr(String stateAttr) {
-        if (limit != null) {
-            throw new IllegalStateException(
-                "It is too late to set the stateAttr. You need to set the stateAttr before using the Limit.");
-        }
+        validateLimit(limit, "stateAttr");
 
         this.stateAttr = stateAttr;
     }
 
     public void performFilterAndSort(boolean performFilterAndSort) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the performFilterAndSort. You need to set the performFilterAndSort before using the CoreContext.");
-        }
-
+        validateCoreContext(coreContext, "performFilterAndSort");
+        
         this.performFilterAndSort = performFilterAndSort;
     }
 
     public void setMessages(Messages messages) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the Messages. You need to set the Messages before using the CoreContext.");
-        }
-
+        validateCoreContext(coreContext, "Messages");
+        
         this.messages = messages;
         SupportUtils.setWebContext(messages, getWebContext());
     }
@@ -432,20 +418,14 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setPreferences(Preferences preferences) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the Preferences. You need to set the Preferences before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "Preferences");
 
         this.preferences = preferences;
         SupportUtils.setWebContext(preferences, getWebContext());
     }
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to add the FilterMatcher. You need to add the FilterMatcher before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "FilterMatcher");
 
         if (filterMatchers == null) {
             filterMatchers = new HashMap<MatcherKey, FilterMatcher>();
@@ -455,10 +435,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to add the FilterMatcher. You need to add the FilterMatcher before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "FilterMatcher");
 
         if (filterMatcherMap == null) {
             return;
@@ -473,30 +450,21 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setColumnSort(ColumnSort columnSort) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the ColumnSort. You need to set the ColumnSort before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "ColumnSort");
 
         this.columnSort = columnSort;
         SupportUtils.setWebContext(columnSort, getWebContext());
     }
 
     public void setRowFilter(RowFilter rowFilter) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the RowFilter. You need to set the RowFilter before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "RowFilter");
 
         this.rowFilter = rowFilter;
         SupportUtils.setWebContext(rowFilter, getWebContext());
     }
 
     public void setItems(Collection<?> items) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the items. You need to set the items before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "items");
 
         this.items = items;
     }
@@ -515,19 +483,13 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setMaxRows(int maxRows) {
-        if (coreContext != null) {
-            throw new IllegalStateException(
-                "It is too late to set the maxRows. You need to set the maxRows before using the CoreContext.");
-        }
+        validateCoreContext(coreContext, "maxRows");
 
         this.maxRows = maxRows;
     }
 
     public void setColumnProperties(String... columnProperties) {
-        if (table != null) {
-            throw new IllegalStateException(
-                "It is too late to set the columnProperties. You need to set the columnProperties before using the Table.");
-        }
+        validateTable(table, "columnProperties");
 
         this.columnProperties = columnProperties;
     }
@@ -536,13 +498,10 @@ public class TableFacadeImpl implements TableFacade {
         if (coreContext != null) {
             return coreContext;
         }
-
-        if (items == null) {
-            throw new IllegalStateException("The items are null. You need to set the items on the facade.");
-        }
+        
+        validateItems(items);
 
         CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
-
         factory.setPreferences(preferences);
         factory.setMessages(messages);
         factory.setColumnSort(columnSort);
@@ -568,10 +527,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setCoreContext(CoreContext coreContext) {
-        if (table != null) {
-            throw new IllegalStateException(
-                "It is too late to set the CoreContext. You need to set the CoreContext before using the Table.");
-        }
+        validateTable(table, "CoreContext");
 
         this.coreContext = coreContext;
         SupportUtils.setWebContext(coreContext, getWebContext());
@@ -581,19 +537,13 @@ public class TableFacadeImpl implements TableFacade {
         if (table != null) {
             return table;
         }
-
-        if (columnProperties == null || columnProperties.length == 0) {
-            throw new IllegalStateException(
-                "The column properties are null. You need to set the columnProperties, or build the Table with the factory.");
-        }
+        
+        validateColumnProperties(columnProperties);
 
         Limit l = getLimit();
 
         if (!l.isExported()) {
-            if (l.getRowSelect() == null) {
-                throw new IllegalStateException(
-                    "The RowSelect is null. You need to set the totalRows on the facade.");
-            }
+            validateRowSelect(l);
 
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
             this.table = tableFactory.createTable(columnProperties);
@@ -620,10 +570,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setTable(Table table) {
-        if (view != null) {
-            throw new IllegalStateException(
-                "It is too late to set the Table. You need to set the Table before using the View.");
-        }
+        validateView(view, "Table");
 
         this.table = table;
     }
@@ -644,10 +591,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setToolbar(Toolbar toolbar) {
-        if (view != null) {
-            throw new IllegalStateException(
-                "It is too late to set the Toolbar. You need to set the Toolbar before using the View.");
-        }
+        validateView(view, "Toolbar");
 
         this.toolbar = toolbar;
         SupportUtils.setTable(toolbar, getTable());
@@ -658,10 +602,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
-        if (toolbar != null) {
-            throw new IllegalStateException(
-                "It is too late to set the maxRowsIncrements. You need to set the maxRowsIncrements before using the Toolbar.");
-        }
+        validateToolbar(toolbar, "maxRowsIncrements");
 
         this.maxRowsIncrements = maxRowsIncrements;
     }
@@ -714,17 +655,13 @@ public class TableFacadeImpl implements TableFacade {
 
         try {
             if (exportType == ExportType.CSV) {
-                ViewExporter exporter = new CsvViewExporter(v, response);
-                exporter.export();
+                new CsvViewExporter(v, response).export();
             } else if (exportType == ExportType.EXCEL) {
-                ViewExporter exporter = new ExcelViewExporter(v, response);
-                exporter.export();
+                new ExcelViewExporter(v, response).export();
             } else if (exportType == ExportType.JEXCEL) {
-                ViewExporter exporter = new JExcelViewExporter(v, response);
-                exporter.export();
+                new JExcelViewExporter(v, response).export();
             } else if (exportType == ExportType.PDF) {
-                ViewExporter exporter = new PdfViewExporter(v, request, response);
-                exporter.export();
+                new PdfViewExporter(v, request, response).export();
             }
         } catch (Exception e) {
             e.printStackTrace();
