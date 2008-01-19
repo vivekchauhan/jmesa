@@ -26,15 +26,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.jmesa.util.ItemUtils;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
-import org.jmesa.web.WebContext;
 
 /**
  * Represents an HtmlRow.
@@ -262,9 +261,9 @@ public class HtmlRowTag extends SimpleTagSupport {
         pageItems.add(pageItem);
 
         String var = facadeTag.getVar();
-
         Object bean = getJspContext().getAttribute(var);
         pageItem.put(var, bean);
+        pageItem.put(ItemUtils.JMESA_ITEM, bean);
 
         HtmlTable table = facadeTag.getTable();
         HtmlRow row = table.getRow();
