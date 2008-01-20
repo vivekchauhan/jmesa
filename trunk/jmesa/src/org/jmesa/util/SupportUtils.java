@@ -98,7 +98,7 @@ public class SupportUtils {
      * Set the Row on the object being inspected if it is not already set.
      * 
      * @param obj The object being inspected.
-     * @param column The object to be injected.
+     * @param row The object to be injected.
      */
     public static void setRow(Object obj, Row row) {
         if (obj instanceof RowSupport && ((RowSupport) obj).getRow() == null) {

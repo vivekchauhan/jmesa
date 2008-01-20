@@ -94,6 +94,9 @@ class Build {
     }
 
     def jar() {
+
+        ant.copy(todir:classesDir + '/META-INF', file:resourcesDir + '/jmesa.tld')
+
         def jarFile = "$targetDir/${artifact.name}-${artifact.revision}.jar"
         ant.jar(destfile:jarFile) {
             fileset(dir:classesDir)
