@@ -19,6 +19,8 @@ import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.JEXCEL;
 import static org.jmesa.limit.ExportType.PDF;
 
+import static org.jmesa.facade.TableFacadeFactory.createTableFacade;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -28,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
@@ -63,11 +64,11 @@ public class BasicPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
         Collection<President> items = presidentService.getPresidents();
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
+        TableFacade tableFacade = createTableFacade(id, request);
         tableFacade.setItems(items); // set the items
         tableFacade.setExportTypes(response, CSV, JEXCEL, PDF); // set the exports allowed
         tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it.
-
+        
         Limit limit = tableFacade.getLimit();
         if (limit.isExported()) {
             export(tableFacade);
