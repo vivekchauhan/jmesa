@@ -82,7 +82,7 @@ There is now an alternative way to create columns using the API. This technique 
 All you have to do is set the table on the facade. 
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setItems(items);
 
 HtmlComponentFactory factory = new HtmlComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
@@ -107,7 +107,7 @@ tableFacade.setTable(table);
 Even if you start using the tag library it would still be very handy to use the !TableFacade for the exports. The code would be as easy as this:
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 tableFacade.setItems(items);
 tableFacade.setExportTypes(response, "csv", "excel");
@@ -129,7 +129,7 @@ There is now an alternative way to create columns using the API. This technique 
 All you have to do is set the table on the facade. 
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setItems(items);
 tableFacade.setExportTypes(response, "excel");
 
