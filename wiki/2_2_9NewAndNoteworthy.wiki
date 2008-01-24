@@ -33,5 +33,9 @@ tableFacade.setExportTypes(getHttpServletResponse(), CSV, JEXCEL, PDF);
  * Declared more correct header information in jmesa.tld file. Also ran formatter on file.
  * Factory class to instantiate !TableFacade. The factory does not do anything special, although I am going to start encouraging developers to use that so when JMesa hooks into other frameworks it would be a one stop shopping for the various !TableFacade implementations.
 
+An example would look like this:
 
+{{{
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
+}}}
 
