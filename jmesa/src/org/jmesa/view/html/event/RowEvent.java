@@ -16,7 +16,7 @@
 package org.jmesa.view.html.event;
 
 /**
- * A callback interface that allows custom onclick callback events for each row.
+ * A callback interface that allows custom callback events for each row.
  * 
  * @since 2.2
  * @author Jeff Johnston
