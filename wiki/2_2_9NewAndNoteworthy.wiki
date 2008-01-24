@@ -39,3 +39,13 @@ An example would look like this:
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 }}}
 
+I would be inclined to use static imports though: 
+
+{{{
+import static org.jmesa.facade.TableFacadeFactory.createTableFacade;
+...
+
+TableFacade tableFacade = createTableFacade(id, request);
+}}}
+
+
