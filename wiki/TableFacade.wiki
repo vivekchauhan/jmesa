@@ -10,7 +10,7 @@ More examples and documentation can be found here:
 The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. For instance to render an html table all you would have to do is this:
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
 tableFacade.setItems(items);
 String html = tableFacade.render();
