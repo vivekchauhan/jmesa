@@ -50,7 +50,7 @@ public class RowImpl extends AbstractContextSupport implements Row {
         if (uniqueProperties != null) {
             for (String property : uniqueProperties) {
                 Object value = ItemUtils.getItemValue(item, property);
-                results.put(property, value);
+                results.put(property, value.toString());
             }
         }
 

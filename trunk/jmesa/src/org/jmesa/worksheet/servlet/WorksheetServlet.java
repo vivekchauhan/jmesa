@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet.servlet;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,11 @@ import org.apache.commons.lang.StringUtils;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
+import org.jmesa.worksheet.WorksheetColumn;
+import org.jmesa.worksheet.WorksheetColumnImpl;
 import org.jmesa.worksheet.WorksheetImpl;
+import org.jmesa.worksheet.WorksheetRow;
+import org.jmesa.worksheet.WorksheetRowImpl;
 import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
 
@@ -40,27 +45,18 @@ import org.jmesa.worksheet.state.WorksheetState;
  */
 public class WorksheetServlet extends HttpServlet {
 
+    private static String UNIQUE_PROPERTIES = "up_";
+    private static String COLUMN_PROPERTY = "cp_";
+    private static String ORIGINAL_VALUE = "ov_";
+    private static String CHANGED_VALUE = "cv_";
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         WebContext webContext = new HttpServletRequestWebContext(request);
 
         Worksheet worksheet = getWorksheet(webContext);
-
-        System.out.println("The worksheet is: " + worksheet.getId());
-
-        Map<?, ?> parameters = webContext.getParameterMap();
-        for (Object param : parameters.keySet()) {
-            String parameter = (String) param;
-            if (parameter.startsWith("up_")) {
-                String value = webContext.getParameter(parameter);
-                if (StringUtils.isNotBlank(value)) {
-                    String property = StringUtils.substringAfter(parameter, "up_");
-
-                    System.out.println("The row prop is: " + property + " - " + value);
-                }
-            }
-        }
-
+        WorksheetRow row = getWorksheetRow(worksheet, webContext);
+        setWorksheetColumn(row, webContext);
     }
 
     Worksheet getWorksheet(WebContext webContext) {
@@ -75,8 +71,51 @@ public class WorksheetServlet extends HttpServlet {
             state.persistWorksheet(worksheet);
         }
 
-        return worksheet;
+        System.out.println("The worksheet is: " + worksheet.getId());
 
+        return worksheet;
+    }
+
+    WorksheetRow getWorksheetRow(Worksheet worksheet, WebContext webContext) {
+        Map uniqueProperties = new HashMap();
+
+        Map<?, ?> parameters = webContext.getParameterMap();
+        for (Object param : parameters.keySet()) {
+            String parameter = (String) param;
+            if (parameter.startsWith(UNIQUE_PROPERTIES)) {
+                String value = webContext.getParameter(parameter);
+                if (StringUtils.isNotBlank(value)) {
+                    String property = StringUtils.substringAfter(parameter, UNIQUE_PROPERTIES);
+                    uniqueProperties.put(property, value);
+                    System.out.println("The row prop is: " + property + " - " + value);
+                }
+            }
+        }
+
+        WorksheetRow row = worksheet.getRow(uniqueProperties);
+        if (row == null) {
+            row = new WorksheetRowImpl(uniqueProperties);
+            worksheet.addRow(row);
+        }
+
+        return row;
+    }
+
+    void setWorksheetColumn(WorksheetRow row, WebContext webContext) {
+
+        String property = webContext.getParameter(COLUMN_PROPERTY);
+
+        WorksheetColumn column = row.getColumn(property);
+        if (column == null) {
+            String orginalValue = webContext.getParameter(ORIGINAL_VALUE);
+            System.out.println("The column original value is: " + property + " - " + orginalValue);
+            column = new WorksheetColumnImpl(property, orginalValue, null);
+            row.addColumn(column);
+        }
+
+        String changedValue = webContext.getParameter(CHANGED_VALUE);
+        System.out.println("The column changed value is: " + property + " - " + changedValue);
+        column.setChangedValue(changedValue);
     }
 
     @Override

@@ -18,9 +18,8 @@ package org.jmesa.worksheet.editor;
 import java.util.Map;
 
 import org.jmesa.limit.Limit;
-import org.jmesa.view.AbstractContextSupport;
-import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
+import org.jmesa.view.editor.AbstractCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.Worksheet;
@@ -36,9 +35,8 @@ import org.jmesa.worksheet.state.WorksheetState;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class WorksheetCellEditor extends AbstractContextSupport implements CellEditor {
+public class WorksheetCellEditor extends AbstractCellEditor {
     private CellEditor cellEditor;
-    private Column column;
 
     /**
      * @param cellEditor The CellEditor to wrap.
@@ -48,20 +46,13 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
     }
 
     /**
-     * @param column The current column.
-     */
-    public void setColumn(Column column) {
-        this.column = column;
-    }
-
-    /**
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */
     public Object getValue(Object item, String property, int rowcount) {
         WorksheetState worksheetState = getCoreContext().getWorksheetState();
         Worksheet worksheet = worksheetState.retrieveWorksheet();
         if (worksheet != null) {
-            Map<String, ?> uniqueProperties = column.getRow().getUniqueProperties(item);
+            Map<String, ?> uniqueProperties = getColumn().getRow().getUniqueProperties(item);
             if (uniqueProperties != null) {
                 WorksheetRow worksheetRow = worksheet.getRow(uniqueProperties);
                 if (worksheetRow != null) {
@@ -87,7 +78,7 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
         html.div().styleClass("wsColumn");
         html.onmouseover("if ($('#wsColumnDiv').size() > 0){return;};$(this).parent().css('border-color', '#605a54')");
         html.onmouseout("$(this).parent().removeAttr('style')");
-        html.onclick(getUniqueProperties(item) + "createWsColumn(this, '" + limit.getId() + "', uniqueProperties, '" + column.getProperty() + "')");
+        html.onclick(getUniqueProperties(item) + "createWsColumn(this, '" + limit.getId() + "', uniqueProperties, '" + getColumn().getProperty() + "')");
         html.close();
         html.append(columnValue);
         html.divEnd();
@@ -98,7 +89,7 @@ public class WorksheetCellEditor extends AbstractContextSupport implements CellE
     private String getUniqueProperties(Object item) {
         StringBuilder sb = new StringBuilder();
 
-        Row row = column.getRow();
+        Row row = getColumn().getRow();
         Map<String, ?> uniqueProperties = row.getUniqueProperties(item);
 
         sb.append("var uniqueProperties = {};");

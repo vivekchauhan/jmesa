@@ -88,15 +88,15 @@ public class WorksheetColumnImpl implements WorksheetColumn {
     @Override
     public int hashCode() {
         int result = 17;
-        int property = this.getProperty() == null ? 0 : this.getProperty().hashCode();
-        result = result * 37 + property;
+        int prop = this.getProperty() == null ? 0 : this.getProperty().hashCode();
+        result = result * 37 + prop;
         return result;
     }
 
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("property", property);
+        builder.append("property", this.getProperty());
         return builder.toString();
     }
 }
