@@ -451,23 +451,11 @@ function createWsColumn(column, id, uniqueProperties, property) {
     /* The event if press keys in the column input box. */
     $('#wsColumnInput').keypress(function(event) {
         if (event.keyCode == 13) { // press the enter key 
-           var changedValue = input.val();
-           cell.text(changedValue);
-           if (changedValue != originalValue) {
-           
-               var data = '{ "id" : "' + wsColumn.id + '"';
-               
-               var props = wsColumn.uniqueProperties;
-               $.each(props, function(key, value) {
-                   data += ', "up_' + key + '" : "' + value + '"';
-               });
-               
-               data += '}'
-
-               $.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {
-               
-               });               
-           }
+            var changedValue = input.val();
+            cell.text(changedValue);
+            if (changedValue != originalValue) {
+                submitWsColumn(originalValue, changedValue);
+            }
         }
     });
     
@@ -478,3 +466,34 @@ function createWsColumn(column, id, uniqueProperties, property) {
         $('#wsColumnDiv').remove();
     });
 }
+
+function submitWsCheckboxColumn(column, id, uniqueProperties, property) {
+    wsColumn = new WsColumn(column, id, uniqueProperties, property);
+    var originalValue = 'false';
+    var changedValue = column.checked;
+    if (changedValue == 'false') { // the first time the original value is the opposite
+        originalValue = 'true';
+    }
+    
+    submitWsColumn(originalValue, changedValue);
+}
+
+function submitWsColumn(originalValue, changedValue) {
+    var data = '{ "id" : "' + wsColumn.id + '"';
+
+    data += ', "cp_" : "' + wsColumn.property + '"';
+
+    var props = wsColumn.uniqueProperties;
+    $.each(props, function(key, value) {
+       data += ', "up_' + key + '" : "' + value + '"';
+    });
+
+    data += ', "ov_" : "' + originalValue + '"';
+    data += ', "cv_" : "' + changedValue + '"';
+
+    data += '}'
+
+    $.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {});    
+}
+
+

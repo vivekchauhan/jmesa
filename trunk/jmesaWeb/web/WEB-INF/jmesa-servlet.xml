@@ -29,6 +29,9 @@
 				<entry key="tag.run">
 					<ref bean="tag"/>
 				</entry>
+				<entry key="worksheet.run">
+					<ref bean="worksheet"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -37,6 +40,12 @@
 		<property name="successView" value="jsp/basic.jsp"/>
 		<property name="presidentService" ref="presidentService"/>
 		<property name="id" value="basic"/>
+	</bean>
+
+    <bean id="worksheet" class="org.jmesaweb.controller.WorksheetPresidentController">
+		<property name="successView" value="jsp/worksheet.jsp"/>
+		<property name="presidentService" ref="presidentService"/>
+		<property name="id" value="worksheet"/>
 	</bean>
 
 	<bean id="limit" class="org.jmesaweb.controller.LimitPresidentController">
