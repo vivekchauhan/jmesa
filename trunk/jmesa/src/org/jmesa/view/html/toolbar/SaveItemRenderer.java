@@ -13,27 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.editor;
+package org.jmesa.view.html.toolbar;
 
-import org.jmesa.view.AbstractContextSupport;
-import org.jmesa.view.component.Column;
-import org.jmesa.view.component.ColumnSupport;
+import org.jmesa.core.CoreContext;
+import org.jmesa.limit.Limit;
 
 /**
- * Abstract CellEditor that contains the column.
- * 
- * @since 2.2
+ * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractCellEditor extends AbstractContextSupport implements CellEditor, ColumnSupport {
-
-    private Column column;
-
-    public Column getColumn() {
-        return column;
+public class SaveItemRenderer extends AbstractItemRenderer {
+    public SaveItemRenderer(ToolbarItem item, CoreContext coreContext) {
+        setToolbarItem(item);
+        setCoreContext(coreContext);
     }
 
-    public void setColumn(Column column) {
-        this.column = column;
+    public String render() {
+        Limit limit = getCoreContext().getLimit();
+
+        ToolbarItem item = getToolbarItem();
+        StringBuilder action = new StringBuilder("javascript:");
+        action.append(getOnInvokeActionJavaScript(limit, item));
+        item.setAction(action.toString());
+
+        return item.enabled();
     }
 }

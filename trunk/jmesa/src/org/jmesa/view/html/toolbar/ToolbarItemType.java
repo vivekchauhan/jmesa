@@ -29,7 +29,9 @@ public enum ToolbarItemType {
     CLEAR_ITEM, 
     SORT_ITEM, 
     EXPORT_ITEM, 
-    SEPARATOR;
+    SEPARATOR,
+    SAVE_ITEM,
+    UNDO_ITEM;
 
     public String toCode() {
         switch (this) {
@@ -51,6 +53,10 @@ public enum ToolbarItemType {
             return "sort";
         case EXPORT_ITEM:
             return "export";
+        case SAVE_ITEM:
+            return "save";
+        case UNDO_ITEM:
+            return "undo";
         default:
             return "";
         }

@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.html.editor;
+package org.jmesa.worksheet.editor;
 
-import org.jmesa.view.editor.AbstractCellEditor;
+import org.jmesa.view.editor.CellEditor;
 
 /**
- * Defines a checkbox.
+ * Is used to wrap (or decorate) the current CellEditor to pull changed values from 
+ * the Worksheet. The idea is that if a changed value is in the Worksheet then that 
+ * will be displayed instead of the backing item value.
  * 
  * @since 2.3
  * @author Jeff Johnston
  */
-public class CheckboxCellEditor extends AbstractCellEditor {
-    public Object getValue(Object item, String property, int rowcount) {
-        return null;
-    }
+public interface WorksheetEditor extends CellEditor {
+
+    public CellEditor getCellEditor();
+
+    public void setCellEditor(CellEditor cellEditor);
 }

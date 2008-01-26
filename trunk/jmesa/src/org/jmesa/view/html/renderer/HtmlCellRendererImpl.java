@@ -15,10 +15,13 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractCellRenderer;
+import org.jmesa.worksheet.editor.HtmlWorksheetEditor;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
  * @since 2.0
@@ -28,9 +31,10 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
 
     private String style;
     private String styleClass;
+    private WorksheetEditor worksheetEditor;
 
     public HtmlCellRendererImpl() {
-        // default constructor
+    // default constructor
     }
 
     public HtmlCellRendererImpl(HtmlColumn column, CellEditor editor) {
@@ -57,6 +61,34 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    /**
+     * @return The CellEditor for this column. If this is an editable worksheet then return the WorksheetEditor.
+     */
+    @Override
+    public CellEditor getCellEditor() {
+        if (getCoreContext().isEditable()) {
+            if (worksheetEditor == null) {
+                setWorksheetEditor(new HtmlWorksheetEditor());
+            }
+
+            return worksheetEditor;
+        }
+
+        return super.getCellEditor();
+    }
+
+    public WorksheetEditor getWorksheetEditor() {
+        return worksheetEditor;
+    }
+
+    public void setWorksheetEditor(WorksheetEditor worksheetEditor) {
+        this.worksheetEditor = worksheetEditor;
+        worksheetEditor.setCellEditor(super.getCellEditor());
+        SupportUtils.setWebContext(worksheetEditor, getWebContext());
+        SupportUtils.setCoreContext(worksheetEditor, getCoreContext());
+        SupportUtils.setColumn(worksheetEditor, getColumn());
     }
 
     public Object render(Object item, int rowcount) {
