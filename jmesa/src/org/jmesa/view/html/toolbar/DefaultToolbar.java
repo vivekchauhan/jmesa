@@ -23,7 +23,7 @@ import org.jmesa.view.component.Row;
  * @since 2.2
  * @author Jeff Johnston
  */
-public class DefaultToolbar extends AbstractToolbar {
+public final class DefaultToolbar extends AbstractToolbar {
 
     @Override
     public String render() {
@@ -63,6 +63,16 @@ public class DefaultToolbar extends AbstractToolbar {
         if (filterable) {
             addToolbarItem(ToolbarItemType.FILTER_ITEM);
             addToolbarItem(ToolbarItemType.CLEAR_ITEM);
+        }
+        
+        boolean editable = getCoreContext().isEditable();
+        if (editable && enableSeparators) {
+            addToolbarItem(ToolbarItemType.SEPARATOR);
+        }
+
+        if (editable) {
+            addToolbarItem(ToolbarItemType.SAVE_ITEM);
+            addToolbarItem(ToolbarItemType.UNDO_ITEM);
         }
 
         return super.render();

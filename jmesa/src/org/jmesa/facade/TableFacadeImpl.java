@@ -73,7 +73,9 @@ import org.jmesa.view.pdf.PdfView;
 import org.jmesa.view.pdf.PdfViewExporter;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.state.SessionWorksheetState;
+import org.jmesa.worksheet.state.WorksheetState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,6 +154,7 @@ public class TableFacadeImpl implements TableFacade {
     private int[] maxRowsIncrements;
     private View view;
     private boolean performFilterAndSort = true;
+    private Worksheet worksheet;
 
     /**
      * <p>
@@ -309,6 +312,17 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setEditable(boolean editable) {
         this.editable = editable;
+    }
+    
+    public Worksheet getWorksheet() {
+        if (worksheet != null) {
+            return worksheet;
+        }
+        
+        WorksheetState state = new SessionWorksheetState(id, getWebContext());
+        this.worksheet = state.retrieveWorksheet();
+
+        return worksheet;
     }
 
     public Limit getLimit() {

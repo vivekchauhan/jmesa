@@ -37,4 +37,8 @@ public interface ToolbarItemFactory {
     public ImageItem createExportItem(ToolbarExport export);
 
     public ImageItem createSeparatorItem();
+
+    public ImageItem createSaveItem();
+
+    public ImageItem createUndoItem();
 }

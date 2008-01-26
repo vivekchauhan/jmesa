@@ -97,6 +97,8 @@ public class WorksheetColumnImpl implements WorksheetColumn {
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("property", this.getProperty());
+        builder.append("originalValue", this.getOriginalValue());
+        builder.append("changedValue", this.getChangedValue());
         return builder.toString();
     }
 }

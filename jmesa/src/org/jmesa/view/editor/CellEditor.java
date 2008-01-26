@@ -16,9 +16,14 @@
 package org.jmesa.view.editor;
 
 /**
+ * A CellEditor is used to display the column value. You can either use the pre-canned 
+ * ones included in JMesa or create something custom. Typically most tables you create 
+ * will have at least one custom editor.
+ * 
  * @since 2.0
  * @author Jeff Johnston
  */
 public interface CellEditor {
+
     public Object getValue(Object item, String property, int rowcount);
 }

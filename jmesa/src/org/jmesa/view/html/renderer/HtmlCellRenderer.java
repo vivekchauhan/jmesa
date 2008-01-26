@@ -17,6 +17,7 @@ package org.jmesa.view.html.renderer;
 
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
  * @since 2.0
@@ -32,4 +33,8 @@ public interface HtmlCellRenderer extends CellRenderer {
     public void setStyleClass(String styleClass);
     
     public HtmlColumn getColumn();
+    
+    public WorksheetEditor getWorksheetEditor();
+
+    public void setWorksheetEditor(WorksheetEditor editor);
 }

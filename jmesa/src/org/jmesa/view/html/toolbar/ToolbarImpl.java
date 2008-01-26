@@ -22,6 +22,8 @@ import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
+ * The main logic to create toolbars.
+ * 
  * @since 2.2
  * @author Jeff Johnston
  */
@@ -48,32 +50,38 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
     public ToolbarItem addToolbarItem(ToolbarItemType type) {
         ToolbarItem item = null;
 
-        ToolbarItemFactory toolbarItemFactory = getToolbarItemFactory();
+        ToolbarItemFactory factory = getToolbarItemFactory();
 
         switch (type) {
             case FIRST_PAGE_ITEM:
-                item = toolbarItemFactory.createFirstPageItem();
+                item = factory.createFirstPageItem();
                 break;
             case PREV_PAGE_ITEM:
-                item = toolbarItemFactory.createPrevPageItem();
+                item = factory.createPrevPageItem();
                 break;
             case NEXT_PAGE_ITEM:
-                item = toolbarItemFactory.createNextPageItem();
+                item = factory.createNextPageItem();
                 break;
             case LAST_PAGE_ITEM:
-                item = toolbarItemFactory.createLastPageItem();
+                item = factory.createLastPageItem();
                 break;
             case MAX_ROWS_ITEM:
-                item = toolbarItemFactory.createMaxRowsItem();
+                item = factory.createMaxRowsItem();
                 break;
             case FILTER_ITEM:
-                item = toolbarItemFactory.createFilterItem();
+                item = factory.createFilterItem();
                 break;
             case CLEAR_ITEM:
-                item = toolbarItemFactory.createClearItem();
+                item = factory.createClearItem();
                 break;
             case SEPARATOR:
-                item = toolbarItemFactory.createSeparatorItem();
+                item = factory.createSeparatorItem();
+                break;
+            case SAVE_ITEM:
+                item = factory.createSaveItem();
+                break;
+            case UNDO_ITEM:
+                item = factory.createUndoItem();
                 break;
         }
 
@@ -101,8 +109,8 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
 
     public ToolbarItem addExportToolbarItem(ExportType exportType) {
         ToolbarExport export = new ToolbarExport(exportType);
-        ToolbarItemFactory toolbarItemFactory = getToolbarItemFactory();
-        ToolbarItem item = toolbarItemFactory.createExportItem(export);
+        ToolbarItemFactory factory = getToolbarItemFactory();
+        ToolbarItem item = factory.createExportItem(export);
         toolbarItems.add(item);
         return item;
     }

@@ -34,6 +34,7 @@ import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 2.1
@@ -80,6 +81,16 @@ public interface TableFacade {
      */
     public void setEditable(boolean editable);
 
+    /**
+     * <p>
+     * Get the Worksheet.
+     * </p>
+     * 
+     * @return The current Worksheet.
+     * @since 2.3
+     */
+    public Worksheet getWorksheet();
+    
     /**
      * <p>
      * Get the Limit. If the Limit does not exist then one will be created. If you are manually

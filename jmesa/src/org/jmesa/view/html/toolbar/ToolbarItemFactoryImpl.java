@@ -27,12 +27,20 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE_DISABLED
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE_DISABLED;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SEPARATOR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_UNDO;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_UNDO_DISABLED;
+
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FIRST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_LAST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_NEXT_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_PREV_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_SAVE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_UNDO;
+
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER;
@@ -40,6 +48,8 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FIRST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_LAST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_NEXT_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_SAVE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_UNDO;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
@@ -184,7 +194,37 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
         return item;
     }
+    
+    public ImageItem createSaveItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.SAVE_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_SAVE));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_SAVE_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_SAVE));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_SAVE));
 
+        ToolbarItemRenderer renderer = new SaveItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction("onInvokeAction");
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createUndoItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.UNDO_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_UNDO));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_UNDO_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_UNDO));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_UNDO));
+
+        ToolbarItemRenderer renderer = new UndoItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction("onInvokeAction");
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+    
     protected String getImage(String image) {
         return imagesPath + coreContext.getPreference(image);
     }

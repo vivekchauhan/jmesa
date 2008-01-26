@@ -22,7 +22,6 @@ import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.worksheet.editor.WorksheetCellEditor;
 
 /**
  * @since 2.0
@@ -31,7 +30,6 @@ import org.jmesa.worksheet.editor.WorksheetCellEditor;
 public abstract class AbstractCellRenderer extends AbstractContextSupport implements CellRenderer, ColumnSupport {
     private Column column;
     private CellEditor cellEditor;
-    private WorksheetCellEditor worksheetCellEditor;
 
     public Column getColumn() {
         return column;
@@ -42,25 +40,9 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
     }
 
     /**
-     * Return the CellEditor for this column. If this is an editable worksheet then return the
-     * WorksheetCellEditor.
-     * 
      * @return The CellEditor.
      */
     public CellEditor getCellEditor() {
-        if (getCoreContext().isEditable()) {
-            if (worksheetCellEditor == null) {
-                worksheetCellEditor = new WorksheetCellEditor();
-            }
-
-            worksheetCellEditor.setCellEditor(cellEditor);
-            worksheetCellEditor.setColumn(column);
-            worksheetCellEditor.setCoreContext(getCoreContext());
-            worksheetCellEditor.setWebContext(getWebContext());
-
-            return worksheetCellEditor;
-        }
-
         return cellEditor;
     }
 
