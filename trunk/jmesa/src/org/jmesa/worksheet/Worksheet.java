@@ -89,6 +89,11 @@ public interface Worksheet {
      * @param row The worksheet row to remove.
      */
     public void removeRow(WorksheetRow row);
+    
+    /**
+     * @return Is true if the user is requesting that the worksheet be saved.
+     */
+    public boolean isSaving();
 
     /**
      * @return Is true if the worksheet contains changes, which really means the worksheet is

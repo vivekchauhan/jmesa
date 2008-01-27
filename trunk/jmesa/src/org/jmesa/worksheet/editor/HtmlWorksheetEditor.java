@@ -48,7 +48,9 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
         Limit limit = getCoreContext().getLimit();
 
         html.div().styleClass("wsColumn");
-        html.onclick(getUniquePropertiesJavaScript(item) + "createWsColumn(this, '" + limit.getId() + "', uniqueProperties, '" 
+//        html.onmouseover("if ($('#wsColumnDiv').size() > 0){return;};$(this).parent().css('border-color', '#605a54')");
+//        html.onmouseout("$(this).parent().removeAttr('style')");
+        html.onclick(getUniquePropertiesJavaScript(item) + "createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTIES+ ",'" 
             + getColumn().getProperty() + "')");
         html.close();
         html.append(columnValue);

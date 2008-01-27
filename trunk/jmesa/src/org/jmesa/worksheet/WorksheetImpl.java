@@ -27,6 +27,7 @@ import org.jmesa.core.message.Messages;
  * @author Jeff Johnston
  */
 public class WorksheetImpl implements Worksheet {
+    
     private String id;
     private Messages messages;
 
@@ -59,6 +60,10 @@ public class WorksheetImpl implements Worksheet {
 
     public void removeRow(WorksheetRow row) {
         rows.remove(row.getUniqueProperties());
+    }
+    
+    public boolean isSaving() {
+        throw new UnsupportedOperationException("A request is needed to check for save logic.");
     }
 
     public boolean hasChanges() {
