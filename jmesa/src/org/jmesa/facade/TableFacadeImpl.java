@@ -324,9 +324,9 @@ public class TableFacadeImpl implements TableFacade {
         WorksheetState state = new SessionWorksheetState(id, getWebContext());
         Worksheet ws = state.retrieveWorksheet();
         
-        if (worksheet == null || !isTableRefreshing()) {
+        if (ws == null || !isTableRefreshing()) {
             ws = new WorksheetImpl(id, getMessages());
-            state.persistWorksheet(worksheet);
+            state.persistWorksheet(ws);
         } 
         
         this.worksheet = new WorksheetWrapper(ws, getWebContext());
@@ -335,8 +335,8 @@ public class TableFacadeImpl implements TableFacade {
     }
     
     private boolean isTableRefreshing() {
-        String loaded = getWebContext().getParameter(id + TABLE_REFRESHING);
-        if (StringUtils.isNotEmpty(loaded) && loaded.equals("true")) {
+        String refreshing = getWebContext().getParameter(id + TABLE_REFRESHING);
+        if (StringUtils.isNotEmpty(refreshing) && refreshing.equals("true")) {
             return true;
         }
         

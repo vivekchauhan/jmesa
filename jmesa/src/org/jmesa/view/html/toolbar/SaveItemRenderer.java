@@ -33,7 +33,7 @@ public class SaveItemRenderer extends AbstractItemRenderer {
 
         ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
-        action.append(getOnInvokeActionJavaScript(limit, item));
+        action.append("setSaveToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 
         return item.enabled();

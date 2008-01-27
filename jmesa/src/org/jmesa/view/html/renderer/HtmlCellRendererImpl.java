@@ -68,7 +68,7 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
      */
     @Override
     public CellEditor getCellEditor() {
-        if (getCoreContext().isEditable()) {
+        if (getCoreContext().isEditable() && getColumn().isEditable()) {
             if (worksheetEditor == null) {
                 setWorksheetEditor(new HtmlWorksheetEditor());
             }

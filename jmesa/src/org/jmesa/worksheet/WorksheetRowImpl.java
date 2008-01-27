@@ -26,16 +26,16 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class WorksheetRowImpl implements WorksheetRow {
-    private Map<String, ?> uniqueProperties;
+    private Map<String, String> uniqueProperties;
     private WorksheetRowStatus rowStatus;
 
     private Map<String, WorksheetColumn> columns = new HashMap<String, WorksheetColumn>();
 
-    public WorksheetRowImpl(Map<String, ?> uniqueProperties) {
+    public WorksheetRowImpl(Map<String, String> uniqueProperties) {
         this.uniqueProperties = uniqueProperties;
     }
 
-    public Map<String, ?> getUniqueProperties() {
+    public Map<String, String> getUniqueProperties() {
         return uniqueProperties;
     }
 

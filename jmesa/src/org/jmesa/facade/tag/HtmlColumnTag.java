@@ -56,6 +56,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private Boolean sortable;
     private String sortOrder;
     private Boolean filterable;
+    private Boolean editable;
     private String width;
     private String cellRenderer;
     private String filterRenderer;
@@ -125,6 +126,14 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     public void setFilterable(Boolean filterable) {
         this.filterable = filterable;
+    }
+    
+    public Boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
     }
 
     public String getWidth() {
@@ -319,6 +328,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setSortable(isSortable());
         column.setSortOrder(getColumnSortOrder(getSortOrder()));
         column.setFilterable(isFilterable());
+        column.setEditable(isEditable());
         column.setWidth(getWidth());
 
         // cell

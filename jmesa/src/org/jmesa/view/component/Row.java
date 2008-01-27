@@ -28,7 +28,7 @@ public interface Row {
     /**
      * @since 2.3
      */
-    public Map<String, Object> getUniqueProperties(Object item);
+    public Map<String, String> getUniqueProperties(Object item);
 
     /**
      * @since 2.3

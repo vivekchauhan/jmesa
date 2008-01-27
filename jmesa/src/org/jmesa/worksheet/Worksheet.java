@@ -69,7 +69,7 @@ public interface Worksheet {
      *            are the item values.
      * @return The worksheet row.
      */
-    public WorksheetRow getRow(Map<String, ?> uniqueProperties);
+    public WorksheetRow getRow(Map<String, String> uniqueProperties);
 
     /**
      * Add a row to the worksheet.
@@ -93,7 +93,7 @@ public interface Worksheet {
     /**
      * @return Is true if the user is requesting that the worksheet be saved.
      */
-    public boolean isSaving();
+    public boolean isSaved();
 
     /**
      * @return Is true if the worksheet contains changes, which really means the worksheet is

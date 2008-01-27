@@ -30,6 +30,7 @@ import org.jmesa.view.renderer.FilterRenderer;
 public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     private Boolean filterable;
     private Boolean sortable;
+    private Boolean editable;
     private String width;
     private FilterRenderer filterRenderer;
     private Order[] sortOrder;
@@ -75,6 +76,18 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 
     public void setSortable(Boolean sortable) {
         this.sortable = sortable;
+    }
+    
+    public boolean isEditable() {
+        if (editable != null) {
+            return editable.booleanValue();
+        }
+        
+        return true;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
     }
 
     public Order[] getSortOrder() {

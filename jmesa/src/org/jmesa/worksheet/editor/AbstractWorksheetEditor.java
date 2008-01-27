@@ -56,7 +56,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
             return null;
         }
         
-        Map<String, ?> uniqueProperties = getColumn().getRow().getUniqueProperties(item);
+        Map<String, String> uniqueProperties = getColumn().getRow().getUniqueProperties(item);
         WorksheetRow worksheetRow = worksheet.getRow(uniqueProperties);
 
         if (worksheetRow == null) {
@@ -79,7 +79,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
         StringBuilder sb = new StringBuilder();
 
         Row row = getColumn().getRow();
-        Map<String, ?> uniqueProperties = row.getUniqueProperties(item);
+        Map<String, String> uniqueProperties = row.getUniqueProperties(item);
 
         sb.append("var " + UNIQUE_PROPERTIES + " = {};");
 

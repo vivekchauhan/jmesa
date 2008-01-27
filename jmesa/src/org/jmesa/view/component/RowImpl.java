@@ -44,8 +44,8 @@ public class RowImpl extends AbstractContextSupport implements Row {
      * @param item The Bean (or Map) for the current row.
      * @since 2.3
      */
-    public Map<String, Object> getUniqueProperties(Object item) {
-        Map<String, Object> results = new HashMap<String, Object>();
+    public Map<String, String> getUniqueProperties(Object item) {
+        Map<String, String> results = new HashMap<String, String>();
         
         if (uniqueProperties != null) {
             for (String property : uniqueProperties) {
