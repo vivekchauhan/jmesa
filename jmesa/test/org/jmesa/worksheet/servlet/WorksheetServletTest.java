@@ -45,7 +45,7 @@ public class WorksheetServletTest {
 
         Worksheet worksheet = servlet.getWorksheet(webContext);
         
-        WorksheetRow row = new WorksheetRowImpl(new HashMap<String, Object>());
+        WorksheetRow row = new WorksheetRowImpl(new HashMap<String, String>());
         worksheet.addRow(row);
 
         assertNotNull(worksheet);
