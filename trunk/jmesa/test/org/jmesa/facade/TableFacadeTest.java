@@ -223,7 +223,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
 
         TableFacade facade = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
-        facade.setRowSelect(15, items.size());
+        facade.setTotalRows(items.size());
 
         Limit limit = facade.getLimit();
         assertNotNull(limit);

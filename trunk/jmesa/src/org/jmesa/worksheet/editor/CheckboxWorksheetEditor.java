@@ -26,6 +26,8 @@ import org.jmesa.view.html.editor.*;
  * @author Jeff Johnston
  */
 public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
+    protected static String CHECKED = "checked";
+    
     public Object getValue(Object item, String property, int rowcount) {
         HtmlBuilder html = new HtmlBuilder();
         
@@ -34,11 +36,11 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
         html.input().type("checkbox");
         
         String value = getChangedValue(item, property);
-        if (value != null && value.equals("true")) {
+        if (value != null && value.equals(CHECKED)) {
             html.checked();
         }
         
-        html.onclick(getUniquePropertiesJavaScript(item) + "submitWsCheckboxColumn(this, '" + limit.getId() + "', up, '" 
+        html.onclick(getUniquePropertiesJavaScript(item) + "submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTIES + ",'" 
             + getColumn().getProperty() + "')");
         html.end();
         

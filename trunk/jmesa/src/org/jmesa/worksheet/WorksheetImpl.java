@@ -31,7 +31,7 @@ public class WorksheetImpl implements Worksheet {
     private String id;
     private Messages messages;
 
-    private Map<Map<String, ?>, WorksheetRow> rows = new HashMap<Map<String, ?>, WorksheetRow>();
+    private Map<Map<String, String>, WorksheetRow> rows = new HashMap<Map<String, String>, WorksheetRow>();
 
     public WorksheetImpl(String id, Messages messages) {
         this.id = id;
@@ -50,7 +50,7 @@ public class WorksheetImpl implements Worksheet {
         rows.put(row.getUniqueProperties(), row);
     }
 
-    public WorksheetRow getRow(Map<String, ?> uniqueProperties) {
+    public WorksheetRow getRow(Map<String, String> uniqueProperties) {
         return rows.get(uniqueProperties);
     }
 
@@ -62,7 +62,7 @@ public class WorksheetImpl implements Worksheet {
         rows.remove(row.getUniqueProperties());
     }
     
-    public boolean isSaving() {
+    public boolean isSaved() {
         throw new UnsupportedOperationException("A request is needed to check for save logic.");
     }
 

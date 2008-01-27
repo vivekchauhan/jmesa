@@ -258,9 +258,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             html.append("$(document).ready(function(){").newline();
         }
 
-        html.tab().append("addLimitToManager('" + limit.getId() + "')").semicolon().newline();
-
-        html.tab().append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+        html.tab().append("addTableFacadeToManager('" + limit.getId() + "')").semicolon().newline();
 
         html.tab().append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 
@@ -274,6 +272,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             String value = escapeJavaScript(filter.getValue());
             html.tab().append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
         }
+
+        html.tab().append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
         
         if (useDocumentReady) {
             html.append("});").newline();

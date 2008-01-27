@@ -34,6 +34,18 @@ public interface HtmlColumn extends Column {
     public boolean isSortable();
 
     public void setSortable(Boolean sortable);
+    
+    /**
+     * @return Is true if the column is editable.
+     */
+    public boolean isEditable();
+
+    /**
+     * Set if column is editable.
+     * 
+     * @param editable Is true if the column is editable.
+     */
+    public void setEditable(Boolean editable);
 
     /**
      * @since 2.2

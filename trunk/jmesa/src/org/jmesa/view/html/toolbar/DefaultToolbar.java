@@ -72,7 +72,6 @@ public final class DefaultToolbar extends AbstractToolbar {
 
         if (editable) {
             addToolbarItem(ToolbarItemType.SAVE_ITEM);
-            addToolbarItem(ToolbarItemType.UNDO_ITEM);
         }
 
         return super.render();

@@ -49,7 +49,7 @@ public class WorksheetWrapper implements Worksheet {
         return worksheet.getMessages();
     }
 
-    public WorksheetRow getRow(Map<String, ?> uniqueProperties) {
+    public WorksheetRow getRow(Map<String, String> uniqueProperties) {
         return worksheet.getRow(uniqueProperties);
     }
 
@@ -71,8 +71,8 @@ public class WorksheetWrapper implements Worksheet {
      * 
      * @return Is true is saving worksheet.
      */
-    public boolean isSaving() {
-        String save = webContext.getParameter(SAVE_WORKSHEET);
+    public boolean isSaved() {
+        String save = webContext.getParameter(getId()  + "_" + SAVE_WORKSHEET);
         return StringUtils.isNotEmpty(save);
     }
 

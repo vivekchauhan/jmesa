@@ -1,18 +1,27 @@
-function LimitManager() {
+function TableFacadeManager() {
 }
 
-LimitManager.limits = new Object();
+TableFacadeManager.tableFacades = new Object();
 
-LimitManager.addLimit = function(limit) {
- 	LimitManager.limits[limit.id] = limit;
+TableFacadeManager.addTableFacade = function(tableFacade) {
+ 	TableFacadeManager.tableFacades[tableFacade.limit.id] = tableFacade;
 }
 
-LimitManager.getLimit = function(id) {
- 	return LimitManager.limits[id];
+TableFacadeManager.getTableFacade = function(id) {
+ 	return TableFacadeManager.tableFacades[id];
+}
+
+function TableFacade(id) {
+    this.limit = new Limit(id);
+    this.worksheet = new Worksheet();
+}
+
+function Worksheet() {
+    this.save;
 }
 
 function Limit(id) {
-	this.id = id;
+    this.id = id;
 	this.page;
 	this.maxRows;
 	this.sortSet = new Array();
@@ -89,12 +98,16 @@ Limit.prototype.setExport = function(exportType) {
  
  /*other helper methods*/
 
-Limit.prototype.createHiddenInputFields = function(form) {
-    var limit = this;
+TableFacade.prototype.createHiddenInputFields = function(form) {
+    var limit = this.limit;
     
     var exists = $(form).find(':hidden[@name=' + limit.id + '_p_]').val();
     if (exists) {
         return false;
+    }
+    
+    if (this.worksheet.save) {
+    	$(form).append('<input type="hidden" name="' + limit.id + '_sw_" value="true"/>');
     }
 
     /* tip the API off that in the loop of working with the table */
@@ -119,14 +132,11 @@ Limit.prototype.createHiddenInputFields = function(form) {
     return true;
 }
 
-Limit.prototype.createParameterString = function() {
-    var limit = this;
+TableFacade.prototype.createParameterString = function() {
+    var limit = this.limit;
 
 	var url = '';
-
-    /* tip the API off that in the loop of working with the table */
-	url += limit.id + '_tr_=true';
-
+     
     /* the current page */
 	url += limit.id + '_p_=' + limit.page;
 
@@ -149,23 +159,34 @@ Limit.prototype.createParameterString = function() {
 	if (limit.exportType) {
 		url += '&' + limit.id + '_e_=' + limit.exportType;
 	}
+     
+    /* tip the API off that in the loop of working with the table */
+	url += '&' + limit.id + '_tr_=true';
+     
+    if (this.worksheet.save) {
+        url += '&' + limit.id + '_sw_=true';
+    }
 	
 	return url;
 }
 
 /* convenience methods so do not have to manually work with the api */
 
-function addLimitToManager(id) {
-	var limit = new Limit(id);
-	LimitManager.addLimit(limit);	
+function addTableFacadeToManager(id) {
+    var tableFacade = new TableFacade(id);
+	TableFacadeManager.addTableFacade(tableFacade);	
+}
+
+function setSaveToWorksheet(id) {
+	TableFacadeManager.getTableFacade(id).worksheet.save='true';
 }
 
 function setPageToLimit(id, page) {
-	LimitManager.getLimit(id).setPage(page);
+    TableFacadeManager.getTableFacade(id).limit.setPage(page);
 }
 
 function setMaxRowsToLimit(id, maxRows) {
-	LimitManager.getLimit(id).setMaxRows(maxRows);
+	TableFacadeManager.getTableFacade(id).limit.setMaxRows(maxRows);
 	setPageToLimit(id, '1');
 }
  
@@ -175,13 +196,13 @@ function addSortToLimit(id, position, property, order) {
 	removeSortFromLimit(id, property);
 	setPageToLimit(id, '1');
 
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	var sort = new Sort(position, property, order); 
 	limit.addSort(sort);
 }
 
 function removeSortFromLimit(id, property) {
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	var sortSet = limit.getSortSet();
 	$.each(sortSet, function(index, sort) {
         if (sort.property == property) {
@@ -192,13 +213,13 @@ function removeSortFromLimit(id, property) {
 }
 
 function removeAllSortsFromLimit(id) {
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	limit.setSortSet(new Array());
 	setPageToLimit(id, '1');
 }
 
 function getSortFromLimit(id, property) {
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	var sortSet = limit.getSortSet();
     $.each(sortSet, function(index, sort) {
         if (sort.property == property) {
@@ -213,13 +234,13 @@ function addFilterToLimit(id, property, value) {
 	removeFilterFromLimit(id, property);
 	setPageToLimit(id, '1');
 
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	var filter = new Filter(property, value); 
 	limit.addFilter(filter);
 }
 
 function removeFilterFromLimit(id, property) {
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	var filterSet = limit.getFilterSet();
     $.each(filterSet, function(index, filter) {
         if (filter.property == property) {
@@ -230,13 +251,13 @@ function removeFilterFromLimit(id, property) {
 }
 
 function removeAllFiltersFromLimit(id) {
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	limit.setFilterSet(new Array());
 	setPageToLimit(id, '1');
 }
 
 function getFilterFromLimit(id, property) {
-	var limit = LimitManager.getLimit(id);
+	var limit = TableFacadeManager.getTableFacade(id).limit;
 	var filterSet = limit.getFilterSet();
     $.each(filterSet, function(index, filter) {
         if (filter.property == property) {
@@ -246,27 +267,27 @@ function getFilterFromLimit(id, property) {
 }
 
 function setExportToLimit(id, exportType) {
-	LimitManager.getLimit(id).setExport(exportType);
+	TableFacadeManager.getTableFacade(id).limit.setExport(exportType);
 }
 
 function createHiddenInputFieldsForLimit(id) {
-	var limit = LimitManager.getLimit(id);
+	var tableFacade = TableFacadeManager.getTableFacade(id);
 	var form = getFormByTableId(id);
-	limit.createHiddenInputFields(form);
+	tableFacade.createHiddenInputFields(form);
 }
 
 function createHiddenInputFieldsForLimitAndSubmit(id) {
-	var limit = LimitManager.getLimit(id);
+	var tableFacade = TableFacadeManager.getTableFacade(id);
 	var form = getFormByTableId(id);
-	var created = limit.createHiddenInputFields(form);
+	var created = tableFacade.createHiddenInputFields(form);
 	if (created) {
 	   form.submit();
 	}
 }
 
 function createParameterStringForLimit(id) {
-	var limit = LimitManager.getLimit(id);
-	return limit.createParameterString();
+	var tableFacade = TableFacadeManager.getTableFacade(id);
+	return tableFacade.createParameterString();
 }
 
 function getFormByTableId(id) {
@@ -295,7 +316,7 @@ function createDynFilter(filter, id, property) {
     dynFilter = new DynFilter(filter, id, property);
     
     var cell = $(filter);
-    var width = cell.width();
+    var width = cell.width() + 1;
     var originalValue = cell.text();
 
     cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="' + originalValue + '" /></div>');
@@ -427,7 +448,7 @@ function createWsColumn(column, id, uniqueProperties, property) {
     
     cell.parent().width(width); // set the outer width to avoid dynamic column width changes
     
-    cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + width + 'px" value="' + originalValue + '"/></div>');
+    cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 1) + 'px" value="' + originalValue + '"/></div>');
     
     var input = $('#wsColumnInput'); 
     input.focus();
@@ -453,10 +474,17 @@ function createWsColumn(column, id, uniqueProperties, property) {
 
 function submitWsCheckboxColumn(column, id, uniqueProperties, property) {
     wsColumn = new WsColumn(column, id, uniqueProperties, property);
-    var originalValue = 'false';
-    var changedValue = column.checked;
-    if (changedValue == 'false') { // the first time the original value is the opposite
-        originalValue = 'true';
+
+    var checked = column.checked;
+    
+    var changedValue = 'unchecked';
+    if (checked) {
+        changedValue = 'checked';
+    }
+
+    var originalValue = 'unchecked';
+    if (!checked) { // the first time the original value is the opposite
+        originalValue = 'checked';
     }
     
     submitWsColumn(originalValue, changedValue);
