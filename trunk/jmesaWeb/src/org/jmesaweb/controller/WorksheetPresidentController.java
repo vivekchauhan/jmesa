@@ -30,21 +30,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.BasicCellEditor;
-import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
-import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.worksheet.Worksheet;
+import org.jmesa.worksheet.WorksheetColumn;
+import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.editor.CheckboxWorksheetEditor;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-
 
 /**
  * Create an editable worksheet.
@@ -53,6 +50,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Jeff Johnston
  */
 public class WorksheetPresidentController extends AbstractController {
+
     private PresidentService presidentService;
     private String successView;
     private String id; // the unique table id
@@ -66,20 +64,31 @@ public class WorksheetPresidentController extends AbstractController {
         tableFacade.setItems(items); // set the items
         tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it
         tableFacade.setEditable(true); // switch to flip that turns the table editable
-        
+
         saveWorksheet(tableFacade);
-        
+
         String html = getHtml(tableFacade);
         mv.addObject("presidents", html); // set the Html in the request for the JSP
 
         return mv;
     }
-    
+
     private void saveWorksheet(TableFacade tableFacade) {
         Worksheet worksheet = tableFacade.getWorksheet();
-        
-        if (worksheet != null) {
-            logger.debug(worksheet.toString());
+
+        if (worksheet.isSaved()) {
+            logger.debug("******Saving the worksheet!********");
+
+            Collection<WorksheetRow> worksheetRows = worksheet.getRows();
+            for (WorksheetRow worksheetRow : worksheetRows) {
+                logger.debug("the unique properties are " + worksheetRow.getUniqueProperties());
+                
+                Collection<WorksheetColumn> worksheetColumns = worksheetRow.getColumns();
+                for (WorksheetColumn worksheetColumn : worksheetColumns) {
+                    logger.debug("changed value [" + worksheetColumn.getChangedValue() + "] -- original value [" + worksheetColumn.getOriginalValue() + "]");
+                }
+            }
+            worksheet.removeAllChanges();
         }
     }
 
@@ -89,7 +98,7 @@ public class WorksheetPresidentController extends AbstractController {
 
         // set the column properties
         tableFacade.setColumnProperties("chkbox", "name.firstName", "name.lastName", "term", "career", "born");
-        
+
         HtmlTable table = (HtmlTable) tableFacade.getTable();
         table.setCaption("Presidents");
         table.getTableRenderer().setWidth("600px");
@@ -97,7 +106,7 @@ public class WorksheetPresidentController extends AbstractController {
         HtmlRow row = table.getRow();
 //        row.setHighlighter(false);
         row.setUniqueProperties("id"); // the unique worksheet properties to identify the row
-        
+
         HtmlColumn chkbox = row.getColumn("chkbox");
         chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
         chkbox.setTitle("&nbsp;");
@@ -111,19 +120,8 @@ public class WorksheetPresidentController extends AbstractController {
         lastName.setTitle("Last Name");
 
         HtmlColumn born = row.getColumn("born");
+        born.setEditable(false);
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
-
-        // using an anonymous class to implement a custom editor
-        firstName.getCellRenderer().setCellEditor(new CellEditor() {
-            public Object getValue(Object item, String property, int rowcount) {
-                Object value = new BasicCellEditor().getValue(item, property, rowcount);
-                HtmlBuilder html = new HtmlBuilder();
-                html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
-                html.append(value);
-                html.aEnd();
-                return html.toString();
-            }
-        });
 
         return tableFacade.render(); // return the Html
     }

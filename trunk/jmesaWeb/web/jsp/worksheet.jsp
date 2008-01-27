@@ -30,7 +30,6 @@
 	
 <script type="text/javascript">
 function onInvokeAction(id) {
-	setExportToLimit(id, '');
 	createHiddenInputFieldsForLimitAndSubmit(id);
 }
 </script>
