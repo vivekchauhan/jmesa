@@ -95,6 +95,7 @@ public class WorksheetPresidentController extends AbstractController {
         table.getTableRenderer().setWidth("600px");
 
         HtmlRow row = table.getRow();
+//        row.setHighlighter(false);
         row.setUniqueProperties("id"); // the unique worksheet properties to identify the row
         
         HtmlColumn chkbox = row.getColumn("chkbox");
@@ -109,7 +110,7 @@ public class WorksheetPresidentController extends AbstractController {
         HtmlColumn lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
-        Column born = row.getColumn("born");
+        HtmlColumn born = row.getColumn("born");
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
 
         // using an anonymous class to implement a custom editor
