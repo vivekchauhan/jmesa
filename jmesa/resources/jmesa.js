@@ -98,7 +98,7 @@ Limit.prototype.createHiddenInputFields = function(form) {
     }
 
     /* tip the API off that in the loop of working with the table */
-	$(form).append('<input type="hidden" name="' + limit.id + '_tl_" value="true"/>');
+	$(form).append('<input type="hidden" name="' + limit.id + '_tr_" value="true"/>');
 
 	/* the current page */
 	$(form).append('<input type="hidden" name="' + limit.id + '_p_" value="' + limit.page + '"/>');
@@ -125,7 +125,7 @@ Limit.prototype.createParameterString = function() {
 	var url = '';
 
     /* tip the API off that in the loop of working with the table */
-	url += limit.id + '_tl_=true';
+	url += limit.id + '_tr_=true';
 
     /* the current page */
 	url += limit.id + '_p_=' + limit.page;
@@ -294,39 +294,28 @@ function DynFilter(filter, id, property) {
 function createDynFilter(filter, id, property) {
     dynFilter = new DynFilter(filter, id, property);
     
-    if ($('#dynFilterDiv').size() > 0) {
-        return; // filter already created
-    }
-    
     var cell = $(filter);
     var width = cell.width();
-    
-    /* Get the original value from the filter. */
     var originalValue = cell.text();
-    cell.text('')
 
-    /* Create the dynamic filter input box. */
     cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="' + originalValue + '" /></div>');
 
     var input = $('#dynFilterInput');
     input.focus();
     
-    /* The event if press keys in the filter input box. */
     $(input).keypress(function(event) {
 	    if (event.keyCode == 13) { // press the enter key 
 	       var changedValue = input.val();
-	       cell.text(changedValue);
+	       cell.html(changedValue);
 	       addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
 	       onInvokeAction(dynFilter.id);
 	    }
     });
     
-    /* The event if leaves the filter input box. */
     $(input).blur(function() {
         var changedValue = input.val();
-        cell.text(changedValue);
+        cell.html(changedValue);
 	    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-	    $('#dynFilterDiv').remove();
     });
 }
 
@@ -434,39 +423,31 @@ function createWsColumn(column, id, uniqueProperties, property) {
     
     var cell = $(column);
     var width = cell.width();
-    
-    /* Must set the width of the outer <td> or the column will move as the cell dynamically changes. */
-    cell.parent().width(width);
-    
-    /* Get the original value from the column. */
     var originalValue = cell.text();
-    cell.text('')
     
-    /* Create the worksheet column input box. */
+    cell.parent().width(width); // set the outer width to avoid dynamic column width changes
+    
     cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + width + 'px" value="' + originalValue + '"/></div>');
     
     var input = $('#wsColumnInput'); 
     input.focus();
     
-    /* The event if press keys in the column input box. */
     $('#wsColumnInput').keypress(function(event) {
         if (event.keyCode == 13) { // press the enter key 
             var changedValue = input.val();
-            cell.text(changedValue);
+            cell.html(changedValue);
             if (changedValue != originalValue) {
                 submitWsColumn(originalValue, changedValue);
             }
         }
     });
     
-    /* The event if leaves the column input box. */
     $('#wsColumnInput').blur(function() {
         var changedValue = input.val();
-        cell.text(changedValue);
+        cell.html(changedValue);
         if (changedValue != originalValue) {
             submitWsColumn(originalValue, changedValue);
         }
-        $('#wsColumnDiv').remove();
     });
 }
 

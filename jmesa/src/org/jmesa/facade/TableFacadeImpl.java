@@ -127,7 +127,7 @@ import org.jmesa.worksheet.state.WorksheetState;
  */
 public class TableFacadeImpl implements TableFacade {
 
-    public static String TABLE_LOADED = "_tl_";
+    public static String TABLE_REFRESHING = "_tr_";
 
     public static String CSV = "csv";
     public static String EXCEL = "excel";
@@ -322,18 +322,20 @@ public class TableFacadeImpl implements TableFacade {
         }
         
         WorksheetState state = new SessionWorksheetState(id, getWebContext());
-        this.worksheet = state.retrieveWorksheet();
+        Worksheet ws = state.retrieveWorksheet();
         
-        if (worksheet == null || !isTableLoaded()) {
-            this.worksheet = new WorksheetImpl(id, getMessages());
+        if (worksheet == null || !isTableRefreshing()) {
+            ws = new WorksheetImpl(id, getMessages());
             state.persistWorksheet(worksheet);
         } 
+        
+        this.worksheet = new WorksheetWrapper(ws, getWebContext());
 
         return worksheet;
     }
     
-    private boolean isTableLoaded() {
-        String loaded = getWebContext().getParameter(id + TABLE_LOADED);
+    private boolean isTableRefreshing() {
+        String loaded = getWebContext().getParameter(id + TABLE_REFRESHING);
         if (StringUtils.isNotEmpty(loaded) && loaded.equals("true")) {
             return true;
         }

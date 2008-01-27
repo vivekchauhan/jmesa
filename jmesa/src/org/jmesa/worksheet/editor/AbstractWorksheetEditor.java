@@ -31,6 +31,7 @@ import org.jmesa.worksheet.state.WorksheetState;
  * @author Jeff Johnston
  */
 public abstract class AbstractWorksheetEditor extends AbstractCellEditor implements WorksheetEditor {
+    protected String UNIQUE_PROPERTIES = "up";
 
     private CellEditor cellEditor;
     
@@ -80,11 +81,11 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
         Row row = getColumn().getRow();
         Map<String, ?> uniqueProperties = row.getUniqueProperties(item);
 
-        sb.append("var uniqueProperties = {};");
+        sb.append("var " + UNIQUE_PROPERTIES + " = {};");
 
         for (String key : uniqueProperties.keySet()) {
             Object value = uniqueProperties.get(key);
-            sb.append("uniqueProperties['" + key + "']='" + value + "';");
+            sb.append(UNIQUE_PROPERTIES + "['" + key + "']='" + value + "';");
         }
 
         return sb.toString();
