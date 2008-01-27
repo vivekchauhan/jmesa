@@ -45,8 +45,6 @@ import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Create an editable worksheet.
@@ -55,8 +53,6 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class WorksheetPresidentController extends AbstractController {
-    private Logger logger = LoggerFactory.getLogger(WorksheetPresidentController.class);
-
     private PresidentService presidentService;
     private String successView;
     private String id; // the unique table id
@@ -99,7 +95,6 @@ public class WorksheetPresidentController extends AbstractController {
         table.getTableRenderer().setWidth("600px");
 
         HtmlRow row = table.getRow();
-        row.setHighlighter(false); // turn off highlighting of rows for better worksheet effect
         row.setUniqueProperties("id"); // the unique worksheet properties to identify the row
         
         HtmlColumn chkbox = row.getColumn("chkbox");
