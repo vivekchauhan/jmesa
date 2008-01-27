@@ -163,7 +163,7 @@
     font-size: 11px;
     padding: 0;
     margin: 0;
-    border-style: none;
+    border-bottom: 1px solid #c0c0c0;
     height: 15px;
     white-space: nowrap;
     cursor: pointer;
