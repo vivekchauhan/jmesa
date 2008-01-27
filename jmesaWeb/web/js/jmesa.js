@@ -92,25 +92,28 @@ Limit.prototype.setExport = function(exportType) {
 Limit.prototype.createHiddenInputFields = function(form) {
     var limit = this;
     
-    var exists = $(form).find(':hidden[@name=' + limit.id + '_' + 'p_' + ']').val();
+    var exists = $(form).find(':hidden[@name=' + limit.id + '_p_]').val();
     if (exists) {
         return false;
     }
 
+    /* tip the API off that in the loop of working with the table */
+	$(form).append('<input type="hidden" name="' + limit.id + '_tl_" value="true"/>');
+
 	/* the current page */
-	$(form).append('<input type="hidden" name="' + limit.id + '_' + 'p_' + '" value="' + limit.page + '"/>');
-    $(form).append('<input type="hidden" name="' + limit.id + '_' + 'mr_' + '" value="' + limit.maxRows + '"/>');
+	$(form).append('<input type="hidden" name="' + limit.id + '_p_" value="' + limit.page + '"/>');
+    $(form).append('<input type="hidden" name="' + limit.id + '_mr_" value="' + limit.maxRows + '"/>');
     
 	/* the sort objects */
 	var sortSet = limit.getSortSet();
 	$.each(sortSet, function(index, sort) {
-        $(form).append('<input type="hidden" name="' + limit.id + '_' + 's_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
+        $(form).append('<input type="hidden" name="' + limit.id + '_s_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
 	});
 
 	/* the filter objects */
 	var filterSet = limit.getFilterSet();
     $.each(filterSet, function(index, filter) {
-        $(form).append('<input type="hidden" name="' + limit.id + '_' + 'f_' + filter.property + '" value="' + filter.value + '"/>');
+        $(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + filter.value + '"/>');
     });
     
     return true;
@@ -121,27 +124,30 @@ Limit.prototype.createParameterString = function() {
 
 	var url = '';
 
-	/* the current page */
-	url += limit.id + '_' + 'p_=' + limit.page;
+    /* tip the API off that in the loop of working with the table */
+	url += limit.id + '_tl_=true';
+
+    /* the current page */
+	url += limit.id + '_p_=' + limit.page;
 
 	/* the max rows */
-	url += '&' + limit.id + '_' + 'mr_=' + limit.maxRows;
+	url += '&' + limit.id + '_mr_=' + limit.maxRows;
 	
 	/* the sort objects */
 	var sortSet = limit.getSortSet();
     $.each(sortSet, function(index, sort) {
-        url += '&' + limit.id + '_' + 's_' + sort.position + '_' + sort.property + '=' + sort.order;
+        url += '&' + limit.id + '_s_' + sort.position + '_' + sort.property + '=' + sort.order;
     });
 
 	/* the filter objects */
 	var filterSet = limit.getFilterSet();
     $.each(filterSet, function(index, filter) {
-        url += '&' + limit.id + '_' + 'f_' + filter.property + '=' + encodeURIComponent(filter.value);
+        url += '&' + limit.id + '_f_' + filter.property + '=' + encodeURIComponent(filter.value);
     });
 	
 	/* the export */
 	if (limit.exportType) {
-		url += '&' + limit.id + '_' + 'e_=' + limit.exportType;
+		url += '&' + limit.id + '_e_=' + limit.exportType;
 	}
 	
 	return url;
@@ -293,12 +299,11 @@ function createDynFilter(filter, id, property) {
     }
     
     var cell = $(filter);
+    var width = cell.width();
     
     /* Get the original value from the filter. */
     var originalValue = cell.text();
     cell.text('')
-    
-    var width = cell.width();
 
     /* Create the dynamic filter input box. */
     cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="' + originalValue + '" /></div>');
@@ -427,23 +432,18 @@ function WsColumn(column, id, uniqueProperties, property) {
 function createWsColumn(column, id, uniqueProperties, property) {
     wsColumn = new WsColumn(column, id, uniqueProperties, property);
     
-    /* If already have a column input box. */
-    if ($('#wsColumnDiv').size() > 0) {
-        return; //already created
-    }
-    
     var cell = $(column);
+    var width = cell.width();
     
-    cell.parent().removeAttr('style');
+    /* Must set the width of the outer <td> or the column will move as the cell dynamically changes. */
+    cell.parent().width(width);
     
     /* Get the original value from the column. */
     var originalValue = cell.text();
     cell.text('')
     
-    var width = cell.width();
-
     /* Create the worksheet column input box. */
-    cell.append('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + width + 'px" value="' + originalValue + '"/></div>');
+    cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + width + 'px" value="' + originalValue + '"/></div>');
     
     var input = $('#wsColumnInput'); 
     input.focus();
@@ -463,6 +463,9 @@ function createWsColumn(column, id, uniqueProperties, property) {
     $('#wsColumnInput').blur(function() {
         var changedValue = input.val();
         cell.text(changedValue);
+        if (changedValue != originalValue) {
+            submitWsColumn(originalValue, changedValue);
+        }
         $('#wsColumnDiv').remove();
     });
 }
