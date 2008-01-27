@@ -16,6 +16,7 @@
 package org.jmesa.facade;
 
 import static org.jmesa.core.CoreContextFactoryImpl.JMESA_PREFERENCES_LOCATION;
+import static org.jmesa.core.CoreContextFactoryImpl.JMESA_MESSAGES_LOCATION;
 import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
 
 import static org.jmesa.facade.TableFacadeExceptions.validateCoreContext;
@@ -35,6 +36,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.filter.FilterMatcher;
@@ -42,6 +44,7 @@ import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
+import org.jmesa.core.message.ResourceBundleMessages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.core.sort.ColumnSort;
@@ -74,10 +77,9 @@ import org.jmesa.view.pdf.PdfViewExporter;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
+import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -125,8 +127,8 @@ import org.slf4j.LoggerFactory;
  */
 public class TableFacadeImpl implements TableFacade {
 
-    private Logger logger = LoggerFactory.getLogger(TableFacadeImpl.class);
-    
+    public static String TABLE_LOADED = "_tl_";
+
     public static String CSV = "csv";
     public static String EXCEL = "excel";
     public static String JEXCEL = "jexcel";
@@ -321,8 +323,22 @@ public class TableFacadeImpl implements TableFacade {
         
         WorksheetState state = new SessionWorksheetState(id, getWebContext());
         this.worksheet = state.retrieveWorksheet();
+        
+        if (worksheet == null || !isTableLoaded()) {
+            this.worksheet = new WorksheetImpl(id, getMessages());
+            state.persistWorksheet(worksheet);
+        } 
 
         return worksheet;
+    }
+    
+    private boolean isTableLoaded() {
+        String loaded = getWebContext().getParameter(id + TABLE_LOADED);
+        if (StringUtils.isNotEmpty(loaded) && loaded.equals("true")) {
+            return true;
+        }
+        
+        return false;
     }
 
     public Limit getLimit() {
@@ -349,12 +365,6 @@ public class TableFacadeImpl implements TableFacade {
 
         this.limit = l;
 
-        if (logger.isDebugEnabled()) {
-            if (limit.getRowSelect() == null) {
-                logger.debug("The RowSelect is not set on the Limit. Be sure to set the totalRows on the facade.");
-            }
-        }
-
         return limit;
     }
 
@@ -365,20 +375,6 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public RowSelect setTotalRows(int totalRows) {
-        return setRowSelect(getMaxRows(), totalRows);
-    }
-
-    /**
-     * <p>
-     * Use the setTotalRows method, which should be easier to understand. Be sure to set the maxRows on the 
-     * facade after constructing a new TableFacadeImpl object.
-     * </p>
-     * 
-     * @deprecated Replaced by {@link #setTotalRows(int)}
-     */
-    @Deprecated public RowSelect setRowSelect(int maxRows, int totalRows) {
-        this.maxRows = maxRows;
-
         RowSelect rowSelect;
 
         Limit l = getLimit();
@@ -388,11 +384,7 @@ public class TableFacadeImpl implements TableFacade {
             l.setRowSelect(rowSelect);
         } else {
             LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
-            rowSelect = limitFactory.createRowSelect(maxRows, totalRows, l);
-        }
-
-        if (logger.isDebugEnabled()) {
-            logger.debug("The RowSelect is now set on the Limit.");
+            rowSelect = limitFactory.createRowSelect(getMaxRows(), totalRows, l);
         }
 
         return rowSelect;
@@ -409,6 +401,17 @@ public class TableFacadeImpl implements TableFacade {
         
         this.performFilterAndSort = performFilterAndSort;
     }
+    
+    Messages getMessages() {
+        if (messages != null) {
+            return messages;
+        }
+
+        WebContext wc = getWebContext();
+        String jmesaMessagesLocation = (String) wc.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
+        this.messages = new ResourceBundleMessages(jmesaMessagesLocation, wc);
+        return messages;
+    }
 
     public void setMessages(Messages messages) {
         validateCoreContext(coreContext, "Messages");
@@ -417,9 +420,6 @@ public class TableFacadeImpl implements TableFacade {
         SupportUtils.setWebContext(messages, getWebContext());
     }
 
-    /**
-     * @return Get the preferences if they are not set.
-     */
     Preferences getPreferences() {
         if (preferences != null) {
             return preferences;
@@ -483,9 +483,6 @@ public class TableFacadeImpl implements TableFacade {
         this.items = items;
     }
 
-    /**
-     * @return Get the maxRows if they are not set.
-     */
     int getMaxRows() {
         if (maxRows == 0) {
             Preferences pref = getPreferences();
@@ -516,8 +513,8 @@ public class TableFacadeImpl implements TableFacade {
         validateItems(items);
 
         CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
-        factory.setPreferences(preferences);
-        factory.setMessages(messages);
+        factory.setPreferences(getPreferences());
+        factory.setMessages(getMessages());
         factory.setColumnSort(columnSort);
         factory.setRowFilter(rowFilter);
 
