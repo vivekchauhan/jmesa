@@ -1,9 +1,56 @@
 The JMesa 2.3 release should be out the first quarter of 2008.
 
-== Features ==
-
-The primary feature will be inclusion of the [Worksheet] functionality!
-
 http://jmesa.org/wiki/images/worksheet-save.gif
 
-*01/27/07:* The first alpha release of the worksheet functionality is out!
+ * *01/27/07:* The first alpha release of the worksheet functionality is out!
+
+==== Setup ====
+
+First you need to set up the servlet:
+
+{{{
+<servlet>
+    <servlet-name>worksheet</servlet-name>
+    <servlet-class>org.jmesa.worksheet.servlet.WorksheetServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>worksheet</servlet-name>
+    <url-pattern>*.wrk</url-pattern>
+</servlet-mapping>
+}}}
+
+==== Set Table to be Editable ====
+
+Then set the table to be editable:
+
+{{{
+tableFacade.setEditable(true);
+
+// the unique worksheet properties to identify the row
+row.setUniqueProperties("id"); 
+}}}
+
+==== Retrieving Values ====
+
+Working with the worksheet makes working with an editable table clean and effortless. The following shows how you would iterate over the worksheet to see what was changed.
+
+{{{
+private void saveWorksheet(TableFacade tableFacade) {
+    Worksheet worksheet = tableFacade.getWorksheet();
+
+    if (worksheet.isSaved()) {
+        logger.debug("******Saving the worksheet!********");
+
+        Collection<WorksheetRow> worksheetRows = worksheet.getRows();
+        for (WorksheetRow worksheetRow : worksheetRows) {
+            logger.debug("the unique properties are " + worksheetRow.getUniqueProperties());
+
+            Collection<WorksheetColumn> worksheetColumns = worksheetRow.getColumns();
+            for (WorksheetColumn worksheetColumn : worksheetColumns) {
+                logger.debug("changed value [" + worksheetColumn.getChangedValue() + "] -- original value [" + worksheetColumn.getOriginalValue() + "]");
+            }
+        }
+        worksheet.removeAllChanges();
+    }
+}
+}}}
