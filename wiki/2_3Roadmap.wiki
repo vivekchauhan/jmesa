@@ -2,7 +2,7 @@ The JMesa 2.3 release should be out the first quarter of 2008. For more informat
 
 http://jmesa.org/wiki/images/worksheet-save.gif
 
- * *01/27/07:* The first alpha release of the worksheet functionality is out! If you are interested in testing it out and offering feedback it can be [http://builds.jmesa.org/ downloaded] from my Go Daddy site.
+ * *01/27/2008:* The first alpha release of the worksheet functionality is out! If you are interested in testing it out and offering feedback it can be [http://builds.jmesa.org/ downloaded] from my Go Daddy site.
 
 _The example [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java  source code] is checked into the web project. Be sure to look at that for a better idea on how to work with the worksheet functionality. Also note that so far the functionality has only been tested on Firefox using [http://www.ubuntu.com/ Ubuntu] Linux._
 
