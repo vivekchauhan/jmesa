@@ -31,18 +31,18 @@ public class WorksheetTest {
     @Test
     public void removeRow() {
 
-        Map<String, Object> firstRowMap = new HashMap<String, Object>();
-        firstRowMap.put("id", 1);
+        Map<String, String> firstRowMap = new HashMap<String, String>();
+        firstRowMap.put("id", "1");
         WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
         firstRow.setRowStatus(WorksheetRowStatus.ADD);
 
-        Map<String, Object> secondRowMap = new HashMap<String, Object>();
-        secondRowMap.put("id", 2);
+        Map<String, String> secondRowMap = new HashMap<String, String>();
+        secondRowMap.put("id", "2");
         WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
         secondRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
-        Map<String, Object> thirdRowMap = new HashMap<String, Object>();
-        thirdRowMap.put("id", 3);
+        Map<String, String> thirdRowMap = new HashMap<String, String>();
+        thirdRowMap.put("id", "3");
         WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
         thirdRow.setRowStatus(WorksheetRowStatus.DELETE);
 
@@ -58,7 +58,9 @@ public class WorksheetTest {
         assertTrue("The rows are not accounted for.", worksheet.getRows().size() == 2);
 
         Iterator<WorksheetRow> iter = worksheet.getRows().iterator();
-        assertTrue("The first row exists.", iter.next().getRowStatus() == WorksheetRowStatus.ADD);
-        assertTrue("The third row exists.", iter.next().getRowStatus() == WorksheetRowStatus.DELETE);
+        WorksheetRowStatus status = iter.next().getRowStatus();
+        assertTrue("The first row exists.",  status == WorksheetRowStatus.ADD || status == WorksheetRowStatus.DELETE);
+        status = iter.next().getRowStatus();
+        assertTrue("The third row exists.",  status == WorksheetRowStatus.ADD || status == WorksheetRowStatus.DELETE);
     }
 }

@@ -69,16 +69,16 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
     }
 
     private Worksheet getWorksheet() {
-        Map<String, Object> firstRowMap = new HashMap<String, Object>();
-        firstRowMap.put("id", 1);
+        Map<String, String> firstRowMap = new HashMap<String, String>();
+        firstRowMap.put("id", "1");
         WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
 
-        Map<String, Object> secondRowMap = new HashMap<String, Object>();
-        secondRowMap.put("id", 2);
+        Map<String, String> secondRowMap = new HashMap<String, String>();
+        secondRowMap.put("id", "2");
         WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
 
-        Map<String, Object> thirdRowMap = new HashMap<String, Object>();
-        thirdRowMap.put("id", 3);
+        Map<String, String> thirdRowMap = new HashMap<String, String>();
+        thirdRowMap.put("id", "3");
         WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
 
         Worksheet worksheet = new WorksheetImpl(ID, null);
