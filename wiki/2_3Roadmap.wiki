@@ -1,4 +1,4 @@
-The JMesa 2.3 release should be out the first quarter of 2008.
+The JMesa 2.3 release should be out the first quarter of 2008. For more information about the worksheet you can read the [Worksheet specs] page.
 
 http://jmesa.org/wiki/images/worksheet-save.gif
 
@@ -8,7 +8,7 @@ _The example [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/co
 
 ==== Setup ====
 
-First you need to set up the servlet:
+First you need to set up the servlet. The servlet is used with AJAX technology to update the worksheet as the user is interacting with the table. That way there are no page refreshes for the current page someone is editing.
 
 {{{
 <servlet>
