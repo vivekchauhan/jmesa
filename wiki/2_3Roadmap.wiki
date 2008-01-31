@@ -4,6 +4,8 @@ http://jmesa.org/wiki/images/worksheet-save.gif
 
  * *01/27/2008:* The first alpha release of the worksheet functionality is out! If you are interested in testing it out and offering feedback it is available in the downloads section of this site (jmesa-2.3_08.01.27.zip). Just know that this is very new though, and considered alpha software. It is also missing core functionality like error messaging, but I expect to get that done soon!
 
+*After you get the chance to work with the worksheet be sure to send me an email with any feedback you have. It could be as simple as just letting me know its working, or not working! You can just email me directly at extremecomponents@gmail.com.*
+
 _The example [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java  source code] is checked into the web project. Be sure to look at that for a better idea on how to work with the worksheet functionality. Also note that so far the functionality has only been tested on Firefox using [http://www.ubuntu.com/ Ubuntu] Linux. Throughout the week I will be updating the wiki to give better instructions on how the worksheet functions._
 
 ==== Setup ====
