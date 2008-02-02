@@ -31,3 +31,11 @@ Drop Shadow option for table, which gives a nice aesthetic effect (shown above).
 	});
 </script>
 }}}
+
+You can also change how far the dropshadow extends by modifying the dropShadow attribute in the jmesa.css file.
+
+{{{
+.jmesa .dropShadow {
+    padding: 10px 14px 14px 10px;
+}
+}}}
