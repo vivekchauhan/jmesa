@@ -30,12 +30,6 @@ import java.util.Collection;
 public interface SortSet {
     /**
      * @return Is true if there are any columns that need to be sorted.
-     * @deprecated Replaced by {@link #isSorted()}
-     */
-    @Deprecated public boolean isSortable();
-    
-    /**
-     * @return Is true if there are any columns that need to be sorted.
      */
     public boolean isSorted();
     

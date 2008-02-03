@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jmesa.limit.Action;
+import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
 
 /**
@@ -71,8 +72,17 @@ public class ParametersBuilder {
         parameters.addParameter(key, new String[] { order.toParam() });
     }
 
+    /**
+     * @deprecated Replaced by {@link #setExportType(ExportType)}
+     */
+    @Deprecated
     public void setExport(String exportType) {
         String key = prefixId + Action.EXPORT.toParam();
         parameters.addParameter(key, exportType);
+    }
+    
+    public void setExportType(ExportType exportType) {
+        String key = prefixId + Action.EXPORT.toParam();
+        parameters.addParameter(key, exportType.toParam());
     }
 }

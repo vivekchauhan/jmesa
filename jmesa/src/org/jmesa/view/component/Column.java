@@ -33,11 +33,6 @@ public interface Column {
 
     public void setTitleKey(String key);
 
-    /**
-     * @deprecated Replaced by {@link #setTitleKey(String)}
-     */
-    @Deprecated public void setTitle(String title, boolean message);
-
     public CellRenderer getCellRenderer();
 
     public void setCellRenderer(CellRenderer cellRenderer);

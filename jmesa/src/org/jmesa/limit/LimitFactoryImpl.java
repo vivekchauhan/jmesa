@@ -126,10 +126,6 @@ public class LimitFactoryImpl implements LimitFactory {
         ExportType exportType = limitActionFactory.getExportType();
         limit.setExportType(exportType);
         
-        // just keep so existing code still works.
-        Export export = limitActionFactory.getExport();
-        limit.setExport(export);
-
         if (state != null && !limit.isExported()) {
             state.persistLimit(limit);
         }
