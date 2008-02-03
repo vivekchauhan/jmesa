@@ -26,7 +26,6 @@ public class LimitImpl implements Limit {
     private RowSelect rowSelect;
     private FilterSet filterSet;
     private SortSet sortSet;
-    private Export export;
     private ExportType exportType;
 
     /**
@@ -64,31 +63,10 @@ public class LimitImpl implements Limit {
         this.rowSelect = rowSelect;
     }
 
-    /**
-     * @deprecated Replaced by {@link #isExported()}
-     */
-    @Deprecated public boolean isExportable() {
-        return isExported();
-    }
-
     public boolean isExported() {
         return getExportType() != null;
     }
 
-    /**
-     * @deprecated Replaced by {@link #getExportType()}
-     */
-    @Deprecated public Export getExport() {
-        return export;
-    }
-
-    /**
-     * @deprecated Replaced by {@link #setExportType(ExportType)}
-     */
-    @Deprecated public void setExport(Export export) {
-        this.export = export;
-    }
-    
     public ExportType getExportType() {
         return exportType;
     }
@@ -109,7 +87,7 @@ public class LimitImpl implements Limit {
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("id", getId());
-        builder.append("export", getExport());
+        builder.append("export", getExportType());
         builder.append("rowSelect", getRowSelect());
         builder.append("filterSet", getFilterSet());
         builder.append("sortSet", getSortSet());

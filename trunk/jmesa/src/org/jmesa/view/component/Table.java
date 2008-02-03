@@ -28,11 +28,6 @@ public interface Table {
 
     public void setCaptionKey(String key);
 
-    /**
-     * @deprecated Replaced by {@link #setCaptionKey(String)}
-     */
-    @Deprecated public void setCaption(String caption, boolean message);
-
     public Row getRow();
 
     public void setRow(Row row);

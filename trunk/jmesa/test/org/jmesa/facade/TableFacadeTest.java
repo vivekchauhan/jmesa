@@ -30,6 +30,7 @@ import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -66,7 +67,9 @@ public class TableFacadeTest extends AbstractTestCase {
     public void createHtmlTableFacade() {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         String html = facade.render();
         assertNotNull(html);
         assertTrue("There is no html rendered", html.length() > 0);
@@ -76,7 +79,9 @@ public class TableFacadeTest extends AbstractTestCase {
     public void getWebContext() {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         WebContext webContext = facade.getWebContext();
         assertNotNull(webContext);
@@ -90,7 +95,8 @@ public class TableFacadeTest extends AbstractTestCase {
     @Test
     public void getCoreContextWithItemsNotSet() {
         HttpServletRequest request = new MockHttpServletRequest();
-        TableFacade facade = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         try {
             facade.getCoreContext();
@@ -104,7 +110,9 @@ public class TableFacadeTest extends AbstractTestCase {
     public void getCoreContext() {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         CoreContext coreContext = facade.getCoreContext();
         assertNotNull(coreContext);
@@ -124,7 +132,9 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.addFilter("born", "1732/02");
 
-        TableFacade facade = new TableFacadeImpl(ID, request, 15, items, "name.firstName", "name.lastName", "term", "career", "born");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
 
         MatcherKey key = new MatcherKey(Date.class);
         DateFilterMatcher matcher = new DateFilterMatcher("yyyy/MM", facade.getWebContext());
@@ -142,7 +152,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("restore", "true");
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         facade.setStateAttr("restore");
         Limit limit = facade.getLimit();
         assertNotNull(limit);
@@ -167,14 +179,16 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport(TableFacadeImpl.CSV);
+        builder.setExportType(ExportType.CSV);
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
-        assertTrue("The limit is not exportable.", limit.isExportable());
+        assertTrue("The limit is not exportable.", limit.isExported());
         assertTrue("The limit maxRows is not the same as the totalRows.", limit.getRowSelect().getMaxRows() == limit.getRowSelect().getTotalRows());
     }
 
@@ -183,12 +197,14 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
 
         HttpServletRequest request = new MockHttpServletRequest();
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
-        assertTrue("The limit is exportable.", !limit.isExportable());
+        assertTrue("The limit is exportable.", !limit.isExported());
         assertTrue("The limit maxRows is the same as the totalRows.", limit.getRowSelect().getMaxRows() != limit.getRowSelect().getTotalRows());
     }
 
@@ -197,7 +213,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         facade.setStateAttr("restore");
 
         Limit limit = facade.getLimit();
@@ -205,7 +223,9 @@ public class TableFacadeTest extends AbstractTestCase {
         assertNotNull(limit.getRowSelect());
         assertNotNull(request.getSession().getAttribute("pres_LIMIT"));
 
-        TableFacade facadeWithState = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facadeWithState = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
         facadeWithState.setStateAttr("restore");
         request.addParameter("restore", "true");
 
@@ -218,24 +238,27 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport(TableFacadeImpl.CSV);
+        builder.setExportType(ExportType.CSV);
 
         Collection<President> items = new PresidentDao().getPresidents();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         facade.setTotalRows(items.size());
 
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
-        assertTrue("The limit is not exportable.", limit.isExportable());
+        assertTrue("The limit is not exportable.", limit.isExported());
         assertTrue("The limit maxRows is not the same as the totalRows.", limit.getRowSelect().getMaxRows() == limit.getRowSelect().getTotalRows());
     }
 
     @Test
     public void getTableAndNoRowSelect() {
         HttpServletRequest request = new MockHttpServletRequest();
-        TableFacade facade = new TableFacadeImpl("pres", request, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         try {
             facade.getTable();
@@ -250,7 +273,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         Table table = facade.getTable();
         assertNotNull(table);
     }
@@ -260,31 +285,15 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport(TableFacadeImpl.CSV);
+        builder.setExportType(ExportType.CSV);
 
         Collection<President> items = new PresidentDao().getPresidents();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         Table table = facade.getTable();
         assertNotNull(table);
-    }
-
-    @Test
-    public void getTableAndUnknownExportable() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        SpringParametersAdapter parameters = new SpringParametersAdapter(request);
-        ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport("foo"); // an invalid export
-
-        Collection<President> items = new PresidentDao().getPresidents();
-
-        TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
-        try {
-            facade.getTable();
-            fail("Should be an invalid facade.");
-        } catch (IllegalStateException e) {
-        // pass
-        }
     }
 
     @Test
@@ -292,7 +301,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         Toolbar toolbar = facade.getToolbar();
         assertNotNull(toolbar);
@@ -310,7 +321,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         facade.setMaxRowsIncrements(15, 25, 50, 75);
 
         Toolbar toolbar = facade.getToolbar();
@@ -322,7 +335,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         View view = facade.getView();
         assertNotNull(view);
@@ -337,11 +352,13 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport(TableFacadeImpl.CSV);
+        builder.setExportType(ExportType.CSV);
 
         Collection<President> items = new PresidentDao().getPresidents();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         View view = facade.getView();
         assertNotNull(view);
         assertTrue(view instanceof CsvView);
@@ -352,7 +369,9 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         String html = facade.render();
         assertNotNull(html);
@@ -364,7 +383,8 @@ public class TableFacadeTest extends AbstractTestCase {
         Collection<President> items = new PresidentDao().getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, 15, items);
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
 
         HtmlComponentFactory factory = new HtmlComponentFactory(facade.getWebContext(), facade.getCoreContext());
 
@@ -394,16 +414,17 @@ public class TableFacadeTest extends AbstractTestCase {
 
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport(TableFacadeImpl.EXCEL);
+        builder.setExportType(ExportType.EXCEL);
 
-        TableFacade facade = new TableFacadeImpl(ID, request, items);
-        facade.setExportTypes(response, TableFacadeImpl.EXCEL);
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setExportTypes(response, ExportType.EXCEL);
 
         Limit limit = facade.getLimit();
-        assertTrue("The limit is not exportable", limit.isExportable());
+        assertTrue("The limit is not exportable", limit.isExported());
 
-        if (limit.isExportable()) {
-            assertTrue("The limit is not an Excel file.", limit.getExport().getType().equals(TableFacadeImpl.EXCEL));
+        if (limit.isExported()) {
+            assertTrue("The limit is not an Excel file.", limit.getExportType() == ExportType.EXCEL);
 
             ExcelComponentFactory factory = new ExcelComponentFactory(facade.getWebContext(), facade.getCoreContext());
 
@@ -427,15 +448,17 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport(TableFacadeImpl.CSV);
+        builder.setExportType(ExportType.CSV);
 
         Collection<President> items = new PresidentDao().getPresidents();
 
-        TableFacade facade = new TableFacadeImpl("pres", request, items, "name.firstName", "name.lastName", "term", "career");
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        facade.setItems(items);
+        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
         MockHttpServletResponse response = new MockHttpServletResponse();
         assertTrue("The response is not empty.", response.getContentAsByteArray().length == 0);
-        facade.setExportTypes(response, TableFacadeImpl.CSV, TableFacadeImpl.EXCEL);
+        facade.setExportTypes(response, ExportType.CSV, ExportType.EXCEL);
 
         String markup = facade.render();
         assertNull(markup);

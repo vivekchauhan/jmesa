@@ -94,6 +94,6 @@ public class CsvViewTest extends AbstractTestCase {
 
     private void createBuilder(Parameters parameters) {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExport("csv");
+        builder.setExportType(ExportType.CSV);
     }
 }
