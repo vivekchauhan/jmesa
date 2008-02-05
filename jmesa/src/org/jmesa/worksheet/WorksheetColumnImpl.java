@@ -67,6 +67,10 @@ public class WorksheetColumnImpl implements WorksheetColumn {
     public boolean hasError() {
         return StringUtils.isNotBlank(error);
     }
+    
+    public void removeError() {
+        this.error = null;
+    }
 
     /**
      * Equality is based on the property. In other words no two Column Objects can have the same

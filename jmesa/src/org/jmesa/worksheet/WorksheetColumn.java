@@ -77,4 +77,9 @@ public interface WorksheetColumn {
      * @return Is true if an error is set.
      */
     public boolean hasError();
+    
+    /**
+     * Remove the error that was previously set.
+     */
+    public void removeError();
 }
