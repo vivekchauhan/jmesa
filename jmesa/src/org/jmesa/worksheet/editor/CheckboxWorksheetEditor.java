@@ -18,6 +18,7 @@ package org.jmesa.worksheet.editor;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.editor.*;
+import org.jmesa.worksheet.WorksheetColumn;
 
 /**
  * Defines a checkbox for the worksheet editor.
@@ -35,9 +36,12 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
         
         html.input().type("checkbox");
         
-        String value = getChangedValue(item, property);
-        if (value != null && value.equals(CHECKED)) {
-            html.checked();
+        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
+        if (worksheetColumn != null) {
+            String value = worksheetColumn.getChangedValue();
+            if (value != null && value.equals(CHECKED)) {
+                html.checked();
+            }
         }
         
         html.onclick(getUniquePropertiesJavaScript(item) + "submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTIES + ",'" 

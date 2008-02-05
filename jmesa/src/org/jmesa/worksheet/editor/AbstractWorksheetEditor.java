@@ -48,8 +48,13 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
     public void setCellEditor(CellEditor cellEditor) {
         this.cellEditor = cellEditor;
     }
-    
-    protected String getChangedValue(Object item, String property) {
+
+    /**
+     * @param item The Bean or Map.
+     * @param property The column property.
+     * @return The WorksheetColumn for this column.
+     */
+    protected WorksheetColumn getWorksheetColumn(Object item, String property) {
         WorksheetState worksheetState = getCoreContext().getWorksheetState();
         Worksheet worksheet = worksheetState.retrieveWorksheet();
         if (worksheet == null) {
@@ -63,12 +68,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
             return null;
         }
         
-        WorksheetColumn worksheetColumn = worksheetRow.getColumn(property);
-        if (worksheetColumn != null) {
-            return worksheetColumn.getChangedValue();
-        }
-        
-        return null;
+        return worksheetRow.getColumn(property);
     }
     
     /**

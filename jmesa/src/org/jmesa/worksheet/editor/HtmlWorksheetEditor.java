@@ -17,6 +17,7 @@ package org.jmesa.worksheet.editor;
 
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.worksheet.WorksheetColumn;
 
 /**
  * Deals with CellEditors when the the table is being used as an editable worksheet. Wraps an
@@ -32,28 +33,37 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */
     public Object getValue(Object item, String property, int rowcount) {
-
-        Object value = getChangedValue(item, property);
-
-        if (value == null) {
+        
+        Object value = null;
+        
+        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
+        if (worksheetColumn != null) {
+            value = worksheetColumn.getChangedValue();
+        } else {
             value = getCellEditor().getValue(item, property, rowcount);
         }
 
-        return getWsColumn(value, item);
+        return getWsColumn(worksheetColumn, value, item);
     }
 
-    private String getWsColumn(Object columnValue, Object item) {
+    private String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item) {
         HtmlBuilder html = new HtmlBuilder();
 
         Limit limit = getCoreContext().getLimit();
 
-        html.div().styleClass("wsColumn");
-//        html.onmouseover("if ($('#wsColumnDiv').size() > 0){return;};$(this).parent().css('border-color', '#605a54')");
-//        html.onmouseout("$(this).parent().removeAttr('style')");
+        html.div();
+        
+        if (worksheetColumn != null && worksheetColumn.hasError()) {
+            html.styleClass("wsColumnError");
+            html.title(worksheetColumn.getError());
+        } else {
+            html.styleClass("wsColumn");
+        }
+        
         html.onclick(getUniquePropertiesJavaScript(item) + "createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTIES+ ",'" 
             + getColumn().getProperty() + "')");
         html.close();
-        html.append(columnValue);
+        html.append(value);
         html.divEnd();
 
         return html.toString();

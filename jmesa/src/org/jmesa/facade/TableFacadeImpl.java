@@ -282,9 +282,7 @@ public class TableFacadeImpl implements TableFacade {
             return messages;
         }
 
-        WebContext wc = getWebContext();
-        String jmesaMessagesLocation = (String) wc.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
-        this.messages = new ResourceBundleMessages(jmesaMessagesLocation, wc);
+        this.messages = TableFacadeUtils.getMessages(getWebContext());
         return messages;
     }
 
