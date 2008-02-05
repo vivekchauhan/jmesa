@@ -169,7 +169,21 @@
     cursor: pointer;
 }
 
-.jmesa .wsColumn #wsColumnDiv {
+.jmesa .wsColumnError {
+    position: relative;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    font-style: italic;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ec4646;
+    height: 15px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.jmesa #wsColumnDiv {
     position: absolute;
     top: -2px;
     left: -2px;
@@ -180,7 +194,7 @@
     background-color: #ededed;
 }
 
-.jmesa .wsColumn #wsColumnInput {
+.jmesa #wsColumnInput {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 12px;
     padding: 0;

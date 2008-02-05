@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.message.Messages;
+import org.jmesa.facade.TableFacadeUtils;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
@@ -54,13 +56,13 @@ public class WorksheetServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         WebContext webContext = new HttpServletRequestWebContext(request);
-
-        Worksheet worksheet = getWorksheet(webContext);
+        Messages messages = TableFacadeUtils.getMessages(webContext);
+        Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow row = getWorksheetRow(worksheet, webContext);
-        setWorksheetColumn(row, webContext);
+        setWorksheetColumn(row, messages, webContext);
     }
 
-    Worksheet getWorksheet(WebContext webContext) {
+    Worksheet getWorksheet(Messages messages, WebContext webContext) {
         String id = webContext.getParameter("id");
 
         WorksheetState state = new SessionWorksheetState(id, webContext);
@@ -68,7 +70,7 @@ public class WorksheetServlet extends HttpServlet {
         Worksheet worksheet = state.retrieveWorksheet();
 
         if (worksheet == null) {
-            worksheet = new WorksheetImpl(id, null);
+            worksheet = new WorksheetImpl(id, messages);
             state.persistWorksheet(worksheet);
         }
 
@@ -102,7 +104,7 @@ public class WorksheetServlet extends HttpServlet {
         return row;
     }
 
-    void setWorksheetColumn(WorksheetRow row, WebContext webContext) {
+    void setWorksheetColumn(WorksheetRow row, Messages messages, WebContext webContext) {
 
         String property = webContext.getParameter(COLUMN_PROPERTY);
 
@@ -110,7 +112,7 @@ public class WorksheetServlet extends HttpServlet {
         if (column == null) {
             String orginalValue = webContext.getParameter(ORIGINAL_VALUE);
             System.out.println("The column original value is: " + property + " - " + orginalValue);
-            column = new WorksheetColumnImpl(property, orginalValue, null);
+            column = new WorksheetColumnImpl(property, orginalValue, messages);
             row.addColumn(column);
         }
 
