@@ -22,8 +22,8 @@ import org.jmesa.limit.Limit;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SaveItemRenderer extends AbstractItemRenderer {
-    public SaveItemRenderer(ToolbarItem item, CoreContext coreContext) {
+public class FilterWorksheetItemRenderer extends AbstractItemRenderer {
+    public FilterWorksheetItemRenderer(ToolbarItem item, CoreContext coreContext) {
         setToolbarItem(item);
         setCoreContext(coreContext);
     }
@@ -33,7 +33,7 @@ public class SaveItemRenderer extends AbstractItemRenderer {
 
         ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
-        action.append("setSaveToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
+        action.append("setFilterToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 
         return item.enabled();

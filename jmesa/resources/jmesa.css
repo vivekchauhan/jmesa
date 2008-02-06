@@ -177,7 +177,7 @@
     font-weight: bold;
     padding: 0;
     margin: 0;
-    border-bottom: 1px solid #ec4646;
+    border-bottom: 1px dashed #ec4646;
     height: 15px;
     white-space: nowrap;
     cursor: pointer;

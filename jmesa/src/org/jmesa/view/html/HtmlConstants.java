@@ -64,10 +64,10 @@ public class HtmlConstants {
     public final static String TOOLBAR_IMAGE_PREV_PAGE_DISABLED = "html.toolbar.image.prevPageDisabled";
     public final static String TOOLBAR_IMAGE_FILTER = "html.toolbar.image.filter";
     public final static String TOOLBAR_IMAGE_SEPARATOR = "html.toolbar.image.separator";
-    public final static String TOOLBAR_IMAGE_SAVE = "html.toolbar.image.save";
-    public final static String TOOLBAR_IMAGE_UNDO = "html.toolbar.image.undo";
-    public final static String TOOLBAR_IMAGE_SAVE_DISABLED = "html.toolbar.image.saveDisabled";
-    public final static String TOOLBAR_IMAGE_UNDO_DISABLED = "html.toolbar.image.undoDisabled";
+    public final static String TOOLBAR_IMAGE_SAVE_WORKSHEET = "html.toolbar.image.saveWorksheet";
+    public final static String TOOLBAR_IMAGE_FILTER_WORKSHEET = "html.toolbar.image.filterWorksheet";
+    public final static String TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED = "html.toolbar.image.saveWorksheetDisabled";
+    public final static String TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED = "html.toolbar.image.filterWorksheetDisabled";
 
     // toolbar text tooltip messages
     public final static String TOOLBAR_TOOLTIP = "html.toolbar.tooltip.";
@@ -77,8 +77,8 @@ public class HtmlConstants {
     public final static String TOOLBAR_TOOLTIP_NEXT_PAGE = "html.toolbar.tooltip.nextPage";
     public final static String TOOLBAR_TOOLTIP_FILTER = "html.toolbar.tooltip.filter";
     public final static String TOOLBAR_TOOLTIP_CLEAR = "html.toolbar.tooltip.clear";
-    public final static String TOOLBAR_TOOLTIP_SAVE = "html.toolbar.tooltip.save";
-    public final static String TOOLBAR_TOOLTIP_UNDO = "html.toolbar.tooltip.undo";
+    public final static String TOOLBAR_TOOLTIP_SAVE_WORKSHEET = "html.toolbar.tooltip.saveWorksheet";
+    public final static String TOOLBAR_TOOLTIP_FILTER_WORKSHEET = "html.toolbar.tooltip.filterWorksheet";
 
     // toolbar text messages
     public final static String TOOLBAR_TEXT_FIRST_PAGE = "html.toolbar.text.firstPage";
@@ -88,8 +88,8 @@ public class HtmlConstants {
     public final static String TOOLBAR_TEXT_FILTER = "html.toolbar.text.filter";
     public final static String TOOLBAR_TEXT_CLEAR = "html.toolbar.text.clear";
     public final static String TOOLBAR_TEXT_MAX_ROWS_DROPLIST = "html.toolbar.text.maxRowsDroplist";
-    public final static String TOOLBAR_TEXT_SAVE = "html.toolbar.text.save";
-    public final static String TOOLBAR_TEXT_UNDO = "html.toolbar.text.undo";
+    public final static String TOOLBAR_TEXT_SAVE_WORKSHEET = "html.toolbar.text.saveWorksheet";
+    public final static String TOOLBAR_TEXT_FILTER_WORKSHEET = "html.toolbar.text.filterWorksheet";
 
     // statusbar text messages
     public final static String STATUSBAR_RESULTS_FOUND = "html.statusbar.resultsFound";

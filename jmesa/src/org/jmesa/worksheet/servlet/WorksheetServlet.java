@@ -52,6 +52,7 @@ public class WorksheetServlet extends HttpServlet {
     private static String ORIGINAL_VALUE = "ov_";
     private static String CHANGED_VALUE = "cv_";
     public static String SAVE_WORKSHEET = "sw_";
+    public static String FILTER_WORKSHEET = "fw_";
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
