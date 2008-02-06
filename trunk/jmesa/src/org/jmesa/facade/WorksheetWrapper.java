@@ -19,10 +19,10 @@ import static org.jmesa.worksheet.servlet.WorksheetServlet.SAVE_WORKSHEET;
 import static org.jmesa.worksheet.servlet.WorksheetServlet.FILTER_WORKSHEET;
 
 import java.util.Collection;
-import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.message.Messages;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetRow;
 
@@ -50,8 +50,8 @@ public class WorksheetWrapper implements Worksheet {
         return worksheet.getMessages();
     }
 
-    public WorksheetRow getRow(Map<String, String> uniqueProperties) {
-        return worksheet.getRow(uniqueProperties);
+    public WorksheetRow getRow(UniqueProperty uniqueProperty) {
+        return worksheet.getRow(uniqueProperty);
     }
 
     public void addRow(WorksheetRow row) {

@@ -18,10 +18,10 @@ package org.jmesa.worksheet.servlet;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
 
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetRowImpl;
@@ -43,15 +43,15 @@ public class WorksheetServletTest {
         
         WebContext webContext = new HttpServletRequestWebContext(request);
 
-        Worksheet worksheet = servlet.getWorksheet(webContext);
+        Worksheet worksheet = servlet.getWorksheet(null, webContext);
         
-        WorksheetRow row = new WorksheetRowImpl(new HashMap<String, String>());
+        WorksheetRow row = new WorksheetRowImpl(new UniqueProperty(null, null));
         worksheet.addRow(row);
 
         assertNotNull(worksheet);
         assertTrue("There are no rows in the worksheet.", worksheet.getRows().size() == 1);
         
-        Worksheet worksheet2 = servlet.getWorksheet(webContext);
+        Worksheet worksheet2 = servlet.getWorksheet(null, webContext);
         assertNotNull(worksheet2);
         assertTrue("Did not return the same worksheet.", worksheet == worksheet2);
     }

@@ -15,7 +15,6 @@
  */
 package org.jmesa.worksheet.servlet;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -27,6 +26,7 @@ import org.jmesa.core.message.Messages;
 import org.jmesa.facade.TableFacadeUtils;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetColumnImpl;
@@ -81,28 +81,28 @@ public class WorksheetServlet extends HttpServlet {
     }
 
     WorksheetRow getWorksheetRow(Worksheet worksheet, WebContext webContext) {
-        Map uniqueProperties = new HashMap();
-
+        
         Map<?, ?> parameters = webContext.getParameterMap();
         for (Object param : parameters.keySet()) {
             String parameter = (String) param;
             if (parameter.startsWith(UNIQUE_PROPERTIES)) {
                 String value = webContext.getParameter(parameter);
-                if (StringUtils.isNotBlank(value)) {
-                    String property = StringUtils.substringAfter(parameter, UNIQUE_PROPERTIES);
-                    uniqueProperties.put(property, value);
-                    System.out.println("The row prop is: " + property + " - " + value);
+                String property = StringUtils.substringAfter(parameter, UNIQUE_PROPERTIES);
+
+                System.out.println("The row prop is: " + property + " - " + value);
+
+                UniqueProperty uniqueProperty = new UniqueProperty(property, value);
+                WorksheetRow row = worksheet.getRow(uniqueProperty);
+                if (row == null) {
+                    row = new WorksheetRowImpl(uniqueProperty);
+                    worksheet.addRow(row);
                 }
+
+                return row;
             }
         }
-
-        WorksheetRow row = worksheet.getRow(uniqueProperties);
-        if (row == null) {
-            row = new WorksheetRowImpl(uniqueProperties);
-            worksheet.addRow(row);
-        }
-
-        return row;
+        
+        return null;
     }
 
     void setWorksheetColumn(WorksheetRow row, Messages messages, WebContext webContext) {

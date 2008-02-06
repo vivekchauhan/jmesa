@@ -31,7 +31,7 @@ public class WorksheetImpl implements Worksheet {
     private String id;
     private Messages messages;
 
-    private Map<Map<String, String>, WorksheetRow> rows = new HashMap<Map<String, String>, WorksheetRow>();
+    private Map<UniqueProperty, WorksheetRow> rows = new HashMap<UniqueProperty, WorksheetRow>();
 
     public WorksheetImpl(String id, Messages messages) {
         this.id = id;
@@ -47,11 +47,11 @@ public class WorksheetImpl implements Worksheet {
     }
 
     public void addRow(WorksheetRow row) {
-        rows.put(row.getUniqueProperties(), row);
+        rows.put(row.getUniqueProperty(), row);
     }
 
-    public WorksheetRow getRow(Map<String, String> uniqueProperties) {
-        return rows.get(uniqueProperties);
+    public WorksheetRow getRow(UniqueProperty uniqueProperty) {
+        return rows.get(uniqueProperty);
     }
 
     public Collection<WorksheetRow> getRows() {
@@ -59,7 +59,7 @@ public class WorksheetImpl implements Worksheet {
     }
 
     public void removeRow(WorksheetRow row) {
-        rows.remove(row.getUniqueProperties());
+        rows.remove(row.getUniqueProperty());
     }
     
     public boolean isSaved() {

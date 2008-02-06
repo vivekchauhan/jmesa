@@ -19,6 +19,7 @@ import java.util.Map;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.editor.AbstractCellEditor;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
@@ -31,7 +32,7 @@ import org.jmesa.worksheet.state.WorksheetState;
  * @author Jeff Johnston
  */
 public abstract class AbstractWorksheetEditor extends AbstractCellEditor implements WorksheetEditor {
-    protected String UNIQUE_PROPERTIES = "up";
+    protected String UNIQUE_PROPERTY = "up";
 
     private CellEditor cellEditor;
     
@@ -61,8 +62,8 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
             return null;
         }
         
-        Map<String, String> uniqueProperties = getColumn().getRow().getUniqueProperties(item);
-        WorksheetRow worksheetRow = worksheet.getRow(uniqueProperties);
+        UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
+        WorksheetRow worksheetRow = worksheet.getRow(uniqueProperty);
 
         if (worksheetRow == null) {
             return null;
@@ -75,19 +76,14 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
      * @param item The Bean or Map.
      * @return The JavaScript for the unique properties.
      */
-    protected String getUniquePropertiesJavaScript(Object item) {
+    protected String getUniquePropertyJavaScript(Object item) {
         StringBuilder sb = new StringBuilder();
 
         Row row = getColumn().getRow();
-        Map<String, String> uniqueProperties = row.getUniqueProperties(item);
+        UniqueProperty uniqueProperty = row.getUniqueProperty(item);
 
-        sb.append("var " + UNIQUE_PROPERTIES + " = {};");
-
-        for (String key : uniqueProperties.keySet()) {
-            Object value = uniqueProperties.get(key);
-            sb.append(UNIQUE_PROPERTIES + "['" + key + "']='" + value + "';");
-        }
-
+        sb.append("var " + UNIQUE_PROPERTY + " = {};");
+        sb.append(UNIQUE_PROPERTY + "['" + uniqueProperty.getProperty() + "']='" + uniqueProperty.getValue() + "';");
         return sb.toString();
     }
 }

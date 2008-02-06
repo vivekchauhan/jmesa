@@ -16,7 +16,6 @@
 package org.jmesa.worksheet;
 
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * <p>
@@ -40,7 +39,7 @@ public interface WorksheetRow {
      * @return Map in which the map keys are the item properties and the map values are the item
      *         values.
      */
-    public Map<String, String> getUniqueProperties();
+    public UniqueProperty getUniqueProperty();
 
     /**
      * Add a column to the worksheet row.

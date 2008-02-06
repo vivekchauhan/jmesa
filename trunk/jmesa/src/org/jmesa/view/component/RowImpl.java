@@ -24,13 +24,14 @@ import org.jmesa.util.ItemUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.RowRenderer;
+import org.jmesa.worksheet.UniqueProperty;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class RowImpl extends AbstractContextSupport implements Row {
-    private String[] uniqueProperties;
+    private String uniqueProperty;
 
     private RowRenderer rowRenderer;
 
@@ -44,17 +45,13 @@ public class RowImpl extends AbstractContextSupport implements Row {
      * @param item The Bean (or Map) for the current row.
      * @since 2.3
      */
-    public Map<String, String> getUniqueProperties(Object item) {
-        Map<String, String> results = new HashMap<String, String>();
-        
-        if (uniqueProperties != null) {
-            for (String property : uniqueProperties) {
-                Object value = ItemUtils.getItemValue(item, property);
-                results.put(property, value.toString());
-            }
+    public UniqueProperty getUniqueProperty(Object item) {
+        if (uniqueProperty != null) {
+            Object value = ItemUtils.getItemValue(item, uniqueProperty);
+            return new UniqueProperty(uniqueProperty, value.toString());
         }
 
-        return results;
+        return null;
     }
 
     /**
@@ -62,11 +59,11 @@ public class RowImpl extends AbstractContextSupport implements Row {
      * Until the 2.3 release is officially out this feature is in an alpha state.
      * </p>
      * 
-     * @param uniqueProperties The array of column properties that uniquely identify the row.
+     * @param uniqueProperty The property that uniquely identifies the row.
      * @since 2.3
      */
-    public void setUniqueProperties(String... uniqueProperties) {
-        this.uniqueProperties = uniqueProperties;
+    public void setUniqueProperty(String uniqueProperty) {
+        this.uniqueProperty = uniqueProperty;
     }
 
     public Column getColumn(String property) {
