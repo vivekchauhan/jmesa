@@ -65,6 +65,10 @@ public class WorksheetImpl implements Worksheet {
     public boolean isSaved() {
         throw new UnsupportedOperationException("A request is needed to check for save logic.");
     }
+    
+    public boolean isFiltered() {
+        throw new UnsupportedOperationException("A request is needed to check for filter logic.");
+    }
 
     public boolean hasChanges() {
         return rows.size() > 0;

@@ -15,30 +15,27 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.core.CoreContext;
+import org.jmesa.limit.Limit;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ToolbarItemFactory {
-    public ImageItem createFirstPageItem();
+public class SaveWorksheetItemRenderer extends AbstractItemRenderer {
+    public SaveWorksheetItemRenderer(ToolbarItem item, CoreContext coreContext) {
+        setToolbarItem(item);
+        setCoreContext(coreContext);
+    }
 
-    public ImageItem createPrevPageItem();
+    public String render() {
+        Limit limit = getCoreContext().getLimit();
 
-    public ImageItem createNextPageItem();
+        ToolbarItem item = getToolbarItem();
+        StringBuilder action = new StringBuilder("javascript:");
+        action.append("setSaveToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
+        item.setAction(action.toString());
 
-    public ImageItem createLastPageItem();
-
-    public ImageItem createFilterItem();
-
-    public ImageItem createClearItem();
-
-    public MaxRowsItem createMaxRowsItem();
-
-    public ImageItem createExportItem(ToolbarExport export);
-
-    public ImageItem createSeparatorItem();
-
-    public ImageItem createSaveWorksheetItem();
-
-    public ImageItem createFilterWorksheetItem();
+        return item.enabled();
+    }
 }

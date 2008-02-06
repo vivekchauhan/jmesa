@@ -16,6 +16,7 @@
 package org.jmesa.facade;
 
 import static org.jmesa.worksheet.servlet.WorksheetServlet.SAVE_WORKSHEET;
+import static org.jmesa.worksheet.servlet.WorksheetServlet.FILTER_WORKSHEET;
 
 import java.util.Collection;
 import java.util.Map;
@@ -69,11 +70,22 @@ public class WorksheetWrapper implements Worksheet {
      * The main reason to wrap the Worksheet is to give access to the request
      * so can dynamically check to see if the user is saving the worksheet.
      * 
-     * @return Is true is saving worksheet.
+     * @return Is true if saving worksheet.
      */
     public boolean isSaved() {
         String save = webContext.getParameter(getId()  + "_" + SAVE_WORKSHEET);
         return StringUtils.isNotEmpty(save);
+    }
+    
+    /**
+     * The main reason to wrap the Worksheet is to give access to the request
+     * so can dynamically check to see if the user is filtering the worksheet.
+     * 
+     * @return Is true if filtering worksheet.
+     */
+    public boolean isFiltered() {
+        String filter = webContext.getParameter(getId()  + "_" + FILTER_WORKSHEET);
+        return StringUtils.isNotEmpty(filter);
     }
 
     public boolean hasChanges() {

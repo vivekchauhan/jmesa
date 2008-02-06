@@ -71,7 +71,8 @@ public final class DefaultToolbar extends AbstractToolbar {
         }
 
         if (editable) {
-            addToolbarItem(ToolbarItemType.SAVE_ITEM);
+            addToolbarItem(ToolbarItemType.SAVE_WORKSHEET_ITEM);
+            addToolbarItem(ToolbarItemType.FILTER_WORKSHEET_ITEM);
         }
 
         return super.render();

@@ -30,7 +30,8 @@ public enum ToolbarItemType {
     SORT_ITEM, 
     EXPORT_ITEM, 
     SEPARATOR,
-    SAVE_ITEM,
+    SAVE_WORKSHEET_ITEM,
+    FILTER_WORKSHEET_ITEM,
     UNDO_ITEM;
 
     public String toCode() {
@@ -53,8 +54,10 @@ public enum ToolbarItemType {
             return "sort";
         case EXPORT_ITEM:
             return "export";
-        case SAVE_ITEM:
-            return "save";
+        case SAVE_WORKSHEET_ITEM:
+            return "save_worksheet";
+        case FILTER_WORKSHEET_ITEM:
+            return "filter_worksheet";
         case UNDO_ITEM:
             return "undo";
         default:

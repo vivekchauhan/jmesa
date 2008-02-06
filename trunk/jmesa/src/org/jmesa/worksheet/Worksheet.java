@@ -96,6 +96,11 @@ public interface Worksheet {
     public boolean isSaved();
 
     /**
+     * @return Is true if the user is requesting that the worksheet filter changes.
+     */
+    public boolean isFiltered();
+
+    /**
      * @return Is true if the worksheet contains changes, which really means the worksheet is
      *         populated.
      */

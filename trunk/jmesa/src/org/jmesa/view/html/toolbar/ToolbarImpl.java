@@ -77,11 +77,11 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
             case SEPARATOR:
                 item = factory.createSeparatorItem();
                 break;
-            case SAVE_ITEM:
-                item = factory.createSaveItem();
+            case SAVE_WORKSHEET_ITEM:
+                item = factory.createSaveWorksheetItem();
                 break;
-            case UNDO_ITEM:
-                item = factory.createUndoItem();
+            case FILTER_WORKSHEET_ITEM:
+                item = factory.createFilterWorksheetItem();
                 break;
         }
 
