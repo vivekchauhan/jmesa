@@ -18,6 +18,7 @@ function TableFacade(id) {
 
 function Worksheet() {
     this.save;
+    this.filter;
 }
 
 function Limit(id) {
@@ -110,6 +111,10 @@ TableFacade.prototype.createHiddenInputFields = function(form) {
     	$(form).append('<input type="hidden" name="' + limit.id + '_sw_" value="true"/>');
     }
 
+    if (this.worksheet.filter) {
+    	$(form).append('<input type="hidden" name="' + limit.id + '_fw_" value="true"/>');
+    }
+
     /* tip the API off that in the loop of working with the table */
 	$(form).append('<input type="hidden" name="' + limit.id + '_tr_" value="true"/>');
 
@@ -166,7 +171,11 @@ TableFacade.prototype.createParameterString = function() {
     if (this.worksheet.save) {
         url += '&' + limit.id + '_sw_=true';
     }
-	
+
+    if (this.worksheet.filter) {
+        url += '&' + limit.id + '_fw_=true';
+    }
+
 	return url;
 }
 
@@ -179,6 +188,10 @@ function addTableFacadeToManager(id) {
 
 function setSaveToWorksheet(id) {
 	TableFacadeManager.getTableFacade(id).worksheet.save='true';
+}
+
+function setFilterToWorksheet(id) {
+	TableFacadeManager.getTableFacade(id).worksheet.filter='true';
 }
 
 function setPageToLimit(id, page) {
