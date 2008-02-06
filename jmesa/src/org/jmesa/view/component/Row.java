@@ -16,9 +16,9 @@
 package org.jmesa.view.component;
 
 import java.util.List;
-import java.util.Map;
 
 import org.jmesa.view.renderer.RowRenderer;
+import org.jmesa.worksheet.UniqueProperty;
 
 /**
  * @since 2.0
@@ -28,12 +28,12 @@ public interface Row {
     /**
      * @since 2.3
      */
-    public Map<String, String> getUniqueProperties(Object item);
+    public UniqueProperty getUniqueProperty(Object item);
 
     /**
      * @since 2.3
      */
-    public void setUniqueProperties(String... uniqueProperties);
+    public void setUniqueProperty(String uniqueProperty);
 
     public List<Column> getColumns();
 

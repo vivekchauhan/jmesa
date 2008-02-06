@@ -16,7 +16,6 @@
 package org.jmesa.worksheet;
 
 import java.util.Collection;
-import java.util.Map;
 
 import org.jmesa.core.message.Messages;
 
@@ -41,13 +40,11 @@ import org.jmesa.core.message.Messages;
  * </p>
  * 
  * <pre>
- * htmlRow.setUniqueProperties(&quot;id&quot;);
+ * htmlRow.setUniqueProperty(&quot;id&quot;);
  * </pre>
  * 
  * <p>
- * In this example "id" is the item property that is used to uniquely identify the row. This can be
- * a comma separated array of properties. On the Worksheet the uniqueProperties is a map in which
- * the map keys are the item properties and the map values are the item values.
+ * In this example "id" is the item property that is used to uniquely identify the row.
  * </p>
  * 
  * @since 2.3
@@ -65,11 +62,10 @@ public interface Worksheet {
     public Messages getMessages();
 
     /**
-     * @param uniqueProperties Map in which the map keys are the item properties and the map values
-     *            are the item values.
+     * @param uniqueProperty The property that uniquely identifies this row.
      * @return The worksheet row.
      */
-    public WorksheetRow getRow(Map<String, String> uniqueProperties);
+    public WorksheetRow getRow(UniqueProperty uniqueProperty);
 
     /**
      * Add a row to the worksheet.
@@ -99,7 +95,7 @@ public interface Worksheet {
      * @return Is true if the user is requesting that the worksheet filter changes.
      */
     public boolean isFiltered();
-
+    
     /**
      * @return Is true if the worksheet contains changes, which really means the worksheet is
      *         populated.

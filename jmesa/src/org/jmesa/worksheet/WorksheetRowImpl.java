@@ -26,17 +26,17 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class WorksheetRowImpl implements WorksheetRow {
-    private Map<String, String> uniqueProperties;
+    private UniqueProperty uniqueProperty;
     private WorksheetRowStatus rowStatus;
 
     private Map<String, WorksheetColumn> columns = new HashMap<String, WorksheetColumn>();
 
-    public WorksheetRowImpl(Map<String, String> uniqueProperties) {
-        this.uniqueProperties = uniqueProperties;
+    public WorksheetRowImpl(UniqueProperty uniqueProperty) {
+        this.uniqueProperty = uniqueProperty;
     }
 
-    public Map<String, String> getUniqueProperties() {
-        return uniqueProperties;
+    public UniqueProperty getUniqueProperty() {
+        return uniqueProperty;
     }
 
     public void addColumn(WorksheetColumn column) {
@@ -66,7 +66,7 @@ public class WorksheetRowImpl implements WorksheetRow {
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("uniqueProperties", uniqueProperties);
+        builder.append("uniqueProperty", uniqueProperty);
         builder.append("columns", columns);
         return builder.toString();
     }

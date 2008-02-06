@@ -17,8 +17,6 @@ package org.jmesa.worksheet;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.test.AbstractTestCase;
@@ -55,7 +53,7 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         
         // set the row unique properties
         Row row = new HtmlRowImpl();
-        row.setUniqueProperties("id");
+        row.setUniqueProperty("id");
         row.addColumn(column); // add column for back reference
 
         // get the renderer to work with
@@ -69,16 +67,13 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
     }
 
     private Worksheet getWorksheet() {
-        Map<String, String> firstRowMap = new HashMap<String, String>();
-        firstRowMap.put("id", "1");
+        UniqueProperty firstRowMap = new UniqueProperty("id", "1");
         WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
 
-        Map<String, String> secondRowMap = new HashMap<String, String>();
-        secondRowMap.put("id", "2");
+        UniqueProperty secondRowMap = new UniqueProperty("id", "2");
         WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
 
-        Map<String, String> thirdRowMap = new HashMap<String, String>();
-        thirdRowMap.put("id", "3");
+        UniqueProperty thirdRowMap = new UniqueProperty("id", "3");
         WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
 
         Worksheet worksheet = new WorksheetImpl(ID, null);

@@ -31,18 +31,15 @@ public class WorksheetTest {
     @Test
     public void removeRow() {
 
-        Map<String, String> firstRowMap = new HashMap<String, String>();
-        firstRowMap.put("id", "1");
+        UniqueProperty firstRowMap = new UniqueProperty("id", "1");
         WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
         firstRow.setRowStatus(WorksheetRowStatus.ADD);
 
-        Map<String, String> secondRowMap = new HashMap<String, String>();
-        secondRowMap.put("id", "2");
+        UniqueProperty secondRowMap = new UniqueProperty("id", "2");
         WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
         secondRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
-        Map<String, String> thirdRowMap = new HashMap<String, String>();
-        thirdRowMap.put("id", "3");
+        UniqueProperty thirdRowMap = new UniqueProperty("id", "3");
         WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
         thirdRow.setRowStatus(WorksheetRowStatus.DELETE);
 

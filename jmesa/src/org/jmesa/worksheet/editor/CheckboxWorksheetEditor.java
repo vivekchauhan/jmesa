@@ -44,7 +44,7 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
             }
         }
         
-        html.onclick(getUniquePropertiesJavaScript(item) + "submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTIES + ",'" 
+        html.onclick(getUniquePropertyJavaScript(item) + "submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
             + getColumn().getProperty() + "')");
         html.end();
         
