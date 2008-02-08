@@ -16,9 +16,7 @@
 package org.jmesa.view.component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jmesa.util.ItemUtils;
 import org.jmesa.util.SupportUtils;

@@ -56,8 +56,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
      * @return The WorksheetColumn for this column.
      */
     protected WorksheetColumn getWorksheetColumn(Object item, String property) {
-        WorksheetState worksheetState = getCoreContext().getWorksheetState();
-        Worksheet worksheet = worksheetState.retrieveWorksheet();
+        Worksheet worksheet = getCoreContext().getWorksheet();
         if (worksheet == null) {
             return null;
         }

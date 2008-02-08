@@ -40,13 +40,6 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
-        // set up the worksheet and state
-        WorksheetState worksheetState = new SessionWorksheetState(ID, webContext);
-        coreContext.setWorksheetState(worksheetState);
-        coreContext.setEditable(true);
-        Worksheet worksheet = getWorksheet();
-        worksheetState.persistWorksheet(worksheet);
-
         // get the column
         HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
         HtmlColumn column = factory.createColumn("name.firstName");
@@ -66,7 +59,8 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         //assertTrue("The value is not changed.", value.equals("Changed Name"));
     }
 
-    private Worksheet getWorksheet() {
+    @Override
+    protected Worksheet getWorksheet() {
         UniqueProperty firstRowMap = new UniqueProperty("id", "1");
         WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
 

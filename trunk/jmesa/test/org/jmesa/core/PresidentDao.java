@@ -58,6 +58,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(3);
         name = new Name("Thomas", "Jefferson", "Man of the People, Sage of Monticello");
         president.setName(name);
         president.setTerm("1801-09");
@@ -70,6 +71,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(4);
         name = new Name("James", "Madison", "Father of the Constitution");
         president.setName(name);
         president.setTerm("1809-17");
@@ -82,6 +84,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(5);
         name = new Name("James", "Monroe", "The Last Cocked Hat, Era-of-Good-Feelings President");
         president.setName(name);
         president.setTerm("1817-25");
@@ -94,6 +97,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(6);
         name = new Name("John", "Adams", "Old Man Eloquent");
         president.setName(name);
         president.setTerm("1825-29");
@@ -106,6 +110,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(7);
         name = new Name("Andrew", "Jackson", "Old Hickory");
         president.setName(name);
         president.setTerm("1829-37");
@@ -118,6 +123,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(8);
         name = new Name("Martin", "Van Buren", "The Little Magician, The Red Fox of Kinderhook");
         president.setName(name);
         president.setTerm("1837-41");
@@ -130,6 +136,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(9);
         name = new Name("William Henry", "Harrison", "Old Tippecanoe, Old Tip");
         president.setName(name);
         president.setTerm("1841");
@@ -142,6 +149,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(10);
         name = new Name("John", "Tyler", "Accidental President, His Accidency");
         president.setName(name);
         president.setTerm("1841-45");
@@ -154,6 +162,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(11);
         name = new Name("James", "Polk", "Young Hickory");
         president.setName(name);
         president.setTerm("1845-49");
@@ -166,6 +175,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(12);
         name = new Name("Zachary", "Taylor", "Old Rough and Ready");
         president.setName(name);
         president.setTerm("1849-50");
@@ -178,6 +188,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(13);
         name = new Name("Millard", "Fillmore", "The American Louis Philippe");
         president.setName(name);
         president.setTerm("1850-53");
@@ -190,6 +201,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(14);
         name = new Name("Franklin", "Pierce", "Young Hickory of the Granite Hills");
         president.setName(name);
         president.setTerm("1853-57");
@@ -202,6 +214,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(15);
         name = new Name("James", "Buchanan", "Old Buck");
         president.setName(name);
         president.setTerm("1857-61");
@@ -214,6 +227,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(16);
         name = new Name("Abraham", "Lincoln", "Honest Abe, Illinois Rail-Splitter");
         president.setName(name);
         president.setTerm("1861-65");
@@ -226,6 +240,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(17);
         name = new Name("Andrew", "Johnson", "");
         president.setName(name);
         president.setTerm("1865-69");
@@ -238,6 +253,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(18);
         name = new Name("Ulysses S.", "Grant", "Hero of Appomattox");
         president.setName(name);
         president.setTerm("1869-77");
@@ -250,6 +266,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(19);
         name = new Name("Rutherford B.", "Hayes", "Dark-Horse President");
         president.setName(name);
         president.setTerm("1877-81");
@@ -262,6 +279,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(20);
         name = new Name("James", "Garfield", "");
         president.setName(name);
         president.setTerm("1881");
@@ -274,6 +292,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(21);
         name = new Name("Chester", "Arthur", "The Gentleman Boss");
         president.setName(name);
         president.setTerm("1881-85");
@@ -286,6 +305,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(22);
         name = new Name("Grover", "Cleveland", "Big Steve, Uncle Jumbo");
         president.setName(name);
         president.setTerm("1885-89");
@@ -298,6 +318,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(23);
         name = new Name("Benjamin", "Harrison", "Kid Gloves Harrison, Little Ben");
         president.setName(name);
         president.setTerm("1889-93");
@@ -310,6 +331,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(24);
         name = new Name("Grover", "Cleveland", "Big Steve, Uncle Jumbo");
         president.setName(name);
         president.setTerm("1893-97");
@@ -322,6 +344,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(25);
         name = new Name("William", "McKinley", "Idol of Ohio");
         president.setName(name);
         president.setTerm("1897-1901");
@@ -334,6 +357,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(26);
         name = new Name("Theodore", "Roosevelt", "TR, Trust-Buster, Teddy");
         president.setName(name);
         president.setTerm("1901-09");
@@ -346,6 +370,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(27);
         name = new Name("William H.", "Taft", "");
         president.setName(name);
         president.setTerm("1909-13");
@@ -358,6 +383,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(28);
         name = new Name("Woodrow", "Wilson", "Schoolmaster in Politics");
         president.setName(name);
         president.setTerm("1913-21");
@@ -370,6 +396,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(29);
         name = new Name("Warren", "Harding", "");
         president.setName(name);
         president.setTerm("1921-23");
@@ -382,6 +409,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(30);
         name = new Name("Calvin", "Coolidge", "Silent Ca");
         president.setName(name);
         president.setTerm("1923-29");
@@ -394,6 +422,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(31);
         name = new Name("Herbert", "Hoover", "");
         president.setName(name);
         president.setTerm("1929-33");
@@ -406,6 +435,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(32);
         name = new Name("Franklin D.", "Roosevelt", "FDR");
         president.setName(name);
         president.setTerm("1933-45");
@@ -418,6 +448,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(33);
         name = new Name("Harry", "Truman", "Give 'Em Hell Harry");
         president.setName(name);
         president.setTerm("1945-53");
@@ -430,6 +461,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(34);
         name = new Name("Dwight", "Eisenhower", "Ike");
         president.setName(name);
         president.setTerm("1953-61");
@@ -442,6 +474,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(35);
         name = new Name("John F.", "Kennedy", "JFK, Jack");
         president.setName(name);
         president.setTerm("1961-63");
@@ -454,6 +487,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(36);
         name = new Name("Lyndon", "Johnson", "LBJ");
         president.setName(name);
         president.setTerm("1963-69");
@@ -466,6 +500,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(37);
         name = new Name("Richard", "Nixon", "");
         president.setName(name);
         president.setTerm("1969-74");
@@ -478,6 +513,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(38);
         name = new Name("Gerald", "Ford", "Jerry");
         president.setName(name);
         president.setTerm("1974-77");
@@ -489,6 +525,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(39);
         name = new Name("Jimmy", "Carter", "Jimmy");
         president.setName(name);
         president.setTerm("1977-81");
@@ -499,6 +536,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(40);
         name = new Name("Ronald", "Reagan", "The Great Communicator");
         president.setName(name);
         president.setTerm("1981-89");
@@ -511,6 +549,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(41);
         name = new Name("George H.W.", "Bush", "Poppy");
         president.setName(name);
         president.setTerm("1989-93");
@@ -522,6 +561,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(42);
         name = new Name("William J.", "Clinton", "Bill");
         president.setName(name);
         president.setTerm("1993-2001");
@@ -533,6 +573,7 @@ public class PresidentDao {
         presidents.add(president);
 
         president = new President();
+        president.setId(43);
         name = new Name("George W.", "Bush", "Dubya");
         president.setName(name);
         president.setTerm("2001-present");

@@ -35,6 +35,7 @@ import org.jmesa.core.sort.MultiColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 2.0
@@ -51,13 +52,6 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     private Preferences preferences;
     private Messages messages;
     private boolean performFilterAndSort;
-
-    /**
-     * @param webContext The WebContext for the table.
-     */
-    public CoreContextFactoryImpl(WebContext webContext) {
-        this(true, webContext);
-    }
 
     /**
      * <p>
@@ -139,31 +133,23 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     public void setMessages(Messages messages) {
         this.messages = messages;
     }
-
-    /**
-     * Is false if you do not want to have the items filtered and sorted. For
-     * instance you would not want the API to filter and sort the items if you
-     * did that step manually.
-     */
-    protected boolean isPerformFilterAndSort() {
-        return performFilterAndSort;
-    }
-
+    
     /**
      * @param items The Collection of Beans or the Collection of Maps.
      * @param limit The Limit object.
      * @return The CoreContext object.
      */
-    public CoreContext createCoreContext(Collection<?> items, Limit limit) {
+    public CoreContext createCoreContext(Collection<?> items, Limit limit, Worksheet worksheet) {
         Items itemsImpl;
 
-        if (isPerformFilterAndSort()) {
+        if (performFilterAndSort) {
             itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
         } else {
             itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
         }
 
-        CoreContext coreContextImpl = new CoreContextImpl(itemsImpl, limit, getPreferences(), getMessages());
-        return coreContextImpl;
+        CoreContext coreContext = new CoreContextImpl(itemsImpl, limit, worksheet, getPreferences(), getMessages());
+        
+        return coreContext;
     }
 }

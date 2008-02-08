@@ -16,6 +16,7 @@
 package org.jmesa.view.html.renderer;
 
 import org.jmesa.util.SupportUtils;
+import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
@@ -68,7 +69,8 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
      */
     @Override
     public CellEditor getCellEditor() {
-        if (getCoreContext().isEditable() && getColumn().isEditable()) {
+        boolean editable = ViewUtils.isEditable(getCoreContext().getWorksheet());
+        if (editable && getColumn().isEditable()) {
             if (worksheetEditor == null) {
                 setWorksheetEditor(new HtmlWorksheetEditor());
             }

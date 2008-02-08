@@ -28,6 +28,7 @@ import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.Worksheet;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
@@ -57,10 +58,16 @@ public abstract class AbstractTestCase {
             RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, items.size());
             limit.setRowSelect(rowSelect);
         }
+        
+        Worksheet worksheet = getWorksheet();
 
         CoreContextFactory factory = new CoreContextFactoryImpl(false, webContext);
-        CoreContext coreContext = factory.createCoreContext(items, limit);
+        CoreContext coreContext = factory.createCoreContext(items, limit, worksheet);
         
         return coreContext;
+    }
+    
+    protected Worksheet getWorksheet() {
+        return null;
     }
 }
