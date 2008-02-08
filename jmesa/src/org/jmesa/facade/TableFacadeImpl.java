@@ -28,6 +28,8 @@ import static org.jmesa.facade.TableFacadeExceptions.validateColumnProperties;
 import static org.jmesa.facade.TableFacadeExceptions.validateRowSelect;
 import static org.jmesa.facade.TableFacadeExceptions.validateItems;
 
+import static org.jmesa.facade.TableFacadeUtils.filterWorksheetItems;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -193,6 +195,10 @@ public class TableFacadeImpl implements TableFacade {
             return worksheet;
         }
         
+        if (!editable) {
+            return null;
+        }
+        
         WorksheetState state = new SessionWorksheetState(id, getWebContext());
         Worksheet ws = state.retrieveWorksheet();
         
@@ -236,7 +242,7 @@ public class TableFacadeImpl implements TableFacade {
                 limitFactory.createRowSelect(getMaxRows(), items.size(), l);
             }
         }
-
+        
         this.limit = l;
 
         return limit;
@@ -351,8 +357,12 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setItems(Collection<?> items) {
         validateCoreContext(coreContext, "items");
-
-        this.items = items;
+        
+        if (editable) {
+            this.items = filterWorksheetItems(items, getWorksheet());
+        } else {
+            this.items = items;
+        }
     }
 
     int getMaxRows() {
@@ -398,15 +408,9 @@ public class TableFacadeImpl implements TableFacade {
             }
         }
 
-        CoreContext cc = factory.createCoreContext(items, getLimit());
-        cc.setEditable(editable);
-        if (editable) {
-            cc.setWorksheetState(new SessionWorksheetState(id, getWebContext()));
-        }
+        this.coreContext = factory.createCoreContext(items, getLimit(), getWorksheet());
 
-        this.coreContext = cc;
-
-        return cc;
+        return coreContext;
     }
 
     public void setCoreContext(CoreContext coreContext) {

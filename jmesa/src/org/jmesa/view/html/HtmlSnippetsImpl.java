@@ -26,11 +26,13 @@ import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.Sort;
+import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 2.0
@@ -110,12 +112,17 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
     }
 
     public String filter() {
+        HtmlRow row = table.getRow();
+        List columns = row.getColumns();
+
+        if (!ViewUtils.isFilterable(columns)) {
+            return "";
+        }
+        
         HtmlBuilder html = new HtmlBuilder();
         String filterClass = coreContext.getPreference(HtmlConstants.FILTER_CLASS);
         html.tr(1).styleClass(filterClass).close();
 
-        HtmlRow row = table.getRow();
-        List<Column> columns = row.getColumns();
 
         for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
             HtmlColumn column = (HtmlColumn) iter.next();
@@ -273,8 +280,13 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             html.tab().append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
         }
 
-        html.tab().append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+        Worksheet worksheet = coreContext.getWorksheet();
+        if (worksheet != null && worksheet.isFiltered()) {
+            html.tab().append("setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
+        }
         
+        html.tab().append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+
         if (useDocumentReady) {
             html.append("});").newline();
         }

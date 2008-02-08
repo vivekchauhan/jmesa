@@ -21,6 +21,7 @@ import java.util.List;
 import org.jmesa.limit.Action;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
+import org.jmesa.worksheet.servlet.WorksheetServlet;
 
 /**
  * Build up the parameters that is used by the LimitFactory.
@@ -76,4 +77,10 @@ public class ParametersBuilder {
         String key = prefixId + Action.EXPORT.toParam();
         parameters.addParameter(key, exportType.toParam());
     }
+    
+    public void setWorksheetFilter() {
+        String key = prefixId + WorksheetServlet.FILTER_WORKSHEET;
+        parameters.addParameter(key, "true");
+    }
+
 }

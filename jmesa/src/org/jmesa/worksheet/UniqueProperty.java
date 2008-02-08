@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class UniqueProperty implements Serializable {
-
+    
     private String property;
     private String value;
 

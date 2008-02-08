@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.ExportType;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 2.0
@@ -81,6 +82,9 @@ public class ViewUtils {
         return true;
     }
 
+    /**
+     * @return Is true if any columns are filterable.
+     */
     public static boolean isFilterable(List<HtmlColumn> columns) {
         for (HtmlColumn column : columns) {
             if (column.isFilterable()) {
@@ -98,4 +102,15 @@ public class ViewUtils {
     public static boolean isExportable(ExportType... exportTypes) {
         return  exportTypes != null && exportTypes.length > 0;
     }
+    
+    /**
+     * @return Is true if there is a worksheet.
+     */
+    public static boolean isEditable(Worksheet worksheet) {
+        if (worksheet != null) {
+            return true;
+        }
+
+        return false;
+    }    
 }

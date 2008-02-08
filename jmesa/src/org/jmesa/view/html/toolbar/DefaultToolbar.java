@@ -65,7 +65,7 @@ public final class DefaultToolbar extends AbstractToolbar {
             addToolbarItem(ToolbarItemType.CLEAR_ITEM);
         }
         
-        boolean editable = getCoreContext().isEditable();
+        boolean editable = ViewUtils.isEditable(getCoreContext().getWorksheet());
         if (editable && enableSeparators) {
             addToolbarItem(ToolbarItemType.SEPARATOR);
         }

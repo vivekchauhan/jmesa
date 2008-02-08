@@ -18,13 +18,13 @@ package org.jmesa.core;
 import java.util.Collection;
 
 import org.jmesa.core.filter.FilterMatcher;
-import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * Used to create a CoreContext object.
@@ -76,5 +76,5 @@ public interface CoreContextFactory {
      * @param limit The Limit instance.
      * @return The newly created CoreContext object.
      */
-    public CoreContext createCoreContext(Collection<?> items, Limit limit);
+    public CoreContext createCoreContext(Collection<?> items, Limit limit, Worksheet worksheet);
 }
