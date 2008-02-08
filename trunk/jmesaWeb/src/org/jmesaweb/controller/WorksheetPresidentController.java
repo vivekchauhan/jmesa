@@ -61,9 +61,9 @@ public class WorksheetPresidentController extends AbstractController {
         Collection<President> items = presidentService.getPresidents();
 
         TableFacade tableFacade = createTableFacade(id, request);
+        tableFacade.setEditable(true); // switch to flip that turns the table editable
         tableFacade.setItems(items); // set the items
         tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it
-        tableFacade.setEditable(true); // switch to flip that turns the table editable
 
         saveWorksheet(tableFacade);
 
@@ -81,14 +81,21 @@ public class WorksheetPresidentController extends AbstractController {
 
             Collection<WorksheetRow> worksheetRows = worksheet.getRows();
             for (WorksheetRow worksheetRow : worksheetRows) {
-                logger.debug("the unique properties are " + worksheetRow.getUniqueProperties());
+                logger.debug("the unique property is " + worksheetRow.getUniqueProperty());
                 
                 Collection<WorksheetColumn> worksheetColumns = worksheetRow.getColumns();
                 for (WorksheetColumn worksheetColumn : worksheetColumns) {
                     logger.debug("changed value [" + worksheetColumn.getChangedValue() + "] -- original value [" + worksheetColumn.getOriginalValue() + "]");
+                    
+                    if (worksheetColumn.getChangedValue().equals("foo")) {
+                        worksheetColumn.setErrorKey("foo.error");
+                    } else {
+                       worksheetColumn.removeError();
+                    }
                 }
             }
-            worksheet.removeAllChanges();
+            
+            //worksheet.removeAllChanges();
         }
     }
 
@@ -104,8 +111,7 @@ public class WorksheetPresidentController extends AbstractController {
         table.getTableRenderer().setWidth("600px");
 
         HtmlRow row = table.getRow();
-//        row.setHighlighter(false);
-        row.setUniqueProperties("id"); // the unique worksheet properties to identify the row
+        row.setUniqueProperty("id"); // the unique worksheet properties to identify the row
 
         HtmlColumn chkbox = row.getColumn("chkbox");
         chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
