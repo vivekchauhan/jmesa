@@ -15,18 +15,18 @@
  */
 package org.jmesa.facade;
 
-import static org.jmesa.core.CoreContextFactoryImpl.JMESA_PREFERENCES_LOCATION;
-import static org.jmesa.core.CoreContextFactoryImpl.JMESA_MESSAGES_LOCATION;
 import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
+import static org.jmesa.facade.TableFacadeUtils.isTableRefreshing;
 
-import static org.jmesa.facade.TableFacadeExceptions.validateCoreContext;
-import static org.jmesa.facade.TableFacadeExceptions.validateTable;
-import static org.jmesa.facade.TableFacadeExceptions.validateView;
-import static org.jmesa.facade.TableFacadeExceptions.validateToolbar;
-import static org.jmesa.facade.TableFacadeExceptions.validateLimit;
-import static org.jmesa.facade.TableFacadeExceptions.validateColumnProperties;
-import static org.jmesa.facade.TableFacadeExceptions.validateRowSelect;
-import static org.jmesa.facade.TableFacadeExceptions.validateItems;
+import static org.jmesa.facade.TableFacadeExceptions.validateCoreContextIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateTableIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateViewIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateToolbarIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateLimitIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateColumnPropertiesIsNotNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateRowSelectIsNotNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNotNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNull;
 
 import static org.jmesa.facade.TableFacadeUtils.filterWorksheetItems;
 
@@ -38,7 +38,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.filter.FilterMatcher;
@@ -46,8 +45,9 @@ import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
+import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.preference.Preferences;
-import org.jmesa.core.preference.PropertiesPreferences;
+import org.jmesa.core.preference.PreferencesFactory;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
@@ -83,52 +83,10 @@ import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
 
 /**
- * <p>
- * This is a facade for working with tables that also has a little bit of builder in its veins. The
- * basic idea is you instantiate a TableFacade class and then interact with it in a natural way. The
- * facade completely abstracts away all the factory classes and eliminates a lot of boilerplate
- * code. The builder notion comes in because as you work with it it will internally build up
- * everything you need and keep track of it for you.
- * </p>
- * 
- * <p>
- * The simple example is:
- * </p>
- * 
- * <pre>
- *  TableFacade tableFacade = new TableFacadeImpl(id, request);
- *  tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");\
- *  tableFacade.setItems(items);
- *  String html = tableFacade.render();
- * </pre>
- * 
- * <p>
- * Notice how there are no factories to deal with. However any API Object that you would have used
- * before is available through the facade, including the WebContext, CoreContext, Limit, Table,
- * Toolbar, and View. When you ask the facade for a given object it builds everything it needs up to
- * that point. Internally it keeps track of everything you are doing so it also works like a
- * builder.
- * </p>
- * 
- * <p>
- * The TableFacade interface also has setters for all the facade objects including the WebContext,
- * CoreContext, Limit, Table, Toolbar, and View. The reason is if you really need to customize
- * something and want to set your own implementation you can. Your object just goes into the flow of
- * the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when
- * the render() method is called it will use your Toolbar.
- * </p>
- * 
- * <p>
- * However, all this should feel very natural and you should not have to think about what you are
- * doing. Just interact with the facade how you need to and it will take care of everything.
- * </p>
- * 
  * @since 2.1
  * @author Jeff Johnston
  */
 public class TableFacadeImpl implements TableFacade {
-
-    public static String TABLE_REFRESHING = "_tr_";
 
     private HttpServletRequest request;
     private HttpServletResponse response;
@@ -144,7 +102,6 @@ public class TableFacadeImpl implements TableFacade {
     private Map<MatcherKey, FilterMatcher> filterMatchers;
     private RowFilter rowFilter;
     private ColumnSort columnSort;
-    private boolean editable;
     private Limit limit;
     private String stateAttr;
     private Table table;
@@ -152,6 +109,7 @@ public class TableFacadeImpl implements TableFacade {
     private int[] maxRowsIncrements;
     private View view;
     private boolean performFilterAndSort = true;
+    private boolean editable;
     private Worksheet worksheet;
 
     /**
@@ -168,7 +126,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
-        validateToolbar(toolbar, "exportTypes");
+        validateToolbarIsNull(toolbar, "exportTypes");
     
         this.response = response;
         this.exportTypes = exportTypes;
@@ -187,22 +145,20 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setEditable(boolean editable) {
+        validateItemsIsNull(items);
+        
         this.editable = editable;
     }
     
     public Worksheet getWorksheet() {
-        if (worksheet != null) {
+        if (worksheet != null || !editable) {
             return worksheet;
-        }
-        
-        if (!editable) {
-            return null;
         }
         
         WorksheetState state = new SessionWorksheetState(id, getWebContext());
         Worksheet ws = state.retrieveWorksheet();
         
-        if (ws == null || !isTableRefreshing()) {
+        if (ws == null || !isTableRefreshing(id, getWebContext())) {
             ws = new WorksheetImpl(id, getMessages());
             state.persistWorksheet(ws);
         } 
@@ -212,15 +168,6 @@ public class TableFacadeImpl implements TableFacade {
         return worksheet;
     }
     
-    private boolean isTableRefreshing() {
-        String refreshing = getWebContext().getParameter(id + TABLE_REFRESHING);
-        if (StringUtils.isNotEmpty(refreshing) && refreshing.equals("true")) {
-            return true;
-        }
-        
-        return false;
-    }
-
     public Limit getLimit() {
         if (limit != null) {
             return limit;
@@ -244,12 +191,11 @@ public class TableFacadeImpl implements TableFacade {
         }
         
         this.limit = l;
-
         return limit;
     }
 
     public void setLimit(Limit limit) {
-        validateCoreContext(coreContext, "Limit");
+        validateCoreContextIsNull(coreContext, "Limit");
 
         this.limit = limit;
     }
@@ -271,13 +217,13 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setStateAttr(String stateAttr) {
-        validateLimit(limit, "stateAttr");
+        validateLimitIsNull(limit, "stateAttr");
 
         this.stateAttr = stateAttr;
     }
 
     public void performFilterAndSort(boolean performFilterAndSort) {
-        validateCoreContext(coreContext, "performFilterAndSort");
+        validateCoreContextIsNull(coreContext, "performFilterAndSort");
         
         this.performFilterAndSort = performFilterAndSort;
     }
@@ -287,12 +233,12 @@ public class TableFacadeImpl implements TableFacade {
             return messages;
         }
 
-        this.messages = TableFacadeUtils.getMessages(getWebContext());
+        this.messages = MessagesFactory.getMessages(getWebContext());
         return messages;
     }
 
     public void setMessages(Messages messages) {
-        validateCoreContext(coreContext, "Messages");
+        validateCoreContextIsNull(coreContext, "Messages");
         
         this.messages = messages;
         SupportUtils.setWebContext(messages, getWebContext());
@@ -303,21 +249,19 @@ public class TableFacadeImpl implements TableFacade {
             return preferences;
         }
 
-        WebContext wc = getWebContext();
-        String jmesaPreferencesLocation = (String) wc.getApplicationInitParameter(JMESA_PREFERENCES_LOCATION);
-        this.preferences = new PropertiesPreferences(jmesaPreferencesLocation, wc);
+        this.preferences = PreferencesFactory.getPreferences(getWebContext());
         return preferences;
     }
 
     public void setPreferences(Preferences preferences) {
-        validateCoreContext(coreContext, "Preferences");
+        validateCoreContextIsNull(coreContext, "Preferences");
 
         this.preferences = preferences;
         SupportUtils.setWebContext(preferences, getWebContext());
     }
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
-        validateCoreContext(coreContext, "FilterMatcher");
+        validateCoreContextIsNull(coreContext, "FilterMatcher");
 
         if (filterMatchers == null) {
             filterMatchers = new HashMap<MatcherKey, FilterMatcher>();
@@ -327,7 +271,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
-        validateCoreContext(coreContext, "FilterMatcher");
+        validateCoreContextIsNull(coreContext, "FilterMatcher");
 
         if (filterMatcherMap == null) {
             return;
@@ -342,21 +286,21 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setColumnSort(ColumnSort columnSort) {
-        validateCoreContext(coreContext, "ColumnSort");
+        validateCoreContextIsNull(coreContext, "ColumnSort");
 
         this.columnSort = columnSort;
         SupportUtils.setWebContext(columnSort, getWebContext());
     }
 
     public void setRowFilter(RowFilter rowFilter) {
-        validateCoreContext(coreContext, "RowFilter");
+        validateCoreContextIsNull(coreContext, "RowFilter");
 
         this.rowFilter = rowFilter;
         SupportUtils.setWebContext(rowFilter, getWebContext());
     }
 
     public void setItems(Collection<?> items) {
-        validateCoreContext(coreContext, "items");
+        validateCoreContextIsNull(coreContext, "items");
         
         if (editable) {
             this.items = filterWorksheetItems(items, getWorksheet());
@@ -376,13 +320,13 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setMaxRows(int maxRows) {
-        validateCoreContext(coreContext, "maxRows");
+        validateCoreContextIsNull(coreContext, "maxRows");
 
         this.maxRows = maxRows;
     }
 
     public void setColumnProperties(String... columnProperties) {
-        validateTable(table, "columnProperties");
+        validateTableIsNull(table, "columnProperties");
 
         this.columnProperties = columnProperties;
     }
@@ -392,7 +336,7 @@ public class TableFacadeImpl implements TableFacade {
             return coreContext;
         }
         
-        validateItems(items);
+        validateItemsIsNotNull(items);
 
         CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
         factory.setPreferences(getPreferences());
@@ -409,12 +353,11 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         this.coreContext = factory.createCoreContext(items, getLimit(), getWorksheet());
-
         return coreContext;
     }
 
     public void setCoreContext(CoreContext coreContext) {
-        validateTable(table, "CoreContext");
+        validateTableIsNull(table, "CoreContext");
 
         this.coreContext = coreContext;
         SupportUtils.setWebContext(coreContext, getWebContext());
@@ -425,12 +368,12 @@ public class TableFacadeImpl implements TableFacade {
             return table;
         }
         
-        validateColumnProperties(columnProperties);
+        validateColumnPropertiesIsNotNull(columnProperties);
 
         Limit l = getLimit();
 
         if (!l.isExported()) {
-            validateRowSelect(l);
+            validateRowSelectIsNotNull(l);
 
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
             this.table = tableFactory.createTable(columnProperties);
@@ -457,7 +400,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setTable(Table table) {
-        validateView(view, "Table");
+        validateViewIsNull(view, "Table");
 
         this.table = table;
     }
@@ -478,7 +421,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setToolbar(Toolbar toolbar) {
-        validateView(view, "Toolbar");
+        validateViewIsNull(view, "Toolbar");
 
         this.toolbar = toolbar;
         SupportUtils.setTable(toolbar, getTable());
@@ -489,7 +432,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
-        validateToolbar(toolbar, "maxRowsIncrements");
+        validateToolbarIsNull(toolbar, "maxRowsIncrements");
 
         this.maxRowsIncrements = maxRowsIncrements;
     }
@@ -531,16 +474,14 @@ public class TableFacadeImpl implements TableFacade {
 
     public String render() {
         Limit l = getLimit();
-
         View v = getView();
 
         if (!l.isExported()) {
             return v.render().toString();
         }
 
-        ExportType exportType = l.getExportType();
-
         try {
+            ExportType exportType = l.getExportType();
             if (exportType == ExportType.CSV) {
                 new CsvViewExporter(v, response).export();
             } else if (exportType == ExportType.EXCEL) {

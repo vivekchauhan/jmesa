@@ -87,6 +87,6 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
 
     private void createBuilder(Parameters parameters) {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setWorksheetFilter();
+        builder.setFilterWorksheet();
     }
 }

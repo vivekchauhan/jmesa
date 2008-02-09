@@ -30,59 +30,65 @@ import org.jmesa.view.html.toolbar.Toolbar;
  */
 final class TableFacadeExceptions {
 
-    private TableFacadeExceptions() {
-    }
+    private TableFacadeExceptions() {}
 
-    static void validateCoreContext(CoreContext coreContext, String object) {
+    static void validateCoreContextIsNull(CoreContext coreContext, String object) {
         if (coreContext != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the CoreContext.");
         }
     }
 
-    static void validateTable(Table table, String object) {
+    static void validateTableIsNull(Table table, String object) {
         if (table != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the Table.");
         }
     }
 
-    static void validateView(View view, String object) {
+    static void validateViewIsNull(View view, String object) {
         if (view != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the View.");
         }
     }
 
-    static void validateToolbar(Toolbar toolbar, String object) {
+    static void validateToolbarIsNull(Toolbar toolbar, String object) {
         if (toolbar != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the Toolbar.");
         }
     }
 
-    static void validateLimit(Limit limit, String object) {
+    static void validateLimitIsNull(Limit limit, String object) {
         if (limit != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the Limit.");
         }
     }
 
-    static void validateColumnProperties(String[] columnProperties) {
+    static void validateColumnPropertiesIsNotNull(String[] columnProperties) {
         if (columnProperties == null || columnProperties.length == 0) {
             throw new IllegalStateException(
                 "The column properties are null. You need to set the columnProperties, or build the Table with the factory.");
         }
     }
 
-    static void validateRowSelect(Limit limit) {
+    static void validateRowSelectIsNotNull(Limit limit) {
         if (limit.getRowSelect() == null) {
             throw new IllegalStateException(
                 "The RowSelect is null. You need to set the totalRows on the facade.");
         }
     }
 
-    static void validateItems(Collection items) {
+    static void validateItemsIsNull(Collection items) {
+        if (items != null) {
+            throw new IllegalStateException(
+                "It is too late to set editable. You need to set editable before using the Limit.");
+        }
+    }
+
+    static void validateItemsIsNotNull(Collection items) {
         if (items == null) {
             throw new IllegalStateException("The items are null. You need to set the items on the facade.");
         }
