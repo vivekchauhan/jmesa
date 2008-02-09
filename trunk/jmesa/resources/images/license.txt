@@ -2,20 +2,23 @@ The following icons are used from the Tango Desktop Project
 at http://tango.freedesktop.org/Tango_Desktop_Project. The icons are
 licensed under the Creative Commons Attribution Share-Alike license 
 which is described at http://creativecommons.org/licenses/by-sa/2.5/.
--clear.png
--filter.png
--csv.png
--firstPage.png
--prevPage.png
--nextPage.png
--lastPage.png
+-clear.gif
+-filter.gif
+-csv.gif
+-firstPage.gif
+-prevPage.gif
+-nextPage.gif
+-lastPage.gif
+-filterWorksheet.gif
+-saveWorksheet.gif
+-undo.gif
 
 The following icons are modified from the Tango Desktop Project 
 at http://tango.freedesktop.org/Tango_Desktop_Project. I changed 
 them to have a disabled look.The icons are licensed under the 
 Creative Commons Attribution Share-Alike license which is described 
 at http://creativecommons.org/licenses/by-sa/2.5/.
--firstPageDisabled.png
--prevPageDisabled.png
--nextPageDisabled.png
--lastPageDisabled.png
+-firstPageDisabled.gif
+-prevPageDisabled.gif
+-nextPageDisabled.gif
+-lastPageDisabled.gif

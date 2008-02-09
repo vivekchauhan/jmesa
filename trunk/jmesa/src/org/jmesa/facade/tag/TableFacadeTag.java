@@ -208,7 +208,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * Turn the table into an editable worksheet.
      * 
-     * @param Is true if the table should be editable.
+     * @param editable Is true if the table should be editable.
      */
     public void setEditable(boolean editable) {
         this.editable = editable;
