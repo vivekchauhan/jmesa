@@ -62,11 +62,11 @@ public class WorksheetImpl implements Worksheet {
         rows.remove(row.getUniqueProperty());
     }
     
-    public boolean isSaved() {
+    public boolean isSaving() {
         throw new UnsupportedOperationException("A request is needed to check for save logic.");
     }
     
-    public boolean isFiltered() {
+    public boolean isFiltering() {
         throw new UnsupportedOperationException("A request is needed to check for filter logic.");
     }
 

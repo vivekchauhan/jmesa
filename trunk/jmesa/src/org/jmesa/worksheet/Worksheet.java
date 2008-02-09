@@ -89,12 +89,12 @@ public interface Worksheet {
     /**
      * @return Is true if the user is requesting that the worksheet be saved.
      */
-    public boolean isSaved();
+    public boolean isSaving();
 
     /**
      * @return Is true if the user is requesting that the worksheet filter changes.
      */
-    public boolean isFiltered();
+    public boolean isFiltering();
     
     /**
      * @return Is true if the worksheet contains changes, which really means the worksheet is

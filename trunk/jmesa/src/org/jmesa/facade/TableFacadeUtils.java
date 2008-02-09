@@ -72,7 +72,7 @@ public class TableFacadeUtils {
      * @return The filtered items.
      */
     static Collection<?> filterWorksheetItems(Collection<?> items, Worksheet worksheet) {
-        if (!worksheet.isFiltered()) {
+        if (!worksheet.isFiltering()) {
             return items;
         }
 

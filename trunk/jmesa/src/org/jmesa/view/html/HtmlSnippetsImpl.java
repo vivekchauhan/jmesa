@@ -281,7 +281,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         }
 
         Worksheet worksheet = coreContext.getWorksheet();
-        if (worksheet != null && worksheet.isFiltered()) {
+        if (worksheet != null && worksheet.isFiltering()) {
             html.tab().append("setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
         }
         

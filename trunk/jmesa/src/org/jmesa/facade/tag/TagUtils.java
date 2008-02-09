@@ -42,6 +42,7 @@ import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 import org.jmesa.view.html.toolbar.Toolbar;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -239,6 +240,28 @@ class TagUtils {
 
         HtmlCellRenderer result = (HtmlCellRenderer) createInstance(cellRenderer);
         result.setCellEditor(column.getCellRenderer().getCellEditor()); // reset the default
+
+        return result;
+    }
+
+    /**
+     * <p>
+     * If the worksheetEditor is not defined then create a WorksheetEditor.
+     * </p>
+     * 
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * worksheetEditor.
+     * </p>
+     * 
+     * @return The WorksheetEditor to use.
+     */
+    static WorksheetEditor getColumnWorksheetEditor(HtmlColumn column, String worksheetEditor) {
+        if (StringUtils.isEmpty(worksheetEditor)) {
+            return null;
+        }
+
+        WorksheetEditor result = (WorksheetEditor) createInstance(worksheetEditor);
 
         return result;
     }

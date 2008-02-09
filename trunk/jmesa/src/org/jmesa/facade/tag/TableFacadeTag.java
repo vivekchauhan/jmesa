@@ -68,7 +68,8 @@ public class TableFacadeTag extends SimpleTagSupport {
     private String filterMatcherMap;
     private String view;
     private String toolbar;
-    
+    private boolean editable;
+
     // tag attributes
     private String var;
     
@@ -195,6 +196,22 @@ public class TableFacadeTag extends SimpleTagSupport {
      */
     public void setExportTypes(String exportTypes) {
         this.exportTypes = exportTypes;
+    }
+    
+    /**
+     * @return Is true if the table should be editable.
+     */
+    public boolean isEditable() {
+        return editable;
+    }
+
+    /**
+     * Turn the table into an editable worksheet.
+     * 
+     * @param Is true if the table should be editable.
+     */
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     /**
@@ -419,6 +436,7 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         this.tableFacade = new TableFacadeImpl(getId(), null);
         tableFacade.setWebContext(webContext);
+        tableFacade.setEditable(isEditable());
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
         tableFacade.setStateAttr(getStateAttr());
@@ -434,12 +452,13 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setRowFilter(getTableFacadeRowFilter(getRowFilter()));
         tableFacade.addFilterMatcherMap(getTableFacadeFilterMatcherMap(getFilterMatcherMap()));
 
-        Collection<?> pageItems = tableFacade.getCoreContext().getPageItems();
+        Collection<?> pi = tableFacade.getCoreContext().getPageItems();
 
-        if (pageItems.size() == 0) {
+        if (pi.size() == 0) {
             body.invoke(null);
+            getPageItems().clear();
         } else {
-            for (Iterator<?> iterator = pageItems.iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = pi.iterator(); iterator.hasNext();) {
                 Object item = iterator.next();
                 getJspContext().setAttribute(getVar(), item);
                 body.invoke(null);
@@ -453,8 +472,8 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setView(getTableFacadeView(getView()));
         tableFacade.getCoreContext().setPageItems(getPageItems());
 
-        View view = tableFacade.getView();
-        String html = view.render().toString();
+        View v = tableFacade.getView();
+        String html = v.render().toString();
         getJspContext().getOut().print(html);
     }
 }

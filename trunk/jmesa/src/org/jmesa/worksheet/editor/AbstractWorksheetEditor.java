@@ -15,7 +15,6 @@
  */
 package org.jmesa.worksheet.editor;
 
-import java.util.Map;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.editor.AbstractCellEditor;
 import org.jmesa.view.editor.CellEditor;
@@ -23,7 +22,6 @@ import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
-import org.jmesa.worksheet.state.WorksheetState;
 
 /**
  * The abstraction for the worksheet editors. Custom implementations should extend this.
@@ -76,11 +74,13 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
      * @return The JavaScript for the unique properties.
      */
     protected String getUniquePropertyJavaScript(Object item) {
-        StringBuilder sb = new StringBuilder();
-
         Row row = getColumn().getRow();
         UniqueProperty uniqueProperty = row.getUniqueProperty(item);
+        if (uniqueProperty == null) {
+            return "";
+        }
 
+        StringBuilder sb = new StringBuilder();
         sb.append("var " + UNIQUE_PROPERTY + " = {};");
         sb.append(UNIQUE_PROPERTY + "['" + uniqueProperty.getProperty() + "']='" + uniqueProperty.getValue() + "';");
         return sb.toString();
