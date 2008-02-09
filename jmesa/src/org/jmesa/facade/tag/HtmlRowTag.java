@@ -56,6 +56,7 @@ public class HtmlRowTag extends SimpleTagSupport {
     private String onclick;
     private String onmouseover;
     private String onmouseout;
+    private String uniqueProperty;
     private Map<String, Object> pageItem;
 
     /**
@@ -215,12 +216,21 @@ public class HtmlRowTag extends SimpleTagSupport {
     public void setOnmouseout(String onmouseout) {
         this.onmouseout = onmouseout;
     }
+    
+    public String getUniqueProperty() {
+        return uniqueProperty;
+    }
+
+    public void setUniqueProperty(String uniqueProperty) {
+        this.uniqueProperty = uniqueProperty;
+    }
 
     /**
      * The row to use. If the row does not exist then one will be created.
      */
     private HtmlRow getRow(HtmlComponentFactory factory) {
         HtmlRow row = factory.createRow();
+        row.setUniqueProperty(getUniqueProperty());
         row.setHighlighter(isHighlighter());
         row.setSortable(isSortable());
         row.setFilterable(isFilterable());

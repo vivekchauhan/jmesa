@@ -71,7 +71,7 @@ public class WorksheetWrapper implements Worksheet {
      * 
      * @return Is true if saving worksheet.
      */
-    public boolean isSaved() {
+    public boolean isSaving() {
         String save = webContext.getParameter(getId()  + "_" + SAVE_WORKSHEET);
         return StringUtils.isNotEmpty(save);
     }
@@ -82,7 +82,7 @@ public class WorksheetWrapper implements Worksheet {
      * 
      * @return Is true if filtering worksheet.
      */
-    public boolean isFiltered() {
+    public boolean isFiltering() {
         String filter = webContext.getParameter(getId()  + "_" + FILTER_WORKSHEET);
         return StringUtils.isNotEmpty(filter);
     }

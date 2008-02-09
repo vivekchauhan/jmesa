@@ -17,6 +17,7 @@ package org.jmesa.facade.tag;
 
 import static org.jmesa.facade.tag.TagUtils.getColumnCellRenderer;
 import static org.jmesa.facade.tag.TagUtils.getColumnCellEditor;
+import static org.jmesa.facade.tag.TagUtils.getColumnWorksheetEditor;
 import static org.jmesa.facade.tag.TagUtils.getColumnFilterRenderer;
 import static org.jmesa.facade.tag.TagUtils.getColumnFilterEditor;
 import static org.jmesa.facade.tag.TagUtils.getColumnHeaderRenderer;
@@ -42,6 +43,7 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
  * Represents an HtmlColumn.
@@ -57,6 +59,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String sortOrder;
     private Boolean filterable;
     private Boolean editable;
+    private String worksheetEditor;
     private String width;
     private String cellRenderer;
     private String filterRenderer;
@@ -134,6 +137,14 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     public void setEditable(Boolean editable) {
         this.editable = editable;
+    }
+
+    public String getWorksheetEditor() {
+        return worksheetEditor;
+    }
+
+    public void setWorksheetEditor(String worksheetEditor) {
+        this.worksheetEditor = worksheetEditor;
     }
 
     public String getWidth() {
@@ -333,33 +344,37 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         // cell
         
-        HtmlCellRenderer cellRenderer = getColumnCellRenderer(column, getCellRenderer());
-        cellRenderer.setStyle(getStyle());
-        cellRenderer.setStyleClass(getStyleClass());
-        column.setCellRenderer(cellRenderer);
+        HtmlCellRenderer cr = getColumnCellRenderer(column, getCellRenderer());
+        cr.setStyle(getStyle());
+        cr.setStyleClass(getStyleClass());
+        column.setCellRenderer(cr);
         
-        CellEditor cellEditor = getColumnCellEditor(column, getCellEditor(), getPattern());
-        cellRenderer.setCellEditor(cellEditor);
+        CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern());
+        cr.setCellEditor(ce);
+
+        // worksheet
+        WorksheetEditor we = getColumnWorksheetEditor(column, getWorksheetEditor());
+        cr.setWorksheetEditor(we);
 
         // filter
 
-        HtmlFilterRenderer filterRenderer = getColumnFilterRenderer(column, getFilterRenderer());
-        filterRenderer.setStyle(getFilterStyle());
-        filterRenderer.setStyleClass(getFilterClass());
-        column.setFilterRenderer(filterRenderer);
+        HtmlFilterRenderer fr = getColumnFilterRenderer(column, getFilterRenderer());
+        fr.setStyle(getFilterStyle());
+        fr.setStyleClass(getFilterClass());
+        column.setFilterRenderer(fr);
 
-        FilterEditor filterEditor = getColumnFilterEditor(column, getFilterEditor());
-        filterRenderer.setFilterEditor(filterEditor);
+        FilterEditor fe = getColumnFilterEditor(column, getFilterEditor());
+        fr.setFilterEditor(fe);
 
         // header
 
-        HtmlHeaderRenderer headerRenderer = getColumnHeaderRenderer(column, getHeaderRenderer());
-        headerRenderer.setStyle(getHeaderStyle());
-        headerRenderer.setStyleClass(getHeaderClass());
-        column.setHeaderRenderer(headerRenderer);
+        HtmlHeaderRenderer hr = getColumnHeaderRenderer(column, getHeaderRenderer());
+        hr.setStyle(getHeaderStyle());
+        hr.setStyleClass(getHeaderClass());
+        column.setHeaderRenderer(hr);
 
-        HeaderEditor headerEditor = getColumnHeaderEditor(column, getHeaderEditor());
-        headerRenderer.setHeaderEditor(headerEditor);
+        HeaderEditor he = getColumnHeaderEditor(column, getHeaderEditor());
+        hr.setHeaderEditor(he);
 
         return column;
     }

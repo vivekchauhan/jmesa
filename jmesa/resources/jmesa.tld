@@ -24,6 +24,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>editable</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>maxRows</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -161,6 +166,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>uniqueProperty</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>style</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -258,6 +268,11 @@
         </attribute>
         <attribute>
             <name>editable</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>worksheetEditor</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

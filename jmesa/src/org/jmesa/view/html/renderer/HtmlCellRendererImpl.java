@@ -87,10 +87,12 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
 
     public void setWorksheetEditor(WorksheetEditor worksheetEditor) {
         this.worksheetEditor = worksheetEditor;
-        worksheetEditor.setCellEditor(super.getCellEditor());
-        SupportUtils.setWebContext(worksheetEditor, getWebContext());
-        SupportUtils.setCoreContext(worksheetEditor, getCoreContext());
-        SupportUtils.setColumn(worksheetEditor, getColumn());
+        if (worksheetEditor != null) {
+            worksheetEditor.setCellEditor(super.getCellEditor());
+            SupportUtils.setWebContext(worksheetEditor, getWebContext());
+            SupportUtils.setCoreContext(worksheetEditor, getCoreContext());
+            SupportUtils.setColumn(worksheetEditor, getColumn());
+        }
     }
 
     public Object render(Object item, int rowcount) {

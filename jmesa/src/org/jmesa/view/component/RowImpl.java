@@ -46,7 +46,9 @@ public class RowImpl extends AbstractContextSupport implements Row {
     public UniqueProperty getUniqueProperty(Object item) {
         if (uniqueProperty != null) {
             Object value = ItemUtils.getItemValue(item, uniqueProperty);
-            return new UniqueProperty(uniqueProperty, value.toString());
+            if (value != null) {
+                return new UniqueProperty(uniqueProperty, value.toString());
+            }
         }
 
         return null;
