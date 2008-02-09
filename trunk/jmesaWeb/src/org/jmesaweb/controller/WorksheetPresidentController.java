@@ -76,7 +76,7 @@ public class WorksheetPresidentController extends AbstractController {
     private void saveWorksheet(TableFacade tableFacade) {
         Worksheet worksheet = tableFacade.getWorksheet();
 
-        if (worksheet.isSaved()) {
+        if (worksheet.isSaving()) {
             logger.debug("******Saving the worksheet!********");
 
             Collection<WorksheetRow> worksheetRows = worksheet.getRows();
