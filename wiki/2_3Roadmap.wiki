@@ -2,11 +2,11 @@ The JMesa 2.3 release should be out the first quarter of 2008. For more informat
 
 http://jmesa.org/wiki/images/worksheet-save.gif
 
- * *01/27/2008:* The first alpha release of the worksheet functionality is out! If you are interested in testing it out and offering feedback it is available in the downloads section of this site (jmesa-2.3_08.01.27.zip). Just know that this is very new though, and considered alpha software. It is also missing core functionality like error messaging, but I expect to get that done soon!
+ * *02/09/2008:* The beta release of the worksheet functionality is out! If you are interested in testing it out and offering feedback it is available in the downloads section of this site (jmesa-2.3_08.02.09.zip).
 
 *After you get the chance to work with the worksheet be sure to send me an email with any feedback you have. It could be as simple as just letting me know its working, or not working! You can just email me directly at extremecomponents@gmail.com.*
 
-_The example [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java  source code] is checked into the web project. Be sure to look at that for a better idea on how to work with the worksheet functionality. Also note that so far the functionality has only been tested on Firefox using [http://www.ubuntu.com/ Ubuntu] Linux. Throughout the week I will be updating the wiki to give better instructions on how the worksheet functions._
+_The example [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java  source code] is checked into the web project. Be sure to look at that for a better idea on how to work with the worksheet functionality. Also note that so far the functionality has only been tested on Firefox using [http://www.ubuntu.com/ Ubuntu] Linux. Throughout the beta cycle I will be updating the wiki to give better instructions on how the worksheet functions._
 
 ==== Setup ====
 
@@ -25,13 +25,41 @@ First you need to set up the servlet. The servlet is used with AJAX technology t
 
 ==== Set Table to be Editable ====
 
+===== API =====
+
 Then set the table to be editable:
 
 {{{
 tableFacade.setEditable(true);
 
-// the unique worksheet properties to identify the row
-row.setUniqueProperties("id"); 
+// the unique worksheet property to identify the row
+row.setUniqueProperty("id"); 
+}}}
+
+To get a checkbox using the API:
+
+{{{
+HtmlColumn chkbox = row.getColumn("chkbox");
+chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
+chkbox.setTitle("&nbsp;");
+chkbox.setFilterable(false);
+chkbox.setSortable(false);
+}}}
+
+===== tags =====
+
+{{{
+<jmesa:tableFacade editable="true" >
+   <jmesa:htmlRow uniqueProperty="id">
+
+   </jmesa:htmlRow>
+</jmesa:tableFacade>
+}}}
+
+To get a checkbox using the tags:
+
+{{{
+ <jmesa:htmlColumn property="chkbox" title="&nbsp;" worksheetEditor="org.jmesa.worksheet.editor.CheckboxWorksheetEditor" filterable="false" sortable="false"/>
 }}}
 
 ==== Retrieving Values ====
