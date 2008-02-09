@@ -26,9 +26,9 @@ import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.filter.SimpleRowFilter;
 import org.jmesa.core.filter.StringFilterMatcher;
 import org.jmesa.core.message.Messages;
-import org.jmesa.core.message.ResourceBundleMessages;
+import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.preference.Preferences;
-import org.jmesa.core.preference.PropertiesPreferences;
+import org.jmesa.core.preference.PreferencesFactory;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.core.sort.DefaultColumnSort;
 import org.jmesa.core.sort.MultiColumnSort;
@@ -42,9 +42,6 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class CoreContextFactoryImpl implements CoreContextFactory {
-    public static final String JMESA_PREFERENCES_LOCATION = "jmesaPreferencesLocation";
-    public static final String JMESA_MESSAGES_LOCATION = "jmesaMessagesLocation";
-    
     private WebContext webContext;
     private FilterMatcherRegistry registry;
     private RowFilter rowFilter;
@@ -110,8 +107,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
 
     protected Preferences getPreferences() {
         if (preferences == null) {
-            String jmesaPreferencesLocation = (String) webContext.getApplicationInitParameter(JMESA_PREFERENCES_LOCATION);
-            preferences = new PropertiesPreferences(jmesaPreferencesLocation, webContext);
+            preferences = PreferencesFactory.getPreferences(webContext);
         }
 
         return preferences;
@@ -123,8 +119,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
 
     protected Messages getMessages() {
         if (messages == null) {
-            String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
-            messages = new ResourceBundleMessages(jmesaMessagesLocation, webContext);
+            messages = MessagesFactory.getMessages(webContext);
         }
 
         return messages;

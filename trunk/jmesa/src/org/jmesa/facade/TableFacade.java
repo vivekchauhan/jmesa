@@ -37,6 +37,46 @@ import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
 
 /**
+ * <p>
+ * This is a facade for working with tables that also has a little bit of builder in its veins. The
+ * basic idea is you instantiate a TableFacade class and then interact with it in a natural way. The
+ * facade completely abstracts away all the factory classes and eliminates a lot of boilerplate
+ * code. The builder notion comes in because as you work with it it will internally build up
+ * everything you need and keep track of it for you.
+ * </p>
+ * 
+ * <p>
+ * The simple example is:
+ * </p>
+ * 
+ * <pre>
+ *  TableFacade tableFacade = new TableFacadeImpl(id, request);
+ *  tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");\
+ *  tableFacade.setItems(items);
+ *  String html = tableFacade.render();
+ * </pre>
+ * 
+ * <p>
+ * Notice how there are no factories to deal with. However any API Object that you would have used
+ * before is available through the facade, including the WebContext, CoreContext, Limit, Table,
+ * Toolbar, and View. When you ask the facade for a given object it builds everything it needs up to
+ * that point. Internally it keeps track of everything you are doing so it also works like a
+ * builder.
+ * </p>
+ * 
+ * <p>
+ * The TableFacade interface also has setters for all the facade objects including the WebContext,
+ * CoreContext, Limit, Table, Toolbar, and View. The reason is if you really need to customize
+ * something and want to set your own implementation you can. Your object just goes into the flow of
+ * the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when
+ * the render() method is called it will use your Toolbar.
+ * </p>
+ * 
+ * <p>
+ * However, all this should feel very natural and you should not have to think about what you are
+ * doing. Just interact with the facade how you need to and it will take care of everything.
+ * </p>
+ * 
  * @since 2.1
  * @author Jeff Johnston
  */

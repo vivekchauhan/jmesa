@@ -15,15 +15,15 @@
  */
 package org.jmesa.facade;
 
+import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.PropertyUtils;
-import static org.jmesa.core.CoreContextFactoryImpl.JMESA_MESSAGES_LOCATION;
 
-import org.jmesa.core.message.Messages;
-import org.jmesa.core.message.ResourceBundleMessages;
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
@@ -44,17 +44,26 @@ public class TableFacadeUtils {
 
     private static Logger logger = LoggerFactory.getLogger(TableFacadeUtils.class);
 
-    private TableFacadeUtils() {
-    }
-
+    public static String TABLE_REFRESHING = "_tr_";
+    
+    private TableFacadeUtils() {}
+    
     /**
-     * @return The default messages.
+     * There needs to be a way to tell if the table is refreshing, as opposed to being run for the first time.
+     * 
+     * @param id The table identifier.
+     * @param webContext The web context.
+     * @return Is true if the table is being refreshed.
      */
-    public static Messages getMessages(WebContext webContext) {
-        String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
-        return new ResourceBundleMessages(jmesaMessagesLocation, webContext);
+    static boolean isTableRefreshing(String id, WebContext webContext) {
+        String refreshing = webContext.getParameter(id + TABLE_REFRESHING);
+        if (StringUtils.isNotEmpty(refreshing) && refreshing.equals("true")) {
+            return true;
+        }
+        
+        return false;
     }
-
+    
     /**
      * Filter the items by the rows in the worksheet.
      * 
@@ -94,6 +103,14 @@ public class TableFacadeUtils {
         return results;
     }
 
+    /**
+     * Retrieve the Limit from the State implemenation.
+     * 
+     * @param id The table identifier.
+     * @param stateAttr The attribute used to retrieve the Limit.
+     * @param request The servlet request.
+     * @return The Limit stored by the State implementation.
+     */
     public static Limit retrieveLimit(String id, String stateAttr, HttpServletRequest request) {
         WebContext webContext = new HttpServletRequestWebContext(request);
         State state = new SessionState(id, stateAttr, webContext);

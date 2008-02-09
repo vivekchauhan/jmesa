@@ -15,13 +15,15 @@
  */
 package org.jmesa.test;
 
+import static org.jmesa.facade.WorksheetWrapper.FILTER_WORKSHEET;
+import static org.jmesa.facade.WorksheetWrapper.SAVE_WORKSHEET;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jmesa.limit.Action;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
-import org.jmesa.worksheet.servlet.WorksheetServlet;
 
 /**
  * Build up the parameters that is used by the LimitFactory.
@@ -78,8 +80,13 @@ public class ParametersBuilder {
         parameters.addParameter(key, exportType.toParam());
     }
     
-    public void setWorksheetFilter() {
-        String key = prefixId + WorksheetServlet.FILTER_WORKSHEET;
+    public void setFilterWorksheet() {
+        String key = prefixId + FILTER_WORKSHEET;
+        parameters.addParameter(key, "true");
+    }
+
+    public void setSaveWorksheet() {
+        String key = prefixId + SAVE_WORKSHEET;
         parameters.addParameter(key, "true");
     }
 
