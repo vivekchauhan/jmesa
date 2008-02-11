@@ -67,22 +67,27 @@ To get a checkbox using the tags:
 Working with the worksheet makes working with an editable table clean and effortless. The following shows how you would iterate over the worksheet to see what was changed.
 
 {{{
-private void saveWorksheet(TableFacade tableFacade) {
-    Worksheet worksheet = tableFacade.getWorksheet();
+Worksheet worksheet = tableFacade.getWorksheet();
 
-    if (worksheet.isSaved()) {
-        logger.debug("******Saving the worksheet!********");
+if (worksheet.isSaving()) {
+    logger.debug("******Saving the worksheet!********");
 
-        Collection<WorksheetRow> worksheetRows = worksheet.getRows();
-        for (WorksheetRow worksheetRow : worksheetRows) {
-            logger.debug("the unique properties are " + worksheetRow.getUniqueProperties());
-
-            Collection<WorksheetColumn> worksheetColumns = worksheetRow.getColumns();
-            for (WorksheetColumn worksheetColumn : worksheetColumns) {
-                logger.debug("changed value [" + worksheetColumn.getChangedValue() + "] -- original value [" + worksheetColumn.getOriginalValue() + "]");
+    Collection<WorksheetRow> worksheetRows = worksheet.getRows();
+    for (WorksheetRow worksheetRow : worksheetRows) {
+        logger.debug("the unique property is " + worksheetRow.getUniqueProperty());
+        
+        Collection<WorksheetColumn> worksheetColumns = worksheetRow.getColumns();
+        for (WorksheetColumn worksheetColumn : worksheetColumns) {
+            logger.debug("changed value [" + worksheetColumn.getChangedValue() + "] -- original value [" + worksheetColumn.getOriginalValue() + "]");
+            
+            if (worksheetColumn.getChangedValue().equals("foo")) {
+                worksheetColumn.setErrorKey("foo.error");
+            } else {
+               worksheetColumn.removeError();
             }
         }
-        worksheet.removeAllChanges();
     }
+    
+    //worksheet.removeAllChanges();
 }
 }}}
