@@ -32,12 +32,12 @@ public class MaxRowsItemRenderer extends AbstractItemRenderer {
     }
 
     @Override
-    public MaxRowsItemImpl getToolbarItem() {
-        return (MaxRowsItemImpl) super.getToolbarItem();
+    public MaxRowsItem getToolbarItem() {
+        return (MaxRowsItem) super.getToolbarItem();
     }
 
     public String render() {
-        MaxRowsItemImpl item = getToolbarItem();
+        MaxRowsItem item = getToolbarItem();
 
         if (item.getIncrements().length == 0) {
             String increments[] = StringUtils.split(getCoreContext().getPreference(TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS), ",");
