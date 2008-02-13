@@ -28,7 +28,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
     TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
     tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
     tableFacade.setItems(items);
-    tableFacade.setExportTypes(response, "csv", "excel");
+    tableFacade.setExportTypes(response, ExportType.CSV, ExportType.EXCEL);
 
     Table table = tableFacade.getTable();
     table.setCaption("Presidents");
@@ -110,7 +110,7 @@ Even if you start using the tag library it would still be very handy to use the 
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 tableFacade.setItems(items);
-tableFacade.setExportTypes(response, "csv", "excel");
+tableFacade.setExportTypes(response, ExportType.CSV, ExportType.EXCEL);
 
 Limit limit = tableFacade.getLimit();
 if (limit.isExported()) {
@@ -131,7 +131,7 @@ All you have to do is set the table on the facade.
 {{{
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setItems(items);
-tableFacade.setExportTypes(response, "excel");
+tableFacade.setExportTypes(response, ExportType.EXCEL);
 
 Limit limit = tableFacade.getLimit();
 
