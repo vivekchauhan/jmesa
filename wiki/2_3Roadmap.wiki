@@ -1,6 +1,6 @@
 The JMesa 2.3 release should be out the first quarter of 2008. For more information about the worksheet you can read the [Worksheet specs] page.
 
-*Update : * you can now download the example war file and source code from the [http://builds.jmesa.org builds] directory on my Go Daddy account.
+*Update : * _You can now download the example war file and source code from the [http://builds.jmesa.org builds] directory on my Go Daddy account._
 
 http://jmesa.org/wiki/images/worksheet-save.gif
 
