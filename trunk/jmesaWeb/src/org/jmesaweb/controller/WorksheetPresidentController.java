@@ -34,6 +34,7 @@ import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.editor.DroplistFilterEditor;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
@@ -129,6 +130,9 @@ public class WorksheetPresidentController extends AbstractController {
         born.setEditable(false);
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
 
+        HtmlColumn career = row.getColumn("career");
+        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+        
         return tableFacade.render(); // return the Html
     }
 
