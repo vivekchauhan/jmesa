@@ -92,18 +92,11 @@ public class WorksheetPresidentController extends AbstractController {
         String uniquePropery = getUniquePropery(worksheet);
         List<String> uniqueIds = getUniqueIds(worksheet);
         Map<String, President> presidents = presidentService.getPresidentsByUniqueIds(uniquePropery, uniqueIds);
-        save(presidents, worksheet);
-    }
-
-    private void save(Map<String, President> presidents, Worksheet worksheet) 
-        throws Exception {
         
         Iterator<WorksheetRow> worksheetRows = worksheet.getRows().iterator();
         
         while (worksheetRows.hasNext()) {
             WorksheetRow worksheetRow = worksheetRows.next();
-            
-            UniqueProperty uniqueProperty = worksheetRow.getUniqueProperty();
             
             Iterator<WorksheetColumn> worksheetColumns = worksheetRow.getColumns().iterator();
             while (worksheetColumns.hasNext()) {
@@ -111,20 +104,22 @@ public class WorksheetPresidentController extends AbstractController {
                 
                 String changedValue = worksheetColumn.getChangedValue();
 
-                validate(worksheetColumn, changedValue);
+                validateColumn(worksheetColumn, changedValue);
                 if (worksheetColumn.hasError()) {
                     continue;
                 }
 
+                UniqueProperty uniqueProperty = worksheetRow.getUniqueProperty();
                 President president = presidents.get(uniqueProperty.getValue());
                 String property = worksheetColumn.getProperty();
                 PropertyUtils.setProperty(president, property, changedValue);
                 presidentService.save(president);
                 
+                // remove the column after sucessfully saving item
                 worksheetColumns.remove();
             }
             
-            // remove the worksheet row if need be
+            // remove the worksheet row if there are no columns left
             if (worksheetRow.getColumns().size() == 0) {
                 worksheetRows.remove();
             }
@@ -156,7 +151,7 @@ public class WorksheetPresidentController extends AbstractController {
     /**
      * Validate the worksheet column cells.
      */
-    private void validate(WorksheetColumn worksheetColumn, String changedValue) {
+    private void validateColumn(WorksheetColumn worksheetColumn, String changedValue) {
         if (changedValue.equals("foo")) {
             worksheetColumn.setErrorKey("foo.error");
         } else {
