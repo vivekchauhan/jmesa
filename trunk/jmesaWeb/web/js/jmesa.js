@@ -393,41 +393,42 @@ function createDynDroplistFilter(filter, id, property, options) {
             html += '<option selected="selected" value="' + key + '">' + value + '</option>';
         } else {
         html += '<option value="' + key + '">' + value + '</option>';
+        }
+    });
+    
+    html += '</select>';
+
+    var div = $('#dynFilterDroplistDiv');
+    div.html(html);
+
+    var input = $('#dynFilterDroplist');
+
+    /* Resize the column if it is not at least as wide as the column. */    
+    var selectWidth = input.width();
+    if (selectWidth < width) {
+        input.width(width + 5); // always make the droplist overlap some
     }
-});
-html += '</select>';
 
-var div = $('#dynFilterDroplistDiv');
-div.html(html);
+    input.focus();
 
-var input = $('#dynFilterDroplist');
+    var originalBackgroundColor = cell.css("backgroundColor");
+    cell.css({backgroundColor:div.css("backgroundColor")});
 
-/* Resize the column if it is not at least as wide as the column. */    
-var selectWidth = input.width();
-if (selectWidth < width) {
-    input.width(width + 5); // always make the droplist overlap some
-}
+    /* Something was selected or the clicked off the droplist. */
 
-input.focus();
+    $(input).change(function() {
+        var changedValue = $("#dynFilterDroplistDiv option:selected").val();
+        cell.text(changedValue);
+        addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+        onInvokeAction(dynFilter.id);
+    });
 
-var originalBackgroundColor = cell.css("backgroundColor");
-cell.css({backgroundColor:div.css("backgroundColor")});
-
-/* Something was selected or the clicked off the droplist. */
-
-$(input).change(function() {
-    var changedValue = $("#dynFilterDroplistDiv option:selected").val();
-    cell.text(changedValue);
-    addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-    onInvokeAction(dynFilter.id);
-});
-
-$(input).blur(function() {
-    var changedValue = $("#dynFilterDroplistDiv option:selected").val();
-    cell.text(changedValue);
-    $('#dynFilterDroplistDiv').remove();
-    cell.css({backgroundColor:originalBackgroundColor});
-});
+    $(input).blur(function() {
+        var changedValue = $("#dynFilterDroplistDiv option:selected").val();
+        cell.text(changedValue);
+        $('#dynFilterDroplistDiv').remove();
+        cell.css({backgroundColor:originalBackgroundColor});
+    });
 }
 
 /* Create a dropshadow for the tables */
