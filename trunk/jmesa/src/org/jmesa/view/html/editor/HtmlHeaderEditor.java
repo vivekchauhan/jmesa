@@ -39,6 +39,8 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
 
     public Object getValue() {
         HtmlBuilder html = new HtmlBuilder();
+        
+        html.div();
 
         Limit limit = getCoreContext().getLimit();
         HtmlColumn column = getColumn();
@@ -63,7 +65,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
                 }
             }
         }
-
+        
         html.close();
         html.append(column.getTitle());
 
@@ -88,6 +90,8 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
                 }
             }
         }
+        
+        html.divEnd();
 
         return html.toString();
     }

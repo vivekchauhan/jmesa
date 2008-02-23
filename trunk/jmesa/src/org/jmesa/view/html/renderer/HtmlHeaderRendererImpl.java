@@ -72,6 +72,7 @@ public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements Ht
         html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
+        html.close();
 
         html.append(getHeaderEditor().getValue());
 
