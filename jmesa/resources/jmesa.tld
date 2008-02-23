@@ -5,14 +5,14 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
         version="2.0">
     
-    <tlibversion>1.1</tlibversion>
-    <shortname>jmesa</shortname>
+    <tlib-version>1.1</tlib-version>
+    <short-name>jmesa</short-name>
     <uri>http://code.google.com/p/jmesa</uri>
     
     <tag>
         <name>tableFacade</name>
-        <tagclass>org.jmesa.facade.tag.TableFacadeTag</tagclass>
-        <bodycontent>scriptless</bodycontent>
+        <tag-class>org.jmesa.facade.tag.TableFacadeTag</tag-class>
+        <body-content>scriptless</body-content>
         <attribute>
             <name>id</name>
             <required>true</required>
@@ -21,11 +21,6 @@
         <attribute>
             <name>items</name>
             <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>editable</name>
-            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
@@ -102,8 +97,8 @@
     
     <tag>
         <name>htmlTable</name>
-        <tagclass>org.jmesa.facade.tag.HtmlTableTag</tagclass>
-        <bodycontent>scriptless</bodycontent>
+        <tag-class>org.jmesa.facade.tag.HtmlTableTag</tag-class>
+        <body-content>scriptless</body-content>
         <attribute>
             <name>caption</name>
             <required>false</required>
@@ -158,15 +153,10 @@
     
     <tag>
         <name>htmlRow</name>
-        <tagclass>org.jmesa.facade.tag.HtmlRowTag</tagclass>
-        <bodycontent>scriptless</bodycontent>
+        <tag-class>org.jmesa.facade.tag.HtmlRowTag</tag-class>
+        <body-content>scriptless</body-content>
         <attribute>
             <name>rowRenderer</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>uniqueProperty</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -234,8 +224,8 @@
     
     <tag>
         <name>htmlColumn</name>
-        <tagclass>org.jmesa.facade.tag.HtmlColumnTag</tagclass>
-        <bodycontent>scriptless</bodycontent>
+        <tag-class>org.jmesa.facade.tag.HtmlColumnTag</tag-class>
+        <body-content>scriptless</body-content>
         <attribute>
             <name>property</name>
             <required>false</required>
@@ -263,16 +253,6 @@
         </attribute>
         <attribute>
             <name>filterable</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>editable</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>worksheetEditor</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -350,8 +330,8 @@
     
     <tag>
         <name>htmlColumns</name>
-        <tagclass>org.jmesa.facade.tag.HtmlColumnsTag</tagclass>
-        <bodycontent>scriptless</bodycontent>
+        <tag-class>org.jmesa.facade.tag.HtmlColumnsTag</tag-class>
+        <body-content>scriptless</body-content>
         <attribute>
             <name>htmlColumnsGenerator</name>
             <required>false</required>
