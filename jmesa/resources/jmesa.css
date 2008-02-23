@@ -85,6 +85,7 @@
     margin: 0;
     height: 17px;
     background-color: #e1ebf4;
+    z-index: 2;
 }
 
 .jmesa .filter #dynFilterDroplist {
