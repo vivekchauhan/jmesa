@@ -15,6 +15,7 @@
  */
 package org.jmesaweb.controller;
 
+import java.util.ArrayList;
 import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.JEXCEL;
 import static org.jmesa.limit.ExportType.PDF;
@@ -24,9 +25,13 @@ import static org.jmesa.facade.TableFacadeFactory.createTableFacade;
 import java.util.Collection;
 import java.util.Date;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.facade.TableFacade;
@@ -35,6 +40,7 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
@@ -57,16 +63,18 @@ public class WorksheetPresidentController extends AbstractController {
     private String id; // the unique table id
 
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) 
+        throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-        Collection<President> items = presidentService.getPresidents();
 
         TableFacade tableFacade = createTableFacade(id, request);
         tableFacade.setEditable(true); // switch to flip that turns the table editable
+        
+        saveWorksheet(tableFacade);
+        
+        Collection<President> items = presidentService.getPresidents();
         tableFacade.setItems(items); // set the items
         tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it
-
-        saveWorksheet(tableFacade);
 
         String html = getHtml(tableFacade);
         mv.addObject("presidents", html); // set the Html in the request for the JSP
@@ -74,32 +82,91 @@ public class WorksheetPresidentController extends AbstractController {
         return mv;
     }
 
-    private void saveWorksheet(TableFacade tableFacade) {
+    private void saveWorksheet(TableFacade tableFacade) 
+        throws Exception {
         Worksheet worksheet = tableFacade.getWorksheet();
+        if (!worksheet.isSaving()) {
+            return;
+        }
 
-        if (worksheet.isSaving()) {
-            logger.debug("******Saving the worksheet!********");
+        String uniquePropery = getUniquePropery(worksheet);
+        List<String> uniqueIds = getUniqueIds(worksheet);
+        Map<String, President> presidents = presidentService.getPresidentsByUniqueIds(uniquePropery, uniqueIds);
+        save(presidents, worksheet);
+    }
 
-            Collection<WorksheetRow> worksheetRows = worksheet.getRows();
-            for (WorksheetRow worksheetRow : worksheetRows) {
-                logger.debug("the unique property is " + worksheetRow.getUniqueProperty());
+    private void save(Map<String, President> presidents, Worksheet worksheet) 
+        throws Exception {
+        
+        Iterator<WorksheetRow> worksheetRows = worksheet.getRows().iterator();
+        
+        while (worksheetRows.hasNext()) {
+            WorksheetRow worksheetRow = worksheetRows.next();
+            
+            UniqueProperty uniqueProperty = worksheetRow.getUniqueProperty();
+            
+            Iterator<WorksheetColumn> worksheetColumns = worksheetRow.getColumns().iterator();
+            while (worksheetColumns.hasNext()) {
+                 WorksheetColumn worksheetColumn = worksheetColumns.next();
                 
-                Collection<WorksheetColumn> worksheetColumns = worksheetRow.getColumns();
-                for (WorksheetColumn worksheetColumn : worksheetColumns) {
-                    logger.debug("changed value [" + worksheetColumn.getChangedValue() + "] -- original value [" + worksheetColumn.getOriginalValue() + "]");
-                    
-                    if (worksheetColumn.getChangedValue().equals("foo")) {
-                        worksheetColumn.setErrorKey("foo.error");
-                    } else {
-                       worksheetColumn.removeError();
-                    }
+                String changedValue = worksheetColumn.getChangedValue();
+
+                validate(worksheetColumn, changedValue);
+                if (worksheetColumn.hasError()) {
+                    continue;
                 }
+
+                President president = presidents.get(uniqueProperty.getValue());
+                String property = worksheetColumn.getProperty();
+                PropertyUtils.setProperty(president, property, changedValue);
+                presidentService.save(president);
+                
+                worksheetColumns.remove();
             }
             
-            //worksheet.removeAllChanges();
+            // remove the worksheet row if need be
+            if (worksheetRow.getColumns().size() == 0) {
+                worksheetRows.remove();
+            }
         }
     }
 
+    /**
+     * @return Get the unique row property.
+     */
+    private String getUniquePropery(Worksheet worksheet) {
+        return worksheet.getRows().iterator().next().getUniqueProperty().getProperty();
+    }
+
+    /**
+     * @return Get the unique ids.
+     */
+    private List<String> getUniqueIds(Worksheet worksheet) {
+        List<String> result = new ArrayList<String>();
+
+        Collection<WorksheetRow> worksheetRows = worksheet.getRows();
+        for (WorksheetRow worksheetRow : worksheetRows) {
+            UniqueProperty uniqueProperty = worksheetRow.getUniqueProperty();
+            result.add(uniqueProperty.getValue());
+        }
+
+        return result;
+    }
+
+    /**
+     * Validate the worksheet column cells.
+     */
+    private void validate(WorksheetColumn worksheetColumn, String changedValue) {
+        if (changedValue.equals("foo")) {
+            worksheetColumn.setErrorKey("foo.error");
+        } else {
+            worksheetColumn.removeError();
+        }
+    }
+
+    /**
+     * @return Get the html for the table.
+     */
     private String getHtml(TableFacade tableFacade) {
         // add a custom filter matcher to be the same pattern as the cell editor used
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
@@ -132,7 +199,7 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlColumn career = row.getColumn("career");
         career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
-        
+
         return tableFacade.render(); // return the Html
     }
 

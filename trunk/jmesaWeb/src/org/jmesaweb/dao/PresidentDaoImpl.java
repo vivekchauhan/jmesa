@@ -16,12 +16,16 @@
 package org.jmesaweb.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
+import java.util.Map;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
+import org.jmesa.util.ItemUtils;
 import org.jmesaweb.domain.President;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -63,5 +67,32 @@ public class PresidentDaoImpl extends HibernateDaoSupport implements PresidentDa
         });
 
         return applications;
+    }
+    
+    public Map<String, President> getPresidentsByUniqueIds(String property, List<String> uniqueIds) {
+        Map<String, President> result = new HashMap<String, President>();
+        
+        String sql = "from President";
+        
+        String in = "";
+        for (String uniqueId : uniqueIds) {
+            in += uniqueId + ",";
+        }
+        
+        in = in.substring(0, in.length() - 1);
+
+        sql += " where id in (" + in + ")";
+        
+        List<President> presidents = getHibernateTemplate().find(sql);
+        for (President president : presidents) {
+            Object key = ItemUtils.getItemValue(president, property);
+            result.put(String.valueOf(key), president);
+        }
+        
+        return result;
+    }
+    
+    public void save(President president) {
+        getHibernateTemplate().saveOrUpdate(president);
     }
 }

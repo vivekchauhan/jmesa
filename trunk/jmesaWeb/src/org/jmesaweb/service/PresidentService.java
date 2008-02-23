@@ -17,6 +17,8 @@ package org.jmesaweb.service;
 
 import java.util.Collection;
 
+import java.util.List;
+import java.util.Map;
 import org.jmesaweb.dao.PresidentFilter;
 import org.jmesaweb.dao.PresidentSort;
 import org.jmesaweb.domain.President;
@@ -31,4 +33,8 @@ public interface PresidentService {
     public int getPresidentsCountWithFilter(PresidentFilter filter);
 
     public Collection<President> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+    
+    public Map<String, President> getPresidentsByUniqueIds(String property, List<String> uniqueIds);
+    
+    public void save(President president);
 }
