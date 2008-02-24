@@ -86,7 +86,8 @@ public class DataSourcePopulator implements InitializingBean {
                 + " died            DATE NULL, "
                 + " education       VARCHAR(100) NULL, " 
                 + " career          VARCHAR(100) NOT NULL, " 
-                + " political_party VARCHAR(100) NOT NULL " 
+                + " political_party VARCHAR(100) NOT NULL, " 
+                + " selected VARCHAR(1) NULL " 
                 + " )");        
     }
 

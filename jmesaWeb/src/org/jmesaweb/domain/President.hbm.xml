@@ -21,6 +21,7 @@
         <property name="education"/>
         <property name="career"/>
         <property name="politicalParty" column="political_party"/>
+        <property name="selected"/>
 
     </class>
     
