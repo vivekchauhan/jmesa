@@ -38,7 +38,6 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
-import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetCallbackHandler;
 import org.jmesa.worksheet.WorksheetColumn;
@@ -81,8 +80,10 @@ public class WorksheetPresidentController extends AbstractController {
         return mv;
     }
 
-    private void saveWorksheet(TableFacade tableFacade) 
-        throws Exception {
+    /**
+     * An example of how to save the worksheet.
+     */
+    private void saveWorksheet(TableFacade tableFacade) {
         Worksheet worksheet = tableFacade.getWorksheet();
         if (!worksheet.isSaving() || !worksheet.hasChanges()) {
             return;
@@ -103,14 +104,23 @@ public class WorksheetPresidentController extends AbstractController {
                         continue;
                     }
 
-                    UniqueProperty uniqueProperty = worksheetRow.getUniqueProperty();
-                    President president = presidents.get(uniqueProperty.getValue());
+                    String uniqueValue = worksheetRow.getUniqueProperty().getValue();
+                    President president = presidents.get(uniqueValue);
                     String property = worksheetColumn.getProperty();
 
                     try {
-                        PropertyUtils.setProperty(president, property, changedValue);
+                        if (worksheetColumn.getProperty().equals("selected")) {
+                            if (changedValue.equals(CheckboxWorksheetEditor.CHECKED)) {
+                                PropertyUtils.setProperty(president, property, "y");
+                            } else {
+                                PropertyUtils.setProperty(president, property, "n");
+                            }
+
+                        } else {
+                            PropertyUtils.setProperty(president, property, changedValue);
+                        }
                     } catch (Exception ex) {
-                        throw new RuntimeException("Not able to set the property.");
+                        throw new RuntimeException("Not able to set the property [" + property + "] when saving worksheet.");
                     }
                         
                     presidentService.save(president);
@@ -138,7 +148,7 @@ public class WorksheetPresidentController extends AbstractController {
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         // set the column properties
-        tableFacade.setColumnProperties("chkbox", "name.firstName", "name.lastName", "term", "career", "born");
+        tableFacade.setColumnProperties("selected", "name.firstName", "name.lastName", "term", "career", "born");
 
         HtmlTable table = (HtmlTable) tableFacade.getTable();
         table.setCaption("Presidents");
@@ -147,7 +157,7 @@ public class WorksheetPresidentController extends AbstractController {
         HtmlRow row = table.getRow();
         row.setUniqueProperty("id"); // the unique worksheet properties to identify the row
 
-        HtmlColumn chkbox = row.getColumn("chkbox");
+        HtmlColumn chkbox = row.getColumn("selected");
         chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
         chkbox.setTitle("&nbsp;");
         chkbox.setFilterable(false);

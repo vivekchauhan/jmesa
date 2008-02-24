@@ -17,6 +17,8 @@ package org.jmesaweb.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.worksheet.editor.CheckboxWorksheetEditor;
 
 /**
  * @since 2.0
@@ -31,6 +33,7 @@ public class President implements Serializable {
     private String education;
     private String career;
     private String politicalParty;
+    private String selected;
 
     public int getId() {
         return id;
@@ -94,5 +97,13 @@ public class President implements Serializable {
 
     public void setTerm(String term) {
         this.term = term;
+    }
+    
+    public String getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
     }
 }
