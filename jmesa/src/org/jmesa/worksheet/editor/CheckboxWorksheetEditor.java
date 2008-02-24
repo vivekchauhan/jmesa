@@ -26,23 +26,64 @@ import org.jmesa.worksheet.WorksheetColumn;
  * @author Jeff Johnston
  */
 public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
-    protected static String CHECKED = "checked";
+    public static final String CHECKED = "checked";
+    public static final String UNCHECKED = "unchecked";
     
     public Object getValue(Object item, String property, int rowcount) {
+        Object value = null;
+        
+        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
+        if (worksheetColumn != null) {
+            value = worksheetColumn.getChangedValue();
+        } else {
+            value = getCheckboxValue(getCellEditor().getValue(item, property, rowcount));
+        }
+
+        return getWsColumn(value, item);
+    }
+    
+    /**
+     * Interpret the value of the column to be checked or unchecked. The acceptable 
+     * values for checked is 'y', 'yes', 'true', and '1'. The acceptable values for 
+     * unchecked is 'n', 'no', 'false' and '0'. 
+     * 
+     * @return Either the value 'checked' or 'unchecked'.
+     */
+    protected String getCheckboxValue(Object value) {
+        if (value == null) {
+            return UNCHECKED;
+        }
+        
+        String valueToConvert = String.valueOf(value);
+        
+        if (valueToConvert.equalsIgnoreCase("y") ||
+            valueToConvert.equalsIgnoreCase("yes") || 
+            valueToConvert.equalsIgnoreCase("true") || 
+            valueToConvert.equals("1")) {
+            return CHECKED;
+        }
+        
+        if (valueToConvert.equalsIgnoreCase("n") ||
+            valueToConvert.equalsIgnoreCase("no") || 
+            valueToConvert.equalsIgnoreCase("false") || 
+            valueToConvert.equals("0")) {
+            return UNCHECKED;
+        }
+
+        throw new IllegalStateException("Not able to convert the value for the checkbox.");
+    }
+    
+    private String getWsColumn(Object value, Object item) {
         HtmlBuilder html = new HtmlBuilder();
         
         Limit limit = getCoreContext().getLimit();
         
         html.input().type("checkbox");
         
-        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
-        if (worksheetColumn != null) {
-            String value = worksheetColumn.getChangedValue();
-            if (value != null && value.equals(CHECKED)) {
-                html.checked();
-            }
+        if (value != null && value.equals(CHECKED)) {
+            html.checked();
         }
-        
+
         html.onclick(getUniquePropertyJavaScript(item) + "submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
             + getColumn().getProperty() + "')");
         html.end();
