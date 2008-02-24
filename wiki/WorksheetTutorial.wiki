@@ -1,3 +1,6 @@
+_Also see the [WorksheetExample worksheet example] for more information._
+
+
 A JMesa Worksheet is just how it sounds...you are able to edit values in the table body and have those changes persisted. You are also able to have those changes be reflected as you sort, filter and page and then only be saved when the user is ready to save the changes. The really slick thing about this feature is how natural JMesa can handle it.
 
 At a high level the way it works is changes to the table cell values get persisted in the Worksheet object as the user is making changes (via ajax call). These changes will persist even while filtering, sorting, and paging. Once the user is ready to save the changes they will have to click the (new) save toolbar button. Technically all this does is update a runtime flag ( isSaving() ) on the Worksheet so that you can tell they clicked the button. Then it is up to you to go through the Worksheet, retrieve the changes, and then persist them however you want. If there are errors then you can also add an error to a specific Worksheet column cell and have that redisplay in a way that demonstrates the save did not work for that column cell. If everything looks good then you remove that specific column cell change.
@@ -134,8 +137,6 @@ try {
         
 presidentService.save(president);
 }}}
-
-
 
 
 
