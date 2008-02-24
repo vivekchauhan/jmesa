@@ -1,3 +1,4 @@
 In addition to the [TableFacade examples] I am starting to write up tutorials so that developers can get more information about how to go about building and interacting with JMesa tables.
 
-[BasicTutorial] _(in progress)_
+ * [BasicTutorial] _(in progress)_
+ * [WorksheetTutorial]
