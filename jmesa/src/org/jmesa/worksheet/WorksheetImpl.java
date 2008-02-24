@@ -17,6 +17,7 @@ package org.jmesa.worksheet;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -76,6 +77,26 @@ public class WorksheetImpl implements Worksheet {
 
     public void removeAllChanges() {
         rows.clear();
+    }
+    
+    public void processRows(WorksheetCallbackHandler handler) {
+        Iterator<WorksheetRow> worksheetRows = getRows().iterator();
+        while (worksheetRows.hasNext()) {
+            WorksheetRow worksheetRow = worksheetRows.next();
+            handler.process(worksheetRow);
+            
+            Iterator<WorksheetColumn> worksheetColumns = worksheetRow.getColumns().iterator();
+            while (worksheetColumns.hasNext()) {
+                WorksheetColumn worksheetColumn = worksheetColumns.next();
+                if (!worksheetColumn.hasError()) {
+                    worksheetColumns.remove();
+                }
+            }
+            
+            if (worksheetRow.getColumns().size() == 0) {
+                worksheetRows.remove();
+            }
+        }
     }
 
     @Override
