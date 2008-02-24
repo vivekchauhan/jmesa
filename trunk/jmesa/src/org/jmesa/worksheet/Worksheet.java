@@ -106,4 +106,11 @@ public interface Worksheet {
      * Remove all the changes from the worksheet...clears the worksheet.
      */
     public void removeAllChanges();
+    
+    /**
+     * A convenience method to handle the worksheet iteration.
+     * 
+     * @param handler The callback handler.
+     */
+    public void processRows(WorksheetCallbackHandler handler);
 }

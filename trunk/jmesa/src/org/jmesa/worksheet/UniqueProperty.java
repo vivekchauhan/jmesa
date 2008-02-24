@@ -26,16 +26,16 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class UniqueProperty implements Serializable {
     
-    private String property;
+    private String name;
     private String value;
 
-    public UniqueProperty(String property, String value) {
-        this.property = property;
+    public UniqueProperty(String name, String value) {
+        this.name = name;
         this.value = value;
     }
 
-    public String getProperty() {
-        return property;
+    public String getName() {
+        return name;
     }
 
     public String getValue() {
@@ -70,7 +70,7 @@ public class UniqueProperty implements Serializable {
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("property", property);
+        builder.append("name", name);
         builder.append("value", value);
         return builder.toString();
     }

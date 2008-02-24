@@ -82,7 +82,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
 
         StringBuilder sb = new StringBuilder();
         sb.append("var " + UNIQUE_PROPERTY + " = {};");
-        sb.append(UNIQUE_PROPERTY + "['" + uniqueProperty.getProperty() + "']='" + uniqueProperty.getValue() + "';");
+        sb.append(UNIQUE_PROPERTY + "['" + uniqueProperty.getName() + "']='" + uniqueProperty.getValue() + "';");
         return sb.toString();
     }
 }

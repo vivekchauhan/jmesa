@@ -21,6 +21,7 @@ import org.jmesa.core.message.Messages;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
+import org.jmesa.worksheet.WorksheetCallbackHandler;
 import org.jmesa.worksheet.WorksheetRow;
 
 /**
@@ -93,6 +94,10 @@ public class WorksheetWrapper implements Worksheet {
 
     public void removeAllChanges() {
         worksheet.removeAllChanges();
+    }
+    
+    public void processRows(WorksheetCallbackHandler handler) {
+        worksheet.processRows(handler);
     }
 
     @Override

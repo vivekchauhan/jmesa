@@ -86,7 +86,7 @@ public class TableFacadeUtils {
 
         for (Object item : items) {
             for (WorksheetRow worksheetRow : worksheetRows) {
-                String uniqueProperty = worksheetRow.getUniqueProperty().getProperty();
+                String uniqueProperty = worksheetRow.getUniqueProperty().getName();
                 String uniquePropertyValue = worksheetRow.getUniqueProperty().getValue();
                 try {
                     Object value = PropertyUtils.getProperty(item, uniqueProperty);
