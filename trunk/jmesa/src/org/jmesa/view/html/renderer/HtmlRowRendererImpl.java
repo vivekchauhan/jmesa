@@ -86,9 +86,9 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
     }
 
     protected String getStyleClass(int rowcount) {
-        String styleClass = getStyleClass();
-        if (StringUtils.isNotBlank(styleClass)) {
-            return styleClass;
+        String sc = getStyleClass();
+        if (StringUtils.isNotBlank(sc)) {
+            return sc;
         }
 
         if (ViewUtils.isRowEven(rowcount)) {
@@ -121,14 +121,17 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
     public void setHighlightStyle(String highlightStyle) {
         this.highlightStyle = highlightStyle;
     }
-
-    public Object render(Object item, int rowcount) {
+    
+    /**
+     * The onclick, onmouseover, and onmouseout events for the row.
+     * 
+     * @param item The bean or map for the currect row.
+     * @param rowcount The current row count.
+     * @return The row events.
+     */
+    protected String getRowEvents(Object item, int rowcount) {
         HtmlBuilder html = new HtmlBuilder();
-        html.tr(1);
-        html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
-        html.style(getStyle());
-        html.styleClass(getStyleClass(rowcount));
-
+        
         RowEvent onclick = getRow().getOnclick();
         if (onclick != null) {
             html.onclick(onclick.execute(item, rowcount));
@@ -153,6 +156,18 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 
             html.onmouseout(onmouseout.execute(item, rowcount));
         }
+
+        return html.toString();
+    }
+
+    public Object render(Object item, int rowcount) {
+        HtmlBuilder html = new HtmlBuilder();
+        html.tr(1);
+        html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
+        html.style(getStyle());
+        html.styleClass(getStyleClass(rowcount));
+
+        html.append(getRowEvents(item, rowcount));
 
         html.close();
 
