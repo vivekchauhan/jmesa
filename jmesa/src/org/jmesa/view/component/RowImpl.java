@@ -76,8 +76,8 @@ public class RowImpl extends AbstractContextSupport implements Row {
                 return column;
             }
         }
-
-        return null;
+        
+        throw new IllegalStateException("The column property [" + property + "] does not exist.");
     }
 
     public Column getColumn(int index) {
