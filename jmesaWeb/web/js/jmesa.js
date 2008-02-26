@@ -332,6 +332,10 @@ function DynFilter(filter, id, property) {
 }
 
 function createDynFilter(filter, id, property) {
+    if (dynFilter) {
+        return;
+    }
+    
     dynFilter = new DynFilter(filter, id, property);
     
     var cell = $(filter);
@@ -349,6 +353,7 @@ function createDynFilter(filter, id, property) {
             cell.html(changedValue);
             addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
             onInvokeAction(dynFilter.id);
+            dynFilter = null;
         }
     });
     
@@ -356,10 +361,15 @@ function createDynFilter(filter, id, property) {
         var changedValue = input.val();
         cell.html(changedValue);
         addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+        dynFilter = null;
     });
 }
 
 function createDynDroplistFilter(filter, id, property, options) {
+    if (dynFilter) {
+        return;
+    }
+
     dynFilter = new DynFilter(filter, id, property);
     
     if ($('#dynFilterDroplistDiv').size() > 0) {
@@ -421,6 +431,7 @@ function createDynDroplistFilter(filter, id, property, options) {
         cell.text(changedValue);
         addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
         onInvokeAction(dynFilter.id);
+        dynFilter = null;
     });
 
     $(input).blur(function() {
@@ -428,6 +439,7 @@ function createDynDroplistFilter(filter, id, property, options) {
         cell.text(changedValue);
         $('#dynFilterDroplistDiv').remove();
         cell.css({backgroundColor:originalBackgroundColor});
+        dynFilter = null;
     });
 }
 
@@ -460,6 +472,10 @@ function WsColumn(column, id, uniqueProperties, property) {
 }
 
 function createWsColumn(column, id, uniqueProperties, property) {
+    if (wsColumn) {
+        return;
+    }
+
     wsColumn = new WsColumn(column, id, uniqueProperties, property);
     
     var cell = $(column);
@@ -480,6 +496,7 @@ function createWsColumn(column, id, uniqueProperties, property) {
             if (changedValue != originalValue) {
                 submitWsColumn(originalValue, changedValue);
             }
+            wsColumn = null;
         }
     });
     
@@ -489,6 +506,7 @@ function createWsColumn(column, id, uniqueProperties, property) {
         if (changedValue != originalValue) {
             submitWsColumn(originalValue, changedValue);
         }
+        wsColumn = null;
     });
 }
 
