@@ -19,7 +19,7 @@ The current Locales supported include:
  * Dutch (nl_NL)
  * Spanish (es_MX)
  * Italian (it_IT)
-  * Received the Italian bundle after the 2.2.7 release was put out, however, it is available [http://jmesa.org/downloads/jmesaResourceBundle_it_IT.properties here].
+ * Norwegian (no_NO)
 
 If you would like to have your native language supported out of the box in JMesa just send me a messages file to _extremecomponents@gmail.com_ and I will include that right away.
 
