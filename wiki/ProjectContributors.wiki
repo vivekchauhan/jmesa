@@ -15,7 +15,6 @@ The following is a list of the people who have helped make JMesa a better compon
  * Solely responsible for the Excel View.
  * Helped kick start the tag library by contributing the initial code for it .
 
-
 === Version 2.2 ===
 
 ==== jackcoll...@wallquest.com ====
@@ -40,3 +39,8 @@ The following is a list of the people who have helped make JMesa a better compon
 
 ==== Mario Pasqui ====
  * Added the Italian (it_IT) Locale.
+
+=== Version 2.3 ===
+
+==== Frode Reinertsen ====
+ * Added the Norwegian (no_NO) Locale.
