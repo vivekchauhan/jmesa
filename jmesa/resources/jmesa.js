@@ -526,6 +526,8 @@ function submitWsCheckboxColumn(column, id, uniqueProperties, property) {
     }
     
     submitWsColumn(originalValue, changedValue);
+    
+    wsColumn = null;
 }
 
 function submitWsColumn(originalValue, changedValue) {
