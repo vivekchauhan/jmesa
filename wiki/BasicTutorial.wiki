@@ -10,7 +10,6 @@ Of course all these files could be placed where ever you want. The places I have
  * web
   * css
    * jmesa.css
-   * jmesa-pdf.css
   * js
    * jmesa.js
   * images
@@ -127,12 +126,39 @@ firstName.getCellRenderer().setCellEditor(new CellEditor() {
 
 ==== Modifications Finished ====
 
-Thats it! We now have a fully functional, and good looking, html table!
+Thats it! We now have a fully functional, and good looking, HTML table!
 
 http://www.jmesa.org/wiki/images/api-example-after.gif
 
 ==== Pass Html To View ====
-...
+
+Once you have the HTML rendered you need to pass the markup to your view technology. This is one of the strengths of rendering your table in the Controller...you can use any view technology to display tables.
+
+{{{
+String html = tableFacade.render();
+request.setAttribute("presidents", html);
+}}}
 
 === View ===
-...
+
+In my example I am using JSP to display the table. What the following code is doing is rendering the table inside a form element. The basic.run is what I do to route the request back through the Controller. Generally your form action is going to be the same action that you did to get the table to display in the first place.
+
+In many ways I think it is helpful to think of JMesa as a form component, more like an input or select field. It does not automatically include a form element or deal with parameters passed from other JSP pages. Doing this increases the flexibility quite a bit.
+
+{{{
+<form name="presidentsForm" action="${pageContext.request.contextPath}/basic.run">
+    ${presidents}
+</form>
+}}}
+
+The last thing we need to do is wire up the JMesa actions to the jmesa.js script. The actions, of course, are the filtering, sorting, paging, and max rows. Most of the time you will just need to create hidden input fields and submit the form, and is what we are doing here. 
+
+{{{
+<script type="text/javascript">
+function onInvokeAction(id) {
+    createHiddenInputFieldsForLimitAndSubmit(id);
+}
+</script>
+}}}
+
+_Be sure to read the [Javascript] page so that you understand how Javascript is used to interact with the table and what your options are._
