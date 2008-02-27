@@ -66,7 +66,7 @@ public class TagPresidentController extends AbstractController {
             return null;
         }
 
-        mv.addObject("presidents", items); // Set the items in the request for the TableTag to use.
+        request.setAttribute("presidents", items); // Set the items in the request for the TableTag to use.
 
         return mv;
     }

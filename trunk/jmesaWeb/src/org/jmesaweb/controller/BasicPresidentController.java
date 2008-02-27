@@ -75,7 +75,7 @@ public class BasicPresidentController extends AbstractController {
             return null; // In Spring returning null tells the controller not to do anything.
         } else {
             String html = html(tableFacade);
-            mv.addObject("presidents", html); // Set the Html in the request for the JSP.
+            request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
         }
 
         return mv;

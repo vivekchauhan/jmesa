@@ -71,7 +71,7 @@ public class LimitPresidentController extends AbstractController {
                 response.getOutputStream().write(contents);
                 return null;
             } else { // Not using Ajax if invoke the controller for the first time.
-                mv.addObject("presidents", html); // Set the Html in the request for the JSP.
+                request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
             }
         }
 
