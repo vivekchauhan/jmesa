@@ -75,7 +75,7 @@ public class WorksheetPresidentController extends AbstractController {
         tableFacade.setItems(items); // set the items
 
         String html = getHtml(tableFacade);
-        mv.addObject("presidents", html); // set the Html in the request for the JSP
+        request.setAttribute("presidents", html); // set the Html in the request for the JSP
 
         return mv;
     }

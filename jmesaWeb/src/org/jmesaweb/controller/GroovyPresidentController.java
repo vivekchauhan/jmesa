@@ -42,7 +42,7 @@ public class GroovyPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
         Collection<President> items = presidentService.getPresidents();
         String html = htmlTableTemplate.build(items, request);
-        mv.addObject("presidents", html); // Set the Html in the request for the JSP.
+        request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
         return mv;
     }
 
