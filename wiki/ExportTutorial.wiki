@@ -1,4 +1,4 @@
-JMesa allow you to export your tables in PDF, Excel, and CSV.
+JMesa allows you to export your tables in PDF, Excel, and CSV.
 
 What may not seem obvious at first is that you always define your exports in the Controller (or Action if using Struts), even if you are using the tag library. The other way I could have implemented exports is with a servlet filter. However, I learned from a previous project that using a servlet filter is very difficult (near impossible) to get working across all servlet containers and with all frameworks. As it turns out exporting through the Controller has turned out to be the right choice as I have had no reports of exports not working.
 
@@ -66,4 +66,3 @@ The last thing we need to do for an export is write it out to the servlet respon
 {{{
 tableFacade.render();
 }}}
-
