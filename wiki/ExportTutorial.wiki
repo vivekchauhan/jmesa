@@ -12,10 +12,10 @@ Exports are always declared in the Controller.
 
 ==== Example ====
 
-If you remember from the basic example, in its simplest form you can have a working table in just four lines of code. The first line creates a new !TableFacadeImpl instance. The second line defines the columns that correspond with the item properties. The third line adds the items. Then finally the table is rendered!
+If you remember from the basic example, in its simplest form you can have a working table in just four lines of code. The first line creates a new !TableFacade instance. The second line defines the columns that correspond with the item properties. The third line adds the items. Then finally the table is rendered!
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
 tableFacade.setItems(items);
 String html = tableFacade.render();
@@ -24,7 +24,7 @@ String html = tableFacade.render();
 With exports we need to first define what types of exports we want. So lets step back a little, add the exports, but forget about rendering the table for a second.
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
 tableFacade.setItems(items);
 tableFacade.setExportTypes(response, ExportType.CSV, ExportType.EXCEL, ExportType.PDF);
