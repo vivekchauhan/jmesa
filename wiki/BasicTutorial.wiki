@@ -32,7 +32,7 @@ You will always build JMesa tables in the controller when using the API directly
 
 ==== Example ====
 
-In its simplest form you can have a working table in just four lines of code. The first line creates a new !TableFacadeImpl instance. The second line defines the columns that correspond with the item properties. The third line adds the items. Then finally the table is rendered! You now have a fully functional table that incorporates pagination, sorting, and filtering.
+In its simplest form you can have a working table in just four lines of code. The first line creates a new !TableFacade instance. The second line defines the columns that correspond with the item properties. The third line adds the items. Then finally the table is rendered! You now have a fully functional table that incorporates pagination, sorting, and filtering.
 
 {{{
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
