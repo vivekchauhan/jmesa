@@ -73,11 +73,11 @@ public class BasicPresidentController extends AbstractController {
         if (limit.isExported()) {
             export(tableFacade);
             return null; // In Spring returning null tells the controller not to do anything.
-        } else {
-            String html = html(tableFacade);
-            request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
         }
-
+        
+        String html = html(tableFacade);
+        request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
+        
         return mv;
     }
 
