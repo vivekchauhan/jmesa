@@ -4,7 +4,7 @@ What may not seem obvious at first is that you always define your exports in the
 
 In addition to being a stable choice, defining the exports separately in the Controller allows for each export to be customized as desired. For instance, you can redefine the columns to add or remove specific columns based on a specific export (PDF, Excel, or CSV).
 
-Because the worksheet is just an extension to the core functionality this tutorial is a complement to the [BasicTutorial basic tutorial].
+Because the exports are just an extension to the core functionality this tutorial is a complement to the [BasicTutorial basic tutorial].
 
 === Controller ===
 
