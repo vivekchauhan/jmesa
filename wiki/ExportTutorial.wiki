@@ -1,0 +1,51 @@
+JMesa allow you to export your tables in PDF, Excel, and CSV.
+
+What may not seem obvious at first is that you always define your exports in the Controller (or Action if using Struts), even if you are using the tag library. The other way I could have implemented exports is with a servlet filter. However, I learned from a previous project that using a servlet filter is very difficult (near impossible) to get working across all servlet containers and with all frameworks. As it turns out exporting through the Controller has turned out to be the right choice as I have had no reports of exports not working.
+
+In addition to being a stable choice, defining the exports separately in the Controller allows for each export to be customized as desired. For instance, you can redefine the columns to add or remove specific columns based on a specific export (PDF, Excel, or CSV).
+
+Because the worksheet is just an extension to the core functionality this tutorial is a complement to the [BasicTutorial basic tutorial].
+
+=== Controller ===
+
+Exports are always declared in the Controller.
+
+==== Example ====
+
+If you remember from the basic example, in its simplest form you can have a working table in just four lines of code. The first line creates a new !TableFacadeImpl instance. The second line defines the columns that correspond with the item properties. The third line adds the items. Then finally the table is rendered!
+
+{{{
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
+tableFacade.setItems(items);
+String html = tableFacade.render();
+}}}
+
+With exports we need to first define what types of exports we want. So lets step back a little, add the exports, but forget about rendering the table for a second.
+
+{{{
+TableFacade tableFacade = new TableFacadeImpl(id, request);
+tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
+tableFacade.setItems(items);
+tableFacade.setExportTypes(response, ExportType.CSV, ExportType.EXCEL, ExportType.PDF);
+}}}
+
+Our table is now defined with the exports. However, at runtime we now need a way to know if we are exporting, or rendering an HTML table. This information is found on the Limit with the boolean method isExported(). So now we do a simple check to see if an export is being done. If it is we create the export table. If not then we create the html table and render that.
+
+{{{
+Limit limit = tableFacade.getLimit();
+if (limit.isExported()) {
+    export(tableFacade); // create the export table
+    return null;
+} else {
+    String html = html(tableFacade); // create the html table
+    request.setAttribute("presidents", html);
+}
+}}}
+
+_In Spring and Struts, returning null tells the controller that the response stream is being modified directly._
+
+
+
+
+
