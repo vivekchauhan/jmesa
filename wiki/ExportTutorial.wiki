@@ -37,15 +37,15 @@ Limit limit = tableFacade.getLimit();
 if (limit.isExported()) {
     export(tableFacade); // create the export table
     return null;
-} else {
-    String html = html(tableFacade); // create the html table
-    request.setAttribute("presidents", html);
-}
+} 
+
+String html = html(tableFacade); // create the html table
+request.setAttribute("presidents", html);
 }}}
 
 _In Spring and Struts, returning null tells the controller that the response stream is being modified directly._
 
-By now we have our exports working but we should still add a caption and fix up the first and last name columns to display better. Doing this is exactly the same as you would for an HTML table. One thing that is not apparent though, is that the caption will also be used as the export file name. If you do not the file name will default to "data-table" along with the proper file extension (ie: data-table.pdf).
+By now we have our exports working but we should still add a caption and fix up the first and last name columns to display better. Doing this is exactly the same as you would for an HTML table. One thing that is not apparent though, is that the caption will also be used as the export file name. If you do not define the caption then the file name will default to "data-table" along with the proper file extension (ie: data-table.pdf).
 
 {{{
 Table table = tableFacade.getTable();
@@ -66,6 +66,4 @@ The last thing we need to do for an export is write it out to the servlet respon
 {{{
 tableFacade.render();
 }}}
-
-
 
