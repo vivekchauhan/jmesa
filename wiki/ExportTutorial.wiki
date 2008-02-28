@@ -35,11 +35,11 @@ Our table is now defined with the exports. However, at runtime we now need a way
 {{{
 Limit limit = tableFacade.getLimit();
 if (limit.isExported()) {
-    export(tableFacade); // create the export table
+    tableFacade.render();
     return null;
 } 
 
-String html = html(tableFacade); // create the html table
+String html = tableFacade.render();
 request.setAttribute("presidents", html);
 }}}
 
