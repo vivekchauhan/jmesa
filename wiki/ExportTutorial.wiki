@@ -1,6 +1,6 @@
 JMesa allows you to export your tables in PDF, Excel, and CSV.
 
-What may not seem obvious at first is that you always define your exports in the Controller (or Action if using Struts), even if you are using the tag library. The other way I could have implemented exports is with a servlet filter. However, I learned from a previous project that using a servlet filter is very difficult (near impossible) to get working across all servlet containers and with all frameworks. As it turns out exporting through the Controller has turned out to be the right choice as I have had no reports of exports not working.
+What may not seem obvious at first is that you always define your exports in the Controller (or Action if using Struts), even if you are using the tag library. The other way I could have implemented exports is with a servlet filter. However, I learned from a previous project that using a servlet filter is very difficult (near impossible) to get working across all servlet containers and with all frameworks. As it turns out exporting through the Controller has turned out to be the right choice as I have had no reports of exports not working!
 
 In addition to being a stable choice, defining the exports separately in the Controller allows for each export to be customized as desired. For instance, you can redefine the columns to add or remove specific columns based on a specific export (PDF, Excel, or CSV).
 
