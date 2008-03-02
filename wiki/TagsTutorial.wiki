@@ -1,4 +1,4 @@
-The following is a walk-through of an example of creating a JMesa table with the tag library. This is the same as the [BasicTutorial basic tutorial] but modified to use the tag library. You should notice that it feels just about the same.
+The following is a walk-through of an example of creating a JMesa table with the [Tags tag library]. This is the same as the [BasicTutorial basic tutorial] but modified to use the tag library. You should notice that it feels just about the same.
 
 === Setup ===
 To start with grab the latest JMesa [http://code.google.com/p/jmesa/downloads/list download]. In there you will find the following: jmesa.jar, jmesa.css, jmesa-pdf.css, jmesa.js, jmesa.tld, default images, and the source code.
