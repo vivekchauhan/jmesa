@@ -66,3 +66,19 @@ The last thing we need to do for an export is write it out to the servlet respon
 {{{
 tableFacade.render();
 }}}
+
+=== View ===
+
+The last thing we need to do is wire up the export to the jmesa.js script in your view. Most of the time you will just need to create the parameter string and go through your Controller, and is what we are doing here. 
+
+{{{
+<script type="text/javascript">
+function onInvokeExportAction(id) {
+    var parameterString = createParameterStringForLimit(id);
+    location.href = '${pageContext.request.contextPath}/presidents.run?' + parameterString;
+}
+</script>
+}}}
+
+_Be sure to read the [Javascript] page so that you understand how Javascript is used to interact with the table and what your options are._
+
