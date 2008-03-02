@@ -2,4 +2,5 @@ In addition to the [TableFacade examples] I am starting to write up tutorials so
 
  * [BasicTutorial Basic Tutorial]
  * [ExportTutorial Export Tutorial]
+ * [TagsTutorial Tags Tutorial]
  * [WorksheetTutorial Worksheet Tutorial] (Upcoming 2.3 release.)
