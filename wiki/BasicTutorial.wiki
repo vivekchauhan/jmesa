@@ -1,4 +1,4 @@
-The following is a walk-through of an example of creating a JMesa table. I also want to take the chance to explain some of the more advanced features and where they can be useful. At a later date I will be creating two other articles to explain the tag library and exports in more depth.
+The following is a walk-through of an example of creating a JMesa table.
 
 === Setup ===
 To start with grab the latest JMesa [http://code.google.com/p/jmesa/downloads/list download]. In there you will find the following: jmesa.jar, jmesa.css, jmesa-pdf.css, jmesa.js, default images, and the source code.
