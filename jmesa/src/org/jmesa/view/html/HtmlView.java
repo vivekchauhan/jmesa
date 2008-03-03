@@ -15,10 +15,6 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.Toolbar;
-
 /**
  * Default html view.
  * 
@@ -26,20 +22,6 @@ import org.jmesa.view.html.toolbar.Toolbar;
  * @author Jeff Johnston
  */
 public class HtmlView extends AbstractHtmlView {
-    public HtmlView() {
-        // default constructor
-    }
-
-    public HtmlView(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
-        setTable(table);
-        setToolbar(toolbar);
-        setCoreContext(coreContext);
-    }
-
-    public HtmlView(HtmlSnippets snippets) {
-        setHtmlSnippets(snippets);
-    }
-
     public Object render() {
         HtmlSnippets snippets = getHtmlSnippets();
 
