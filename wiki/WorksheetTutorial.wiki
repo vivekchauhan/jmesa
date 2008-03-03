@@ -73,6 +73,8 @@ Remember that saving a worksheet is custom for every table. What the Worksheet o
 The first step is to see if the user is saving the worksheet, by clicking on the save worksheet toolbar button, and verifying that the worksheet even has changes to save.
 
 {{{
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
+
 Worksheet worksheet = tableFacade.getWorksheet();
 if (!worksheet.isSaving() || !worksheet.hasChanges()) {
     return;
