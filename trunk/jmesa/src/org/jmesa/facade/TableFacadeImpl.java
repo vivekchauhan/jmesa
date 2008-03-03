@@ -445,7 +445,7 @@ public class TableFacadeImpl implements TableFacade {
         Limit l = getLimit();
 
         if (!l.isExported()) {
-            this.view = new HtmlView((HtmlTable) getTable(), getToolbar(), getCoreContext());
+            setView(new HtmlView());
         } else {
             ExportType exportType = l.getExportType();
             if (exportType == ExportType.CSV) {
