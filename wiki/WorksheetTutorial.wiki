@@ -74,6 +74,7 @@ The first step is to see if the user is saving the worksheet, by clicking on the
 
 {{{
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
+tableFacade.setEditable(true);
 
 Worksheet worksheet = tableFacade.getWorksheet();
 if (!worksheet.isSaving() || !worksheet.hasChanges()) {
