@@ -1,0 +1,13 @@
+With the end of the x-mas release of the 2.2 branch will use this page to keep track of the releases.
+
+*12/24/2007 : * As a little x-mas present I just released the last of the enhancements for the 2.2 [2_2NewAndNoteworthy New And Noteworthy branch]. Many of the enhancements came as a result of feedback from the community so I wanted to thank everyone for the input and suggestions!
+
+*1/3/2008 : * Released version 2.2.8 that fixes a [http://groups.google.com/group/jmesa/browse_thread/thread/dc4dca72c13c88d9 bug] when passing the Limit to the JSP tag. I also took the opportunity to improve the javadocs with regards to the deprecated methods. There are no other changes or updates.
+
+*1/23/2008 : * Released version 2.2.9 that offers a few [2_2_9NewAndNoteworthy minor improvements] that I wanted to release right away. This is just a (minor) feature improvement release. There were no bug fixes so just upgrade at your leisure!
+
+*_1/27/2008_ : * The [2_3Roadmap worksheet] functionality is in alpha state (2.3 branch).
+
+*_2/9/2008_ : * The [2_3Roadmap worksheet] functionality enters the beta development (2.3 branch). All the phase one worksheet functionality is implemented. It just needs to undergo more testing. If you need this kind of functionality be sure to submit your feedback to extremecomponents@gmail.com so I can get a better sense of how everything is working for other developers.
+
+*_2/24/2008_ : * The [2_3Roadmap worksheet] functionality enters the release candidate stage (2.3 branch). If you need this kind of functionality be sure to submit your feedback to extremecomponents@gmail.com so I can get a better sense of how everything is working for other developers. I also managed to pull together a real example along with a [WorksheetTutorial tutorial]. Lastly, there are some new convenience methods in the !WorksheetUtils class and the !WorksheetCallbackHandler interface to make processing the worksheet very easy.
