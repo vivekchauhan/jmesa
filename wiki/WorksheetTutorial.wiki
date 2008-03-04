@@ -8,6 +8,8 @@ In addition to being able to save a Worksheet you also have the ability to filte
 
 Because the worksheet is just an extension to the core functionality this tutorial is a complement to the [BasicTutorial basic tutorial].
 
+http://jmesa.org/wiki/images/worksheet-save.gif
+
 _Also see the [WorksheetExample worksheet example] for more information._
 
 === Setup ===
