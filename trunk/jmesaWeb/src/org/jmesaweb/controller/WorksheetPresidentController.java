@@ -173,9 +173,6 @@ public class WorksheetPresidentController extends AbstractController {
         born.setEditable(false);
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
 
-        HtmlColumn career = row.getColumn("career");
-        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
-
         return tableFacade.render(); // return the Html
     }
 
