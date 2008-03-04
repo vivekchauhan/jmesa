@@ -342,7 +342,8 @@ public class TableFacadeTest extends AbstractTestCase {
         View view = facade.getView();
         assertNotNull(view);
 
-        View viewToSet = new HtmlView(new HtmlSnippetsImpl((HtmlTable) facade.getTable(), facade.getToolbar(), facade.getCoreContext()));
+        HtmlView viewToSet = new HtmlView();
+        viewToSet.setHtmlSnippets(new HtmlSnippetsImpl((HtmlTable) facade.getTable(), facade.getToolbar(), facade.getCoreContext()));
         facade.setView(viewToSet); // The view set should now be the one used.
         assertTrue("The view is not the same.", viewToSet == facade.getView());
     }
