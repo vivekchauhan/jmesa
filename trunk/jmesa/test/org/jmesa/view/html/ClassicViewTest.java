@@ -77,7 +77,10 @@ public class ClassicViewTest extends AbstractTestCase {
         toolbar.setWebContext(webContext);
         toolbar.setCoreContext(coreContext);
         toolbar.setExportTypes(ExportType.CSV);
-        View view = new HtmlView(table, toolbar, coreContext);
+        HtmlView view = new HtmlView();
+        view.setTable(table);
+        view.setToolbar(toolbar);
+        view.setCoreContext(coreContext);
         Object html = view.render();
 
         assertNotNull(html);
