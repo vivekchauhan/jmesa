@@ -6,7 +6,7 @@ More examples and documentation can be found here:
  * [FacadeLimitExample Limit Example]
  * [TagsExample Tags Example]
  * [FacadeGroovyExample Groovy Example]
- * [WorksheetExample Worksheet Example] (Upcoming 2.3 release.)
+ * [WorksheetExample Worksheet Example]
 
 The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. For instance to render an html table all you would have to do is this:
 
