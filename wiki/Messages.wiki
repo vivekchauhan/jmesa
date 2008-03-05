@@ -19,7 +19,7 @@ The current Locales supported include:
  * Dutch (nl_NL)
  * Spanish (es_MX)
  * Italian (it_IT)
- * Norwegian (no_NO) (Upcoming 2.3 release.)
+ * Norwegian (no_NO)
 
 If you would like to have your native language supported out of the box in JMesa just send me a messages file to _extremecomponents@gmail.com_ and I will include that right away.
 
@@ -34,6 +34,8 @@ html.toolbar.tooltip.prevPage=Previous Page
 html.toolbar.tooltip.nextPage=Next Page
 html.toolbar.tooltip.filter=Filter
 html.toolbar.tooltip.clear=Clear
+html.toolbar.tooltip.saveWorksheet=Save Worksheet
+html.toolbar.tooltip.filterWorksheet=Filter Worksheet
 html.toolbar.tooltip.excel=XLS Export
 html.toolbar.tooltip.jexcel=XLS Export
 html.toolbar.tooltip.pdf=PDF Export
@@ -46,6 +48,8 @@ html.toolbar.text.nextPage=Next
 html.toolbar.text.prevPage=Prev
 html.toolbar.text.filter=Filter
 html.toolbar.text.clear=Clear
+html.toolbar.text.saveWorksheet=Save Worksheet
+html.toolbar.text.filterWorksheet=Filter Worksheet
 html.toolbar.text.excel=XLS
 html.toolbar.text.jexcel=XLS
 html.toolbar.text.pdf=PDF
