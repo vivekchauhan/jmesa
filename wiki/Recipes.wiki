@@ -1,3 +1,4 @@
+#labels Featured
 I have been reading the Groovy Recipes book recently and I thought it would be a good format for pulling together the JMesa documentation. This will be a work in progress, but the goal is to make this the jumping point to the rest of the wiki. The way this will work is each high level section will be broken down into a question with a brief answer, along with a reference to the rest of the wiki.
 
 == New to JMesa ==
