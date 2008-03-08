@@ -13,7 +13,7 @@ The only core dependencies are a few Apache Commons libraries in which JMesa is 
 ==== Logging ====
 
 In addition JMesa is using [SLF4J]. The core jar file is:
- * slf4j-api-1.3.1.jar
+ * slf4j-api-1.4.3.jar
 
 _See the [SLF4J] page for details about working with the slf4j logging framework._
 
