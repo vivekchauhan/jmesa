@@ -1,0 +1,35 @@
+I have been reading the Groovy Recipes book recently and I thought it would be a good format for pulling together the JMesa documentation. This will be a work in progress, but the goal is to make this the jumping point to the rest of the wiki. The way this will work is each high level section will be broken down into a question with a brief answer, along with a reference to the rest of the wiki.
+
+== New to JMesa ==
+
+JMesa takes a Collection of beans or a Collection of maps and uses them to render a table in HTML, XLS, CSV, or any other format you choose. The beans in the Collection are plain old Java objects (POJO) where each attribute has a corresponding getter and setter method. If using maps the attributes would be name-value pairs. You can think of each bean as being one row in the table display.
+
+The [Overview overview] will also get you started learning about the [Limit], [CoreContext] and [View].
+
+== Filtering ==
+
+==== How come my table does not filter correctly? ====
+
+By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps.
+
+However, there is no association between the [Editors CellEditor] and the filtering. That was a design decision for quite a few reasons. For one I wanted a clear detachment between the view and the items. The reason for that is using the API to filter is a feature and for large result sets you have to custom filter anyway. The larger issue is performance. To filter based on the cell editor the API would have to resolve each column and build a separate items object. 
+
+The JMesa filtering mechanism is very flexible and allows you to easily plug in your own [FilterMatcher filter strategy].
+
+==== How do I create a different kind of filter to display on the table? ====
+
+When you interact with the filter on the table you are working with the !FilterEditor interface behind the scenes. The default filter editor is the !HtmlFilterEditor. There is also the newer !DroplistFilterEditor. 
+
+To create your own filter editor you typically extend the !AbstractFilterEditor. This gives you access to !CoreContext, !WebContext and Column. You could also just implement the !FilterEditor directly if you do not need access to any of these.
+
+For more information read the [Editors] page.
+
+== Sorting ==
+
+== View ==
+
+== Toolbar ==
+
+== Table ==
+
+== Performance Considerations ==
