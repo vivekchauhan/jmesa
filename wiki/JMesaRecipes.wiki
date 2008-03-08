@@ -16,6 +16,14 @@ However, there is no association between the [Editors CellEditor] and the filter
 
 The JMesa filtering mechanism is very flexible and allows you to easily plug in your own [FilterMatcher filter strategy].
 
+==== How do I create a different kind of filter to display on the table? ====
+
+When you interact with the filter on the table you are working with the !FilterEditor interface behind the scenes. The default filter editor is the !HtmlFilterEditor. There is also the newer !DroplistFilterEditor. 
+
+To create your own filter editor you typically extend the !AbstractFilterEditor. This gives you access to !CoreContext, !WebContext and Column. You could also just implement the !FilterEditor directly if you do not need access to any of these.
+
+For more information read the [Editors] page.
+
 == Sorting ==
 
 == View ==
