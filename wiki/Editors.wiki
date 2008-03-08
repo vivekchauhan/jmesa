@@ -86,7 +86,6 @@ Or, use the pattern attribute with the cellEditor if you are using the tag libra
 Also, if this column is filterable you will want to use the [FilterMatcher NumberFilterMatcher] to create a filter strategy that matches your column.
 
 === !HeaderEditor ===
-As of the JMesa 2.2 release I further broke out the column header to include an editor. This works exactly like the cell editor except tailored for the header.
 
 For instance if you wanted to have a header that displayed a checkbox you would do this:
 {{{
@@ -104,7 +103,6 @@ The tag would look like this:
 }}}
 
 === !FilterEditor ===
-As of the JMesa 2.2 release I further broke out the column filter to include an editor. This works exactly like the cell editor except tailored for the filter.
 
 If you wanted to have a filter that displayed a select element you would do this:
 {{{
@@ -128,8 +126,6 @@ Keep in mind though that for this filter example you would still need to add the
 ==== The Editor class diagram. ====
 
 http://extremecomponents.googlepages.com/editor.png
-
-
 
 
 
