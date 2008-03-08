@@ -23,3 +23,5 @@ The JMesa filtering mechanism is very flexible and allows you to easily plug in 
 == Toolbar ==
 
 == Table ==
+
+== Performance Considerations ==
