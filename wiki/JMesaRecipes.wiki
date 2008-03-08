@@ -8,6 +8,14 @@ The [Overview overview] will also get you started learning about the [Limit], [C
 
 === Filtering ===
 
+==== Filter Matcher ====
+
+By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps.
+
+However, there is no association between the cell editor and the filtering. That was a design decision for quite a few reasons. For one I wanted a clear detachment between the view and the items. The reason for that is using the API to filter is a feature and for large result sets you have to custom filter anyway. The larger issue is performance. To filter based on the cell editor the API would have to resolve each column and build a separate items object. 
+
+The JMesa filtering mechanism is very flexible and allows you to easily plug in your own filter strategy.
+
 === Sorting ===
 
 === View ===
