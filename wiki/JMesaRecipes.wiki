@@ -1,1 +1,1 @@
-I have been reading the Groovy Recipes book recently and I thought it would be a good format for pulling together the JMesa documentation. This will be a work in progress but the goal is to have this be the jumping point to the rest of the wiki.
+I have been reading the Groovy Recipes book recently and I thought it would be a good format for pulling together the JMesa documentation. This will be a work in progress, but the goal is to make this the jumping point to the rest of the wiki.
