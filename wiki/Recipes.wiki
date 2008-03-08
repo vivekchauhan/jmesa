@@ -33,4 +33,16 @@ For more information read the [Editors] page.
 
 == Table ==
 
+=== Header Row ===
+
+==== How can I change the header on the table to display other things (like a checkbox)? ====
+
+The header row on the table works with the !HeaderEditor interface behind the scenes. The default header editor is the !HtmlHeaderEditor.
+
+To create your own header editor you typically extend the !AbstractHeaderEditor. This gives you access to CoreContext, WebContext and Column. You could also just implement the HeaderEditor directly if you do not need access to any of these.
+
+For more information read the [Editors] page.
+
+== Exporting ==
+
 == Performance Considerations ==
