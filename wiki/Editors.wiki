@@ -87,7 +87,7 @@ Also, if this column is filterable you will want to use the [FilterMatcher Numbe
 
 === !HeaderEditor ===
 
-For instance if you wanted to have a header that displayed a checkbox you would do this:
+For instance, as a rudimentary example, if you wanted to have a header that displayed a checkbox you would do this:
 {{{
 HtmlColumn htmlColumn = (HtmlColumn)lastName;
 htmlColumn.getHeaderRenderer().setHeaderEditor(new HeaderEditor() {
@@ -104,12 +104,15 @@ The tag would look like this:
 
 === !FilterEditor ===
 
-If you wanted to have a filter that displayed a select element you would do this:
+For instance, as a rudimentary example, if you wanted to have a custom filter that contained a radio list you would do this:
 {{{
 HtmlColumn careerColumn = (HtmlColumn)row.getColumn("career");;
 careerColumn.getFilterRenderer().setFilterEditor(new FilterEditor() {
     public Object getValue() {
-        return "<select><option value=\"career\">Career</option><option value=\"lawyer\">Lawyer</option></select>";
+        Htmlbuilder html = new Htmlbuilder(); 
+        html.input().type("radio").name("yes").value("yes").close().append("yes").inputEnd();
+        html.input().type("radio").name("no").value("no").close().append("no").inputEnd();
+        return html.toString();
     }
 });
 }}}
@@ -119,15 +122,31 @@ The tag would look like this:
 <jmesa:column filterEditor="org.jmesaweb.controller.TagFilterEditor">
 }}}
 
-Keep in mind though that for this filter example you would still need to add the Javascript to interact with the Javascript Limit. If this is something you are interested in you can look at the !HtmlFilterEditor to see the default example.
+Keep in mind though that for this filter example you would still need to add the [Javascript] to interact with the !Javascript Limit. If this is something you are interested in you can look at the !HtmlFilterEditor to see the default example.
+
+==== !DroplistFilterEditor ====
+
+You can now define a droplist for the filters. The default filter implementation is to get a distinct list of the column and then use the natural sort order. If you want to pull a different list then override the !DroplistFilterEditor.
+
+http://jmesa.org/wiki/images/filter-droplist.gif
+
+To use the filter using the API:
+
+{{{
+column.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+}}}
+
+In the tags:
+
+{{{
+<jmesa:htmlColumn filterEditor="org.jmesa.view.html.editor.DroplistFilterEditor"/>;
+}}}
 
 === UML Class Diagrams ===
 
 ==== The Editor class diagram. ====
 
 http://extremecomponents.googlepages.com/editor.png
-
-
 
 
 
