@@ -7,7 +7,7 @@ jeff@jeff-desktop:~/workspace/jmesa$ groovy -v
 Groovy Version: 1.1-rc-1 JVM: 1.6.0_03-b05
 }}}
 
-Groovy version 1.0 should work fine, as that is all that is required by JMesa. I have been using the version 1.1 release candidate so use whatever you feel comfortable with. 
+Groovy version 1.0 should work fine, as that is all that is required by JMesa.
 
 Then copy the ivy-1.4.1.jar into the GROOVY_HOME/lib directory so that the build can interact with Ivy.
 
