@@ -1,8 +1,6 @@
-The JMesa project is now going to start using the Simple Logging Facade for Java (SLF4J). The reason is I think it offers the ability to be a much more easy, flexible and reliable logging framework.
+The JMesa project uses the Simple Logging Facade for Java (SLF4J). The reason is I think it offers the ability to be an easy, flexible and reliable logging framework.
 
-Plus, originally, I really did not want to use the commons-logging framework because it is very well documented about all the class loading issues. A quick query on Google or your favorite forum will produce multiple posts trying to figure how to get commons-logging working. However, a lot of projects like to use the commons-logging framework and is why I chose to use it at first. 
-
-Then, a few weeks ago a JMesa user asked about moving to [http://www.slf4j.org/manual.html SLF4J]. I did some checking and this seems like a much better approach to logging. In addition it offers two ways to work with the commons-logging framework making this an easier buy-in for developers. I also like that the creator of log4j is supporting the library, and his new logging framework has support built in. If you have any questions or concerns be sure to post on the [http://groups.google.com/group/jmesa/topics Google Groups] so we can talk about it.
+A while back a JMesa user asked about moving to [http://www.slf4j.org/manual.html SLF4J]. I did some checking and this seems like a much better approach to logging. In addition it offers two ways to work with the commons-logging framework making this an easier buy-in for developers. I also like that the creator of log4j is supporting the library, and his new logging framework has support built in.
 
 More information can be found on the [http://www.slf4j.org/manual.html SLF4J User manual].
 
@@ -10,23 +8,11 @@ More information can be found on the [http://www.slf4j.org/manual.html SLF4J Use
 
 If you are using Log4j the minimum jar files needed is:
 
- * slf4j-api-1.3.1.jar
- * slf4j-log4j12-1.3.1.jar
+ * slf4j-api-1.4.3.jar
+ * slf4j-log4j12-1.4.3.jar
  * log4j-1.2.8.jar
 
 To add support for the commons-logging framework also add:
- * jcl104-over-slf4j-1.3.1.jar
+ * jcl104-over-slf4j-1.4.3.jar
 
 Thats it! Just a few new jar files and you are now using SLF4J.
-
-
-
-
-
-
-
-
-
-
-
-
