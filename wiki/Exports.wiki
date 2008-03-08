@@ -1,0 +1,24 @@
+
+=== PDF Export ===
+
+ * In general the PDF's has been worked on quite a bit and should work much better now.
+ * The PDF export now uses a separate jmesa-pdf.css file. The PDF export was having problems with the standard stylesheet so I split it out. 
+
+The default css file is defined in the [Preferences]:
+
+{{{
+pdf.cssLocation=/css/jmesa-pdf.css
+}}}
+
+This means that the application will look for the jmesa-pdf.css in the css folder directly under the web application context. Remember that you can override any default setting by defining your own [Preferences].
+
+Or you could specify the css using the css attribute and set it at runtime before you call the render method.
+
+{{{
+String exportType = tableFacade.getLimit().getExport().getType();
+if (exportType.equals(PDF)) {
+    PdfView pdfView = (PdfView)tableFacade.getView();
+    pdfView.setCssLocation("/css/jmesa-pdf-landscape.css");
+}
+tableFacade.render();
+}}}
