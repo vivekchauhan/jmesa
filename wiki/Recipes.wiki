@@ -27,6 +27,13 @@ For more information read the [Editors] page.
 
 == Sorting ==
 
+==== How do I sort the table differently than the default? ====
+
+If you need to sort differently than how it is out of the box you can define your own sorting strategy. Just implement the !ColumnSort and set it on the !TableFacade of the API or tags.
+
+Creating your own sorting strategy is fairly easy. As an example here is the 
+[http://code.google.com/p/jmesa/source/browse/tags/jmesa-2.3/src/org/jmesa/core/sort/MultiColumnSort.java default] sorting class.
+
 == View ==
 
 == Toolbar ==
