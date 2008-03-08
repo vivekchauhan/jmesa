@@ -24,6 +24,16 @@ The row defines the Row used for the table. Each table has one Row associated wi
 table.setRow(row);
 }}}
 
+Can set global filterable and sortable attributes on the row. Also have the ability to override the row settings on a column by column basis.
+
+{{{ 
+row.setFilterable(true);
+}}}
+
+{{{ 
+table.setSortable(true);
+}}}
+
 ==== tableRenderer ====
 
 The tableRenderer defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderers] article for more information.
@@ -229,41 +239,3 @@ The legal Column sortOrder values are 'asc', 'desc', and 'none'.
 ==== The Component class diagram. ====
 
 http://extremecomponents.googlepages.com/component.png
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
