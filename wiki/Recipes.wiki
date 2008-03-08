@@ -33,7 +33,7 @@ For more information read the [Editors] page.
 
 == Table ==
 
-=== Header Row ===
+ * === Header Row ===
 
 ==== How can I change the header on the table to display other things (like a checkbox)? ====
 
