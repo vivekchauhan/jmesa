@@ -1,4 +1,4 @@
-The View interface represents the view package and is used to build your views. The default views right now are HTML, Excel and CSV. The other types of views will be built as I get time. 
+The View interface represents the view package and is used to build your views. The default views right now are HTML, PDF, Excel and CSV. The other types of views will be built as I get time. 
 
 To build your view you will work with [Components components], [Renderers renderers], and [Editors editors]. A component is either a table, row, or column and defines attributes that are common across all views, regardless of the renderer used. A renderer defines the styling attributes for a specific view and is used to render a component a particular way. Lastly, the editor works with a renderer and defines what the actual data looks like. Editors can easily be used for many different types of views, and then decorated for a specific view.
 
