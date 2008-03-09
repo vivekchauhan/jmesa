@@ -16,7 +16,6 @@
 package org.jmesa.view.jexcel;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
@@ -83,8 +82,9 @@ public class JExcelView implements View {
             temp = File.createTempFile(System.currentTimeMillis() + "_" + (Math.random() * 1000), null);
             workbook.setOutputFile(temp);
             workbook.write();
+            workbook.close();
             return FileCopyUtils.copyToByteArray(temp);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
