@@ -5,38 +5,86 @@ Each Table component has a !TableRenderer. There are no common attributes for a 
 
 The style is the style attribute on the html table element. For instance this would change the font color to blue in the table.
 
+ * API
+
 {{{
 table.getTableRenderer().setStyle("color:blue");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:table style="color:blue">
+}}}
+
 The styleClass is the class attribute on the html table element. For instance this would change the css class to jmesaTable.
+
+ * API
 
 {{{
 table.getTableRenderer().setStyleClass("jmesaTable");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:table styleClass="jmesaTable">
+}}}
+
 The border is the border attribute on the html table element. For instance this would change the border to 1px.
+
+ * API
 
 {{{
 table.getTableRenderer().setBorder("1px");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:table border="1px">
+}}}
+
 The cellpadding is the cellpadding attribute on the html table element. For instance this would change the cellpadding to 1px.
+
+ * API
 
 {{{
 table.getTableRenderer().setCellpadding("1px");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:table cellpadding="1px"">
+}}}
+
 The cellspacing is the cellspacing attribute on the html table element. For instance this would change the cellspacing to 1px.
+
+ * API
 
 {{{
 table.getTableRenderer().setCellspacing("1px");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:table cellspacing="1px"">
+}}}
+
 The width is the width attribute on the html table element. For instance this would change the width to 600px.
+
+ * API
 
 {{{
 table.getTableRenderer().setWidth("600px");
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:table width="600px"">
 }}}
 
 ==== !RowRenderer ====
@@ -44,38 +92,86 @@ Each Row component has a !RowRenderer. There are no common attributes for a !Row
 
 The style is the style attribute on the html tr element. For instance this would change the height of the row to 20px.
 
+ * API
+
 {{{
 row.getRowRenderer().setStyle("height:20px");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:row style="height:20px"">
+}}}
+
 The styleClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRow.
+
+ * API
 
 {{{
 row.getRowRenderer().setStyleClass("jmesaRow");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:row styleClass="jmesaRow">
+}}}
+
 The highlightStyle is the style attribute on the html tr element. For instance this would change the height of the row to 20px.
+
+ * API
 
 {{{
 row.getRowRenderer().setHighlightStyle("height:20px");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:row highlightStyle="height:20px">
+}}}
+
 The highlightClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRowHighlighter.
+
+ * API
 
 {{{
 row.getRowRenderer().setHighlightClass("jmesaRowHighlighter");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:row highlightClass="jmesaRowHighlighter">
+}}}
+
 The evenClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRowEven.
+
+ * API
 
 {{{
 row.getRowRenderer().setEvenClass("jmesaRowEven");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:row evenClass="jmesaRowEven">
+}}}
+
 The oddClass is the class attribute on the html tr element. For instance this would change the css class to jmesaRowOdd.
+
+ * API
 
 {{{
 row.getRowRenderer().setOddClass("jmesaRowOdd");
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:row oddClass="jmesaRowOdd">
 }}}
 
 ==== !CellRenderer ====
@@ -85,14 +181,30 @@ An !HtmlCellRenderer has the following attributes: style, and styleClass.
 
 The style is the style attribute on the html td element. For instance this would change the font color to blue in the column.
 
+ * API
+
 {{{
 column.getCellRenderer().setStyle("color:blue");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column style="color:blue">
+}}}
+
 The styleClass is the class attribute on the html td element. For instance this would change the css class to jmesaCell.
+
+ * API
 
 {{{
 column.getCellRenderer().setStyleClass("jmesaCell");
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:column styleClass="jmesaCell">
 }}}
 
 ==== !HeaderRenderer ====
@@ -102,20 +214,30 @@ An !HtmlHeaderRenderer has the following attributes: style, styleClass, and defa
 
 The style is the style attribute on the html td element in the header row. For instance this would change the height of the column to 20px.
 
+ * API
+
 {{{
 column.geHeaderRenderer().setStyle("height:20px");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column headerStyle="height:20px">
+}}}
+
 The styleClass is the class attribute on the html td element in the header row. For instance this would change the css class to jmesaHeader.
+
+ * API
 
 {{{
 column.getHeaderRenderer().setStyleClass("jmesaHeader");
 }}}
 
-The defaultSortOrderable specifies whether or not the header will display in the default state for the column. The default state means that the table is not sorted in ascending or descending order. Keep in mind though that this only changes the look, it does not control whether the column is actually sorted. For that you would have to use the [Limit]. The default for the defaultSortOrderable is true meaning it will allow the default (non-ordering) state to be shown. This is how you could change it to false.
+ * JSP Tag
 
 {{{
-column.getHeaderRenderer().setDefaultSortOrderable(false);
+<jmesa:column headerClass="jmesaHeader">
 }}}
 
 ==== !FilterRenderer ====
@@ -125,14 +247,30 @@ An !HtmlFilterRenderer has the following attributes: style, and styleClass.
 
 The style is the style attribute on the html td element. For instance this would change the height of the column to 20px.
 
+ * API
+
 {{{
 column.getFilterRenderer().setStyle("height:20px");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column filterStyle="height:20px">
+}}}
+
 The styleClass is the class attribute on the html td element. For instance this would change the css class to jmesaFilter.
+
+ * API
 
 {{{
 column.getFilterRenderer().setStyleClass("jmesaFilter");
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:column filterClass="jmesaFilter">
 }}}
 
 === UML Class Diagrams ===
