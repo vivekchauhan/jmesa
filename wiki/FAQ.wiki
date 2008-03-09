@@ -1,17 +1,6 @@
 ===== How do I format a date or number in my column? =====
 If you have a date or numeric column then chances are that you will want to format it. See the [Editors] page for more details on how to do that. Be sure to add a custom [FilterMatcher filter strategy] if your column is filterable. 
 
-===== My exports are not readable. What is wrong? =====
-It could be that the export is having a hard time reading out to the response. We should
-first check to see if the document is being created correctly. Try the following code versus the tableFacade.render():
-
-{{{
-View view = tableFacade.getView();
-FileUtils.writeByteArrayToFile(new File("/home/jeff/workspace/output.xls"), view.getBytes());
-}}}
-
-What this is doing is writing the Excel file out to a local file instead of the response stream. The !FileUtils comes from the jakarta commons io package so if you do not use that just output the file however you are used to. If the file looks good then the problem is something in your servlet container. Chances are it is a filter problem at this point. Take a look at your web.xml file and remove servlet filters until you find the filter causing problems.
-
 ===== How do I limit the column to only sort asc or desc? =====
 You would need to set the sort order on the html column using the [Components sortOrder] method.
 
