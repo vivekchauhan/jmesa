@@ -34,7 +34,9 @@ public class BasicCellEditor extends AbstractContextSupport implements CellEdito
 The !CellEditors that ship with the JMesa API include the !BasicCellEditor, !DateCellEditor and the !NumberCellEditor. Again, you would not normally work directly with the !BasicCellEditor, but be sure to use it as a reference.
 
 ==== !CellEditor Example ====
-If you want to create a custom editor then just implement the !CellEditor interface. Here is an example using an anonymous class to create a !CellEditor.
+If you want to create a custom editor then just implement the !CellEditor interface.
+
+ * API
 
 {{{
 // Using an anonymous class to implement a custom editor.
@@ -50,7 +52,8 @@ firstName.getCellRenderer().setCellEditor(new CellEditor() {
 });
 }}}
 
-The tag would look like this:
+ * JSP Tag
+
 {{{
 <jmesa:column cellEditor="org.jmesaweb.controller.TagCellEditor">
 }}}
@@ -58,11 +61,16 @@ The tag would look like this:
 ==== !DateCellEditor Example ====
 If you have a date column chances are you will want to format it. To do that use the !DateCellEditor and pass it a valid date pattern.
 
+ * API
+
 {{{
 born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
 }}}
 
-Or, use the pattern attribute with the cellEditor if you are using the tag library.
+Use the pattern attribute with the cellEditor if you are using the tag library.
+
+ * JSP Tag
+Use the pattern attribute with the cellEditor if you are using the tag library.
 
 {{{
 <jmesa:htmlColumn property="born" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
@@ -73,11 +81,14 @@ Also, if this column is filterable you will want to use the [FilterMatcher DateF
 ==== !NumberCellEditor Example ====
 If you have a numeric column chances are you will want to format it. To do that use the !NumberCellEditor and pass it a valid date pattern.
 
+ * API
+
 {{{
 salary.getCellRenderer().setCellEditor(new NumberCellEditor("###,##0.00"));
 }}}
 
-Or, use the pattern attribute with the cellEditor if you are using the tag library.
+ * JSP Tag
+Use the pattern attribute with the cellEditor if you are using the tag library.
 
 {{{
 <jmesa:htmlColumn property="salary" pattern="###,##0.00" cellEditor="org.jmesa.view.editor.NumberCellEditor"/>
@@ -88,6 +99,9 @@ Also, if this column is filterable you will want to use the [FilterMatcher Numbe
 === !HeaderEditor ===
 
 For instance, as a rudimentary example, if you wanted to have a header that displayed a checkbox you would do this:
+
+ * API
+
 {{{
 HtmlColumn htmlColumn = (HtmlColumn)lastName;
 htmlColumn.getHeaderRenderer().setHeaderEditor(new HeaderEditor() {
@@ -97,7 +111,8 @@ htmlColumn.getHeaderRenderer().setHeaderEditor(new HeaderEditor() {
 });
 }}}
 
-The tag would look like this:
+ * JSP Tag
+
 {{{
 <jmesa:column headerEditor="org.jmesaweb.controller.TagHeaderEditor">
 }}}
@@ -105,6 +120,9 @@ The tag would look like this:
 === !FilterEditor ===
 
 For instance, as a rudimentary example, if you wanted to have a custom filter that contained a radio list you would do this:
+
+ * API
+
 {{{
 HtmlColumn careerColumn = (HtmlColumn)row.getColumn("career");;
 careerColumn.getFilterRenderer().setFilterEditor(new FilterEditor() {
@@ -117,7 +135,8 @@ careerColumn.getFilterRenderer().setFilterEditor(new FilterEditor() {
 });
 }}}
 
-The tag would look like this:
+ * JSP Tag
+
 {{{
 <jmesa:column filterEditor="org.jmesaweb.controller.TagFilterEditor">
 }}}
@@ -130,13 +149,13 @@ You can now define a droplist for the filters. The default filter implementation
 
 http://jmesa.org/wiki/images/filter-droplist.gif
 
-To use the filter using the API:
+ * API
 
 {{{
 column.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
 }}}
 
-In the tags:
+ * JSP Tag
 
 {{{
 <jmesa:htmlColumn filterEditor="org.jmesa.view.html.editor.DroplistFilterEditor"/>;
@@ -147,8 +166,6 @@ In the tags:
 ==== The Editor class diagram. ====
 
 http://extremecomponents.googlepages.com/editor.png
-
-
 
 
 
