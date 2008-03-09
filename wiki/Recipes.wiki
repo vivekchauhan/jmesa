@@ -9,21 +9,7 @@ The [Overview overview] will also get you started learning about the [Limit], [C
 
 == Filtering ==
 
-==== How come my table does not filter correctly? ====
-
-By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps.
-
-However, there is no association between the [Editors CellEditor] and the filtering. That was a design decision for quite a few reasons. For one I wanted a clear detachment between the view and the items. The reason for that is using the API to filter is a feature and for large result sets you have to custom filter anyway. The larger issue is performance. To filter based on the cell editor the API would have to resolve each column and build a separate items object. 
-
-The JMesa filtering mechanism is very flexible and allows you to easily plug in your own [FilterMatcher filter strategy].
-
-==== How do I create a different kind of filter to display on the table? ====
-
-When you interact with the filter on the table you are working with the !FilterEditor interface behind the scenes. The default filter editor is the !HtmlFilterEditor. There is also the newer !DroplistFilterEditor. 
-
-To create your own filter editor you typically extend the !AbstractFilterEditor. This gives you access to !CoreContext, !WebContext and Column. You could also just implement the !FilterEditor directly if you do not need access to any of these.
-
-For more information read the [Editors] page.
+ * [FilterRecipes Filter Recipes]
 
 == Sorting ==
 
@@ -102,4 +88,3 @@ TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, getHttpServle
 tableFacade.setExportTypes(getHttpServletResponse(), CSV, JEXCEL, PDF);
 ...
 }}}
-
