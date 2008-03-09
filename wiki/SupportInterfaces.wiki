@@ -21,7 +21,9 @@ The support classes include !WebContextSupport, !CoreContextSupport, !ToolbarSup
 Note: There is also a class called !AbstractContextSupport that implements the !ContextSupport interface. The !ContextSupport interface in turn extends from the !WebContextSupport and !CoreContextSupport interfaces. This abstract class is an easy way to get the !CoreContext and !WebContext.
 
 === !WebContextSupport === 
+
 The interface is defined as:
+
 {{{
 public interface WebContextSupport {
     public WebContext getWebContext();
@@ -32,7 +34,8 @@ public interface WebContextSupport {
 
 The following places will inject the !WebContext for you if you define the !WebContextSupport interface in your custom code:
 
-API:
+ * API
+
 {{{
 tableFacade.addFilterMatcher();
 
@@ -63,7 +66,8 @@ column.getFilterRenderer().setFilterEditor(FilterEditor filterEditor)
 column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
 }}}
 
-Tag:
+ * JSP Tag
+
 {{{
 <jmesa:tableFacade filterMatcherMap="">
 
@@ -93,7 +97,9 @@ Tag:
 }}}
 
 === !CoreContextSupport === 
+
 The interface is defined as:
+
 {{{
 public interface CoreContextSupport {
     public CoreContext getCoreContext();
@@ -104,7 +110,8 @@ public interface CoreContextSupport {
 
 The following places will inject the !CoreContext for you if you define the !CoreContextSupport interface in your custom code:
 
-API:
+ * API
+
 {{{
 tableFacade.setView(View view); (since 2.2.5)
 
@@ -123,7 +130,8 @@ column.getFilterRenderer().setFilterEditor(FilterEditor filterEditor)
 column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
 }}}
 
-Tag:
+ * JSP Tag
+
 {{{
 <jmesa:tableFacade view="">
 
@@ -160,7 +168,9 @@ Tag:
 }}}
 
 === !ToolbarSupport === 
+
 The interface is defined as:
+
 {{{
 public interface ToolbarSupport {
     public Toolbar getToolbar();
@@ -171,12 +181,14 @@ public interface ToolbarSupport {
 
 The following places will inject the Toolbar for you if you define the !ToolbarSupport interface in your custom code:
 
-API:
+ * API
+
 {{{
 tableFacade.setView(View view); (since 2.2.5)
 }}}
 
-Tag:
+ * JSP Tag
+
 {{{
 <jmesa:tableFacade view="">
 }}}
@@ -193,12 +205,14 @@ public interface TableSupport {
 
 The following places will inject the Table for you if you define the !TableSupport interface in your custom code:
 
-API:
+ * API
+
 {{{
 tableFacade.setToolbar(Toolbar toolbar); (since 2.2.5)
 }}}
 
-Tag:
+ * JSP Tag
+
 {{{
 <jmesa:tableFacade view="">
 
@@ -217,7 +231,8 @@ public interface ColumnSupport {
 
 The following places will inject the Column for you if you define the !ColumnSupport interface in your custom code:
 
-API:
+ * API
+
 {{{
 column.getCellRenderer().setCellEditor(CellEditor editor);
 
@@ -226,7 +241,8 @@ column.getFilterRenderer().setFilterEditor(FilterEditor filterEditor)
 column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
 }}}
 
-Tag:
+ * JSP Tag
+
 {{{
 <jmesa:column cellEditor="">
 
