@@ -1,6 +1,3 @@
-The following are common questions regarding filtering in JMesa.
-
-
 ==== How come my table does not filter correctly? ====
 
 By default JMesa will filter your items. The items being the Collection of Beans or Collection of Maps.
