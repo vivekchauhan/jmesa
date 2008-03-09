@@ -1,0 +1,17 @@
+==== How can I change the header on the table to display other things (like a checkbox)? ====
+
+The header row on the table works with the !HeaderEditor interface behind the scenes. The default header editor is the !HtmlHeaderEditor.
+
+To create your own header editor you typically extend the !AbstractHeaderEditor. This gives you access to CoreContext, WebContext and Column. You could also just implement the HeaderEditor directly if you do not need access to any of these.
+
+For more information read the [Editors] page.
+
+==== How do I change the header row to use a th versus a td element? ====
+
+A few developers requested that there be a way to default the html header column element to a <th> versus a <td> definition.
+
+The default is still a <td> element but you can redefine it in the [Preferences] if needed.
+
+{{{
+html.column.header.renderer.element=td
+}}}
