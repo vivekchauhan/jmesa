@@ -1,4 +1,4 @@
-==== What do I do if my framework does not give me access to the servlet request and response objects in the Controller? ====
+==== What do I do if my framework does not give me access to the servlet request and response objects? ====
 
 In my opinion, frameworks that do not offer a way to reach the request and response objects are taking things too far. At a minimum they should offer a way to let other frameworks still get at those objects. What I did was create a servlet filter to set the request and response in a thread local object. 
 
