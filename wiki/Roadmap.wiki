@@ -11,13 +11,10 @@ The 2.0 release is out!
 An Excel View, using Apache POI, is implemented and will be available in the next release. That was contributed by jeff jie! Another contribution by jeff jie was the start of a [Tags tag library]. What I would like to do is clean up a few things with the current implementation and then release that code as soon as possible. The tag library will have the basic functionality required by most developers. Future releases will make use of more advanced API features. And, lastly there is a new [TableFacade] interface that makes working with the API much easier.
 
 ==== version 2.2, September 07, 2007 ====
-See the 2.2 [2_2NewAndNoteworthy New And Noteworthy] list for more deails.
-
+The 2.2 version is release.
 
 ==== version 2.3, (first quarter of 2008) ====
 The JMesa [2_3Roadmap 2.3 roadmap] is available.
-
-
 
 
 
