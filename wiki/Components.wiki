@@ -13,7 +13,7 @@ The caption is used to give the table a name. Almost all views will display the 
 table.setCaption("Presidents");
 }}}
 
- * Tag
+ * JSP Tag
 
 {{{
 <jmesa:table caption="Presidents">
@@ -24,13 +24,13 @@ If you are using the [Messages] then use the alternate caption method.
  * API
 
 {{{
-table.setCaptionKey(key);
+table.setCaptionKey("table.presidents");
 }}}
 
- * Tag
+ * JSP Tag
 
 {{{
-<jmesa:table captionKey="Presidents">
+<jmesa:table captionKey="table.presidents">
 }}}
 
 ==== row ====
@@ -41,6 +41,12 @@ The row defines the Row used for the table. Each table has one Row associated wi
 
 {{{ 
 table.setRow(row);
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:row>
 }}}
 
 Can set global filterable and sortable attributes on the row. Also have the ability to override the row settings on a column by column basis.
@@ -55,6 +61,12 @@ row.setFilterable(true);
 row.setSortable(true);
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:row filterable="true"  sortable="true">
+}}}
+
 ==== tableRenderer ====
 
 The tableRenderer defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderers] article for more information.
@@ -63,6 +75,12 @@ The tableRenderer defines the !TableRenderer used for the table. See the !TableR
 
 {{{ 
 table.setTableRenderer(tableRenderer);
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:table tableRenderer="com.mycompany.renderer.MyTableRenderer">
 }}}
 
 === !HtmlTable ===
@@ -75,6 +93,12 @@ The !HtmlTable also has a theme attribute used to give a different display for d
 
 {{{ 
 table.setTheme("jmesa"); // the default
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:table theme="jmesa">
 }}}
 
 If you open up the jmesa.css file you will see .jmesa prepended before each selector.
@@ -104,6 +128,12 @@ The columns defines the Columns used for the table.
 row.addColumn(column);
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column>
+}}}
+
 ==== rowRenderer ====
 
 The rowRenderer defines the !RowRenderer used for the row. See the !RowRenderer in the [Renderers] article for more information.
@@ -112,6 +142,12 @@ The rowRenderer defines the !RowRenderer used for the row. See the !RowRenderer 
 
 {{{ 
 row.setRowRenderer(rowRenderer);
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:row rowRenderer="com.mycompany.renderer.MyRowRenderer">
 }}}
 
 === !HtmlRow ===
@@ -126,6 +162,12 @@ The highlighter is used to give the visual appearance of a row being highlighted
 
 {{{ 
 row.setHighlighter(true); // the default
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:row highlighter="true">
 }}}
 
 ==== onclick ====
@@ -163,7 +205,7 @@ row.setOnclick(new RowEvent() {
 };)
 }}} 
 
- * Tag
+ * JSP Tag
 
 {{{
 <jmesa:htmlRow onclick="org.jmesaweb.controller.TagRowEvent">
@@ -196,6 +238,12 @@ The property corresponds to the item attribute, where an item is one object in t
 column.setProperty("firstName");
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column property="firstName">
+}}}
+
 ==== title and titleKey ====
 
 The title is used to give the header a descriptive name. If you do not define a title then the column will convert the camelcase property name to a real word. If you do not want anything to show up in the header then just add a single whitespace for the title.
@@ -206,12 +254,24 @@ The title is used to give the header a descriptive name. If you do not define a 
 column.setTitle("First Name"); // Note: if left blank would still show as "First Name"
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column title="First Name">
+}}}
+
 If you are using the [Messages] then use the alternate title method.
 
  * API
 
 {{{
-column.setTitleKey(key)
+column.setTitleKey("column.firstName")
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:column titleKey="column.firstName">
 }}}
 
 ==== cellRenderer ====
@@ -224,6 +284,12 @@ The cellRenderer defines the !CellRenderer used for the column. See the !CellRen
 column.setCellRenderer(cellRenderer);
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column cellRenderer="com.mycompany.renderer.MyCellRenderer">
+}}}
+
 ==== headerRenderer ====
 
 The headerRenderer defines the !HeaderRenderer used for the column. See the !HeaderRenderer in the [Renderers] article for more information.
@@ -232,6 +298,12 @@ The headerRenderer defines the !HeaderRenderer used for the column. See the !Hea
 
 {{{ 
 column.setHeaderRenderer(headerRenderer);
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:column headerRenderer="com.mycompany.renderer.MyHeaderRenderer">
 }}}
 
 === !HtmlColumn ===
@@ -249,6 +321,12 @@ column.setFilterable(true); // the default
 column.setSortable(true); // the default
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column filterable="true" sortable="true">
+}}}
+
 ==== filterRenderer ====
 
 The filterRenderer defines the !FilterRenderer used for the column. See the !FilterRenderer in the [Renderers] article for more information.
@@ -259,6 +337,12 @@ The filterRenderer defines the !FilterRenderer used for the column. See the !Fil
 column.setFilterRenderer(filterRenderer);
 }}}
 
+ * JSP Tag
+
+{{{
+<jmesa:column filterRenderer="com.mycompany.renderer.MyFilterRenderer">
+}}}
+
 ==== width ====
 
 The width defines the width used for the column.
@@ -267,6 +351,12 @@ The width defines the width used for the column.
 
 {{{
 column.setWidth("10px");
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:column width="10px">
 }}}
 
 ==== sortOrder ====
@@ -282,10 +372,10 @@ HtmlColumn htmlColumn = (HtmlColumn)firstName;
 htmlColumn.setSortOrder(Order.ASC, Order.DESC);
 }}}
 
- * Tag
+ * JSP Tag
 
 {{{
-<jmesa:htmlColumn property="name.firstName" titleKey="presidents.firstName" sortOrder="asc,desc">
+<jmesa:htmlColumn sortOrder="asc,desc">
 }}}
 
 The legal Column sortOrder values are 'asc', 'desc', and 'none'.
