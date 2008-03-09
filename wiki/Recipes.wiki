@@ -3,6 +3,7 @@ I have been reading the Groovy Recipes book recently and I thought it would be a
 
  * [FilterRecipes Filter Recipes]
  * [SortRecipes Sort Recipes]
+ * [MiscRecipes Misc. Recipes]
 
 
 ==== Introduction to JMesa ====
