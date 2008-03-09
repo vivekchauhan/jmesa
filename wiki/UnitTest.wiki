@@ -14,7 +14,11 @@ public class ParametersBuilder {
     
     public void addSort(int position, String property, Order order) {}
 
-    public void setExport(String exportType) {}
+    public void setExportType(ExportType exportType) {}
+
+    public void setFilterWorksheet() {}
+
+    public void setSaveWorksheet() {}
 }
 }}}
 
@@ -56,10 +60,3 @@ builder.addFilter("firstName", "geo");
 ====The Parameters class diagram.====
 
 http://extremecomponents.googlepages.com/test.png
-
-
-
-
-
-
-
