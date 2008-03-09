@@ -3,28 +3,49 @@ A [View view] is composed of components, namely the table, row and column. The a
 === Table ===
 The common attributes of all tables, regardless of the view, are caption, row, and tableRenderer. 
 
-==== caption ====
+==== caption and captionKey ====
 
-The caption is used to give the table a name. Almost all views will display the caption above the table. Here is an example of how the default caption displays above the html table.
+The caption is used to give the table a name. Almost all views will display the caption above the table.
+
+ * API
 
 {{{ 
 table.setCaption("Presidents");
 }}}
 
+ * Tag
+
+{{{
+<jmesa:table caption="Presidents">
+}}}
+
 If you are using the [Messages] then use the alternate caption method.
+
+ * API
+
 {{{
 table.setCaptionKey(key);
+}}}
+
+ * Tag
+
+{{{
+<jmesa:table captionKey="Presidents">
 }}}
 
 ==== row ====
 
 The row defines the Row used for the table. Each table has one Row associated with it that represents all the rows in a table.
 
+ * API
+
 {{{ 
 table.setRow(row);
 }}}
 
 Can set global filterable and sortable attributes on the row. Also have the ability to override the row settings on a column by column basis.
+
+ * API
 
 {{{ 
 row.setFilterable(true);
@@ -38,6 +59,8 @@ row.setSortable(true);
 
 The tableRenderer defines the !TableRenderer used for the table. See the !TableRenderer in the [Renderers] article for more information.
 
+ * API
+
 {{{ 
 table.setTableRenderer(tableRenderer);
 }}}
@@ -47,6 +70,8 @@ table.setTableRenderer(tableRenderer);
 The !HtmlTable also has a theme attribute used to give a different display for different tables. Technically this means that the div that surrounds the table will have its class attribute modified. This technique makes it very easy to define many different displays just by declaring different CSS styles. All you have to do is prepend each selector in the CSS with the theme. For instance the default theme is called jmesa.
 
 ==== theme ====
+
+ * API
 
 {{{ 
 table.setTheme("jmesa"); // the default
@@ -73,6 +98,8 @@ The common attributes of all rows, regardless of the view, are columns and rowRe
 
 The columns defines the Columns used for the table.
 
+ * API
+
 {{{ 
 row.addColumn(column);
 }}}
@@ -80,6 +107,8 @@ row.addColumn(column);
 ==== rowRenderer ====
 
 The rowRenderer defines the !RowRenderer used for the row. See the !RowRenderer in the [Renderers] article for more information.
+
+ * API
 
 {{{ 
 row.setRowRenderer(rowRenderer);
@@ -93,6 +122,8 @@ An !HtmlRow has the following attributes: highlighter, onclick, onmouseover, and
 
 The highlighter is used to give the visual appearance of a row being highlighted as your mouse flows over the row. The default value is true, meaning the row will be highlighted.
 
+ * API
+
 {{{ 
 row.setHighlighter(true); // the default
 }}}
@@ -100,11 +131,15 @@ row.setHighlighter(true); // the default
 ==== onclick ====
 The onclick method on the row looks like this:
 
+ * API
+
 {{{
 public String onclick(RowEvent event);
 }}}
 
 The !RowEvent is a callback interface:
+
+ * API
 
 {{{
 public interface RowEvent {
@@ -114,6 +149,8 @@ public interface RowEvent {
 }}}
 
 This allows custom onclick callback events for each row:
+
+ * API
 
 {{{
 HtmlRow row = table.getRow();
@@ -126,7 +163,8 @@ row.setOnclick(new RowEvent() {
 };)
 }}} 
 
-The tag looks like this:
+ * Tag
+
 {{{
 <jmesa:htmlRow onclick="org.jmesaweb.controller.TagRowEvent">
 }}}
@@ -152,19 +190,25 @@ The common attributes of all columns, regardless of the view, are property, titl
 
 The property corresponds to the item attribute, where an item is one object in the Collection of Items or Collection of Maps. The property is optional, so if the column does not map to an item attribute then it should be null.
 
+ * API
+
 {{{ 
 column.setProperty("firstName");
 }}}
 
-==== title ====
+==== title and titleKey ====
 
 The title is used to give the header a descriptive name. If you do not define a title then the column will convert the camelcase property name to a real word. If you do not want anything to show up in the header then just add a single whitespace for the title.
+
+ * API
 
 {{{ 
 column.setTitle("First Name"); // Note: if left blank would still show as "First Name"
 }}}
 
 If you are using the [Messages] then use the alternate title method.
+
+ * API
 
 {{{
 column.setTitleKey(key)
@@ -174,6 +218,8 @@ column.setTitleKey(key)
 
 The cellRenderer defines the !CellRenderer used for the column. See the !CellRenderer in the [Renderers] article for more information.
 
+ * API
+
 {{{ 
 column.setCellRenderer(cellRenderer);
 }}}
@@ -181,6 +227,8 @@ column.setCellRenderer(cellRenderer);
 ==== headerRenderer ====
 
 The headerRenderer defines the !HeaderRenderer used for the column. See the !HeaderRenderer in the [Renderers] article for more information.
+
+ * API
 
 {{{ 
 column.setHeaderRenderer(headerRenderer);
@@ -194,6 +242,8 @@ The !HtmlColumn also has the following attributes: filterable, sortable, filterR
 
 JMesa has filtering and sorting built right in. The only thing you need to decide is whether or not to use it. The attributes you will use are filterable and sortable. Both are booleans and the default value is true. If you choose not to use the sorting or filtering, then set the attributes to false. 
 
+ * API
+
 {{{ 
 column.setFilterable(true); // the default
 column.setSortable(true); // the default
@@ -203,6 +253,8 @@ column.setSortable(true); // the default
 
 The filterRenderer defines the !FilterRenderer used for the column. See the !FilterRenderer in the [Renderers] article for more information.
 
+ * API
+
 {{{ 
 column.setFilterRenderer(filterRenderer);
 }}}
@@ -210,6 +262,9 @@ column.setFilterRenderer(filterRenderer);
 ==== width ====
 
 The width defines the width used for the column.
+
+ * API
+
 {{{
 column.setWidth("10px");
 }}}
@@ -220,14 +275,15 @@ The sort order restricts the sorting to only the types defined. Typically you wo
 
 Note: Initially this does not change the look of the column, or effect the sorting, when the table is first displayed. For instance, if you only want to sort asc and then desc then when the table is initially displayed you need to make sure you set the Limit to be ordered. The reason is, by design, the limit does not look at the view for any information. The syntax to set the limit would be: limit.getSortSet().addSort();. If you do not do this then the effect will be that the once the column is sorted then it will just flip between asc and desc, which is still a really nice effect and is what I would mostly do.
 
-In the API do this:
+ * API
 
 {{{
 HtmlColumn htmlColumn = (HtmlColumn)firstName;
 htmlColumn.setSortOrder(Order.ASC, Order.DESC);
 }}}
 
-The tag would look like this:
+ * Tag
+
 {{{
 <jmesa:htmlColumn property="name.firstName" titleKey="presidents.firstName" sortOrder="asc,desc">
 }}}
