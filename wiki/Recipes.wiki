@@ -3,6 +3,7 @@ I have been reading the Groovy Recipes book recently and I thought it would be a
 
  * [FilterRecipes Filter Recipes]
  * [SortRecipes Sort Recipes]
+ * [ToolbarRecipes Toolbar Recipes]
  * [ControllerRecipes Controller Recipes]
 
 
@@ -14,15 +15,6 @@ The [Overview overview] will also get you started learning about the [Limit], [C
 
 == View ==
 
-== Toolbar ==
-
-==== How can I place some text in the max rows droplist?  ====
-
-You can place some text next to the max rows increments label (in the droplist). Just specify the text in the [Messages].
-
-{{{
-html.toolbar.text.maxRowsDroplist=items 
-}}}
 
 == Table ==
 
@@ -45,9 +37,3 @@ The default is still a <td> element but you can redefine it in the [Preferences]
 {{{
 html.column.header.renderer.element=td
 }}}
-
-== Exporting ==
-
-== Performance Considerations ==
-
-== Misc ==
