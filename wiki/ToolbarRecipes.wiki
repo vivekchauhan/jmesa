@@ -1,0 +1,7 @@
+==== How can I place some text in the max rows droplist?  ====
+
+You can place some text next to the max rows increments label (in the droplist). Just specify the text in the [Messages].
+
+{{{
+html.toolbar.text.maxRowsDroplist=items 
+}}}
