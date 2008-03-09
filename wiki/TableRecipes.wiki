@@ -19,3 +19,7 @@ html.column.header.renderer.element=td
 ==== How do I format a date or number in my column? ====
 
 If you have a date or numeric column then chances are that you will want to format it. See the [Editors] page for more details on how to do that. Be sure to add a custom [FilterMatcher filter strategy] if your column is filterable. 
+
+==== How do I limit the column to only sort asc or desc? ====
+
+You would need to set the sort order on the html column using the [Components sortOrder] method.
