@@ -12,7 +12,7 @@ The [Preferences] are used for a lot of the configuration instead of hardcoding 
 You can get the !CoreContext directly from the Limit:
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setItems(items);
 CoreContext coreContext = tableFacade.getCoreContext();
 }}}
