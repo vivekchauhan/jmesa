@@ -101,7 +101,7 @@ So that gets us displaying correctly, but in this case looks aren't everything! 
 
 To do that add a custom filter matching strategy. Although, what may trip you up somewhat is that you need to define this before call the table. The reason is because when you request the table from the facade the facade will [TableFacadeCallOrder invoke all the objects] it needs internally. 
 
-Its real simple to get this right though. Just set the filter matcher before you ask for the table. In practice its usually the most clear if you just set all the custom things you need when you create the !TableFacadeImpl.
+Its real simple to get this right though. Just set the filter matcher before you ask for the table. In practice its usually the most clear if you just set all the custom things you need when you create the !TableFacade.
 
 {{{
 tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
