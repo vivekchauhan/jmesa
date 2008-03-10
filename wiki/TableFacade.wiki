@@ -1,8 +1,6 @@
 #labels Featured
 The !TableFacade takes out the complexity of building HTML tables by offering a very high level API to work with.
 
-More examples and documentation can be found [Examples here].
-
 The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. For instance to render an html table all you would have to do is this:
 
 {{{
