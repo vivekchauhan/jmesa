@@ -1,5 +1,3 @@
-=== JSP Tag Attributes ===
-
 ++ _Denotes an attribute in which you need to specify the fully qualified path to the class implementation._
 
 ==== !TableFacadeTag ====
