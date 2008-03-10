@@ -1,3 +1,7 @@
+==== How can I export my table data to a PDF, Excel, or CSV file? ====
+
+The best place to read about exporting data is found in the [Exports exports] page or the [ExportTutorial export] tutorial.
+
 ==== My exports are not readable. What is wrong? ====
 
 It could be that the export is having a hard time reading out to the response. We should
