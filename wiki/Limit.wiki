@@ -38,7 +38,7 @@ This should be very self explanatory. Once you have a complete !RowSelect object
 There is only one thing to consider. If you pass in all the items then you do not need to do anything else. That should make sense. Because you are passing in all the items the API knows everything it needs to create the complete Limit object.
 
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setItems(items);
 }}}
 
@@ -49,7 +49,7 @@ For the purposes of this next example I am going to further explain how to work 
 
 First we start with a [TableFacade].
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 }}}
 
 Now get the Limit from the !TableFacade.
