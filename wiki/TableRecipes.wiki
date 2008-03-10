@@ -23,3 +23,8 @@ If you have a date or numeric column then chances are that you will want to form
 ==== How do I limit the column to only sort asc or desc? ====
 
 You would need to set the sort order on the html column using the [Components sortOrder] method.
+
+==== What kind of advanced look and feel changes are possible? ====
+
+See the [CSSTips CSS Tips] If you want more advanced styling like the 3D header and drop shadow effect.
+
