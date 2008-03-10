@@ -5,7 +5,7 @@ The following examples uses JMesa, along with Spring. It also assumes you have a
 
 In its simplest form you can create a table in four lines of code:
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
 tableFacade.setItems(items);
 String html = tableFacade.render();
