@@ -1,17 +1,6 @@
-The !TableFacade takes out the complexity of building HTML tables by offering a very high level API to work with.
+The !TableFacade takes out the complexity of building HTML tables by offering a very high level API to work with. The approach that the !TableFacade takes is you declare the whole table with all the defaults, and then customize things as needed. 
 
-The basic idea is you instantiate a !TableFacade class and then interact with it in a natural way. For instance to render an html table all you would have to do is this:
-
-{{{
-TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
-tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-tableFacade.setItems(items);
-String html = tableFacade.render();
-}}}
-
-=== Example ===
-
-The approach that the !TableFacade takes is you declare the whole table with all the defaults, and then customize things as needed. For instance if you want to customize the previous example you can do this (Spring MVC example): 
+For instance if you want to customize the previous example you can do this (Spring MVC example): 
 
 {{{
 protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -65,14 +54,10 @@ Notice how there are no factories to deal with. However any API Object that you 
 
 The !TableFacade interface also has setters for all the facade objects including the [WebContext], [CoreContext], [Limit], [Toolbar], and [View]. The reason is if you really need to customize something and want to set your own implementation you can. Your object just goes into the flow of the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when the render() method is called it will use your Toolbar.
 
-However, all this should feel very natural and you should not have to think about what you are doing. Just interact with the facade how you need to and it will take care of everything. *New:* I created a grid that shows the [TableFacadeCallOrder order of the calls] when using the !TableFacadeImpl to help make things clearer.
-
 _Be sure to also check out the [State] feature, which allows a user to come back to a table with it sorted, filtered, and paged the way that they left it. I am so used to this feature that I tend to forgot to mention it, but I bet most people would really enjoy this feature!_
 
 ==== !ComponentFactory Option ====
-There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
-
-All you have to do is set the table on the facade. 
+There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables. Be sure to set the table on the facade after you create the table.
 
 {{{
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
