@@ -52,9 +52,6 @@ public class CustomToolbar extends AbstractToolbar {
 
         if (exportable) {
             addToolbarItem(ToolbarItemType.SEPARATOR);
-        }
-
-        if (exportable) {
             addExportToolbarItems(getExportTypes());
         }
 
@@ -65,9 +62,6 @@ public class CustomToolbar extends AbstractToolbar {
 
         if (filterable) {
             addToolbarItem(ToolbarItemType.SEPARATOR);
-        }
-
-        if (filterable) {
             addToolbarItem(ToolbarItemType.FILTER_ITEM);
             addToolbarItem(ToolbarItemType.CLEAR_ITEM);
         }
