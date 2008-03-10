@@ -1,3 +1,6 @@
+==== Where can I find the JSP Tag attribute definitions? ====
+All the JSP tag attributes can be found [JSPTagAttributes here].
+
 ==== How can I get at the original row bean or map using the custom interfaces? ====
 
 Technically, when using the tag library, under the hood the item is swapped out for a Map for each row. Because JMesa works with beans and maps completely transparently this works really well and is completely transparent. However, the map will only contain the values for the columns defined, and not the other values from the original bean. Now the original bean can be recovered from the map in your custom code. The bean can be recovered from the map by the !TableFacadeTag var attribute.
