@@ -6,7 +6,7 @@ All you have to do is set the stateAttr to the parameter to look for in the url,
 
 For example in the [TableFacade] just pass in the name of the parameter to use:
 {{{
-TableFacade tableFacade = new TableFacadeImpl(id, request);
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setStateAttr("restore");
 }}}
 
