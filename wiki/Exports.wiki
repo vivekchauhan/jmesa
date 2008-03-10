@@ -13,15 +13,13 @@ if (limit.isExported()) {
 }
 }}}
 
-All the boilerplate code of rendering the exports is done for you!
-
 _The exports will default to 'table-data.exportType' if no caption is specified._
+
+_One note I would like to make is I have learned from past experience that using a filter to export the table is not a good idea. The support costs are just too high with trying to make it work for different environments. The problem was you had to parse through the JSP file for the sole purpose of generating the table in the correct markup. Doing that made outputting the data in the response very difficult and buggy. It is much easier and safer to handle the exports in the controller. However, if you use the new [TableFacade] it makes working with exports pretty trivial._
 
 ==== Exports !ComponentFactory Option ====
 
-There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables.
-
-All you have to do is set the table on the facade. 
+There is now an alternative way to create columns using the API. This technique is completely optional but may be nice in some situations, or you may decide this is a more natural way to create tables. Just be sure to set the table on the facade once the table is created. 
 
 {{{
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
