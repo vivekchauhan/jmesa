@@ -1,4 +1,3 @@
-#labels Featured
 JMesa has a complete tag library, which is very intuitive and should feel very similar to building a table using the API.
 
 *Note: The tag library uses !SimpleTag, which requires JSP 2.0 or above.*
