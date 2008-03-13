@@ -80,5 +80,13 @@ function onInvokeExportAction(id) {
 </script>
 }}}
 
-_Be sure to read the [Javascript] page so that you understand how Javascript is used to interact with the table and what your options are._
+Also be sure to set the export on the Limit in the !JavaScript back to null in the onInvokeAction(). The reason you do this is because the export does not force a page refresh and the !JavaScript Limit will still think an export is being performed.
 
+{{{
+function onInvokeAction(id) {
+    setExportToLimit(id, '');
+    ...
+}
+}}}
+
+_Be sure to read the [Javascript] page so that you understand how Javascript is used to interact with the table and what your options are._
