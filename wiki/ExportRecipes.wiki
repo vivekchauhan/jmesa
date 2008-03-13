@@ -4,7 +4,7 @@ The best place to read about exporting data is found in the [Exports exports pag
 
 ==== How come my PDF export does not work? ====
 
-First make sure that you have your jmesa-pdf.css in a place where the PDF export can find it. The default location is in a folder called css at the top of the web directory '/css/jmesa-pdf.css'.
+First make sure that you have your jmesa-pdf.css in a place where the PDF export can find it. The default location is in a folder called css at the top of the web directory.
 
 The global place to change this location is in the [Preferences preferences]. What you need to modify is the pdf.cssLocation preference.
 
