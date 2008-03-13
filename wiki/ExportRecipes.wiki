@@ -2,6 +2,25 @@
 
 The best place to read about exporting data is found in the [Exports exports page] or the [ExportTutorial export tutorial].
 
+==== How come my PDF export does not work? ====
+
+First make sure that you have your jmesa-pdf.css in a place where the PDF export can find it. The default location is in a folder called css at the top of the web directory '/css/jmesa-pdf.css'.
+
+The global place to change this location is in the [Preferences preferences]. What you need to modify is the pdf.cssLocation preference.
+
+{{{
+pdf.cssLocation=/css/jmesa-pdf.css
+}}}
+
+Or you can set it directly in the API for each PDF export.
+
+{{{
+if (tableFacade.getLimit().getExportType() == PDF) {
+    PdfView view = (PdfView)tableFacade.getView();
+    view.setCssLocation("/somefolder/jmesa-pdf.css");
+}
+}}}
+
 ==== My exports are not readable. What is wrong? ====
 
 It could be that the export is having a hard time reading out to the response. We should
