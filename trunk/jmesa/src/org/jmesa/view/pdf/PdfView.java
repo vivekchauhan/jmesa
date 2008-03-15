@@ -16,7 +16,6 @@
 package org.jmesa.view.pdf;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
