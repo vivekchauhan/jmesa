@@ -4,10 +4,16 @@
   <artifactId>jmesa</artifactId>
   <packaging>jar</packaging>
   <name>jmesa</name>
-  <version>2.2.1</version>
+  <version>2.3</version>
   <description>jmesa</description>
   <inceptionYear>2007</inceptionYear>
   <url>http://code.google.com/p/jmesa</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>  
   <scm>
     <connection>scm:svn:http://jmesa.googlecode.com/svn/trunk/jmesa</connection>
     <developerConnection>scm:svn:https://jmesa.googlecode.com/svn/trunk/jmesa</developerConnection>
