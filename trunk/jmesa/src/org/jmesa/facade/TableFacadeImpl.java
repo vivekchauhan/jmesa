@@ -128,10 +128,6 @@ public class TableFacadeImpl implements TableFacade {
     public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
         validateToolbarIsNull(toolbar, "exportTypes");
         
-        if (response == null) {
-            throw new NullPointerException("The response object is null.");
-        }
-    
         this.response = response;
         this.exportTypes = exportTypes;
     }
