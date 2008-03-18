@@ -7,3 +7,74 @@ Now here is the important part. To get a smaller result set you would create a q
 The savy Sybase or SQL Server developer may be saying, but the rowcount command always starts at the beginning, so when I go to page two I have to start at the beginning. Well, yes, but now you have only returned two pages of results, as opposed to the whole result set. When you go to page three then you will only have pulled back three pages. Other databases, such as MySQL and Oracle, allow you to ask for a given section of rows so then you consistently only pull back the page that you need.
 
 To find out how the user is trying to sort and filter, what page they are going to, and how many results they need to see JMesa has a convenient interface called the [Limit] and is pulled from the [TableFacade].
+
+=== Example ===
+
+Using the Limit to efficiently pull data from the database only requires you to declare and use the !TableFacade. This means that if you are using the JSP Tag library the following example is the minimum that you will need to do. If you are using API then just integrate this code with what you are already doing.
+
+=== Controller ===
+
+First create a !TableFacade and then pull the Limit.
+
+{{{
+TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
+Limit limit = tableFacade.getLimit();
+}}}
+
+The next thing you need to do is find out how the user interacted with the filters on the table. You will need to use this information to find out the total row count. Notice how you only need the filter information, not the sort. The reason is because the sort does not effect the totals rows, but rather just how the table is displayed. 
+
+_Note: even though I am using the Limit [FacadeLimitExample tutorial] I am going to take the liberty to demonstrate what you need to do, rather than show you the specific code approach that I took. The reason is there are many ways to approach this and I do not want you to get bogged down in my implementation._
+
+{{{
+FilterSet filterSet = limit.getFilterSet();
+int totalRows = service.getTotalRowCount(filterSet);  
+}}}
+
+Once you have the total row count then set that back on the Limit. Internally this creates the Limit's !RowSelect object, which contains the page and row information.
+
+{{{
+tableFacade.setTotalRows(totalRows);
+}}}
+
+Now use the sort and row information to only pull the rows that you need to display a page worth of data.
+
+{{{
+SortSet sortSet = limit.getSortSet();
+int rowStart = limit.getRowSelect().getRowStart();
+int rowEnd = limit.getRowSelect().getRowEnd();
+
+Collection items = service.getItems(filterSet, sortSet, rowStart, rowEnd);
+}}}
+
+You now have a Limit object that contains all the right information and a page full of items. The last step then depends on whether you are using the API or the JSP Tags.
+
+===== API: =====
+
+On the API you just need to set the items back on the !TableFacade.
+
+{{{
+tableFacade.setItems(items);
+}}}
+
+===== JSP Tag: =====
+
+If you are using the JSP Tags then pass the items in the request, and also pass the Limit as well. Remember, the Limit contains the right information that your tag rendered table will need to know about.
+
+Controller:
+
+{{{
+request.setAttribute("items", items);
+request.setAttribute("limit", limit);
+}}}
+
+Tag:
+
+{{{
+<jmesa:tableFacade items="${items}" limit="${limit}" >
+}}}
+
+
+
+
+
+
