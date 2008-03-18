@@ -1,4 +1,4 @@
-This is the code that corresponds with the [WorksheetTutorial Worksheet tutorial].
+This is the code that corresponds with the Worksheet [WorksheetTutorial tutorial].
 
 ==== code references ====
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code.
