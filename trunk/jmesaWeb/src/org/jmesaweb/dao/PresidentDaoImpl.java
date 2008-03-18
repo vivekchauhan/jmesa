@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
