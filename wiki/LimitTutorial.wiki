@@ -23,7 +23,7 @@ Limit limit = tableFacade.getLimit();
 
 The next thing you need to do is find out how the user interacted with the filters on the table. You will need to use this information to find out the total row count. Notice how you only need the filter information, not the sort. The reason is because the sort does not effect the totals rows, but rather just how the table is displayed. 
 
-_Note: even though I am using the Limit [FacadeLimitExample example] I am going to take the liberty to demonstrate what you need to do, rather than show you the specific code approach that I took. The reason is there are many ways to approach this and I do not want you to get bogged down in my implementation. So where I use the word service I am just assuming some generic service that works with a data access object to query the database. You will not find the getTotalRowCount() and getItems() anywhere in my examples. I am just trying to be clear on what you need to do._
+_Note: even though I am using the Limit [FacadeLimitExample example] as a reference I am going to take the liberty here to demonstrate what you need to do, rather than show you the specific code approach that I took. The reason is there are many ways to approach this and I do not want you to get bogged down in my implementation. Plus if you are interested in exactly what I did you can just go through the [FacadeLimitExample example] yourself. So where I use the word service I am just assuming some generic service that works with a data access object to query the database. You will not find the getTotalRowCount() and getItems() anywhere in my examples. I am just trying to be clear on what you need to do._
 
 {{{
 FilterSet filterSet = limit.getFilterSet();
