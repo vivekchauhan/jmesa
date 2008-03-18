@@ -9,5 +9,5 @@ In addition to the [Examples examples] I am starting to write up tutorials so th
   * A complete walk through of how to create a table using the JSP Tag library.
  * [WorksheetTutorial Worksheet Tutorial]
   * Learn how to use the new editable table feature.
- * [LimitTutorial Tutorial]
+ * [LimitTutorial Limit Tutorial]
   * Learn how to use the Limit object to efficiently pull data from the database.
