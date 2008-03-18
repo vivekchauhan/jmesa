@@ -72,4 +72,21 @@ Tag:
 <jmesa:tableFacade items="${items}" limit="${limit}" >
 }}}
 
+==== Additional Information ====
+
+If you are using the [State] feature then you also need to check that you are not coming back to the table for the first time. However, instead of trying to figure that out, what you need to do is find out if the Limit is already complete. A complete Limit means that it already knows the total rows.
+
+{{{
+if (!limit.isComplete()) {
+   FilterSet filterSet = limit.getFilterSet();
+   int totalRows = service.getTotalRowCount(filterSet);  
+   tableFacade.setTotalRows(totalRows);
+}
+
+SortSet sortSet = limit.getSortSet();
+int rowStart = limit.getRowSelect().getRowStart();
+int rowEnd = limit.getRowSelect().getRowEnd();
+Collection items = service.getItems(filterSet, sortSet, rowStart, rowEnd);
+}}}
+
 
