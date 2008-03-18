@@ -42,7 +42,6 @@ Now use the sort and row information to only pull the rows that you need to disp
 SortSet sortSet = limit.getSortSet();
 int rowStart = limit.getRowSelect().getRowStart();
 int rowEnd = limit.getRowSelect().getRowEnd();
-
 Collection items = service.getItems(filterSet, sortSet, rowStart, rowEnd);
 }}}
 
@@ -72,7 +71,5 @@ Tag:
 {{{
 <jmesa:tableFacade items="${items}" limit="${limit}" >
 }}}
-
-
 
 
