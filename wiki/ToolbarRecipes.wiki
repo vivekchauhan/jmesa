@@ -5,3 +5,7 @@ You can place some text next to the max rows increments label (in the droplist).
 {{{
 html.toolbar.text.maxRowsDroplist=items 
 }}}
+
+==== How can I create my own custom toolbar items?  ====
+
+You need to create a custom [Toolbar toolbar] and plug it in.
