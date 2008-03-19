@@ -1,6 +1,6 @@
 The following is a walk-through of an example of creating a JMesa table using the [TableFacade API] directly.
 
-You should also look at the [http://code.google.com/p/jmesa/wiki/FacadeExample complete example] to see the example in its full context. Or look [TableFacade here] to see all the examples.
+You should also look at the [BasicExample complete example] to see the example in its full context. Or look [TableFacade here] to see all the examples.
 
 === Setup ===
 To start with grab the latest JMesa [http://code.google.com/p/jmesa/downloads/list download]. In there you will find the following: jmesa.jar, jmesa.css, jmesa-pdf.css, jmesa.js, default images, and the source code.
