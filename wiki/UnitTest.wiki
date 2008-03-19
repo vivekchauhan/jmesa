@@ -24,7 +24,7 @@ public class ParametersBuilder {
 
 This should be pretty straightforward. You can easily set the page, max rows and export. In addition you can add filter or sort objects. However, you might still be wondering how this actually sets the parameters on the (mock) request. For that to happen you need to set the Parameters (interface) on the !ParametersBuilder constructor. 
 
-Right now there is only one implementation to set up the Parameters, using the Spring framework. However, if you are not using Spring and would still like to unit test your code consider writing your own adapter and then donating the code back. Writing an adapter is very easy as you can see from the [http://jmesa.googlecode.com/svn/tags/jmesa-2.2/src/org/jmesa/test/SpringParametersAdapter.java SpringParametersAdapter]. The real work is done in the builder so the adapter is just a few lines of code to link the mock request with the builder.
+Right now there is only one implementation to set up the Parameters, using the Spring framework. However, if you are not using Spring and would still like to unit test your code consider writing your own adapter and then donating the code back. Writing an adapter is very easy as you can see from the [http://jmesa.googlecode.com/svn/tags/jmesa-2.3/src/org/jmesa/test/SpringParametersAdapter.java SpringParametersAdapter]. The real work is done in the builder so the adapter is just a few lines of code to link the mock request with the builder.
 
 ==== !SpringParametersAdapter Example ====
 
