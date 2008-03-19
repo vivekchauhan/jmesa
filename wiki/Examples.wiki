@@ -4,5 +4,5 @@ Here is a more in-depth look at the examples found in the examples war file.
  * [BasicExample Basic Example]
  * [LimitExample Limit Example]
  * [TagsExample Tags Example]
- * [FacadeGroovyExample Groovy Example]
+ * [GroovyExample Groovy Example]
  * [WorksheetExample Worksheet Example]
