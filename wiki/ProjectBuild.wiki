@@ -13,6 +13,8 @@ Then copy the ivy-1.4.1.jar into the GROOVY_HOME/lib directory so that the build
 
 You should also checkout the repository folder from subversion as it contains all the libraries you will need to build and work with the project. In theory the Maven repositories should have the libraries needed, but there are still a few jar files missing, which is why I checked in all the libraries into the JMesa subversion repository.
 
+_Note: the repository is located at the top level of the subversion repository (at the same level as the trunk)._
+
 To build the project first navigate to it on the command line. The files relevant to the build are build.groovy, ivy.xml, and ivyconf.xml. 
 
 The only modification you might have to make is to the ivyconf.xml file. What you need to ensure is that it is pointing to your local repository (that you checked from the JMesa project). I keep all my projects, including the repository, in the same directory. If you do something different then just modify this file.
