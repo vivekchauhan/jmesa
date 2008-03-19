@@ -1,4 +1,4 @@
-The following is a walk-through of an example of creating a JMesa table with the [Tags tag library]. This is the same as the [BasicTutorial basic tutorial] but modified to use the tag library. You should notice that it feels just about the same. 
+The following is a walk-through of an example of creating a JMesa table with the [JSPTag tag library]. This is the same as the [BasicTutorial basic tutorial] but modified to use the tag library. You should notice that it feels just about the same. 
 
 You should also look at the [http://code.google.com/p/jmesa/wiki/TagsExample complete example] to see the example in its full context. Or look [TableFacade here] to see all the examples.
 
