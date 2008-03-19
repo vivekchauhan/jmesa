@@ -1,3 +1,3 @@
 The toolbar in JMesa can be fully customized. 
 
-I still need to write up more about the details of creating your own toolbar but you can see an [http://jmesa.googlecode.com/svn/trunk/jmesaWeb/src/org/jmesaweb/controller/CustomToolbar.java example] for a reference on how to do it.
+I still need to write up more about the details of creating your own toolbar but you can see an [http://jmesa.googlecode.com/svn/trunk/jmesaWeb-2.3/src/org/jmesaweb/controller/CustomToolbar.java example] for a reference on how to do it.
