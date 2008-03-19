@@ -1,5 +1,5 @@
 #labels Featured
-Here is a more in-depth look at the examples found in the examples war file.
+Here is a more in-depth look at the examples found in the examples war file. For more information also be sure to check out the [Tutorials tutorials].
 
  * [BasicExample Basic Example]
   * A complete example of how to create a table using the API.
