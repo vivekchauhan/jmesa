@@ -1,4 +1,4 @@
-JMesa now has a complete [Tags tag library]! The tags should be very intuitive and is a very similar facade to the [TableFacade]. In fact for exporting you will be using the [TableFacade] to process the export in the controller.
+JMesa now has a complete [JSPTags tag library]! The tags should be very intuitive and is a very similar facade to the [TableFacade]. In fact for exporting you will be using the [TableFacade] to process the export in the controller.
 
 === Example ===
 The following examples uses JMesa, along with Spring. It also assumes you have already followed the [Setup setup] instructions.
@@ -6,9 +6,9 @@ The following examples uses JMesa, along with Spring. It also assumes you have a
 ==== code references ====
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code.
 
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.2.7/src/org/jmesaweb/controller/TagPresidentController.java Controller]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.2.7/web/jsp/tag.jsp JSP]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.2.7/src/org/jmesaweb/controller/TagFilterMatcherMap.java FilterMatcherMap]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/controller/TagPresidentController.java Controller]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/web/jsp/tag.jsp JSP]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/controller/TagFilterMatcherMap.java FilterMatcherMap]
 
 Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table through the onInvokeAction and onInvokeExportAction.
 
