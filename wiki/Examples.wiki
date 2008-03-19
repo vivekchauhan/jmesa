@@ -2,7 +2,12 @@
 Here is a more in-depth look at the examples found in the examples war file.
 
  * [BasicExample Basic Example]
- * [LimitExample Limit Example]
+  * A complete example of how to create a table using the API.
  * [JSPTagExample JSP Tag Example]
- * [GroovyExample Groovy Example]
+  * An example of creating a table using the JSP Tag library.
  * [WorksheetExample Worksheet Example]
+  * An example of using the new editable table feature.
+ * [GroovyExample Groovy Example]
+  * An example of how to create a table using Groovy.
+ * [LimitExample Limit Example]
+  * An example of using the Limit object to efficiently pull data from the database.
