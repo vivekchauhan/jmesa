@@ -7,10 +7,10 @@ Another nice touch, if you are using Spring, is that you can wire this all up th
 ==== code references ====
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code.
 
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.2.7/src/org/jmesaweb/controller/GroovyPresidentController.java Controller]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.2.7/src/org/jmesaweb/controller/HtmlTableTemplate.java Template] _Bridges Groovy and Java_
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.2.7/web/WEB-INF/groovy/GroovyPresident.groovy Groovy] file
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.2.7/web/jsp/groovy.jsp JSP]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/controller/GroovyPresidentController.java Controller]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/controller/HtmlTableTemplate.java Template] _Bridges Groovy and Java_
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/web/WEB-INF/groovy/GroovyPresident.groovy Groovy] file
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/web/jsp/groovy.jsp JSP]
 
 Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table through the onInvokeAction and onInvokeExportAction.
 
