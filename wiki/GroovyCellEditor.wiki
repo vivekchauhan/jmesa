@@ -1,6 +1,6 @@
 I think Groovy is amazing! It is so useful and I knew when I first started learning about it that it could be used to make working with JMesa in the controller as natural and easy as having a tag implementation. The following is an example of how much easier defining a [Editors CellEditor] is.
 
-If you are new to Groovy (as am I) and are interested in learning about it then I would highly recommend getting Groovy In Action! There is even a nice Foreword by James Gosling which describes how much he has enjoyed working with Groovy the last two years. It also explains that he is very impressed with how smooth the integration between Java and Groovy is.
+If you are new to Groovy and are interested in learning about it then I would highly recommend getting Groovy In Action and/or Groovy Recipes: Greasing the Wheels of Java! 
 
 ==== Example ====
 
