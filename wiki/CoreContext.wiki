@@ -26,14 +26,3 @@ tableFacade.performFilterAndSort(false);
 
 === Custom Filters ===
 The !CoreContext will filter the items based on the class type and/or property. If you need to add a custom filter or are trying to support a custom class type then you need to add your own [FilterMatcher filter matching strategy].
-
-
-=== UML Class Diagrams ===
-
-==== The !CoreContext class diagram. ====
-
-http://extremecomponents.googlepages.com/coreContext.png
-
-==== The Sort class diagram. ====
-
-http://extremecomponents.googlepages.com/sort.png
