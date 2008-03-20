@@ -100,9 +100,3 @@ limit.getRowSelect().setPage(2);
 }}}
 
 *Note:* If you want to persist a Limit you can use the [State] interface.
-
-=== UML Class Diagrams ===
-
-====The Limit class diagram.====
-
-http://extremecomponents.googlepages.com/limit.png
