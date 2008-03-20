@@ -379,9 +379,3 @@ htmlColumn.setSortOrder(Order.ASC, Order.DESC);
 }}}
 
 The legal Column sortOrder values are 'asc', 'desc', and 'none'.
-
-=== UML Class Diagrams ===
-
-==== The Component class diagram. ====
-
-http://extremecomponents.googlepages.com/component.png
