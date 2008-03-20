@@ -54,9 +54,3 @@ To add a filter you would do this:
 {{{
 builder.addFilter("firstName", "geo");
 }}}
-
-=== UML Class Diagrams ===
-
-====The Parameters class diagram.====
-
-http://extremecomponents.googlepages.com/test.png
