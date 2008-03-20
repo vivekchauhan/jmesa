@@ -161,16 +161,6 @@ column.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
 <jmesa:htmlColumn filterEditor="org.jmesa.view.html.editor.DroplistFilterEditor"/>;
 }}}
 
-=== UML Class Diagrams ===
-
-==== The Editor class diagram. ====
-
-http://extremecomponents.googlepages.com/editor.png
-
-
-
-
-
 
 
 
