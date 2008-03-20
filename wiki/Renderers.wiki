@@ -272,9 +272,3 @@ column.getFilterRenderer().setStyleClass("jmesaFilter");
 {{{
 <jmesa:column filterClass="jmesaFilter">
 }}}
-
-=== UML Class Diagrams ===
-
-====The Renderer class diagram.====
-
-http://extremecomponents.googlepages.com/renderer.png
