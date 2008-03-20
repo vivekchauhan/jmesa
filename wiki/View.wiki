@@ -5,9 +5,3 @@ To build your view you will work with [Components components], [Renderers render
 One thing to keep in mind is each type of view has its own components, renderers and editors. This is a huge boon for developers as they have max control with how tables are created and allows for maximum reuse.
 
 The View interface is responsible for rendering the markup.
-
-=== UML Class Diagrams ===
-
-==== View Class Diagrams ====
-
-http://extremecomponents.googlepages.com/view.png
