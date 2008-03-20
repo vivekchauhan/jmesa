@@ -24,9 +24,3 @@ As you can see in the following example, by passing in a parameter of "restore=t
 http://extremecomponents.googlepages.com/basic.png
 
 *Note:* Just be sure that you have a unique table id for each table that you define. Technically the Limit object for each table is stored in the users session keyed by the table id. If the tables are not unique then you will overwrite one [Limit] with another.
-
-=== UML Class Diagrams ===
-
-====The State class diagram.====
-
-http://extremecomponents.googlepages.com/state.png
