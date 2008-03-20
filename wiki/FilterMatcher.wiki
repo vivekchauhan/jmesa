@@ -121,9 +121,3 @@ Even though the !FilterMatcherMap is generally used for the tag library to set t
 {{{
 tableFacade.addFilterMatcherMap(new TagFilterMatcherMap());
 }}}
-
-=== UML Class Diagrams ===
-
-==== The Filter class diagram. ====
-
-http://extremecomponents.googlepages.com/filter.png
