@@ -1,6 +1,6 @@
 The eXtremeTable project is replaced by JMesa. The reason is the eXtremeTable was created to be a tag library, and thus carries with it a lot of design flaws. The project is solid, and the features are great, but after seeing what worked and what did not work in the eXtremeTable I knew I either needed to build a better table, or just leave the eXtremeTable to be what it was.
 
-So, enter JMesa... I spent about 2 months working on the UML to build a table that was soley written from an API standpoint. The new architecture can be broken down into three key packages as laid out in the [Overview overview]. The [Features features] of JMesa also point out the key differences.
+So, enter JMesa... I spent about 2 months working on the UML to build a table that was soley written from an API standpoint. The new architecture can be broken down into three key packages as laid out in the [Overview overview].
 
 The overall point is that the API is written from scratch from what was learned from the eXtremeTable. JMesa is the hindsight 20/20 implementation. Of course I used a lot of code from that project, but you would never know it as the interfaces are so different.
 
