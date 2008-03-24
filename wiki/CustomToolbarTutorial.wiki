@@ -1,5 +1,9 @@
 The following tutorial shows how to create a custom toolbar. The reason you might want to do such a thing is to either replace the default functionality or add your own toolbar items. This example assumes you are wanting to add your own toolbar item to do something custom. The objective will be to print out an alert that display 'Hello World'. Although typically not the most useful function in a production environment, it does show the steps needed to create your own toolbar item!
 
+http://jmesa.org/wiki/images/custom-toolbar.gif
+
+You can see the full example [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/CustomToolbar.java here].
+
 === Example ===
 
 First start by extending the !AbstractToolbar and implement the render() method. 
@@ -123,9 +127,3 @@ tableFacade.setToolbar(new CustomToolbar());
 {{{
 <jmesa:tableFacade toolbar="com.mycompany.table.CustomToolbar">
 }}}
-
-Thats it! You know have a custom toolbar item that will display an alert of 'Hello World'.
-
-http://jmesa.org/wiki/images/custom-toolbar.gif
-
-You can see the full example [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/CustomToolbar.java here].
