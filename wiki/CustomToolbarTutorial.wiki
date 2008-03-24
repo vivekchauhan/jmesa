@@ -108,6 +108,8 @@ Lastly, add the toolbar item to the toolbar defined in the abstract toolbar you 
 addToolbarItem(item);
 }}}
 
+==== Plug into !TableFacade ====
+
 To use your custom toolbar you will need to plug it into your !TableFacade.
 
 ===== API =====
@@ -127,5 +129,3 @@ Thats it! You know have a custom toolbar item that will display an alert of 'Hel
 http://jmesa.org/wiki/images/custom-toolbar.gif
 
 You can see the full example [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/CustomToolbar.java here].
-
-
