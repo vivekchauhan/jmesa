@@ -8,4 +8,4 @@ html.toolbar.text.maxRowsDroplist=items
 
 ==== How can I create my own custom toolbar items?  ====
 
-You need to create a custom [Toolbar toolbar] and plug it in.
+You need to create a [CustomToolbarTutorial custom toolbar] and plug it in.
