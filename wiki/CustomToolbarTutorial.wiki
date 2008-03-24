@@ -58,7 +58,7 @@ public String render() {
 }
 }}}
 
-Now we need to create our new toolbar item. For that we need to implement the !ToolbarItem and !ToolbarItemRenderer interface.
+Now we need to create our new toolbar item. For that we need to implement the !ToolbarItem and !ToolbarItemRenderer interfaces.
 
 ==== !ToolbarItem ====
 
@@ -127,7 +127,5 @@ Thats it! You know have a custom toolbar item that will display an alert of 'Hel
 http://jmesa.org/wiki/images/custom-toolbar.gif
 
 You can see the full example [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/CustomToolbar.java here].
-
-
 
 
