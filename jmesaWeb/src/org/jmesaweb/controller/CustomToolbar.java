@@ -40,30 +40,38 @@ public class CustomToolbar extends AbstractToolbar {
         addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.LAST_PAGE_ITEM);
-
+        
         addToolbarItem(ToolbarItemType.SEPARATOR);
 
         MaxRowsItem maxRowsItem = (MaxRowsItem) addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
         if (getMaxRowsIncrements() != null) {
             maxRowsItem.setIncrements(getMaxRowsIncrements());
         }
-
+        
         boolean exportable = ViewUtils.isExportable(getExportTypes());
 
         if (exportable) {
             addToolbarItem(ToolbarItemType.SEPARATOR);
             addExportToolbarItems(getExportTypes());
         }
-
+        
         Row row = getTable().getRow();
         List columns = row.getColumns();
-
+        
         boolean filterable = ViewUtils.isFilterable(columns);
 
         if (filterable) {
             addToolbarItem(ToolbarItemType.SEPARATOR);
             addToolbarItem(ToolbarItemType.FILTER_ITEM);
             addToolbarItem(ToolbarItemType.CLEAR_ITEM);
+        }
+        
+        boolean editable = ViewUtils.isEditable(getCoreContext().getWorksheet());
+
+        if (editable) {
+            addToolbarItem(ToolbarItemType.SEPARATOR);
+            addToolbarItem(ToolbarItemType.SAVE_WORKSHEET_ITEM);
+            addToolbarItem(ToolbarItemType.FILTER_WORKSHEET_ITEM);
         }
         
         addToolbarItem(ToolbarItemType.SEPARATOR);
@@ -75,11 +83,9 @@ public class CustomToolbar extends AbstractToolbar {
     
     private ImageItem createCustomItem() {
         ImageItemImpl item = new ImageItemImpl();
-        
         item.setCode("custom-item");
         item.setTooltip("Hello World");
-        
-        item.setImage(getImage("custom.gif", getWebContext(), getCoreContext()));
+        item.setImage(getImage("custom.png", getWebContext(), getCoreContext()));
         item.setAlt("custom");
 
         ToolbarItemRenderer renderer = new CustomItemRenderer(item, getCoreContext());
@@ -89,7 +95,7 @@ public class CustomToolbar extends AbstractToolbar {
         return item;
     }
     
-    private String getImage(String image, WebContext webContext, CoreContext coreContext) {
+    private static String getImage(String image, WebContext webContext, CoreContext coreContext) {
         String imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
         return imagesPath + image;
     }
@@ -100,6 +106,7 @@ public class CustomToolbar extends AbstractToolbar {
             setCoreContext(coreContext);
         }
 
+        @Override
         public String render() {
             ToolbarItem item = getToolbarItem();
             StringBuilder action = new StringBuilder("javascript:");
