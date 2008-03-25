@@ -131,10 +131,16 @@ public class HtmlColumnTag extends SimpleTagSupport {
         this.filterable = filterable;
     }
     
+    /**
+     * @since 2.3
+     */
     public Boolean isEditable() {
         return editable;
     }
 
+    /**
+     * @since 2.3
+     */
     public void setEditable(Boolean editable) {
         this.editable = editable;
     }
@@ -342,19 +348,20 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setEditable(isEditable());
         column.setWidth(getWidth());
 
-        // cell
-        
         HtmlCellRenderer cr = getColumnCellRenderer(column, getCellRenderer());
         cr.setStyle(getStyle());
         cr.setStyleClass(getStyleClass());
         column.setCellRenderer(cr);
         
-        CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern());
-        cr.setCellEditor(ce);
-
         // worksheet
+        
         WorksheetEditor we = getColumnWorksheetEditor(column, getWorksheetEditor());
         cr.setWorksheetEditor(we);
+
+        // cell
+
+        CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern());
+        cr.setCellEditor(ce);
 
         // filter
 

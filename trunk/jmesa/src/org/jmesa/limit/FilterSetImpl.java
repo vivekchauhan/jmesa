@@ -22,16 +22,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class FilterSetImpl implements Serializable, FilterSet {
-    private Logger logger = LoggerFactory.getLogger(FilterSetImpl.class);
-
     private Set<Filter> filters;
 
     public FilterSetImpl() {
@@ -72,15 +68,9 @@ public class FilterSetImpl implements Serializable, FilterSet {
     public void addFilter(Filter filter) {
         if (filters.contains(filter)) {
             filters.remove(filter);
-            if (logger.isDebugEnabled()) {
-                logger.debug("Removing Filter: " + filter.toString());
-            }
         }
 
         filters.add(filter);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Added Filter: " + filter.toString());
-        }
     }
 
     @Override
