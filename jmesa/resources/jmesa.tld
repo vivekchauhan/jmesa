@@ -24,6 +24,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>editable</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>maxRows</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -156,6 +161,11 @@
         <tag-class>org.jmesa.facade.tag.HtmlRowTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
+            <name>uniqueProperty</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>rowRenderer</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -228,6 +238,16 @@
         <body-content>scriptless</body-content>
         <attribute>
             <name>property</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>editable</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>worksheetEditor</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

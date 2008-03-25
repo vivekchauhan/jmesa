@@ -23,15 +23,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class SortSetImpl implements Serializable, SortSet {
-    private Logger logger = LoggerFactory.getLogger(SortSetImpl.class);
     private List<Sort> sorts;
 
     public SortSetImpl() {
@@ -76,16 +73,10 @@ public class SortSetImpl implements Serializable, SortSet {
     public void addSort(Sort sort) {
         if (sorts.contains(sort)) {
             sorts.remove(sort);
-            if (logger.isDebugEnabled()) {
-                logger.debug("Removing Sort: " + sort.toString());
-            }
         }
 
         sorts.add(sort);
         Collections.sort(sorts);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Added Sort: " + sort.toString());
-        }
     }
 
     @Override

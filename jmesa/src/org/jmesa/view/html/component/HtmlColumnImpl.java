@@ -78,6 +78,9 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         this.sortable = sortable;
     }
     
+    /**
+     * @since 2.3
+     */
     public boolean isEditable() {
         if (editable != null) {
             return editable.booleanValue();
@@ -86,6 +89,9 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return true;
     }
 
+    /**
+     * @since 2.3
+     */
     public void setEditable(Boolean editable) {
         this.editable = editable;
     }
