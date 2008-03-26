@@ -38,6 +38,10 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
 
         return toolbarItemFactory;
     }
+    
+    protected boolean hasToolbarItems() {
+        return toolbarItems != null && toolbarItems.size() > 0;
+    }
 
     public List<ToolbarItem> getToolbarItems() {
         return toolbarItems;
