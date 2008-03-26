@@ -27,6 +27,10 @@ public final class DefaultToolbar extends AbstractToolbar {
 
     @Override
     public String render() {
+        if (hasToolbarItems()) { // already has items
+            return super.render();
+        }
+        
         addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
