@@ -75,13 +75,13 @@ public class BasicPresidentController extends AbstractController {
             return null; // In Spring returning null tells the controller not to do anything.
         }
         
-        String html = html(tableFacade);
+        String html = getHtml(tableFacade);
         request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
         
         return mv;
     }
 
-    private String html(TableFacade tableFacade) {
+    private String getHtml(TableFacade tableFacade) {
         // add a custom filter matcher to be the same pattern as the cell editor used.
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
