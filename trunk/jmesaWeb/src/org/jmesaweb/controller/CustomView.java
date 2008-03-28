@@ -8,7 +8,6 @@ import org.jmesa.view.html.HtmlSnippets;
  * @author Jeff Johnston
  */
 public class CustomView  extends AbstractHtmlView {
-
     public Object render() {
         HtmlSnippets snippets = getHtmlSnippets();
 
@@ -36,13 +35,13 @@ public class CustomView  extends AbstractHtmlView {
 
         html.append(snippets.footer());
 
-        html.append(snippets.statusBar());
+        html.append(snippets.toolbar());
 
         html.append(snippets.tableEnd());
 
         html.append(snippets.themeEnd());
-        
-        getWebContext().setRequestAttribute("jmesaonload", snippets.initJavascriptLimit());
+
+        html.append(snippets.initJavascriptLimit());
 
         return html.toString();
     }
