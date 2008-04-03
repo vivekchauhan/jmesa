@@ -1,0 +1,8 @@
+
+===== Why are my characters showing up as "?" on the screen =====
+
+You need to add the following to the top of the JSP to get it to render correctly:
+
+{{{
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+}}}
