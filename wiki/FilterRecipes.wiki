@@ -13,3 +13,12 @@ When you interact with the filter on the table you are working with the !FilterE
 To create your own filter editor you typically extend the !AbstractFilterEditor. This gives you access to !CoreContext, !WebContext and Column. You could also just implement the !FilterEditor directly if you do not need access to any of these.
 
 For more information read the [Editors] page.
+
+==== Why are my characters showing up as "?" on the screen? ====
+
+It can be solved by setting the charset of the form, that surrounds the table, to UTF-8.
+
+Or, try adding the following to the top of the JSP.
+{{{
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+}}}
