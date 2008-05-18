@@ -1,0 +1,4 @@
+class SampleController {
+
+    def index = { }
+}
