@@ -11,12 +11,12 @@ import org.jmesa.view.html.renderer.HtmlTableRenderer
 /**
  * author:jeff jie
  *
- * limit: one tag per page.
+ * limitation: one tag per page.
  */
 class JmesaTagLib {
     namespace = "jmesa"
 
-    //define some pagescope attibute to store datas.for the limit of Gsp tag.
+    //define some page scope attibute to share data between tags.for the limit of Gsp tag.
     def name_componentFactory = "jmesa_componentFacotry"
     def name_tableFacade = "jmesa_tableFacade"
     def name_table = "jmesa_table"
