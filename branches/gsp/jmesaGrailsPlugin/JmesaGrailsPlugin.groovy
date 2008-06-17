@@ -2,30 +2,23 @@
 class JmesaGrailsPlugin {
     def version = 0.1
     def dependsOn = [:]
-	
-    def doWithSpring = {
-        // TODO Implement runtime spring config (optional)
-    }
-   
-    def doWithApplicationContext = { applicationContext ->
-        // TODO Implement post initialization spring config (optional)		
-    }
+	def author = "jeff.jie"
+    def email = "bbmyth@gmail.com"
 
     def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional)
+        def contextParam = xml."context-param"
+      contextParam[contextParam.size()-1]+{
+        'context-param' {
+          'param-name'('jmesaMessagesLocation')
+          'param-value'('org/jmesa/core/message/jmesaResourceBundle')
+        }
+      }+{
+        'context-param' {
+          'param-name'('jmesaPreferencesLocation')
+          'param-value'('/jmesa.properties')
+        }
+      }
+
     }
-	                                      
-    def doWithDynamicMethods = { ctx ->
-        // TODO Implement registering dynamic methods to classes (optional)
-    }
-	
-    def onChange = { event ->
-        // TODO Implement code that is executed when this class plugin class is changed  
-        // the event contains: event.application and event.applicationContext objects
-    }
-                                                                                  
-    def onApplicationChange = { event ->
-        // TODO Implement code that is executed when any class in a GrailsApplication changes
-        // the event contain: event.source, event.application and event.applicationContext objects
-    }
+
 }
