@@ -11,4 +11,42 @@
 
 Ant.property(environment:"env")
 grailsHome = Ant.antProject.properties."env.GRAILS_HOME"
+includeTargets << new File ( "${grailsHome}/scripts/Init.groovy" )
+
+println "the jmesaPluginDir is ${jmesaPluginDir}"
+
+pluginTemplatePath = "${jmesaPluginDir}/src/templates/"
+
+overwrite = true
+
+bind = [version:0.1]
+
+generateFile = {templateFile, binding, outputPath ->
+  def engine = new groovy.text.SimpleTemplateEngine()
+  def templateF = new File(templateFile)
+  def templateText = templateF.getText()
+  def outFile = new File(outputPath)
+  if (templateF.exists()) {
+    if (overwrite) {
+      def template = engine.createTemplate(templateText)
+      //println template.make(binding).toString()
+      outFile.withWriter {w ->
+        template.make(binding).writeTo(w)
+      }
+      println "file generated at ${outFile.absolutePath}"
+    } else {
+      println "file *not* generated.: ${outFile.absolutePath} "
+    }
+
+  } else {
+    println "${templateF} not exists"
+  }
+}
+
+generateFile(
+    "${pluginTemplatePath}/jmesa.properties",
+    bind,
+    "${basedir}/grails-app/conf/jmesa.properties")
+
+
 
