@@ -68,3 +68,31 @@ they look like this:
    * images
    * js
    * css
+
+== About Perferences ==
+I had the deafault Perferences changed.I did it for the images and style path.
+{{{
+html.imagesPath=/plugins/jmesa-${version}/images/table/
+pdf.cssLocation=/plugins/jmesa-${version}/css/jmesa-pdf.css
+}}}
+The recommand way for develper to custom jmesa preferences is: change the content,but don't change the file path.If you really want the change the config file path,just modify the /plugins/jmesa-0.1/JmesaGrailsPlugin.groovy file.
+{{{
+def doWithWebDescriptor = { xml ->
+        def contextParam = xml."context-param"
+      contextParam[contextParam.size()-1]+{
+        'context-param' {
+          'param-name'('jmesaMessagesLocation')
+          'param-value'('org/jmesa/core/message/jmesaResourceBundle')
+        }
+      }+{
+        'context-param' {
+          'param-name'('jmesaPreferencesLocation')
+          'param-value'('/jmesa.properties')
+        }
+      }
+    }
+}}}
+
+You are right,the message can be customed too.
+
+== controller ==
