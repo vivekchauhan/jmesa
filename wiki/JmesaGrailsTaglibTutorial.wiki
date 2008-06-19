@@ -70,7 +70,7 @@ they look like this:
    * css
 
 == About Perferences ==
-I had the deafault Perferences changed.I did it for the images and style path.
+I had the default Perferences changed.I did it for the images and style path.
 {{{
 html.imagesPath=/plugins/jmesa-${version}/images/table/
 pdf.cssLocation=/plugins/jmesa-${version}/css/jmesa-pdf.css
@@ -95,4 +95,113 @@ def doWithWebDescriptor = { xml ->
 
 You are right,the message can be customed too.
 
-== controller ==
+== demos ==
+There are two samples,including pageinate and export demo
+
+=== demo1 ===
+In this demo,datas are paginated by jmesa.
+
+*controller*
+{{{
+/** paginated by jmesa*/
+    def list = {
+        TableFacade tableFacade = new TableFacadeImpl("tag",request)
+        def books = Book.list(params)
+        if(!books || books.size() == 0){
+            books = []
+            50.times{ count ->
+                def book = new Book(title:"learning Java part${count + 1}",author:"james",releaseTime:new Date())
+                book.save()
+                books << book
+            }
+        }
+        tableFacade.items = books
+        
+        Limit limit = tableFacade.limit
+        
+        if(limit.isExported()){
+            tableFacade.setExportTypes response,limit.getExportType()
+            tableFacade.setColumnProperties "title","author"
+            tableFacade.render()
+        }else
+            return [bookList : books]
+    }
+}}}
+
+* view * 
+the gsp codes:
+{{{
+<form name="bookForm" action="/pluginSample/book/list">
+                <jmesa:tableFacade
+                    id="tag"
+                    items="${bookList}"
+                    maxRows="15"
+                    exportTypes="csv,excel"
+                    stateAttr="restore"
+                    var="bean"
+                    >
+                    <jmesa:htmlTable
+                        caption="books"
+                        width="600px"
+                        >
+                        <jmesa:htmlRow>
+                            <jmesa:htmlColumn property="title" performFilterAndSort="true" ><a href="#">${bean.title}</a></jmesa:htmlColumn>
+                            <jmesa:htmlColumn property="author"/>
+                        </jmesa:htmlRow>
+                    </jmesa:htmlTable>
+                </jmesa:tableFacade>
+
+            </form>
+}}}
+the tags are the sam to the jsp tag.right?
+
+== demo2 ==
+In this demo,datas are paginated manually,we load the the data we need for the current page only.
+
+=== controller ===
+{{{
+/**
+     * paginate manually
+     */
+    def list2 = {
+        def id = "tag"
+        TableFacade tableFacade = new TableFacadeImpl(id,request)
+        LimitActionFactory laf = new LimitActionFactoryImpl(id,params)
+        def maxRows = laf.maxRows == null ? 15:laf.maxRows
+        def page = laf.page
+
+        def books = Book.list(offset:((page - 1) * maxRows), max:maxRows)
+
+        Limit limit = tableFacade.limit
+
+        if(limit.isExported()){
+            tableFacade.setExportTypes response,limit.getExportType()
+            tableFacade.setColumnProperties "title","author"
+            tableFacade.setItems Book.list()
+            def count = Book.count()
+            limit.setRowSelect new RowSelectImpl(1,count,count)
+            tableFacade.render()
+        }else{
+            limit.setRowSelect new RowSelectImpl(page,maxRows,Book.count())
+            return [bookList:books,limit:limit]
+        }
+
+    }
+}}}
+
+the view is almost the same.just append an limit attribute to facadeTag:
+{{{
+<jmesa:tableFacade
+                    id="tag"
+                    items="${bookList}"
+                    maxRows="15"
+                    exportTypes="csv,excel"
+                    stateAttr="restore"
+                    var="bean"
+                    limit="${limit}"
+                    >
+....
+</jmesa:tableFacade>
+}}}
+
+that's Jmesa Grails Plugin.have fun!
