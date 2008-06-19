@@ -7,7 +7,7 @@ Moving on.
 == Install Grails ==
 Make sure you had Grails 1.0.2 installed.if you are new to Grails,see the install guide.http://grails.org/Installation
 == Get the latest plugin ==
- # Build from source
+ * Build from source
   # Check out latest source.
 {{{
      svn checkout http://jmesa.googlecode.com/svn/branches/gsp/jmesaGrailsPlugin jmesaGrailsPlugin 
@@ -19,9 +19,10 @@ Make sure you had Grails 1.0.2 installed.if you are new to Grails,see the instal
      jeffjie:~ jeff$ cd /path/to/jmesaGrailsPlugin
      jeffjie:jmesaGrailsPlugin jeff$ grails package-plugin
 }}}
-after that you can find the plugin archive(grails-jmesa-0.1.zip) at the root of projects path.
- # Download the latest release binary
-You can down load the latest release here.
+ after that you can find the plugin archive(grails-jmesa-0.1.zip) at the root of the project path.
+ * Download the latest release binary
+ You can down load the latest release here.
+
 == Get sample source ==
  # Check out the latest soure from SVN repository.
 {{{
