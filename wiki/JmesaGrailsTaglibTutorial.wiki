@@ -5,7 +5,7 @@ Moving on.
 
 = setup =
 == Install Grails ==
-Make sure you had Grails 1.0.2 installed.if you are new to Grails,see the install guide.http://grails.org/Installation
+Make sure you had Grails 1.0.2 installed.if you are new to Grails,see the installation guide.http://grails.org/Installation
 == Get the latest plugin ==
  * Build from source
   # Check out latest source.
