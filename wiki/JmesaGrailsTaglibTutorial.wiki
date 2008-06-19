@@ -1,5 +1,5 @@
 This document would introduce you the Jmesa Grails Plugin by sample.
-We can play the Jmesa and Grails together now! To reach that,all you need to do is download and install the plugin.The useage of the plugin taglib is the same to the java version, if you are new to Jmesa taglib . Check out the [JSPTags] document.
+We can play with the Jmesa and Grails together now! To reach that,all you need to do is download and install the plugin.The useage of the plugin taglib is the same to the java version, if you are new to Jmesa taglib . Check out the [JSPTags] document.
 
 Moving on.
 
