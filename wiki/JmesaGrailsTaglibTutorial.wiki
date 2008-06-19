@@ -1,0 +1,48 @@
+This document would introduce you the Jmesa Grails Plugin by sample.
+We can play the Jmesa and Grails together now! To rich that,all you need to do is download and install the plugin.The useage of the plugin taglib is the same to the java version, if you are new to Jmesa taglib . Check out the [JSPTags] document.
+
+Moving on.
+
+= setup =
+== Install Grails ==
+Make sure you had Grails 1.0.2 installed.if you are new to Grails,see the install guide.http://grails.org/Installation
+== Get the latest plugin ==
+ # Build from source
+  # Check out latest source.
+{{{
+     svn checkout http://jmesa.googlecode.com/svn/branches/gsp/jmesaGrailsPlugin jmesaGrailsPlugin 
+}}}
+  # resolve libs
+     see the jmesaGrailsPlugin/lib/readme.txt,and drop the lib on the list into this directory.
+  # package you built jmesa plugin.
+{{{
+     jeffjie:~ jeff$ cd /path/to/jmesaGrailsPlugin
+     jeffjie:jmesaGrailsPlugin jeff$ grails package-plugin
+}}}
+after that you can find the plugin archive(grails-jmesa-0.1.zip) at the root of projects path.
+ # Download the latest release binary
+You can down load the latest release here.
+== Get sample source ==
+ # Check out the latest soure from SVN repository.
+{{{
+ svn checkout http://jmesa.googlecode.com/svn/branches/gsp/pluginSample pluginSample
+}}}
+ # resolve libs
+ see the pluginSample/lib/readme.txt,and drop the lib on the list into this directory. In this case,just forget it.
+== Install jmesa plugin ==
+{{{
+     jeffjie:~ jeff$ cd /path/to/pluginSample
+     jeffjie:pluginSample jeff$ grails install-plugin /Volumes/work/projects/thirdpart/jmesa/branches/gsp/jmesaGrailsPlugin/grails-jmesa-0.1.zip
+}}}
+== Run sample ==
+{{{
+ jeffjie:pluginSample jeff$ grails run-app
+}}}
+== Browse sample ==
+http://localhost:8080/pluginSample/book/list  
+
+http://localhost:8080/pluginSample/book/list2 
+
+they look the same? yes! that's what I want it to.
+
+== The magic ==
