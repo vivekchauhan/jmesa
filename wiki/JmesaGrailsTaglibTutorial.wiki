@@ -1,5 +1,5 @@
 This document would introduce you the Jmesa Grails Plugin by sample.
-We can play the Jmesa and Grails together now! To rich that,all you need to do is download and install the plugin.The useage of the plugin taglib is the same to the java version, if you are new to Jmesa taglib . Check out the [JSPTags] document.
+We can play the Jmesa and Grails together now! To reach that,all you need to do is download and install the plugin.The useage of the plugin taglib is the same to the java version, if you are new to Jmesa taglib . Check out the [JSPTags] document.
 
 Moving on.
 
@@ -46,4 +46,25 @@ http://localhost:8080/pluginSample/book/list2
 
 they look the same? yes! that's what I want it to.
 
-== The magic ==
+= The magic =
+== changes on your application ==
+The Jmesa grails plugin is very easy to use.After install the plugin,the libs and resource are ready for you,you don't need to worry about them.
+
+The *resources*(js,css,images) was copy to your grails application's "web-app/plugins/jmesa-0.1" folder.
+
+The *libs* you can find it in "plugins/jmesa-0.1/lib" folder.
+
+Almost forget one important file,the *Preferences* config file have been Customed by Jmesa plugin.the new config file could be found as "grails-app/conf/jmesa.properties" .
+
+they look like this:
+ * grails-app
+  * conf
+   * jmesa.properties
+ * plugins
+  * jmesa-0.1
+   * lib
+ * web-app
+  * plugins
+   * images
+   * js
+   * css
