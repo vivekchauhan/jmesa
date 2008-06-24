@@ -38,3 +38,17 @@ pre {
     width: 850px;
 }
 
+.paginationItem {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: .9em;
+    font-weight: bold;
+    color: #c4634d;
+}
+
+.paginationItem a {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 1.0em;
+    font-weight: normal;
+    color: black;
+}
+
