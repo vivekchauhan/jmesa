@@ -9,3 +9,12 @@ html.toolbar.text.maxRowsDroplist=items
 ==== How can I create my own custom toolbar items?  ====
 
 You need to create a [CustomToolbarTutorial custom toolbar] and plug it in.
+
+==== How can I display inline page numbers? ====
+
+A heavily requested feature is the ability to display inline page numbers,
+similar to how the google search results works. This feature was
+implemented with the help from the community and could easily be abstracted
+out and put into the API. I will work on getting that into the API. However, in the meantime, I am providing the information if you would like the source code to use now.
+
+You can read more about it and get the [http://groups.google.com/group/jmesa/browse_thread/thread/d3010067e6c89ecf source code] in the google groups.
