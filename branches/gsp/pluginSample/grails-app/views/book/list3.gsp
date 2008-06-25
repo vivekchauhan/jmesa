@@ -15,13 +15,13 @@
         }
         function onInvokeExportAction(id) {
             var parameterString = createParameterStringForLimit(id);
-            location.href = '/pluginSample/book/list?' + parameterString;
+            location.href = '/pluginSample/book/list2?' + parameterString;
         }
         </script>
         <title>Book List</title>
     </head>
     <body>
-            <form name="bookForm" action="/pluginSample/book/list">
+            <form name="bookForm" action="/pluginSample/book/list3">
                 <jmesa:tableFacade
                     id="tag"
                     items="${bookList}"
@@ -29,6 +29,7 @@
                     exportTypes="csv,excel"
                     stateAttr="restore"
                     var="bean"
+                    limit="${limit}"
                     performFilterAndSort="true"
                     >
                     <jmesa:htmlTable
@@ -36,8 +37,7 @@
                         width="600px"
                         >
                         <jmesa:htmlRow>
-                            <jmesa:htmlColumn property="title" sortable="true" filterable="true"><a href="#">${bean.title}</a></jmesa:htmlColumn>
-                            <jmesa:htmlColumn property="author"/>
+                            <jmesa:htmlColumns htmlColumnsGenerator="BookColumnGenerator"/>
                         </jmesa:htmlRow>
                     </jmesa:htmlTable>
                 </jmesa:tableFacade>
