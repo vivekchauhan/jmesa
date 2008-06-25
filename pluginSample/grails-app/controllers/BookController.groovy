@@ -74,9 +74,6 @@ class BookController {
     }
 
     def list3 = {
-        def loader = this.class.classLoader
-        
-        println Class.forName("BookColumnGenerator",true,loader).newInstance()
         def books = Book.list(params)
         if(!books || books.size() == 0){
             books = prepareData()
