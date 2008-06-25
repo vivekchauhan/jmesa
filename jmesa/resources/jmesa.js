@@ -102,36 +102,36 @@ Limit.prototype.setExport = function(exportType) {
 TableFacade.prototype.createHiddenInputFields = function(form) {
     var limit = this.limit;
     
-    var exists = $(form).find(':hidden[@name=' + limit.id + '_p_]').val();
+    var exists = jQuery(form).find(':hidden[@name=' + limit.id + '_p_]').val();
     if (exists) {
         return false;
     }
     
     if (this.worksheet.save) {
-        $(form).append('<input type="hidden" name="' + limit.id + '_sw_" value="true"/>');
+        jQuery(form).append('<input type="hidden" name="' + limit.id + '_sw_" value="true"/>');
     }
     
     if (this.worksheet.filter) {
-        $(form).append('<input type="hidden" name="' + limit.id + '_fw_" value="true"/>');
+        jQuery(form).append('<input type="hidden" name="' + limit.id + '_fw_" value="true"/>');
     }
     
     /* tip the API off that in the loop of working with the table */
-    $(form).append('<input type="hidden" name="' + limit.id + '_tr_" value="true"/>');
+    jQuery(form).append('<input type="hidden" name="' + limit.id + '_tr_" value="true"/>');
     
     /* the current page */
-    $(form).append('<input type="hidden" name="' + limit.id + '_p_" value="' + limit.page + '"/>');
-    $(form).append('<input type="hidden" name="' + limit.id + '_mr_" value="' + limit.maxRows + '"/>');
+    jQuery(form).append('<input type="hidden" name="' + limit.id + '_p_" value="' + limit.page + '"/>');
+    jQuery(form).append('<input type="hidden" name="' + limit.id + '_mr_" value="' + limit.maxRows + '"/>');
     
     /* the sort objects */
     var sortSet = limit.getSortSet();
-    $.each(sortSet, function(index, sort) {
-        $(form).append('<input type="hidden" name="' + limit.id + '_s_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
+    jQuery.each(sortSet, function(index, sort) {
+        jQuery(form).append('<input type="hidden" name="' + limit.id + '_s_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
     });
     
     /* the filter objects */
     var filterSet = limit.getFilterSet();
-    $.each(filterSet, function(index, filter) {
-        $(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + filter.value + '"/>');
+    jQuery.each(filterSet, function(index, filter) {
+        jQuery(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + filter.value + '"/>');
     });
     
     return true;
@@ -150,13 +150,13 @@ TableFacade.prototype.createParameterString = function() {
     
     /* the sort objects */
     var sortSet = limit.getSortSet();
-    $.each(sortSet, function(index, sort) {
+    jQuery.each(sortSet, function(index, sort) {
         url += '&' + limit.id + '_s_' + sort.position + '_' + sort.property + '=' + sort.order;
     });
     
     /* the filter objects */
     var filterSet = limit.getFilterSet();
-    $.each(filterSet, function(index, filter) {
+    jQuery.each(filterSet, function(index, filter) {
         url += '&' + limit.id + '_f_' + filter.property + '=' + encodeURIComponent(filter.value);
     });
     
@@ -195,6 +195,11 @@ function setFilterToWorksheet(id) {
     setPageToLimit(id, '1');
 }
 
+function removeFilterFromWorksheet(id) {
+    TableFacadeManager.getTableFacade(id).worksheet.filter=null;
+    setPageToLimit(id, '1');
+}
+
 function setPageToLimit(id, page) {
     TableFacadeManager.getTableFacade(id).limit.setPage(page);
 }
@@ -218,7 +223,7 @@ function addSortToLimit(id, position, property, order) {
 function removeSortFromLimit(id, property) {
     var limit = TableFacadeManager.getTableFacade(id).limit;
     var sortSet = limit.getSortSet();
-    $.each(sortSet, function(index, sort) {
+    jQuery.each(sortSet, function(index, sort) {
         if (sort.property == property) {
             sortSet.splice(index, 1);
             return false;
@@ -235,7 +240,7 @@ function removeAllSortsFromLimit(id) {
 function getSortFromLimit(id, property) {
     var limit = TableFacadeManager.getTableFacade(id).limit;
     var sortSet = limit.getSortSet();
-    $.each(sortSet, function(index, sort) {
+    jQuery.each(sortSet, function(index, sort) {
         if (sort.property == property) {
             return sort;
         }
@@ -256,7 +261,7 @@ function addFilterToLimit(id, property, value) {
 function removeFilterFromLimit(id, property) {
     var limit = TableFacadeManager.getTableFacade(id).limit;
     var filterSet = limit.getFilterSet();
-    $.each(filterSet, function(index, filter) {
+    jQuery.each(filterSet, function(index, filter) {
         if (filter.property == property) {
             filterSet.splice(index, 1);
             return false;
@@ -278,7 +283,7 @@ function removeAllFiltersFromLimit(id) {
 function getFilterFromLimit(id, property) {
     var limit = TableFacadeManager.getTableFacade(id).limit;
     var filterSet = limit.getFilterSet();
-    $.each(filterSet, function(index, filter) {
+    jQuery.each(filterSet, function(index, filter) {
         if (filter.property == property) {
             return filter;
         }
@@ -338,16 +343,16 @@ function createDynFilter(filter, id, property) {
     
     dynFilter = new DynFilter(filter, id, property);
     
-    var cell = $(filter);
+    var cell = jQuery(filter);
     var width = cell.width() + 1;
     var originalValue = cell.text();
     
     cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="' + originalValue + '" /></div>');
     
-    var input = $('#dynFilterInput');
+    var input = jQuery('#dynFilterInput');
     input.focus();
     
-    $(input).keypress(function(event) {
+    jQuery(input).keypress(function(event) {
         if (event.keyCode == 13) { // press the enter key 
             var changedValue = input.val();
             cell.html(changedValue);
@@ -357,7 +362,7 @@ function createDynFilter(filter, id, property) {
         }
     });
     
-    $(input).blur(function() {
+    jQuery(input).blur(function() {
         var changedValue = input.val();
         cell.html(changedValue);
         addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
@@ -372,12 +377,12 @@ function createDynDroplistFilter(filter, id, property, options) {
 
     dynFilter = new DynFilter(filter, id, property);
     
-    if ($('#dynFilterDroplistDiv').size() > 0) {
+    if (jQuery('#dynFilterDroplistDiv').size() > 0) {
         return; // filter already created
     }
     
     /* The cell that represents the filter. */
-    var cell = $(filter);
+    var cell = jQuery(filter);
     
     /* Get the original filter value and width. */
     var originalValue = cell.text();
@@ -385,7 +390,7 @@ function createDynDroplistFilter(filter, id, property, options) {
     
     /* Need to first get the size of the arrary. */
     var size = 1;
-    $.each(options, function() {
+    jQuery.each(options, function() {
         size++;
         if (size > 10) {
             size = 10;
@@ -398,7 +403,7 @@ function createDynDroplistFilter(filter, id, property, options) {
     
     var html = '<select id="dynFilterDroplist" name="filter" size="' + size + '">';
     html += '<option value=""> </option>';
-    $.each(options, function(key, value) {
+    jQuery.each(options, function(key, value) {
         if (key == originalValue) {
             html += '<option selected="selected" value="' + key + '">' + value + '</option>';
         } else {
@@ -408,10 +413,10 @@ function createDynDroplistFilter(filter, id, property, options) {
     
     html += '</select>';
 
-    var div = $('#dynFilterDroplistDiv');
+    var div = jQuery('#dynFilterDroplistDiv');
     div.html(html);
 
-    var input = $('#dynFilterDroplist');
+    var input = jQuery('#dynFilterDroplist');
 
     /* Resize the column if it is not at least as wide as the column. */    
     var selectWidth = input.width();
@@ -426,18 +431,18 @@ function createDynDroplistFilter(filter, id, property, options) {
 
     /* Something was selected or the clicked off the droplist. */
 
-    $(input).change(function() {
-        var changedValue = $("#dynFilterDroplistDiv option:selected").val();
+    jQuery(input).change(function() {
+        var changedValue = jQuery("#dynFilterDroplistDiv option:selected").val();
         cell.text(changedValue);
         addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
         onInvokeAction(dynFilter.id);
         dynFilter = null;
     });
 
-    $(input).blur(function() {
-        var changedValue = $("#dynFilterDroplistDiv option:selected").val();
+    jQuery(input).blur(function() {
+        var changedValue = jQuery("#dynFilterDroplistDiv option:selected").val();
         cell.text(changedValue);
-        $('#dynFilterDroplistDiv').remove();
+        jQuery('#dynFilterDroplistDiv').remove();
         cell.css({backgroundColor:originalBackgroundColor});
         dynFilter = null;
     });
@@ -448,16 +453,16 @@ function addDropShadow(imagesPath, theme) {
     if (!theme) {
         theme = 'jmesa';
     }
-    $('div.' + theme + ' .table')
+    jQuery('div.' + theme + ' .table')
     .wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>")
     .css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
     
-    $('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
-    $('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
-    $('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
-    $('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
+    jQuery('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
+    jQuery('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
+    jQuery('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
+    jQuery('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
     
-    $('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
+    jQuery('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
 }
 
 /* Worksheet */
@@ -478,7 +483,7 @@ function createWsColumn(column, id, uniqueProperties, property) {
 
     wsColumn = new WsColumn(column, id, uniqueProperties, property);
     
-    var cell = $(column);
+    var cell = jQuery(column);
     var width = cell.width();
     var originalValue = cell.text();
     
@@ -486,10 +491,10 @@ function createWsColumn(column, id, uniqueProperties, property) {
     
     cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 1) + 'px" value="' + originalValue + '"/></div>');
     
-    var input = $('#wsColumnInput'); 
+    var input = jQuery('#wsColumnInput'); 
     input.focus();
     
-    $('#wsColumnInput').keypress(function(event) {
+    jQuery('#wsColumnInput').keypress(function(event) {
         if (event.keyCode == 13) { // press the enter key 
             var changedValue = input.val();
             cell.html(changedValue);
@@ -500,7 +505,7 @@ function createWsColumn(column, id, uniqueProperties, property) {
         }
     });
     
-    $('#wsColumnInput').blur(function() {
+    jQuery('#wsColumnInput').blur(function() {
         var changedValue = input.val();
         cell.html(changedValue);
         if (changedValue != originalValue) {
@@ -536,7 +541,7 @@ function submitWsColumn(originalValue, changedValue) {
     data += ', "cp_" : "' + wsColumn.property + '"';
     
     var props = wsColumn.uniqueProperties;
-    $.each(props, function(key, value) {
+    jQuery.each(props, function(key, value) {
         data += ', "up_' + key + '" : "' + value + '"';
     });
     
@@ -545,7 +550,7 @@ function submitWsColumn(originalValue, changedValue) {
     
     data += '}'
     
-    $.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {});    
+    jQuery.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {});    
 }
 
 
