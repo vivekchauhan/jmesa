@@ -1,31 +1,26 @@
 import org.jmesa.facade.tag.TagUtils
+import org.jmesa.util.SupportUtils
 
 import org.jmesa.web.WebContext
 import org.jmesa.facade.TableFacadeImpl
 import org.jmesa.facade.TableFacade
 import org.jmesa.view.html.component.HtmlTable
-import org.jmesa.view.html.renderer.HtmlTableRenderer
 import org.jmesa.util.ItemUtils
 import org.jmesa.view.html.component.HtmlColumn
 import org.jmesa.view.html.renderer.HtmlCellRenderer
-import org.jmesa.worksheet.editor.WorksheetEditor
-import org.jmesa.view.editor.CellEditor
 import org.jmesa.view.html.renderer.HtmlFilterRenderer
-import org.jmesa.view.editor.FilterEditor
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer
-import org.jmesa.view.editor.HeaderEditor
 import org.jmesa.web.HttpServletRequestWebContext
 import org.jmesa.view.html.HtmlComponentFactory
 
 /**
  * author:jeff jie
  *
- * limitation: one tag per page.
  */
 class JmesaTagLib {
     static namespace = "jmesa"
 
-    //define some page scope attibute to share data between tags.for the limit of Gsp tag.
+    //define some page scope attibute to share data between tags.for the limitation of Gsp tag.
     def name_tableFacade = "jmesa_tableFacade"
     def name_var = "jmesa_var"
 
@@ -58,8 +53,8 @@ class JmesaTagLib {
         flash.remove(attrs.var)
 
         tableFacade.table = request[facade_table];
-        tableFacade.toolbar = TagUtils.getTableFacadeToolbar(attrs.toolbar)
-        tableFacade.view = (TagUtils.getTableFacadeView(attrs.view))
+        tableFacade.toolbar = createInstance(attrs.toolbar)
+        tableFacade.view = createInstance(attrs.view)
         tableFacade.coreContext.pageItems = request[facade_pageItems]
 
         String html = tableFacade.view.render().toString();
@@ -114,8 +109,31 @@ class JmesaTagLib {
         return ret
     }
 
-    def htmlColumns = {
-        //TODO complate it.
+    def htmlColumns = { attrs,body ->
+        def pageItems = request[facade_pageItems]
+        def row = request[facade_table].row
+        if (pageItems.size() == 1) {
+            def htmlColumnsGenerator = createInstance(attrs.htmlColumnsGenerator)
+            SupportUtils.setWebContext (htmlColumnsGenerator,request[name_tableFacade].webContext)
+            SupportUtils.setCoreContext (htmlColumnsGenerator,request[name_tableFacade].coreContext)
+            def columns = htmlColumnsGenerator.getColumns(request[facade_componentFactory])
+            columns.each{
+                it.generatedOnTheFly = true
+                validateColumn(it.property)
+                row.addColumn it
+            }
+        }
+
+        def pageItem = request[row_pageItem]
+
+        def columns = row.getColumns()
+        columns.each{
+            if (it.isGeneratedOnTheFly()){
+                if(it.property){
+                    pageItem[it.property] = ItemUtils.getItemValue(request[request[name_var]],it.property)
+                }
+            }
+        }
     }
 
     //methods
@@ -144,7 +162,7 @@ class JmesaTagLib {
         TableFacade tableFacade = new TableFacadeImpl(attrs.id,null)
 
         tableFacade.webContext = webContext
-        tableFacade.editable = attrs.editable != null
+        tableFacade.editable = attrs.editable == null ? false : attrs.editable.toBoolean()
         tableFacade.items = attrs.items
         tableFacade.maxRows = attrs.maxRows?.toInteger()
         tableFacade.stateAttr = attrs.stateAttr
@@ -155,13 +173,13 @@ class JmesaTagLib {
         tableFacade.maxRowsIncrements = TagUtils.getTableFacadeMaxRowIncrements(attrs.maxRowsIncrements)
         tableFacade.setExportTypes(null, TagUtils.getTableFacadeExportTypes(attrs.exportTypes))
 
-        tableFacade.performFilterAndSort = attrs.performFilterAndSort != null
-        tableFacade.preferences = TagUtils.getTableFacadePreferences(attrs.preferences)
-        tableFacade.messages = TagUtils.getTableFacadeMessages(attrs.messages)
-        tableFacade.columnSort = TagUtils.getTableFacadeColumnSort(attrs.columnSort)
-        tableFacade.rowFilter = TagUtils.getTableFacadeRowFilter(attrs.rowFilter)
+        tableFacade.performFilterAndSort(attrs.performFilterAndSort == null ? false : attrs.performFilterAndSort.toBoolean())
+        tableFacade.preferences = createInstance(attrs.preferences)
+        tableFacade.messages = createInstance(attrs.messages)
+        tableFacade.columnSort = createInstance(attrs.columnSort)
+        tableFacade.rowFilter = createInstance(attrs.rowFilter)
 
-        tableFacade.addFilterMatcherMap(TagUtils.getTableFacadeFilterMatcherMap(attrs.filterMatcherMap))
+        tableFacade.addFilterMatcherMap(createInstance(attrs.filterMatcherMap))
 
         def factory = new HtmlComponentFactory(tableFacade.webContext, tableFacade.coreContext)
         request[facade_componentFactory] = factory
@@ -175,8 +193,9 @@ class JmesaTagLib {
         table.captionKey = attrs.captionKey
         table.theme = attrs.theme
 
-        HtmlTableRenderer tableRenderer = TagUtils.getTableTableRenderer(table, attrs.tableRenderer)
-        table.tableRenderer = tableRenderer
+        if(attrs.tableRenderer)
+            table.tableRenderer = createInstance(attrs.tableRenderer)
+        def tableRenderer = table.tableRenderer
 
         tableRenderer.width = attrs.width
         tableRenderer.style = attrs.style
@@ -193,15 +212,18 @@ class JmesaTagLib {
         def factory = request[facade_componentFactory]
         def row = factory.createRow();
         row.uniqueProperty = attrs.uniqueProperty
-        row.highlighter = attrs.highlighter != null
-        row.sortable = attrs.sortable != null
-        row.filterable = attrs.filterable != null
-        row.onclick = TagUtils.getRowOnclick(row, attrs.onclick)
-        row.onmouseover = TagUtils.getRowOnmouseover(row, attrs.onmouseover)
-        row.onmouseout = TagUtils.getRowOnmouseout(row, attrs.onmouseout)
+        row.highlighter = attrs.highlighter == null ? false : attrs.highlighter.toBoolean()
 
-        def rowRenderer = TagUtils.getRowRowRenderer(row, attrs.rowRenderer)
-        row.rowRenderer = rowRenderer
+
+        if(attrs.onclick)
+            row.onclick = createInstance(attrs.onclick)
+        if(attrs.onmouseover)
+            row.onmouseover = createInstance(attrs.onmouseover)
+        if(attrs.onmouseout)
+            row.onmouseout = createInstance(attrs.onmouseout)
+        if(attrs.rowRenderer)
+            row.rowRenderer = createInstance(attrs.rowRenderer)
+        def rowRenderer = row.rowRenderer
 
         rowRenderer.style = attrs.style
         rowRenderer.styleClass = attrs.styleClass
@@ -217,47 +239,75 @@ class JmesaTagLib {
         HtmlColumn column = factory.createColumn(attrs.property)
         column.title = attrs.title
         column.titleKey = attrs.titleKey
-        column.sortable = attrs.sortable != null
+        //column.sortable = attrs.sortable != null
+        column.sortable = attrs.sortable == null ? false : attrs.sortable.toBoolean()
+
         column.sortOrder = TagUtils.getColumnSortOrder(attrs.sortOrder);
-        column.filterable = attrs.filterable != null
-        column.editable = attrs.editable != null
+        column.filterable = attrs.filterable == null ? false : attrs.filterable.toBoolean()
+        column.editable = attrs.editable == null ? false : attrs.editable.toBoolean()
         column.width = attrs.width
 
-        HtmlCellRenderer cr = TagUtils.getColumnCellRenderer(column, attrs.cellRenderer)
+        if(attrs.cellRenderer){
+            HtmlCellRenderer renderer =  createInstance(attrs.cellRenderer)
+            renderer.cellEditor = column.cellRenderer.cellEditor
+            column.cellRenderer = renderer
+
+        }
+        HtmlCellRenderer cr = column.cellRenderer
         cr.style = attrs.style
         cr.styleClass = attrs.styleClass
-        column.cellRenderer = cr
 
         // worksheet
 
-        WorksheetEditor we = TagUtils.getColumnWorksheetEditor(column, attrs.worksheetEditor)
-        cr.worksheetEditor = we
+        if(attrs.worksheetEditor){
+            cr.worksheetEditor = createInstance(cr.worksheetEditor)
+        }
 
         // cell
 
-        CellEditor ce = TagUtils.getColumnCellEditor(column, attrs.cellEditor, attrs.pattern)
-        cr.cellEditor = ce
+        if(attrs.cellEditor){
+            cr.cellEditor = createInstance(attrs.cellEditor)
+            SupportUtils.setPattern(cr.cellEditor, attrs.pattern)
+        }
 
         // filter
 
-        HtmlFilterRenderer fr = TagUtils.getColumnFilterRenderer(column, attrs.filterRenderer)
+        if(attrs.filterRenderer){
+            HtmlFilterRenderer renderer = createInstance(attrs.filterRenderer)
+            renderer.filterEditor = column.filterRenderer.filterEditor
+            column.filterRenderer = renderer
+        }
+        HtmlFilterRenderer fr = column.filterRenderer
         fr.style = attrs.filterStyle
         fr.styleClass = attrs.filterClass
-        column.filterRenderer = fr
 
-        FilterEditor fe = TagUtils.getColumnFilterEditor(column, attrs.filterEditor)
-        fr.filterEditor = fe
+        if(attrs.filterEditor){
+            fr.filterEditor = createInstance(attrs.filterEditor)
+        }
 
         // header
 
-        HtmlHeaderRenderer hr = TagUtils.getColumnHeaderRenderer(column, attrs.headerRenderer)
+        if(attrs.headerRenderer){
+            HtmlHeaderRenderer renderer = createInstance(attrs.headerRenderer)
+            renderer.headerEditor = column.headerRenderer.headerEditor
+            column.headerRenderer = renderer
+        }
+        HtmlHeaderRenderer hr = column.headerRenderer
         hr.style = attrs.headerStyle
         hr.styleClass = attrs.headerClass
-        column.headerRenderer = hr
 
-        HeaderEditor he = TagUtils.getColumnHeaderEditor(column, attrs.headerEditor)
-        hr.setHeaderEditor(he);
+        if(attrs.headerEditor){
+            hr.headerEditor = createInstance(attrs.headerEditor)
+        }
 
         return column;
+    }
+
+    def createInstance(cls){
+        if(cls){
+            def loader = this.class.classLoader
+            return Class.forName(cls,true,loader).newInstance()
+        }
+        return null
     }
 }
