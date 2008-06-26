@@ -142,5 +142,9 @@ try {
 presidentService.save(president);
 }}}
 
+=== Custom Functionality ===
+
+You can read about more custom ways to modify the worksheet in the [WorksheetRecipes recipes] page.
+
 === Known Issues ===
  * The filter dropdown feature does not work with the Worksheet in IE 6 or 7. The problem is the select element does not float over the worksheet cells.
