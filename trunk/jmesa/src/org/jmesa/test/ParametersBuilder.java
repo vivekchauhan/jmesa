@@ -21,6 +21,7 @@ import static org.jmesa.facade.WorksheetWrapper.SAVE_WORKSHEET;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.jmesa.facade.TableFacadeUtils.TABLE_REFRESHING;
 import org.jmesa.limit.Action;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
@@ -62,9 +63,6 @@ public class ParametersBuilder {
      * Add a Sort parameter. Will increase the sort count.
      * Note: do not mix and match this and the addSort()
      * method that takes a position.
-     * 
-     * @param property
-     * @param order
      */
     public void addSort(String property, Order order) {
         addSort(++sortCount, property, order);
@@ -88,6 +86,8 @@ public class ParametersBuilder {
     public void setSaveWorksheet() {
         String key = prefixId + SAVE_WORKSHEET;
         parameters.addParameter(key, "true");
+        
+        String refreshKey = prefixId + TABLE_REFRESHING;
+        parameters.addParameter(refreshKey, "true");
     }
-
 }

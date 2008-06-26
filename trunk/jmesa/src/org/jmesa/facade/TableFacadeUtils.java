@@ -15,8 +15,6 @@
  */
 package org.jmesa.facade;
 
-import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,7 +42,7 @@ public class TableFacadeUtils {
 
     private static Logger logger = LoggerFactory.getLogger(TableFacadeUtils.class);
 
-    public static String TABLE_REFRESHING = "_tr_";
+    public static String TABLE_REFRESHING = "tr_";
     
     private TableFacadeUtils() {}
     
@@ -56,7 +54,7 @@ public class TableFacadeUtils {
      * @return Is true if the table is being refreshed.
      */
     static boolean isTableRefreshing(String id, WebContext webContext) {
-        String refreshing = webContext.getParameter(id + TABLE_REFRESHING);
+        String refreshing = webContext.getParameter(id + "_" + TABLE_REFRESHING);
         if (StringUtils.isNotEmpty(refreshing) && refreshing.equals("true")) {
             return true;
         }
