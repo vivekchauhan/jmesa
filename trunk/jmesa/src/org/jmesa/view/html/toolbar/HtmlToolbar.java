@@ -23,7 +23,7 @@ import org.jmesa.view.component.Row;
  * @since 2.2
  * @author Jeff Johnston
  */
-public final class HtmlToolbar extends AbstractToolbar {
+public class HtmlToolbar extends AbstractToolbar {
 
     @Override
     public String render() {
