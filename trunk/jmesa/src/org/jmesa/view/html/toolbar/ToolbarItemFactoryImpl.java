@@ -15,6 +15,8 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_CLASS;
+
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER;
@@ -68,6 +70,18 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
     public ToolbarItemFactoryImpl(WebContext webContext, CoreContext coreContext) {
         this.imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
         this.coreContext = coreContext;
+    }
+
+    public PageItem createPageItem(int page) {
+        PageItem item = new PageItem(page);
+        item.setStyleClass(coreContext.getPreference(TOOLBAR_PAGE_CLASS));
+        item.setCode(ToolbarItemType.PAGE_ITEMS.toCode());
+
+        PageItemRenderer renderer = new PageItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction("onInvokeAction");
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
     }
 
     public ImageItem createFirstPageItem() {

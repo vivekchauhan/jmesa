@@ -20,6 +20,8 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarItemFactory {
+    public PageItem createPageItem(int page);
+
     public ImageItem createFirstPageItem();
 
     public ImageItem createPrevPageItem();
