@@ -22,6 +22,7 @@ import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_MAX_PAGES;
 import static org.jmesa.view.html.HtmlUtils.totalPages;
 
 /**
@@ -134,22 +135,24 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         int page = rowSelect.getPage();
         int totalPages = totalPages(getCoreContext());
         
-        if (totalPages > 5) {
+        int maxPages = Integer.valueOf(getCoreContext().getPreference(TOOLBAR_MAX_PAGES));
+        
+        int centerPage = maxPages/2 + 1;
+        int startEndPages = maxPages/2;
+        
+        if (totalPages > maxPages) {
             int start;
             int end;
 
-            if (page <= 3) { // the first three
-
+            if (page <= centerPage) { // the start of the pages
                 start = 1;
-                end = 5;
-            } else if (page >= totalPages - 2) { // the last two
-
-                start = totalPages - 4;
+                end = maxPages;
+            } else if (page >= totalPages - startEndPages) { // the last few pages
+                start = totalPages - (maxPages - 1);
                 end = totalPages;
             } else { // center everything else
-
-                start = page - 2;
-                end = page + 2;
+                start = page - startEndPages;
+                end = page + startEndPages;
             }
 
             for (int i = start; i <= end; i++) {
