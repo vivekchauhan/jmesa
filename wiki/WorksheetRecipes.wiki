@@ -1,0 +1,23 @@
+==== How can I test a JMesa Worksheet in my controller? ====
+
+_Note: this is available in the upcoming 2.3.2 release but I wanted to updated the docs while I was thinking about it_
+
+First set up the parameters to tip the API off that we are saving the worksheet. Here we are using the adapter that hooks in with the Spring testing API. If you are using something else you can easily make your own adapter up in just a few lines of code. _If you need help just contact me and I will help you out with that._
+
+{{{
+Parameters parameters = new SpringParametersAdapter(request);
+ParametersBuilder builder = new ParametersBuilder(ID, parameters);
+builder.setSaveWorksheet();
+}}}
+
+Then create a worksheet object through the API and then use the !SessionWorksheetState object to save your object in the test session.
+
+{{{
+Worksheet worksheet = new WorksheetImpl(ID, null); // pass in null for the Messages object.
+WorksheetRow row = new WorksheetRowImpl(new UniqueProperty("id", "2"));
+worksheet.addRow(row);
+
+WebContext webContext = new HttpServletRequestWebContext(request);
+SessionWorksheetState sessionWorksheetState = new SessionWorksheetState(ID, webContext);
+sessionWorksheetState.persistWorksheet(worksheet);
+}}}
