@@ -9,6 +9,7 @@ I have been reading the Groovy Recipes book recently and I thought it would be a
  * [ControllerRecipes Controller Recipes]
  * [JSPTagRecipes JSP Tag Recipes]
  * [GroovyRecipes Groovy Recipes]
+ * [WorksheetRecipes Worksheet Recipes]
  * [MiscRecipes Misc Recipes]
 
 ==== Introduction to JMesa ====
