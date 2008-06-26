@@ -47,7 +47,7 @@ import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.DefaultToolbar;
+import org.jmesa.view.html.toolbar.HtmlToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
@@ -308,7 +308,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Toolbar toolbar = facade.getToolbar();
         assertNotNull(toolbar);
 
-        DefaultToolbar toolbarToSet = new DefaultToolbar();
+        HtmlToolbar toolbarToSet = new HtmlToolbar();
         toolbarToSet.setWebContext(facade.getWebContext());
         toolbarToSet.setCoreContext(facade.getCoreContext());
         facade.setToolbar(toolbarToSet); // The toolbar set should now be the

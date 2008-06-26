@@ -68,7 +68,7 @@ import org.jmesa.view.excel.ExcelViewExporter;
 import org.jmesa.view.html.HtmlTableFactory;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.DefaultToolbar;
+import org.jmesa.view.html.toolbar.HtmlToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.jexcel.JExcelTableFactory;
 import org.jmesa.view.jexcel.JExcelView;
@@ -410,7 +410,7 @@ public class TableFacadeImpl implements TableFacade {
             return toolbar;
         }
 
-        this.toolbar = new DefaultToolbar();
+        this.toolbar = new HtmlToolbar();
         SupportUtils.setTable(toolbar, getTable());
         SupportUtils.setCoreContext(toolbar, getCoreContext());
         SupportUtils.setWebContext(toolbar, getWebContext());

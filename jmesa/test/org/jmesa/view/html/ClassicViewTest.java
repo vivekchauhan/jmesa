@@ -25,7 +25,7 @@ import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.DefaultToolbar;
+import org.jmesa.view.html.toolbar.HtmlToolbar;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
 
@@ -72,7 +72,7 @@ public class ClassicViewTest extends AbstractTestCase {
         row.addColumn(careerColumn);
 
         // create the view
-        DefaultToolbar toolbar = new DefaultToolbar();
+        HtmlToolbar toolbar = new HtmlToolbar();
         toolbar.setTable(table);
         toolbar.setWebContext(webContext);
         toolbar.setCoreContext(coreContext);
