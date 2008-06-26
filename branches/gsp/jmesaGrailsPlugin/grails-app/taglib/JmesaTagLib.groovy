@@ -40,6 +40,7 @@ class JmesaTagLib {
 
         Collection pi = tableFacade.coreContext.pageItems
 
+
         if (pi.size() == 0) {
             body()
             request[facade_pageItems]?.clear()
@@ -102,11 +103,14 @@ class JmesaTagLib {
     def getValue(attrs,body){
         def name = request[name_var]
         def value = request[name]
-        // don't konw how to check out if the body is empty
-        def ret = body((name):value)
-        if (ret == "")
-            ret = ItemUtils.getItemValue(request[request[name_var]],attrs.property)
-        return ret
+        if(value){
+            // don't konw how to check out if the body is empty
+            def ret = body((name):value)
+            if (ret == "")
+                ret = ItemUtils.getItemValue(request[request[name_var]],attrs.property)
+            return ret
+        }
+        return null
     }
 
     def htmlColumns = { attrs,body ->
