@@ -145,7 +145,7 @@ class TagUtils {
      * 
      * @return Get the max row increments.
      */
-    static int[] getTableFacadeMaxRowIncrements(String maxRowsIncrements) {
+    public static int[] getTableFacadeMaxRowIncrements(String maxRowsIncrements) {
         if (StringUtils.isEmpty(maxRowsIncrements)) {
             return null;
         }
@@ -359,7 +359,7 @@ class TagUtils {
      * @since 2.2
      * @return The sort order array for the column.
      */
-    static Order[] getColumnSortOrder(String sortOrder) {
+    public static Order[] getColumnSortOrder(String sortOrder) {
         if (StringUtils.isBlank(sortOrder)) {
             return null;
         }
@@ -380,7 +380,7 @@ class TagUtils {
         return results;
     }
 
-    static ExportType[] getTableFacadeExportTypes(String exportTypes) {
+    public static ExportType[] getTableFacadeExportTypes(String exportTypes) {
         if (StringUtils.isBlank(exportTypes)) {
             return null;
         }
