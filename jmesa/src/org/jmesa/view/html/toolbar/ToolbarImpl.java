@@ -20,6 +20,9 @@ import java.util.List;
 import org.jmesa.limit.ExportType;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.limit.Limit;
+import org.jmesa.limit.RowSelect;
+import static org.jmesa.view.html.HtmlUtils.totalPages;
 
 /**
  * The main logic to create toolbars.
@@ -28,6 +31,7 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jeff Johnston
  */
 public abstract class ToolbarImpl extends AbstractContextSupport implements Toolbar {
+
     private ToolbarItemFactory toolbarItemFactory;
     private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
 
@@ -38,7 +42,7 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
 
         return toolbarItemFactory;
     }
-    
+
     protected boolean hasToolbarItems() {
         return toolbarItems != null && toolbarItems.size() > 0;
     }
@@ -50,13 +54,16 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
     public void addToolbarItem(ToolbarItem item) {
         toolbarItems.add(item);
     }
-    
+
     public ToolbarItem addToolbarItem(ToolbarItemType type) {
         ToolbarItem item = null;
 
         ToolbarItemFactory factory = getToolbarItemFactory();
 
         switch (type) {
+            case PAGE_ITEMS:
+                addPageItems();
+                break;
             case FIRST_PAGE_ITEM:
                 item = factory.createFirstPageItem();
                 break;
@@ -117,6 +124,42 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         ToolbarItem item = factory.createExportItem(export);
         toolbarItems.add(item);
         return item;
+    }
+
+    private void addPageItems() {
+        ToolbarItemFactory factory = getToolbarItemFactory();
+
+        Limit limit = getCoreContext().getLimit();
+        RowSelect rowSelect = limit.getRowSelect();
+        int page = rowSelect.getPage();
+        int totalPages = totalPages(getCoreContext());
+        
+        if (totalPages > 5) {
+            int start;
+            int end;
+
+            if (page <= 3) { // the first three
+
+                start = 1;
+                end = 5;
+            } else if (page >= totalPages - 2) { // the last two
+
+                start = totalPages - 4;
+                end = totalPages;
+            } else { // center everything else
+
+                start = page - 2;
+                end = page + 2;
+            }
+
+            for (int i = start; i <= end; i++) {
+                addToolbarItem(factory.createPageItem(i));
+            }
+        } else {
+            for (int i = 1; i <= totalPages; i++) {
+                addToolbarItem(factory.createPageItem(i));
+            }
+        }
     }
 
     public String render() {
