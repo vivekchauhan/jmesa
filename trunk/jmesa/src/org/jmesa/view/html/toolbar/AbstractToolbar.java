@@ -30,6 +30,7 @@ public abstract class AbstractToolbar extends ToolbarImpl implements TableSuppor
     private ExportType[] exportTypes;
     private int[] maxRowsIncrements;
     protected boolean enableSeparators = true;
+    protected boolean enablePageItems = false;
 
     public Table getTable() {
         return table;
@@ -57,5 +58,9 @@ public abstract class AbstractToolbar extends ToolbarImpl implements TableSuppor
     
     public void enableSeparators(boolean isEnabled) {
         this.enableSeparators = isEnabled;
+    }
+
+    public void enablePageItems(boolean isEnabled) {
+        this.enablePageItems = isEnabled;
     }
 }

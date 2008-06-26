@@ -33,6 +33,11 @@ public final class DefaultToolbar extends AbstractToolbar {
         
         addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
+        
+        if (enablePageItems) {
+            addToolbarItem(ToolbarItemType.PAGE_ITEMS);
+        }
+        
         addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.LAST_PAGE_ITEM);
         

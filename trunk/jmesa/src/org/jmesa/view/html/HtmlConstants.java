@@ -26,6 +26,7 @@ public class HtmlConstants {
 
     public final static String IMAGES_PATH = "html.imagesPath";
     public final static String TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS = "html.toolbar.maxRowsDroplist.increments";
+    public final static String TOOLBAR_MAX_PAGES = "html.toolbar.maxPages";
 
     // table
     public final static String TABLE_RENDERER_STYLE_CLASS = "html.table.renderer.styleClass";
