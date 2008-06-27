@@ -31,13 +31,13 @@
     border: solid 1px #c4c3c2;
 }
 
-.jmesa .toolbar .page {
+.jmesa .toolbar .pageNumber {
     font-size: 13px;
     font-weight: bold;
     color: #c4634d;
 }
 
-.jmesa .toolbar .page a {
+.jmesa .toolbar .pageNumber a {
     font-size: 13px;
     font-weight: normal;
     color: black;
