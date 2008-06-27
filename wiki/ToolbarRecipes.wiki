@@ -14,7 +14,7 @@ You need to create a [CustomToolbarTutorial custom toolbar] and plug it in.
 
 _Note: this is available in the upcoming 2.3.2 release but I wanted to updated the docs while I was thinking about it_
 
-A heavily requested feature is the ability to display inline page numbers,
+A heavily requested feature is the ability to display page numbers,
 similar to how the google search results works. This feature was
 implemented with the help from the community and will be available in the next release. All you will have to do to use it is enable the page items on the toolbar.
 
