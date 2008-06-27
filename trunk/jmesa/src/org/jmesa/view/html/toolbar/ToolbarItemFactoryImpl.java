@@ -15,7 +15,7 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_CLASS;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_NUMBER_CLASS;
 
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR;
@@ -72,12 +72,12 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         this.coreContext = coreContext;
     }
 
-    public PageItem createPageItem(int page) {
-        PageItem item = new PageItem(page);
-        item.setStyleClass(coreContext.getPreference(TOOLBAR_PAGE_CLASS));
-        item.setCode(ToolbarItemType.PAGE_ITEMS.toCode());
+    public PageNumberItem createPageNumberItem(int page) {
+        PageNumberItem item = new PageNumberItem(page);
+        item.setStyleClass(coreContext.getPreference(TOOLBAR_PAGE_NUMBER_CLASS));
+        item.setCode(ToolbarItemType.PAGE_NUMBER_ITEMS.toCode());
 
-        PageItemRenderer renderer = new PageItemRenderer(item, coreContext);
+        PageNumberItemRenderer renderer = new PageNumberItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
         item.setToolbarItemRenderer(renderer);
 

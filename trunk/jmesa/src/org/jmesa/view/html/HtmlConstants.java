@@ -26,7 +26,7 @@ public class HtmlConstants {
 
     public final static String IMAGES_PATH = "html.imagesPath";
     public final static String TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS = "html.toolbar.maxRowsDroplist.increments";
-    public final static String TOOLBAR_MAX_PAGES = "html.toolbar.maxPages";
+    public final static String TOOLBAR_MAX_PAGE_NUMBERS = "html.toolbar.maxPageNumbers";
 
     // table
     public final static String TABLE_RENDERER_STYLE_CLASS = "html.table.renderer.styleClass";
@@ -49,7 +49,7 @@ public class HtmlConstants {
     public final static String FILTER_CLASS = "html.filterClass";
     public final static String HEADER_CLASS = "html.headerClass";
     public final static String TOOLBAR_CLASS = "html.toolbarClass";
-    public final static String TOOLBAR_PAGE_CLASS = "html.toolbar.pageClass";
+    public final static String TOOLBAR_PAGE_NUMBER_CLASS = "html.toolbar.pageNumberClass";
     public final static String STATUS_BAR_CLASS = "html.statusBarClass";
     public final static String ROWCOUNT_INCLUDE_PAGINATION = "html.rowcount.includePagination";
 

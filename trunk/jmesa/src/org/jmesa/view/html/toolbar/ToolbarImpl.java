@@ -22,7 +22,7 @@ import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_MAX_PAGES;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_MAX_PAGE_NUMBERS;
 import static org.jmesa.view.html.HtmlUtils.totalPages;
 
 /**
@@ -62,8 +62,8 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         ToolbarItemFactory factory = getToolbarItemFactory();
 
         switch (type) {
-            case PAGE_ITEMS:
-                addPageItems();
+            case PAGE_NUMBER_ITEMS:
+                addPageNumberItems();
                 break;
             case FIRST_PAGE_ITEM:
                 item = factory.createFirstPageItem();
@@ -127,7 +127,7 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         return item;
     }
 
-    private void addPageItems() {
+    private void addPageNumberItems() {
         ToolbarItemFactory factory = getToolbarItemFactory();
 
         Limit limit = getCoreContext().getLimit();
@@ -135,7 +135,7 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
         int page = rowSelect.getPage();
         int totalPages = totalPages(getCoreContext());
         
-        int maxPages = Integer.valueOf(getCoreContext().getPreference(TOOLBAR_MAX_PAGES));
+        int maxPages = Integer.valueOf(getCoreContext().getPreference(TOOLBAR_MAX_PAGE_NUMBERS));
         
         int centerPage = maxPages/2 + 1;
         int startEndPages = maxPages/2;
@@ -156,11 +156,11 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
             }
 
             for (int i = start; i <= end; i++) {
-                addToolbarItem(factory.createPageItem(i));
+                addToolbarItem(factory.createPageNumberItem(i));
             }
         } else {
             for (int i = 1; i <= totalPages; i++) {
-                addToolbarItem(factory.createPageItem(i));
+                addToolbarItem(factory.createPageNumberItem(i));
             }
         }
     }
