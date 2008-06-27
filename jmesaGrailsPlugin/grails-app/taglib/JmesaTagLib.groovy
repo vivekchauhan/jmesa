@@ -129,12 +129,13 @@ class JmesaTagLib {
         }
 
         def pageItem = request[row_pageItem]
-
-        def columns = row.getColumns()
-        columns.each{
-            if (it.isGeneratedOnTheFly()){
-                if(it.property){
-                    pageItem[it.property] = ItemUtils.getItemValue(request[request[name_var]],it.property)
+        if(pageItem.bean){
+            def columns = row.getColumns()
+            columns.each{
+                if (it.isGeneratedOnTheFly()){
+                    if(it.property){
+                        pageItem[it.property] = ItemUtils.getItemValue(request[request[name_var]],it.property)
+                    }
                 }
             }
         }
