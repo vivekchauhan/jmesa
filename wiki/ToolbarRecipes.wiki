@@ -20,7 +20,7 @@ implemented with the help from the community and will be available in the next r
 
 {{{
 HtmlToolbar toolbar = new HtmlToolbar();
-toolbar.enablePageNumbering(true);
+toolbar.enablePageNumbers(true);
 tableFacade.setToolbar(toolbar); 
 }}}
 
