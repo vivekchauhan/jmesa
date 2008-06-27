@@ -20,7 +20,7 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public enum ToolbarItemType {
-    PAGE_ITEMS, 
+    PAGE_NUMBER_ITEMS,
     FIRST_PAGE_ITEM, 
     PREV_PAGE_ITEM, 
     NEXT_PAGE_ITEM, 
@@ -37,8 +37,8 @@ public enum ToolbarItemType {
 
     public String toCode() {
         switch (this) {
-        case PAGE_ITEMS:
-            return "page";
+        case PAGE_NUMBER_ITEMS:
+            return "page_number";
         case FIRST_PAGE_ITEM:
             return "first_page";
         case PREV_PAGE_ITEM:

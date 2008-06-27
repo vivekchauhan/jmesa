@@ -34,8 +34,8 @@ public class HtmlToolbar extends AbstractToolbar {
         addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
         
-        if (enablePageItems) {
-            addToolbarItem(ToolbarItemType.PAGE_ITEMS);
+        if (enablePageNumbers) {
+            addToolbarItem(ToolbarItemType.PAGE_NUMBER_ITEMS);
         }
         
         addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);

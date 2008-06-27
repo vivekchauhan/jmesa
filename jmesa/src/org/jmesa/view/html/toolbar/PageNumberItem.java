@@ -21,11 +21,11 @@ import org.jmesa.view.html.HtmlBuilder;
  * @since 2.3.2
  * @author Jeff Johnston
  */
-public class PageItem extends AbstractItem {
+public class PageNumberItem extends AbstractItem {
 
     private int page;
 
-    public PageItem(int page) {
+    public PageNumberItem(int page) {
         this.page = page;
     }
 
