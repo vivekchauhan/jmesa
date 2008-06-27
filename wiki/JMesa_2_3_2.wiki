@@ -1,0 +1,7 @@
+This page outlines the new features that are in the 2.3.2 release.
+
+ * First and foremost we have a new Grails plugin for JMesa!
+ * The toolbar can now (optionally) display page numbers to click through...very much like the Google search bar.
+ * A French Locale
+ * The jmesa.js file now has the word jQuery in place of the $ so that it can sit alongside other JavaScript frameworks better.
+ * Fixed bug in tag in which could not decorate a CellEditor with a WorkSheetEditor.
