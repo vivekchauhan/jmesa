@@ -178,7 +178,7 @@ class JmesaTagLib {
         tableFacade.maxRowsIncrements = TagUtils.getTableFacadeMaxRowIncrements(attrs.maxRowsIncrements)
         tableFacade.setExportTypes(null, TagUtils.getTableFacadeExportTypes(attrs.exportTypes))
 
-        tableFacade.performFilterAndSort(attrs.performFilterAndSort == null ? false : attrs.performFilterAndSort.toBoolean())
+        tableFacade.autoFilterAndSort(attrs.autoFilterAndSort == null ? false : attrs.autoFilterAndSort.toBoolean())
         tableFacade.preferences = createInstance(attrs.preferences)
         tableFacade.messages = createInstance(attrs.messages)
         tableFacade.columnSort = createInstance(attrs.columnSort)
