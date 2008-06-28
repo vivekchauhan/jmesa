@@ -59,7 +59,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private int maxRows;
     private String maxRowsIncrements;
     private String stateAttr;
-    private boolean performFilterAndSort = true;
+    private boolean autoFilterAndSort = true;
     private String exportTypes;
     private String messages;
     private String preferences;
@@ -105,7 +105,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * Set the items, the Collection of Beans (or Maps), if not already set on the constructor.
      * Useful if performing the sorting and filtering manually and need to set the items on the
      * facade. If you are performing the sorting and filtering manually you should also set the
-     * performFilterAndSort() to false.
+     * autoFilterAndSort() to false.
      * 
      * @param items The Collecton of Beans (or Maps) to use.
      */
@@ -164,10 +164,30 @@ public class TableFacadeTag extends SimpleTagSupport {
     }
 
     /**
-     * True if should sort and filter the Collection of Beans (or Maps).
+     * @return Is true if should sort and filter the Collection of Beans (or Maps).
      */
+    public boolean isAutoFilterAndSort() {
+        return autoFilterAndSort;
+    }
+
+    /**
+     * By default the facade will sort and filter the Collection of Beans (or Maps) automatically.
+     * This should be set to false if you are handling the filtering and sorting of the Collection
+     * automatically.
+     *
+     * @param autoFilterAndSort
+     */
+    public void setAutoFilterAndSort(boolean autoFilterAndSort) {
+        this.autoFilterAndSort = autoFilterAndSort;
+    }
+
+    /**
+     * True if should sort and filter the Collection of Beans (or Maps).
+     * @deprecated Use the autoFilterAndSort method now.
+     */
+    @Deprecated
     public boolean isPerformFilterAndSort() {
-        return performFilterAndSort;
+        return autoFilterAndSort;
     }
 
     /**
@@ -175,9 +195,11 @@ public class TableFacadeTag extends SimpleTagSupport {
      * the Collection of Beans (or Maps).
      * 
      * @param performFilterAndSort True if should sort and filter the Collection of Beans (or Maps).
+     * @deprecated Use the setAutoFilterAndSort method now.
      */
+    @Deprecated
     public void setPerformFilterAndSort(boolean performFilterAndSort) {
-        this.performFilterAndSort = performFilterAndSort;
+        this.autoFilterAndSort = performFilterAndSort;
     }
 
     /**
@@ -445,7 +467,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements(getMaxRowsIncrements()));
         tableFacade.setExportTypes(null, getTableFacadeExportTypes(getExportTypes()));
 
-        tableFacade.performFilterAndSort(isPerformFilterAndSort());
+        tableFacade.autoFilterAndSort(isAutoFilterAndSort());
         tableFacade.setPreferences(getTableFacadePreferences(getPreferences()));
         tableFacade.setMessages(getTableFacadeMessages(getMessages()));
         tableFacade.setColumnSort(getTableFacadeColumnSort(getColumnSort()));

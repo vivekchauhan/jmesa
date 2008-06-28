@@ -55,6 +55,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>autoFilterAndSort</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>performFilterAndSort</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

@@ -178,11 +178,22 @@ public interface TableFacade {
     public void setCoreContext(CoreContext coreContext);
 
     /**
+     * By default the facade will sort and filter the Collection of Beans (or Maps) automatically.
+     * This should be set to false if you are handling the filtering and sorting of the Collection
+     * automatically.
+     *
+     * @param autoFilterAndSort True if should sort and filter the Collection of Beans (or Maps) automatically.
+     */
+    public void autoFilterAndSort(boolean autoFilterAndSort);
+
+    /**
      * Set if the table needs to be filtered and sorted. By default the facade will sort and filter
      * the Collection of Beans (or Maps).
      * 
      * @param performFilterAndSort True if should sort and filter the Collection of Beans (or Maps).
+     * @deprecated Should use the autoFilterAndSort method now.
      */
+    @Deprecated
     public void performFilterAndSort(boolean performFilterAndSort);
 
     /**
@@ -240,7 +251,7 @@ public interface TableFacade {
 
     /**
      * Set the items, the Collection of Beans (or Maps).If you are performing the sorting and filtering 
-     * manually you should also set the performFilterAndSort() to false because there is no reason to 
+     * manually you should also set the autoFilterAndSort() to false because there is no reason to
      * have the API try to sort and filter if you have already done so.
      * 
      * @param items The Collecton of Beans (or Maps) to use.

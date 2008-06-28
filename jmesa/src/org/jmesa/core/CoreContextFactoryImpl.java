@@ -48,7 +48,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     private ColumnSort columnSort;
     private Preferences preferences;
     private Messages messages;
-    private boolean performFilterAndSort;
+    private boolean autoFilterAndSort;
 
     /**
      * <p>
@@ -58,11 +58,11 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
      * do it again.
      * </p>
      * 
-     * @param performFilterAndSort Is false if you do not want to have the items filtered and sorted.
+     * @param autoFilterAndSort Is false if you do not want to have the items filtered and sorted automatically by the API.
      * @param webContext The WebContext for the table.
      */
-    public CoreContextFactoryImpl(boolean performFilterAndSort, WebContext webContext) {
-        this.performFilterAndSort = performFilterAndSort;
+    public CoreContextFactoryImpl(boolean autoFilterAndSort, WebContext webContext) {
+        this.autoFilterAndSort = autoFilterAndSort;
         this.webContext = webContext;
     }
 
@@ -137,7 +137,7 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
     public CoreContext createCoreContext(Collection<?> items, Limit limit, Worksheet worksheet) {
         Items itemsImpl;
 
-        if (performFilterAndSort) {
+        if (autoFilterAndSort) {
             itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
         } else {
             itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
