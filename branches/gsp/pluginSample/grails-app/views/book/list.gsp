@@ -29,7 +29,7 @@
                     exportTypes="csv,excel"
                     stateAttr="restore"
                     var="bean"
-                    performFilterAndSort="true"
+                    autoFilterAndSort="true"
                     >
                     <jmesa:htmlTable
                         caption="books"
