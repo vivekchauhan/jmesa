@@ -108,7 +108,7 @@ public class TableFacadeImpl implements TableFacade {
     private Toolbar toolbar;
     private int[] maxRowsIncrements;
     private View view;
-    private boolean performFilterAndSort = true;
+    private boolean autoFilterAndSort = true;
     private boolean editable;
     private Worksheet worksheet;
 
@@ -222,10 +222,18 @@ public class TableFacadeImpl implements TableFacade {
         this.stateAttr = stateAttr;
     }
 
+    public void autoFilterAndSort(boolean autoFilterAndSort) {
+
+        validateCoreContextIsNull(coreContext, "autoFilterAndSort");
+
+        this.autoFilterAndSort = autoFilterAndSort;
+    }
+
+    @Deprecated
     public void performFilterAndSort(boolean performFilterAndSort) {
         validateCoreContextIsNull(coreContext, "performFilterAndSort");
         
-        this.performFilterAndSort = performFilterAndSort;
+        this.autoFilterAndSort = performFilterAndSort;
     }
     
     Messages getMessages() {
@@ -338,7 +346,7 @@ public class TableFacadeImpl implements TableFacade {
         
         validateItemsIsNotNull(items);
 
-        CoreContextFactoryImpl factory = new CoreContextFactoryImpl(performFilterAndSort, getWebContext());
+        CoreContextFactoryImpl factory = new CoreContextFactoryImpl(autoFilterAndSort, getWebContext());
         factory.setPreferences(getPreferences());
         factory.setMessages(getMessages());
         factory.setColumnSort(columnSort);
