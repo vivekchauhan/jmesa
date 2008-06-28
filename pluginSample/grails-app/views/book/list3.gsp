@@ -30,7 +30,7 @@
                     stateAttr="restore"
                     var="bean"
                     limit="${limit}"
-                    performFilterAndSort="true"
+                    autoFilterAndSort="true"
                     >
                     <jmesa:htmlTable
                         caption="books"

@@ -36,7 +36,7 @@
                         width="600px"
                         >
                         <jmesa:htmlRow>
-                            <jmesa:htmlColumn property="title" performFilterAndSort="true" ><a href="#">${bean.title}</a></jmesa:htmlColumn>
+                            <jmesa:htmlColumn property="title"><a href="#">${bean.title}</a></jmesa:htmlColumn>
                             <jmesa:htmlColumn property="author"/>
                         </jmesa:htmlRow>
                     </jmesa:htmlTable>
