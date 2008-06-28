@@ -19,7 +19,7 @@ pluginTemplatePath = "${jmesaPluginDir}/src/templates/"
 
 overwrite = true
 
-bind = [version:0.1]
+bind = [version:0.8]
 
 generateFile = {templateFile, binding, outputPath ->
   def engine = new groovy.text.SimpleTemplateEngine()
