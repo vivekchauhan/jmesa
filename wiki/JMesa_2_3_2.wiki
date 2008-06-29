@@ -5,5 +5,5 @@ This page outlines the new features that are in the 2.3.2 release.
  * A French Locale was supplied by Regis Dehoux.
  * The jmesa.js file now has the word 'jQuery' in place of the '$' so that it can sit alongside other !JavaScript frameworks better. This will not have any effect any custom code.
  * The distribution ships with a minified version of jmesa.js called jmesa-min.js. I used the Yahoo! UI Library: [http://developer.yahoo.com/yui/compressor/ YUI Compressor].
- * Fixed a bug in the HtmlColumnTag in which it was not possible to decorate a !CellEditor with a !WorkSheetEditor.
+ * Fixed a bug in the !HtmlColumnTag in which it was not possible to decorate a !CellEditor with a !WorkSheetEditor.
  * Deprecated the !TableFacade method performFilterAndSort() in favor of the (hopefully) more intuitive name autoFilterAndSort(). The functionality is the same though. The feature is designed so that you can turn off the automatic filter and sorting that JMesa does in favor of your own strategy.
