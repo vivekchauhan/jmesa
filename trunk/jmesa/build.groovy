@@ -111,6 +111,7 @@ class Build {
         ant.copy(todir:zipDir + '/images') { fileset(dir:resourcesDir + '/images') }
         ant.copy(todir:zipDir + '/dist', file:targetDir + "/${artifact.name}-${artifact.revision}.jar")
         ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa.js')
+        ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa-min.js')
         ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa.css')
         ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa-pdf.css')
         ant.copy(todir:zipDir + '/dist', file:resourcesDir + '/jmesa.tld')
