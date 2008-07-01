@@ -59,6 +59,5 @@ tableFacade.setView(new CustomView());
 ==== Tags ====
 
 {{{
-<jmesa:tableFacade view="com.mycompany.MyView">
+<jmesa:tableFacade view="com.mycompany.CustomView">
 }}}
-
