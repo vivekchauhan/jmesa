@@ -201,5 +201,3 @@ The view is almost the same as the last demo. Just append a Limit attribute to T
 ....
 </jmesa:tableFacade>
 }}}
-
-Be sure to post any questions to the JMesa Groups.
