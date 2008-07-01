@@ -38,7 +38,7 @@ http://localhost:8080/pluginSample/book/list3
 
 == changes on your application ==
 
-The JMesa grails plugin is very easy to use. After you install the plugin, the libs, and resources, are ready so you do not need to worry about them.
+The JMesa grails plugin is very easy to use. After you install the plugin the libs and resources are ready so you do not need to worry about them.
 
  * The *resources* (js,css,images) were copied to your grails application's "web-app/plugins/jmesa-0.8" folder.
 
