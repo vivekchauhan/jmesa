@@ -50,6 +50,15 @@ public class CustomView  extends AbstractHtmlView {
 
 Lastly, just plug your custom view into the !TableFacade.
 
+==== API ====
+
 {{{
 tableFacade.setView(new CustomView());
 }}}
+
+==== Tags ====
+
+{{{
+<jmesa:tableFacade view="com.mycompany.MyView">
+}}}
+
