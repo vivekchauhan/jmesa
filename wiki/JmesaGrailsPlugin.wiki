@@ -42,7 +42,7 @@ The JMesa grails plugin is very easy to use. After you install the plugin the li
 
  * The *resources* (js,css,images) were copied to your grails application's "web-app/plugins/jmesa-0.8" folder.
 
- * The *libs* you can find it in "plugins/jmesa-0.1/lib" folder.
+ * The *libs* you can find it in "plugins/jmesa-0.8/lib" folder.
 
 Keep in mind one important thing. The *Preferences* properties file has been customed by the JMesa Grails plugin. The new properties file could be found as "grails-app/conf/jmesa.properties" .
 
