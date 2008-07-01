@@ -3,11 +3,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <script language="javascript" src="${createLinkTo(dir:"plugins/jmesa-0.1/js",file:"jquery-1.2.2.pack.js")}"></script>
-        <script language="javascript" src="${createLinkTo(dir:"plugins/jmesa-0.1/js",file:"jquery.bgiframe.pack.js")}"></script>
-        <script language="javascript" src="${createLinkTo(dir:"plugins/jmesa-0.1/js",file:"jmesa.js")}"></script>
+        <script language="javascript" src="${createLinkTo(dir:"plugins/jmesa-0.8/js",file:"jquery-1.2.2.pack.js")}"></script>
+        <script language="javascript" src="${createLinkTo(dir:"plugins/jmesa-0.8/js",file:"jquery.bgiframe.pack.js")}"></script>
+        <script language="javascript" src="${createLinkTo(dir:"plugins/jmesa-0.8/js",file:"jmesa.js")}"></script>
 
-        <link rel="stylesheet" type="text/css" href="${createLinkTo(dir:"plugins/jmesa-0.1/css",file:"jmesa.css")}" />
+        <link rel="stylesheet" type="text/css" href="${createLinkTo(dir:"plugins/jmesa-0.8/css",file:"jmesa.css")}" />
         <script type="text/javascript">
         function onInvokeAction(id) {
             setExportToLimit(id, '');
