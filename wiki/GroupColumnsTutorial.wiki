@@ -1,13 +1,15 @@
 Recently at work we started a new admin application. There were a few new features that ultimately made their way into the JMesa API and will be part of the upcoming 2.3.3 release. I thought it would be worthwhile to demo those new features. In addition this is a a great opportunity to show some ways to customize JMesa.
 
-This is what a JMesa looks like on one of our admin screens.
+This is what a JMesa looks like on one of our admin screens. Some of the things to notice is that the table columns are grouped, there is a custom header above the normal header, and there is a fancy tooltip hover effect.
 
 http://jmesa.org/wiki/images/group_columns.gif
 
 _This is all just test data which gives me the opportunity to show you what I am working on. You can probably guess I work for a furniture company right now :)._
 
 ==== Tag Declaration ====
-This is just your basic JMesa tag. The custom work will be done in the !CategoryHierarchyView.
+This is just your basic JMesa tag. The custom work will be done in the !CategoryHierarchyView. 
+
+The reason I have a custom date !CellEditor, !FilterMatcher, and !FilterMatcherMap is because we use !JodaTime for our date handling at work so I needed to create custom classes to handle it. They are pretty straightforward, although I would be happy to show them if developers find it useful.
 
 {{{
 <jmesa:tableFacade
