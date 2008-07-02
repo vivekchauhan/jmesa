@@ -1,0 +1,82 @@
+This page shows the custom handling of dates with [http://joda-time.sourceforge.net/ Joda Time]. These are not as generic as they should be, although, with a little work they probably could move into the core API.
+
+
+==== !DateTimeCellEditor ====
+
+{{{
+public class DateTimeCellEditor extends AbstractPatternSupport {
+
+    private Logger logger = LoggerFactory.getLogger(DateTimeCellEditor.class);
+
+    public DateTimeCellEditor() { }
+
+    public DateTimeCellEditor(String pattern) {
+
+        setPattern(pattern);
+    }
+
+    @Override
+    public Object getValue(Object item, String property, int rowcount) {
+
+        Object itemValue = null;
+
+        try {
+            itemValue = ItemUtils.getItemValue(item, property);
+
+            if (itemValue == null) {
+                return null;
+            }
+
+            DateTime dateTime = (DateTime) itemValue;
+            itemValue = dateTime.toString(getPattern());
+        } catch (Exception e) {
+            logger.warn("Could not process date editor with property " + property, e);
+        }
+
+        return itemValue;
+    }
+}
+}}}
+
+==== !DateTimeFilterMatcher ====
+
+{{{
+public class DateTimeFilterMatcher implements FilterMatcher {
+
+    private final String pattern;
+
+    public DateTimeFilterMatcher(String pattern) {
+        this.pattern = pattern;
+    }
+
+    public boolean evaluate(Object itemValue, String filterValue) {
+        if (itemValue == null) {
+            return false;
+        }
+
+        DateTime dateTime = (DateTime) itemValue;
+        itemValue = dateTime.toString(pattern);
+
+        String item = String.valueOf(itemValue);
+        String filter = String.valueOf(filterValue);
+        if (StringUtils.contains(item, filter)) {
+            return true;
+        }
+
+        return false;
+    }
+}
+}}}
+
+==== !DateTimeFilterMatcherMap ====
+
+{{{
+public class DateTimeFilterMatcherMap implements FilterMatcherMap {
+    public Map<MatcherKey, FilterMatcher> getFilterMatchers() {
+        Map<MatcherKey, FilterMatcher> filterMatcherMap = new HashMap<MatcherKey, FilterMatcher>();
+        filterMatcherMap.put(new MatcherKey(DateTime.class), new DateTimeFilterMatcher("MM/yyyy"));
+        return filterMatcherMap;
+    }
+}
+}}}
+
