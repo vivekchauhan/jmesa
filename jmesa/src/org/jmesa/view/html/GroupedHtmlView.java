@@ -21,6 +21,9 @@ import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.GroupedCellEditor;
 
 /**
+ * Will go through all the columns and decorate the cell editor with a cell editor that enables
+ * grouping of columns.
+ *
  * @since 2.3.2
  * @author Jeff Johnston
  */
