@@ -80,7 +80,25 @@ public class HtmlUtils {
 
         return totalPages;
     }
-    
+
+    /**
+     * Find the starting rowcount for each page. The default is to start at 0. However, if the includePagination
+     * preference (html.rowcount.includePagination) is set to true then each page will start at the row
+     * that corresponds with the current page.
+     */
+    public static int startingRowcount(CoreContext coreContext) {
+        int rowcount = 0;
+
+        boolean rowcountIncludePagination = new Boolean(coreContext.getPreference(HtmlConstants.ROWCOUNT_INCLUDE_PAGINATION));
+        if (rowcountIncludePagination) {
+            int page = coreContext.getLimit().getRowSelect().getPage();
+            int maxRows = coreContext.getLimit().getRowSelect().getMaxRows();
+            rowcount = (page - 1) * maxRows;
+        }
+
+        return rowcount;
+    }
+
     /**
      * Look in the preferences to find out if the document.ready script should be used.
      * 
