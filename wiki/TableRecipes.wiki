@@ -31,3 +31,7 @@ See the [CSSTips CSS Tips] If you want more advanced styling like the 3D header 
 ==== How can I use the table without pagination to display all the rows at once? ====
 
 Because of how customizable JMesa is you just need to create a custom view to remove the toolbar, and then set the max rows to the total rows. You can find an example [TableWithoutPagination here]
+
+==== How do I group the columns? ====
+
+In the 2.3.3 release you can use the new !GroupColumnsHtmlView view. See the [GroupColumnsTutorial tutorial] for more information.
