@@ -85,17 +85,17 @@ public class ExcelView implements View {
             columncount = 0;
             for (Column col : columns) {
                 HSSFCell cell = r.createCell((short) columncount++);
-                Object render = col.getCellRenderer().render(item, rowcount);
-                if (render == null) {
-                    render = "";
+                Object value = col.getCellRenderer().render(item, rowcount);
+                if (value == null) {
+                    value = "";
                 }
-                String value = render.toString();
-                if (NumberUtils.isNumber(value)) {
-                    Double number = Double.valueOf(value);
-                    cell.setCellValue(number);
-                } else
-                    cell.setCellValue(new HSSFRichTextString(value));
 
+                if (value instanceof Number) {
+                    Double number = Double.valueOf(value.toString());
+                    cell.setCellValue(number);
+                } else {
+                    cell.setCellValue(new HSSFRichTextString(value.toString()));
+                }
             }
         }
         return workbook;
