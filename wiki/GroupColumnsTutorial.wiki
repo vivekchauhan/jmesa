@@ -35,3 +35,49 @@ The reason I have a custom date !CellEditor, !FilterMatcher, and !FilterMatcherM
     </jmesa:htmlTable>
 </jmesa:tableFacade>
 }}}
+
+==== !CategoryHierarchyView ====
+
+If you take a look at the default [http://code.google.com/p/jmesa/source/browse/trunk/jmesa/src/org/jmesa/view/html/HtmlView.java HtmlView] class you will see that this custom view is exactly the same for all the code around the '...' marks. What I am demonstrating here are the modifications for my custom view.
+
+The customHeader() method is used to display the Category and Subcategory headers on the table. The reason for this special header is because I have the use case where I have a one to many relationship. What I did was flatten out the listing. In doing so I also wanted an easy way to show that the table really contained two tables worth of information.
+
+The setCustomCellEditors() method is used to group the columns and set the tooltip. The editors always were designed to be useful when using the decorator pattern and this shows a perfect use case. What I am doing is grabbing the original cell editor. I then see if this is either the editorialDescription or staticUrl column. If it is then I decorate the orginal cell editor with the !CategoryTooltipCellEditor. Then, lastly, because I want to group the table columns I decorate all the cell editors with the new !GroupCellEditor (in the 2.3.3 release).
+
+{{{
+public class CategoryHierarchyView extends AbstractHtmlView {
+    public Object render() {
+        setCustomCellEditors();
+
+        ...
+
+        html.append(customHeader());
+
+        ...
+    }
+
+    private void setCustomCellEditors() {
+        List<Column> columns = getTable().getRow().getColumns();
+        for (Column column : columns) {
+            CellEditor decoratedCellEditor = column.getCellRenderer().getCellEditor();
+
+            if (column.getProperty().contains("editorialDescription") ||
+                column.getProperty().contains("staticUrl")) {
+                decoratedCellEditor = new CategoryTooltipCellEditor(decoratedCellEditor);
+                column.getCellRenderer().setCellEditor(decoratedCellEditor);
+            }
+
+            column.getCellRenderer().setCellEditor(new GroupCellEditor(decoratedCellEditor));
+        }
+    }
+
+    private String customHeader() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.tr(1).styleClass("tableHeaderGroup").close();
+        html.td(2).colspan("6").style("border-right: 1px solid white").close().append("Category").tdEnd();
+        html.td(2).colspan("5").close().append("Subcategory").tdEnd();
+        html.trEnd(1);
+        return html.toString();
+    }
+}
+}}}
