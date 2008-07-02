@@ -124,15 +124,16 @@ public class JExcelView implements View {
             for (Object item : items) {
                 colidx = 0;
                 for (Column col : columns) {
-                    Object render = col.getCellRenderer().render(item, rowidx);
-                    if (render == null) {
-                        render = "";
+                    Object value = col.getCellRenderer().render(item, rowidx);
+                    if (value == null) {
+                        value = "";
                     }
+
                     WritableCell cell = null;
-                    if (StringUtils.isNotBlank(render + "") && StringUtils.isNumeric(render + "")) {
-                        cell = new Number(colidx++, rowidx, Double.valueOf(render + ""), rowFmt);
+                    if (value instanceof Number) {
+                        cell = new Number(colidx++, rowidx, Double.valueOf(value.toString()), rowFmt);
                     } else {
-                        cell = new Label(colidx++, rowidx, render + "", rowFmt);
+                        cell = new Label(colidx++, rowidx, value + "", rowFmt);
                     }
 
                     sheet.addCell(cell);
