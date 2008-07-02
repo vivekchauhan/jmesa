@@ -18,7 +18,7 @@ package org.jmesa.view.html;
 import java.util.List;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.editor.GroupedCellEditor;
+import org.jmesa.view.editor.GroupCellEditor;
 
 /**
  * Will go through all the columns and decorate the cell editor with a cell editor that enables
@@ -27,7 +27,7 @@ import org.jmesa.view.editor.GroupedCellEditor;
  * @since 2.3.2
  * @author Jeff Johnston
  */
-public class GroupedHtmlView extends HtmlView {
+public class GroupColumnsHtmlView extends HtmlView {
     /**
      * Go through and decorate all the column cell editors.
      */
@@ -36,7 +36,7 @@ public class GroupedHtmlView extends HtmlView {
         List<Column> columns = getTable().getRow().getColumns();
         for (Column column : columns) {
             CellEditor decoratedCellEditor = column.getCellRenderer().getCellEditor();
-            column.getCellRenderer().setCellEditor(new GroupedCellEditor(decoratedCellEditor));
+            column.getCellRenderer().setCellEditor(new GroupCellEditor(decoratedCellEditor));
         }
 
         return super.render();

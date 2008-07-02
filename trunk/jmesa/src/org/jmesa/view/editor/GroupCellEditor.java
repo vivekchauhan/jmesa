@@ -23,7 +23,7 @@ import org.jmesa.view.component.Row;
  * @since 2.3.2
  * @author Jeff Johnston
  */
-public class GroupedCellEditor extends AbstractCellEditor {
+public class GroupCellEditor extends AbstractCellEditor {
 
     private static final String LAST_GROUPED_COLUMN = "LAST_GROUPED_COLUMN";
 
@@ -31,7 +31,7 @@ public class GroupedCellEditor extends AbstractCellEditor {
     private Object lastColumnValue;
     private CellEditor decoratedCellEditor;
 
-    public GroupedCellEditor(CellEditor decoratedCellEditor) {
+    public GroupCellEditor(CellEditor decoratedCellEditor) {
         this.decoratedCellEditor = decoratedCellEditor;
     }
 
