@@ -9,7 +9,7 @@ _This is all just test data which gives me the opportunity to show you what I am
 ==== Tag Declaration ====
 This is just your basic JMesa tag. The custom work will be done in the !CategoryHierarchyView. 
 
-The reason I have a custom date !DateTimeCellEditor, !DateTimeFilterMatcher, and !DateTimeFilterMatcherMap is because we use Joda Time for our date handling at work so I needed to create custom classes to handle it. They are pretty straightforward, and you can see the custom code [JodaTimeDateHandling here].
+The reason I have a custom date !DateTimeCellEditor, !DateTimeFilterMatcher, and !DateTimeFilterMatcherMap is because we use [http://joda-time.sourceforge.net/ Joda Time] for our date handling at work so I needed to create custom classes to handle it. They are pretty straightforward, and you can see the custom code [JodaTimeDateHandling here].
 
 {{{
 <jmesa:tableFacade
