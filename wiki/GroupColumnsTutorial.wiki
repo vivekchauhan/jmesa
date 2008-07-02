@@ -1,4 +1,4 @@
-Recently at work we started a new admin application. There were a few new features that ultimately made their way into the JMesa API and will be part of the upcoming 2.3.3 (early to mid July) release. I thought it would be worthwhile to demo those new features. In addition this is a a great opportunity to show some ways to customize JMesa.
+Recently at work we started a new admin application. There were a few new features that ultimately made their way into the JMesa API and will be part of the upcoming 2.3.3 (early to mid July) release. I thought it would be worthwhile to demo those new features. In addition this is a a great opportunity to show some ways to customize JMesa. _If you just want to be able to group your columns see the notes at the bottom of the page._
 
 This is what a JMesa looks like on one of our admin screens. Some of the things to notice is that the table columns are grouped, there is a custom header above the normal header, and there is a fancy tooltip hover effect.
 
