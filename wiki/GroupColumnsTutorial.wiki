@@ -9,27 +9,27 @@ _This is all just test data which gives me the opportunity to show you what I am
 ==== Tag Declaration ====
 This is just your basic JMesa tag. The custom work will be done in the !CategoryHierarchyView. 
 
-The reason I have a custom date !CellEditor, !FilterMatcher, and !FilterMatcherMap is because we use !JodaTime for our date handling at work so I needed to create custom classes to handle it. They are pretty straightforward, although I would be happy to show them if developers find it useful.
+The reason I have a custom date !DateTimeCellEditor, !DateTimeFilterMatcher, and !DateTimeFilterMatcherMap is because we use Joda Time for our date handling at work so I needed to create custom classes to handle it. They are pretty straightforward, and you can see the custom code [JodaTimeDateHandling here].
 
 {{{
 <jmesa:tableFacade
     id="categories"
     items="${categoryList}"
     view="com.mycompany.admin.mvc.view.CategoryHierarchyView"
-    filterMatcherMap="com.mycompany.admin.mvc.view.DateFilterMatcherMap"
+    filterMatcherMap="com.mycompany.admin.mvc.view.DateTimeFilterMatcherMap"
     var="category">
     <jmesa:htmlTable width="700">
         <jmesa:htmlRow>
             <jmesa:htmlColumn property="category.key" title="Key"/>
             <jmesa:htmlColumn property="category.name" title="Name"/>
-            <jmesa:htmlColumn property="category.validFrom" title="Valid From" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateCellEditor"/>
-            <jmesa:htmlColumn property="category.validTo" title="Valid To" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateCellEditor"/>
+            <jmesa:htmlColumn property="category.validFrom" title="Valid From" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateTimeCellEditor"/>
+            <jmesa:htmlColumn property="category.validTo" title="Valid To" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateTimeCellEditor"/>
             <jmesa:htmlColumn property="category.editorialDescription" title="Editorial" filterable="false" sortable="false"/>
             <jmesa:htmlColumn property="category.staticUrl" title="Url" filterable="false" sortable="false"/>
             <jmesa:htmlColumn property="subcategory.key" title="Key"/>
             <jmesa:htmlColumn property="subcategory.name" title="Name"/>
-            <jmesa:htmlColumn property="subcategory.validFrom" title="Valid From" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateCellEditor"/>
-            <jmesa:htmlColumn property="subcategory.validTo" title="Valid To" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateCellEditor"/>
+            <jmesa:htmlColumn property="subcategory.validFrom" title="Valid From" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateTimeCellEditor"/>
+            <jmesa:htmlColumn property="subcategory.validTo" title="Valid To" pattern="MM/yyyy" cellEditor="com.mycompany.admin.mvc.view.DateTimeCellEditor"/>
             <jmesa:htmlColumn property="subcategory.staticUrl" title="Url" filterable="false" sortable="false"/>
         </jmesa:htmlRow>
     </jmesa:htmlTable>
@@ -77,6 +77,45 @@ public class CategoryHierarchyView extends AbstractHtmlView {
         html.td(2).colspan("6").style("border-right: 1px solid white").close().append("Category").tdEnd();
         html.td(2).colspan("5").close().append("Subcategory").tdEnd();
         html.trEnd(1);
+        return html.toString();
+    }
+}
+}}}
+
+==== !CategoryTooltipCellEditor ====
+
+This custom cell editor is designed to show one of two images in place of the real column value. In addition the column value is placed inside of the title of the image. To get the nice effect I used the [http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/ Bassistance] tooltip [http://www.jquery.com jQuery] plugin.
+
+{{{
+public class CategoryTooltipCellEditor extends AbstractCellEditor {
+
+    private CellEditor decoratedCellEditor;
+
+    public CategoryTooltipCellEditor(CellEditor decoratedCellEditor) {
+
+        this.decoratedCellEditor = decoratedCellEditor;
+    }
+
+    @Override
+    public Object getValue(Object item, String property, int rowcount) {
+
+        Object columnValue = decoratedCellEditor.getValue(item, property, rowcount);
+
+        if (columnValue == null || StringUtils.isEmpty(columnValue.toString())) {
+            return null;
+        }
+
+        HtmlBuilder html = new HtmlBuilder();
+        html.img();
+
+        if (property.contains("editorialDescription")) {
+            html.src(getWebContext().getContextPath() + "/img/editorial_description.gif");
+        } else if (property.contains("staticUrl")) {
+            html.src(getWebContext().getContextPath() + "/img/static_url.gif");
+        }
+
+        html.styleClass("tooltip").border("0").title("" + columnValue).end();
+
         return html.toString();
     }
 }
