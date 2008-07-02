@@ -1,4 +1,4 @@
-This page shows the custom handling of dates with [http://joda-time.sourceforge.net/ Joda Time]. These are not as generic as they should be, although, with a little work they probably could move into the core API.
+This page shows the custom handling of dates with [http://joda-time.sourceforge.net/ Joda Time]. I had to create them for a recent project. These are not as generic as they should be, although, with a little work they probably could move into the core API.
 
 
 ==== !DateTimeCellEditor ====
@@ -79,4 +79,3 @@ public class DateTimeFilterMatcherMap implements FilterMatcherMap {
     }
 }
 }}}
-
