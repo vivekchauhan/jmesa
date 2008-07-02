@@ -161,14 +161,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
     public String body() {
         HtmlBuilder html = new HtmlBuilder();
 
-        int rowcount = 0;
-
-        boolean rowcountIncludePagination = new Boolean(coreContext.getPreference(HtmlConstants.ROWCOUNT_INCLUDE_PAGINATION));
-        if (rowcountIncludePagination) {
-            int page = coreContext.getLimit().getRowSelect().getPage();
-            int maxRows = coreContext.getLimit().getRowSelect().getMaxRows();
-            rowcount = (page - 1) * maxRows;
-        }
+        int rowcount = HtmlUtils.startingRowcount(coreContext);
 
         Collection<?> items = coreContext.getPageItems();
         for (Object item : items) {

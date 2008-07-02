@@ -31,4 +31,8 @@ public interface CoreContext extends Items, Messages, Preferences {
     public Worksheet getWorksheet();
     
     public Limit getLimit();
+
+    public Object getAttribute(Object key);
+
+    public void setAttribute(Object key, Object value);
 }

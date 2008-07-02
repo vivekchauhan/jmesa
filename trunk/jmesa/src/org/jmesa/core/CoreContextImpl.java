@@ -17,6 +17,8 @@ package org.jmesa.core;
 
 import java.util.Collection;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.limit.Limit;
@@ -37,6 +39,7 @@ public class CoreContextImpl implements CoreContext {
     private Preferences preferences;
     private Messages messages;
     private Worksheet worksheet;
+    private Map<? super Object,? super Object> attributes;
 
     public CoreContextImpl(Items items, Limit limit, Worksheet worksheet, Preferences preferences, Messages messages) {
         this.items = items;
@@ -84,5 +87,21 @@ public class CoreContextImpl implements CoreContext {
 
     public Limit getLimit() {
         return limit;
+    }
+
+    public Object getAttribute(Object key) {
+        if (attributes == null) {
+            return null;
+        }
+
+        return attributes.get(key);
+    }
+
+    public void setAttribute(Object key, Object value) {
+        if (attributes == null) {
+            attributes = new HashMap<Object, Object>();
+        }
+
+        attributes.put(key, value);
     }
 }
