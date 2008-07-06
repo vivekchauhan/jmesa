@@ -32,13 +32,14 @@ public class SpringMessages implements Messages {
 
         this.defaultMessages = defaultMessages;
         this.webContext = webContext;
+        
+        //WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(webContext.getServletContext());
+        //webApplicationContext.getBean("messageSource");
     }
 
     public String getMessage(String code) {
 
         // Try to get the messages from Spring first.
-        //WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(webContext.getServletContext());
-        //webApplicationContext.getBean("messageSource");
 
         return defaultMessages.getMessage(code);
     }
@@ -46,8 +47,6 @@ public class SpringMessages implements Messages {
     public String getMessage(String code, Object[] args) {
 
         // Try to get the messages from Spring first.
-        //WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(webContext.getServletContext());
-        //webApplicationContext.getBean("messageSource");
 
         return defaultMessages.getMessage(code, args);
     }
