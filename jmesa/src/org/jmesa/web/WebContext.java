@@ -18,6 +18,7 @@ package org.jmesa.web;
 import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
+import javax.servlet.ServletContext;
 
 /**
  * @since 2.0
@@ -65,6 +66,8 @@ public interface WebContext {
     public String getContextPath();
     
     public String getRealPath(String path);
+
+    public ServletContext getServletContext();
 
     public Object getBackingObject();
 }

@@ -19,6 +19,7 @@ import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
@@ -135,6 +136,10 @@ public final class JspPageWebContext implements WebContext {
         }
 
         throw new UnsupportedOperationException("There is no real path associated with the request.");
+    }
+
+    public ServletContext getServletContext() {
+        return pageContext.getServletContext();
     }
 
     public Object getBackingObject() {
