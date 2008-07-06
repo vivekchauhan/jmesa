@@ -20,7 +20,7 @@ import org.jmesa.web.WebContext;
 /**
  * The Spring specific messages. Will use the default messages if they are not defined in Spring.
  *
- * @since 2.0
+ * @since 2.3.3
  * @author Jeff Johnston
  */
 public class SpringMessages implements Messages {
