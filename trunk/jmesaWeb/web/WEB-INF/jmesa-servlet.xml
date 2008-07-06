@@ -32,6 +32,9 @@
 				<entry key="worksheet.run">
 					<ref bean="worksheet"/>
 				</entry>
+				<entry key="multi.run">
+					<ref bean="multi"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -70,6 +73,16 @@
 				refresh-check-delay="5000"
 				script-source="WEB-INF/groovy/GroovyPresident.groovy">
         <lang:property name="id" value="groovy"/> 
-    </lang:groovy>			
+    </lang:groovy>
+
+    <bean id="paramResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+        <property name="paramName" value="method"/>
+    </bean>
+
+    <bean id="multi" class="org.jmesaweb.controller.MultiAjaxController">
+        <property name="methodNameResolver" ref="paramResolver"/>
+        <property name="presidentService" ref="presidentService"/>
+		<property name="successView" value="jsp/multi.jsp"/>
+    </bean>
 
 </beans>
