@@ -13,36 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.facade;
+package org.jmesa.facade.tag;
 
-import javax.servlet.http.HttpServletRequest;
-import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesFactory;
+import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.SpringMessages;
-import org.jmesa.web.HttpServletRequestWebContext;
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.web.WebContext;
 
 /**
- * A factory to create TableFacade implementations.
- * 
- * @since 2.2
+ * A way to get the Spring specific functionality.
+ *
+ * @since 2.3.3
  * @author Jeff Johnston
  */
-public class TableFacadeFactory {
+public class SpringTableFacadeTag extends TableFacadeTag {
 
-    public static TableFacade createTableFacade(String id, HttpServletRequest request) {
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
-        return tableFacade;
-    }
+    @Override
+    TableFacade createTableFacade(WebContext webContext) {
 
-    public static TableFacade createSpringTableFacade(String id, HttpServletRequest request) {
-
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
-        WebContext webContext = new HttpServletRequestWebContext(request);
+        TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
         Messages messages = MessagesFactory.getMessages(webContext);
         SpringMessages springMessages = new SpringMessages(messages, webContext);
-        tableFacade.setMessages(springMessages);
-
-        return tableFacade;
+        facade.setMessages(springMessages);
+        return facade;
     }
 }

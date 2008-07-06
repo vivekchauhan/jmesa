@@ -20,6 +20,7 @@ import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -132,6 +133,10 @@ public class HttpServletRequestWebContext implements WebContext {
 
     public String getRealPath(String path) {
         return request.getSession().getServletContext().getRealPath(path);
+    }
+    
+    public ServletContext getServletContext() {
+        return request.getSession().getServletContext();
     }
 
     public Object getBackingObject() {

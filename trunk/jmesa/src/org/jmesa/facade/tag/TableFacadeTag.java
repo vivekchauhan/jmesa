@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeImpl;
+import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
@@ -456,7 +456,7 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         WebContext webContext = new JspPageWebContext((PageContext) getJspContext());
 
-        this.tableFacade = new TableFacadeImpl(getId(), null);
+        this.tableFacade = createTableFacade(webContext);
         tableFacade.setWebContext(webContext);
         tableFacade.setEditable(isEditable());
         tableFacade.setItems(getItems());
@@ -469,7 +469,6 @@ public class TableFacadeTag extends SimpleTagSupport {
 
         tableFacade.autoFilterAndSort(isAutoFilterAndSort());
         tableFacade.setPreferences(getTableFacadePreferences(getPreferences()));
-        tableFacade.setMessages(getTableFacadeMessages(getMessages()));
         tableFacade.setColumnSort(getTableFacadeColumnSort(getColumnSort()));
         tableFacade.setRowFilter(getTableFacadeRowFilter(getRowFilter()));
         tableFacade.addFilterMatcherMap(getTableFacadeFilterMatcherMap(getFilterMatcherMap()));
@@ -497,5 +496,12 @@ public class TableFacadeTag extends SimpleTagSupport {
         View v = tableFacade.getView();
         String html = v.render().toString();
         getJspContext().getOut().print(html);
+    }
+
+    TableFacade createTableFacade(WebContext webContext) {
+
+        TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
+        facade.setMessages(getTableFacadeMessages(getMessages()));
+        return facade;
     }
 }
