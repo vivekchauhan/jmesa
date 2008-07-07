@@ -60,6 +60,6 @@ The following is a list of the people who have helped make JMesa a better compon
 
 === Version 2.3.3 ===
 
-==== oscar perez ==== 
+==== Oscar Perez ==== 
  * Added the Spanish (es_ES) Locale.
  * Added the Catalan (ca) Locale.
