@@ -45,10 +45,21 @@ The following is a list of the people who have helped make JMesa a better compon
 ==== Frode Reinertsen ====
  * Added the Norwegian (no_NO) Locale.
 
-=== Version 2.4 (future release) ===
+=== Version 2.3.1 ===
 
 ==== Joo-Youn Lee ==== 
  * Added the Korean (ko_KR) Locale.
 
 ==== Renato Back ==== 
  * Added the Brazilian Portuguese (pt_BR) Locale.
+
+=== Version 2.3.2 ===
+
+==== Regis Dehoux ==== 
+ * Added the French (fr) Locale.
+
+=== Version 2.3.3 ===
+
+==== oscar perez ==== 
+ * Added the Spanish (es_ES) Locale.
+ * Added the Catalan (ca) Locale.
