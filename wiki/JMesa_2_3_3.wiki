@@ -2,3 +2,5 @@ Here is a list of features for the upcoming 2.3.3 release.
 
  * Table column grouping support via the !GroupCellEditor.
  * The !CoreContext class has new getAttribute() and setAttribute() methods for data that is table scope in nature. This is very useful for cell editors (such as the new !GroupedCellEditor) that need to store data between multiple columns.
+ * Oscar Perez added the Spanish (es_ES) and Catalan (ca) Locales.
+ * There is a new !StringWildCardFilterMatcher. also added by Oscar Perez. _Add in something about how to use it._
