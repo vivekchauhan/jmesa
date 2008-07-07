@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.message.SpringMessages;
+import org.jmesa.core.message.Struts2Messages;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 
@@ -42,6 +43,17 @@ public class TableFacadeFactory {
         Messages messages = MessagesFactory.getMessages(webContext);
         SpringMessages springMessages = new SpringMessages(messages, webContext);
         tableFacade.setMessages(springMessages);
+
+        return tableFacade;
+    }
+
+    public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request) {
+
+        TableFacade tableFacade = new TableFacadeImpl(id, request);
+        WebContext webContext = new HttpServletRequestWebContext(request);
+        Messages messages = MessagesFactory.getMessages(webContext);
+        Struts2Messages struts2Messages = new Struts2Messages(messages, webContext);
+        tableFacade.setMessages(struts2Messages);
 
         return tableFacade;
     }
