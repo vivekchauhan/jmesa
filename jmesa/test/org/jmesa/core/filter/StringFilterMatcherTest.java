@@ -18,7 +18,6 @@ package org.jmesa.core.filter;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jmesa.core.filter.StringFilterMatcher;
 import org.junit.Test;
 
 /**
