@@ -63,3 +63,4 @@ The following is a list of the people who have helped make JMesa a better compon
 ==== Oscar Perez ==== 
  * Added the Spanish (es_ES) Locale.
  * Added the Catalan (ca) Locale.
+ * Added the new !StringWildCardFilterMatcher.
