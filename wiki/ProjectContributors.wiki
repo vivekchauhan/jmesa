@@ -64,3 +64,6 @@ The following is a list of the people who have helped make JMesa a better compon
  * Added the Spanish (es_ES) Locale.
  * Added the Catalan (ca) Locale.
  * Added the new !StringWildCardFilterMatcher.
+
+==== Anna-Stina Moisala ==== 
+ * Added the Finish (fi) Locale.
