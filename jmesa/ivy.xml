@@ -24,6 +24,7 @@
         <dependency org="org.slf4j" name="jcl104-over-slf4j" rev="1.4.3" conf="compile->default" />
         <dependency org="org.slf4j" name="slf4j-api" rev="1.4.3" conf="compile->default" />
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.4.3" conf="compile->default" />
+        <dependency org="org.springframework" name="spring-beans" rev="2.5.5" conf="compile->default" />
         <dependency org="org.springframework" name="spring-core" rev="2.5.5" conf="compile->default" />
         <dependency org="org.springframework" name="spring-test" rev="2.5.5" conf="compile->default;test->default" />
         <dependency org="org.springframework" name="spring-context" rev="2.5.5" conf="compile->default" />
