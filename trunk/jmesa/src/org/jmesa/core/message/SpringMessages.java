@@ -19,6 +19,7 @@ import org.jmesa.web.WebContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
@@ -28,8 +29,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author Oscar Perez
  */
 public class SpringMessages implements Messages {
-
     private static Logger logger = LoggerFactory.getLogger(SpringMessages.class);
+
     private Messages defaultMessages;
     private WebContext webContext;
     private MessageSource messageSource;
@@ -57,6 +58,14 @@ public class SpringMessages implements Messages {
             return defaultMessages.getMessage(code, args);
         }
 
-        return messageSource.getMessage(code, args, defaultMessages.getMessage(code, args), webContext.getLocale());
+        String message = null;
+
+        try {
+            message = messageSource.getMessage(code, args, webContext.getLocale());
+        } catch (NoSuchMessageException ex) {
+            message = defaultMessages.getMessage(code, args);
+        }
+
+        return message;
     }
 }
