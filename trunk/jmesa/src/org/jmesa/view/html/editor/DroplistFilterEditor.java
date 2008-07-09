@@ -136,6 +136,31 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
             return this.getLabel().compareToIgnoreCase(option.getLabel());
         }
 
+        /**
+         * Equality is based on the label. Or, in other words no two Option
+         * Objects can have the same property.
+         */
+        @Override
+        public boolean equals(Object o) {
+            if (o == this)
+                return true;
+
+            if (!(o instanceof Option))
+                return false;
+
+            Option that = (Option) o;
+
+            return that.getLabel().equals(this.getLabel());
+        }
+
+        @Override
+        public int hashCode() {
+            int result = 17;
+            int property = this.getLabel() == null ? 0 : this.getLabel().hashCode();
+            result = result * 37 + property;
+            return result;
+        }
+
         @Override
         public String toString() {
             ToStringBuilder builder = new ToStringBuilder(this);

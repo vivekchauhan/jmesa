@@ -15,17 +15,12 @@
  */
 package org.jmesa.facade;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.Parameters;

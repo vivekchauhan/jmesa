@@ -48,14 +48,12 @@ public class PdfView implements View {
     private HtmlTable table;
     private HtmlSnippets snippets;
     private WebContext webContext;
-    private CoreContext coreContext;
     private String cssLocation;
     private String doctype;
 
     public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
         this.table = table;
         this.webContext = webContext;
-        this.coreContext = coreContext;
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
 
         this.cssLocation = coreContext.getPreference("pdf.cssLocation");

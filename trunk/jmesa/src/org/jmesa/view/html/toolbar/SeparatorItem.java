@@ -46,7 +46,7 @@ public class SeparatorItem extends ImageItemImpl {
         return new SeparatorRenderer(this);
     }
 
-    private class SeparatorRenderer extends AbstractItemRenderer {
+    private static class SeparatorRenderer extends AbstractItemRenderer {
         public SeparatorRenderer(SeparatorItem item) {
             setToolbarItem(item);
         }

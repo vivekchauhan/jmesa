@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class ItemUtils {
+    private static final Logger logger = LoggerFactory.getLogger(ItemUtils.class);
 
-    private static Logger logger = LoggerFactory.getLogger(ItemUtils.class);
-    public static String JMESA_ITEM = "jmesa-item";
+    public static final String JMESA_ITEM = "jmesa-item";
 
     private ItemUtils() {
     // hide constructor
