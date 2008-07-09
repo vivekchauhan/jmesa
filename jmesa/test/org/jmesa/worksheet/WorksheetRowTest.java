@@ -37,14 +37,14 @@ public class WorksheetRowTest {
         row.addColumn(born);
         row.addColumn(lastName);
 
-        assertTrue("The columns are not accounted for.", row.getColumns().size() == 3);
+        assertTrue(row.getColumns().size() == 3);
 
         row.removeColumn(row.getColumn("born"));
 
-        assertTrue("The columns are not accounted for.", row.getColumns().size() == 2);
+        assertTrue(row.getColumns().size() == 2);
 
         Iterator<WorksheetColumn> iter = row.getColumns().iterator();
-        assertTrue("The column first name exists.", iter.next().getProperty().equals("name.firstName"));
-        assertTrue("The column last name exists.", iter.next().getProperty().equals("name.lastName"));
+        assertTrue(iter.next().getProperty().equals("name.firstName"));
+        assertTrue(iter.next().getProperty().equals("name.lastName"));
     }
 }
