@@ -45,7 +45,7 @@ public class Struts2Messages implements Messages {
      * {@inheritDoc}
      */
     public String getMessage(String code, Object[] args) {
-        String message = LocalizedTextUtil.findDefaultText(code, this.webContext.getLocale(), args);
+        String message = LocalizedTextUtil.findDefaultText(code, webContext.getLocale(), args);
         if (message == null) {
             return defaultMessages.getMessage(code, args);
         }
