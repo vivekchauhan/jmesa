@@ -30,10 +30,10 @@ import org.slf4j.LoggerFactory;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class PropertiesPreferences implements Preferences {
+public final class PropertiesPreferences implements Preferences {
     private Logger logger = LoggerFactory.getLogger(PropertiesPreferences.class);
 
-    private final static String JMESA_PROPERTIES = "jmesa.properties";
+    private static final String JMESA_PROPERTIES = "jmesa.properties";
 
     private Properties properties = new Properties();
 

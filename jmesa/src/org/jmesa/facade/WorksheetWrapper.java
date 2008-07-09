@@ -31,8 +31,8 @@ import org.jmesa.worksheet.WorksheetRow;
  * @author Jeff Johnston
  */
 public class WorksheetWrapper implements Worksheet {
-    public static String SAVE_WORKSHEET = "sw_";
-    public static String FILTER_WORKSHEET = "fw_";
+    public static final String SAVE_WORKSHEET = "sw_";
+    public static final String FILTER_WORKSHEET = "fw_";
 
     private Worksheet worksheet;
     private WebContext webContext;

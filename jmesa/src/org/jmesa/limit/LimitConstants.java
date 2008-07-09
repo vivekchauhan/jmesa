@@ -26,5 +26,5 @@ public class LimitConstants {
     private LimitConstants() {
     // hide constructor
     }
-    public final static String LIMIT_ROWSELECT_MAXROWS = "limit.rowSelect.maxRows";
+    public static final String LIMIT_ROWSELECT_MAXROWS = "limit.rowSelect.maxRows";
 }

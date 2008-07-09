@@ -89,7 +89,7 @@ public class HtmlUtils {
     public static int startingRowcount(CoreContext coreContext) {
         int rowcount = 0;
 
-        boolean rowcountIncludePagination = new Boolean(coreContext.getPreference(HtmlConstants.ROWCOUNT_INCLUDE_PAGINATION));
+        boolean rowcountIncludePagination = Boolean.valueOf(coreContext.getPreference(HtmlConstants.ROWCOUNT_INCLUDE_PAGINATION));
         if (rowcountIncludePagination) {
             int page = coreContext.getLimit().getRowSelect().getPage();
             int maxRows = coreContext.getLimit().getRowSelect().getMaxRows();

@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 public class ResourceBundleMessages implements Messages {
     private Logger logger = LoggerFactory.getLogger(ResourceBundleMessages.class);
 
-    private final static String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/resource/jmesaResourceBundle";
+    private static final String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/resource/jmesaResourceBundle";
 
     private ResourceBundle defaultResourceBundle;
     private ResourceBundle customResourceBundle;

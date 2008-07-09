@@ -39,10 +39,9 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class TableFacadeUtils {
+    private static final Logger logger = LoggerFactory.getLogger(TableFacadeUtils.class);
 
-    private static Logger logger = LoggerFactory.getLogger(TableFacadeUtils.class);
-
-    public static String TABLE_REFRESHING = "tr_";
+    public static final String TABLE_REFRESHING = "tr_";
     
     private TableFacadeUtils() {}
     

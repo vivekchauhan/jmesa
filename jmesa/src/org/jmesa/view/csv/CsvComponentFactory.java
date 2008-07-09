@@ -28,7 +28,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class CsvComponentFactory extends AbstractComponentFactory {
-    private final String DEFAULT_DELIMITER = ",";
+    private static final String DEFAULT_DELIMITER = ",";
 
     private String delimiter = DEFAULT_DELIMITER;
 

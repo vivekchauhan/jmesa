@@ -190,9 +190,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             return coreContext.getMessage(HtmlConstants.STATUSBAR_NO_RESULTS_FOUND);
         }
 
-        Integer total = new Integer(rowSelect.getTotalRows());
-        Integer from = new Integer(rowSelect.getRowStart() + 1);
-        Integer to = new Integer(rowSelect.getRowEnd());
+        Integer total = rowSelect.getTotalRows();
+        Integer from = rowSelect.getRowStart() + 1;
+        Integer to = rowSelect.getRowEnd();
         Object[] messageArguments = { total, from, to };
         return coreContext.getMessage(HtmlConstants.STATUSBAR_RESULTS_FOUND, messageArguments);
     }
