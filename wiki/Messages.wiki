@@ -15,15 +15,15 @@ To set up the resource bundle specify a context-param in your /WEB-INF/web.xml f
 
 The current Locales supported include:
  * Brazilian Portuguese (pt_BR)
- * Catalan (ca)
+ * Catalan (ca) --trunk
  * Chinese (zh_CN)
  * Dutch (nl_NL)
  * English (default)
- * Finish (fi)
+ * Finish (fi) --trunk
  * Italian (it_IT)
  * Korean (ko_KR)
  * Norwegian (no_NO)
- * Spanish (es_ES)
+ * Spanish (es_ES) --trunk
  * Spanish (es_MX)
 
 If you would like to have your native language supported out of the box in JMesa just send me a messages file to _extremecomponents@gmail.com_ and I will include that right away.
