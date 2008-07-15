@@ -20,6 +20,7 @@ The current Locales supported include:
  * Dutch (nl_NL)
  * English (default)
  * Finish (fi) --trunk
+ * French (fr)
  * Italian (it_IT)
  * Korean (ko_KR)
  * Norwegian (no_NO)
