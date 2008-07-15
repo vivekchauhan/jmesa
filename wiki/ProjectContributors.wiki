@@ -58,6 +58,9 @@ The following is a list of the people who have helped make JMesa a better compon
 ==== Regis Dehoux ==== 
  * Added the French (fr) Locale.
 
+==== Jeff Jie ==== 
+ * Sole developer for the Grails tags.
+
 === Version 2.3.3 ===
 
 ==== Oscar Perez ==== 
