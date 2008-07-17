@@ -7,11 +7,11 @@ Here is a list of features for the upcoming 2.3.3 release.
  * There is a new !StringWildCardFilterMatcher. also added by Oscar Perez. This can be plugged in in favor of the default !StringFilterMatcher. See the [FilterMatcher] if you are unsure on how that works.
  * Native Messages (Locale) support for Spring and Struts2. Again added by Oscar Perez :). _See below for more information_
  
-=== Messages ===
+== Messages ==
 
 This outlines how to integrate with Spring and Struts to pull the [Messages]. If using the tag library you will need to use the latest jmesa.tld.
 
-==== Spring ====
+=== Spring ===
 
  * API
 
@@ -26,7 +26,9 @@ TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade();
 }}}
 
 
-==== Struts2 ====
+=== Struts2 ===
+
+*Disclaimer* I was not able to test out the Struts2 integration. It was a very simple integration and works just like Spring. If you are using this I would appreciate it if you could email me (extremecomponents@gmail.com) and let me know if it is working for you.
 
  * API
 
@@ -39,4 +41,3 @@ TableFacade tableFacade = TableFacadeFactory.createStruts2TableFacade();
 {{{
 <jmesa:struts2TableFacade >
 }}}
-
