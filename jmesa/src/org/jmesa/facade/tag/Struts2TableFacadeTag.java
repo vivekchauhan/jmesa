@@ -31,9 +31,10 @@ import org.jmesa.web.WebContext;
 public class Struts2TableFacadeTag extends TableFacadeTag {
 
     @Override
-    TableFacade createTableFacade(WebContext webContext) {
+    TableFacade createTableFacade() {
 
         TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
+        WebContext webContext = getWebContext();
         Messages messages = MessagesFactory.getMessages(webContext);
         Struts2Messages struts2Messages = new Struts2Messages(messages, webContext);
         facade.setMessages(struts2Messages);

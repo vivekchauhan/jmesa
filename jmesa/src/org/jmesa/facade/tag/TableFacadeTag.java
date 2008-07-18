@@ -68,12 +68,8 @@ public class TableFacadeTag extends SimpleTagSupport {
     private String filterMatcherMap;
     private String view;
     private String toolbar;
-    private boolean editable;
-
-    // tag attributes
-    private String var;
-    
-    // core attributes
+    private boolean editable;    // tag attributes
+    private String var;    // core attributes
     private TableFacade tableFacade;
     private HtmlTable table;
     private HtmlComponentFactory componentFactory;
@@ -219,7 +215,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     public void setExportTypes(String exportTypes) {
         this.exportTypes = exportTypes;
     }
-    
+
     /**
      * @return Is true if the table should be editable.
      */
@@ -454,10 +450,7 @@ public class TableFacadeTag extends SimpleTagSupport {
             throw new IllegalStateException("You need to wrap the table in the facade tag.");
         }
 
-        WebContext webContext = new JspPageWebContext((PageContext) getJspContext());
-
-        this.tableFacade = createTableFacade(webContext);
-        tableFacade.setWebContext(webContext);
+        this.tableFacade = createTableFacade();
         tableFacade.setEditable(isEditable());
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
@@ -498,9 +491,14 @@ public class TableFacadeTag extends SimpleTagSupport {
         getJspContext().getOut().print(html);
     }
 
-    TableFacade createTableFacade(WebContext webContext) {
+    WebContext getWebContext() {
+        return new JspPageWebContext((PageContext) getJspContext());
+    }
+
+    TableFacade createTableFacade() {
 
         TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
+        facade.setWebContext(getWebContext());
         facade.setMessages(getTableFacadeMessages(getMessages()));
         return facade;
     }

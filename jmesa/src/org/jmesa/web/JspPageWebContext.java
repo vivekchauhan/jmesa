@@ -19,7 +19,6 @@ import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
@@ -28,13 +27,18 @@ import javax.servlet.jsp.PageContext;
  * @since 2.0
  * @author Jeff Johnston
  */
-public final class JspPageWebContext implements WebContext {
+public class JspPageWebContext implements WebContext {
+
     private PageContext pageContext;
-    private Map<?,?> parameterMap;
+    private Map<?, ?> parameterMap;
     private Locale locale;
 
     public JspPageWebContext(PageContext pageContext) {
         this.pageContext = pageContext;
+    }
+
+    protected PageContext getPageContext() {
+        return pageContext;
     }
 
     public Object getApplicationInitParameter(String name) {
@@ -69,7 +73,7 @@ public final class JspPageWebContext implements WebContext {
         return pageContext.getRequest().getParameter(name);
     }
 
-    public Map<?,?> getParameterMap() {
+    public Map<?, ?> getParameterMap() {
         if (parameterMap != null) {
             return parameterMap;
         }
@@ -77,7 +81,7 @@ public final class JspPageWebContext implements WebContext {
         return pageContext.getRequest().getParameterMap();
     }
 
-    public void setParameterMap(Map<?,?> parameterMap) {
+    public void setParameterMap(Map<?, ?> parameterMap) {
         this.parameterMap = parameterMap;
     }
 
@@ -129,17 +133,13 @@ public final class JspPageWebContext implements WebContext {
 
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
-    
+
     public String getRealPath(String path) {
         if (pageContext.getRequest() instanceof HttpServletRequest) {
             return ((HttpServletRequest) pageContext.getRequest()).getSession().getServletContext().getRealPath(path);
         }
 
         throw new UnsupportedOperationException("There is no real path associated with the request.");
-    }
-
-    public ServletContext getServletContext() {
-        return pageContext.getServletContext();
     }
 
     public Object getBackingObject() {

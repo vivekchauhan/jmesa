@@ -36,6 +36,10 @@ public class HttpServletRequestWebContext implements WebContext {
         this.request = request;
     }
 
+    protected HttpServletRequest getHttpServletRequest() {
+        return request;
+    }
+
     public Object getApplicationInitParameter(String name) {
         return request.getSession().getServletContext().getInitParameter(name);
     }
@@ -135,10 +139,6 @@ public class HttpServletRequestWebContext implements WebContext {
         return request.getSession().getServletContext().getRealPath(path);
     }
     
-    public ServletContext getServletContext() {
-        return request.getSession().getServletContext();
-    }
-
     public Object getBackingObject() {
         return request;
     }

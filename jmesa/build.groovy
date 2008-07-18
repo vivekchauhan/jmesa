@@ -241,7 +241,7 @@ class Artifact {
     def ext
     def file
     
-    Artifact(name) {
+    Artifact(String name) {
         this.name = name
     }
 }

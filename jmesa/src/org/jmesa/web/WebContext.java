@@ -67,7 +67,5 @@ public interface WebContext {
     
     public String getRealPath(String path);
 
-    public ServletContext getServletContext();
-
     public Object getBackingObject();
 }
