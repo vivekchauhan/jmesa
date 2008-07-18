@@ -33,12 +33,12 @@ import org.jmesa.web.SpringWebContext;
 public class SpringTableFacadeTag extends TableFacadeTag {
 
     @Override
-    SpringWebContext getWebContext() {
+    protected SpringWebContext getWebContext() {
         return new JspPageSpringWebContext((PageContext) getJspContext());
     }
 
     @Override
-    TableFacade createTableFacade() {
+    protected TableFacade createTableFacade() {
 
         TableFacade tableFacade = TableFacadeFactory.createTableFacade(getId(), null);
         SpringWebContext springWebContext = getWebContext();
