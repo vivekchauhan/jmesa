@@ -15,12 +15,14 @@
  */
 package org.jmesa.facade.tag;
 
+import javax.servlet.jsp.PageContext;
 import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.SpringMessages;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeFactory;
-import org.jmesa.web.WebContext;
+import org.jmesa.web.JspPageSpringWebContext;
+import org.jmesa.web.SpringWebContext;
 
 /**
  * A way to get the Spring specific functionality.
@@ -31,12 +33,19 @@ import org.jmesa.web.WebContext;
 public class SpringTableFacadeTag extends TableFacadeTag {
 
     @Override
-    TableFacade createTableFacade(WebContext webContext) {
+    SpringWebContext getWebContext() {
+        return new JspPageSpringWebContext((PageContext) getJspContext());
+    }
 
-        TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
-        Messages messages = MessagesFactory.getMessages(webContext);
-        SpringMessages springMessages = new SpringMessages(messages, webContext);
-        facade.setMessages(springMessages);
-        return facade;
+    @Override
+    TableFacade createTableFacade() {
+
+        TableFacade tableFacade = TableFacadeFactory.createTableFacade(getId(), null);
+        SpringWebContext springWebContext = getWebContext();
+        tableFacade.setWebContext(springWebContext);
+        Messages messages = MessagesFactory.getMessages(springWebContext);
+        SpringMessages springMessages = new SpringMessages(messages, springWebContext);
+        tableFacade.setMessages(springMessages);
+        return tableFacade;
     }
 }

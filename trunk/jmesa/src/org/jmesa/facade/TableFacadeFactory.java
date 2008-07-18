@@ -20,7 +20,9 @@ import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.message.SpringMessages;
 import org.jmesa.core.message.Struts2Messages;
+import org.jmesa.web.HttpServletRequestSpringWebContext;
 import org.jmesa.web.HttpServletRequestWebContext;
+import org.jmesa.web.SpringWebContext;
 import org.jmesa.web.WebContext;
 
 /**
@@ -39,9 +41,9 @@ public class TableFacadeFactory {
     public static TableFacade createSpringTableFacade(String id, HttpServletRequest request) {
 
         TableFacade tableFacade = new TableFacadeImpl(id, request);
-        WebContext webContext = new HttpServletRequestWebContext(request);
-        Messages messages = MessagesFactory.getMessages(webContext);
-        SpringMessages springMessages = new SpringMessages(messages, webContext);
+        SpringWebContext springWebContext = new HttpServletRequestSpringWebContext(request);
+        Messages messages = MessagesFactory.getMessages(springWebContext);
+        SpringMessages springMessages = new SpringMessages(messages, springWebContext);
         tableFacade.setMessages(springMessages);
 
         return tableFacade;
