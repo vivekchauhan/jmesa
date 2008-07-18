@@ -31,7 +31,7 @@ import org.jmesa.web.WebContext;
 public class Struts2TableFacadeTag extends TableFacadeTag {
 
     @Override
-    TableFacade createTableFacade() {
+    protected TableFacade createTableFacade() {
 
         TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
         WebContext webContext = getWebContext();

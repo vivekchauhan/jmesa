@@ -491,11 +491,11 @@ public class TableFacadeTag extends SimpleTagSupport {
         getJspContext().getOut().print(html);
     }
 
-    WebContext getWebContext() {
+    protected WebContext getWebContext() {
         return new JspPageWebContext((PageContext) getJspContext());
     }
 
-    TableFacade createTableFacade() {
+    protected TableFacade createTableFacade() {
 
         TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
         facade.setWebContext(getWebContext());
