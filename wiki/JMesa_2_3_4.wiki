@@ -1,3 +1,4 @@
 These are the changes for the upcoming 2.3.4 build.
 
  * JMesa now works with JDK 1.4 using the retro jar file.
+ * New PDF view using iText directly.
