@@ -12,11 +12,15 @@ You need to create a [CustomToolbarTutorial custom toolbar] and plug it in.
 
 ==== How can I display inline page numbers? ====
 
-_Note: this is available in the upcoming 2.3.2 release but I wanted to updated the docs while I was thinking about it_
-
 A heavily requested feature is the ability to display page numbers,
 similar to how the google search results works. This feature was
-implemented with the help from the community and will be available in the next release. All you will have to do to use it is enable the page items on the toolbar.
+implemented with the help from the community. 
+
+http://jmesa.org/wiki/images/toolbar-page-items.gif
+
+All you will have to do to use it is enable the page items on the toolbar.
+
+==== API ====
 
 {{{
 HtmlToolbar toolbar = new HtmlToolbar();
@@ -24,4 +28,24 @@ toolbar.enablePageNumbers(true);
 tableFacade.setToolbar(toolbar); 
 }}}
 
-http://jmesa.org/wiki/images/toolbar-page-items.gif
+==== Tags ====
+
+If you are using the tags you need to extend the !HtmlToolbar and enable the page numbers.
+
+{{{
+public class FullPaginationToolbar extends HtmlToolbar {
+    @Override
+    public String render() {
+        enablePageNumbers(true);
+        return super.render();
+    }
+
+}
+}}}
+
+Then give the fully qualified class name to your toolbar.
+
+{{{
+<jmesa:tableFacade
+toolbar="com.mycompany.toolbar.FullPaginationToolbar" 
+}}}
