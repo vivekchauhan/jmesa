@@ -16,11 +16,8 @@
 package org.jmesa.facade.tag;
 
 import javax.servlet.jsp.PageContext;
-import org.jmesa.core.message.MessagesFactory;
-import org.jmesa.core.message.Messages;
-import org.jmesa.core.message.SpringMessages;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeFactory;
+import static org.jmesa.facade.TableFacadeFactory.createSpringTableFacade;
 import org.jmesa.web.JspPageSpringWebContext;
 import org.jmesa.web.SpringWebContext;
 
@@ -39,13 +36,6 @@ public class SpringTableFacadeTag extends TableFacadeTag {
 
     @Override
     protected TableFacade createTableFacade() {
-
-        TableFacade tableFacade = TableFacadeFactory.createTableFacade(getId(), null);
-        SpringWebContext springWebContext = getWebContext();
-        tableFacade.setWebContext(springWebContext);
-        Messages messages = MessagesFactory.getMessages(springWebContext);
-        SpringMessages springMessages = new SpringMessages(messages, springWebContext);
-        tableFacade.setMessages(springMessages);
-        return tableFacade;
+        return createSpringTableFacade(getId(), getWebContext());
     }
 }

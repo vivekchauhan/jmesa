@@ -15,13 +15,17 @@
  */
 package org.jmesa.facade;
 
+import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
+
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.message.SpringMessages;
 import org.jmesa.core.message.Struts2Messages;
 import org.jmesa.web.HttpServletRequestSpringWebContext;
 import org.jmesa.web.HttpServletRequestWebContext;
+import org.jmesa.web.PortletRequestSpringWebContext;
+import org.jmesa.web.PortletRequestWebContext;
 import org.jmesa.web.SpringWebContext;
 import org.jmesa.web.WebContext;
 
@@ -38,25 +42,44 @@ public class TableFacadeFactory {
         return tableFacade;
     }
 
-    public static TableFacade createSpringTableFacade(String id, HttpServletRequest request) {
+    public static TableFacade createTableFacade(String id, WebContext webContext) {
+        TableFacade tableFacade = new TableFacadeImpl(id, null);
+        tableFacade.setWebContext(webContext);
+        return tableFacade;
+    }
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
+    public static TableFacade createPortletTableFacade(String id, PortletRequest request) {
+        return createTableFacade(id, new PortletRequestWebContext(request));
+    }
+
+    public static TableFacade createSpringPortletTableFacade(String id, PortletRequest request) {
+        SpringWebContext springWebContext = new PortletRequestSpringWebContext(request);
+        return createSpringTableFacade(id, springWebContext);
+    }
+
+    public static TableFacade createSpringTableFacade(String id, HttpServletRequest request) {
         SpringWebContext springWebContext = new HttpServletRequestSpringWebContext(request);
+        return createSpringTableFacade(id, springWebContext);
+    }
+
+    public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext) {
+        TableFacade tableFacade = createTableFacade(id, springWebContext);
         Messages messages = MessagesFactory.getMessages(springWebContext);
         SpringMessages springMessages = new SpringMessages(messages, springWebContext);
         tableFacade.setMessages(springMessages);
-
         return tableFacade;
     }
 
     public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request) {
-
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
         WebContext webContext = new HttpServletRequestWebContext(request);
+        return createStruts2TableFacade(id, webContext);
+    }
+
+    public static TableFacade createStruts2TableFacade(String id, WebContext webContext) {
+        TableFacade tableFacade = createTableFacade(id, webContext);
         Messages messages = MessagesFactory.getMessages(webContext);
         Struts2Messages struts2Messages = new Struts2Messages(messages, webContext);
         tableFacade.setMessages(struts2Messages);
-
         return tableFacade;
     }
 }

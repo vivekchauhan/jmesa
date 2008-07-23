@@ -497,8 +497,7 @@ public class TableFacadeTag extends SimpleTagSupport {
 
     protected TableFacade createTableFacade() {
 
-        TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
-        facade.setWebContext(getWebContext());
+        TableFacade facade = TableFacadeFactory.createTableFacade(getId(), getWebContext());
         facade.setMessages(getTableFacadeMessages(getMessages()));
         return facade;
     }
