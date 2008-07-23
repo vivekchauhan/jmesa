@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class NumberCellEditor extends AbstractPatternSupport {
-    private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
+    private Logger logger = LoggerFactory.getLogger(NumberCellEditor.class);
 
     public NumberCellEditor() {
         // default constructor
