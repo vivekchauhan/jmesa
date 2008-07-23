@@ -70,3 +70,9 @@ The following is a list of the people who have helped make JMesa a better compon
 
 ==== Anna-Stina Moisala ==== 
  * Added the Finish (fi) Locale.
+
+=== Version 2.3.4 ===
+
+==== Roman Janowczyk ==== 
+ * Added the Polish (pl_PL) Locale.
+
