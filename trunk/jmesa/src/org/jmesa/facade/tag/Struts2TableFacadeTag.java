@@ -15,12 +15,8 @@
  */
 package org.jmesa.facade.tag;
 
-import org.jmesa.core.message.MessagesFactory;
-import org.jmesa.core.message.Messages;
-import org.jmesa.core.message.Struts2Messages;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeFactory;
-import org.jmesa.web.WebContext;
+import static org.jmesa.facade.TableFacadeFactory.createStruts2TableFacade;
 
 /**
  * A way to get the Struts2 specific functionality.
@@ -32,12 +28,6 @@ public class Struts2TableFacadeTag extends TableFacadeTag {
 
     @Override
     protected TableFacade createTableFacade() {
-
-        TableFacade facade = TableFacadeFactory.createTableFacade(getId(), null);
-        WebContext webContext = getWebContext();
-        Messages messages = MessagesFactory.getMessages(webContext);
-        Struts2Messages struts2Messages = new Struts2Messages(messages, webContext);
-        facade.setMessages(struts2Messages);
-        return facade;
+        return createStruts2TableFacade(getId(), getWebContext());
     }
 }

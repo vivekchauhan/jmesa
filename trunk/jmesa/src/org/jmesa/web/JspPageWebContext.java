@@ -142,7 +142,7 @@ public class JspPageWebContext implements WebContext {
         throw new UnsupportedOperationException("There is no real path associated with the request.");
     }
 
-    public Object getBackingObject() {
+    public PageContext getBackingObject() {
         return pageContext;
     }
 }
