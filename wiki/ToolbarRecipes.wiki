@@ -20,7 +20,7 @@ http://jmesa.org/wiki/images/toolbar-page-items.gif
 
 All you will have to do to use it is enable the page items on the toolbar.
 
-==== API ====
+===== API =====
 
 {{{
 HtmlToolbar toolbar = new HtmlToolbar();
@@ -28,7 +28,7 @@ toolbar.enablePageNumbers(true);
 tableFacade.setToolbar(toolbar); 
 }}}
 
-==== Tags ====
+===== Tags =====
 
 If you are using the tags you need to extend the !HtmlToolbar and enable the page numbers.
 
@@ -48,4 +48,12 @@ Then give the fully qualified class name to your toolbar.
 {{{
 <jmesa:tableFacade
 toolbar="com.mycompany.toolbar.FullPaginationToolbar" 
+}}}
+
+===== Toolbar Preferences =====
+
+If you want to increase the page numbers that are displayed you can set the number in  your [Preferences preferences] file.
+
+{{{
+html.toolbar.maxPageNumbers=5
 }}}
