@@ -24,7 +24,7 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum ExportType {
-    CSV, EXCEL, JEXCEL, PDF;
+    CSV, EXCEL, JEXCEL, PDF, PDFP;
     
     public String toParam() {
         switch (this) {
@@ -36,6 +36,8 @@ public enum ExportType {
             return "jexcel";
         case PDF:
             return "pdf";
+        case PDFP:
+            return "pdfp";
         default:
             return "";
         }
