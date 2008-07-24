@@ -54,7 +54,7 @@ import org.jmesa.web.WebContext;
 public class TableFacadeTag extends SimpleTagSupport {
     // facade attributes
     private String id;
-    private Collection<?> items;
+    private Collection items;
     private Limit limit;
     private int maxRows;
     private String maxRowsIncrements;
@@ -93,7 +93,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * The Collecton of Beans (or Maps) to use.
      */
-    public Collection<?> getItems() {
+    public Collection getItems() {
         return items;
     }
 
@@ -105,7 +105,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param items The Collecton of Beans (or Maps) to use.
      */
-    public void setItems(Collection<?> items) {
+    public void setItems(Collection items) {
         this.items = items;
     }
 
