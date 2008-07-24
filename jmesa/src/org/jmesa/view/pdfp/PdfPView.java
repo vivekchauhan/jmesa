@@ -37,7 +37,7 @@ import org.jmesa.web.WebContext;
  * A PDF view that uses the iText PdfPTable.
  *
  * @since 2.3.4
- * @author Ismail
+ * @author Ismail Seyfi
  */
 public class PdfPView implements View {
 
