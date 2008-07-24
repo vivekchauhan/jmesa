@@ -28,7 +28,7 @@ import org.jmesa.view.View;
  * A PDF view that uses the iText PdfPTable.
  *
  * @since 2.3.4
- * @author acimasiz
+ * @author Ismail
  */
 public class PdfPViewExporter extends AbstractViewExporter {
     private View view;
