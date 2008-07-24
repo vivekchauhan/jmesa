@@ -83,7 +83,6 @@ public class PdfPView implements View {
     }
 
     public PdfPTable render() {
-
         PdfPTable pdfpTable = new PdfPTable(this.table.getRow().getColumns().size());
 
         Row row = getTable().getRow();
