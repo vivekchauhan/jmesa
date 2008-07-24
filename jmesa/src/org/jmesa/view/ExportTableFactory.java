@@ -13,29 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.jexcel;
+package org.jmesa.view;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.AbstractTableFactory;
-import org.jmesa.view.ComponentFactory;
 import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * The table factory specific to the JExcel export.
+ * The table factory specific to the exports.
  * </p>
- * 
- * @since 2.2
- * @author Paul Horn
+ *
+ * @since 2.3.4
+ * @author Jeff Johnston
  */
-public class JExcelTableFactory extends AbstractTableFactory {
-    public JExcelTableFactory(WebContext webContext, CoreContext coreContext) {
+public class ExportTableFactory extends AbstractTableFactory {
+    public ExportTableFactory(WebContext webContext, CoreContext coreContext) {
         setWebContext(webContext);
         setCoreContext(coreContext);
     }
 
     @Override
     protected ComponentFactory getComponentFactory() {
-        return new JExcelComponentFactory(getWebContext(), getCoreContext());
+        return new ExportComponentFactory(getWebContext(), getCoreContext());
     }
 }

@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.jexcel.renderer;
+package org.jmesa.view.renderer;
 
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.renderer.AbstractCellRenderer;
 
 /**
- * <p>
- * The cell renderer for the JExcel export.
- * </p>
- * 
- * @since 2.2
- * @author Paul Horn
+ * @since 2.3.4
+ * @author Jeff Johnston
  */
-public class JExcelCellRenderer extends AbstractCellRenderer {
-    public JExcelCellRenderer(Column column, CellEditor editor) {
+public class ExportCellRenderer extends AbstractCellRenderer {
+    public ExportCellRenderer(Column column, CellEditor editor) {
         setColumn(column);
         setCellEditor(editor);
     }

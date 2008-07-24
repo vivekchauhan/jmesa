@@ -56,13 +56,13 @@ import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
 import org.jmesa.util.SupportUtils;
+import org.jmesa.view.ExportTableFactory;
 import org.jmesa.view.TableFactory;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvTableFactory;
 import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.csv.CsvViewExporter;
-import org.jmesa.view.excel.ExcelTableFactory;
 import org.jmesa.view.excel.ExcelView;
 import org.jmesa.view.excel.ExcelViewExporter;
 import org.jmesa.view.html.HtmlTableFactory;
@@ -70,9 +70,10 @@ import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.HtmlToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.jexcel.JExcelTableFactory;
 import org.jmesa.view.jexcel.JExcelView;
 import org.jmesa.view.jexcel.JExcelViewExporter;
+import org.jmesa.view.pdfp.PdfPView;
+import org.jmesa.view.pdfp.PdfPViewExporter;
 import org.jmesa.view.pdf.PdfView;
 import org.jmesa.view.pdf.PdfViewExporter;
 import org.jmesa.web.HttpServletRequestWebContext;
@@ -391,13 +392,16 @@ public class TableFacadeImpl implements TableFacade {
                 TableFactory tableFactory = new CsvTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
             } else if (exportType == ExportType.EXCEL) {
-                TableFactory tableFactory = new ExcelTableFactory(getWebContext(), getCoreContext());
+                TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
+                this.table = tableFactory.createTable(columnProperties);
+            } else if (exportType == ExportType.JEXCEL) {
+                TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
             } else if (exportType == ExportType.PDF) {
                 TableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType == ExportType.JEXCEL) {
-                TableFactory tableFactory = new JExcelTableFactory(getWebContext(), getCoreContext());
+            } else if (exportType == ExportType.PDFP) {
+                TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
                 this.table = tableFactory.createTable(columnProperties);
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
@@ -460,10 +464,12 @@ public class TableFacadeImpl implements TableFacade {
                 this.view = new CsvView(getTable(), getCoreContext());
             } else if (exportType == ExportType.EXCEL) {
                 this.view = new ExcelView(getTable(), getCoreContext());
-            } else if (exportType == ExportType.PDF) {
-                this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getWebContext(), getCoreContext());
             } else if (exportType == ExportType.JEXCEL) {
                 this.view = new JExcelView(getTable(), getCoreContext());
+            } else if (exportType == ExportType.PDF) {
+                this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getWebContext(), getCoreContext());
+            } else if (exportType == ExportType.PDFP) {
+                this.view = new PdfPView(getTable(), getToolbar(), getWebContext(), getCoreContext());
             } else {
                 throw new IllegalStateException("Not able to handle the export of type: " + exportType);
             }
@@ -498,6 +504,8 @@ public class TableFacadeImpl implements TableFacade {
                 new JExcelViewExporter(v, response).export();
             } else if (exportType == ExportType.PDF) {
                 new PdfViewExporter(v, request, response).export();
+            } else if (exportType == ExportType.PDFP) {
+                new PdfPViewExporter(v, request, response).export();
             }
         } catch (Exception e) {
             e.printStackTrace();

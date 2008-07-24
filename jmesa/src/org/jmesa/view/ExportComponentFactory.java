@@ -13,26 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.jexcel;
+package org.jmesa.view;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.jexcel.renderer.JExcelCellRenderer;
+import org.jmesa.view.renderer.ExportCellRenderer;
 import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * The component factory specific to the JExcel export.
+ * A generic export component factory.
  * </p>
- * 
- * @since 2.2
- * @author Paul Horn
+ *
+ * @since 2.3.4
+ * @author Jeff Johnston
  */
-public class JExcelComponentFactory extends AbstractComponentFactory {
-    public JExcelComponentFactory(WebContext webContext, CoreContext coreContext) {
+public class ExportComponentFactory extends AbstractComponentFactory {
+    public ExportComponentFactory(WebContext webContext, CoreContext coreContext) {
         setWebContext(webContext);
         setCoreContext(coreContext);
     }
@@ -42,7 +41,7 @@ public class JExcelComponentFactory extends AbstractComponentFactory {
         column.setWebContext(getWebContext());
         column.setCoreContext(getCoreContext());
 
-        JExcelCellRenderer exr = new JExcelCellRenderer(column, editor);
+        ExportCellRenderer exr = new ExportCellRenderer(column, editor);
         exr.setCoreContext(getCoreContext());
         exr.setWebContext(getWebContext());
         column.setCellRenderer(exr);
