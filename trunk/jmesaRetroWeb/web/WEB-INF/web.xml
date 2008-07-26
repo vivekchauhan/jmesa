@@ -42,10 +42,6 @@
     	</welcome-file>
 	 </welcome-file-list>
 	<taglib>
-		<taglib-uri>/tld/jmesa</taglib-uri>
-		<taglib-location>/WEB-INF/tld/jmesa.tld</taglib-location>
-	</taglib>
-	<taglib>
 		<taglib-uri>/tld/c</taglib-uri>
 		<taglib-location>/WEB-INF/tld/c.tld</taglib-location>
 	</taglib>
