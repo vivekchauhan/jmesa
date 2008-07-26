@@ -1,39 +1,41 @@
+<%@ taglib uri="/tld/jmesa" prefix="jmesa" %>
+<%@ taglib uri="/tld/c" prefix="c" %>
 <html>
 
-<head>
-	<title>Worksheet JMesa Example</title>
-</head>
+  <head>
+    <title>Worksheet JMesa Example</title>
+  </head>
 
-<body>
+  <body>
 
-	<p class="content">
-		The worksheet JMesa example shows what an editable table looks like.
-	</p>
-	
-	<p class="content">
-		Other examples:<br/>
-		<a href="${pageContext.request.contextPath}/basic.run?restore=true">Basic</a> <br/>
-		<a href="${pageContext.request.contextPath}/limit.run?restore=true">Limit (with AJAX)</a> <br/>
-		<a href="${pageContext.request.contextPath}/groovy.run?restore=true">Groovy</a><br/>
-		<a href="${pageContext.request.contextPath}/tag.run?restore=true">Tag</a><br/>
-	</p>
-	
-	<form name="presidentsForm" action="${pageContext.request.contextPath}/worksheet.run">
-	   ${presidents}
-	</form>
-	
-	<p class="content">
-		This example source code can be found 
-		<a href="http://code.google.com/p/jmesa/wiki/WorksheetExample">here</a>.
-	</p>
-	
-	
-<script type="text/javascript">
-function onInvokeAction(id) {
-	createHiddenInputFieldsForLimitAndSubmit(id);
-}
-</script>
+    <p class="content">
+      The worksheet JMesa example shows what an editable table looks like.
+    </p>
 
-</body>
+    <p class="content">
+      Other examples:<br/>
+      <a href="<c:url value="/basic.run?restore=true"/>">Basic</a> <br/>
+      <a href="<c:url value="/limit.run?restore=true"/>">Limit (with AJAX)</a> <br/>
+      <a href="<c:url value="/groovy.run?restore=true"/>">Groovy</a><br/>
+      <a href="<c:url value="/tag.run?restore=true"/>">Tag</a><br/>
+    </p>
+
+    <form name="presidentsForm" action="<c:url value="/worksheet.run"/>">
+      <c:out value="${presidents}" escapeXml="false"/>
+    </form>
+
+    <p class="content">
+      This example source code can be found
+      <a href="http://code.google.com/p/jmesa/wiki/WorksheetExample">here</a>.
+    </p>
+
+
+    <script type="text/javascript">
+        function onInvokeAction(id) {
+            createHiddenInputFieldsForLimitAndSubmit(id);
+        }
+    </script>
+
+  </body>
 
 </html>
