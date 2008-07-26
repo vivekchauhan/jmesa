@@ -1,6 +1,11 @@
 These are the changes for the upcoming 2.3.4 build.
 
  * JMesa now works with JDK 1.4 using the retro jar file.
+
+I backported the jmesaWeb project to the jdk1.4 standard and used the new jmesa-snapshot-retro.jar file. I checked it into the trunk as jmesaRetroWeb. I verified that it works against Tomcat 4.1 running against the JDK1.4.
+
+The only thing that does not work are the tags as they use the !SimpleTagSupport class and that is not retro-fitted. Not sure if there is anything we can do about this.
+
  * New PDF view (PdfPView) using iText directly.
  * Support for Weblogic using tags.
  * Direct porlet support both with and without Spring provided by Benjamin Gould.
