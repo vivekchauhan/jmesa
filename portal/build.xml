@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project basedir="../" name="jmesa" default="run-examples">
+
+	<!-- General Settings -->
+	<property name="web.dir" value="jmesaWeb/web" />
+	<property name="classes.dir" value="jmesaWeb/target/classes" />
+	<property name="gen.dir" value="jmesaWeb/target/generated" />
+	
+	<!-- Jetty setup -->
+	<property name="jetty.dir" value="portal" />
+	<property name="jetty.lib" value="${jetty.dir}/lib" />
+	<property name="jetty.tmp" value="${jetty.dir}/tmp" />
+	
+	<path id="jetty-cp"><fileset dir="${jetty.lib}" includes="**/*.jar" /></path>
+	
+	<taskdef resource="tasks.properties" loaderref="jetty.loader" classpathref="jetty-cp" />
+	<taskdef name="assemble" classname="org.apache.pluto.ant.AssembleTask" classpathref="jetty-cp" />
+	
+	<target name="run-examples">
+		<mkdir dir="${gen.dir}" />
+		<assemble 
+			webxml="${web.dir}/WEB-INF/web.xml" 
+			portletxml="${web.dir}/WEB-INF/portlet.xml" 
+			destfile="${gen.dir}/pluto-web.xml" />
+		<jetty tempdirectory="${jetty.tmp}">
+			<webapp name="pluto-portal" warfile="${jetty.dir}/pluto-portal.war" contextpath="pluto" />
+			<webapp webxmlfile="${gen.dir}/pluto-web.xml"
+				name="${ant.project.name}" warfile="${web.dir}" 
+				contextpath="${ant.project.name}" scanIntervalSeconds="5">
+				<classes dir="${classes.dir}" />
+				<lib dir="jmesaWeb/target/ivy/lib/default" includes="*.jar" />
+			</webapp>
+		</jetty>
+	</target>
+
+</project>
