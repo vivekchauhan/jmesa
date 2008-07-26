@@ -116,7 +116,7 @@ class Build {
     
     def run() {
         dist()
-        ant.ant(antfile: "../server/build.xml", inheritall: false);
+        ant.ant(antfile: "../portal/build.xml", inheritall: false);
     }
 	
     static void main(args) {
