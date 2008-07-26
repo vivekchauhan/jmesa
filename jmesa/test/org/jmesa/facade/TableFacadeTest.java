@@ -37,11 +37,11 @@ import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
+import org.jmesa.view.ExportComponentFactory;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
-import org.jmesa.view.excel.ExcelComponentFactory;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.HtmlView;
@@ -427,7 +427,7 @@ public class TableFacadeTest extends AbstractTestCase {
         if (limit.isExported()) {
             assertTrue("The limit is not an Excel file.", limit.getExportType() == ExportType.EXCEL);
 
-            ExcelComponentFactory factory = new ExcelComponentFactory(facade.getWebContext(), facade.getCoreContext());
+            ExportComponentFactory factory = new ExportComponentFactory(facade.getWebContext(), facade.getCoreContext());
 
             Table table = factory.createTable();
             Row row = factory.createRow();
