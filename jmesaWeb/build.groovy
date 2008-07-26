@@ -114,6 +114,11 @@ class Build {
         source()
     }
     
+    def run() {
+        dist()
+        ant.ant(antfile: "../server/build.xml", inheritall: false);
+    }
+	
     static void main(args) {
         def cli = new CliBuilder(usage:'groovy build.groovy -[ha]')
         cli.h(longOpt: 'help', 'usage information')
@@ -147,7 +152,7 @@ class Artifact {
     def ext
     def file
     
-    Artifact(name) {
+    Artifact(String name) {
         this.name = name
     }
 }

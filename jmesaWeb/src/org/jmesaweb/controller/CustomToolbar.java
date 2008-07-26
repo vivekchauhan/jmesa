@@ -106,7 +106,6 @@ public class CustomToolbar extends AbstractToolbar {
             setCoreContext(coreContext);
         }
 
-        @Override
         public String render() {
             ToolbarItem item = getToolbarItem();
             StringBuilder action = new StringBuilder("javascript:");

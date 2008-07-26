@@ -33,12 +33,14 @@
         <dependency org="javax.servlet" name="jstl" rev="1.1.2" conf="compile->default;master->default" />
         <dependency org="javax.transaction" name="jta" rev="1.0.1B" conf="ide->default;compile->default;master->default" />
         <dependency org="javax.servlet" name="servlet-api" rev="2.4" conf="ide->default;compile->default" />
+        <dependency org="javax.portlet" name="portlet-api" rev="2.0" conf="ide->default;compile->default" />
         <dependency org="jexcel" name="jexcel" rev="2.6.6" conf="ide->default;compile->default" />
         <dependency org="log4j" name="log4j" rev="1.2.13" conf="ide->default;compile->default;master->default" />
         <dependency org="opensymphony" name="sitemesh" rev="2.2.1" conf="ide->default;compile->default;master->default" />
         <dependency org="org.hibernate" name="hibernate" rev="3.2.1.ga" conf="ide->default;compile->default;master->default" />
         <dependency org="org.springframework" name="spring" rev="2.0.2" conf="ide->default;compile->default;master->default" />
         <dependency org="org.springframework" name="spring-mock" rev="1.2.6" conf="ide->default;test->default;compile->default" />
+        <dependency org="org.springframework" name="spring-portlet" rev="2.0.2" conf="ide->default;compile->default;master->default" />
         <dependency org="org.slf4j" name="jcl104-over-slf4j" rev="1.4.3" conf="ide->default;compile->default;master->default" />
         <dependency org="org.slf4j" name="slf4j-api" rev="1.4.3" conf="ide->default;compile->default;master->default" />
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.4.3" conf="ide->default;compile->default;master->default" />

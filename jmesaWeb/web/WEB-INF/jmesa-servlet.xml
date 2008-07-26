@@ -35,6 +35,9 @@
 				<entry key="multi.run">
 					<ref bean="multi"/>
 				</entry>
+				<entry key="portlet.run">
+					<ref bean="portlet"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -83,6 +86,10 @@
         <property name="methodNameResolver" ref="paramResolver"/>
         <property name="presidentService" ref="presidentService"/>
 		<property name="successView" value="jsp/multi.jsp"/>
+    </bean>
+    
+    <bean id="portlet" class="org.jmesaweb.controller.PortletHelperController">
+    	<property name="presidentService" ref="presidentService" />
     </bean>
 
 </beans>
