@@ -3,4 +3,4 @@ These are the changes for the upcoming 2.3.4 build.
  * JMesa now works with JDK 1.4 using the retro jar file.
  * New PDF view (PdfPView) using iText directly.
  * Support for Weblogic using tags.
- * Direct porlet support both with and without Spring.
+ * Direct porlet support both with and without Spring provided by Benjamin Gould.
