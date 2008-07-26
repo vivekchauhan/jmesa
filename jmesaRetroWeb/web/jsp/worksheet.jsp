@@ -17,7 +17,6 @@
       <a href="<c:url value="/basic.run?restore=true"/>">Basic</a> <br/>
       <a href="<c:url value="/limit.run?restore=true"/>">Limit (with AJAX)</a> <br/>
       <a href="<c:url value="/groovy.run?restore=true"/>">Groovy</a><br/>
-      <a href="<c:url value="/tag.run?restore=true"/>">Tag</a><br/>
     </p>
 
     <form name="presidentsForm" action="<c:url value="/worksheet.run"/>">
