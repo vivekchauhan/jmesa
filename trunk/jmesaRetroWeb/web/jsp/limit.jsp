@@ -2,52 +2,51 @@
 <%@ taglib uri="/tld/c" prefix="c" %>
 <html>
 
-<head>
-	<title>JMesa Example</title>
-</head>
+  <head>
+    <title>JMesa Example</title>
+  </head>
 
-<body>
+  <body>
 
-	<p class="content">
-		JMesa using the Limit to only retrieve the current rows needed. Also using AJAX to avoid a full page refresh. 
-	</p>
-	
-	<p class="content">
-		Other examples:<br/>
-		<a href="<c:url value="/basic.run?restore=true"/>">Basic</a> <br/>
-		<a href="<c:url value="/groovy.run?restore=true"/>">Groovy</a><br/>
-		<a href="<c:url value="/tag.run?restore=true"/>">Tag</a><br/>
-		<a href="<c:url value="/worksheet.run"/>">Worksheet</a><br/>
+    <p class="content">
+      JMesa using the Limit to only retrieve the current rows needed. Also using AJAX to avoid a full page refresh.
+    </p>
 
-	</p>
-	
-	<form name="presidentsForm">
-          <div id="presidents">
-              <c:out value="${presidents}" escapeXml="false"/>
-          </div>
-	</form>
-	
-	<p class="content">
-		This example source code can be found 
-		<a href="http://code.google.com/p/jmesa/wiki/FacadeLimitExample">here</a>.
-	</p>
+    <p class="content">
+      Other examples:<br/>
+      <a href="<c:url value="/basic.run?restore=true"/>">Basic</a> <br/>
+      <a href="<c:url value="/groovy.run?restore=true"/>">Groovy</a><br/>
+      <a href="<c:url value="/worksheet.run"/>">Worksheet</a><br/>
 
-<script type="text/javascript">
-function onInvokeAction(id) {
-    setExportToLimit(id, '');
+    </p>
 
-    var parameterString = createParameterStringForLimit(id);
-    $.get('<c:url value="/limit.run?ajax=true&"/>' + parameterString, function(data) {
-        $("#presidents").html(data)
-    });
-}
+    <form name="presidentsForm">
+      <div id="presidents">
+        <c:out value="${presidents}" escapeXml="false"/>
+      </div>
+    </form>
 
-function onInvokeExportAction(id) {
-	var parameterString = createParameterStringForLimit(id);
-	location.href = '<c:url value="/limit.run?ajax=false&"/>' + parameterString;
-}
-</script>
+    <p class="content">
+      This example source code can be found
+      <a href="http://code.google.com/p/jmesa/wiki/FacadeLimitExample">here</a>.
+    </p>
 
-</body>
+    <script type="text/javascript">
+        function onInvokeAction(id) {
+            setExportToLimit(id, '');
+
+            var parameterString = createParameterStringForLimit(id);
+            $.get('<c:url value="/limit.run?ajax=true&"/>' + parameterString, function(data) {
+            $("#presidents").html(data)
+        });
+    }
+
+    function onInvokeExportAction(id) {
+        var parameterString = createParameterStringForLimit(id);
+        location.href = '<c:url value="/limit.run?ajax=false&"/>' + parameterString;
+    }
+    </script>
+
+  </body>
 
 </html>
