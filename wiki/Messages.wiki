@@ -24,6 +24,7 @@ The current Locales supported include:
  * Italian (it_IT)
  * Korean (ko_KR)
  * Norwegian (no_NO)
+ * Polish (pl_PL) _upcoming 2.3.4 release_
  * Spanish (es_ES) --trunk
  * Spanish (es_MX)
 
