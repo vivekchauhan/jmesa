@@ -5,3 +5,11 @@ You need to add the following to the top of the JSP to get it to render correctl
 {{{
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 }}}
+
+
+==== Sorting Boolean versus boolean ====
+
+By default JMesa uses the apache commons beanutils for sorting. Just recently it was brought to my attention that there is a difference between using the Boolean object versus the boolean primitive. The rules seem to be the following:
+
+ * Boolean as an object needs to have a method that starts with 'get'.
+ * boolean as a primitive needs to have a method that starts with either 'get' or 'is'.
