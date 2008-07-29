@@ -17,3 +17,19 @@ For example the column tag would look like this:
 }}}
 
 The reason that this is the best solution is because it is simple to use and understand, and allows you to use the out-of-the-box sorting. From JMesa's perspective it is also the most efficient. JMesa only processes and renders the rows and columns that are displayed, and not the entire list. If you are not able to get control of the bean because it is managed elsewhere then you could create a wrapper for it and use that. By wrapper I mean go through and wrap the existing bean with a class that includes the extra columns, and then has the other methods defined as a pass-through to the wrapped class.
+
+==== Why are my characters showing up as "?" on the screen? ====
+
+You need to add the following to the top of the JSP to get it to render correctly:
+
+{{{
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+}}}
+
+
+==== Sorting Boolean versus boolean ====
+
+By default JMesa uses the apache commons beanutils for sorting. Just recently it was brought to my attention that there is a difference between using the Boolean object versus the boolean primitive. The rules seem to be the following:
+
+ * Boolean as an object needs to have a method that starts with 'get'.
+ * boolean as a primitive needs to have a method that starts with either 'get' or 'is'.
