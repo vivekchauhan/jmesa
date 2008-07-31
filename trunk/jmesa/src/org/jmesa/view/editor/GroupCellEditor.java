@@ -26,7 +26,6 @@ import org.jmesa.view.component.Row;
 public class GroupCellEditor extends AbstractCellEditor {
 
     private static final String LAST_GROUPED_COLUMN = "LAST_GROUPED_COLUMN";
-
     private Row currentRow;
     private Object lastColumnValue;
     private CellEditor decoratedCellEditor;
@@ -79,12 +78,21 @@ public class GroupCellEditor extends AbstractCellEditor {
     }
 
     private boolean isFirstColumn(Column column) {
-        Column firstColumn = currentRow.getColumn(0);
+        Column firstColumn = null;
+
+        List<Column> columns = currentRow.getColumns();
+        for (Column col : columns) {
+            if (col.getCellRenderer().getCellEditor() instanceof GroupCellEditor) {
+                firstColumn = col;
+                break;
+            }
+        }
+
         return column.equals(firstColumn);
     }
 
     private Column getLastGroupedColumn() {
-        return (Column)getCoreContext().getAttribute(LAST_GROUPED_COLUMN);
+        return (Column) getCoreContext().getAttribute(LAST_GROUPED_COLUMN);
     }
 
     private void setLastGroupedColumn(Column column) {
