@@ -78,7 +78,16 @@ public class GroupCellEditor extends AbstractCellEditor {
     }
 
     private boolean isFirstColumn(Column column) {
-        Column firstColumn = currentRow.getColumn(0);
+        Column firstColumn = null;
+
+        List<Column> columns = currentRow.getColumns();
+        for (Column col : columns) {
+            if (col.getCellRenderer().getCellEditor() instanceof GroupCellEditor) {
+                firstColumn = col;
+                break;
+            }
+        }
+
         return column.equals(firstColumn);
     }
 
