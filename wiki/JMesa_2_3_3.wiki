@@ -6,6 +6,7 @@ Here is a list of features for the upcoming 2.3.3 release.
  * Anna-Stina Moisala added Finish (fi) Locale.
  * There is a new !StringWildCardFilterMatcher. also added by Oscar Perez. This can be plugged in in favor of the default !StringFilterMatcher. See the [FilterMatcher] if you are unsure on how that works.
  * Native Messages (Locale) support for Spring and Struts2. Again added by Oscar Perez :). _See below for more information_
+ * The Spring integration also gives you access to the Spring !ApplicationContext so you can get at the Spring beans. All you need to do is cast the !WebContext down to the !SpringWebContext in your custom code (editors, etc...) and use the getApplicationContext() method. 
  
 == Messages ==
 
