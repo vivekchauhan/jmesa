@@ -5,3 +5,7 @@ You need to add the following to the top of the JSP to get it to render correctl
 {{{
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 }}}
+
+==== Can I use AJAX with JMesa? ====
+
+Yes, for sure. All you need to do is build a table using the API and then use some AJAX technology to get the latest display. There is a pretty good writeup about it on the [Javascript] page. You can also take a look at the limit example in the examples source code as that uses AJAX. Remember you can get the examples source in the downloads section.
