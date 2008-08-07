@@ -27,6 +27,7 @@ The current Locales supported include:
  * Polish (pl_PL) _ - upcoming 2.3.4 release_
  * Spanish (es_ES)
  * Spanish (es_MX)
+ * Swedish (sv_SE) _ - upcoming 2.3.4 release_
 
 If you would like to have your native language supported out of the box in JMesa just send me a messages file to _extremecomponents@gmail.com_ and I will include that right away.
 
