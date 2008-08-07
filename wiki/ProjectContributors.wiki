@@ -76,3 +76,5 @@ The following is a list of the people who have helped make JMesa a better compon
 ==== Roman Janowczyk ==== 
  * Added the Polish (pl_PL) Locale.
 
+==== Håkan Andersson ==== 
+ * Added the Swedish (sv_SE) Locale.
