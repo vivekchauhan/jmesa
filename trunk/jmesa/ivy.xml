@@ -40,6 +40,7 @@
         <dependency org="jboss" name="jboss-retro" rev="1.1.2" conf="compile->default" />
         <dependency org="jboss" name="jboss-retro-rt" rev="1.1.2" conf="compile->default" />
         <dependency org="jboss" name="backport-concurrent" rev="2.1.0.GA" conf="compile->default" />
+        <dependency org="taglibs" name="standard" rev="1.0.2" conf="compile->default" />
     </dependencies>
 </ivy-module>
 
