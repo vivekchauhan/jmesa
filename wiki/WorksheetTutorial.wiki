@@ -144,7 +144,7 @@ presidentService.save(president);
 
 === Custom Functionality ===
 
-You can read about more custom ways to modify the worksheet in the [WorksheetRecipes recipes] page.
+You can read about more custom ways to modify the worksheet in the [WorksheetRecipes recipes] page. One common modification is to display the save button under the table and remove the save and/or filter button from the toolbar.
 
 === Known Issues ===
  * The filter dropdown feature does not work with the Worksheet in IE 6 or 7. The problem is the select element does not float over the worksheet cells.
