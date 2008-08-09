@@ -15,3 +15,5 @@ In addition to the [Examples examples] I am starting to write up tutorials so th
   * Learn how to create a custom toolbar to add your own functionality.
  * [GroupColumnsTutorial Group Columns Tutorial]
   * Learn how to use the new column grouping functionality (upcoming 2.3.3 release). In addition see a real world example of how to customize JMesa.
+ * [CustomCellRenderer Custom CellRenderer Tutorial]
+  * Learn how to create a custom cell renderer in which the data effects the column display.
