@@ -123,4 +123,4 @@ public class CategoryTooltipCellEditor extends AbstractCellEditor {
 
 ==== Notes: ====
 
-If you just want to group your columns you can use the new !GroupColumnsHtmlView. What it does is extend the !HtmlView so that it can decorate each cell editor with the new !GroupCellEditor (in the 2.3.3 release).
+If you just want to group your columns you can use the new !GroupColumnsHtmlView. What it does is extend the !HtmlView so that it can decorate each cell editor with the new !GroupCellEditor.
