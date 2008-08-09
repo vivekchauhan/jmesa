@@ -9,13 +9,13 @@ In addition to the [Examples examples] I am starting to write up tutorials so th
   * A complete walk through of how to create a table using the JSP Tag library.
  * [WorksheetTutorial Worksheet Tutorial]
   * Learn how to use the new editable table feature.
- * [AjaxTutorial AJAX Tutorial]
+ * [AjaxTutorial AJAX Tutorial] _*new*_
   * How to use AJAX technology with JMesa tables.
  * [LimitTutorial Limit Tutorial]
   * Learn how to use the Limit object to efficiently pull data from the database.
  * [CustomToolbarTutorial Custom Toolbar Tutorial]
   * Learn how to create a custom toolbar to add your own functionality.
- * [GroupColumnsTutorial Group Columns Tutorial]
+ * [GroupColumnsTutorial Group Columns Tutorial] _*new*_
   * Learn how to use the new column grouping functionality. In addition see a real world example of how to customize JMesa.
- * [CustomCellRenderer Custom CellRenderer Tutorial]
+ * [CustomCellRenderer Custom CellRenderer Tutorial] _*new*_
   * Learn how to create a custom cell renderer in which the data effects the column display.
