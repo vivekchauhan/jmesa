@@ -55,7 +55,7 @@ function onInvokeAction(id) {
 }
 }}}
 
-Now, with AJAX, what we need to do is use the XMLHttpRequest object to make a request to the server and go to our Controller. The response is the HTML markup. One thing that changed now is that we need to create a parameter string that contains the information that tell us how the user interacted with the table. If you notice this is also where I pass the ajax=true parameter that tells my Controller that I am making a AJAX request. 
+Now, with AJAX, what we need to do is use the XMLHttpRequest object to make a request to the server and go to our Controller. The response is the HTML markup. One thing that changed now is that we need to create a parameter string that contains the information that tell us how the user interacted with the table. If you notice this is also where I pass the ajax=true parameter that tells my Controller that I am making an AJAX request. 
 
 This example also uses jQuery to do the AJAX request. If you are unfamiliar with jQuery you should also notice how the '#presidents' corresponds with the div element id that we set up as a placeholder element.
 
