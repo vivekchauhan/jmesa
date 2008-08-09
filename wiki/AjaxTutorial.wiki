@@ -2,6 +2,8 @@ Using AJAX with JMesa tables works seamlessly. The reason is because creating a 
 
 _This information was originally in the [Javascript] page and I thought it deserved an example of its own._
 
+Also keep in mind that when using AJAX you have to use the API to build your table. There is no support for using AJAX when using the tag library.
+
 ==== Controller Modifications ====
 
 In the basic example what we do is get the html for the table and then put that into the request as an attribute.
