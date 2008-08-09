@@ -22,8 +22,6 @@ if (ajax != null && ajax.equals("true")) {
     response.getOutputStream().write(contents);
     return null;
 }
-
-request.setAttribute("presidents", html);
 }}}
 
 ==== JSP HTML Modifications =====
