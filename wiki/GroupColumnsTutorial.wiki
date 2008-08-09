@@ -42,7 +42,7 @@ If you take a look at the default [http://code.google.com/p/jmesa/source/browse/
 
 The customHeader() method is used to display the Category and Subcategory headers on the table. The reason for this special header is because I have the use case where I have a one to many relationship. What I did was flatten out the listing. In doing so I also wanted an easy way to show that the table really contained two tables worth of information.
 
-The setCustomCellEditors() method is used to group the columns and set the tooltip. The editors always were designed to be useful when using the decorator pattern and this shows a perfect use case. What I am doing is grabbing the original cell editor. I then see if this is either the editorialDescription or staticUrl column. If it is then I decorate the orginal cell editor with the !CategoryTooltipCellEditor. Then, lastly, because I want to group the table columns I decorate all the cell editors with the new !GroupCellEditor (in the 2.3.3 release).
+The setCustomCellEditors() method is used to group the columns and set the tooltip. The editors always were designed to be useful when using the decorator pattern and this shows a perfect use case. What I am doing is grabbing the original cell editor. I then see if this is either the editorialDescription or staticUrl column. If it is then I decorate the orginal cell editor with the !CategoryTooltipCellEditor. Then, lastly, because I want to group the table columns I decorate all the cell editors with the new !GroupCellEditor.
 
 {{{
 public class CategoryHierarchyView extends AbstractHtmlView {
@@ -123,4 +123,4 @@ public class CategoryTooltipCellEditor extends AbstractCellEditor {
 
 ==== Notes: ====
 
-If you just want to group your columns you can use the new !GroupColumnsHtmlView (in the 2.3.3 release). What it does is extend the !HtmlView so that it can decorate each cell editor with the new !GroupCellEditor (in the 2.3.3 release).
+If you just want to group your columns you can use the new !GroupColumnsHtmlView. What it does is extend the !HtmlView so that it can decorate each cell editor with the new !GroupCellEditor (in the 2.3.3 release).
