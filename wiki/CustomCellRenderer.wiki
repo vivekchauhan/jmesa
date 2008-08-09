@@ -4,6 +4,8 @@ http://jmesa.org/wiki/images/customCellRenderer.jpg
 
 We will start by creating our own custom !HtmlCellRenderer. The easiest way to do this is by extending the default !HtmlCellRendererImpl and overriding the render() method. The default implementation is very simple and is meant to be copied and tweaked to your liking.
 
+Note: in most cases you will want to just pass through to your cell editor to get the column value. However, if you need to get values from other columns you have two other choices. You could either cast the item down to the bean that it really is, or use the !ItemUtils.getItemValue() method to get at the value you want.
+
 {{{
 private static class CustomHtmlCellRenderer extends HtmlCellRendererImpl {
 
@@ -62,4 +64,3 @@ However, if you are using the tags then you just need to give the fully qualifie
 {{{
 <jmesa:htmlColumn property="career" cellRenderer="com.mycompany.view.CustomHtmlCellRenderer"/>
 }}}
-
