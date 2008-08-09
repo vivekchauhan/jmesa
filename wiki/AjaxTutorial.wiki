@@ -9,7 +9,6 @@ In the basic example what we do is get the html for the table and then put that 
 {{{
 String html = getHtml(tableFacade);
 request.setAttribute("presidents", html);
-return mv;
 }}}
 
 Now, what we will do is check if we are using AJAX. My approach is to send a parameter that lets the Controller know that AJAX is being used. Then you need to get the bytes from the rendered HTML markup and write it out to the response. _With Spring returning null tells the Spring framework that we are writing out to the response directly._
@@ -25,7 +24,6 @@ if (ajax != null && ajax.equals("true")) {
 }
 
 request.setAttribute("presidents", html);
-return mv;
 }}}
 
 ==== JSP HTML Modifications =====
