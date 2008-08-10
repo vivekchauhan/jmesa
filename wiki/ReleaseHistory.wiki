@@ -16,7 +16,7 @@
 
 *_1/27/2008_ : * The [2_3Roadmap worksheet] functionality is in alpha state (2.3 branch).
 
-*_2/9/2008_ : * The [2_3Roadmap worksheet] functionality enters the beta development (2.3 branch). All the phase one worksheet functionality is implemented. It just needs to undergo more testing. If you need this kind of functionality be sure to submit your feedback to extremecomponents@gmail.com so I can get a better sense of how everything is working for other developers.
+*_2/9/2008_ : * The [2_3Roadmap worksheet] functionality enters the beta development (2.3 branch). All the phase one worksheet functionality is implemented. It just needs to undergo more testing. If you need this kind of functionality be sure to submit your feedback to jeff.johnston.mn@gmail.com so I can get a better sense of how everything is working for other developers.
 
 *_2/24/2008_ : * The [2_3Roadmap worksheet] functionality enters the release candidate stage (2.3 branch). If you need this kind of functionality be sure to submit your feedback to extremecomponents@gmail.com so I can get a better sense of how everything is working for other developers. I also managed to pull together a real example along with a [WorksheetTutorial tutorial]. Lastly, there are some new convenience methods in the !WorksheetUtils class and the !WorksheetCallbackHandler interface to make processing the worksheet very easy.
 
