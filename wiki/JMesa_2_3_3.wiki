@@ -29,7 +29,7 @@ TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade();
 
 === Struts2 ===
 
-*Disclaimer* I was not able to test out the Struts2 integration. It was a very simple integration and works just like Spring. If you are using this I would appreciate it if you could email me (extremecomponents@gmail.com) and let me know if it is working for you.
+*Disclaimer* I was not able to test out the Struts2 integration. It was a very simple integration and works just like Spring. If you are using this I would appreciate it if you could email me (jeff.johnston.mn@gmail.com) and let me know if it is working for you.
 
  * API
 
