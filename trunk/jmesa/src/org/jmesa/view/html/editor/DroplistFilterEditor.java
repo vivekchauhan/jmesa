@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -53,22 +54,24 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
             filterValue = filter.getValue();
         }
 
-        String name = limit.getId() + "_" + property.replace(".", "_") + "_" + "options";
-
-        StringBuilder javascript = new StringBuilder();
-        javascript.append("var ").append(name).append("={};");
+        StringBuilder array = new StringBuilder();
+        array.append("{");
 
         Collection<Option> options = getOptions();
-        for (Option option : options) {
+        for (Iterator<Option> it = options.iterator(); it.hasNext();) {
+            Option option = it.next();
             String value = escapeJavaScript(option.getValue());
             String label = escapeJavaScript(option.getLabel());
-            javascript.append(name).append("['");
-            javascript.append(value).append("']='").append(label).append("';");
+            array.append("'").append(value).append("':'").append(label).append("'");
+            if (it.hasNext()) {
+                array.append(",");
+            }
         }
 
-        html.script().type("text/javascript").close().append(javascript).scriptEnd();
+        array.append("}");
+
         html.div().styleClass("dynFilter");
-        html.onclick("createDynDroplistFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + name + ")");
+        html.onclick("createDynDroplistFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + array + ")");
         html.close();
         html.append(filterValue);
         html.divEnd();
