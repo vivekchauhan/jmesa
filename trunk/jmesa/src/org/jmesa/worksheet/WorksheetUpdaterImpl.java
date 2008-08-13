@@ -15,8 +15,6 @@
  */
 package org.jmesa.worksheet;
 
-import static org.jmesa.core.message.MessagesFactory.getMessages;
-
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,8 +33,7 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
     protected static String ORIGINAL_VALUE = "ov_";
     protected static String CHANGED_VALUE = "cv_";
 
-    public void update(WebContext webContext) {
-        Messages messages = getMessages(webContext);
+    public void update(Messages messages, WebContext webContext) {
         Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow row = getWorksheetRow(worksheet, webContext);
         WorksheetColumn column = getWorksheetColumn(row, messages, webContext);

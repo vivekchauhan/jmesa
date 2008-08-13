@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet;
 
+import org.jmesa.core.message.Messages;
 import org.jmesa.web.WebContext;
 
 /**
@@ -27,5 +28,5 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public interface WorksheetUpdater {
-    void update(WebContext webContext);
+    void update(Messages messages, WebContext webContext);
 }

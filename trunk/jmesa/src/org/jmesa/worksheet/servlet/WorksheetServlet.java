@@ -15,10 +15,13 @@
  */
 package org.jmesa.worksheet.servlet;
 
+import static org.jmesa.core.message.MessagesFactory.getMessages;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jmesa.core.message.Messages;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.WorksheetUpdater;
@@ -34,8 +37,9 @@ public class WorksheetServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         WebContext webContext = new HttpServletRequestWebContext(request);
+        Messages messages = getMessages(webContext);
         WorksheetUpdater worksheetUpdater = new WorksheetUpdaterImpl();
-        worksheetUpdater.update(webContext);
+        worksheetUpdater.update(messages, webContext);
     }
 
     @Override
