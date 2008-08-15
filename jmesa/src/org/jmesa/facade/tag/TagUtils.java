@@ -64,7 +64,7 @@ class TagUtils {
         try {
             return Class.forName(className).newInstance();
         } catch (Exception e) {
-            logger.error("Could not create the columnSort [" + className + "]", e);
+            logger.error("Could not create the class [" + className + "]", e);
             throw new RuntimeException("Could not create the class [" + className + "]", e);
         }
     }
