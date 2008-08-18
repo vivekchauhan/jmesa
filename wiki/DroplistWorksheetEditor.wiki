@@ -1,4 +1,4 @@
-One of the JMesa users, Andy Van Den Heuvel, just submitted an example of how to do a dropdown list for a !WorksheetEditor. I plan on using this as a starting point to implement in the project. I will probably go with a more dynamic select list in the same vein as how the filter works. In the meantime I am going to post this code so other developers can use it.
+One of the JMesa users, Andy Van Den Heuvel, just submitted an example of how to do a droplist for a !WorksheetEditor. I plan on using this as a starting point to implement in the project. I will probably go with a more dynamic select list in the same vein as how the filter works. In the meantime I am going to post this code so other developers can use it.
 
 ==== Java !WorksheetEditor ====
 
