@@ -35,3 +35,9 @@ Then you probably want to turn off the toolbar save button. To do that create a 
 ==== Is there a way to not have the worksheet filter button available? ====
 
 The only way to disable that is to create a [http://code.google.com/p/jmesa/wiki/CustomToolbarTutorial custom toolbar] and remove that toolbar item.
+
+==== How can I create a droplist (select) worksheet editor? ====
+
+It would be great to have a default droplist editor for the worksheet. In the meantime here is an [DroplistWorksheetEditor example] that was sent to me that looks pretty good. There are a few things I would like to do to have it fit more in the vein of how the filter works but it is totally usable as-is.
+
+
