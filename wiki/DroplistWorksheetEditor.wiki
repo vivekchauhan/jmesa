@@ -28,7 +28,7 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
         Limit limit = getCoreContext().getLimit();
 
         html.select();
-        html.onchange(getUniquePropertyJavaScript(item) + "submitWsSelectColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" + getColumn().getProperty() + "', '" + value + "')");
+        html.onchange(getUniquePropertyJavaScript(item) + "submitWsDroplistColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" + getColumn().getProperty() + "', '" + value + "')");
         html.end();
 
         for (Map.Entry<String, String> option : options.entrySet()) {
@@ -48,7 +48,7 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
 ==== Javascript ====
 
 {{{
-function submitWsSelectColumn(column, id, uniqueProperties, property, originalValue) {
+function submitWsDroplistColumn(column, id, uniqueProperties, property, originalValue) {
     wsColumn = new WsColumn(column, id, uniqueProperties, property);
     var changedValue = column.options[column.selectedIndex].value;
     submitWsColumn(originalValue, changedValue);
