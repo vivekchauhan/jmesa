@@ -7,7 +7,7 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
 
     private Map<String, String> options;
 
-    public DropdownWorksheetEditor(Map<String, String> options) {
+    public DroplistWorksheetEditor(Map<String, String> options) {
         this.options = options;
     }
 
