@@ -57,8 +57,7 @@ public class ColumnSortTest extends AbstractTestCase {
 		
 		MultiColumnSort itemsSort = new MultiColumnSort();
 		
-		PresidentDao dao = new PresidentDao();
-		Collection<?> items = dao.getPresidents();
+		Collection<?> items = PresidentDao.getPresidents();
 		items = itemsSort.sortItems(items, limit);
 
 		assertNotNull(items);

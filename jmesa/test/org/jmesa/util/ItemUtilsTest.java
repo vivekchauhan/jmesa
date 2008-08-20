@@ -34,7 +34,7 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueBean() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         President president = items.iterator().next();
         Object value = ItemUtils.getItemValue(president, "term");
         assertNotNull("Cannot retrieve a bean value.", value);
@@ -49,7 +49,7 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueBeanMap() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         President bean = items.iterator().next();        
         
         Map president = getMap();
