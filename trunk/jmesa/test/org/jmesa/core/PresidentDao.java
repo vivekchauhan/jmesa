@@ -21,14 +21,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class PresidentDao {
-    public Collection<President> getPresidents() {
+
+    public static Collection<President> getPresidents() {
         List<President> presidents = new ArrayList<President>();
 
         President president = new President();
@@ -585,6 +588,28 @@ public class PresidentDao {
         presidents.add(president);
 
         return presidents;
+    }
+
+    public static Collection<Map> getPresidentsAsListOfMaps() {
+
+        List<Map> results = new ArrayList<Map>();
+
+        Collection<President> presidents = getPresidents();
+        for (President president : presidents) {
+            Map result = new HashMap();
+            result.put("id", president.getId());
+            result.put("firstName", president.getName().getFirstName());
+            result.put("lastName", president.getName().getLastName());
+            result.put("term", president.getTerm());
+            result.put("born", president.getBorn());
+            result.put("died", president.getDied());
+            result.put("education", president.getEducation());
+            result.put("career", president.getCareer());
+            result.put("politicalParty", president.getPoliticalParty());
+            results.add(result);
+        }
+
+        return results;
     }
 
     public static Date getDate(String date) {

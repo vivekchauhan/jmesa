@@ -45,7 +45,7 @@ public abstract class AbstractTestCase {
     }
     
     protected CoreContext createCoreContext(WebContext webContext) {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
         Limit limit = limitFactory.createLimit();

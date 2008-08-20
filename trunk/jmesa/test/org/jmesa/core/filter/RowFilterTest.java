@@ -59,8 +59,7 @@ public class RowFilterTest extends AbstractTestCase {
         LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
         Limit limit = limitFactory.createLimit();
 
-        PresidentDao dao = new PresidentDao();
-        Collection<?> items = dao.getPresidents();
+        Collection<?> items = PresidentDao.getPresidents();
         items = itemsFilter.filterItems(items, limit);
 
         assertTrue(items.size() == 3);

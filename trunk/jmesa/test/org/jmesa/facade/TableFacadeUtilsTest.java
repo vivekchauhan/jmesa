@@ -42,7 +42,7 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
 
     @Test
     public void filterWorksheetItems() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         Worksheet worksheet = getWorksheet();
 
         Collection<?> results = TableFacadeUtils.filterWorksheetItems(items, worksheet);

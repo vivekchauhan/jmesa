@@ -65,7 +65,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void createHtmlTableFacade() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
@@ -77,7 +77,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getWebContext() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
@@ -108,7 +108,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getCoreContext() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
@@ -125,7 +125,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void addFilterMatcher() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
@@ -149,7 +149,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimit() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("restore", "true");
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -174,7 +174,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitAndExportable() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
@@ -194,7 +194,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitAndNotExportable() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -210,7 +210,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitWithState() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -240,7 +240,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExportType(ExportType.CSV);
 
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
@@ -270,7 +270,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getTableAndNotExportable() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -287,7 +287,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExportType(ExportType.CSV);
 
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
@@ -298,7 +298,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getToolbar() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -318,7 +318,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getToolbarMaxRowsIncrements() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -332,7 +332,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getView() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -355,7 +355,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExportType(ExportType.CSV);
 
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
@@ -367,7 +367,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void render() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -381,7 +381,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void renderWithFactory() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -406,7 +406,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void renderExportsWithFactory() {
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 
@@ -451,7 +451,7 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExportType(ExportType.CSV);
 
-        Collection<President> items = new PresidentDao().getPresidents();
+        Collection<President> items = PresidentDao.getPresidents();
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
