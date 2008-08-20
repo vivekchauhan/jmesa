@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter {
-    private Logger logger = LoggerFactory.getLogger(SimpleRowFilter.class);
 
+    private Logger logger = LoggerFactory.getLogger(SimpleRowFilter.class);
     private FilterMatcherRegistry registry;
 
     public SimpleRowFilter(FilterMatcherRegistry registry) {
@@ -65,11 +65,9 @@ public class SimpleRowFilter implements RowFilter {
         }
 
         try {
-            Object item = items.iterator().next();
-
             for (Filter filter : filterSet.getFilters()) {
                 String property = filter.getProperty();
-                Class<?> type = PropertyUtils.getPropertyType(item, property);
+                Class<?> type = getFilterMatchType(items, property);
                 MatcherKey key = new MatcherKey(type, property);
                 FilterMatcher filterMatcher = registry.getFilterMatcher(key);
                 filterMatchers.put(filter, filterMatcher);
@@ -79,5 +77,26 @@ public class SimpleRowFilter implements RowFilter {
         }
 
         return filterMatchers;
+    }
+
+    private Class<?> getFilterMatchType(Collection<?> items, String property)
+            throws Exception {
+
+        Object item = items.iterator().next();
+
+        if (item instanceof Map) {
+            for (Object object : items) {
+                Map map = (Map) object;
+                Object val = map.get(property);
+
+                if (val == null) {
+                    continue;
+                }
+
+                return val.getClass();
+            }
+        }
+
+        return PropertyUtils.getPropertyType(item, property);
     }
 }
