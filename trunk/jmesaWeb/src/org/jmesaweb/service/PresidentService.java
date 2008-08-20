@@ -28,13 +28,16 @@ import org.jmesaweb.domain.President;
  * @author Jeff Johnston
  */
 public interface PresidentService {
-    public Collection<President> getPresidents();
-    
-    public int getPresidentsCountWithFilter(PresidentFilter filter);
 
-    public Collection<President> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
-    
-    public Map<String, President> getPresidentsByUniqueIds(String property, List<String> uniqueIds);
-    
-    public void save(President president);
+    Collection<President> getPresidents();
+
+    Collection<Map> getPresidentsAsMaps();
+
+    int getPresidentsCountWithFilter(PresidentFilter filter);
+
+    Collection<President> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd);
+
+    Map<String, President> getPresidentsByUniqueIds(String property, List<String> uniqueIds);
+
+    void save(President president);
 }

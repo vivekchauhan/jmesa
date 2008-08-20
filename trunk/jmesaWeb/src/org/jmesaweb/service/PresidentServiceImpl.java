@@ -15,8 +15,10 @@
  */
 package org.jmesaweb.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.jmesaweb.dao.PresidentDao;
@@ -29,10 +31,34 @@ import org.jmesaweb.domain.President;
  * @author Jeff Johnston
  */
 public class PresidentServiceImpl implements PresidentService {
+
     private PresidentDao presidentDao;
 
     public Collection<President> getPresidents() {
         return presidentDao.getPresidents();
+    }
+
+    public Collection<Map> getPresidentsAsMaps() {
+
+        List<Map> results = new ArrayList<Map>();
+
+        Collection<President> presidents = getPresidents();
+        for (President president : presidents) {
+            Map result = new HashMap();
+            result.put("id", president.getId());
+            result.put("firstName", president.getName().getFirstName());
+            result.put("lastName", president.getName().getLastName());
+            result.put("term", president.getTerm());
+            result.put("born", president.getBorn());
+            result.put("died", president.getDied());
+            result.put("education", president.getEducation());
+            result.put("career", president.getCareer());
+            result.put("politicalParty", president.getPoliticalParty());
+            result.put("selected", president.getSelected());
+            results.add(result);
+        }
+
+        return results;
     }
 
     public int getPresidentsCountWithFilter(PresidentFilter filter) {
@@ -42,11 +68,11 @@ public class PresidentServiceImpl implements PresidentService {
     public Collection<President> getPresidentsWithFilterAndSort(PresidentFilter filter, PresidentSort sort, int rowStart, int rowEnd) {
         return presidentDao.getPresidentsWithFilterAndSort(filter, sort, rowStart, rowEnd);
     }
-    
+
     public Map<String, President> getPresidentsByUniqueIds(String property, List<String> uniqueIds) {
         return presidentDao.getPresidentsByUniqueIds(property, uniqueIds);
     }
-    
+
     public void save(President president) {
         presidentDao.save(president);
     }
