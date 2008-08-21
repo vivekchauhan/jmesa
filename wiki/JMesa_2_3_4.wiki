@@ -9,3 +9,4 @@ The only thing that does not work are the tags as they use the !SimpleTagSupport
  * Direct porlet support both with and without Spring contributed by Benjamin Gould.
  * New PDF view (PdfPView) using iText directly contributed by Ismail Seyfi.
  * Better support for Weblogic when using tags.
+ * Can filter with Maps again.
