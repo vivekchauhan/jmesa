@@ -20,4 +20,4 @@ In addition to the [Examples examples] I am starting to write up tutorials so th
  * [CustomCellRenderer Custom CellRenderer Tutorial] _*new*_
   * Learn how to create a custom cell renderer in which the data effects the column display.
  * [CustomDroplistFilterEditor Custom DroplistFilterEditor Tutorial] _*new*_
-  * Learn how to create a custom droplist filter renderer.
+  * Learn how to create a custom droplist filter editor.
