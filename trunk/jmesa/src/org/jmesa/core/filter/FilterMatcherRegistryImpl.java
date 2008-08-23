@@ -84,6 +84,11 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
      */
     private FilterMatcher getFilterMatcherByType(Class<?> type) {
         for (MatcherKey key : matchers.keySet()) {
+            String prop = key.getProperty();
+            if (prop != null) { //do not use matcher that is using property match
+                continue;
+            }
+            
             Class<?> typ = key.getType();
             if (typ.equals(type)) {
                 return matchers.get(key);
@@ -106,6 +111,11 @@ public class FilterMatcherRegistryImpl implements FilterMatcherRegistry {
         FilterMatcher result = null;
 
         for (MatcherKey key : matchers.keySet()) {
+            String prop = key.getProperty();
+            if (prop != null) { //do not use matcher that is using property match
+                continue;
+            }
+            
             Class<?> typ = key.getType();
             if (typ.isAssignableFrom(type)) {
                 FilterMatcher matcher = matchers.get(key);
