@@ -1,0 +1,50 @@
+This is a tutorial submitted by Ryan Tromp. What you will learn is that there is not much to creating your own droplist filter renderer, but there are specific steps that you must go through to do it.
+
+
+The first thing you need to do is extend the current !DroplistFilterEditor in the API and add your own options.
+
+{{{
+public class AvailableDroplistFilterEditor extends DroplistFilterEditor {
+   public List<Option> getOptions()  {
+      List<Option> options = new ArrayList<Option>();
+      options.add(new Option("available","Available"));
+      options.add(new Option("unavailable", "Unavailable"));
+      return options;
+   }
+}
+}}}
+
+Then you implement a custom [FilterMatcher].
+
+{{{
+public class AvailableFilterMatcher implements FilterMatcher {
+   public boolean evaluate(Object itemValue, String filterValue) {
+
+      String item = StringUtils.lowerCase(String.valueOf(itemValue));
+      String filter = StringUtils.lowerCase(String.valueOf(filterValue));
+
+      if ((filter.equals("available") && item.equals("true")) ||
+         (filter.equals("unavailable") && item.equals("false"))) {
+            return true;
+      }
+
+      return false;
+   }
+}
+}}}
+
+Lastly, add the filter matcher to the table facade before you start setting up your columns.
+
+==== API ====
+
+{{{
+tableFacade.addFilterMatcher(new MatcherKey(String.class, "available"), new AvailableFilterMatcher());
+}}}
+
+==== Tag ====
+
+For the tag library we need to use the [FilterMatcher FilterMatcherMap] interface.
+
+{{{
+<jmesa:tableFacade filterMatcherMap="com.mycompany.AvailableFilterMatcherMap" />
+}}}
