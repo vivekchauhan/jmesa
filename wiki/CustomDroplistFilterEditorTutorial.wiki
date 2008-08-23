@@ -5,7 +5,8 @@ The first thing you need to do is extend the current !DroplistFilterEditor in th
 
 {{{
 public class AvailableDroplistFilterEditor extends DroplistFilterEditor {
-   public List<Option> getOptions()  {
+   @Override
+   protected List<Option> getOptions()  {
       List<Option> options = new ArrayList<Option>();
       options.add(new Option("available","Available"));
       options.add(new Option("unavailable", "Unavailable"));
