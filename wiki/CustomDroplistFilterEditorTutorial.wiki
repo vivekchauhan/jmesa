@@ -1,5 +1,6 @@
 This is a tutorial submitted by Ryan Tromp. What you will learn is that there is not much to creating your own droplist filter editor, but there are specific steps that you must go through to do it.
 
+=== !FilterEditor ===
 
 The first thing you need to do is extend the current !DroplistFilterEditor in the API and add your own options.
 
@@ -15,7 +16,26 @@ public class AvailableDroplistFilterEditor extends DroplistFilterEditor {
 }
 }}}
 
-Then you implement a custom [FilterMatcher].
+Now plug in your newly created editor.
+
+==== API ====
+
+{{{
+HtmlTable table = (HtmlTable) tableFacade.getTable();
+HtmlRow row = table.getRow();
+HtmlColumn available = row.getColumn("available");
+available.getFilterRenderer().setFilterEditor(new AvailableDroplistFilterEditor());
+}}}
+
+==== Tag ==== 
+
+{{{
+<jmesa:htmlColumn property="available" filterEditor="com.mycompany.view.AvailableDroplistFilterEditor" />
+}}}
+
+=== !FilterMatcher ===
+
+Implement a custom [FilterMatcher].
 
 {{{
 public class AvailableFilterMatcher implements FilterMatcher {
