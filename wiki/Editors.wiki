@@ -137,7 +137,7 @@ Keep in mind though that for this filter example you would still need to add the
 
 ==== !DroplistFilterEditor ====
 
-You can now define a droplist for the filters. The default filter implementation is to get a distinct list of the column and then use the natural sort order. If you want to pull a different list then override the !DroplistFilterEditor.
+You can also define a droplist for the filters. The default filter implementation is to get a distinct list of the column and then use the natural sort order. If you want to pull a different list then override the !DroplistFilterEditor.
 
 http://jmesa.org/wiki/images/filter-droplist.gif
 
