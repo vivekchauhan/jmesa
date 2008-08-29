@@ -18,15 +18,7 @@ Like most things the best way to understand this is to see an example. Here is t
 {{{
 public class BasicCellEditor extends AbstractCellEditor {
     public Object getValue(Object item, String property, int rowcount) {
-        Object itemValue = null;
-
-        try {
-            itemValue = PropertyUtils.getProperty(item, property);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return itemValue;
+        return ItemUtils.getItemValue(item, property);
     }
 }
 }}}
@@ -160,7 +152,5 @@ column.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
 {{{
 <jmesa:htmlColumn filterEditor="org.jmesa.view.html.editor.DroplistFilterEditor"/>;
 }}}
-
-
 
 
