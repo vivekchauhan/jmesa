@@ -16,7 +16,7 @@ The item is the current row item from the Collection of Beans or Collections of 
 Like most things the best way to understand this is to see an example. Here is the default !CellEditor named the !BasicCellEditor. It simply returns the current item property. You do not have to do anything to declare this editor as it is the default. I am just showing it as an example of what a !CellEditor looks like.
 
 {{{
-public class BasicCellEditor extends AbstractContextSupport implements CellEditor {
+public class BasicCellEditor extends AbstractCellEditor {
     public Object getValue(Object item, String property, int rowcount) {
         Object itemValue = null;
 
@@ -160,8 +160,6 @@ column.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
 {{{
 <jmesa:htmlColumn filterEditor="org.jmesa.view.html.editor.DroplistFilterEditor"/>;
 }}}
-
-
 
 
 
