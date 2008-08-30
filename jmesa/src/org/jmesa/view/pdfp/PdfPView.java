@@ -77,13 +77,14 @@ public class PdfPView implements View {
     }
 
     public Paragraph getTableCaption() throws Exception {
-        Paragraph p = new Paragraph(this.table.getCaption(), FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLDITALIC, this.captionFontColor));
+        Paragraph p = new Paragraph(getTable().getCaption(), FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD, getCaptionFontColor()));
         p.setAlignment(getCaptionAlignment());
         return p;
     }
 
     public PdfPTable render() {
-        PdfPTable pdfpTable = new PdfPTable(this.table.getRow().getColumns().size());
+        PdfPTable pdfpTable = new PdfPTable(getTable().getRow().getColumns().size());
+        pdfpTable.setSpacingBefore(3);
 
         Row row = getTable().getRow();
 
