@@ -24,10 +24,10 @@ The current Locales supported include:
  * Italian (it_IT)
  * Korean (ko_KR)
  * Norwegian (no_NO)
- * Polish (pl_PL) _ - upcoming 2.3.4 release_
+ * Polish (pl_PL)
  * Spanish (es_ES)
  * Spanish (es_MX)
- * Swedish (sv_SE) _ - upcoming 2.3.4 release_
+ * Swedish (sv_SE)
 
 If you would like to have your native language supported out of the box in JMesa just send me a messages file to _jeff.johnston.mn@gmail.com_ and I will include that right away.
 
@@ -47,6 +47,7 @@ html.toolbar.tooltip.filterWorksheet=Filter Worksheet
 html.toolbar.tooltip.excel=XLS Export
 html.toolbar.tooltip.jexcel=XLS Export
 html.toolbar.tooltip.pdf=PDF Export
+html.toolbar.tooltip.pdfp=PDF Export
 html.toolbar.tooltip.csv=CSV Export
 html.toolbar.tooltip.xml=XML Export
 
@@ -61,6 +62,7 @@ html.toolbar.text.filterWorksheet=Filter Worksheet
 html.toolbar.text.excel=XLS
 html.toolbar.text.jexcel=XLS
 html.toolbar.text.pdf=PDF
+html.toolbar.text.pdfp=PDF
 html.toolbar.text.csv=CSV
 html.toolbar.text.xml=XML
 }}}
