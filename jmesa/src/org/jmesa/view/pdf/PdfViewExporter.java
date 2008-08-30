@@ -62,18 +62,18 @@ public class PdfViewExporter extends AbstractViewExporter {
     }
 
     @Override
-    public void responseHeaders(byte[] contents, HttpServletResponse response) throws Exception {
+    public void responseHeaders(HttpServletResponse response) throws Exception {
         response.setContentType("application/pdf");
+        fileName = new String(fileName.getBytes(), "UTF-8");
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         response.setHeader("Pragma", "public");
         response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
-        response.setContentLength(contents.length);
     }
 
     public void export() throws Exception {
         byte[] contents = view.getBytes();
-        responseHeaders(contents, response);
+        responseHeaders(response);
 
         System.setProperty("xr.load.xml-reader", "org.ccil.cowan.tagsoup.Parser");
         System.setProperty("xr.util-logging.loggingEnabled", "false");

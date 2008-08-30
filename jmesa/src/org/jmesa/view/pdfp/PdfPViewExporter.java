@@ -58,15 +58,6 @@ public class PdfPViewExporter extends AbstractViewExporter {
         this.view = view;
     }
 
-    @Override
-    public void responseHeaders(byte[] contents, HttpServletResponse response) throws Exception {
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        response.setHeader("Pragma", "public");
-        response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
-    }
-
     public void export() throws Exception {
 
         com.lowagie.text.Document document = new com.lowagie.text.Document();
@@ -78,9 +69,19 @@ public class PdfPViewExporter extends AbstractViewExporter {
         document.add(((PdfPView) view).render());
         document.close();
 
-        this.responseHeaders(baos.toByteArray(), response);
+        responseHeaders(response);
         ServletOutputStream out = response.getOutputStream();
         baos.writeTo(out);
         out.flush();
+    }
+
+    @Override
+    public void responseHeaders(HttpServletResponse response) throws Exception {
+        response.setContentType("application/pdf");
+        fileName = new String(fileName.getBytes(), "UTF-8");
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+        response.setHeader("Pragma", "public");
+        response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
     }
 }

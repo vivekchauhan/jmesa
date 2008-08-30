@@ -22,6 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jeff Johnston
  */
 public abstract class AbstractViewExporter implements ViewExporter {
-    public abstract void responseHeaders(byte[] contents, HttpServletResponse response)
+    public abstract void responseHeaders(HttpServletResponse response)
             throws Exception;
 }
