@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import jxl.write.WritableWorkbook;
 
 import org.jmesa.util.ExportUtils;
+import org.jmesa.view.AbstractViewExporter;
 import org.jmesa.view.View;
-import org.jmesa.view.ViewExporter;
 
 /**
  * <p>
@@ -31,7 +31,7 @@ import org.jmesa.view.ViewExporter;
  * @since 2.2
  * @author Paul Horn
  */
-public class JExcelViewExporter implements ViewExporter {
+public class JExcelViewExporter extends AbstractViewExporter {
     private View view;
     private HttpServletResponse response;
     private String fileName;
@@ -56,17 +56,24 @@ public class JExcelViewExporter implements ViewExporter {
         this.view = view;
     }
 
-    public void export() throws Exception {
+    public void export() 
+            throws Exception {
         ((JExcelView) view).setOut(response.getOutputStream());
         WritableWorkbook workbook = (WritableWorkbook) view.render();
+        responseHeaders(response);
+        workbook.write();
+        response.getOutputStream().flush();
+        workbook.close();
+    }
+    
+    @Override
+    public void responseHeaders(HttpServletResponse response)
+            throws Exception {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-        fileName = new String(fileName.getBytes(), "ISO-8859-1");
+        fileName = new String(fileName.getBytes(), "UTF-8");
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         response.setHeader("Pragma", "public");
         response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
-        workbook.write();
-        response.getOutputStream().flush();
-        workbook.close();
     }
 }

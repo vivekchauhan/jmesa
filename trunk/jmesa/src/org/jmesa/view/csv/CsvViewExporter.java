@@ -52,20 +52,20 @@ public class CsvViewExporter extends AbstractViewExporter {
 
     public void export()
             throws Exception {
+        responseHeaders(response);
         String viewData = (String) view.render();
         byte[] contents = (viewData).getBytes();
-        responseHeaders(contents, response);
+        response.getOutputStream().write(contents);
     }
 
     @Override
-    public void responseHeaders(byte[] contents, HttpServletResponse response)
+    public void responseHeaders(HttpServletResponse response)
             throws Exception {
         response.setContentType("text/plain");
+        fileName = new String(fileName.getBytes(), "UTF-8");
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         response.setHeader("Pragma", "public");
         response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
-        response.setContentLength(contents.length);
-        response.getOutputStream().write(contents);
     }
 }
