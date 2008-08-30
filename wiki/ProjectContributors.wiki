@@ -78,3 +78,12 @@ The following is a list of the people who have helped make JMesa a better compon
 
 ==== Håkan Andersson ==== 
  * Added the Swedish (sv_SE) Locale.
+
+==== Benjamin Gould ==== 
+ * JMesa now works with JDK 1.4 using the [http://wiki.jboss.org/wiki/JBossRetro JBoss Retro] project.
+ * Direct porlet support both with and without Spring.
+
+==== Ismail Seyfi ==== 
+ * New PDF view (PdfPView) using iText directly.
+
+
