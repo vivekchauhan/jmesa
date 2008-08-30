@@ -9,3 +9,5 @@ I also backported the jmesaWeb project to the jdk1.4 standard and used the new j
  * Better support for Weblogic when using tags.
  * Can filter with Maps again.
  * Fixed bug in the !FilterMatcherRegistry that dealt with how filter matchers are retrieved from the registry.
+ * Polish (pl_PL) Locale contributed by Roman Janowczyk
+ * Swedish (sv_SE) Locale contributed by Håkan Andersson
