@@ -1,4 +1,4 @@
-These are the changes for the upcoming 2.3.4 build.
+=== Updates for the 2.3.4 release. ===
 
  * JMesa now works with JDK 1.4 using the [http://wiki.jboss.org/wiki/JBossRetro JBoss Retro] project thanks to the work contributed by Benjamin Gould.
 
