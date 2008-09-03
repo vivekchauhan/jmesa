@@ -34,7 +34,7 @@ If you want to create a custom editor then just implement the !CellEditor interf
 // Using an anonymous class to implement a custom editor.
 firstName.getCellRenderer().setCellEditor(new AbstractCellEditor() {
     public Object getValue(Object item, String property, int rowcount) {
-        Object value = new BasicCellEditor().getValue(item, property, rowcount);
+        Object value = ItemUtils.getItemValue(item, property);
         HtmlBuilder html = new HtmlBuilder();
         html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
         html.append(value);
