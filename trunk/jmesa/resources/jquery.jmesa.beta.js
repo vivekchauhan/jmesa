@@ -643,7 +643,7 @@
         hasJMesaEvent : function (name) {
             var table = this.get(0);
             var events = TableFacadeManager.getEventsFor(table.id);
-            return $.isFunction(events)[id];
+            return $.isFunction(events[name]);
         }
     };
 
