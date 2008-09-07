@@ -15,7 +15,7 @@
         return null;
     }
  
-    var core = {
+    var coreapi = {
         addTableFacade : function(id) {
             var tableFacade = new classes.TableFacade(id);
             tableFacades[tableFacade.limit.id] = tableFacade;
@@ -305,7 +305,7 @@
     
     /*********** Public Factory Methods ***********/
     
-    var factory = {
+    var factoryapi = {
         getWsColumnInstance : function(column, id, uniqueProperties, property) {
             return new classes.WsColumn(column, id, uniqueProperties, property);
         },
@@ -514,7 +514,7 @@
     
     /************* Special Effects ***********/
     
-    var effects = {
+    var effectsapi = {
         addDropShadow : function(imagesPath, theme) {
             if (!theme) {
                 theme = 'jmesa';
@@ -534,11 +534,11 @@
     
     /* Put all the methods under the $.jmesa context. */
     
-    $.extend(core, factory);
-    $.extend(core, filterapi);
-    $.extend(core, worksheetapi);
-    $.extend(core, effects);
+    $.extend(coreapi, factoryapi);
+    $.extend(coreapi, filterapi);
+    $.extend(coreapi, worksheetapi);
+    $.extend(coreapi, effectsapi);
     $.jmesa = {};
-    $.extend($.jmesa, core);
+    $.extend($.jmesa, coreapi);
 
 })(jQuery);
