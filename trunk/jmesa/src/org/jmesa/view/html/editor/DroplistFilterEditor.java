@@ -71,7 +71,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         array.append("}");
 
         html.div().styleClass("dynFilter");
-        html.onclick("createDynDroplistFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + array + ")");
+        html.onclick("jQuery.jmesa.createDroplistDynFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + array + ")");
         html.close();
         html.append(filterValue);
         html.divEnd();
