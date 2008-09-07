@@ -352,7 +352,7 @@
                 dynFilter = null;
             });
         },
-        createDynDroplistFilter : function(filter, id, property, options) {
+        createDroplistDynFilter : function(filter, id, property, options) {
             if (dynFilter) {
                 return;
             }
