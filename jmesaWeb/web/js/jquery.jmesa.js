@@ -2,10 +2,6 @@
     
     var tableFacades = new Object();
 
-    var addTableFacade = function(tableFacade) {
-        tableFacades[tableFacade.limit.id] = tableFacade;
-    }
-    
     var getFormByTableId = function(id) {
         var node = document.getElementById(id);
         var found = false;
@@ -20,9 +16,9 @@
     }
  
     var core = {
-        addTableFacadeToManager : function(id) {
+        addTableFacade : function(id) {
             var tableFacade = new classes.TableFacade(id);
-            addTableFacade(tableFacade);	
+            tableFacades[tableFacade.limit.id] = tableFacade;
         },
         getTableFacade : function(id) {
             return tableFacades[id];
