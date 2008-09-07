@@ -21,7 +21,7 @@
  
     var core = {
         addTableFacadeToManager : function(id) {
-            var tableFacade = new TableFacade(id);
+            var tableFacade = new classes.TableFacade(id);
             addTableFacade(tableFacade);	
         },
         getTableFacade : function(id) {
@@ -52,13 +52,13 @@
             this.setPageToLimit(id, '1');
     
             var limit = this.getTableFacade(id).limit;
-            var sort = new Sort(position, property, order); 
+            var sort = new classes.Sort(position, property, order); 
             limit.addSort(sort);
         },
         removeSortFromLimit : function(id, property) {
             var limit = this.getTableFacade(id).limit;
             var sortSet = limit.getSortSet();
-            jQuery.each(sortSet, function(index, sort) {
+            $.each(sortSet, function(index, sort) {
                 if (sort.property == property) {
                     sortSet.splice(index, 1);
                     return false;
@@ -73,7 +73,7 @@
         getSortFromLimit : function(id, property) {
             var limit = this.getTableFacade(id).limit;
             var sortSet = limit.getSortSet();
-            jQuery.each(sortSet, function(index, sort) {
+            $.each(sortSet, function(index, sort) {
                 if (sort.property == property) {
                     return sort;
                 }
@@ -86,13 +86,13 @@
             this.setPageToLimit(id, '1');
     
             var limit = this.getTableFacade(id).limit;
-            var filter = new Filter(property, value); 
+            var filter = new classes.Filter(property, value); 
             limit.addFilter(filter);
         },
         removeFilterFromLimit : function(id, property) {
             var limit = this.getTableFacade(id).limit;
             var filterSet = limit.getFilterSet();
-            jQuery.each(filterSet, function(index, filter) {
+            $.each(filterSet, function(index, filter) {
                 if (filter.property == property) {
                     filterSet.splice(index, 1);
                     return false;
@@ -112,7 +112,7 @@
         getFilterFromLimit : function(id, property) {
             var limit = this.getTableFacade(id).limit;
             var filterSet = limit.getFilterSet();
-            jQuery.each(filterSet, function(index, filter) {
+            $.each(filterSet, function(index, filter) {
                 if (filter.property == property) {
                     return filter;
                 }
@@ -142,173 +142,159 @@
     
     /******* Objects and Prototype Functions ********/
     
-    function TableFacade(id) {
-        this.limit = new Limit(id);
-        this.worksheet = new Worksheet();
-    }
-
-    function Worksheet() {
-        this.save = null;
-        this.filter = null;
-    }
-
-    function Limit(id) {
-        this.id = id;
-        this.page = null;
-        this.maxRows = null;
-        this.sortSet = new Array();
-        this.filterSet = new Array();
-        this.exportType = null;
-    }
-
-    function Sort(position, property, order) {
-        this.position = position;
-        this.property = property;
-        this.order = order;
-    }
-
-    function Filter(property, value) {
-        this.property = property;
-        this.value = value;
-    }
-
-    Limit.prototype.getId = function() {
-        return this.id;
-    }
-
-    Limit.prototype.setId = function(id) {
-        this.id = id;
-    }
-
-    Limit.prototype.getPage = function() {
-        return this.page;
-    }
-
-    Limit.prototype.setPage = function(page) {
-        this.page = page;
-    }
-
-    Limit.prototype.getMaxRows = function() {
-        return this.maxRows;
-    }
-
-    Limit.prototype.setMaxRows = function(maxRows) {
-        this.maxRows = maxRows;
-    }
-
-    Limit.prototype.getSortSet = function() {
-        return this.sortSet;
-    }
-
-    Limit.prototype.addSort = function(sort) {
-        this.sortSet[this.sortSet.length] = sort;
-    }
-
-    Limit.prototype.setSortSet = function(sortSet) {
-        this.sortSet = sortSet;
-    }
-
-    Limit.prototype.getFilterSet = function() {
-        return this.filterSet;
-    }
-
-    Limit.prototype.addFilter = function(filter) {
-        this.filterSet[this.filterSet.length] = filter;
-    }
-
-    Limit.prototype.setFilterSet = function(filterSet) {
-        this.filterSet = filterSet;
-    }
-
-    Limit.prototype.getExport = function() {
-        return this.exportType;
-    }
-
-    Limit.prototype.setExport = function(exportType) {
-        this.exportType = exportType;
-    }
-
-    /*other helper methods*/
-
-    TableFacade.prototype.createHiddenInputFields = function(form) {
-        var limit = this.limit;
-    
-        var exists = jQuery(form).find(':hidden[@name=' + limit.id + '_p_]').val();
-        if (exists) {
-            return false;
+    var classes = {
+        TableFacade : function (id) {
+            this.limit = new classes.Limit(id);
+            this.worksheet = new classes.Worksheet();
+        },
+        Worksheet : function () {
+            this.save = null;
+            this.filter = null;
+        },
+        Limit : function (id) {
+            this.id = id;
+            this.page = null;
+            this.maxRows = null;
+            this.sortSet = [];
+            this.filterSet = [];
+            this.exportType = null;
+        },
+        Sort : function (position, property, order) {
+            this.position = position;
+            this.property = property;
+            this.order = order;
+        },
+        Filter : function (property, value) {
+            this.property = property;
+            this.value = value;
         }
-    
-        if (this.worksheet.save) {
-            jQuery(form).append('<input type="hidden" name="' + limit.id + '_sw_" value="true"/>');
-        }
-    
-        if (this.worksheet.filter) {
-            jQuery(form).append('<input type="hidden" name="' + limit.id + '_fw_" value="true"/>');
-        }
-    
-        /* tip the API off that in the loop of working with the table */
-        jQuery(form).append('<input type="hidden" name="' + limit.id + '_tr_" value="true"/>');
-    
-        /* the current page */
-        jQuery(form).append('<input type="hidden" name="' + limit.id + '_p_" value="' + limit.page + '"/>');
-        jQuery(form).append('<input type="hidden" name="' + limit.id + '_mr_" value="' + limit.maxRows + '"/>');
-    
-        /* the sort objects */
-        var sortSet = limit.getSortSet();
-        jQuery.each(sortSet, function(index, sort) {
-            jQuery(form).append('<input type="hidden" name="' + limit.id + '_s_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
-        });
-    
-        /* the filter objects */
-        var filterSet = limit.getFilterSet();
-        jQuery.each(filterSet, function(index, filter) {
-            jQuery(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + filter.value + '"/>');
-        });
-    
-        return true;
-    }
+    };
 
-    TableFacade.prototype.createParameterString = function() {
-        var limit = this.limit;
-    
-        var url = '';
-    
-        /* the current page */
-        url += limit.id + '_p_=' + limit.page;
-    
-        /* the max rows */
-        url += '&' + limit.id + '_mr_=' + limit.maxRows;
-    
-        /* the sort objects */
-        var sortSet = limit.getSortSet();
-        jQuery.each(sortSet, function(index, sort) {
-            url += '&' + limit.id + '_s_' + sort.position + '_' + sort.property + '=' + sort.order;
-        });
-    
-        /* the filter objects */
-        var filterSet = limit.getFilterSet();
-        jQuery.each(filterSet, function(index, filter) {
-            url += '&' + limit.id + '_f_' + filter.property + '=' + encodeURIComponent(filter.value);
-        });
-    
-        /* the export */
-        if (limit.exportType) {
-            url += '&' + limit.id + '_e_=' + limit.exportType;
+    $.extend(classes.Limit.prototype, {
+        getId : function () {
+            return this.id;
+        },
+        setId : function (id) {
+            this.id = id;
+        },
+        getPage : function () {
+            return this.page;
+        },
+        setPage : function (page) {
+            this.page = page;
+        },
+        getMaxRows : function () {
+            return this.maxRows;
+        },
+        setMaxRows : function (maxRows) {
+            this.maxRows = maxRows;
+        },
+        getSortSet : function () {
+            return this.sortSet;
+        },
+        addSort : function (sort) {
+            this.sortSet[this.sortSet.length] = sort;
+        },
+        setSortSet : function (sortSet) {
+            this.sortSet = sortSet;
+        },
+        getFilterSet : function () {
+            return this.filterSet;
+        },
+        addFilter : function (filter) {
+            this.filterSet[this.filterSet.length] = filter;
+        },
+        setFilterSet : function (filterSet) {
+            this.filterSet = filterSet;
+        },
+        getExport : function () {
+            return this.exportType;
+        },
+        setExport : function (exportType) {
+            this.exportType = exportType;
         }
+    });
+
+    $.extend(classes.TableFacade.prototype, {
+        createHiddenInputFields : function(form) {
+            var limit = this.limit;
     
-        /* tip the API off that in the loop of working with the table */
-        url += '&' + limit.id + '_tr_=true';
+            var exists = $(form).find(':hidden[@name=' + limit.id + '_p_]').val();
+            if (exists) {
+                return false;
+            }
     
-        if (this.worksheet.save) {
-            url += '&' + limit.id + '_sw_=true';
+            if (this.worksheet.save) {
+                $(form).append('<input type="hidden" name="' + limit.id + '_sw_" value="true"/>');
+            }
+    
+            if (this.worksheet.filter) {
+                $(form).append('<input type="hidden" name="' + limit.id + '_fw_" value="true"/>');
+            }
+    
+            /* tip the API off that in the loop of working with the table */
+            $(form).append('<input type="hidden" name="' + limit.id + '_tr_" value="true"/>');
+    
+            /* the current page */
+            $(form).append('<input type="hidden" name="' + limit.id + '_p_" value="' + limit.page + '"/>');
+            $(form).append('<input type="hidden" name="' + limit.id + '_mr_" value="' + limit.maxRows + '"/>');
+    
+            /* the sort objects */
+            var sortSet = limit.getSortSet();
+            $.each(sortSet, function(index, sort) {
+                $(form).append('<input type="hidden" name="' + limit.id + '_s_'  + sort.position + '_' + sort.property + '" value="' + sort.order + '"/>');
+            });
+    
+            /* the filter objects */
+            var filterSet = limit.getFilterSet();
+            $.each(filterSet, function(index, filter) {
+                $(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + filter.value + '"/>');
+            });
+    
+            return true;
+        },
+        createParameterString : function() {
+            var limit = this.limit;
+    
+            var url = '';
+    
+            /* the current page */
+            url += limit.id + '_p_=' + limit.page;
+    
+            /* the max rows */
+            url += '&' + limit.id + '_mr_=' + limit.maxRows;
+    
+            /* the sort objects */
+            var sortSet = limit.getSortSet();
+            $.each(sortSet, function(index, sort) {
+                url += '&' + limit.id + '_s_' + sort.position + '_' + sort.property + '=' + sort.order;
+            });
+    
+            /* the filter objects */
+            var filterSet = limit.getFilterSet();
+            $.each(filterSet, function(index, filter) {
+                url += '&' + limit.id + '_f_' + filter.property + '=' + encodeURIComponent(filter.value);
+            });
+    
+            /* the export */
+            if (limit.exportType) {
+                url += '&' + limit.id + '_e_=' + limit.exportType;
+            }
+    
+            /* tip the API off that in the loop of working with the table */
+            url += '&' + limit.id + '_tr_=true';
+    
+            if (this.worksheet.save) {
+                url += '&' + limit.id + '_sw_=true';
+            }
+    
+            if (this.worksheet.filter) {
+                url += '&' + limit.id + '_fw_=true';
+            }
+    
+            return url;
         }
-    
-        if (this.worksheet.filter) {
-            url += '&' + limit.id + '_fw_=true';
-        }
-    
-        return url;
-    }
+    });
     
     /* Special Effects */
 
@@ -328,16 +314,16 @@
     
             dynFilter = new DynFilter(filter, id, property);
     
-            var cell = jQuery(filter);
+            var cell = $(filter);
             var width = cell.width() + 1;
             var originalValue = cell.text();
     
             cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="' + originalValue + '" /></div>');
     
-            var input = jQuery('#dynFilterInput');
+            var input = $('#dynFilterInput');
             input.focus();
     
-            jQuery(input).keypress(function(event) {
+            $(input).keypress(function(event) {
                 if (event.keyCode == 13) { // press the enter key 
                     var changedValue = input.val();
                     cell.html(changedValue);
@@ -347,7 +333,7 @@
                 }
             });
     
-            jQuery(input).blur(function() {
+            $(input).blur(function() {
                 var changedValue = input.val();
                 cell.html(changedValue);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
@@ -361,12 +347,12 @@
 
             dynFilter = new DynFilter(filter, id, property);
     
-            if (jQuery('#dynFilterDroplistDiv').size() > 0) {
+            if ($('#dynFilterDroplistDiv').size() > 0) {
                 return; // filter already created
             }
     
             /* The cell that represents the filter. */
-            var cell = jQuery(filter);
+            var cell = $(filter);
     
             /* Get the original filter value and width. */
             var originalValue = cell.text();
@@ -374,7 +360,7 @@
     
             /* Need to first get the size of the arrary. */
             var size = 1;
-            jQuery.each(options, function() {
+            $.each(options, function() {
                 size++;
                 if (size > 10) {
                     size = 10;
@@ -387,7 +373,7 @@
     
             var html = '<select id="dynFilterDroplist" name="filter" size="' + size + '">';
             html += '<option value=""> </option>';
-            jQuery.each(options, function(key, value) {
+            $.each(options, function(key, value) {
                 if (key == originalValue) {
                     html += '<option selected="selected" value="' + key + '">' + value + '</option>';
                 } else {
@@ -397,10 +383,10 @@
     
             html += '</select>';
 
-            var div = jQuery('#dynFilterDroplistDiv');
+            var div = $('#dynFilterDroplistDiv');
             div.html(html);
 
-            var input = jQuery('#dynFilterDroplist');
+            var input = $('#dynFilterDroplist');
 
             /* Resize the column if it is not at least as wide as the column. */    
             var selectWidth = input.width();
@@ -415,18 +401,18 @@
 
             /* Something was selected or the clicked off the droplist. */
 
-            jQuery(input).change(function() {
-                var changedValue = jQuery("#dynFilterDroplistDiv option:selected").val();
+            $(input).change(function() {
+                var changedValue = $("#dynFilterDroplistDiv option:selected").val();
                 cell.text(changedValue);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                 onInvokeAction(dynFilter.id);
                 dynFilter = null;
             });
 
-            jQuery(input).blur(function() {
-                var changedValue = jQuery("#dynFilterDroplistDiv option:selected").val();
+            $(input).blur(function() {
+                var changedValue = $("#dynFilterDroplistDiv option:selected").val();
                 cell.text(changedValue);
-                jQuery('#dynFilterDroplistDiv').remove();
+                $('#dynFilterDroplistDiv').remove();
                 cell.css({backgroundColor:originalBackgroundColor});
                 dynFilter = null;
             });
@@ -435,16 +421,16 @@
             if (!theme) {
                 theme = 'jmesa';
             }
-            jQuery('div.' + theme + ' .table')
+            $('div.' + theme + ' .table')
             .wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>")
             .css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
     
-            jQuery('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
-            jQuery('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
-            jQuery('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
-            jQuery('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
+            $('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
+            $('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
+            $('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
+            $('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
     
-            jQuery('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
+            $('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
         }
     }
     
@@ -467,7 +453,7 @@
 
             wsColumn = new WsColumn(column, id, uniqueProperties, property);
     
-            var cell = jQuery(column);
+            var cell = $(column);
             var width = cell.width();
             var originalValue = cell.text();
     
@@ -475,10 +461,10 @@
     
             cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 1) + 'px" value="' + originalValue + '"/></div>');
     
-            var input = jQuery('#wsColumnInput'); 
+            var input = $('#wsColumnInput'); 
             input.focus();
     
-            jQuery('#wsColumnInput').keypress(function(event) {
+            $('#wsColumnInput').keypress(function(event) {
                 if (event.keyCode == 13) { // press the enter key 
                     var changedValue = input.val();
                     cell.html(changedValue);
@@ -489,7 +475,7 @@
                 }
             });
     
-            jQuery('#wsColumnInput').blur(function() {
+            $('#wsColumnInput').blur(function() {
                 var changedValue = input.val();
                 cell.html(changedValue);
                 if (changedValue != originalValue) {
@@ -523,7 +509,7 @@
             data += ', "cp_" : "' + wsColumn.property + '"';
     
             var props = wsColumn.uniqueProperties;
-            jQuery.each(props, function(key, value) {
+            $.each(props, function(key, value) {
                 data += ', "up_' + key + '" : "' + value + '"';
             });
     
@@ -532,7 +518,7 @@
     
             data += '}'
     
-            jQuery.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {});    
+            $.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {});    
         }    
     }
     
