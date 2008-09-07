@@ -52,7 +52,7 @@ public class MaxRowsItemRenderer extends AbstractItemRenderer {
         int maxRows = limit.getRowSelect().getMaxRows();
         item.setMaxRows(maxRows);
 
-        StringBuilder action = new StringBuilder("setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);"
+        StringBuilder action = new StringBuilder("jQuery.jmesa.setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);"
                 + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 

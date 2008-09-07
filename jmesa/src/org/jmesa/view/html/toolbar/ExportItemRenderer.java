@@ -34,7 +34,7 @@ public class ExportItemRenderer extends AbstractItemRenderer {
     public String render() {
         Limit limit = getCoreContext().getLimit();
         ToolbarItem item = getToolbarItem();
-        StringBuilder action = new StringBuilder("javascript:setExportToLimit('" + limit.getId() + "','" + export.getExportType().toParam() + "');"
+        StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.setExportToLimit('" + limit.getId() + "','" + export.getExportType().toParam() + "');"
                 + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
         return item.enabled();
