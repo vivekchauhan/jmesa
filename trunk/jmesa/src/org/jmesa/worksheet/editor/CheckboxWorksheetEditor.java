@@ -84,7 +84,7 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
             html.checked();
         }
 
-        html.onclick(getUniquePropertyJavaScript(item) + "submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
+        html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
             + getColumn().getProperty() + "')");
         html.end();
         

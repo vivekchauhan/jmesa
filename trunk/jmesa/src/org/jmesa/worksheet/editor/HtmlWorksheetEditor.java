@@ -64,7 +64,7 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
             html.styleClass("wsColumn");
         }
         
-        html.onclick(getUniquePropertyJavaScript(item) + "createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
+        html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
             + getColumn().getProperty() + "')");
         html.close();
         html.append(value);

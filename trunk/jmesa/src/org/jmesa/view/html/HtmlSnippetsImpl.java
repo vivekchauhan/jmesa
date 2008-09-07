@@ -258,27 +258,27 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
             html.append("$(document).ready(function(){").newline();
         }
 
-        html.tab().append("addTableFacadeToManager('" + limit.getId() + "')").semicolon().newline();
+        html.tab().append("jQuery.jmesa.addTableFacade('" + limit.getId() + "')").semicolon().newline();
 
-        html.tab().append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
+        html.tab().append("jQuery.jmesa.setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
 
         for (Sort sort : limit.getSortSet().getSorts()) {
             html.tab().append(
-                    "addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
+                    "jQuery.jmesa.addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
                             + "')").semicolon().newline();
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {
             String value = escapeJavaScript(filter.getValue());
-            html.tab().append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
+            html.tab().append("jQuery.jmesa.addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
         }
 
         Worksheet worksheet = coreContext.getWorksheet();
         if (worksheet != null && worksheet.isFiltering()) {
-            html.tab().append("setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
+            html.tab().append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
         }
         
-        html.tab().append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
+        html.tab().append("jQuery.jmesa.setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
 
         if (useDocumentReady) {
             html.append("});").newline();

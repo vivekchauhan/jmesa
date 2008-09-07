@@ -31,7 +31,7 @@ public class ClearItemRenderer extends AbstractItemRenderer {
     public String render() {
         Limit limit = getCoreContext().getLimit();
         ToolbarItem item = getToolbarItem();
-        StringBuilder action = new StringBuilder("javascript:removeAllFiltersFromLimit('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
+        StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.removeAllFiltersFromLimit('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
         return item.enabled();
     }

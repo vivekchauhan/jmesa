@@ -47,7 +47,7 @@ public class HtmlFilterEditor extends AbstractFilterEditor {
         }
 
         html.div().styleClass("dynFilter");
-        html.onclick("createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
+        html.onclick("jQuery.jmesa.createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
         html.close();
         html.append(filterValue);
         html.divEnd();
