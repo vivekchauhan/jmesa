@@ -465,7 +465,7 @@
                     var changedValue = input.val();
                     cell.html(changedValue);
                     if (changedValue != originalValue) {
-                        submitWsColumn(originalValue, changedValue);
+                        $.jmesa.submitWsColumn(originalValue, changedValue);
                     }
                     wsColumn = null;
                 }
@@ -475,7 +475,7 @@
                 var changedValue = input.val();
                 cell.html(changedValue);
                 if (changedValue != originalValue) {
-                    submitWsColumn(originalValue, changedValue);
+                    $.jmesa.submitWsColumn(originalValue, changedValue);
                 }
                 wsColumn = null;
             });
@@ -495,7 +495,7 @@
                 originalValue = 'checked';
             }
     
-            submitWsColumn(originalValue, changedValue);
+            $.jmesa.submitWsColumn(originalValue, changedValue);
     
             wsColumn = null;
         },
