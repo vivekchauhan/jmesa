@@ -9,8 +9,8 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jmesa.css"></link>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.2.2.pack.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.bgiframe.pack.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.jmesa.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jmesa.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.jmesa.beta.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jmesa.beta.js"></script>
 		<title>JMesa</title>
 		<decorator:head/>
 	</head>
