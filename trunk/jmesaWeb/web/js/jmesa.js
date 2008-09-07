@@ -2,7 +2,7 @@
 /* convenience methods so do not have to manually work with the api */
 
 function addTableFacadeToManager(id) {
-    $.jmesa.addTableFacadeToManager(id);
+    $.jmesa.addTableFacade(id);
 }
 
 function setSaveToWorksheet(id) {
