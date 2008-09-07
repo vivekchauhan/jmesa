@@ -136,7 +136,7 @@
         }
     };
     
-    /******* Objects and Prototype Functions ********/
+    /*********** Objects and Prototype Functions ***********/
     
     var classes = {
         TableFacade : function (id) {
@@ -163,6 +163,17 @@
         Filter : function (property, value) {
             this.property = property;
             this.value = value;
+        },
+        DynFilter : function (filter, id, property) {
+            this.filter = filter;
+            this.id = id;
+            this.property = property;
+        },
+        WsColumn : function (column, id, uniqueProperties, property) {
+            this.column = column;
+            this.id = id;
+            this.uniqueProperties = uniqueProperties;
+            this.property = property;
         }
     };
 
@@ -292,23 +303,28 @@
         }
     });
     
-    /* Special Effects */
+    /*********** Public Factory Methods ***********/
+    
+    var factory = {
+        getWsColumnInstance : function(column, id, uniqueProperties, property) {
+            return new classes.WsColumn(column, id, uniqueProperties, property);
+        },
+        getDynFilterInstance : function(filter, id, property) {
+            return new classes.DynFilter(filter, id, property);
+        }
+    }
+    
+    /************* Filter ***********/
 
     var dynFilter;
 
-    function DynFilter(filter, id, property) {
-        this.filter = filter;
-        this.id = id;
-        this.property = property;
-    }
-
-    var effects = {
+    var filterapi = {
         createDynFilter : function(filter, id, property) {
             if (dynFilter) {
                 return;
             }
     
-            dynFilter = new DynFilter(filter, id, property);
+            dynFilter = $.jmesa.getDynFilterInstance(filter, id, property);
     
             var cell = $(filter);
             var width = cell.width() + 1;
@@ -341,7 +357,7 @@
                 return;
             }
 
-            dynFilter = new DynFilter(filter, id, property);
+            dynFilter = $.jmesa.getDynFilterInstance(filter, id, property);
     
             if ($('#dynFilterDroplistDiv').size() > 0) {
                 return; // filter already created
@@ -412,42 +428,20 @@
                 cell.css({backgroundColor:originalBackgroundColor});
                 dynFilter = null;
             });
-        },
-        addDropShadow : function(imagesPath, theme) {
-            if (!theme) {
-                theme = 'jmesa';
-            }
-            $('div.' + theme + ' .table')
-            .wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>")
-            .css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
-    
-            $('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
-            $('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
-            $('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
-            $('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
-    
-            $('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
         }
     }
     
-    /* Worksheet */
+    /*********** Worksheet ***********/
 
     var wsColumn;
 
-    function WsColumn(column, id, uniqueProperties, property) {
-        this.column = column;
-        this.id = id;
-        this.uniqueProperties = uniqueProperties;
-        this.property = property;
-    }
-    
-    var ws = {
+    var worksheetapi = {
         createWsColumn : function(column, id, uniqueProperties, property) {
             if (wsColumn) {
                 return;
             }
 
-            wsColumn = new WsColumn(column, id, uniqueProperties, property);
+            wsColumn = $.jmesa.getWsColumnInstance(column, id, uniqueProperties, property);
     
             var cell = $(column);
             var width = cell.width();
@@ -481,7 +475,7 @@
             });
         },
         submitWsCheckboxColumn : function(column, id, uniqueProperties, property) {
-            wsColumn = new WsColumn(column, id, uniqueProperties, property);
+            wsColumn = $.jmesa.getWsColumnInstance(column, id, uniqueProperties, property);
     
             var checked = column.checked;
     
@@ -518,10 +512,32 @@
         }    
     }
     
+    /************* Special Effects ***********/
+    
+    var effects = {
+        addDropShadow : function(imagesPath, theme) {
+            if (!theme) {
+                theme = 'jmesa';
+            }
+            $('div.' + theme + ' .table')
+            .wrap("<div class='wrap0'><div class='wrap1'><div class='wrap2'><div class='dropShadow'></div></div></div></div>")
+            .css({'background': 'url(' + imagesPath + 'shadow_back.gif) 100% repeat'});
+    
+            $('.' + theme + ' div.wrap0').css({'background': 'url(' + imagesPath + 'shadow.gif) right bottom no-repeat', 'float':'left'});
+            $('.' + theme + ' div.wrap1').css({'background': 'url(' + imagesPath + 'shadow180.gif) no-repeat'});
+            $('.' + theme + ' div.wrap2').css({'background': 'url(' + imagesPath + 'corner_bl.gif) -18px 100% no-repeat'});
+            $('.' + theme + ' div.dropShadow').css({'background': 'url(' + imagesPath + 'corner_tr.gif) 100% -18px no-repeat'});
+    
+            $('div.' + theme).append('<div style="clear:both">&nbsp;</div>');
+        }
+    }
+    
     /* Put all the methods under the $.jmesa context. */
     
+    $.extend(core, factory);
+    $.extend(core, filterapi);
+    $.extend(core, worksheetapi);
     $.extend(core, effects);
-    $.extend(core, ws);
     $.jmesa = {};
     $.extend($.jmesa, core);
 
