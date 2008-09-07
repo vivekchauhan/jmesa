@@ -1,5 +1,5 @@
 
-/* convenience methods so do not have to manually work with the api */
+/*********** Convenience API Methods ***********/
 
 function addTableFacadeToManager(id) {
     $.jmesa.addTableFacade(id);
@@ -73,7 +73,7 @@ function createParameterStringForLimit(id) {
     return $.jmesa.createParameterStringForLimit(id);
 }
 
-/* Special Effects */
+/*********** Special Effects ***********/
 
 function createDynFilter(filter, id, property) {
     $.jmesa.createDynFilter(filter, id, property);
@@ -87,7 +87,7 @@ function addDropShadow(imagesPath, theme) {
     $.jmesa.addDropShadow(imagesPath, theme);
 }
 
-/* Worksheet */
+/*********** Worksheet ***********/
 
 function createWsColumn(column, id, uniqueProperties, property) {
     $.jmesa.createWsColumn(column, id, uniqueProperties, property);
