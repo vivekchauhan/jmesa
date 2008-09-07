@@ -73,18 +73,14 @@ function createParameterStringForLimit(id) {
     return $.jmesa.createParameterStringForLimit(id);
 }
 
-/*********** Special Effects ***********/
+/*********** Filter ***********/
 
 function createDynFilter(filter, id, property) {
     $.jmesa.createDynFilter(filter, id, property);
 }
 
 function createDynDroplistFilter(filter, id, property, options) {
-    $.jmesa.createDynDroplistFilter(filter, id, property, options);
-}
-
-function addDropShadow(imagesPath, theme) {
-    $.jmesa.addDropShadow(imagesPath, theme);
+    $.jmesa.createDroplistDynFilter(filter, id, property, options);
 }
 
 /*********** Worksheet ***********/
@@ -99,4 +95,10 @@ function submitWsCheckboxColumn(column, id, uniqueProperties, property) {
 
 function submitWsColumn(originalValue, changedValue) {
     $.jmesa.submitWsColumn(originalValue, changedValue);   
+}
+
+/*********** Special Effects ***********/
+
+function addDropShadow(imagesPath, theme) {
+    $.jmesa.addDropShadow(imagesPath, theme);
 }
