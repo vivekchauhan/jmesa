@@ -16,9 +16,10 @@
                 return node;
             }
         }
+        return null;
     }
  
-    $.jmesa = {
+    var core = {
         addTableFacadeToManager : function(id) {
             var tableFacade = new TableFacade(id);
             addTableFacade(tableFacade);	
@@ -147,17 +148,17 @@
     }
 
     function Worksheet() {
-        this.save;
-        this.filter;
+        this.save = null;
+        this.filter = null;
     }
 
     function Limit(id) {
         this.id = id;
-        this.page;
-        this.maxRows;
+        this.page = null;
+        this.maxRows = null;
         this.sortSet = new Array();
         this.filterSet = new Array();
-        this.exportType;
+        this.exportType = null;
     }
 
     function Sort(position, property, order) {
@@ -447,8 +448,6 @@
         }
     }
     
-    $.extend($.jmesa, effects);
-
     /* Worksheet */
 
     var wsColumn;
@@ -537,6 +536,11 @@
         }    
     }
     
-    $.extend($.jmesa, ws);
+    /* Put all the methods under the $.jmesa context. */
+    
+    $.extend(core, effects);
+    $.extend(core, ws);
+    $.jmesa = {};
+    $.extend($.jmesa, core);
 
 })(jQuery);
