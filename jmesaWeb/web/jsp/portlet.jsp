@@ -6,35 +6,35 @@
 <link rel="stylesheet" href="<c:url value="/css/jmesa.css" />" type="text/css">
 
 <form action="${action}" method="post">
-	<input type="hidden" name="jmesaId" value="<c:out value='${table.id}' />">
-	<div><c:out value="${table.markup}" escapeXml="false" /></div>
+    <input type="hidden" name="jmesaId" value="<c:out value='${table.id}' />">
+    <div><c:out value="${table.markup}" escapeXml="false" /></div>
 </form>
 
 <script type="text/javascript">
 
-	var url = '<c:url value="/portlet.run" />?id=${table.id}&';
+    var url = '<c:url value="/portlet.run" />?id=${table.id}&';
 
 <c:if test="${useAjax}">
-	function onInvokeAction(id) {
-		setExportToLimit(id, '');
-		var parameterString = createParameterStringForLimit(id);
-		$.get(url + parameterString, function(data) {
-			$('#${table.id}').parents("div:first").html(data);
-		});
-	}
-</c:if>
-
-<c:if test="${!useAjax}">
-	function onInvokeAction(id, action) {
-		setExportToLimit(id, '');
-		createHiddenInputFieldsForLimitAndSubmit(id);
+    function onInvokeAction(id) {
+        $.jmesa.setExportToLimit(id, '');
+        var parameterString = $.jmesa.createParameterStringForLimit(id);
+        $.get(url + parameterString, function(data) {
+            $('#${table.id}').parents("div:first").html(data);
+        });
     }
 </c:if>
 
-	function onInvokeExportAction(id) {
-		var parameterString = createParameterStringForLimit(id);
-		console.log(TableFacadeManager.getTableFacade(id).limit);
-		location.href = url + parameterString;
-	}
+<c:if test="${!useAjax}">
+    function onInvokeAction(id, action) {
+        $.jmesa.setExportToLimit(id, '');
+        $.jmesa.createHiddenInputFieldsForLimitAndSubmit(id);
+    }
+</c:if>
+
+    function onInvokeExportAction(id) {
+        var parameterString = $.jmesa.createParameterStringForLimit(id);
+        console.log($.jmesa.getTableFacade(id).limit);
+        location.href = url + parameterString;
+    }
 
 </script>
