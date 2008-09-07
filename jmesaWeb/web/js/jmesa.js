@@ -70,7 +70,7 @@ function createHiddenInputFieldsForLimitAndSubmit(id) {
 }
 
 function createParameterStringForLimit(id) {
-    $.jmesa.createParameterStringForLimit(id);
+    return $.jmesa.createParameterStringForLimit(id);
 }
 
 /* Special Effects */
