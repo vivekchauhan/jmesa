@@ -7,7 +7,7 @@ tableFacade.setMaxRows(items.size());
 }}}
 
 
-Then we need to implement a custom view. If you compare this view to the !HtmlView in the API you can see that I just removed two lines of code. One to remove the toolbar and one for the status bar.
+Then we need to implement a custom view. If you compare this view to the [http://code.google.com/p/jmesa/source/browse/trunk/jmesa/src/org/jmesa/view/html/HtmlView.java HtmlView] in the API you can see that I just removed two lines of code. One to remove the toolbar and one for the status bar.
 
 {{{
 public class CustomView  extends AbstractHtmlView {
