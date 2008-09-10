@@ -303,17 +303,6 @@
         }
     });
     
-    /*********** Public Factory Methods ***********/
-    
-    var factoryapi = {
-        getWsColumnInstance : function(column, id, uniqueProperties, property) {
-            return new classes.WsColumn(column, id, uniqueProperties, property);
-        },
-        getDynFilterInstance : function(filter, id, property) {
-            return new classes.DynFilter(filter, id, property);
-        }
-    }
-    
     /************* Filter ***********/
 
     var dynFilter;
@@ -324,7 +313,7 @@
                 return;
             }
     
-            dynFilter = $.jmesa.getDynFilterInstance(filter, id, property);
+            dynFilter = new classes.DynFilter(filter, id, property);
     
             var cell = $(filter);
             var width = cell.width() + 1;
@@ -357,7 +346,7 @@
                 return;
             }
 
-            dynFilter = $.jmesa.getDynFilterInstance(filter, id, property);
+            dynFilter = new classes.DynFilter(filter, id, property);
     
             if ($('#dynFilterDroplistDiv').size() > 0) {
                 return; // filter already created
@@ -441,7 +430,7 @@
                 return;
             }
 
-            wsColumn = $.jmesa.getWsColumnInstance(column, id, uniqueProperties, property);
+            wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
     
             var cell = $(column);
             var width = cell.width();
@@ -475,7 +464,7 @@
             });
         },
         submitWsCheckboxColumn : function(column, id, uniqueProperties, property) {
-            wsColumn = $.jmesa.getWsColumnInstance(column, id, uniqueProperties, property);
+            wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
     
             var checked = column.checked;
     
@@ -534,7 +523,6 @@
     
     /* Put all the methods under the $.jmesa context. */
     
-    $.extend(coreapi, factoryapi);
     $.extend(coreapi, filterapi);
     $.extend(coreapi, worksheetapi);
     $.extend(coreapi, effectsapi);
