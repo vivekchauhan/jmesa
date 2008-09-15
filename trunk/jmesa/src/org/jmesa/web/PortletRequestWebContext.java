@@ -65,8 +65,8 @@ public class PortletRequestWebContext implements WebContext {
         return this.getPortletContext().getAttribute(name);
     }
 
-    public Object getApplicationInitParameter(String name) {
-        return this.getPortletContext().getAttribute(name);
+    public String getApplicationInitParameter(String name) {
+        return this.getPortletContext().getInitParameter(name);
     }
 
     public void removeApplicationAttribute(String name) {
