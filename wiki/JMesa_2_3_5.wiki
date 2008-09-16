@@ -1,0 +1,3 @@
+These are the changes for the upcoming 2.3.5 release.
+
+ * German Locale (de) submitted by Stefan Barucha
