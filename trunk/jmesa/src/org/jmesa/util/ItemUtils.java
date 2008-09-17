@@ -15,6 +15,7 @@
  */
 package org.jmesa.util;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -72,4 +73,26 @@ public class ItemUtils {
 
         return itemValue;
     }
+    
+    public static Class<?> getPropertyClassType(Collection<?> items, String property)
+            throws Exception {
+
+        Object item = items.iterator().next();
+
+        if (item instanceof Map) {
+            for (Object object : items) {
+                Map map = (Map) object;
+                Object val = map.get(property);
+
+                if (val == null) {
+                    continue;
+                }
+
+                return val.getClass();
+            }
+        }
+
+        return PropertyUtils.getPropertyType(item, property);
+    }
+    
 }
