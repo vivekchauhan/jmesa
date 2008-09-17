@@ -20,11 +20,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
+import static org.jmesa.util.ItemUtils.getPropertyClassType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +67,7 @@ public class SimpleRowFilter implements RowFilter {
         try {
             for (Filter filter : filterSet.getFilters()) {
                 String property = filter.getProperty();
-                Class<?> type = getFilterMatchType(items, property);
+                Class<?> type = getPropertyClassType(items, property);
                 MatcherKey key = new MatcherKey(type, property);
                 FilterMatcher filterMatcher = registry.getFilterMatcher(key);
                 filterMatchers.put(filter, filterMatcher);
@@ -77,26 +77,5 @@ public class SimpleRowFilter implements RowFilter {
         }
 
         return filterMatchers;
-    }
-
-    private Class<?> getFilterMatchType(Collection<?> items, String property)
-            throws Exception {
-
-        Object item = items.iterator().next();
-
-        if (item instanceof Map) {
-            for (Object object : items) {
-                Map map = (Map) object;
-                Object val = map.get(property);
-
-                if (val == null) {
-                    continue;
-                }
-
-                return val.getClass();
-            }
-        }
-
-        return PropertyUtils.getPropertyType(item, property);
     }
 }
