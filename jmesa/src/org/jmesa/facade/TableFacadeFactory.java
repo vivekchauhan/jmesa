@@ -28,6 +28,7 @@ import org.jmesa.web.PortletRequestSpringWebContext;
 import org.jmesa.web.PortletRequestWebContext;
 import org.jmesa.web.SpringWebContext;
 import org.jmesa.web.WebContext;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * A factory to create TableFacade implementations.
@@ -63,6 +64,9 @@ public class TableFacadeFactory {
     }
 
     public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext) {
+        
+        springWebContext.setLocale(LocaleContextHolder.getLocale());
+        
         TableFacade tableFacade = createTableFacade(id, springWebContext);
         Messages messages = MessagesFactory.getMessages(springWebContext);
         SpringMessages springMessages = new SpringMessages(messages, springWebContext);
