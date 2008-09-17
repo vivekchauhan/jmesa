@@ -30,12 +30,12 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class ItemUtils {
-    private static final Logger logger = LoggerFactory.getLogger(ItemUtils.class);
 
+    private static final Logger logger = LoggerFactory.getLogger(ItemUtils.class);
     public static final String JMESA_ITEM = "jmesa-item";
 
     private ItemUtils() {
-    // hide constructor
+        // hide constructor
     }
 
     /**
@@ -73,9 +73,16 @@ public class ItemUtils {
 
         return itemValue;
     }
-    
+
+    /**
+     * Get the Class for the property.
+     * 
+     * @param items The Collection of Beans or Maps.
+     * @param property The Bean attribute or Map key.
+     * @return The Class for the property.
+     */
     public static Class<?> getPropertyClassType(Collection<?> items, String property)
-            throws Exception {
+        throws Exception {
 
         Object item = items.iterator().next();
 
@@ -94,5 +101,4 @@ public class ItemUtils {
 
         return PropertyUtils.getPropertyType(item, property);
     }
-    
 }
