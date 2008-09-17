@@ -127,7 +127,9 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public void setLocale(Locale locale) {
-        this.locale = locale;
+        if (this.locale == null) {
+            this.locale = locale;
+        }
     }
 
     public String getContextPath() {
