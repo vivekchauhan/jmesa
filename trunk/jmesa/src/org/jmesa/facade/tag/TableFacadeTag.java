@@ -472,14 +472,17 @@ public class TableFacadeTag extends SimpleTagSupport {
             body.invoke(null);
             getPageItems().clear();
         } else {
+            int count = 0;
             for (Iterator<?> iterator = pi.iterator(); iterator.hasNext();) {
                 Object item = iterator.next();
                 getJspContext().setAttribute(getVar(), item);
+                getJspContext().setAttribute("rowcount", ++count);
                 body.invoke(null);
             }
         }
 
         getJspContext().removeAttribute(getVar()); // clean up the page scoped bean
+        getJspContext().removeAttribute("rowcount");
 
         tableFacade.setTable(getTable());
         tableFacade.setToolbar(getTableFacadeToolbar(getToolbar()));
