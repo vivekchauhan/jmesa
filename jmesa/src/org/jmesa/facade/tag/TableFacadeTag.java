@@ -41,6 +41,7 @@ import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.View;
 import org.jmesa.view.html.HtmlComponentFactory;
+import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
@@ -472,7 +473,7 @@ public class TableFacadeTag extends SimpleTagSupport {
             body.invoke(null);
             getPageItems().clear();
         } else {
-            int count = 0;
+            int count = HtmlUtils.startingRowcount(tableFacade.getCoreContext());
             for (Iterator<?> iterator = pi.iterator(); iterator.hasNext();) {
                 Object item = iterator.next();
                 getJspContext().setAttribute(getVar(), item);
