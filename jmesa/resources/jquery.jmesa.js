@@ -6,11 +6,11 @@
         var node = document.getElementById(id);
         var found = false;
         while (!found) {
-            node = node.parentNode;
             if (node.nodeName == 'FORM') {
                 found = true;
                 return node;
             }
+            node = node.parentNode;
         }
         return null;
     }
