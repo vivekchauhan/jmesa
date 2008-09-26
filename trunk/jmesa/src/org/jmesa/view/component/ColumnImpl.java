@@ -50,7 +50,7 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
     }
 
     public String getTitle() {
-        if (StringUtils.isEmpty(title)) {
+        if (StringUtils.isBlank(title)) {
             return ViewUtils.camelCaseToWord(property);
         }
 
