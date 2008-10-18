@@ -255,7 +255,7 @@
             /* the filter objects */
             var filterSet = limit.getFilterSet();
             $.each(filterSet, function(index, filter) {
-                $(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + filter.value + '"/>');
+                $(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + encodeURIComponent(filter.value) + '"/>');
             });
 
             return true;
@@ -318,16 +318,17 @@
             var cell = $(filter);
             var width = cell.width() + 1;
             var originalValue = cell.text();
-
-            cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="' + originalValue + '" /></div>');
-
+    
+            cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="" /></div>');
+    
             var input = $('#dynFilterInput');
+            input.val(originalValue);
             input.focus();
 
             $(input).keypress(function(event) {
                 if (event.keyCode == 13) { // press the enter key
                     var changedValue = input.val();
-                    cell.html(changedValue);
+                    cell.text(changedValue);
                     $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                     onInvokeAction(dynFilter.id);
                     dynFilter = null;
@@ -336,7 +337,7 @@
 
             $(input).blur(function() {
                 var changedValue = input.val();
-                cell.html(changedValue);
+                cell.text(changedValue);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                 dynFilter = null;
             });
@@ -438,15 +439,16 @@
 
             cell.parent().width(width); // set the outer width to avoid dynamic column width changes
 
-            cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 1) + 'px" value="' + originalValue + '"/></div>');
+            cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 1) + 'px" value=""/></div>');
 
             var input = $('#wsColumnInput');
+            input.val(originalValue); 
             input.focus();
 
             $('#wsColumnInput').keypress(function(event) {
                 if (event.keyCode == 13) { // press the enter key
                     var changedValue = input.val();
-                    cell.html(changedValue);
+                    cell.text(changedValue);
                     if (changedValue != originalValue) {
                         $.jmesa.submitWsColumn(originalValue, changedValue);
                     }
@@ -456,7 +458,7 @@
 
             $('#wsColumnInput').blur(function() {
                 var changedValue = input.val();
-                cell.html(changedValue);
+                cell.text(changedValue);
                 if (changedValue != originalValue) {
                     $.jmesa.submitWsColumn(originalValue, changedValue);
                 }
@@ -492,8 +494,8 @@
                 data += ', "up_' + key + '" : "' + value + '"';
             });
 
-            data += ', "ov_" : "' + originalValue + '"';
-            data += ', "cv_" : "' + changedValue + '"';
+            data += ', "ov_" : "' + encodeURIComponent(originalValue) + '"';
+            data += ', "cv_" : "' + encodeURIComponent(changedValue) + '"';
 
             data += '}'
 

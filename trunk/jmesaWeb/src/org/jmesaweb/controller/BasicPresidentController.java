@@ -34,7 +34,6 @@ import org.jmesa.limit.Limit;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
@@ -42,6 +41,7 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
+import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
@@ -109,7 +109,7 @@ public class BasicPresidentController extends AbstractController {
         // Using an anonymous class to implement a custom editor.
         firstName.getCellRenderer().setCellEditor(new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
-                Object value = new BasicCellEditor().getValue(item, property, rowcount);
+                Object value = new HtmlCellEditor().getValue(item, property, rowcount);
                 HtmlBuilder html = new HtmlBuilder();
                 html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
                 html.append(value);
