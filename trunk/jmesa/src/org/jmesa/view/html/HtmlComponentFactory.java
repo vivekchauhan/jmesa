@@ -25,6 +25,7 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.component.HtmlTableImpl;
+import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.editor.HtmlFilterEditor;
 import org.jmesa.view.html.editor.HtmlHeaderEditor;
 import org.jmesa.view.html.renderer.HtmlCellRendererImpl;
@@ -70,6 +71,14 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
         row.setRowRenderer(rowRenderer);
 
         return row;
+    }
+
+    @Override
+    public CellEditor createBasicCellEditor() {
+        HtmlCellEditor editor = new HtmlCellEditor();
+        editor.setWebContext(getWebContext());
+        editor.setCoreContext(getCoreContext());
+        return editor;
     }
 
     /**

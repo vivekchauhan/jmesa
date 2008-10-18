@@ -18,7 +18,6 @@ package org.jmesa.view;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.editor.CellEditor;
 
 /**
  * @since 2.0
@@ -35,15 +34,11 @@ public abstract class AbstractTableFactory extends AbstractContextSupport implem
         Row row = factory.createRow();
         table.setRow(row);
 
-        // create some reusable objects
-
-        CellEditor editor = factory.createBasicCellEditor();
-
         // create the columns
 
         for (int i = 0; i < columnProperties.length; i++) {
             String columnName = columnProperties[i];
-            Column firstNameColumn = factory.createColumn(columnName, editor);
+            Column firstNameColumn = factory.createColumn(columnName);
             row.addColumn(firstNameColumn);
         }
 

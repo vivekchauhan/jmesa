@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
@@ -60,8 +61,8 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         Collection<Option> options = getOptions();
         for (Iterator<Option> it = options.iterator(); it.hasNext();) {
             Option option = it.next();
-            String value = escapeJavaScript(option.getValue());
-            String label = escapeJavaScript(option.getLabel());
+            String value = escapeJavaScript(escapeHtml(option.getValue()));
+            String label = escapeJavaScript(escapeHtml(option.getLabel()));
             array.append("'").append(value).append("':'").append(label).append("'");
             if (it.hasNext()) {
                 array.append(",");
@@ -73,7 +74,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         html.div().styleClass("dynFilter");
         html.onclick("jQuery.jmesa.createDroplistDynFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + array + ")");
         html.close();
-        html.append(filterValue);
+        html.append(escapeHtml(filterValue));
         html.divEnd();
 
         return html.toString();

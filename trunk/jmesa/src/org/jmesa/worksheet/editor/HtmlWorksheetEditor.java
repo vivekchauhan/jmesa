@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet.editor;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.WorksheetColumn;
@@ -38,7 +39,7 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
         
         WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
         if (worksheetColumn != null) {
-            value = worksheetColumn.getChangedValue();
+            value = escapeHtml(worksheetColumn.getChangedValue());
         } else {
             value = getCellEditor().getValue(item, property, rowcount);
         }
