@@ -318,9 +318,9 @@
             var cell = $(filter);
             var width = cell.width() + 1;
             var originalValue = cell.text();
-    
+
             cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="" /></div>');
-    
+
             var input = $('#dynFilterInput');
             input.val(originalValue);
             input.focus();
@@ -442,7 +442,7 @@
             cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 1) + 'px" value=""/></div>');
 
             var input = $('#wsColumnInput');
-            input.val(originalValue); 
+            input.val(originalValue);
             input.focus();
 
             $('#wsColumnInput').keypress(function(event) {
