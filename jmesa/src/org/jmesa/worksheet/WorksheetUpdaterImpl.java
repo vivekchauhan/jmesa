@@ -15,6 +15,8 @@
  */
 package org.jmesa.worksheet;
 
+import java.io.UnsupportedEncodingException;
+import static java.net.URLDecoder.decode;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -79,11 +81,21 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
         WorksheetColumn column = row.getColumn(property);
         if (column == null) {
             String orginalValue = webContext.getParameter(ORIGINAL_VALUE);
+            try {
+                orginalValue = decode(orginalValue, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             column = new WorksheetColumnImpl(property, orginalValue, messages);
             row.addColumn(column);
         }
 
         String changedValue = webContext.getParameter(CHANGED_VALUE);
+        try {
+            changedValue = decode(changedValue, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         column.setChangedValue(changedValue);
 
         return column;
