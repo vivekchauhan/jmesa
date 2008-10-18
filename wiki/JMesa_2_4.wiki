@@ -1,7 +1,6 @@
-
-The next release of JMesa is going to be fairly big with regards to improvements and features. You can track the work on the [http://code.google.com/p/jmesa/issues/list issues] tab because most all the work is about clearing the issues board.
+The next release of JMesa is going to be fairly big with regards to improvements and features. You can track the work on the [http://code.google.com/p/jmesa/issues/list issues] tab because most all the work is about clearing the issues board. The release should be out by the end of the year (2008).
 
 As things get done I will list them here.
 
-* German Locale (de) submitted by Stefan Barucha 
-* Better data encoding in the worksheet and filter ([http://code.google.com/p/jmesa/issues/detail?id=155 issue 151])
+ * German Locale (de) submitted by Stefan Barucha 
+ * Better data encoding in the worksheet and filter ([http://code.google.com/p/jmesa/issues/detail?id=155 issue 151])
