@@ -19,7 +19,6 @@ import org.jmesa.view.editor.*;
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 import org.jmesa.core.CoreContext;
-import static org.jmesa.util.AssertUtils.notNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,21 +33,17 @@ public class BsfExpressionCellEditor extends AbstractCellEditor {
 
     private final Language language;
     private final String var;
-    private final String template;
+    private final Object template;
 
-    public BsfExpressionCellEditor(Language language, String var, String template) {
-        notNull("The language is required.", language);
-        this.language = language;
+    public BsfExpressionCellEditor(Expression expression) {
+        this.language = expression.getLanguage();
 
         if (!BSFManager.isLanguageRegistered(language.toString().toLowerCase())) {
             throw new IllegalArgumentException("The language " + language + " is not supported.");
         }
 
-        notNull("The var is required.", var);
-        this.var = var;
-
-        notNull("The template is required.", template);
-        this.template = template;
+        this.var = expression.getVar();
+        this.template = expression.getTemplate();
     }
 
     public Object getValue(Object item, String property, int rowcount) {

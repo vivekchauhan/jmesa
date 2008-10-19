@@ -32,7 +32,7 @@ public class BsfExpressionCellEditorTest extends AbstractTestCase {
         CoreContext ctx = createCoreContext(createWebContext());
 
         // First just test a basic expression
-        BsfExpressionCellEditor editor = new BsfExpressionCellEditor(Language.JAVASCRIPT, "number", "number.height + number.width");
+        BsfExpressionCellEditor editor = new BsfExpressionCellEditor(new Expression(Language.JAVASCRIPT, "number", "number.height + number.width"));
         editor.setCoreContext(ctx);
 
         Object result = editor.getValue(new Dimension(100, 50), "test", 0);
@@ -45,7 +45,7 @@ public class BsfExpressionCellEditorTest extends AbstractTestCase {
         CoreContext ctx = createCoreContext(createWebContext());
 
         // First just test a basic expression
-        BsfExpressionCellEditor editor = new BsfExpressionCellEditor(Language.JAVASCRIPT, "item", "item.height + item.width");
+        BsfExpressionCellEditor editor = new BsfExpressionCellEditor(new Expression(Language.JAVASCRIPT, "item", "item.height + item.width"));
         editor.setCoreContext(ctx);
 
         Object result = editor.getValue(new Dimension(100, 50), "test", 0);
@@ -56,7 +56,7 @@ public class BsfExpressionCellEditorTest extends AbstractTestCase {
         assertEquals(new Double(400), result);
 
         // Now test just to make sure we can re-use the BSFManager
-        editor = new BsfExpressionCellEditor(Language.JAVASCRIPT, "item", "item.toLowerCase()");
+        editor = new BsfExpressionCellEditor(new Expression(Language.JAVASCRIPT, "item", "item.toLowerCase()"));
         editor.setCoreContext(ctx);
         result = editor.getValue("JMesa", "test", 0);
         assertEquals("jmesa", result);

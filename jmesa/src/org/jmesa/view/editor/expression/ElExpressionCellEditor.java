@@ -24,11 +24,9 @@ import javax.servlet.jsp.el.ELException;
 import javax.servlet.jsp.el.FunctionMapper;
 import javax.servlet.jsp.el.VariableResolver;
 
-import org.apache.commons.el.Expression;
 import org.apache.commons.el.ExpressionString;
 import org.apache.commons.el.parser.ELParser;
 import org.apache.commons.el.parser.ParseException;
-import static org.jmesa.util.AssertUtils.notNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,15 +43,12 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
     private String var;
     private Object template;
 
-    public ElExpressionCellEditor(String var, String template) {
-        notNull("The var is required.", var);
-        this.var = var;
-
-        notNull("The template is required.", template);
-        this.template = template;
+    public ElExpressionCellEditor(Expression expression) {
+        this.var = expression.getVar();
+        this.template = expression.getTemplate();
 
         try {
-            this.template = new ELParser(new StringReader(template)).ExpressionString();
+            this.template = new ELParser(new StringReader(String.valueOf(expression.getTemplate()))).ExpressionString();
         } catch (ParseException e) {
             this.template = null;
             throw new RuntimeException(e);
@@ -71,8 +66,8 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
 
             // Expression is a single EL expression with no template text;
             // ex. ${lastName + ', ' + firstName}
-            } else if (template instanceof Expression) {
-                result = ((Expression) template).evaluate(getVariableResolver(item), getFunctionMapper(), pLogger);
+            } else if (template instanceof org.apache.commons.el.Expression) {
+                result = ((org.apache.commons.el.Expression) template).evaluate(getVariableResolver(item), getFunctionMapper(), pLogger);
 
             // If the expression parsed to a String, it is just template text 
             } else if (template instanceof String) {
