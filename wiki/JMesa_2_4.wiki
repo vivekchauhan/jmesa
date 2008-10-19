@@ -1,6 +1,10 @@
 The next release of JMesa is going to be fairly big with regards to improvements and features. You can track the work on the [http://code.google.com/p/jmesa/issues/list issues] tab because most all the work is about clearing the issues board. The release should be out by the end of the year (2008).
 
-As things get done I will list them here.
+One big thing you might have noticed is that with each release more and more code is being contributed to JMesa. I really enjoy getting code contributions from developers. I think its interesting when either bugs are discovered or new features are implemented because of working with JMesa tables in a way I had not thought of. 
+
+You will also notice that we are moving to a 2.4 release of the project. I do not expect any breaking changes, so the jump from the 2.3 branch of the code is to reflect all the new features going in.
+
+As things get done I will list them here:
 
  * German Locale (de). Contributed by Stefan Barucha 
  * Better data encoding in the worksheet and filter ([http://code.google.com/p/jmesa/issues/detail?id=155 issue 155]). Contributed by Frode Reinertsen.
@@ -28,3 +32,5 @@ or
 CellEditor lastNameCellEditor = new BsfExpressionCellEditor(Language.JAVASCRIPT, "item", "item.name.lastName + ', ' + item.name.firstName");
 lastName.getCellRenderer().setCellEditor(lastNameCellEditor);
 }}}
+
+ * JMesa !JavaScript is re-written as a jQuery plugin ([http://code.google.com/p/jmesa/issues/detail?id=128 issue 128]). Contributed by Benjamin Gould.
