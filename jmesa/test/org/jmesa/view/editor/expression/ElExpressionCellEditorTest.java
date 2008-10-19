@@ -55,7 +55,7 @@ public class ElExpressionCellEditorTest extends AbstractTestCase {
         result = editor.getValue(item, "test", 0);
         Assert.assertEquals(new Integer(3).toString(), result.toString());
 
-        editor = new ElExpressionCellEditor(new Expression(Language.EL, "item", "${item.one} + ${item.two} = ${item.one + item.two}"));
+        editor = new ElExpressionCellEditor("item", "${item.one} + ${item.two} = ${item.one + item.two}");
         result = editor.getValue(item, "test", 0);
         Assert.assertEquals("1 + 2 = 3", result);
     }

@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.editor.expression;
 
+import static org.jmesa.util.AssertUtils.notNull;
 import org.jmesa.view.editor.*;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -44,11 +45,18 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
     private Object template;
 
     public ElExpressionCellEditor(Expression expression) {
-        this.var = expression.getVar();
-        this.template = expression.getTemplate();
+        this(expression.getVar(), expression.getTemplate());
+    }
+
+    public ElExpressionCellEditor(String var, Object template) {
+        notNull("The var is required.", var);
+        this.var = var;
+
+        notNull("The template is required.", template);
+        this.template = template;
 
         try {
-            this.template = new ELParser(new StringReader(String.valueOf(expression.getTemplate()))).ExpressionString();
+            this.template = new ELParser(new StringReader(String.valueOf(template))).ExpressionString();
         } catch (ParseException e) {
             this.template = null;
             throw new RuntimeException(e);

@@ -56,7 +56,7 @@ public class BsfExpressionCellEditorTest extends AbstractTestCase {
         assertEquals(new Double(400), result);
 
         // Now test just to make sure we can re-use the BSFManager
-        editor = new BsfExpressionCellEditor(new Expression(Language.JAVASCRIPT, "item", "item.toLowerCase()"));
+        editor = new BsfExpressionCellEditor(Language.JAVASCRIPT, "item", "item.toLowerCase()");
         editor.setCoreContext(ctx);
         result = editor.getValue("JMesa", "test", 0);
         assertEquals("jmesa", result);
