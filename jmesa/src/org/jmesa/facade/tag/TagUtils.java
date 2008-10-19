@@ -29,6 +29,7 @@ import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
+import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
@@ -281,7 +282,7 @@ class TagUtils {
      */
     static CellEditor getColumnCellEditor(HtmlColumn column, String cellEditor, String pattern) {
         if (StringUtils.isEmpty(cellEditor)) {
-            return column.getCellRenderer().getCellEditor();
+            return new BasicCellEditor();
         }
 
         CellEditor result = (CellEditor) createInstance(cellEditor);
