@@ -2,5 +2,29 @@ The next release of JMesa is going to be fairly big with regards to improvements
 
 As things get done I will list them here.
 
- * German Locale (de) submitted by Stefan Barucha 
- * Better data encoding in the worksheet and filter ([http://code.google.com/p/jmesa/issues/detail?id=155 issue 151])
+ * German Locale (de). Contributed by Stefan Barucha 
+ * Better data encoding in the worksheet and filter ([http://code.google.com/p/jmesa/issues/detail?id=155 issue 155]). Contributed by Frode Reinertsen.
+ * Expression evaluation from Java code ([http://code.google.com/p/jmesa/issues/detail?id=145 issue 145]). Contributed by Benjamin Gould.
+
+==== Example ====
+All three of these code snippets do the same thing...putting the first and last name together using !JavaScript notation. Even though this example is in !JavaScript all the popular scripting languages are supported through the Apache [http://jakarta.apache.org/bsf/ Bean Scripting Framework]. In addition there is support for doing EL expressions as well.
+
+{{{
+CellEditor lastNameCellEditor 
+                = new ExpressionCellEditorFactoryImpl().createCellEditor(new Expression(Language.JAVASCRIPT, "item", "item.name.lastName + ', ' + item.name.firstName"));
+lastName.getCellRenderer().setCellEditor(lastNameCellEditor);
+}}}
+
+or
+
+{{{
+CellEditor lastNameCellEditor = new BsfExpressionCellEditor(new Expression(Language.JAVASCRIPT, "item", "item.name.lastName + ', ' + item.name.firstName"));
+lastName.getCellRenderer().setCellEditor(lastNameCellEditor);
+}}}
+
+or 
+
+{{{
+CellEditor lastNameCellEditor = new BsfExpressionCellEditor(Language.JAVASCRIPT, "item", "item.name.lastName + ', ' + item.name.firstName");
+lastName.getCellRenderer().setCellEditor(lastNameCellEditor);
+}}}
