@@ -68,7 +68,7 @@ protected String totals() {
 }
 }}}
 
-Lastly, just plug your custom view into the !TableFacade.
+The last thing we need to do is plug the custom view into the !TableFacade. Be sure to set the view on the facade after any custom toolbar and table code.
 
 ==== API ====
 
