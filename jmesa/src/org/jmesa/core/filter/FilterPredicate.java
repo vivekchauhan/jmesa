@@ -53,8 +53,8 @@ public final class FilterPredicate implements Predicate {
                 Object value = PropertyUtils.getProperty(item, property);
 
                 if (value != null) {
-                    FilterMatcher match = filterMatchers.get(filter);
-                    result = match.evaluate(value, filter.getValue());
+                    FilterMatcher filterMatcher = filterMatchers.get(filter);
+                    result = filterMatcher.evaluate(value, filter.getValue());
                 }
 
                 // short circuit if does not match
