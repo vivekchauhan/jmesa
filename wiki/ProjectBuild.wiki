@@ -24,7 +24,7 @@ jeff@jeff-desktop:~/workspace/jmesa$ groovy build.groovy -a dist
 Enter a revision number: [snapshot]
 }}}
 
-You will get a Swing dialog box asking for your JDK1.4 directory. This is only used to build the retro jar files. You can just safely hit cancel and let the build proceed.
+_Note: you will get a Swing dialog box asking for your JDK1.4 directory. This is only used to build the retro jar files. You can just safely hit cancel and let the build proceed._
 
 === Clean Target Directory ===
 
