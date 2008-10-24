@@ -1,5 +1,7 @@
 The following instructions will show you how to build the JMesa project.
 
+==== Setup ====
+
 JMesa is built using Groovy, Ant (via Groovy's !AntBuilder) and Ivy. The first thing you need to do is make sure that you have Groovy installed correctly. Once you have it installed you can check that it is installed by typing the command 'groovy -v' on the command line. You should see something like the following:
 
 {{{
@@ -13,6 +15,8 @@ Then copy the ivy-1.4.1.jar into the GROOVY_HOME/lib directory so that the build
 
 _Note: one improvement made recently is to change the ivyconf.xml file to point to the JMesa repository online. This means if you do not have the repository downloaded locally you will automatically get all the jar files downloaded. If you do want to get the repository locally just download it from the site (http://jmesa.googlecode.com/svn/repository). The only modification you might have to make is to the ivyconf.xml file to ensure that it is pointing to your local repository. I keep all my projects, including the repository, in the same directory and that is what the default settings are. If you do something different then just modify this file._
 
+==== Build Project ====
+
 Once you have this set up then building everything is easy. Just type in 'groovy build.groovy -a dist'. You then either press the enter key to accept the default name of 'snapshot', or enter in a revision number. This will build the project in a target directory of the JMesa project.
 
 {{{
@@ -20,11 +24,17 @@ jeff@jeff-desktop:~/workspace/jmesa$ groovy build.groovy -a dist
 Enter a revision number: [snapshot]
 }}}
 
+You will get a Swing dialog box asking for your JDK1.4 directory. This is only used to build the retro jar files. You can just safely hit cancel and let the build proceed.
+
+==== Clean Target Directory ====
+
 You can clean the directory by entering in 'groovy build.groovy -a clean'
 
 {{{
 jeff@jeff-desktop:~/workspace/jmesa$ groovy build.groovy -a clean
 }}}
+
+==== Import Libraries ====
 
 Lastly, if you want to just get all the jar files and place then in the lib directory of the project then enter in 'groovy build.groovy -a lib'. This is a convenience method so that you can retrieve all the libraries needed to work with your favorite IDE.
 
