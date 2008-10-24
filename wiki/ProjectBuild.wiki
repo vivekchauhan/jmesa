@@ -11,18 +11,7 @@ Groovy version 1.0 should work fine, as that is all that is required by JMesa.
 
 Then copy the ivy-1.4.1.jar into the GROOVY_HOME/lib directory so that the build can interact with Ivy.
 
-You should also checkout the repository folder from subversion as it contains all the libraries you will need to build and work with the project. In theory the Maven repositories should have the libraries needed, but there are still a few jar files missing, which is why I checked in all the libraries into the JMesa subversion repository.
-
-_Note: the repository is located at the top level of the subversion repository (at the same level as the trunk)._
-
-To build the project first navigate to it on the command line. The files relevant to the build are build.groovy, ivy.xml, and ivyconf.xml. 
-
-The only modification you might have to make is to the ivyconf.xml file. What you need to ensure is that it is pointing to your local repository (that you checked from the JMesa project). I keep all my projects, including the repository, in the same directory. If you do something different then just modify this file.
-
-{{{
-<ivy pattern="../repository/[organisation]/[module]/ivy-[revision].xml"/>
-<artifact pattern="../repository/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
-}}}
+_Note: one improvement made recently is to change the ivyconf.xml file to point to the JMesa repository online. This means if you do not have the repository downloaded locally you will automatically get all the jar files downloaded. If you do want to get the repository locally just download it from the site (http://jmesa.googlecode.com/svn/repository). The only modification you might have to make is to the ivyconf.xml file to ensure that it is pointing to your local repository. I keep all my projects, including the repository, in the same directory and that is what the default settings are. If you do something different then just modify this file._
 
 Once you have this set up then building everything is easy. Just type in 'groovy build.groovy -a dist'. You then either press the enter key to accept the default name of 'snapshot', or enter in a revision number. This will build the project in a target directory of the JMesa project.
 
