@@ -2,7 +2,7 @@ The following instructions will show you how to build the JMesa project.
 
 === Setup ===
 
-JMesa is built using Groovy, Ant (via Groovy's !AntBuilder) and Ivy. The first thing you need to do is make sure that you have Groovy installed correctly. Once you have it installed you can check that it is installed by typing the command 'groovy -v' on the command line. You should see something like the following:
+JMesa is built using Groovy, Ant (via Groovy's !AntBuilder) and Ivy. The first thing you need to do is make sure that you have [http://groovy.codehaus.org/ Groovy] installed correctly. Once you have it installed you can check that it is installed by typing the command 'groovy -v' on the command line. You should see something like the following:
 
 {{{
 jeff@jeff-desktop:~/workspace/jmesa$ groovy -v
