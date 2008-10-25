@@ -112,7 +112,7 @@ public class PdfPView implements View {
 
                 String property = column.getProperty();
                 Object value = column.getCellRenderer().getCellEditor().getValue(item, property, rowcount);
-                PdfPCell cell = new PdfPCell(new Paragraph(value.toString(), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL)));
+                PdfPCell cell = new PdfPCell(new Paragraph(value == null ? "" : String.valueOf(value), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL)));
                 cell.setPadding(3.0f);
 
                 if (isRowEven(rowcount)) {
