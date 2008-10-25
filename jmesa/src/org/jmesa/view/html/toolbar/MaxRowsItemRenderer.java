@@ -52,10 +52,29 @@ public class MaxRowsItemRenderer extends AbstractItemRenderer {
         int maxRows = limit.getRowSelect().getMaxRows();
         item.setMaxRows(maxRows);
 
-        StringBuilder action = new StringBuilder("jQuery.jmesa.setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);"
+        if (!incrementsContainsMaxRows(item, maxRows)) {
+            throw new IllegalStateException("The maxRowIncrements does not contain the maxRows.");
+        }
+
+        StringBuilder action = new StringBuilder("jQuery.jmesa.setMaxRowsToLimit('"
+                + limit.getId() + "', this.options[this.selectedIndex].value);"
                 + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 
         return item.enabled();
+    }
+
+    private boolean incrementsContainsMaxRows(MaxRowsItem item, int maxRows) {
+
+        boolean found = false;
+
+        int[] increments = item.getIncrements();
+        for (int increment : increments) {
+            if (increment == maxRows) {
+                found = true;
+            }
+        }
+
+        return found;
     }
 }
