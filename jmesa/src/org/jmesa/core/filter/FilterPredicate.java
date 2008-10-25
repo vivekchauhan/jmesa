@@ -17,10 +17,10 @@ package org.jmesa.core.filter;
 
 import java.util.Map;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
+import org.jmesa.util.ItemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +50,7 @@ public final class FilterPredicate implements Predicate {
         try {
             for (Filter filter : filterSet.getFilters()) {
                 String property = filter.getProperty();
-                Object value = PropertyUtils.getProperty(item, property);
+                Object value = ItemUtils.getItemValue(item, property);
 
                 if (value != null) {
                     FilterMatcher filterMatcher = filterMatchers.get(filter);

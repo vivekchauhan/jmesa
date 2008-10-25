@@ -78,10 +78,9 @@ public class RowSelectImpl implements RowSelect {
      * The page returned that is not greater than the pages that can display.
      */
     private int getValidPage(int page, int maxRows, int totalRows) {
-        if (!isValidPage(page, maxRows, totalRows)) {
-            return getValidPage(--page, maxRows, totalRows);
+        while (!isValidPage(page, maxRows, totalRows)) {
+            --page;
         }
-
         return page;
     }
 
