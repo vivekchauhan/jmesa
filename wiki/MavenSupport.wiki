@@ -1,0 +1,14 @@
+I do appreciate the help I have been given with the Maven pom.xml file. However what I would really need is for someone to create a pom.xml file that works perfectly and is something that the Maven team would be willing to accept. In addition I would need the community to work with the Maven team to submit the jar.
+
+Right now having a broken pom.xml file is confusing to developers that want to run the project locally. So, with that I have decided to let go of the Maven support. I am very happy with my Groovy [ProjectBuild build scripts] and they work well. 
+
+I would be fine keeping the JMesa jar file on my !GoDaddy site though and people are welcome to link to it.
+
+{{{
+<repositories>
+    <repository>
+        <id>jmesa</id>
+        <url>http://jmesa.org/maven</url>
+    </repository>
+</repositories>
+}}}
