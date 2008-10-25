@@ -12,3 +12,5 @@ I would be fine keeping the JMesa jar file on my !GoDaddy site though and people
     </repository>
 </repositories>
 }}}
+
+_I put the JMesa Maven [http://jmesa.org/maven/pom.xml pom.xml] file on the site and you can use it as a starting point if you want to try and get the JMesa jar file on the Maven repositories._
