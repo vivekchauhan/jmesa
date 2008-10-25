@@ -4,6 +4,8 @@ Right now having a broken pom.xml file is confusing to developers that want to r
 
 I would be fine keeping the JMesa jar (currently 2.3.4) file on my !GoDaddy site though and people are welcome to link to it.
 
+This would be the repository declaration in your pom.xml.
+
 {{{
 <repositories>
     <repository>
@@ -11,6 +13,16 @@ I would be fine keeping the JMesa jar (currently 2.3.4) file on my !GoDaddy site
         <url>http://jmesa.org/maven</url>
     </repository>
 </repositories>
+}}}
+
+This would be the dependency declaration in your pom.xml.
+
+{{{
+<dependency>
+   <groupId>jmesa</groupId>
+   <artifactId>jmesa</artifactId>
+   <version>2.3.4</version>
+</dependency>
 }}}
 
 _I put the JMesa Maven [http://jmesa.org/maven/pom.xml pom.xml] file on the site and you can use it as a starting point if you want to try and get the JMesa jar file on the Maven repositories._
