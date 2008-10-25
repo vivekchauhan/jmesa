@@ -35,3 +35,4 @@ lastName.getCellRenderer().setCellEditor(lastNameCellEditor);
 
  * JMesa !JavaScript is re-written as a jQuery plugin ([http://code.google.com/p/jmesa/issues/detail?id=128 issue 128]). Contributed by Benjamin Gould.
  * Searching for the valid page is non-recursive. This is more of a technical change and there was a custom implementation that found this edge case [http://code.google.com/p/jmesa/issues/detail?id=151 (issue 151)].
+ * Doing additional check when working with the !TableFacade [http://code.google.com/p/jmesa/issues/detail?id=127 (issue 127)].
