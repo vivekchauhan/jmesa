@@ -2,7 +2,7 @@ I do appreciate the help I have been given with the Maven pom.xml file. However 
 
 Right now having a broken pom.xml file is confusing to developers that want to run the project locally. So, with that I have decided to let go of the Maven support. I am very happy with my Groovy [ProjectBuild build scripts] and they work well. 
 
-I would be fine keeping the JMesa jar file on my !GoDaddy site though and people are welcome to link to it.
+I would be fine keeping the JMesa jar (currently 2.3.4) file on my !GoDaddy site though and people are welcome to link to it.
 
 {{{
 <repositories>
