@@ -15,11 +15,11 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_NUMBER_CLASS;
-
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE_DISABLED;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_LAST_PAGE;
@@ -28,30 +28,29 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE_DISABLED;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SEPARATOR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED;
-
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SEPARATOR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_NUMBER_CLASS;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FIRST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_LAST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_NEXT_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_PREV_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_SAVE_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER_WORKSHEET;
-
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FIRST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_LAST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_NEXT_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_SAVE_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
@@ -64,11 +63,13 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
+    
     private String imagesPath;
     private CoreContext coreContext;
-
+    
     public ToolbarItemFactoryImpl(WebContext webContext, CoreContext coreContext) {
         this.imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
+        
         this.coreContext = coreContext;
     }
 
@@ -78,7 +79,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setCode(ToolbarItemType.PAGE_NUMBER_ITEMS.toCode());
 
         PageNumberItemRenderer renderer = new PageNumberItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -93,7 +94,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FIRST_PAGE));
 
         ToolbarItemRenderer renderer = new FirstPageItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -108,7 +109,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_PREV_PAGE));
 
         ToolbarItemRenderer renderer = new PrevPageItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -123,7 +124,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_NEXT_PAGE));
 
         ToolbarItemRenderer renderer = new NextPageItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -138,7 +139,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_LAST_PAGE));
 
         ToolbarItemRenderer renderer = new LastPageItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -152,7 +153,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER));
 
         ToolbarItemRenderer renderer = new FilterItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -166,7 +167,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_CLEAR));
 
         ToolbarItemRenderer renderer = new ClearItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -178,7 +179,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_TEXT_MAX_ROWS_DROPLIST));
 
         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -194,7 +195,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(export.getText());
 
         ToolbarItemRenderer renderer = new ExportItemRenderer(item, export, coreContext);
-        renderer.setOnInvokeAction("onInvokeExportAction");
+        renderer.setOnInvokeAction(getOnInvokeExportAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -218,7 +219,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_SAVE_WORKSHEET));
 
         ToolbarItemRenderer renderer = new SaveWorksheetItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -233,7 +234,7 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER_WORKSHEET));
 
         ToolbarItemRenderer renderer = new FilterWorksheetItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
+        renderer.setOnInvokeAction(getOnInvokeAction());
         item.setToolbarItemRenderer(renderer);
 
         return item;
@@ -263,5 +264,13 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
         tooltip = coreContext.getMessage(TOOLBAR_TOOLTIP + export.getExportType().toParam());
 
         return tooltip;
+    }
+
+    protected String getOnInvokeAction() {
+        return coreContext.getPreference(ON_INVOKE_ACTION);
+    }
+    
+    protected String getOnInvokeExportAction() {
+        return coreContext.getPreference(ON_INVOKE_EXPORT_ACTION);
     }
 }

@@ -31,6 +31,8 @@ public class HtmlConstants {
     // table
     public static final String TABLE_RENDERER_STYLE_CLASS = "html.table.renderer.styleClass";
     public static final String TABLE_COMPONENT_THEME = "html.table.component.theme";
+    public static final String ON_INVOKE_ACTION = "html.onInvokeAction";
+    public static final String ON_INVOKE_EXPORT_ACTION = "html.onInvokeExportAction";
 
     // row
     public static final String ROW_RENDERER_HIGHLIGHT_CLASS = "html.row.renderer.highlightClass";
