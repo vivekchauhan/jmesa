@@ -1505,7 +1505,63 @@ public class HtmlBuilder {
 
         return this;
     }
+    
+    public HtmlBuilder dl() {
+        append("<dl");
+        
+        return this;
+    }
+    
+    public HtmlBuilder dlEnd() {
+        append("</dl>");
+        
+        return this;
+    }
 
+    public HtmlBuilder dd() {
+        append("<dd");
+        
+        return this;
+    }
+    
+    public HtmlBuilder ddEnd() {
+        append("</dd>");
+        
+        return this;
+    }
+    
+    public HtmlBuilder dt() {
+        append("<dt");
+        
+        return this;
+    }
+    
+    public HtmlBuilder dtEnd() {
+        append("</dt>");
+        
+        return this;
+    }
+    
+    public HtmlBuilder label() {
+        append("<label");
+        
+        return this;
+    }
+    
+    public HtmlBuilder labelEnd() {
+        append("</label>");
+        
+        return this;
+    }
+    
+    public HtmlBuilder forAttr(String forAttr) {
+        if (StringUtils.isNotBlank(forAttr)) {
+            append(" for=\"").append(forAttr).append("\" ");
+        }
+        
+        return this;
+    }
+    
     @Override
     public String toString() {
         return builder.toString();

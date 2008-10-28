@@ -108,10 +108,17 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
         int position = column.getRow().getColumns().indexOf(column);
 
         if (currentOrder == Order.NONE) {
-            html.onclick("jQuery.jmesa.removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('" + limit.getId() + "')");
+            String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
+            html.onclick(
+                "jQuery.jmesa.removeSortFromLimit('" + limit.getId() + "','" + 
+                column.getProperty() + "');" + onInvokeAction + "('" + limit.getId() + "')"
+            );
         } else {
-            html.onclick("jQuery.jmesa.addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + currentOrder.toParam()
-                    + "');" + getOnInvokeActionJavaScript(limit));
+            html.onclick(
+                "jQuery.jmesa.addSortToLimit('" + limit.getId() + "','" + 
+                position + "','" + column.getProperty() + "','" + 
+                currentOrder.toParam() + "');" + getOnInvokeActionJavaScript(limit)
+            );
         }
 
         return html.toString();
@@ -140,6 +147,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
     }
     
     public String getOnInvokeActionJavaScript(Limit limit) {
-        return "onInvokeAction('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.toCode() + "')";
+        String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
+        return onInvokeAction + "('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.toCode() + "')";
     }
 }
