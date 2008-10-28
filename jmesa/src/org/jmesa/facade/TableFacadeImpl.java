@@ -310,7 +310,7 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setItems(Collection<?> items) {
         validateCoreContextIsNull(coreContext, "items");
-        validateLimitIsNull(limit, "items");
+        //validateLimitIsNull(limit, "items");
         
         if (editable) {
             this.items = filterWorksheetItems(items, getWorksheet());
