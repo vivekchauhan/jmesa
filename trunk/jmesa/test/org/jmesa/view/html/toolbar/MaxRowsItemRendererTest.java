@@ -45,9 +45,9 @@ public class MaxRowsItemRendererTest extends AbstractTestCase {
         int maxRows = item.getMaxRows();
 
         // the defaults
-        assertTrue(increments[0] == 15);
-        assertTrue(increments[1] == 50);
-        assertTrue(increments[2] == 100);
+        assertTrue(increments[0] == 12);
+        assertTrue(increments[1] == 24);
+        assertTrue(increments[2] == 36);
 
         assertTrue(maxRows == 12);
     }

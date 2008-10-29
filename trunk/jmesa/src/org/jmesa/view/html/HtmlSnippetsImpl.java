@@ -16,6 +16,8 @@
 package org.jmesa.view.html;
 
 import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -280,6 +282,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         
         html.tab().append("jQuery.jmesa.setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
 
+        html.tab().append("jQuery.jmesa.setOnInvokeAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_ACTION) + "')").semicolon().newline();
+        html.tab().append("jQuery.jmesa.setOnInvokeExportAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_EXPORT_ACTION) + "')").semicolon().newline();
+        
         if (useDocumentReady) {
             html.append("});").newline();
         }
