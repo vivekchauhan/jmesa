@@ -133,6 +133,32 @@
         createParameterStringForLimit : function(id) {
             var tableFacade = this.getTableFacade(id);
             return tableFacade.createParameterString();
+        },
+        setOnInvokeAction : function (id, functionName) {
+        	var tableFacade = this.getTableFacade(id);
+        	tableFacade.onInvokeAction = functionName;
+        },
+        setOnInvokeExportAction : function (id, functionName) {
+        	var tableFacade = this.getTableFacade(id);
+        	tableFacade.onInvokeExportAction = functionName;
+        },
+        onInvokeAction : function (id, action) {
+        	var tableFacade = this.getTableFacade(id);
+        	var f = window[tableFacade.onInvokeAction];
+        	if ($.isFunction(f) !== true) {
+        		throw tableFacade.onInvokeAction + ' is not a global function!';
+        	} else {
+	       		f(id, action);
+       		}
+        },
+        onInvokeExportAction : function (id) {
+        	var tableFacade = this.getTableFacade(id);
+        	var f = window[tableFacade.onInvokeExportAction];
+        	if ($.isFunction(f) !== true) {
+        		throw tableFacade.onInvokeExportAction + ' is not a global function!';
+        	} else {
+	       		f(id);
+       		}
         }
     };
 
@@ -142,6 +168,8 @@
         TableFacade : function (id) {
             this.limit = new classes.Limit(id);
             this.worksheet = new classes.Worksheet();
+            this.onInvokeAction = 'onInvokeAction';
+            this.onInvokeExportAction = 'onInvokeExportAction';
         },
         Worksheet : function () {
             this.save = null;
@@ -330,7 +358,7 @@
                     var changedValue = input.val();
                     cell.text(changedValue);
                     $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-                    onInvokeAction(dynFilter.id);
+                    $.jmesa.onInvokeAction(dynFilter.id, 'filter');
                     dynFilter = null;
                 }
             });
@@ -407,7 +435,7 @@
                 var changedValue = $("#dynFilterDroplistDiv option:selected").val();
                 cell.text(changedValue);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-                onInvokeAction(dynFilter.id);
+                $.jmesa.onInvokeAction(dynFilter.id, 'filter');
                 dynFilter = null;
             });
 
@@ -419,7 +447,7 @@
                 dynFilter = null;
             });
         }
-    }
+    }    
 
     /*********** Worksheet ***********/
 

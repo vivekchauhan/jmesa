@@ -22,6 +22,8 @@ import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
+import org.jmesa.core.preference.Preferences;
+import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
@@ -62,6 +64,9 @@ public abstract class AbstractTestCase {
         Worksheet worksheet = getWorksheet();
 
         CoreContextFactory factory = new CoreContextFactoryImpl(false, webContext);
+        Preferences preferences = new PropertiesPreferences("/org/jmesa/core/test.properties", webContext);
+        factory.setPreferences(preferences);
+
         CoreContext coreContext = factory.createCoreContext(items, limit, worksheet);
         
         return coreContext;

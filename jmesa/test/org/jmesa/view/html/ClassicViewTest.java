@@ -73,6 +73,7 @@ public class ClassicViewTest extends AbstractTestCase {
 
         // create the view
         HtmlToolbar toolbar = new HtmlToolbar();
+        toolbar.setMaxRowsIncrements(new int[]{12,24,36});
         toolbar.setTable(table);
         toolbar.setWebContext(webContext);
         toolbar.setCoreContext(coreContext);
