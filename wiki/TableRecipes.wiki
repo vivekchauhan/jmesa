@@ -6,11 +6,11 @@ To create your own header editor you typically extend the !AbstractHeaderEditor.
 
 For more information read the [Editors] page.
 
-==== How do I change the header row to use a th versus a td element? ====
+==== How do I change the header row to use a 'th' versus a 'td' element? ====
 
-A few developers requested that there be a way to default the html header column element to a <th> versus a <td> definition.
+A few developers requested that there be a way to default the html header column element to a th versus a td definition.
 
-The default is still a <td> element but you can redefine it in the [Preferences] if needed.
+The default is still a 'td' element but you can redefine it in the [Preferences] if needed.
 
 {{{
 html.column.header.renderer.element=td
