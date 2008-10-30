@@ -5,6 +5,15 @@ If you need to sort differently than how it is out of the box you can define you
 Creating your own sorting strategy is fairly easy. As an example here is the 
 [http://code.google.com/p/jmesa/source/browse/tags/jmesa-2.3/src/org/jmesa/core/sort/MultiColumnSort.java default] sorting class.
 
+===== API ====
+{{{
+tableFacade.setColumnSort(new CustomColumnSort());
+}}}
+
+===== Tag ====
+{{{
+<jmesa:tableFacade columnSort="com.mycompany.CustomColumnSort"
+}}}
 
 ==== How do I sort a column that pulls values from two different properties? ====
 For example, if you have a bean called model (which is representing database entries) with two properties, phone and mobile. The column will be called "phone" and must have values for "phone" in each row only if "phone" is not null for that database entry. In case the value for "phone" is null, then the value in that row must be that of "mobile". But the JMesa column has a property attribute which points to the bean property so I can't reference both properties in only one column.
