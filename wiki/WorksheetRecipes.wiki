@@ -40,4 +40,15 @@ The only way to disable that is to create a [http://code.google.com/p/jmesa/wiki
 
 It would be great to have a default droplist editor for the worksheet. In the meantime here is an [DroplistWorksheetEditor example] that was sent to me that looks pretty good. There are a few things I would like to do to have it fit more in the vein of how the filter works but it is totally usable as-is.
 
+==== How can I set the !UniqueProperty and a primary key made up of a few columns? ====
+
+To keep things more simple and straightforward I decided to not have the !UniqueProperty take more than one property...at least for the initial launch of the worksheet. I knew
+that it could be expanded in the future and be fully backwards compatible.
+
+The workaround is to create a bean (or map) attribute that combines the attributes you
+need and then put something like a pipe between them. Then in your controller you
+can parse the values back out.
+
+
+
 
