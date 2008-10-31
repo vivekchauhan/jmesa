@@ -10,7 +10,7 @@ TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
 tableFacade.setStateAttr("restore");
 }}}
 
-The same goes for the [Tags]:
+The same goes for using the tags:
 {{{
 <jmesa:tableFacade
         id="basic" 
