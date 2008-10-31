@@ -21,8 +21,6 @@ The same goes for using the tags:
 
 As you can see in the following example, by passing in a parameter of "restore=true" then the table is rendered in the same way that you left it. That is really all there is too it! 
 
-<TODO: the image needs to be uploaded again>
-
-http://extremecomponents.googlepages.com/basic.png
+http://jmesa.org/wiki/images/state-save.gif
 
 *Note:* Just be sure that you have a unique table id for each table that you define. Technically the Limit object for each table is stored in the users session keyed by the table id. If the tables are not unique then you will overwrite one [Limit] with another.
