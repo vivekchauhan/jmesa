@@ -286,6 +286,8 @@ public class TableFacadeImpl implements TableFacade {
             return;
         }
 
+        SupportUtils.setWebContext(filterMatcherMap, getWebContext());
+
         Map<MatcherKey, FilterMatcher> matchers = filterMatcherMap.getFilterMatchers();
         Set<MatcherKey> keys = matchers.keySet();
         for (MatcherKey key : keys) {
