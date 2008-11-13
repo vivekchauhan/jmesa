@@ -1,7 +1,5 @@
 ==== How can I test a JMesa Worksheet in my controller? ====
 
-_Note: this is available in the upcoming 2.3.2 release but I wanted to updated the docs while I was thinking about it_
-
 First set up the parameters to tip the API off that we are saving the worksheet. Here we are using the adapter that hooks in with the Spring testing API. If you are using something else you can easily make your own adapter up in just a few lines of code. _If you need help just contact me and I will help you out with that._
 
 {{{
@@ -48,7 +46,5 @@ that it could be expanded in the future and be fully backwards compatible.
 The workaround is to create a bean (or map) attribute that combines the attributes you
 need and then put something like a pipe between them. Then in your controller you
 can parse the values back out.
-
-
 
 
