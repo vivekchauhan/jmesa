@@ -23,5 +23,3 @@ In addition to the [Examples examples] I am starting to write up tutorials so th
   * Learn how to create a custom droplist filter editor.
  * [CustomViewTotalsTutorial Custom View with Totals Tutorial]
   * Learn how to create a custom view that includes a row with totals.
- * [WorksheetCheckboxHeaderEditorTutorial Worksheet Checkbox HeaderEditor Tutorial]
-  * Learn how to create a checkbox in the header for the worksheet.
