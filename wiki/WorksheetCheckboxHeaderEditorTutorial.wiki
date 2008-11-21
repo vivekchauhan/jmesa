@@ -33,7 +33,7 @@ Then lastly have jQuery assign an onclick action to your checkbox. The real reas
 $(document).ready(function() {
     $("#selectAllChkBox").click(function() {
         var isChecked = this.checked;
-        $(":checkbox:not(#selectAllChkBox)", "#myForm").each(function() {
+        $("#myForm :checkbox:not(#selectAllChkBox)").each(function() {
             this.click(); 
             this.checked = isChecked;                     
         });
