@@ -18,7 +18,7 @@
             <a href="${pageContext.request.contextPath}/tag.run?restore=true">Tag</a><br/>
         </p>
         
-        <form name="presidentsForm" action="${pageContext.request.contextPath}/worksheet.run">
+        <form id="presidentsForm" action="${pageContext.request.contextPath}/worksheet.run">
             ${presidents}
         </form>
         
@@ -29,6 +29,18 @@
         
         
         <script type="text/javascript">
+
+            $(document).ready(function() {
+                $("#selectAllChkBox").click(function() {
+                    var isChecked = this.checked;
+                    $("#presidentsForm :checkbox:not(#selectAllChkBox)").each(function() {
+                        this.click();
+                        this.checked = isChecked;
+                    });
+                });
+
+            });
+
             function onInvokeAction(id) {
                 $.jmesa.createHiddenInputFieldsForLimitAndSubmit(id);
             }
