@@ -40,6 +40,7 @@ import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetUtils;
 import org.jmesa.worksheet.editor.CheckboxWorksheetEditor;
+import org.jmesa.worksheet.editor.WorksheetCheckboxHeaderEditor;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
@@ -155,6 +156,7 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlColumn chkbox = row.getColumn("selected");
         chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
+        chkbox.getHeaderRenderer().setHeaderEditor(new WorksheetCheckboxHeaderEditor());
         chkbox.setTitle("&nbsp;");
         chkbox.setFilterable(false);
         chkbox.setSortable(false);
