@@ -67,7 +67,6 @@
     height: 15px;
     white-space: nowrap;
     cursor: pointer;
-    overflow: hidden;
 }
 
 .jmesa .filter #dynFilterDiv {
@@ -181,7 +180,6 @@
     height: 15px;
     white-space: nowrap;
     cursor: pointer;
-    overflow: hidden;
 }
 
 .jmesa .wsColumnError {
@@ -196,7 +194,6 @@
     height: 15px;
     white-space: nowrap;
     cursor: pointer;
-    overflow: hidden;
 }
 
 .jmesa .wsColumnChange {
@@ -211,7 +208,6 @@
     height: 15px;
     white-space: nowrap;
     cursor: pointer;
-    overflow: hidden;
 }
 
 .jmesa #wsColumnDiv {

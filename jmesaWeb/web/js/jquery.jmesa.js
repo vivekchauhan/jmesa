@@ -350,6 +350,7 @@
             /* Enforce the width with a style. */
             cell.width(width);
             cell.parent().width(width);
+            cell.css('overflow', 'hidden');
 
             cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + (width + 2) + 'px" value="" /></div>');
 
@@ -476,6 +477,7 @@
             /* Enforce the width with a style. */
             cell.width(width);
             cell.parent().width(width);
+            cell.css('overflow', 'hidden');
 
             cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 3) + 'px" value=""/></div>');
 
