@@ -59,11 +59,6 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>performFilterAndSort</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
             <name>filterMatcherMap</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

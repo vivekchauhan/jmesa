@@ -230,13 +230,6 @@ public class TableFacadeImpl implements TableFacade {
         this.autoFilterAndSort = autoFilterAndSort;
     }
 
-    @Deprecated
-    public void performFilterAndSort(boolean performFilterAndSort) {
-        validateCoreContextIsNull(coreContext, "performFilterAndSort");
-        
-        this.autoFilterAndSort = performFilterAndSort;
-    }
-    
     Messages getMessages() {
         if (messages != null) {
             return messages;

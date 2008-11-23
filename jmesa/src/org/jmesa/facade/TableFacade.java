@@ -187,16 +187,6 @@ public interface TableFacade {
     public void autoFilterAndSort(boolean autoFilterAndSort);
 
     /**
-     * Set if the table needs to be filtered and sorted. By default the facade will sort and filter
-     * the Collection of Beans (or Maps).
-     * 
-     * @param performFilterAndSort True if should sort and filter the Collection of Beans (or Maps).
-     * @deprecated Should use the autoFilterAndSort method now.
-     */
-    @Deprecated
-    public void performFilterAndSort(boolean performFilterAndSort);
-
-    /**
      * Set the Messages on the facade. This will override the Messages if it was previously set.
      * 
      * @param messages The Messages to use.
