@@ -333,7 +333,7 @@
 
     /************* Filter ***********/
 
-    var dynFilter;
+    var dynFilter = null;
 
     var filterapi = {
         createDynFilter : function(filter, id, property) {
@@ -344,17 +344,21 @@
             dynFilter = new classes.DynFilter(filter, id, property);
 
             var cell = $(filter);
-            var width = cell.width() + 1;
+            var width = cell.width();
             var originalValue = cell.text();
 
-            cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + width + 'px" value="" /></div>');
+            /* Enforce the width with a style. */
+            cell.width(width);
+            cell.parent().width(width);
+
+            cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + (width + 2) + 'px" value="" /></div>');
 
             var input = $('#dynFilterInput');
             input.val(originalValue);
             input.focus();
 
             $(input).keypress(function(event) {
-                if (event.keyCode == 13) { // press the enter key
+                if (event.keyCode == 13) { /* Press the enter key. */
                     var changedValue = input.val();
                     cell.text(changedValue);
                     $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
@@ -378,7 +382,7 @@
             dynFilter = new classes.DynFilter(filter, id, property);
 
             if ($('#dynFilterDroplistDiv').size() > 0) {
-                return; // filter already created
+                return; /* Filter already created. */
             }
 
             /* The cell that represents the filter. */
@@ -397,6 +401,10 @@
                     return false;
                 }
             });
+
+            /* Enforce the width with a style. */
+            cell.width(width);
+            cell.parent().width(width);
 
             /* Create the dynamic select input box. */
             cell.html('<div id="dynFilterDroplistDiv" style="top:17px">');
@@ -421,7 +429,7 @@
             /* Resize the column if it is not at least as wide as the column. */
             var selectWidth = input.width();
             if (selectWidth < width) {
-                input.width(width + 5); // always make the droplist overlap some
+                input.width(width + 5); /* always make the droplist overlap some */
             }
 
             input.focus();
@@ -447,11 +455,11 @@
                 dynFilter = null;
             });
         }
-    }    
+    }
 
     /*********** Worksheet ***********/
 
-    var wsColumn;
+    var wsColumn = null;
 
     var worksheetapi = {
         createWsColumn : function(column, id, uniqueProperties, property) {
@@ -465,16 +473,18 @@
             var width = cell.width();
             var originalValue = cell.text();
 
-            cell.parent().width(width); // set the outer width to avoid dynamic column width changes
+            /* Enforce the width with a style. */
+            cell.width(width);
+            cell.parent().width(width);
 
-            cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 1) + 'px" value=""/></div>');
+            cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 3) + 'px" value=""/></div>');
 
             var input = $('#wsColumnInput');
             input.val(originalValue);
             input.focus();
 
             $('#wsColumnInput').keypress(function(event) {
-                if (event.keyCode == 13) { // press the enter key
+                if (event.keyCode == 13) { /* Press the enter key. */
                     var changedValue = input.val();
                     cell.text(changedValue);
                     if (changedValue != originalValue) {
@@ -504,7 +514,7 @@
             }
 
             var originalValue = 'unchecked';
-            if (!checked) { // the first time the original value is the opposite
+            if (!checked) { /* The first time the original value is the opposite. */
                 originalValue = 'checked';
             }
 

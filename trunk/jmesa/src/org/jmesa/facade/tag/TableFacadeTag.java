@@ -179,27 +179,6 @@ public class TableFacadeTag extends SimpleTagSupport {
     }
 
     /**
-     * True if should sort and filter the Collection of Beans (or Maps).
-     * @deprecated Use the autoFilterAndSort method now.
-     */
-    @Deprecated
-    public boolean isPerformFilterAndSort() {
-        return autoFilterAndSort;
-    }
-
-    /**
-     * Set if the table needs to be filtered and sorted. By default the facade will sort and filter
-     * the Collection of Beans (or Maps).
-     * 
-     * @param performFilterAndSort True if should sort and filter the Collection of Beans (or Maps).
-     * @deprecated Use the setAutoFilterAndSort method now.
-     */
-    @Deprecated
-    public void setPerformFilterAndSort(boolean performFilterAndSort) {
-        this.autoFilterAndSort = performFilterAndSort;
-    }
-
-    /**
      * the comma separated list of export types. The currently supported types are
      * TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
      */
