@@ -1,10 +1,8 @@
-The next release of JMesa is going to be fairly big with regards to improvements and features. You can track the work on the [http://code.google.com/p/jmesa/issues/list issues] tab because most all the work is about clearing the issues board. The release should be out by the end of the year (2008).
+The next release of JMesa is mostly going to be about rolling out the JMesa !JavaScript file as a jQuery plugin. That is also the main motivation for moving up to a 2.4 release...just to reflect that this is a fairly big change. Although I really do not expect any breaking changes.
 
 One big thing you might have noticed is that with each release more and more code is being contributed to JMesa. I really enjoy getting code contributions from developers. I think its interesting when either bugs are discovered or new features are implemented because of working with JMesa tables in a way I had not thought of. 
 
-You will also notice that we are moving to a 2.4 release of the project. I do not expect any breaking changes, so the jump from the 2.3 branch of the code is to reflect all the new features going in.
-
-As things get done I will list them here:
+Here is the current list of changes:
 
  * German Locale (de). Contributed by Stefan Barucha 
  * Better data encoding in the worksheet and filter ([http://code.google.com/p/jmesa/issues/detail?id=155 issue 155]). Contributed by Frode Reinertsen.
