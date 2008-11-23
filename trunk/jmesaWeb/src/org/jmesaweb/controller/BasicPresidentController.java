@@ -100,9 +100,6 @@ public class BasicPresidentController extends AbstractController {
         HtmlColumn lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
 
-        HtmlColumn career = row.getColumn("career");
-        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
-
         Column born = row.getColumn("born");
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
 
