@@ -5,6 +5,7 @@ One big thing you might have noticed is that with each release more and more cod
 Here is the current list of changes:
 
  * German Locale (de). Contributed by Stefan Barucha 
+ * Turkish Locale (tr_TR). Contributed by Erdem Yilmaz
  * Better data encoding in the worksheet and filter ([http://code.google.com/p/jmesa/issues/detail?id=155 issue 155]). Contributed by Frode Reinertsen.
  * JMesa !JavaScript is re-written as a jQuery plugin ([http://code.google.com/p/jmesa/issues/detail?id=128 issue 128]). Contributed by Benjamin Gould.
  * Searching for the valid page is non-recursive. This is more of a technical change and there was a custom implementation that found this edge case [http://code.google.com/p/jmesa/issues/detail?id=151 (issue 151)].
