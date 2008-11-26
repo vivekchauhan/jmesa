@@ -350,7 +350,7 @@
             /* Enforce the width with a style. */
             cell.width(width);
             cell.parent().width(width);
-            cell.css('overflow', 'hidden');
+            cell.css('overflow', 'visible');
 
             cell.html('<div id="dynFilterDiv"><input id="dynFilterInput" name="filter" style="width:' + (width + 2) + 'px" value="" /></div>');
 
@@ -361,6 +361,8 @@
             $(input).keypress(function(event) {
                 if (event.keyCode == 13) { /* Press the enter key. */
                     var changedValue = input.val();
+                    cell.text('');
+                    cell.css('overflow', 'hidden');
                     cell.text(changedValue);
                     $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                     $.jmesa.onInvokeAction(dynFilter.id, 'filter');
@@ -370,6 +372,8 @@
 
             $(input).blur(function() {
                 var changedValue = input.val();
+                cell.text('');
+                cell.css('overflow', 'hidden');
                 cell.text(changedValue);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                 dynFilter = null;
@@ -477,7 +481,7 @@
             /* Enforce the width with a style. */
             cell.width(width);
             cell.parent().width(width);
-            cell.css('overflow', 'hidden');
+            cell.css('overflow', 'visible');
 
             cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 3) + 'px" value=""/></div>');
 
@@ -488,6 +492,8 @@
             $('#wsColumnInput').keypress(function(event) {
                 if (event.keyCode == 13) { /* Press the enter key. */
                     var changedValue = input.val();
+                    cell.text('');
+                    cell.css('overflow', 'hidden');
                     cell.text(changedValue);
                     if (changedValue != originalValue) {
                         $.jmesa.submitWsColumn(originalValue, changedValue);
@@ -498,6 +504,8 @@
 
             $('#wsColumnInput').blur(function() {
                 var changedValue = input.val();
+                cell.text('');
+                cell.css('overflow', 'hidden');
                 cell.text(changedValue);
                 if (changedValue != originalValue) {
                     $.jmesa.submitWsColumn(originalValue, changedValue);
