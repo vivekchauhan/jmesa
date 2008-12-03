@@ -36,6 +36,7 @@ import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
@@ -280,9 +281,12 @@ class TagUtils {
      * 
      * @return The CellEditor to use.
      */
-    static CellEditor getColumnCellEditor(HtmlColumn column, String cellEditor, String pattern) {
-        if (StringUtils.isEmpty(cellEditor)) {
+    static CellEditor getColumnCellEditor(HtmlColumn column, String cellEditor, String pattern, boolean hasBody) {
+        boolean cellEditorNotDefined = StringUtils.isEmpty(cellEditor);
+        if (hasBody && cellEditorNotDefined) {
             return new BasicCellEditor();
+        } else if (cellEditorNotDefined) {
+            return new HtmlCellEditor();
         }
 
         CellEditor result = (CellEditor) createInstance(cellEditor);
