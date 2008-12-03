@@ -360,7 +360,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         // cell
 
-        CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern());
+        CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern(), getJspBody() != null);
         cr.setCellEditor(ce);
 
         // filter
