@@ -16,6 +16,7 @@
 package org.jmesa.view;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.editor.CellEditor;
@@ -45,6 +46,10 @@ public class ExportComponentFactory extends AbstractComponentFactory {
         exr.setCoreContext(getCoreContext());
         exr.setWebContext(getWebContext());
         column.setCellRenderer(exr);
+        
+        SupportUtils.setCoreContext(editor, getCoreContext());
+        SupportUtils.setWebContext(editor, getWebContext());
+        
         return column;
     }
 }
