@@ -67,7 +67,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
         }
         
         html.close();
-        html.append(column.getTitle());
+        html.append(getTitle(column));
 
         if (column.isSortable()) {
             String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
@@ -94,6 +94,10 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
         html.divEnd();
 
         return html.toString();
+    }
+
+    protected String getTitle(HtmlColumn column) {
+        return column.getTitle();
     }
 
     /**
