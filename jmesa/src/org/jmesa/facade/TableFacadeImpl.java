@@ -82,12 +82,15 @@ import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.1
  * @author Jeff Johnston
  */
 public class TableFacadeImpl implements TableFacade {
+    private Logger logger = LoggerFactory.getLogger(TableFacadeImpl.class);
 
     private HttpServletRequest request;
     private HttpServletResponse response;
@@ -128,7 +131,7 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
         validateToolbarIsNull(toolbar, "exportTypes");
-        
+
         this.response = response;
         this.exportTypes = exportTypes;
     }
@@ -147,28 +150,28 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setEditable(boolean editable) {
         validateItemsIsNull(items);
-        
+
         this.editable = editable;
     }
-    
+
     public Worksheet getWorksheet() {
         if (worksheet != null || !editable) {
             return worksheet;
         }
-        
+
         WorksheetState state = new SessionWorksheetState(id, getWebContext());
         Worksheet ws = state.retrieveWorksheet();
-        
+
         if (ws == null || !isTableRefreshing(id, getWebContext())) {
             ws = new WorksheetImpl(id, getMessages());
             state.persistWorksheet(ws);
-        } 
-        
+        }
+
         this.worksheet = new WorksheetWrapper(ws, getWebContext());
 
         return worksheet;
     }
-    
+
     public Limit getLimit() {
         if (limit != null) {
             return limit;
@@ -190,7 +193,7 @@ public class TableFacadeImpl implements TableFacade {
                 limitFactory.createRowSelect(getMaxRows(), items.size(), l);
             }
         }
-        
+
         this.limit = l;
         return limit;
     }
@@ -241,7 +244,7 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setMessages(Messages messages) {
         validateCoreContextIsNull(coreContext, "Messages");
-        
+
         this.messages = messages;
         SupportUtils.setWebContext(messages, getWebContext());
     }
@@ -305,8 +308,7 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setItems(Collection<?> items) {
         validateCoreContextIsNull(coreContext, "items");
-        //validateLimitIsNull(limit, "items");
-        
+
         if (editable) {
             this.items = filterWorksheetItems(items, getWorksheet());
         } else {
@@ -340,7 +342,7 @@ public class TableFacadeImpl implements TableFacade {
         if (coreContext != null) {
             return coreContext;
         }
-        
+
         validateItemsIsNotNull(items);
 
         CoreContextFactoryImpl factory = new CoreContextFactoryImpl(autoFilterAndSort, getWebContext());
@@ -372,7 +374,7 @@ public class TableFacadeImpl implements TableFacade {
         if (table != null) {
             return table;
         }
-        
+
         validateColumnPropertiesIsNotNull(columnProperties);
 
         Limit l = getLimit();
@@ -383,28 +385,32 @@ public class TableFacadeImpl implements TableFacade {
             HtmlTableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
             this.table = tableFactory.createTable(columnProperties);
         } else {
-            ExportType exportType = l.getExportType();
-            if (exportType == ExportType.CSV) {
-                TableFactory tableFactory = new CsvTableFactory(getWebContext(), getCoreContext());
-                this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType == ExportType.EXCEL) {
-                TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
-                this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType == ExportType.JEXCEL) {
-                TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
-                this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType == ExportType.PDF) {
-                TableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
-                this.table = tableFactory.createTable(columnProperties);
-            } else if (exportType == ExportType.PDFP) {
-                TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
-                this.table = tableFactory.createTable(columnProperties);
-            } else {
-                throw new IllegalStateException("Not able to handle the export of type: " + exportType);
-            }
+            this.table = getExportTable(l.getExportType());
         }
 
         return table;
+    }
+
+    protected Table getExportTable(ExportType exportType) {
+
+        if (exportType == ExportType.CSV) {
+            TableFactory tableFactory = new CsvTableFactory(getWebContext(), getCoreContext());
+            return tableFactory.createTable(columnProperties);
+        } else if (exportType == ExportType.EXCEL) {
+            TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
+            return tableFactory.createTable(columnProperties);
+        } else if (exportType == ExportType.JEXCEL) {
+            TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
+            return tableFactory.createTable(columnProperties);
+        } else if (exportType == ExportType.PDF) {
+            TableFactory tableFactory = new HtmlTableFactory(getWebContext(), getCoreContext());
+            return tableFactory.createTable(columnProperties);
+        } else if (exportType == ExportType.PDFP) {
+            TableFactory tableFactory = new ExportTableFactory(getWebContext(), getCoreContext());
+            return tableFactory.createTable(columnProperties);
+        }
+
+        throw new IllegalStateException("Not able to handle the export of type: " + exportType);
     }
 
     public void setTable(Table table) {
@@ -455,23 +461,27 @@ public class TableFacadeImpl implements TableFacade {
         if (!l.isExported()) {
             setView(new HtmlView());
         } else {
-            ExportType exportType = l.getExportType();
-            if (exportType == ExportType.CSV) {
-                this.view = new CsvView(getTable(), getCoreContext());
-            } else if (exportType == ExportType.EXCEL) {
-                this.view = new ExcelView(getTable(), getCoreContext());
-            } else if (exportType == ExportType.JEXCEL) {
-                this.view = new JExcelView(getTable(), getCoreContext());
-            } else if (exportType == ExportType.PDF) {
-                this.view = new PdfView((HtmlTable) getTable(), getToolbar(), getWebContext(), getCoreContext());
-            } else if (exportType == ExportType.PDFP) {
-                this.view = new PdfPView(getTable(), getToolbar(), getWebContext(), getCoreContext());
-            } else {
-                throw new IllegalStateException("Not able to handle the export of type: " + exportType);
-            }
+            this.view = getExportView(l.getExportType());
         }
 
         return view;
+    }
+
+    protected View getExportView(ExportType exportType) {
+
+        if (exportType == ExportType.CSV) {
+            return new CsvView(getTable(), getCoreContext());
+        } else if (exportType == ExportType.EXCEL) {
+            return new ExcelView(getTable(), getCoreContext());
+        } else if (exportType == ExportType.JEXCEL) {
+            return new JExcelView(getTable(), getCoreContext());
+        } else if (exportType == ExportType.PDF) {
+            return new PdfView((HtmlTable) getTable(), getToolbar(), getWebContext(), getCoreContext());
+        } else if (exportType == ExportType.PDFP) {
+            return new PdfPView(getTable(), getToolbar(), getWebContext(), getCoreContext());
+        }
+
+        throw new IllegalStateException("Not able to handle the export of type: " + exportType);
     }
 
     public void setView(View view) {
@@ -490,23 +500,29 @@ public class TableFacadeImpl implements TableFacade {
             return v.render().toString();
         }
 
+        ExportType exportType = l.getExportType();
         try {
-            ExportType exportType = l.getExportType();
-            if (exportType == ExportType.CSV) {
-                new CsvViewExporter(v, response).export();
-            } else if (exportType == ExportType.EXCEL) {
-                new ExcelViewExporter(v, response).export();
-            } else if (exportType == ExportType.JEXCEL) {
-                new JExcelViewExporter(v, response).export();
-            } else if (exportType == ExportType.PDF) {
-                new PdfViewExporter(v, request, response).export();
-            } else if (exportType == ExportType.PDFP) {
-                new PdfPViewExporter(v, request, response).export();
-            }
+            renderExport(exportType, v);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Not able to perform the " + exportType + " export.");
         }
 
         return null;
+    }
+
+    protected void renderExport(ExportType exportType, View view)
+            throws Exception {
+
+        if (exportType == ExportType.CSV) {
+            new CsvViewExporter(view, response).export();
+        } else if (exportType == ExportType.EXCEL) {
+            new ExcelViewExporter(view, response).export();
+        } else if (exportType == ExportType.JEXCEL) {
+            new JExcelViewExporter(view, response).export();
+        } else if (exportType == ExportType.PDF) {
+            new PdfViewExporter(view, request, response).export();
+        } else if (exportType == ExportType.PDFP) {
+            new PdfPViewExporter(view, request, response).export();
+        }
     }
 }
