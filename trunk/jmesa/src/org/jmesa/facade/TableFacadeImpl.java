@@ -501,28 +501,26 @@ public class TableFacadeImpl implements TableFacade {
         }
 
         ExportType exportType = l.getExportType();
-        try {
-            renderExport(exportType, v);
-        } catch (Exception e) {
-            logger.error("Not able to perform the " + exportType + " export.");
-        }
+        renderExport(exportType, v);
 
         return null;
     }
 
-    protected void renderExport(ExportType exportType, View view)
-            throws Exception {
-
-        if (exportType == ExportType.CSV) {
-            new CsvViewExporter(view, response).export();
-        } else if (exportType == ExportType.EXCEL) {
-            new ExcelViewExporter(view, response).export();
-        } else if (exportType == ExportType.JEXCEL) {
-            new JExcelViewExporter(view, response).export();
-        } else if (exportType == ExportType.PDF) {
-            new PdfViewExporter(view, request, response).export();
-        } else if (exportType == ExportType.PDFP) {
-            new PdfPViewExporter(view, request, response).export();
+    protected void renderExport(ExportType exportType, View view) {
+        try {
+            if (exportType == ExportType.CSV) {
+                new CsvViewExporter(view, response).export();
+            } else if (exportType == ExportType.EXCEL) {
+                new ExcelViewExporter(view, response).export();
+            } else if (exportType == ExportType.JEXCEL) {
+                new JExcelViewExporter(view, response).export();
+            } else if (exportType == ExportType.PDF) {
+                new PdfViewExporter(view, request, response).export();
+            } else if (exportType == ExportType.PDFP) {
+                new PdfPViewExporter(view, request, response).export();
+            }
+        } catch (Exception e) {
+            logger.error("Not able to perform the " + exportType + " export.");
         }
     }
 }
