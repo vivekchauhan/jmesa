@@ -6,7 +6,7 @@ The only core dependencies are a few Apache Commons libraries in which JMesa is 
  * [http://jquery.com jQuery] (required as of JMesa 2.2.3)
 
 === Minimum Jars Needed ===
- * commons-beanutils-1.7.0.jar
+ * commons-beanutils-1.7.0.jar (1.8.0 is recommended)
  * commons-collections-3.0.jar
  * commons-lang-2.2.jar
 
@@ -40,6 +40,7 @@ In the jmesa.zip file you will find everything you need to get started:
  * jmesa.css
  * jmesa-pdf.css
  * jmesa.js
+ * jquery.jmesa.js
  * jmesa.tld
  * default images
  * source code
