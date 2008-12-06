@@ -156,7 +156,6 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlColumn chkbox = row.getColumn("selected");
         chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
-        chkbox.getHeaderRenderer().setHeaderEditor(new WorksheetCheckboxHeaderEditor());
         chkbox.setTitle("&nbsp;");
         chkbox.setFilterable(false);
         chkbox.setSortable(false);
