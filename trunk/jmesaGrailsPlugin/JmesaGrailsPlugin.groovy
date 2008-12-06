@@ -1,6 +1,6 @@
 
 class JmesaGrailsPlugin {
-    def version = 0.8
+    def version = 1.0
     def dependsOn = [:]
 	def author = "jeff.jie"
     def email = "bbmyth@gmail.com"
