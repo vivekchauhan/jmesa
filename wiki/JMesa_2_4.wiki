@@ -14,7 +14,7 @@ Here is the current list of changes:
  * Doing a check to make sure that the maxRowIncrements contains the maxRows [http://code.google.com/p/jmesa/issues/detail?id=95 (issue 95)].
  * Expression evaluation from Java code ([http://code.google.com/p/jmesa/issues/detail?id=145 issue 145]). Contributed by Benjamin Gould.
 
-==== Example ====
+==== Expression Evaluation Example ====
 All three of these code snippets do the same thing...putting the first and last name together using !JavaScript notation. Even though this example is in !JavaScript all the popular scripting languages are supported through the Apache [http://jakarta.apache.org/bsf/ Bean Scripting Framework]. In addition there is support for doing EL expressions as well.
 
 {{{
