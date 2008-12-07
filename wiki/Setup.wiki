@@ -28,6 +28,9 @@ _See the [SLF4J] page for details about working with the slf4j logging framework
  * itext-paulo-155.jar
  * tagsoup-1.1.3.jar
 
+==== PDF Export (Using PdfPView) ====
+ * itext-paulo-155.jar
+
 ==== Tags ====
  * servlet-api-2.4.jar
  * jsp-api-2.0.jar
@@ -46,6 +49,8 @@ In the jmesa.zip file you will find everything you need to get started:
  * source code
 
 The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directory and you are all ready to start coding your table. Of course to render correctly on the web page you will need to install the !JavaScript, CSS, and Images. Your project probably has plenty of those resources and should be used consistently.
+
+Note: make sure that you declare the jquery.jmesa.js before the jmesa.js, but also after the jQuery (distribution) file.
 
 If you need to do more customization you might need to set up the [Messages] and [Preferences].
 
