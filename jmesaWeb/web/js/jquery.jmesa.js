@@ -254,7 +254,7 @@
         createHiddenInputFields : function(form) {
             var limit = this.limit;
 
-            var exists = $(form).find(':hidden[@name=' + limit.id + '_p_]').val();
+            var exists = $(form).find(':hidden[name=' + limit.id + '_p_]').val();
             if (exists) {
                 return false;
             }
