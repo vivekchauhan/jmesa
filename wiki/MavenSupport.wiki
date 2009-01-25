@@ -21,7 +21,7 @@ This would be the dependency declaration in your pom.xml.
 <dependency>
    <groupId>jmesa</groupId>
    <artifactId>jmesa</artifactId>
-   <version>2.3.4</version>
+   <version>2.4.1</version>
 </dependency>
 }}}
 
