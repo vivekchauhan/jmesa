@@ -20,9 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.View;
+import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlSnippets;
@@ -38,34 +37,25 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Use the Flying Saucer API to generate Pdf documents.
- * 
+ *
  * @since 2.2
  * @author Paul Horn
  */
-public class PdfView implements View {
-
+public class PdfView extends AbstractExportView {
     private static Logger logger = LoggerFactory.getLogger(PdfView.class);
-    private HtmlTable table;
+    
     private HtmlSnippets snippets;
     private WebContext webContext;
     private String cssLocation;
     private String doctype;
 
     public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
-        this.table = table;
+        super(table, coreContext);
         this.webContext = webContext;
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
 
         this.cssLocation = coreContext.getPreference("pdf.cssLocation");
         this.doctype = coreContext.getPreference("pdf.doctype");
-    }
-
-    public HtmlTable getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = (HtmlTable) table;
     }
 
     /**
@@ -79,11 +69,11 @@ public class PdfView implements View {
      * <p>
      * The css to use for this pdf file. Will be relative to the servlet context.
      * </p>
-     * 
+     *
      * <p>
      * example: /css/jmesa-pdf-landscape.css
      * <p>
-     * 
+     *
      * @param cssLocation The path and name of the jmesa css file.
      */
     public void setCssLocation(String cssLocation) {
@@ -130,9 +120,9 @@ public class PdfView implements View {
         html.append(snippets.theadEnd());
 
         html.append(snippets.tbodyStart());
-        
+
         decorateCellEditors();
-        
+
         html.append(snippets.body());
 
         html.append(snippets.tbodyEnd());
@@ -156,13 +146,14 @@ public class PdfView implements View {
      * Decorate the cellEditors to escape xml values.
      */
     protected void decorateCellEditors() {
+        HtmlTable table = (HtmlTable) getTable();
         HtmlRow row = table.getRow();
         List<Column> columns = row.getColumns();
         for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
             HtmlColumn column = (HtmlColumn) iter.next();
             HtmlCellRenderer cellRenderer = column.getCellRenderer();
             CellEditor cellEditor = cellRenderer.getCellEditor();
-            
+
             // decorate the cell editors
             EscapeXmlCellEditor escapeXmlCellEditor = new EscapeXmlCellEditor();
             escapeXmlCellEditor.setCellEditor(cellEditor);

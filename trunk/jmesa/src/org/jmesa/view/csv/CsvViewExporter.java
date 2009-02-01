@@ -17,7 +17,7 @@ package org.jmesa.view.csv;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.jmesa.util.ExportUtils;
+import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractViewExporter;
 import org.jmesa.view.View;
 
@@ -26,46 +26,30 @@ import org.jmesa.view.View;
  * @author Jeff Johnston
  */
 public class CsvViewExporter extends AbstractViewExporter {
-    View view;
-    HttpServletResponse response;
-    String fileName;
 
-    public CsvViewExporter(View view, HttpServletResponse response) {
-        this.view = view;
-        this.response = response;
-        this.fileName = ExportUtils.exportFileName(view, "txt");
+    public CsvViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
+        super(view, coreContext, response, null);
     }
 
-    public CsvViewExporter(View view, String fileName, HttpServletResponse response) {
-        this.view = view;
-        this.fileName = fileName;
-        this.response = response;
-    }
-
-    public View getView() {
-        return view;
-    }
-
-    public void setView(View view) {
-        this.view = view;
+    public CsvViewExporter(View view, CoreContext coreContext, HttpServletResponse response, String fileName) {
+        super(view, coreContext, response, fileName);
     }
 
     public void export()
             throws Exception {
-        responseHeaders(response);
-        String viewData = (String) view.render();
+        responseHeaders(getResponse());
+        String viewData = (String) getView().render();
         byte[] contents = (viewData).getBytes();
-        response.getOutputStream().write(contents);
+        getResponse().getOutputStream().write(contents);
     }
 
     @Override
-    public void responseHeaders(HttpServletResponse response)
-            throws Exception {
-        response.setContentType("text/plain");
-        fileName = new String(fileName.getBytes(), "UTF-8");
-        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        response.setHeader("Pragma", "public");
-        response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
+    public String getContextType() {
+        return "text/plain";
+    }
+
+    @Override
+    public String getExtensionName() {
+        return "txt";
     }
 }

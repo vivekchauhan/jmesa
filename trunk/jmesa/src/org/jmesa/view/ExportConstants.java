@@ -26,5 +26,5 @@ public class ExportConstants {
 
     public static final String PDF_FONT_NAME = "export.pdf.fontName";
     public static final String PDF_FONT_ENCODING = "export.pdf.fontEncoding";
-
+    public static final String ENCODING = "encoding";
 }

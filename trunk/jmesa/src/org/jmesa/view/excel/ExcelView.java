@@ -19,14 +19,13 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.View;
+import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
@@ -35,21 +34,10 @@ import org.jmesa.view.component.Table;
  * @since 2.1
  * @author jeff jie
  */
-public class ExcelView implements View {
-    private Table table;
-    private CoreContext coreContext;
+public class ExcelView extends AbstractExportView {
 
     public ExcelView(Table table, CoreContext coreContext) {
-        this.table = table;
-        this.coreContext = coreContext;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
+        super(table, coreContext);
     }
 
     public byte[] getBytes() {
@@ -59,6 +47,7 @@ public class ExcelView implements View {
 
     public Object render() {
         HSSFWorkbook workbook = new HSSFWorkbook();
+        Table table = this.getTable();
         String caption = table.getCaption();
         if (StringUtils.isEmpty(caption)) {
             caption = "JMesa Export";
@@ -78,7 +67,7 @@ public class ExcelView implements View {
         }
 
         // renderer body
-        Collection<?> items = coreContext.getPageItems();
+        Collection<?> items = getCoreContext().getPageItems();
         int rowcount = 1;
         for (Object item : items) {
             HSSFRow r = sheet.createRow(rowcount++);

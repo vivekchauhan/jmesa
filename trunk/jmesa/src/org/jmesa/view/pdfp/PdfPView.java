@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.View;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
@@ -41,6 +40,7 @@ import static com.lowagie.text.pdf.BaseFont.NOT_EMBEDDED;
 import static com.lowagie.text.pdf.BaseFont.createFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
+import org.jmesa.view.AbstractExportView;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.jmesa.view.ExportConstants.PDF_FONT_NAME;
 import static org.jmesa.view.ExportConstants.PDF_FONT_ENCODING;
@@ -53,12 +53,10 @@ import org.slf4j.LoggerFactory;
  * @since 2.3.4
  * @author Ismail Seyfi
  */
-public class PdfPView implements View {
+public class PdfPView extends AbstractExportView {
 
     private Logger logger = LoggerFactory.getLogger(PdfPView.class);
-    private Table table;
     private WebContext webContext;
-    private CoreContext coreContext;
     private Color evenCellBackgroundColor;
     private Color oddCellBackgroundColor;
     private Color headerBackgroundColor;
@@ -67,24 +65,14 @@ public class PdfPView implements View {
     private String captionAlignment;
 
     public PdfPView(Table table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
-        this.table = table;
+        super(table, coreContext);
         this.webContext = webContext;
-        this.coreContext = coreContext;
-
         this.evenCellBackgroundColor = new Color(227, 227, 227);
         this.oddCellBackgroundColor = new Color(255, 255, 255);
         this.headerBackgroundColor = new Color(114, 159, 207);
         this.headerFontColor = new Color(255, 255, 255);
         this.captionFontColor = new Color(0, 0, 0);
         this.captionAlignment = "center";
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
     }
 
     public byte[] getBytes() {
@@ -115,7 +103,7 @@ public class PdfPView implements View {
         }
 
         // build table body
-        Collection<?> items = coreContext.getPageItems();
+        Collection<?> items = getCoreContext().getPageItems();
         int rowcount = 0;
         for (Object item : items) {
             rowcount++;
@@ -221,8 +209,8 @@ public class PdfPView implements View {
     }
 
     private Font getFontWithColor(Color color) {
-        String fontName = coreContext.getPreference(PDF_FONT_NAME);
-        String fontEncoding = coreContext.getPreference(PDF_FONT_ENCODING);
+        String fontName = getCoreContext().getPreference(PDF_FONT_NAME);
+        String fontEncoding = getCoreContext().getPreference(PDF_FONT_ENCODING);
         if (isNotBlank(fontName) && isNotBlank(fontEncoding)) {
             try {
                 BaseFont baseFont = createFont(fontName, fontEncoding, NOT_EMBEDDED);
