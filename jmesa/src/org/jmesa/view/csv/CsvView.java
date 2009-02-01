@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.View;
+import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Table;
 
@@ -27,21 +27,10 @@ import org.jmesa.view.component.Table;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class CsvView implements View {
-    private Table table;
-    private CoreContext coreContext;
+public class CsvView extends AbstractExportView {
 
     public CsvView(Table table, CoreContext coreContext) {
-        this.table = table;
-        this.coreContext = coreContext;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
+        super(table, coreContext);
     }
 
     public byte[] getBytes() {
@@ -52,10 +41,10 @@ public class CsvView implements View {
     public Object render() {
         StringBuilder data = new StringBuilder();
 
-        List<Column> columns = table.getRow().getColumns();
+        List<Column> columns = getTable().getRow().getColumns();
 
         int rowcount = 0;
-        Collection<?> items = coreContext.getPageItems();
+        Collection<?> items = getCoreContext().getPageItems();
         for (Object item : items) {
             rowcount++;
 

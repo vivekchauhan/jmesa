@@ -34,7 +34,7 @@ import jxl.write.WritableWorkbook;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.view.View;
+import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
@@ -44,35 +44,33 @@ import org.springframework.util.FileCopyUtils;
  * <p>
  * Create the JExcel view.
  * </p>
- * 
+ *
  * @since 2.2
  * @author Paul Horn
  */
-public class JExcelView implements View {
-    private Table table;
-    private CoreContext coreContext;
-    private OutputStream out;
+public class JExcelView extends AbstractExportView {
+
+    private OutputStream outputStream;
 
     public JExcelView(Table table, CoreContext coreContext) {
-        this.table = table;
-        this.coreContext = coreContext;
+        super(table, coreContext);
     }
 
-    public Table getTable() {
-        return table;
+    public void setOutputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
     }
 
-    public void setTable(Table table) {
-        this.table = table;
-    }
-
+    /**
+     * @deprecated Use the better named setOutputStream() method.
+     */
+    @Deprecated
     public void setOut(OutputStream out) {
-        this.out = out;
+        this.outputStream = out;
     }
 
     /**
      * A utility method used to debug views.
-     * 
+     *
      * @return The byte array that represents the JExcel view.
      */
     public byte[] getBytes() {
@@ -91,7 +89,8 @@ public class JExcelView implements View {
 
     public Object render() {
         try {
-            WritableWorkbook workbook = Workbook.createWorkbook(out);
+            Table table = getTable();
+            WritableWorkbook workbook = Workbook.createWorkbook(outputStream);
             String caption = table.getCaption();
             if (StringUtils.isEmpty(caption)) {
                 caption = "JMesa Export";
@@ -120,7 +119,7 @@ public class JExcelView implements View {
 
             WritableCellFormat rowFmt = new WritableCellFormat(new WritableFont(WritableFont.ARIAL, 10));
 
-            Collection<?> items = coreContext.getPageItems();
+            Collection<?> items = getCoreContext().getPageItems();
             for (Object item : items) {
                 colidx = 0;
                 for (Column col : columns) {

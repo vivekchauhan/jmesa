@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jmesa.util.ExportUtils;
+import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractViewExporter;
 import org.jmesa.view.View;
 import org.w3c.dom.Document;
@@ -34,45 +34,22 @@ import org.xhtmlrenderer.util.XRLog;
  * @author Paul Horn
  */
 public class PdfViewExporter extends AbstractViewExporter {
-    private View view;
+
     private HttpServletRequest request;
-    private HttpServletResponse response;
-    private String fileName;
 
-    public PdfViewExporter(View view, HttpServletRequest request, HttpServletResponse response) {
-        this.view = view;
+    public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
+        super(view, coreContext, response);
         this.request = request;
-        this.response = response;
-        this.fileName = ExportUtils.exportFileName(view, "pdf");
     }
 
-    public PdfViewExporter(View view, String fileName, HttpServletRequest request, HttpServletResponse response) {
-        this.view = view;
-        this.fileName = fileName;
+    public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response, String fileName) {
+        super(view, coreContext, response, fileName);
         this.request = request;
-        this.response = response;
-    }
-
-    public View getView() {
-        return this.view;
-    }
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    @Override
-    public void responseHeaders(HttpServletResponse response) throws Exception {
-        response.setContentType("application/pdf");
-        fileName = new String(fileName.getBytes(), "UTF-8");
-        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        response.setHeader("Pragma", "public");
-        response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
     }
 
     public void export() throws Exception {
-        byte[] contents = view.getBytes();
+        byte[] contents = getView().getBytes();
+        HttpServletResponse response = getResponse();
         responseHeaders(response);
 
         System.setProperty("xr.load.xml-reader", "org.ccil.cowan.tagsoup.Parser");
@@ -103,11 +80,21 @@ public class PdfViewExporter extends AbstractViewExporter {
         renderer.layout();
         renderer.createPDF(response.getOutputStream());
     }
-    
+
     /**
      * @return The base url to the web application.
      */
     private String getBaseUrl() {
         return request.getRequestURL().toString();
+    }
+
+    @Override
+    public String getContextType() {
+        return "application/pdf";
+    }
+
+    @Override
+    public String getExtensionName() {
+        return "pdf";
     }
 }

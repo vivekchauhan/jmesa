@@ -59,6 +59,7 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.view.ExportTableFactory;
 import org.jmesa.view.TableFactory;
 import org.jmesa.view.View;
+import org.jmesa.view.ViewExporter;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvTableFactory;
 import org.jmesa.view.csv.CsvView;
@@ -120,7 +121,7 @@ public class TableFacadeImpl implements TableFacade {
      * <p>
      * Create the table with the id.
      * </p>
-     * 
+     *
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
      */
@@ -508,16 +509,18 @@ public class TableFacadeImpl implements TableFacade {
 
     protected void renderExport(ExportType exportType, View view) {
         try {
+            CoreContext cc = getCoreContext();
+
             if (exportType == ExportType.CSV) {
-                new CsvViewExporter(view, response).export();
+                new CsvViewExporter(view, cc, response).export();
             } else if (exportType == ExportType.EXCEL) {
-                new ExcelViewExporter(view, response).export();
+                new ExcelViewExporter(view, cc, response).export();
             } else if (exportType == ExportType.JEXCEL) {
-                new JExcelViewExporter(view, response).export();
+                new JExcelViewExporter(view, cc, response).export();
             } else if (exportType == ExportType.PDF) {
-                new PdfViewExporter(view, request, response).export();
+                new PdfViewExporter(view, cc, request, response).export();
             } else if (exportType == ExportType.PDFP) {
-                new PdfPViewExporter(view, request, response).export();
+                new PdfPViewExporter(view, cc, request, response).export();
             }
         } catch (Exception e) {
             logger.error("Not able to perform the " + exportType + " export.");

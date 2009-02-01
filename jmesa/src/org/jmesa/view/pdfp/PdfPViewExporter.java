@@ -15,13 +15,16 @@
  */
 package org.jmesa.view.pdfp;
 
-import com.lowagie.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jmesa.util.ExportUtils;
+
 import org.jmesa.view.AbstractViewExporter;
+
+import com.lowagie.text.pdf.PdfWriter;
+import org.jmesa.core.CoreContext;
 import org.jmesa.view.View;
 
 /**
@@ -31,44 +34,30 @@ import org.jmesa.view.View;
  * @author Ismail Seyfi
  */
 public class PdfPViewExporter extends AbstractViewExporter {
-    private View view;
+
     private HttpServletRequest request;
-    private HttpServletResponse response;
-    private String fileName;
 
-    public PdfPViewExporter(View view, HttpServletRequest request, HttpServletResponse response) {
-        this.view = view;
+    public PdfPViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
+        super(view, coreContext, response);
         this.request = request;
-        this.response = response;
-        this.fileName = ExportUtils.exportFileName(view, "pdf");
     }
 
-    public PdfPViewExporter(View view, String fileName, HttpServletRequest request, HttpServletResponse response) {
-        this.view = view;
-        this.fileName = fileName;
+    public PdfPViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response, String fileName) {
+        super(view, coreContext, response, fileName);
         this.request = request;
-        this.response = response;
-    }
-
-    public View getView() {
-        return view;
-    }
-
-    public void setView(View view) {
-        this.view = view;
     }
 
     public void export() throws Exception {
-
         com.lowagie.text.Document document = new com.lowagie.text.Document();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         PdfWriter.getInstance(document, baos);
         document.open();
-        document.add(((PdfPView) view).getTableCaption());
-        document.add(((PdfPView) view).render());
+        PdfPView pdfView = (PdfPView) getView();
+        document.add(pdfView.getTableCaption());
+        document.add(pdfView.render());
         document.close();
-
+        HttpServletResponse response = getResponse();
         responseHeaders(response);
         ServletOutputStream out = response.getOutputStream();
         baos.writeTo(out);
@@ -76,12 +65,12 @@ public class PdfPViewExporter extends AbstractViewExporter {
     }
 
     @Override
-    public void responseHeaders(HttpServletResponse response) throws Exception {
-        response.setContentType("application/pdf");
-        fileName = new String(fileName.getBytes(), "UTF-8");
-        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        response.setHeader("Pragma", "public");
-        response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
+    public String getContextType() {
+        return "application/pdf";
+    }
+
+    @Override
+    public String getExtensionName() {
+        return "pdf";
     }
 }
