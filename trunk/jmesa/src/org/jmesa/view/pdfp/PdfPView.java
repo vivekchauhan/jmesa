@@ -15,23 +15,37 @@
  */
 package org.jmesa.view.pdfp;
 
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
+import static org.jmesa.view.ViewUtils.isRowEven;
+
 import java.awt.Color;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.View;
-import static org.jmesa.view.ViewUtils.isRowEven;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
+
+import com.lowagie.text.Font;
+import static com.lowagie.text.Font.NORMAL;
+import static com.lowagie.text.Font.BOLD;
+import static com.lowagie.text.FontFactory.HELVETICA;
+import static com.lowagie.text.FontFactory.getFont;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.BaseFont;
+import static com.lowagie.text.pdf.BaseFont.NOT_EMBEDDED;
+import static com.lowagie.text.pdf.BaseFont.createFont;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+import static org.jmesa.view.ExportConstants.PDF_FONT_NAME;
+import static org.jmesa.view.ExportConstants.PDF_FONT_ENCODING;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A PDF view that uses the iText PdfPTable.
@@ -41,6 +55,7 @@ import org.jmesa.web.WebContext;
  */
 public class PdfPView implements View {
 
+    private Logger logger = LoggerFactory.getLogger(PdfPView.class);
     private Table table;
     private WebContext webContext;
     private CoreContext coreContext;
@@ -77,7 +92,7 @@ public class PdfPView implements View {
     }
 
     public Paragraph getTableCaption() throws Exception {
-        Paragraph p = new Paragraph(getTable().getCaption(), FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD, getCaptionFontColor()));
+        Paragraph p = new Paragraph(getTable().getCaption(), getFont(HELVETICA, 18, BOLD, getCaptionFontColor()));
         p.setAlignment(getCaptionAlignment());
         return p;
     }
@@ -93,7 +108,7 @@ public class PdfPView implements View {
         // build table headers
         for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
             Column column = iter.next();
-            PdfPCell cell = new PdfPCell(new Paragraph(column.getTitle(), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, getHeaderFontColor())));
+            PdfPCell cell = new PdfPCell(new Paragraph(column.getTitle(), getHeaderCellFont()));
             cell.setPadding(3.0f);
             cell.setBackgroundColor(getHeaderBackgroundColor());
             pdfpTable.addCell(cell);
@@ -112,7 +127,7 @@ public class PdfPView implements View {
 
                 String property = column.getProperty();
                 Object value = column.getCellRenderer().getCellEditor().getValue(item, property, rowcount);
-                PdfPCell cell = new PdfPCell(new Paragraph(value == null ? "" : String.valueOf(value), FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL)));
+                PdfPCell cell = new PdfPCell(new Paragraph(value == null ? "" : String.valueOf(value), getCellFont()));
                 cell.setPadding(3.0f);
 
                 if (isRowEven(rowcount)) {
@@ -152,12 +167,41 @@ public class PdfPView implements View {
         this.headerBackgroundColor = headerBackgroundColor;
     }
 
+    /**
+     * Create either the default helvetica 12 point font, or specify the
+     * font name and encoding in the preferences. Either way it will use
+     * the header font color.
+     *
+     * <p>
+     *  The preference settings are the following:
+     *  export.pdf.fontName
+     *  export.pdf.fontEncoding
+     * </p>
+     */
+    public Font getHeaderCellFont() {
+        return getFontWithColor(getHeaderFontColor());
+    }
+
     public Color getHeaderFontColor() {
         return headerFontColor;
     }
 
     public void setHeaderFontColor(Color headerFontColor) {
         this.headerFontColor = headerFontColor;
+    }
+
+    /**
+     * Create either the default helvetica 12 point font, or specify the
+     * font name and encoding in the preferences.
+     *
+     * <p>
+     *  The preference settings are the following:
+     *  export.pdf.fontName
+     *  export.pdf.fontEncoding
+     * </p>
+     */
+    public Font getCellFont() {
+        return getFontWithColor(null);
     }
 
     public Color getEvenCellBackgroundColor() {
@@ -174,5 +218,27 @@ public class PdfPView implements View {
 
     public void setOddCellBackgroundColor(Color oddCellBackgroundColor) {
         this.oddCellBackgroundColor = oddCellBackgroundColor;
+    }
+
+    private Font getFontWithColor(Color color) {
+        String fontName = coreContext.getPreference(PDF_FONT_NAME);
+        String fontEncoding = coreContext.getPreference(PDF_FONT_ENCODING);
+        if (isNotBlank(fontName) && isNotBlank(fontEncoding)) {
+            try {
+                BaseFont baseFont = createFont(fontName, fontEncoding, NOT_EMBEDDED);
+                if (color != null) {
+                    return new Font(baseFont, 12, 0, color);
+                }
+                return new Font(baseFont, 12, 0);
+            } catch (Exception e) {
+                logger.warn("Not able to create the requested font for the PDF export...will use the export.");
+            }
+        }
+
+        if (color != null) {
+            return getFont(HELVETICA, 12, NORMAL, color);
+        }
+
+        return getFont(HELVETICA, 12, NORMAL);
     }
 }
