@@ -23,9 +23,9 @@ Here you need to set the proxy server and port settings so that command line SVN
 
 If you get something like "_svn: C:\Documents and Settings\(username)\Application Data\Subversion\servers:73: Option expected_", then it means that you have a space at the start of the property which you have uncommented. Make sure that there is no space in the beginning of the property in the servers file.
 
-2) Configure the build.groovy Script to instruct Ant (!AntBuilder) and Ivy, to use the proxy server when trying to resolve dependencies from a remote repository
+2) Configure the build.groovy script to instruct ant (!AntBuilder) and Ivy, to use the proxy server when trying to resolve dependencies from a remote repository
 
-In your build.groovy Script, before any call to ivyresolve(), add the following line to setup the proxy.
+In your build.groovy script, before any call to ivyresolve(), add the following line to setup the proxy.
 
 {{{
 ant.setproxy(proxyhost:'xxx.xxx.xxx.xxx.',proxyport:'8080',proxyuser:'username',proxypassword:'yourpassword')
