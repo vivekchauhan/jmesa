@@ -15,8 +15,6 @@
  */
 package org.jmesa.limit;
 
-import java.io.UnsupportedEncodingException;
-import static java.net.URLDecoder.decode;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -88,11 +86,6 @@ public class LimitActionFactoryImpl implements LimitActionFactory {
             String parameter = (String) param;
             if (parameter.startsWith(prefixId + Action.FILTER.toParam())) {
                 String value = LimitUtils.getValue(parameters.get(parameter));
-                try {
-                    value = decode(value, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
                 if (StringUtils.isNotBlank(value)) {
                     String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER.toParam());
                     Filter filter = new Filter(property, value);

@@ -28,6 +28,7 @@ import org.jmesa.view.View;
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.util.XRLog;
+import org.xhtmlrenderer.resource.FSEntityResolver;
 
 /**
  * @since 2.2
@@ -74,6 +75,8 @@ public class PdfViewExporter extends AbstractViewExporter {
         ITextRenderer renderer = new ITextRenderer();
 
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        FSEntityResolver er= FSEntityResolver.instance();
+        builder.setEntityResolver(er);
         Document doc = builder.parse(new ByteArrayInputStream(contents));
 
         renderer.setDocument(doc, getBaseUrl());
