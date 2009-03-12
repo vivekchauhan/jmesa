@@ -1,4 +1,4 @@
-The following instructions will show you how to build the JMesa project.
+The following instructions will show you how to build the JMesa project. If you are behind a proxy see these [ProjectBuildBehindProxy additional] settings.
 
 === Setup ===
 
