@@ -1,6 +1,8 @@
 When building behind a proxy that requires authentication there are two things that need to be done in order to checkout the project from subversion and build it successfully.
 
-1) Configure your svn client to use proxy auth when downloading the code as specified at [http://vikashazrati.wordpress.com/2009/01/25/http-proxy-sv/ here]. It is also conveniently copied here...
+1) Configure your svn client to use proxy auth when downloading the code as specified at [http://vikashazrati.wordpress.com/2009/01/25/http-proxy-sv/ here]. 
+
+It is also conveniently copied here...
 
 There is a servers file in svn which is present at the following location:
   * Win : C:\Documents and Settings\(username)\Application Data\Subversion\servers
