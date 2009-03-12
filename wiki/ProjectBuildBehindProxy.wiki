@@ -31,7 +31,7 @@ In your build.groovy script, before any call to ivyresolve(), add the following 
 ant.setproxy(proxyhost:'xxx.xxx.xxx.xxx.',proxyport:'8080',proxyuser:'username',proxypassword:'yourpassword')
 }}}
     
-This will call the [http://ant.apache.org/manual/OptionalTasks/setproxy.html Setproxy] ant task. If you want to get more detail about possible errors use:
+This will call the [http://ant.apache.org/manual/OptionalTasks/setproxy.html setproxy] ant task. If you want to get more detail about possible errors use:
 {{{
   ant.record(name:'log.txt',action:'start',loglevel:'debug')
 }}}
