@@ -5,7 +5,7 @@ When building behind a proxy that requires authentication there are two things t
 It is also conveniently copied here...
 
 There is a servers file in svn which is present at the following location:
-  * Win : C:\Documents and Settings\(username)\Application Data\Subversion\servers
+  * Windows : C:\Documents and Settings\(username)\Application Data\Subversion\servers
   * Linux: /etc/subversion/servers
 
 Here you need to set the proxy server and port settings so that command line SVN can access the external world form the proxy. Uncomment and change the lines necessary.
