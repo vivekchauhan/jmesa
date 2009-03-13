@@ -1,4 +1,3 @@
-#labels Featured
 This tutorial will show you how to do an export in JMesa manually without first displaying a table on your web page. The reason you might want to do this is to leverage JMesa's exporting functionality but do not have requirements to display a table in the browser.
 
 Just recently at work I had this very same requirement and I knew I could use JMesa. The reason this works is because the Limit object was always meant to be manipulated to put the table into any state at will. In this example I create a custom Limit to do a JExcel export.
@@ -96,5 +95,3 @@ private static class CustomTableFacade extends TableFacadeImpl {
     }
 }
 }}}
-
-
