@@ -65,6 +65,7 @@ public class RowFilterTest extends AbstractTestCase {
         assertTrue(items.size() == 3);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void filterNullItems() {
         FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();

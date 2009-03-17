@@ -81,14 +81,14 @@ final class TableFacadeExceptions {
         }
     }
 
-    static void validateItemsIsNull(Collection items) {
+    static void validateItemsIsNull(Collection<?> items) {
         if (items != null) {
             throw new IllegalStateException(
                 "It is too late to set editable. You need to set editable before using the Limit.");
         }
     }
 
-    static void validateItemsIsNotNull(Collection items) {
+    static void validateItemsIsNotNull(Collection<?> items) {
         if (items == null) {
             throw new IllegalStateException("The items are null. You need to set the items on the facade.");
         }

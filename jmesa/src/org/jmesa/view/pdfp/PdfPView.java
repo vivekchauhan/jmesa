@@ -229,4 +229,8 @@ public class PdfPView extends AbstractExportView {
 
         return getFont(HELVETICA, 12, NORMAL);
     }
+
+    protected WebContext getWebContext() {
+        return webContext;
+    }
 }

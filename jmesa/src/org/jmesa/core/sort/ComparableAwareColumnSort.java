@@ -39,6 +39,7 @@ public class ComparableAwareColumnSort implements ColumnSort {
 
     private Logger logger = LoggerFactory.getLogger(ComparableAwareColumnSort.class);
 
+    @SuppressWarnings("unchecked")
     public Collection<?> sortItems(Collection<?> items, Limit limit) {
         if (items.isEmpty()) {
             return items;

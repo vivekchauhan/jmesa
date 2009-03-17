@@ -34,7 +34,7 @@ public class ElExpressionCellEditorTest extends AbstractTestCase {
     @Test
     public void testVariableResolver()
             throws ELException {
-        Map item = getVariableContext();
+        Map<?, ?> item = getVariableContext();
         Map<String, Object> ctx = new HashMap<String, Object>();
         ctx.put("item", item);
         VariableResolver resolver = new VariableResolverMap(ctx);
@@ -60,7 +60,7 @@ public class ElExpressionCellEditorTest extends AbstractTestCase {
         Assert.assertEquals("1 + 2 = 3", result);
     }
 
-    protected Map getVariableContext() {
+    protected Map<?, ?> getVariableContext() {
         Integer one = new Integer(1);
         Integer two = new Integer(2);
         Map<String, Integer> item = new HashMap<String, Integer>();

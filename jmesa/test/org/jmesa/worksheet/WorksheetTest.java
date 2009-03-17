@@ -17,9 +17,7 @@ package org.jmesa.worksheet;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import org.junit.Test;
 

@@ -590,13 +590,13 @@ public class PresidentDao {
         return presidents;
     }
 
-    public static Collection<Map> getPresidentsAsListOfMaps() {
+    public static Collection<Map<?, ?>> getPresidentsAsListOfMaps() {
 
-        List<Map> results = new ArrayList<Map>();
+        List<Map<?, ?>> results = new ArrayList<Map<?, ?>>();
 
         Collection<President> presidents = getPresidents();
         for (President president : presidents) {
-            Map result = new HashMap();
+            Map<String, Object> result = new HashMap<String, Object>();
             result.put("id", president.getId());
             result.put("firstName", president.getName().getFirstName());
             result.put("lastName", president.getName().getLastName());

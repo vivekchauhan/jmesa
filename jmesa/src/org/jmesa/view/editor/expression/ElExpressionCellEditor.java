@@ -111,9 +111,9 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
      */
     public static class VariableResolverMap implements VariableResolver {
 
-        private final Map context;
+        private final Map<?, ?> context;
 
-        public VariableResolverMap(Map context) {
+        public VariableResolverMap(Map<?, ?> context) {
             this.context = context;
         }
 
