@@ -55,6 +55,7 @@ import org.jmesa.web.WebContext;
 public class TableFacadeTag extends SimpleTagSupport {
     // facade attributes
     private String id;
+    @SuppressWarnings("unchecked")
     private Collection items;
     private Limit limit;
     private int maxRows;
@@ -94,6 +95,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     /**
      * The Collecton of Beans (or Maps) to use.
      */
+    @SuppressWarnings("unchecked")
     public Collection getItems() {
         return items;
     }
@@ -106,6 +108,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * 
      * @param items The Collecton of Beans (or Maps) to use.
      */
+    @SuppressWarnings("unchecked")
     public void setItems(Collection items) {
         this.items = items;
     }

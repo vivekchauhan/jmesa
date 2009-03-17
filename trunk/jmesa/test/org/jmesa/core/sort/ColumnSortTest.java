@@ -71,6 +71,7 @@ public class ColumnSortTest extends AbstractTestCase {
 		assertTrue("the second sort order is wrong", second.getName().getLastName().equals("Johnson"));
 	}
 
+    @SuppressWarnings("unchecked")
     @Test
     public void sortNullComposedItems() {
         WebContext webContext = createWebContext();
@@ -117,6 +118,7 @@ public class ColumnSortTest extends AbstractTestCase {
         assertTrue("the second sort order is wrong", second.getName().getLastName().equals("Madison"));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void sortEmptyComposedItems() {
         WebContext webContext = createWebContext();
@@ -163,6 +165,7 @@ public class ColumnSortTest extends AbstractTestCase {
         assertTrue("the second sort order is wrong", second.getName().getLastName().equals("Monroe"));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void sortNullItems() {
         WebContext webContext = createWebContext();
@@ -211,6 +214,7 @@ public class ColumnSortTest extends AbstractTestCase {
         assertTrue("the second sort order is wrong", second.getName().getLastName().equals("Jefferson"));
     }
     
+    @SuppressWarnings("unchecked")
     @Test
     public void sortEmptyItems() {
         WebContext webContext = createWebContext();

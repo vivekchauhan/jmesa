@@ -113,6 +113,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         return html.toString();
     }
 
+    @SuppressWarnings("unchecked")
     public String filter() {
         HtmlRow row = table.getRow();
         List columns = row.getColumns();

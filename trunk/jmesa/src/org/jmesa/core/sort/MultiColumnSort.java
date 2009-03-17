@@ -32,6 +32,7 @@ import org.jmesa.limit.SortSet;
  * @author Jeff Johnston
  */
 public class MultiColumnSort implements ColumnSort {
+    @SuppressWarnings("unchecked")
     public Collection<?> sortItems(Collection<?> items, Limit limit) {
         ComparatorChain chain = new ComparatorChain();
 

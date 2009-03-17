@@ -88,7 +88,7 @@ public class ItemUtils {
 
         if (item instanceof Map) {
             for (Object object : items) {
-                Map map = (Map) object;
+                Map<?, ?> map = (Map<?, ?>) object;
                 Object val = map.get(property);
 
                 if (val == null) {

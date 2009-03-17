@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.html.renderer;
 
-import org.jmesa.limit.Order;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlColumn;

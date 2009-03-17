@@ -17,7 +17,6 @@ package org.jmesa.worksheet;
 
 import static org.junit.Assert.assertNotNull;
 
-
 import org.jmesa.core.CoreContext;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.component.Row;
@@ -26,8 +25,6 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.web.WebContext;
-import org.jmesa.worksheet.state.SessionWorksheetState;
-import org.jmesa.worksheet.state.WorksheetState;
 import org.junit.Test;
 
 /**

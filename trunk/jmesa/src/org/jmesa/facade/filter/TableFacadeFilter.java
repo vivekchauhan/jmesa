@@ -68,7 +68,7 @@ public class TableFacadeFilter implements Filter {
 
     public static class FilterThreadLocal {
 
-        private static ThreadLocal tLocal = new ThreadLocal();
+        private static ThreadLocal<FilterValue> tLocal = new ThreadLocal<FilterValue>();
 
         static void set(HttpServletRequest request, HttpServletResponse response) {
             if (request == null && response == null) {

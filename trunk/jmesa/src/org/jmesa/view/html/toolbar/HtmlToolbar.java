@@ -25,6 +25,7 @@ import org.jmesa.view.component.Row;
  */
 public class HtmlToolbar extends AbstractToolbar {
 
+    @SuppressWarnings("unchecked")
     @Override
     public String render() {
         if (hasToolbarItems()) { // already has items

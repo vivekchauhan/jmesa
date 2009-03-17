@@ -18,9 +18,10 @@ package org.jmesa.facade;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.beanutils.PropertyUtils;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.state.SessionState;
@@ -79,7 +80,7 @@ public class TableFacadeUtils {
             return items;
         }
 
-        List results = new ArrayList();
+        List<Object> results = new ArrayList<Object>();
 
         for (Object item : items) {
             for (WorksheetRow worksheetRow : worksheetRows) {

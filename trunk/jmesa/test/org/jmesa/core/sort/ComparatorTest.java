@@ -28,7 +28,8 @@ import org.apache.commons.collections.comparators.NullComparator;
 import org.junit.Test;
 
 public class ComparatorTest {
-	@Test
+	@SuppressWarnings("unchecked")
+    @Test
 	public void go() {
 		List<BeanComparator> sortFields = new ArrayList<BeanComparator>();
 		sortFields.add(new BeanComparator("name", new NullComparator()));

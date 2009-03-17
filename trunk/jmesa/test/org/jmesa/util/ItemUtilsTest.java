@@ -18,6 +18,7 @@ package org.jmesa.util;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueMap() {
-        Map president = getMap();
+        Map<String, Serializable> president = getMap();
         Object value = ItemUtils.getItemValue(president, "term");
         assertNotNull("Cannot retrieve a map value.", value);
     }
@@ -52,7 +53,7 @@ public class ItemUtilsTest extends AbstractTestCase {
         Collection<President> items = PresidentDao.getPresidents();
         President bean = items.iterator().next();        
         
-        Map president = getMap();
+        Map<String, Serializable> president = getMap();
         president.put(ItemUtils.JMESA_ITEM, bean);
         Object value = ItemUtils.getItemValue(president, "career");
         
@@ -61,14 +62,14 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueBeanMapWithNullValue() {
-        Map president = getMap();
+        Map<String, Serializable> president = getMap();
         Object value = ItemUtils.getItemValue(president, "career");
         
         assertNull("could retrieve a map bean value.", value);
     }
     
-    private Map getMap() {
-        Map result = new HashMap();
+    private Map<String, Serializable> getMap() {
+        Map<String, Serializable> result = new HashMap<String, Serializable>();
         result.put("id", 1);
         result.put("term", "1789-1797");
         return result;

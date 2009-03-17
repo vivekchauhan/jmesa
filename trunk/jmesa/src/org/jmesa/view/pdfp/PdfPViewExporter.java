@@ -73,4 +73,8 @@ public class PdfPViewExporter extends AbstractViewExporter {
     public String getExtensionName() {
         return "pdf";
     }
+    
+    protected HttpServletRequest getRequest() {
+        return request;
+    }
 }
