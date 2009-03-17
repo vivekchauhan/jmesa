@@ -27,6 +27,10 @@
         <servlet-name>worksheet</servlet-name>
         <servlet-class>org.jmesa.worksheet.servlet.WorksheetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>export</servlet-name>
+        <servlet-class>org.jmesaweb.servlet.ExportServlet</servlet-class>
+    </servlet>
 	<servlet>
  		<servlet-name>jmesa</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -38,6 +42,10 @@
     <servlet-mapping>
         <servlet-name>worksheet</servlet-name>
         <url-pattern>*.wrk</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>export</servlet-name>
+        <url-pattern>*.exp</url-pattern>
     </servlet-mapping>
 	 <welcome-file-list>
     	<welcome-file>
