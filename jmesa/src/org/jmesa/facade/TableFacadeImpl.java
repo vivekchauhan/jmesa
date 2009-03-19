@@ -181,6 +181,10 @@ public class TableFacadeImpl implements TableFacade {
 
         if (l.isComplete()) {
             this.limit = l;
+            if (items != null) {
+                int page = l.getRowSelect().getPage();
+                l.setRowSelect(new RowSelectImpl(page, getMaxRows(), items.size()));
+            }
             return limit;
         }
 
