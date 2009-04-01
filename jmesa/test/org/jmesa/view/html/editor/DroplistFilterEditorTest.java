@@ -19,8 +19,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.core.President;
+import org.jmesa.core.PresidentDao;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.html.component.HtmlColumnImpl;
@@ -51,6 +55,55 @@ public class DroplistFilterEditorTest extends AbstractTestCase {
 
         assertNotNull("The options are null.", options);
         assertTrue("Do not have the correct options size.", options.size() == 35);
-        options.iterator().next().getLabel().equals("Abraham");
+        assertTrue(options.iterator().next().getLabel().equals("Abraham"));
+    }
+    
+    @Test
+    public void getPresetOption() {
+        WebContext webContext = createWebContext();
+        CoreContext coreContext = createCoreContext(webContext);
+
+        DroplistFilterEditor editor = new DroplistFilterEditor();
+        editor.setCoreContext(coreContext);
+        editor.setWebContext(webContext);
+
+        Column column = new HtmlColumnImpl("name.firstName");
+
+        editor.setColumn(column);
+
+        Map<String, String> testBean = new HashMap<String, String>();
+        testBean.put("name.firstName", "Abraham");
+        editor.addOption(testBean, "name.firstName", "name.firstName");
+        
+        Collection<Option> options = editor.getOptions();
+
+        assertNotNull("The options are null.", options);
+        assertTrue("Do not have the correct options size.", options.size() == 1);
+        assertTrue(options.iterator().next().getLabel().equals("Abraham"));
+    }
+    
+    @Test
+    public void getPresetOptions() {
+        WebContext webContext = createWebContext();
+        CoreContext coreContext = createCoreContext(webContext);
+
+        DroplistFilterEditor editor = new DroplistFilterEditor();
+        editor.setCoreContext(coreContext);
+        editor.setWebContext(webContext);
+
+        Column column = new HtmlColumnImpl("name.firstName");
+
+        editor.setColumn(column);
+
+        Collection<President> presidents = PresidentDao.getPresidents();
+        editor.addOptions(presidents, "name.firstName", "name.firstName");
+        
+        Collection<Option> options = editor.getOptions();
+        
+        assertNotNull("The options are null.", options);
+        assertTrue("Do not have the correct options size: " + options.size(), options.size() == 35);
+        
+        Option option = options.iterator().next();
+        assertTrue(option.getLabel().equals("Abraham"));
     }
 }
