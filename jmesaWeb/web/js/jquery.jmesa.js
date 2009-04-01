@@ -283,7 +283,7 @@
             /* the filter objects */
             var filterSet = limit.getFilterSet();
             $.each(filterSet, function(index, filter) {
-                $(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + encodeURIComponent(filter.value) + '"/>');
+                $(form).append('<input type="hidden" name="' + limit.id + '_f_' + filter.property + '" value="' + filter.value + '"/>');
             });
 
             return true;
