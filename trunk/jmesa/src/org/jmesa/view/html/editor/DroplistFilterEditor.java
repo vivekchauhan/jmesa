@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.editor;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
 
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
@@ -42,6 +42,8 @@ import org.jmesa.view.html.component.HtmlColumn;
  */
 public class DroplistFilterEditor extends AbstractFilterEditor {
 
+    private Set<Option> options;
+    
     public Object getValue() {
         HtmlBuilder html = new HtmlBuilder();
 
@@ -58,8 +60,8 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         StringBuilder array = new StringBuilder();
         array.append("{");
 
-        Collection<Option> options = getOptions();
-        for (Iterator<Option> it = options.iterator(); it.hasNext();) {
+        Collection<Option> opts = getOptions();
+        for (Iterator<Option> it = opts.iterator(); it.hasNext();) {
             Option option = it.next();
             String value = escapeJavaScript(escapeHtml(option.getValue()));
             String label = escapeJavaScript(escapeHtml(option.getLabel()));
@@ -79,41 +81,72 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         return html.toString();
     }
+    
+    public void addOptions(Collection<?> beans, String valueProperty, String labelProperty) {
+        for (Object bean : beans) {
+            addOption(bean, valueProperty, labelProperty);
+        }
+    }
 
+    public void addOption(Object bean, String valueProperty, String labelProperty) {
+        Object value = ItemUtils.getItemValue(bean, valueProperty);
+        Object label = ItemUtils.getItemValue(bean, labelProperty);
+        addOption(
+            value == null ? null : String.valueOf(value),
+            label == null ? null : String.valueOf(label)        
+        );
+    }
+    
+    public void addOption(String value, String label) {
+        if (value == null || value.length() == 0) {
+            return;
+        }
+        if (label == null || label.length() == 0) {
+            label = value;
+        }
+        this.addOption(new Option(value, label));
+    }
+    
+    protected void addOption(Option option) {
+        if (options == null) {
+            options = new HashSet<Option>();
+        }
+        options.add(option);
+    }
+    
     /**
      * @return The unique list of options for the droplist values.
      */
-    protected List<Option> getOptions() {
-        Set<String> values = new HashSet<String>();
+    protected Collection<Option> getOptions() {
 
-        String property = getColumn().getProperty();
+        List<Option> opts;
 
-        for (Object item : getCoreContext().getAllItems()) {
-            Object value = ItemUtils.getItemValue(item, property);
-
-            if (value == null) {
-                continue;
+        if (this.options == null) {
+            Set<String> values = new HashSet<String>();
+            String property = getColumn().getProperty();
+            for (Object item : getCoreContext().getAllItems()) {
+                Object value = ItemUtils.getItemValue(item, property);
+                if (value == null) {
+                    continue;
+                }
+                String valueStr = String.valueOf(value);
+                if (valueStr.length() == 0) {
+                    continue;
+                }
+                values.add(valueStr);
             }
-
-            String valueStr = String.valueOf(value);
-
-            if (valueStr.length() == 0) {
-                continue;
+            opts = new ArrayList<Option>();
+            for (String value : values) {
+                Option option = new Option(value, value);
+                opts.add(option);
             }
-
-            values.add(valueStr);
-        }
-        
-        List<Option> options = new ArrayList<Option>();
-
-        for (String value : values) {
-            Option option = new Option(value, value);
-            options.add(option);
+        } else {
+            opts = new ArrayList<Option>(this.options);
         }
 
-        Collections.sort(options, null);
+        Collections.sort(opts, null);
 
-        return options;
+        return opts;
     }
 
     /**
