@@ -56,6 +56,3 @@ If you need to do more customization you might need to set up the [Messages] and
 
 === Building From Source ===
 I know that some developers like to checkout JMesa from [http://code.google.com/p/jmesa/source subversion] and build it directly to get the latest. For those developers I wrote up an [ProjectBuild article] that explains how to build the project directly from source code.
-
-=== Building From Source Behind a Proxy ===
-If you are sitting behind a proxy this [ProjectBuildBehindProxy information] this information should be very helpful.
