@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app 
+	xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" 
+	version="1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" 
+	id="jmesa-examples-application">
+
+	<portlet>
+		<portlet-name>jmesa-example</portlet-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>JMesa Example Portlet</title>
+		</portlet-info>
+	</portlet>
+
+	<portlet>
+		<portlet-name>jmesa-example-ajax</portlet-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>/WEB-INF/jmesa-example-portlet.xml</value>
+		</init-param>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>JMesa AJAX Example Portlet</title>
+		</portlet-info>
+		<portlet-preferences>
+			<preference>
+				<name>useAjax</name>
+				<value>true</value>
+				<read-only>true</read-only>
+			</preference>
+		</portlet-preferences>
+	</portlet>
+
+</portlet-app>
