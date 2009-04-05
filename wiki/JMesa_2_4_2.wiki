@@ -1,0 +1,5 @@
+This release fixes a few small bugs and offers a few new improvements.
+
+ * Fixed export filename Locale encoding problem. [http://code.google.com/p/jmesa/issues/detail?id=169 Issue 169] patch submitted by qxodream.
+ * Fixed PDF export problem where it could not resolve remote DTD file xhtml1-transitional.dtd. The DTD should now be read from the core-renderer.jar file on the classpath. [http://code.google.com/p/jmesa/issues/detail?id=181 Issue 181] patch submitted by marioalberto.ramirez.
+ * Documentation for building the JMesa project behind a proxy. The wiki page can be found [http://code.google.com/p/jmesa/wiki/ProjectBuildBehindProxy here]. Documentation created by marioalberto.ramirez.
