@@ -11,6 +11,7 @@ I have been reading the Groovy Recipes book recently and I thought it would be a
  * [GroovyRecipes Groovy Recipes]
  * [WorksheetRecipes Worksheet Recipes]
  * [MiscRecipes Misc Recipes]
+ * [ExportRecipes Export Recipes]
 
 ==== Introduction to JMesa ====
 
