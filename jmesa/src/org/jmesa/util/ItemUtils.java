@@ -99,6 +99,15 @@ public class ItemUtils {
             }
         }
 
-        return PropertyUtils.getPropertyType(item, property);
+        Class<?> type = null;
+        try {
+            type = PropertyUtils.getPropertyType(item, property);
+        } catch (Exception e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Had problems getting property type by object, trying reflection...");
+            }
+            type = BeanUtils.getPropertyType(item, property);
+        }
+        return type;
     }
 }
