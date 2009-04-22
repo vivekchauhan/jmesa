@@ -250,3 +250,27 @@ column.getHeaderRenderer().setHeaderEditor(HeaderEditor headerEditor)
 
 <jmesa:column headerEditor="">
 }}}
+
+=== !FilterMatcherRegistrySupport === 
+The interface is defined as:
+{{{
+public interface FilterMatcherRegistrySupport {
+    public FilterMatcherRegistry getFilterMatcherRegistry();
+
+    public void setFilterMatcherRegistry(FilterMatcherRegistry registry);
+}
+}}}
+
+The following places will inject the FilterMatcherRegistry for you if you define the !FilterMatcherRegistrySupport interface in your custom code:
+
+ * API
+
+{{{
+tableFacade.setRowFilter(RowFilter rowFilter);
+}}}
+
+ * JSP Tag
+
+{{{
+<jmesa:tableFacade rowFilter="">
+}}}
