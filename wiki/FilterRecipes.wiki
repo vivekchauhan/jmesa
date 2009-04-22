@@ -14,6 +14,11 @@ To create your own filter editor you typically extend the !AbstractFilterEditor.
 
 For more information read the [Editors] page.
 
+==== How do I plug in a different filtering strategy overall? ====
+
+The filtering is done through the !RowFilter interface. If you want to do something different you can implement that interface and plug in your own strategy. Here is an [CustomSimpleRowFilter example] of how to extend the default !SimpleRowFilter.
+
+
 ==== Why are my characters showing up as "?" on the screen? ====
 
 It can be solved by setting the charset of the form, that surrounds the table, to UTF-8.
