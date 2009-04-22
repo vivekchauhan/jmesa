@@ -17,6 +17,8 @@ package org.jmesa.util;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextSupport;
+import org.jmesa.core.filter.FilterMatcherRegistry;
+import org.jmesa.core.filter.FilterMatcherRegistrySupport;
 import org.jmesa.limit.ExportType;
 import org.jmesa.view.ExportTypesSupport;
 import org.jmesa.view.component.Column;
@@ -151,6 +153,18 @@ public class SupportUtils {
     public static void setMaxRowsIncrements(Object obj, int[] maxRowsIncrements) {
         if ((obj instanceof MaxRowsIncrementsSupport) && ((MaxRowsIncrementsSupport) obj).getMaxRowsIncrements() == null) {
             ((MaxRowsIncrementsSupport) obj).setMaxRowsIncrements(maxRowsIncrements);
+        }
+    }
+
+    /**
+     * Set the filterMatcherRegistry on the object being inspected if it is not already set.
+     *
+     * @param obj The object being inspected.
+     * @param filterMatcherRegistry The object to be injected.
+     */
+    public static void setFilterMatcherRegistry(Object obj, FilterMatcherRegistry registry) {
+        if (obj instanceof FilterMatcherRegistrySupport && ((FilterMatcherRegistrySupport) obj).getFilterMatcherRegistry() == null) {
+            ((FilterMatcherRegistrySupport) obj).setFilterMatcherRegistry(registry);
         }
     }
 }

@@ -83,8 +83,9 @@ public class CoreContextFactoryImpl implements CoreContextFactory {
 
     protected RowFilter getRowFilter() {
         if (rowFilter == null) {
-            rowFilter = new SimpleRowFilter(getFilterMatcherRegistry());
+            rowFilter = new SimpleRowFilter();
         }
+        SupportUtils.setFilterMatcherRegistry(rowFilter, getFilterMatcherRegistry());
 
         return rowFilter;
     }

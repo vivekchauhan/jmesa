@@ -32,11 +32,18 @@ import org.slf4j.LoggerFactory;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SimpleRowFilter implements RowFilter {
+public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport {
 
     private Logger logger = LoggerFactory.getLogger(SimpleRowFilter.class);
     private FilterMatcherRegistry registry;
 
+    public SimpleRowFilter() {}
+
+    /**
+     * @deprecated Using the new FilterMatcherRegistrySupport class to automatically set
+     *              the FilterMatcherRegistry on this class.
+     */
+    @Deprecated
     public SimpleRowFilter(FilterMatcherRegistry registry) {
         this.registry = registry;
     }
@@ -57,7 +64,7 @@ public class SimpleRowFilter implements RowFilter {
         return items;
     }
 
-    private Map<Filter, FilterMatcher> getFilterMatchers(Collection<?> items, FilterSet filterSet) {
+    protected Map<Filter, FilterMatcher> getFilterMatchers(Collection<?> items, FilterSet filterSet) {
         Map<Filter, FilterMatcher> filterMatchers = new HashMap<Filter, FilterMatcher>();
 
         if (items == null || !items.iterator().hasNext()) {
@@ -77,5 +84,13 @@ public class SimpleRowFilter implements RowFilter {
         }
 
         return filterMatchers;
+    }
+
+    public FilterMatcherRegistry getFilterMatcherRegistry() {
+        return registry;
+    }
+
+    public void setFilterMatcherRegistry(FilterMatcherRegistry registry) {
+        this.registry = registry;
     }
 }
