@@ -261,7 +261,7 @@ public interface FilterMatcherRegistrySupport {
 }
 }}}
 
-The following places will inject the FilterMatcherRegistry for you if you define the !FilterMatcherRegistrySupport interface in your custom code:
+The following places will inject the !FilterMatcherRegistry for you if you define the !FilterMatcherRegistrySupport interface in your custom code:
 
  * API
 
