@@ -19,3 +19,15 @@ public class CustomSimpleRowFilter extends SimpleRowFilter {
     }
 }
 }}}
+
+Then plug your custom !RowFilter into the !TableFacade.
+
+ * API 
+{{{
+tableFacade.setRowFilter(new CustomSimpleRowFilter());
+}}}
+
+ * JSP Tag 
+{{{
+<jmesa:tableFacade rowFilter="com.mycompany.CustomSimpleRowFilter">
+}}}
