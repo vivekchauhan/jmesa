@@ -81,5 +81,3 @@ tableFacade.setView(new CustomView());
 {{{
 <jmesa:tableFacade view="com.mycompany.CustomView">
 }}}
-
-_Note: the next release of JMesa (2.4) will have support for totaling in the form of a new !CalcEditor._
