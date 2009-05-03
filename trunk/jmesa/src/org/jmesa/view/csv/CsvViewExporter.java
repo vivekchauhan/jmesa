@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.csv;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.core.CoreContext;
@@ -40,7 +41,9 @@ public class CsvViewExporter extends AbstractViewExporter {
         responseHeaders(getResponse());
         String viewData = (String) getView().render();
         byte[] contents = (viewData).getBytes();
-        getResponse().getOutputStream().write(contents);
+        ServletOutputStream outputStream = getResponse().getOutputStream();
+        outputStream.write(contents);
+        outputStream.flush();
     }
 
     @Override
