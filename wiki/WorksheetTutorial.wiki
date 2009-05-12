@@ -101,7 +101,7 @@ worksheet.processRows(new WorksheetCallbackHandler() {
 }
 }}}
 
-Once in the !WorksheetCallbackHandler you will want to do the validation and then save each row.
+Once in the !WorksheetCallbackHandler you will want to do the validation and then save each row. 
 
 {{{
 Collection<WorksheetColumn> columns = worksheetRow.getColumns();
@@ -114,6 +114,17 @@ for (WorksheetColumn worksheetColumn : columns) {
     }
 
      // do the custom saving
+}
+}}}
+
+Note, if the column does not contain any errors then be sure to remove any previous errors (as shown below). If you forget to do this your column will be saved but when the JMesa table displays the table will still appear to have errors.
+{{{
+private void validateColumn(WorksheetColumn worksheetColumn, String changedValue) {
+    if (changedValue.equals("foo")) {
+        worksheetColumn.setErrorKey("foo.error");
+    } else {
+        worksheetColumn.removeError(); // remove previous errors
+    }
 }
 }}}
 
