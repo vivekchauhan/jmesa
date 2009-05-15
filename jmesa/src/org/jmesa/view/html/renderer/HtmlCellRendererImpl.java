@@ -108,6 +108,8 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
         Object value = getCellEditor().getValue(item, property, rowcount);
         if (value != null) {
             html.append(value.toString());
+        } else {
+            html.nbsp();
         }
 
         html.tdEnd();
