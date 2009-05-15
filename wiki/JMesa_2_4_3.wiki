@@ -1,0 +1,1 @@
+ * Fixed empy cells not showing border. [http://code.google.com/p/jmesa/issues/detail?id=195#makechanges  Issue 195]  (contributed by !AlejaVigo)
