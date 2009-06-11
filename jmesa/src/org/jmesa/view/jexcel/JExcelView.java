@@ -129,7 +129,7 @@ public class JExcelView extends AbstractExportView {
                     }
 
                     WritableCell cell = null;
-                    if (value instanceof Number) {
+                    if (value instanceof java.lang.Number) {
                         cell = new Number(colidx++, rowidx, Double.valueOf(value.toString()), rowFmt);
                     } else {
                         cell = new Label(colidx++, rowidx, value + "", rowFmt);
