@@ -160,7 +160,7 @@ public class SupportUtils {
      * Set the filterMatcherRegistry on the object being inspected if it is not already set.
      *
      * @param obj The object being inspected.
-     * @param filterMatcherRegistry The object to be injected.
+     * @param registry The object to be injected.
      */
     public static void setFilterMatcherRegistry(Object obj, FilterMatcherRegistry registry) {
         if (obj instanceof FilterMatcherRegistrySupport && ((FilterMatcherRegistrySupport) obj).getFilterMatcherRegistry() == null) {
