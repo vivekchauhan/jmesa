@@ -10,7 +10,7 @@
 		    <artifact pattern="http://jmesa.googlecode.com/svn/repository/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
 		</url>
         <chain name="default">
-            <resolver ref="local"/>
+            <!--resolver ref="local"/-->
             <resolver ref="jmesa"/>
         </chain>
     </resolvers>
