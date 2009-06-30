@@ -135,30 +135,30 @@
             return tableFacade.createParameterString();
         },
         setOnInvokeAction : function (id, functionName) {
-        	var tableFacade = this.getTableFacade(id);
-        	tableFacade.onInvokeAction = functionName;
+            var tableFacade = this.getTableFacade(id);
+            tableFacade.onInvokeAction = functionName;
         },
         setOnInvokeExportAction : function (id, functionName) {
-        	var tableFacade = this.getTableFacade(id);
-        	tableFacade.onInvokeExportAction = functionName;
+            var tableFacade = this.getTableFacade(id);
+            tableFacade.onInvokeExportAction = functionName;
         },
         onInvokeAction : function (id, action) {
-        	var tableFacade = this.getTableFacade(id);
-        	var f = window[tableFacade.onInvokeAction];
-        	if ($.isFunction(f) !== true) {
-        		throw tableFacade.onInvokeAction + ' is not a global function!';
-        	} else {
-	       		f(id, action);
-       		}
+            var tableFacade = this.getTableFacade(id);
+            var f = window[tableFacade.onInvokeAction];
+            if ($.isFunction(f) !== true) {
+                throw tableFacade.onInvokeAction + ' is not a global function!';
+            } else {
+                f(id, action);
+            }
         },
         onInvokeExportAction : function (id) {
-        	var tableFacade = this.getTableFacade(id);
-        	var f = window[tableFacade.onInvokeExportAction];
-        	if ($.isFunction(f) !== true) {
-        		throw tableFacade.onInvokeExportAction + ' is not a global function!';
-        	} else {
-	       		f(id);
-       		}
+            var tableFacade = this.getTableFacade(id);
+            var f = window[tableFacade.onInvokeExportAction];
+            if ($.isFunction(f) !== true) {
+                throw tableFacade.onInvokeExportAction + ' is not a global function!';
+            } else {
+                f(id);
+            }
         }
     };
 
@@ -488,19 +488,11 @@
             var input = $('#wsColumnInput');
             input.val(originalValue);
             input.focus();
+            if (jQuery.browser.msie) { /* IE need a second focus */
+                input.focus();
+            }
 
-            $('#wsColumnInput').keypress(function(event) {
-                if (event.keyCode == 13) { /* Press the enter key. */
-                    var changedValue = input.val();
-                    cell.text('');
-                    cell.css('overflow', 'hidden');
-                    cell.text(changedValue);
-                    if (changedValue != originalValue) {
-                        $.jmesa.submitWsColumn(originalValue, changedValue);
-                    }
-                    wsColumn = null;
-                }
-            });
+            this.wsColumnKeyEvent(cell, input, originalValue);
 
             $('#wsColumnInput').blur(function() {
                 var changedValue = input.val();
@@ -512,6 +504,75 @@
                 }
                 wsColumn = null;
             });
+        },
+        wsColumnKeyEvent : function(cell, input, originalValue) {
+            var keyEvent = function(event) {
+                if (event.keyCode == 13 || event.keyCode == 9) { /* Press the enter or tabulation key. */
+                    var divToClick = null;
+
+                    if (event.keyCode == 9) { /* Press the tabulation key ==> search last or next cell */
+                        var divElements = document.getElementsByTagName('div');
+                        var nextCell = false;
+                        var lastCell = false;
+                        var lastDiv = null;
+                        var firstDiv = null;
+
+                        for (i = 0 ; i < divElements.length ; i++){
+                            if (divElements[i].className == 'wsColumn'){
+                                if (firstDiv == null){
+                                    firstDiv = divElements[i];
+                                }
+
+                                if (nextCell){
+                                    divToClick = divElements[i];
+                                    break;
+                                } else if (divElements[i].style.overflow == 'visible'){
+                                    if (event.shiftKey){ /* shift-tabulation ==> Precedent cell */
+                                        if (divElements[i] == firstDiv){ /* shitf-tabulation in first cell */
+                                            lastCell = true;
+                                        } else {
+                                            divToClick = lastDiv;
+                                            break;
+                                        }
+                                    } else { /* tabulation ==> Next cell */
+                                        nextCell = true;
+                                    }
+                                }
+                                lastDiv = divElements[i];
+                            }
+                        }
+
+                        if (divToClick == null){
+                            if (nextCell){ /* tabulation in last cell */
+                                divToClick = firstDiv;
+                            } else if (lastCell) { /* shitf-tabulation in first cell */
+                                divToClick = lastDiv;
+                            }
+                        }
+                    }
+
+                    var changedValue = input.val();
+                    cell.text('');
+                    cell.css('overflow', 'hidden');
+                    cell.text(changedValue);
+                    if (changedValue != originalValue) {
+                        $.jmesa.submitWsColumn(originalValue, changedValue);
+                    }
+                    wsColumn = null;
+
+                    if (divToClick != null){
+                        divToClick.onclick();
+                        return false; /* Stop event for IE */
+                    }
+
+                }
+            };
+
+            if (jQuery.browser.msie || jQuery.browser.safari) { /* IE and Safari don't catch tabulation on keypress */
+                $('#wsColumnInput').keydown(keyEvent);
+            } else {
+                $('#wsColumnInput').keypress(keyEvent);
+            }
         },
         submitWsCheckboxColumn : function(column, id, uniqueProperties, property) {
             wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
