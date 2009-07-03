@@ -41,10 +41,12 @@ public final class PropertiesPreferences implements Preferences {
         try {
             InputStream resourceAsStream = getInputStream(JMESA_PROPERTIES, webContext);
             properties.load(resourceAsStream);
+            resourceAsStream.close();
             if (StringUtils.isNotBlank(preferencesLocation)) {
                 InputStream input = getInputStream(preferencesLocation, webContext);
                 if (input != null) {
                     properties.load(input);
+                    input.close();
                 }
             }
         } catch (IOException e) {
