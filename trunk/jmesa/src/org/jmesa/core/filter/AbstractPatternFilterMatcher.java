@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.editor;
+package org.jmesa.core.filter;
+
+import org.jmesa.view.editor.*;
+import org.jmesa.web.WebContext;
+import org.jmesa.web.WebContextSupport;
 
 /**
- * Abstract class to hold the pattern information for supporting classes.
+ * Abstract class to hold the pattern information for filter matcher classes.
  * 
- * @since 2.2
+ * @since 2.4.4
  * @author Jeff Johnston
- * @deprecated Use the AbstractPatternCellEditor class now.
  */
-@Deprecated
-public abstract class AbstractPatternSupport extends AbstractCellEditor implements CellEditor, PatternSupport {
+public abstract class AbstractPatternFilterMatcher implements FilterMatcher, PatternSupport, WebContextSupport {
     private String pattern;
+    private WebContext webContext;
 
     public String getPattern() {
         return pattern;
@@ -32,5 +35,13 @@ public abstract class AbstractPatternSupport extends AbstractCellEditor implemen
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public WebContext getWebContext() {
+        return webContext;
+    }
+
+    public void setWebContext(WebContext webContext) {
+        this.webContext = webContext;
     }
 }
