@@ -15,41 +15,47 @@
  */
 package org.jmesa.core.filter;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Locale;
-
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.web.WebContext;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * The number filter matcher.
- * 
- * @since 2.2
+ * The date filter matcher for Joda Time dates.
+ *
+ * @since 2.4.4
  * @author Jeff Johnston
  */
-public class NumberFilterMatcher extends AbstractPatternFilterMatcher {
+public class DateTimeFilterMatcher extends DateFilterMatcher {
+    private Logger logger = LoggerFactory.getLogger(DateTimeFilterMatcher.class);
 
-    public NumberFilterMatcher() {
+    public DateTimeFilterMatcher() {
     	// default constructor
     }
 
-    /**
-     * @param pattern The pattern to use.
-     */
-    public NumberFilterMatcher(String pattern) {
-        setPattern(pattern);
+    public DateTimeFilterMatcher(String pattern) {
+        super(pattern);
     }
 
-    public NumberFilterMatcher(String pattern, WebContext webContext) {
-        setPattern(pattern);
-        setWebContext(webContext);
+    public DateTimeFilterMatcher(String pattern, WebContext webContext) {
+        super(pattern, webContext);
     }
 
     public boolean evaluate(Object itemValue, String filterValue) {
         if (itemValue == null) {
             return false;
         }
+
+        String pattern = getPattern();
+        if (pattern == null) {
+            logger.debug("The filter (value " + filterValue + ") is trying to match against a date column using " +
+                    "the DateTimeFilterMatcher, but there is no pattern defined. You need to register a " +
+                    "DateTimeFilterMatcher to be able to filter against this column.");
+            return false;
+        }
+
 
         Locale locale = null;
 
@@ -58,17 +64,12 @@ public class NumberFilterMatcher extends AbstractPatternFilterMatcher {
             locale = webContext.getLocale();
         }
 
-        NumberFormat nf;
+        DateTime dateTime = (DateTime) itemValue;
         if (locale != null) {
-            nf = NumberFormat.getInstance(locale);
+            itemValue = dateTime.toString(pattern, locale);
         } else {
-            nf = NumberFormat.getInstance();
+            itemValue = dateTime.toString(pattern);
         }
-
-        DecimalFormat df = (DecimalFormat) nf;
-        String pattern = getPattern();
-        df.applyPattern(pattern);
-        itemValue = df.format(itemValue);
 
         String item = String.valueOf(itemValue);
         String filter = String.valueOf(filterValue);

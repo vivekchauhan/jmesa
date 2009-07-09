@@ -20,9 +20,7 @@ import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
-import org.jmesa.view.editor.PatternSupport;
 import org.jmesa.web.WebContext;
-import org.jmesa.web.WebContextSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,42 +30,23 @@ import org.slf4j.LoggerFactory;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class DateFilterMatcher implements FilterMatcher, PatternSupport, WebContextSupport {
+public class DateFilterMatcher extends AbstractPatternFilterMatcher {
     private Logger logger = LoggerFactory.getLogger(DateFilterMatcher.class);
 
-    private String pattern;
-    private WebContext webContext;
-
     public DateFilterMatcher() {
-    	// default constructor
+        // default constructor
     }
 
     /**
      * @param pattern The pattern to use.
      */
     public DateFilterMatcher(String pattern) {
-        this.pattern = pattern;
+        setPattern(pattern);
     }
 
     public DateFilterMatcher(String pattern, WebContext webContext) {
-        this.pattern = pattern;
-        this.webContext = webContext;
-    }
-
-    public WebContext getWebContext() {
-        return webContext;
-    }
-
-    public void setWebContext(WebContext webContext) {
-        this.webContext = webContext;
-    }
-
-    public String getPattern() {
-        return pattern;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
+        setPattern(pattern);
+        setWebContext(webContext);
     }
 
     public boolean evaluate(Object itemValue, String filterValue) {
@@ -75,13 +54,17 @@ public class DateFilterMatcher implements FilterMatcher, PatternSupport, WebCont
             return false;
         }
 
+        String pattern = getPattern();
         if (pattern == null) {
-            logger.debug("The filter (value " + filterValue + ") is trying to match against a date column using the DateFilterMatcher, "
-                    + "but there is no pattern defined. You need to register a DateFilterMatcher to be able to filter against this column.");
+            logger.debug("The filter (value " + filterValue + ") is trying to match against a date column using " +
+                    "the DateFilterMatcher, but there is no pattern defined. You need to register a DateFilterMatcher " +
+                    "to be able to filter against this column.");
             return false;
         }
 
         Locale locale = null;
+
+        WebContext webContext = getWebContext();
         if (webContext != null) {
             locale = webContext.getLocale();
         }

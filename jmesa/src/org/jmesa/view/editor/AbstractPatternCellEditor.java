@@ -20,10 +20,8 @@ package org.jmesa.view.editor;
  * 
  * @since 2.2
  * @author Jeff Johnston
- * @deprecated Use the AbstractPatternCellEditor class now.
  */
-@Deprecated
-public abstract class AbstractPatternSupport extends AbstractCellEditor implements CellEditor, PatternSupport {
+public abstract class AbstractPatternCellEditor extends AbstractCellEditor implements PatternSupport {
     private String pattern;
 
     public String getPattern() {

@@ -15,33 +15,20 @@
  */
 package org.jmesa.view.editor;
 
-import java.util.Date;
 import java.util.Locale;
-
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.jmesa.util.ItemUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * An editor to work with dates. Just send in a valid date pattern and the date will be formated.
- * 
- * @since 2.0
+ * An editor to work with Joda Time dates. Just send in a valid date pattern and the date will be formated.
+ *
+ * @since 2.4.4
  * @author Jeff Johnston
  */
-public class DateCellEditor extends AbstractPatternCellEditor {
-    private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
-
-    public DateCellEditor() {
-        // default constructor
-    }
-
-    /**
-     * @param pattern The pattern to use.
-     */
-    public DateCellEditor(String pattern) {
-        setPattern(pattern);
-    }
+public class DateTimeCellEditor extends DateCellEditor {
+    private final Logger logger = LoggerFactory.getLogger(DateTimeCellEditor.class);
 
     /**
      * Get the formatted date value based on the pattern set.
@@ -51,14 +38,16 @@ public class DateCellEditor extends AbstractPatternCellEditor {
 
         try {
             itemValue = ItemUtils.getItemValue(item, property);
+
             if (itemValue == null) {
                 return null;
             }
 
             Locale locale = getWebContext().getLocale();
-            itemValue = DateFormatUtils.format((Date) itemValue, getPattern(), locale);
+            DateTime dateTime = (DateTime) itemValue;
+            itemValue = dateTime.toString(getPattern(), locale);
         } catch (Exception e) {
-            logger.warn("Could not process date editor with property " + property, e);
+            logger.warn("Could not process date time editor with property " + property, e);
         }
 
         return itemValue;
