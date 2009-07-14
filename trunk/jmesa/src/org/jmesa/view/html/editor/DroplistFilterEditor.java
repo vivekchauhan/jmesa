@@ -57,14 +57,25 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
             filterValue = filter.getValue();
         }
 
+        String filterLabel = "";
+
         StringBuilder array = new StringBuilder();
         array.append("{");
 
         Collection<Option> opts = getOptions();
         for (Iterator<Option> it = opts.iterator(); it.hasNext();) {
             Option option = it.next();
-            String value = escapeJavaScript(escapeHtml(option.getValue()));
-            String label = escapeJavaScript(escapeHtml(option.getLabel()));
+
+            String value = option.getValue();
+            String label = option.getLabel();
+
+            if (value.equalsIgnoreCase(filterValue)){
+                filterLabel = label;
+            }
+
+            value = escapeJavaScript(escapeHtml(value));
+            label = escapeJavaScript(escapeHtml(label));
+
             array.append("'").append(value).append("':'").append(label).append("'");
             if (it.hasNext()) {
                 array.append(",");
@@ -76,7 +87,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         html.div().styleClass("dynFilter");
         html.onclick("jQuery.jmesa.createDroplistDynFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + array + ")");
         html.close();
-        html.append(escapeHtml(filterValue));
+        html.append(escapeHtml(filterLabel));
         html.divEnd();
 
         return html.toString();
