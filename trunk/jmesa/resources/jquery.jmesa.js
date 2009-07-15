@@ -464,15 +464,16 @@
 
             $(input).change(function() {
                 var changedValue = $("#dynFilterDroplistDiv option:selected").val();
-                cell.text(changedValue);
+                var changedText = $("#dynFilterDroplistDiv option:selected").text();
+                cell.text(changedText);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                 $.jmesa.onInvokeAction(dynFilter.id, 'filter');
                 dynFilter = null;
             });
 
             $(input).blur(function() {
-                var changedValue = $("#dynFilterDroplistDiv option:selected").val();
-                cell.text(changedValue);
+                var changedText = $("#dynFilterDroplistDiv option:selected").text();
+                cell.text(changedText);
                 $('#dynFilterDroplistDiv').remove();
                 cell.css({backgroundColor:originalBackgroundColor});
                 dynFilter = null;
