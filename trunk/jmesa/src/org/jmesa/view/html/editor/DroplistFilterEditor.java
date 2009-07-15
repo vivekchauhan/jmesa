@@ -190,11 +190,13 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
          */
         @Override
         public boolean equals(Object o) {
-            if (o == this)
+            if (o == this) {
                 return true;
+            }
 
-            if (!(o instanceof Option))
+            if (!(o instanceof Option)) {
                 return false;
+            }
 
             Option that = (Option) o;
 
