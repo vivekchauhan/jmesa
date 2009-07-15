@@ -16,13 +16,6 @@
 package org.jmesa.view.html;
 
 import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
@@ -30,11 +23,17 @@ import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.Sort;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.worksheet.Worksheet;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @since 2.0
@@ -121,7 +120,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         if (!ViewUtils.isFilterable(columns)) {
             return "";
         }
-        
+
         HtmlBuilder html = new HtmlBuilder();
         String filterClass = coreContext.getPreference(HtmlConstants.FILTER_CLASS);
         html.tr(1).styleClass(filterClass).close();
@@ -242,7 +241,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
     /**
      * Create a Limit implementation in JavaScript. Will be invoked when the page is loaded.
-     * 
+     *
      * @return The JavaScript Limit.
      */
     public String initJavascriptLimit() {
@@ -254,9 +253,9 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.newline();
 
         Limit limit = coreContext.getLimit();
-        
+
         boolean useDocumentReady = HtmlUtils.useDocumentReadyToInitJavascriptLimit(coreContext);
-        
+
         if (useDocumentReady) {
             html.append("$(document).ready(function(){").newline();
         }
@@ -264,6 +263,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         html.tab().append("jQuery.jmesa.addTableFacade('" + limit.getId() + "')").semicolon().newline();
 
         html.tab().append("jQuery.jmesa.setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
+        html.tab().append("jQuery.jmesa.setTotalRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getTotalRows() + "')").semicolon().newline();
 
         for (Sort sort : limit.getSortSet().getSorts()) {
             html.tab().append(
@@ -280,12 +280,12 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         if (worksheet != null && worksheet.isFiltering()) {
             html.tab().append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
         }
-        
+
         html.tab().append("jQuery.jmesa.setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
 
         html.tab().append("jQuery.jmesa.setOnInvokeAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_ACTION) + "')").semicolon().newline();
         html.tab().append("jQuery.jmesa.setOnInvokeExportAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_EXPORT_ACTION) + "')").semicolon().newline();
-        
+
         if (useDocumentReady) {
             html.append("});").newline();
         }
