@@ -3,4 +3,4 @@ The changes made for the JMesa 2.4.4 release.
  * Fixed memory leak related to the JMesa preferences. (link to the issue)
  * The worksheet supports tabbed navigation now! (link to the issue)
  * New [http://joda-time.sourceforge.net/ Joda Time] cell editors. (give examples)
- * Added the totalRows to the JavaScript Limit. (contributed by carlos.costaesilva)
+ * Added the totalRows to the !JavaScript Limit. (contributed by carlos.costaesilva)
