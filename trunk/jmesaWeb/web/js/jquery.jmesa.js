@@ -41,6 +41,9 @@
             this.getTableFacade(id).limit.setMaxRows(maxRows);
             this.setPageToLimit(id, '1');
         },
+        setTotalRowsToLimit : function(id, totalRows) {
+            this.getTableFacade(id).limit.setTotalRows(totalRows);
+        },
         addSortToLimit : function(id, position, property, order) {
             /*First remove the sort if it is set on the limit,
                and then set the page back to the first one.*/
@@ -178,8 +181,9 @@
         Limit : function (id) {
             this.id = id;
             this.page = null;
-            this.maxRows = null;
-            this.sortSet = [];
+	        this.maxRows = null;
+	        this.totalRows = null;
+	        this.sortSet = [];
             this.filterSet = [];
             this.exportType = null;
         },
@@ -223,6 +227,20 @@
         },
         setMaxRows : function (maxRows) {
             this.maxRows = maxRows;
+        },
+        getTotalRows : function () {
+            return this.totalRows;
+        },
+        setTotalRows : function (totalRows) {
+            this.totalRows = totalRows;
+        },
+        getTotalPages : function () {
+	        if (this.maxRows == 0) return 1;
+            var pages = this.totalRows / this.maxRows;
+	        if ((this.totalRows % this.maxRows) > 0) {
+		        ++pages;
+	        }
+	        return pages;
         },
         getSortSet : function () {
             return this.sortSet;
@@ -446,15 +464,16 @@
 
             $(input).change(function() {
                 var changedValue = $("#dynFilterDroplistDiv option:selected").val();
-                cell.text(changedValue);
+                var changedText = $("#dynFilterDroplistDiv option:selected").text();
+                cell.text(changedText);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                 $.jmesa.onInvokeAction(dynFilter.id, 'filter');
                 dynFilter = null;
             });
 
             $(input).blur(function() {
-                var changedValue = $("#dynFilterDroplistDiv option:selected").val();
-                cell.text(changedValue);
+                var changedText = $("#dynFilterDroplistDiv option:selected").text();
+                cell.text(changedText);
                 $('#dynFilterDroplistDiv').remove();
                 cell.css({backgroundColor:originalBackgroundColor});
                 dynFilter = null;
@@ -567,7 +586,7 @@
 
                 }
             };
-            
+
             if (jQuery.browser.msie || jQuery.browser.safari) { /* IE and Safari don't catch tabulation on keypress */
                 $('#wsColumnInput').keydown(keyEvent);
             } else {
