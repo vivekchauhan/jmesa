@@ -17,7 +17,7 @@ package org.jmesaweb.controller;
 
 import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.JEXCEL;
-import static org.jmesa.limit.ExportType.PDFP;
+import static org.jmesa.limit.ExportType.PDF;
 
 import static org.jmesa.facade.TableFacadeFactory.createTableFacade;
 
@@ -66,7 +66,7 @@ public class BasicPresidentController extends AbstractController {
 
         TableFacade tableFacade = createTableFacade(id, request);
         tableFacade.setItems(items); // set the items
-        tableFacade.setExportTypes(response, CSV, JEXCEL, PDFP); // set the exports allowed
+        tableFacade.setExportTypes(response, CSV, JEXCEL, PDF); // set the exports allowed
         tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it.
         
         Limit limit = tableFacade.getLimit();
