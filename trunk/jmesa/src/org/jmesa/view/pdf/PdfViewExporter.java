@@ -53,7 +53,6 @@ public class PdfViewExporter extends AbstractViewExporter {
         HttpServletResponse response = getResponse();
         responseHeaders(response);
 
-        System.setProperty("xr.load.xml-reader", "org.ccil.cowan.tagsoup.Parser");
         System.setProperty("xr.util-logging.loggingEnabled", "false");
         System.setProperty("xr.util-logging.java.util.logging.ConsoleHandler.level", "WARN");
         System.setProperty("xr.util-logging..level", "WARN");
