@@ -87,7 +87,10 @@ public class PdfViewExporter extends AbstractViewExporter {
      * @return The base url to the web application.
      */
     private String getBaseUrl() {
-        return request.getRequestURL().toString();
+        if (request != null) {
+            return request.getRequestURL().toString();
+        }
+        return null;
     }
 
     @Override

@@ -144,6 +144,11 @@ public class TableFacadeImpl implements TableFacade {
 
     public void setWebContext(WebContext webContext) {
         this.webContext = webContext;
+
+        Object backingObject = webContext.getBackingObject();
+        if (backingObject instanceof HttpServletRequest) {
+            request = (HttpServletRequest) backingObject;
+        }
     }
 
     public void setEditable(boolean editable) {
