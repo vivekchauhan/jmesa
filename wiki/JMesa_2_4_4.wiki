@@ -6,3 +6,4 @@ The changes made for the JMesa 2.4.4 release.
  * Added the totalRows to the !JavaScript Limit. [http://code.google.com/p/jmesa/issues/detail?id=204 Issue 204]. (contributed by carlos.costaesilva)
  * Bug in the !DroplistFilterEditor in that the option value being redisplayed instead of the label. This also required a !JavaScript change. (contributed by Gabriel Tursi)
  * Fixed a null pointer in the !PdfViewExporter.  [http://code.google.com/p/jmesa/issues/detail?id=209 Issue 209]. (contributed by carlos.costaesilva)
+ * Set struts locale to WebContext.  [http://code.google.com/p/jmesa/issues/detail?id=208 Issue 208]. (contributed by carlos.costaesilva)
