@@ -29,10 +29,11 @@ import org.jmesa.web.PortletRequestWebContext;
 import org.jmesa.web.SpringWebContext;
 import org.jmesa.web.WebContext;
 import org.springframework.context.i18n.LocaleContextHolder;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * A factory to create TableFacade implementations.
- * 
+ *
  * @since 2.2
  * @author Jeff Johnston
  */
@@ -64,9 +65,9 @@ public class TableFacadeFactory {
     }
 
     public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext) {
-        
+
         springWebContext.setLocale(LocaleContextHolder.getLocale());
-        
+
         TableFacade tableFacade = createTableFacade(id, springWebContext);
         Messages messages = MessagesFactory.getMessages(springWebContext);
         SpringMessages springMessages = new SpringMessages(messages, springWebContext);
@@ -80,6 +81,9 @@ public class TableFacadeFactory {
     }
 
     public static TableFacade createStruts2TableFacade(String id, WebContext webContext) {
+
+        webContext.setLocale(ActionContext.getContext().getLocale());
+
         TableFacade tableFacade = createTableFacade(id, webContext);
         Messages messages = MessagesFactory.getMessages(webContext);
         Struts2Messages struts2Messages = new Struts2Messages(messages, webContext);
