@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public final class PropertiesPreferences implements Preferences {
-    private Logger logger = LoggerFactory.getLogger(PropertiesPreferences.class);
+    private final Logger logger = LoggerFactory.getLogger(PropertiesPreferences.class);
 
     private static final String JMESA_PROPERTIES = "jmesa.properties";
 
@@ -40,13 +40,27 @@ public final class PropertiesPreferences implements Preferences {
     public PropertiesPreferences(String preferencesLocation, WebContext webContext) {
         try {
             InputStream resourceAsStream = getInputStream(JMESA_PROPERTIES, webContext);
-            properties.load(resourceAsStream);
-            resourceAsStream.close();
+            try {
+                properties.load(resourceAsStream);
+            } finally {
+                try {
+                    resourceAsStream.close();
+                } catch (IOException e) {
+                    logger.error("Could not close the JMesa default preferences.", e);
+                }
+            }
             if (StringUtils.isNotBlank(preferencesLocation)) {
                 InputStream input = getInputStream(preferencesLocation, webContext);
                 if (input != null) {
-                    properties.load(input);
-                    input.close();
+                    try {
+                        properties.load(input);
+                    } finally {
+                        try {
+                            input.close();
+                        } catch (IOException e) {
+                            logger.error("Could not close the JMesa preferences.", e);
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
@@ -73,6 +87,6 @@ public final class PropertiesPreferences implements Preferences {
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("properties", properties);
-        return builder.toString();        
+        return builder.toString();
     }
 }
