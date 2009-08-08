@@ -55,6 +55,8 @@ public final class FilterPredicate implements Predicate {
                 if (value != null) {
                     FilterMatcher filterMatcher = filterMatchers.get(filter);
                     result = filterMatcher.evaluate(value, filter.getValue());
+                } else {
+                    result = false;
                 }
 
                 // short circuit if does not match
