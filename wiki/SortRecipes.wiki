@@ -43,6 +43,6 @@ By default JMesa uses the apache commons beanutils for sorting. Just recently it
  * Boolean as an object needs to have a method that starts with 'get'.
  * boolean as a primitive needs to have a method that starts with either 'get' or 'is'.
 
-==== Changing To A Single Column Sort ====
+==== How do I change the table behavior to a single column sort? ====
 
 See the [Javascript Action Example] on the !JavaScript page.
