@@ -1,8 +1,8 @@
 The changes made for the JMesa 2.4.4 release.
 
- * Fixed memory leak related to the JMesa preferences. (link to the issue)
- * The worksheet supports tabbed navigation now! (link to the issue)
- * New [http://joda-time.sourceforge.net/ Joda Time] cell editors. (give examples)
+ * Fixed memory leak related to the JMesa preferences. [http://code.google.com/p/jmesa/issues/detail?id=203 Issue 203]. (contributed by carlos.costaesilva)
+ * The worksheet supports tabbed navigation now! (This is one of the best improvements however I am not able to find out who sent me the patch now...so thanks to whomever you are!)
+ * New [http://joda-time.sourceforge.net/ Joda Time] cell editors.
  * Added the totalRows to the !JavaScript Limit. [http://code.google.com/p/jmesa/issues/detail?id=204 Issue 204]. (contributed by carlos.costaesilva)
  * Bug in the !DroplistFilterEditor in that the option value being redisplayed instead of the label. This also required a !JavaScript change. (contributed by Gabriel Tursi)
  * Fixed a null pointer in the !PdfViewExporter.  [http://code.google.com/p/jmesa/issues/detail?id=209 Issue 209]. (contributed by carlos.costaesilva)
