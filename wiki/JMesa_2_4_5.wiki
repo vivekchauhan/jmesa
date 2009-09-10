@@ -1,3 +1,2 @@
 
-
-* Can ask the worksheet if it has any errors
+ * Can ask the worksheet if it has any errors
