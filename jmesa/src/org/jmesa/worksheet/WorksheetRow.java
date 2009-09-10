@@ -77,4 +77,9 @@ public interface WorksheetRow {
      * @param rowStatus The row status.
      */
     public void setRowStatus(WorksheetRowStatus rowStatus);
+
+    /**
+     * @return Is true if any of the row columns contain errors.
+     */
+    public boolean hasErrors();
 }

@@ -100,6 +100,10 @@ public class WorksheetWrapper implements Worksheet {
         worksheet.processRows(handler);
     }
 
+    public boolean hasErrors() {
+        return worksheet.hasErrors();
+    }
+
     @Override
     public String toString() {
         return worksheet.toString();

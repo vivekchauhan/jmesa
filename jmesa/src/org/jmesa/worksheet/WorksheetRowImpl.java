@@ -63,6 +63,18 @@ public class WorksheetRowImpl implements WorksheetRow {
         this.rowStatus = rowStatus;
     }
 
+    public boolean hasErrors() {
+        Collection<WorksheetColumn> values = columns.values();
+        for (WorksheetColumn worksheetColumn : values) {
+            boolean hasError = worksheetColumn.hasError();
+            if (hasError) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);

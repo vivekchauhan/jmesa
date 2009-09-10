@@ -79,6 +79,18 @@ public class WorksheetImpl implements Worksheet {
         rows.clear();
     }
     
+    public boolean hasErrors() {
+        Collection<WorksheetRow> worksheetRows = rows.values();
+        for (WorksheetRow worksheetRow : worksheetRows) {
+            boolean hasErrors = worksheetRow.hasErrors();
+            if (hasErrors) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     public void processRows(WorksheetCallbackHandler handler) {
         Iterator<WorksheetRow> worksheetRows = getRows().iterator();
         while (worksheetRows.hasNext()) {

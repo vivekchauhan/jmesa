@@ -108,6 +108,11 @@ public interface Worksheet {
     public void removeAllChanges();
     
     /**
+     * @return Is true if any of the worksheet columns contain errors.
+     */
+    public boolean hasErrors();
+
+    /**
      * A convenience method to handle the worksheet iteration.
      * 
      * @param handler The callback handler.
