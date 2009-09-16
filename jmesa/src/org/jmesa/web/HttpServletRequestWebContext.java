@@ -21,18 +21,26 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class HttpServletRequestWebContext implements WebContext {
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
+	private final ServletContext ctx;
     private Map<?,?> parameterMap;
     private Locale locale;
 
+	public HttpServletRequestWebContext(HttpServletRequest request, ServletContext ctx) {
+		this.request = request;
+		this.ctx = ctx;
+	}
+	
     public HttpServletRequestWebContext(HttpServletRequest request) {
         this.request = request;
+		this.ctx = request.getSession().getServletContext();
     }
 
     protected HttpServletRequest getHttpServletRequest() {
@@ -40,19 +48,19 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public Object getApplicationInitParameter(String name) {
-        return request.getSession().getServletContext().getInitParameter(name);
+        return ctx.getInitParameter(name);
     }
 
     public Object getApplicationAttribute(String name) {
-        return request.getSession().getServletContext().getAttribute(name);
+        return ctx.getAttribute(name);
     }
 
     public void setApplicationAttribute(String name, Object value) {
-        request.getSession().getServletContext().setAttribute(name, value);
+        ctx.setAttribute(name, value);
     }
 
     public void removeApplicationAttribute(String name) {
-        request.getSession().getServletContext().removeAttribute(name);
+        ctx.removeAttribute(name);
     }
 
     public Object getPageAttribute(String name) {
@@ -137,7 +145,7 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public String getRealPath(String path) {
-        return request.getSession().getServletContext().getRealPath(path);
+        return ctx.getRealPath(path);
     }
     
     public HttpServletRequest getBackingObject() {
