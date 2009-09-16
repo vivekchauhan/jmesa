@@ -34,12 +34,12 @@ public class LimitUtils {
      */
     public static String getValue(Object value) {
         if (value instanceof Object[]) {
-            if (((Object[]) value).length == 1) {
+            if (((Object[]) value).length > 0) {
                 return String.valueOf(((Object[]) value)[0]);
             }
         } else if (value instanceof List) {
             List<?> valueList = (List<?>) value;
-            if (((List<?>) valueList).size() == 1) {
+            if (((List<?>) valueList).size() > 0) {
                 return String.valueOf(((List<?>) valueList).get(0));
             }
         }
