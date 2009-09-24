@@ -30,6 +30,17 @@ import org.slf4j.LoggerFactory;
 public class DateTimeCellEditor extends DateCellEditor {
     private final Logger logger = LoggerFactory.getLogger(DateTimeCellEditor.class);
 
+    public DateTimeCellEditor() {
+        // default constructor
+    }
+
+    /**
+     * @param pattern The pattern to use.
+     */
+    public DateTimeCellEditor(String pattern) {
+        setPattern(pattern);
+    }
+
     /**
      * Get the formatted date value based on the pattern set.
      */
