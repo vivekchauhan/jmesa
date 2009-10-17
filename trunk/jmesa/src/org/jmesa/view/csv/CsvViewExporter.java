@@ -48,7 +48,7 @@ public class CsvViewExporter extends AbstractViewExporter {
 
     @Override
     public String getContextType() {
-        return "text/plain";
+        return "text/csv";
     }
 
     @Override
