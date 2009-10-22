@@ -1,0 +1,4 @@
+ 
+This is the list of changes for the JMesa 2.4.6 release.
+
+ * Russian language support added by Alexey Kudinov 
