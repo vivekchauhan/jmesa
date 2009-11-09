@@ -1,10 +1,10 @@
 <ivyconf>
     <conf defaultResolver="default"/>
     <resolvers>
-        <filesystem name="local">
+        <!--filesystem name="local">
             <ivy pattern="../repository/[organisation]/[module]/ivy-[revision].xml"/>
             <artifact pattern="../repository/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
-        </filesystem>
+        </filesystem-->
 		<url name="jmesa">
 		    <ivy pattern="http://jmesa.googlecode.com/svn/repository/[organisation]/[module]/ivy-[revision].xml"/>
 		    <artifact pattern="http://jmesa.googlecode.com/svn/repository/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
