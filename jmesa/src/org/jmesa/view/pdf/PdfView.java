@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
@@ -53,6 +54,7 @@ public class PdfView extends AbstractExportView {
         super(table, coreContext);
         this.webContext = webContext;
         this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
+        SupportUtils.setWebContext(this.snippets, webContext);
 
         this.cssLocation = coreContext.getPreference("pdf.cssLocation");
         this.doctype = coreContext.getPreference("pdf.doctype");
