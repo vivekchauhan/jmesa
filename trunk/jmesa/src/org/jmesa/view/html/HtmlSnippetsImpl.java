@@ -16,11 +16,14 @@
 package org.jmesa.view.html;
 
 import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
+
+import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.Sort;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
 import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
@@ -39,15 +42,14 @@ import java.util.List;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class HtmlSnippetsImpl implements HtmlSnippets {
+public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnippets {
     private HtmlTable table;
     private Toolbar toolbar;
-    private CoreContext coreContext;
 
     public HtmlSnippetsImpl(HtmlTable table, Toolbar toolbar, CoreContext coreContext) {
         this.table = table;
         this.toolbar = toolbar;
-        this.coreContext = coreContext;
+        setCoreContext(coreContext);
     }
 
     protected HtmlTable getHtmlTable() {
@@ -56,10 +58,6 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
     protected Toolbar getToolbar() {
         return toolbar;
-    }
-
-    protected CoreContext getCoreContext() {
-        return coreContext;
     }
 
     public String themeStart() {
@@ -101,7 +99,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
     public String tbodyStart() {
         HtmlBuilder html = new HtmlBuilder();
-        String tbodyClass = coreContext.getPreference(HtmlConstants.TBODY_CLASS);
+        String tbodyClass = getCoreContext().getPreference(HtmlConstants.TBODY_CLASS);
         html.tbody(1).styleClass(tbodyClass).close();
         return html.toString();
     }
@@ -122,7 +120,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         }
 
         HtmlBuilder html = new HtmlBuilder();
-        String filterClass = coreContext.getPreference(HtmlConstants.FILTER_CLASS);
+        String filterClass = getCoreContext().getPreference(HtmlConstants.FILTER_CLASS);
         html.tr(1).styleClass(filterClass).close();
 
 
@@ -141,7 +139,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
     public String header() {
         HtmlBuilder html = new HtmlBuilder();
-        String headerClass = coreContext.getPreference(HtmlConstants.HEADER_CLASS);
+        String headerClass = getCoreContext().getPreference(HtmlConstants.HEADER_CLASS);
         html.tr(1).styleClass(headerClass).close();
 
         HtmlRow row = table.getRow();
@@ -163,6 +161,8 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
     public String body() {
         HtmlBuilder html = new HtmlBuilder();
 
+        CoreContext coreContext = getCoreContext();   
+        
         int rowcount = HtmlUtils.startingRowcount(coreContext);
 
         Collection<?> items = coreContext.getPageItems();
@@ -185,6 +185,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
     }
 
     public String statusBarText() {
+        CoreContext coreContext = getCoreContext();
         Limit limit = coreContext.getLimit();
         RowSelect rowSelect = limit.getRowSelect();
 
@@ -205,7 +206,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
         HtmlRow row = table.getRow();
         List<Column> columns = row.getColumns();
 
-        String toolbarClass = coreContext.getPreference(HtmlConstants.TOOLBAR_CLASS);
+        String toolbarClass = getCoreContext().getPreference(HtmlConstants.TOOLBAR_CLASS);
         html.tr(1).styleClass(toolbarClass).close();
         html.td(2).colspan(String.valueOf(columns.size())).close();
 
@@ -225,7 +226,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         html.tbody(1).close();
 
-        String toolbarClass = coreContext.getPreference(HtmlConstants.STATUS_BAR_CLASS);
+        String toolbarClass = getCoreContext().getPreference(HtmlConstants.STATUS_BAR_CLASS);
         html.tr(1).styleClass(toolbarClass).close();
         html.td(2).align("left").colspan(String.valueOf(columns.size())).close();
 
@@ -252,6 +253,7 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         html.newline();
 
+        CoreContext coreContext = getCoreContext();
         Limit limit = coreContext.getLimit();
 
         boolean useDocumentReady = HtmlUtils.useDocumentReadyToInitJavascriptLimit(coreContext);
@@ -285,7 +287,12 @@ public class HtmlSnippetsImpl implements HtmlSnippets {
 
         html.tab().append("jQuery.jmesa.setOnInvokeAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_ACTION) + "')").semicolon().newline();
         html.tab().append("jQuery.jmesa.setOnInvokeExportAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_EXPORT_ACTION) + "')").semicolon().newline();
-
+        
+        // I'm allowing getWebContext() to be null for backwards compatibility
+        if (getWebContext() != null) {
+            html.tab().append("jQuery.jmesa.setContextPath('" + limit.getId() + "','" + StringEscapeUtils.escapeJavaScript(getWebContext().getContextPath()) + "')").semicolon().newline();
+        }
+        
         if (useDocumentReady) {
             html.append("});").newline();
         }

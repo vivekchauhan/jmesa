@@ -145,6 +145,14 @@
             var tableFacade = this.getTableFacade(id);
             tableFacade.onInvokeExportAction = functionName;
         },
+        setContextPath : function (id, contextPath) {
+        	var tableFacade = this.getTableFacade(id);
+        	tableFacade.contextPath = contextPath;
+        },
+        getContextPath : function (id) {
+        	var tableFacade = this.getTableFacade(id);
+        	return tableFacade.contextPath;
+        },
         onInvokeAction : function (id, action) {
             var tableFacade = this.getTableFacade(id);
             var f = window[tableFacade.onInvokeAction];
@@ -173,6 +181,7 @@
             this.worksheet = new classes.Worksheet();
             this.onInvokeAction = 'onInvokeAction';
             this.onInvokeExportAction = 'onInvokeExportAction';
+            this.contextPath = '';
         },
         Worksheet : function () {
             this.save = null;
@@ -627,7 +636,11 @@
 
             data += '}'
 
-            $.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {});
+        	var contextPath = coreapi.getContextPath(wsColumn.id);
+        	if (contextPath) {
+        		contextPath += "/";
+        	}
+            $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(data) {});
         }
     }
 

@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html;
 
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
@@ -64,7 +65,7 @@ public abstract class AbstractHtmlView extends AbstractContextSupport implements
         if (snippets == null) {
             this.snippets = new HtmlSnippetsImpl(getTable(), getToolbar(), getCoreContext());
         }
-
+        SupportUtils.setWebContext(this.snippets, getWebContext());
         return snippets;
     }
 
