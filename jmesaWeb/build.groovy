@@ -76,7 +76,7 @@ class Build {
         
         ant.copy(todir:"${sourceDir}/jmesaWeb/src") { fileset(dir:'src') }
         ant.copy(todir:"${sourceDir}/jmesaWeb/web") { 
-            fileset(dir:'web', excludes:"**/classes/**", excludes:"**/lib/**") 
+            fileset(dir:'web', excludes:"**/classes/**,**/lib/**")
         }
         
         ant.zip(destfile:targetDir + "/${artifact.name}-${artifact.revision}_examples.war-source.zip", basedir:sourceDir)
