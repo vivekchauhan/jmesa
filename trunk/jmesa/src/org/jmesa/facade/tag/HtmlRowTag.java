@@ -245,8 +245,8 @@ public class HtmlRowTag extends SimpleTagSupport {
         rowRenderer.setStyleClass(getStyleClass());
         rowRenderer.setEvenClass(getEvenClass());
         rowRenderer.setOddClass(getOddClass());
-        rowRenderer.setHighlightStyle(getHighlightClass());
-        rowRenderer.setStyleClass(getStyleClass());
+        rowRenderer.setHighlightStyle(getHighlightStyle());
+        rowRenderer.setHighlightClass(getHighlightClass());
 
         return row;
     }
