@@ -1,0 +1,50 @@
+The !HtmlTableBuilder class allows creation of tables using the [http://martinfowler.com/bliki/FluentInterface.html FluentInterface] pattern.
+
+Here is a recent table that I converted over to using the !HtmlTableBuilder. 
+
+This is what the table looked like using the API like we are used to.
+
+{{{
+tableFacade.setColumnProperties("name", "key", "value.valueString", "value.timestamp");
+
+HtmlTable table = (HtmlTable) tableFacade.getTable();
+table.setCaption("Cache Inspector");
+table.getTableRenderer().setWidth("800px");
+
+Row row = table.getRow();
+
+HtmlColumn name = (HtmlColumn)row.getColumn("name");
+name.setTitle("Cache");
+name.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+
+Column value = row.getColumn("value.valueString");
+value.setTitle("Value");
+
+Column timestamp = row.getColumn("value.timestamp");
+timestamp.setTitle("Timestamp");
+timestamp.getCellRenderer().setCellEditor(new DateTimeCellEditor("yyyy-MM-dd HH:mm:ss"));
+}}}
+
+And this is what a fluent table looks like.
+
+{{{
+HtmlTableBuilder builder = new HtmlTableBuilder(tableFacade);
+builder.htmlTable()
+        .caption("Cache Inspector")
+        .width("800px")
+        .htmlRow()
+            .htmlColumn("name")
+                .title("Cache")
+                .filterEditor(new DroplistFilterEditor())
+            .htmlColumn("key")
+            .htmlColumn("value.valueString")
+                .title("Value")
+            .htmlColumn("value.timestamp")
+                .title("Timestamp")
+                .cellEditor(new DateTimeCellEditor("yyyy-MM-dd HH:mm:ss"));
+
+HtmlTable table = builder.build();
+tableFacade.setTable(table);
+}}}
+
+Granted, beauty is in the eye of the beholder, but I really like the way that this reads. But don't worry, both ways will always be supported. In fact the fluent table is just built upon the current API.
