@@ -1,4 +1,4 @@
-The !HtmlTableBuilder class allows creation of tables using the [http://martinfowler.com/bliki/FluentInterface.html FluentInterface] pattern.
+The !HtmlTableBuilder (version 2.4.6) class allows creation of tables using the [http://martinfowler.com/bliki/FluentInterface.html FluentInterface] pattern.
 
 Here is a recent table that I converted over to using the !HtmlTableBuilder. 
 
