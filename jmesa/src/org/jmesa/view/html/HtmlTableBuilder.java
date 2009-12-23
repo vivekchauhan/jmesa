@@ -48,9 +48,8 @@ public class HtmlTableBuilder {
     }
 
     public TableBuilder htmlTable() {
-        TableBuilder tableBuilder = new TableBuilder();
         table = componentFactory.createTable();
-        return tableBuilder;
+        return new TableBuilder();
     }
 
     public HtmlTable build() {
@@ -60,8 +59,7 @@ public class HtmlTableBuilder {
     public class TableBuilder {
 
         public RowBuilder htmlRow() {
-            RowBuilder rowBuilder = new RowBuilder();
-            return rowBuilder;
+            return new RowBuilder();
         }
 
         public TableBuilder caption(String caption) {
@@ -134,8 +132,7 @@ public class HtmlTableBuilder {
         }
 
         public ColumnBuilder htmlColumn(String property) {
-            ColumnBuilder columnBuilder = new ColumnBuilder(property);
-            return columnBuilder;
+            return new ColumnBuilder(property);
         }
 
         public RowBuilder uniqueProperty(String uniqueProperty) {
@@ -355,8 +352,7 @@ public class HtmlTableBuilder {
         }
 
         public ColumnBuilder htmlColumn(String property) {
-            ColumnBuilder columnBuilder = new ColumnBuilder(property);
-            return columnBuilder;
+            return new ColumnBuilder(property);
         }
     }
 }
