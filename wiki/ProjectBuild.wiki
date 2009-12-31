@@ -13,9 +13,10 @@ Groovy version 1.0 should work fine, as that is all that is required by JMesa.
 
 Then copy the ivy-1.4.1.jar (or later) into the GROOVY_HOME/lib directory so that the build can interact with Ivy.
 
-_Note: by default the ivyconf.xml expects to have a local ivy repository. If you want to get the repository locally just download it from subversion (http://jmesa.googlecode.com/svn/repository). I keep all my projects, including the repository, in the same directory and that is what the default settings are. If you do something different then just modify the ivyconf.xml file.
+_Note: by default the ivyconf.xml expects to have a local ivy repository. If you want to get the repository locally just download it from subversion (http://jmesa.googlecode.com/svn/repository). I keep all my projects, including the repository, in the same directory and that is what the default settings are. If you do something different then just modify the ivyconf.xml file._
 
-However, you can also get the jar files from the JMesa repository online. The only modification you will have to make to the ivyconf.xml file is ensure that it is not pointing to your local repository. Just comment out, or remove, the lines that point to the local repository._
+
+_However, you can also get the jar files from the JMesa repository online. The only modification you will have to make to the ivyconf.xml file is ensure that it is not pointing to your local repository. Just comment out, or remove, the lines that point to the local repository._
 
 === Build Project ===
 
