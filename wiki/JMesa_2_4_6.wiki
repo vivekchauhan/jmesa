@@ -3,4 +3,4 @@ This is the list of changes for the JMesa 2.4.6 release.
 
  * Russian language support added by Alexey Kudinov 
  * The !HtmlRowTag had a bug in which the highlight style and class were not defined correctly
- * Have a new HtmlTableBuilder class that allow creation of tables using the Fluent pattern
+ * Have a new HtmlTableBuilder class that allows creation of tables using the Fluent pattern
