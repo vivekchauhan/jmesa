@@ -20,8 +20,8 @@ Place jmesa.properties inside WEB-INF. Inside web.xml create its entry like the 
 
 {{{
 <context-param>
-           <param-name>jmesaPreferencesLocation</param-name>
-           <param-value>WEB-INF/jmesa.properties</param-value>
+    <param-name>jmesaPreferencesLocation</param-name>
+    <param-value>WEB-INF/jmesa.properties</param-value>
 </context-param>
 }}}
 
