@@ -1,4 +1,10 @@
-Ayan Dutta from Kolkata, India wrote up the following tutorial.
+_Ayan Dutta from Kolkata, India wrote up the following tutorial._
+
+Following are few topics on which I am going to focus on.
+ * Complete example of using JMesa with Struts (Specifically the Ajax enabled version), to help and encourage Struts 1.x users to use JMesa quite easily.
+ * Practical example /recipe on the row rendering ( i.e. proper usage of !HtmlRowRendererImpl )
+ * Proper usage of sorting feature using !ColumnSort with examples.
+ * I have a generic comparator (I am working on this currently), which deals with some real life data type problems in terms of sorting (for example a String containing a date or number, so the sorting becomes weird) .This comparator is capable enough to handle such frequently faced real life problem scenarios.
 
 === Complete example of using JMesa with Struts (With Ajax ): ===
 
@@ -21,7 +27,7 @@ Place jmesa.properties inside WEB-INF. Inside web.xml create its entry like the 
 
 Place JMesa related css,js and image files inside css,js and images folders respectively, all these folders are under the folder !WebContent. Roughly the folder structure would be like
 
-*** place image here ***
+<< place image here >>
 
 ==== Code the Action class and the JSP: ====
 
@@ -128,11 +134,11 @@ tableFacade.setColumnSort(customColumnSort);
 
 Here's how the grid was like before the row rendering customization
 
-*** place image here ***
+<< place image here >>
 
 After row rendering customization
 
-*** place image here ***
+<< place image here >>
 
 === Custom Sorting Recipe: ===
 
@@ -212,3 +218,46 @@ HtmlRow row = table.getRow();
 CustomHtmlRowRenderer customHtmlRowRenderer = new CustomHtmlRowRenderer();
 row.setRowRenderer(customHtmlRowRenderer) ;
 }}}
+
+=== Handle real life sorting issues with Generic Comparator: ===
+
+There are times when you'd want to write one and only comparator which will handle all java data types for sorting (sounds interesting!! read on further..). Even if you have that kind of generic comparator, there are some situations where even that generic comparator will fail. It may sound strange, but I am going to show you such situations, arising out of the overuse of String for specifying other data types, especially faced by Struts developers.
+
+For example you have a list of DTO objects which you want to sort. Now the DTO has a displaydate field which is of type String but displays a Date. Now when the user sorts on date and expects the data sorted by date, the user would be in for a big surprise! Since the date data is actually a String value.
+
+I would call these particular field types as hybrid data type, just for the sake of our convenience.
+
+We can say displaydate had shown date, but it is of type string, so it is a hybrid data type and it of type Date String. Similarly we may face problems with Numeric String, Boolean String, etc.
+
+Here comes my brain child custom Generic Comparator. Just inform the comparator about the hybrid data type and let it do its sorting job.
+
+Inside sorItems method of !CustomColumnSort I have used generic comparator.
+
+For proper java data type you just need to create the comparator like
+
+{{{
+GenericComparator comparator= new GenericComparator(<String fieldNameToBeSorted>)
+}}}
+
+For hybrid java data type you need to create the comparator like
+
+{{{
+public GenericComparator(<String fieldNameToBeSorted>,<boolean hybridDataType>,<String hybridDataTypeName>)
+}}}
+
+Inside !CustomColumnSort I have shown how to deal with hybrid data type like the following
+
+{{{
+GenericComparator genericComparator= new GenericComparator(sort.getProperty(),true,GenericComparator.NUMERIC_STRING);
+}}}
+
+If it was a normal data type the code would have been like
+
+{{{
+GenericComparator genericComparator= new GenericComparator(sort.getProperty());
+}}}
+
+
+
+
+
