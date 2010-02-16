@@ -121,15 +121,16 @@ public class CustomHtmlRowRenderer extends HtmlRowRendererImpl
 }
 }}}
 
-Now the Tablefacade object needs to be informed about this custom renderer. We do this using
-the following lines of code in the getHtml method.
+Now the Tablefacade object needs to be informed about this custom renderer. We do this using the following lines of code in the getHtml method.
 
 {{{
+HtmlTable table = (HtmlTable) tableFacade.getTable();
+HtmlRow row = table.getRow();
 /*
- * Override and customize the sorting of the table facade
+ * Override and customize the rendering of the table facade
  */
-ColumnSort customColumnSort = new CustomColumnSort();
-tableFacade.setColumnSort(customColumnSort);
+CustomHtmlRowRenderer customHtmlRowRenderer = new CustomHtmlRowRenderer();
+row.setRowRenderer(customHtmlRowRenderer);
 }}}
 
 Here's how the grid was like before the row rendering customization
@@ -210,13 +211,11 @@ public class CustomColumnSort implements ColumnSort
 Now we need to inform the !HtmlTable object about this custom sort object. Inside getHtml we do this using the following lines of code.
 
 {{{
-HtmlTable table = (HtmlTable) tableFacade.getTable();
-HtmlRow row = table.getRow();
 /*
- * Override and customize the rendering of the table facade
+ * Override and customize the sorting of the table facade
  */
-CustomHtmlRowRenderer customHtmlRowRenderer = new CustomHtmlRowRenderer();
-row.setRowRenderer(customHtmlRowRenderer) ;
+ColumnSort customColumnSort = new CustomColumnSort();
+tableFacade.setColumnSort(customColumnSort);
 }}}
 
 === Handle real life sorting issues with Generic Comparator: ===
@@ -256,6 +255,4 @@ If it was a normal data type the code would have been like
 {{{
 GenericComparator genericComparator= new GenericComparator(sort.getProperty());
 }}}
-
-
 
