@@ -72,4 +72,143 @@ function onInvokeAction(id)
 }
 }}}
 
+=== Row Rendering Recipe:===
 
+Suppose you want to highlight a particular row with a specific color for a specific value,
+this is the how you would do it, Read on...
+
+This is an ideal case for using a Custom !HtmlRowRenderer which will extend
+!HtmlRowRendererImpl.
+
+Now we would need to override the default public Object render (Object item, int
+rowcount) method here for our specific requirement.
+
+In this case the data list contains a DTO(Data Transfer Object) object which has a boolean
+attribute “ok”. If its has a “true” value, we need to highlight the row with green color.
+
+Here's the code for it
+
+{{{
+public class CustomHtmlRowRenderer extends HtmlRowRendererImpl
+{
+    public Object render(Object item, int rowcount)
+    {
+        HtmlBuilder html = new HtmlBuilder();
+        html.tr(1);
+        html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
+        //Get the actual value of ok field
+        Object okValueObj = ItemUtils.getItemValue(item, "ok");
+        String valueStr = String.valueOf(okValueObj).toLowerCase();
+        if (valueStr.contains("true"))
+        {
+            html.style("background-color:green");
+        }
+        else
+        {
+            html.style(getStyle());
+        }
+        html.styleClass(getStyleClass(rowcount));
+        html.append(getRowEvents(item, rowcount));
+        html.close();
+        return html.toString();
+    }
+}
+}}}
+
+Now the Tablefacade object needs to be informed about this custom renderer. We do this using
+the following lines of code in the getHtml method.
+
+{{{
+/*
+ * Override and customize the sorting of the table facade
+ */
+ColumnSort customColumnSort = new CustomColumnSort();
+tableFacade.setColumnSort(customColumnSort);
+}}}
+
+Here's how the grid was like before the row rendering customization
+
+*** place image here ***
+
+After row rendering customization
+
+*** place image here ***
+
+=== Custom Sorting Recipe: ===
+
+How to sort a table according to my own choice using Jmesa ?
+
+Jmesa comes with its own nice way of sorting. But for specific custom sorting of your own, you need to write your own “customized” Sorting class. It will be a class that will implement !ColumnSort interface and implement the sortItems method of the said interface.
+
+Remember sortItems () method is the place where you apply all sorting related
+customizations.
+
+The code is written below to sort the data on two properties age and displaydate.
+
+{{{
+public class CustomColumnSort implements ColumnSort
+{
+    public Collection<?> sortItems(Collection<?> items, Limit limit)
+    {
+        ComparatorChain chain = new ComparatorChain();
+        SortSet sortSet = limit.getSortSet();
+        Iterator sortItr= sortSet.getSorts().iterator();
+        while(sortItr.hasNext())
+        {
+            Sort sort =(Sort)sortItr.next();
+            GenericComparator genericComparator = null;
+            if (sort.getOrder() == Order.ASC)
+            {
+                if(sort.getProperty().equalsIgnoreCase("age"))
+                {
+                    genericComparator= new GenericComparator(sort.getProperty(),true,GenericComparator.NUMERIC_STRING);
+                }
+                if(sort.getProperty().equalsIgnoreCase("displayDate"))
+                {
+                    genericComparator= new GenericComparator(sort.getProperty(),true,GenericComparator.DATE_STRING);
+                }
+            }
+            else if (sort.getOrder() == Order.DESC)
+            {
+             /*
+              * For descending sort one extra parameter sorting mode (value false)
+              * is passed to the GenericComparator.
+              * By default its value is true.
+              *
+              */
+                if(sort.getProperty().equalsIgnoreCase("age"))
+                {
+                    genericComparator= new GenericComparator(sort.getProperty(),true,GenericComparator.NUMERIC_STRING,false);
+                }    
+                if(sort.getProperty().equalsIgnoreCase("displayDate"))
+                {
+                    genericComparator= new GenericComparator(sort.getProperty(),true,GenericComparator.DATE_STRING, false);
+                }
+            }
+             /*
+              * This is the main place where the Generic comparator is added to the
+              * ComparatorChain for sorting
+              *
+              */
+              chain.addComparator(genericComparator);
+        }
+        if (chain.size() > 0)
+        {
+            Collection((List<?>) items, chain);
+        }
+        return items;
+    }
+}
+}}}
+
+Now we need to inform the !HtmlTable object about this custom sort object. Inside getHtml we do this using the following lines of code.
+
+{{{
+HtmlTable table = (HtmlTable) tableFacade.getTable();
+HtmlRow row = table.getRow();
+/*
+ * Override and customize the rendering of the table facade
+ */
+CustomHtmlRowRenderer customHtmlRowRenderer = new CustomHtmlRowRenderer();
+row.setRowRenderer(customHtmlRowRenderer) ;
+}}}
