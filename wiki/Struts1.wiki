@@ -1,4 +1,4 @@
-_Ayan Dutta from Kolkata, India wrote up the following tutorial. There is also an examples war file in the [http://code.google.com/p/jmesa/downloads/list downloads] area._ 
+_Ayan Dutta from Kolkata, India wrote up the following tutorial. There is also a Struts 1.x examples war file in the [http://code.google.com/p/jmesa/downloads/list downloads] area._ 
 
 Following are few topics on which I am going to focus on.
  * Complete example of using JMesa with Struts (Specifically the Ajax enabled version), to help and encourage Struts 1.x users to use JMesa quite easily.
