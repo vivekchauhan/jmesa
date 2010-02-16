@@ -27,7 +27,7 @@ Place jmesa.properties inside WEB-INF. Inside web.xml create its entry like the 
 
 Place JMesa related css,js and image files inside css,js and images folders respectively, all these folders are under the folder !WebContent. Roughly the folder structure would be like
 
-<< place image here >>
+http://jmesa.org/wiki/images/struts-project-setup.png
 
 ==== Code the Action class and the JSP: ====
 
@@ -134,11 +134,11 @@ tableFacade.setColumnSort(customColumnSort);
 
 Here's how the grid was like before the row rendering customization
 
-<< place image here >>
+http://jmesa.org/wiki/images/struts-rendering_before.png
 
 After row rendering customization
 
-<< place image here >>
+http://jmesa.org/wiki/images/struts-rendering_after.png
 
 === Custom Sorting Recipe: ===
 
@@ -256,8 +256,6 @@ If it was a normal data type the code would have been like
 {{{
 GenericComparator genericComparator= new GenericComparator(sort.getProperty());
 }}}
-
-
 
 
 
