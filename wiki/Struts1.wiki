@@ -1,0 +1,75 @@
+Ayan Dutta from Kolkata, India wrote up the following tutorial.
+
+=== Complete example of using JMesa with Struts (With Ajax ): ===
+
+First I will setup an application configuration so that Struts 1.x and JMesa works together. Then I will write an action class !JmesaDispatchAction.java, which will have a method load(). This load() method is everything.
+
+I am using !DispatchAction here, intentionally, so that if one wants same action to work for multiple JMesa table less struts mapping and code would be required. 
+
+==== Setup ====
+
+Create the structure for any standard struts project. Now place JMesa libraries (i.e. jar files ) inside WEB-INF/lib.
+
+Place jmesa.properties inside WEB-INF. Inside web.xml create its entry like the following:
+
+{{{
+<context-param>
+           <param-name>jmesaPreferencesLocation</param-name>
+           <param-value>WEB-INF/jmesa.properties</param-value>
+</context-param>
+}}}
+
+Place JMesa related css,js and image files inside css,js and images folders respectively, all these folders are under the folder !WebContent. Roughly the folder structure would be like
+
+*** place image here ***
+
+==== Code the Action class and the JSP: ====
+
+The action class will have two basic blocks inside the load() method:
+ * one for normal flow
+ * another for Ajax request from the JSP page (with request parameter ajax=true).
+
+Here comes the sample code block...
+
+{{{
+public ActionForward load(ActionMapping mapping
+           , ActionForm form
+           , HttpServletRequest request
+           , HttpServletResponse response) throws Exception {
+    String forwardName="load";
+    List items = JMesaUtil.loadData(100);
+    String id="presidents";
+    TableFacade tableFacade = createTableFacade(id, request);
+    tableFacade.setItems(items); // set the items
+    tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it.
+    String html = getHtml(tableFacade,id);
+    // Setting a parameter to signal that this is an Ajax request.
+    String ajax = request.getParameter("ajax");
+    if (ajax != null && ajax.equals("true"))
+    {
+         byte[] contents = html.getBytes();
+         response.getOutputStream().write(contents);
+         return null;
+    }
+    else
+    { // Not using Ajax if invoke the controller for the first time.
+         request.setAttribute("presidents", html);
+    }
+    return mapping.findForward(forwardName);
+}
+}}}
+
+In the JSP page named “jmesaStrutsAjaxGrid.jsp” (location !WebContent/jmesapages) pay attention to the !JavaScript method onInvokeAction , the main Ajaxifying trick is present there.
+
+{{{
+function onInvokeAction(id)
+{
+    var parameterString = $.jmesa.createParameterStringForLimit(id);
+    $.get('${pageContext.request.contextPath}/loadData.do?method=load&ajax=true&' + parameterString, 
+        function(data) {
+            $("#presidents").html(data)
+    });
+}
+}}}
+
+
