@@ -88,6 +88,16 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
                     html.alt("Arrow");
                     html.end();
                 }
+            } else {
+                String sortDefaultImage = getCoreContext().getPreference(HtmlConstants.SORT_DEFAULT_IMAGE);
+                if (sortDefaultImage != null && sortDefaultImage.length() > 0) {
+                    html.nbsp();
+                    html.img();
+                    html.src(imagesPath + sortDefaultImage);
+                    html.style("border:0");
+                    html.alt("Arrow");
+                    html.end();
+                }
             }
         }
         
