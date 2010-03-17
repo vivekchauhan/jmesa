@@ -30,6 +30,12 @@
             this.getTableFacade(id).worksheet.filter='true';
             this.setPageToLimit(id, '1');
         },
+        setAddRowToWorksheet : function(id) {
+            this.getTableFacade(id).worksheet.addRow='true';
+        },
+        setRemoveRowToWorksheet : function(id, uniqueProperties) {
+            this.getTableFacade(id).worksheet.removeRow = uniqueProperties;
+        },
         removeFilterFromWorksheet : function(id) {
             this.getTableFacade(id).worksheet.filter=null;
             this.setPageToLimit(id, '1');
@@ -145,6 +151,14 @@
             var tableFacade = this.getTableFacade(id);
             tableFacade.onInvokeExportAction = functionName;
         },
+        setContextPath : function (id, contextPath) {
+        	var tableFacade = this.getTableFacade(id);
+        	tableFacade.contextPath = contextPath;
+        },
+        getContextPath : function (id) {
+        	var tableFacade = this.getTableFacade(id);
+        	return tableFacade.contextPath;
+        },
         onInvokeAction : function (id, action) {
             var tableFacade = this.getTableFacade(id);
             var f = window[tableFacade.onInvokeAction];
@@ -173,10 +187,13 @@
             this.worksheet = new classes.Worksheet();
             this.onInvokeAction = 'onInvokeAction';
             this.onInvokeExportAction = 'onInvokeExportAction';
+            this.contextPath = '';
         },
         Worksheet : function () {
             this.save = null;
             this.filter = null;
+            this.addRow = null;
+            this.removeRow = null;
         },
         Limit : function (id) {
             this.id = id;
@@ -285,6 +302,16 @@
                 $(form).append('<input type="hidden" name="' + limit.id + '_fw_" value="true"/>');
             }
 
+            if (this.worksheet.addRow) {
+                $(form).append('<input type="hidden" name="' + limit.id + '_awr_" value="true"/>');
+            }
+
+            if (this.worksheet.removeRow) {
+                $.each(this.worksheet.removeRow, function(key, value) {
+                    $(form).append('<input type="hidden" name="' + limit.id + '_rwr_" value="' + value + '"/>');
+                });
+            }
+
             /* tip the API off that in the loop of working with the table */
             $(form).append('<input type="hidden" name="' + limit.id + '_tr_" value="true"/>');
 
@@ -343,6 +370,16 @@
 
             if (this.worksheet.filter) {
                 url += '&' + limit.id + '_fw_=true';
+            }
+
+            if (this.worksheet.addRow) {
+                url += '&' + limit.id + '_awr_=true';
+            }
+
+            if (this.worksheet.removeRow) {
+                $.each(this.worksheet.removeRow, function(key, value) {
+                    url += '&' + limit.id + '_rwr_=' + value;
+                });
             }
 
             return url;
@@ -627,7 +664,11 @@
 
             data += '}'
 
-            $.post('jmesa.wrk?', eval('(' + data + ')'), function(data) {});
+        	var contextPath = coreapi.getContextPath(wsColumn.id);
+        	if (contextPath) {
+        		contextPath += "/";
+        	}
+            $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(data) {});
         }
     }
 
