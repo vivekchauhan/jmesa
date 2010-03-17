@@ -40,7 +40,7 @@ import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetUtils;
 import org.jmesa.worksheet.editor.CheckboxWorksheetEditor;
-import org.jmesa.worksheet.editor.WorksheetCheckboxHeaderEditor;
+import org.jmesa.worksheet.editor.RemoveRowWorksheetEditor;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,16 +65,32 @@ public class WorksheetPresidentController extends AbstractController {
 
         TableFacade tableFacade = createTableFacade(id, request);
         tableFacade.setEditable(true); // switch to flip that turns the table editable
+        Collection<President> items = presidentService.getPresidents();
+        tableFacade.setItems(items);
+        buildHtmlTable(tableFacade);
         
+        addWorksheetRow(tableFacade);
+        removeWorksheetRow(tableFacade);
         saveWorksheet(tableFacade);
         
-        Collection<President> items = presidentService.getPresidents();
-        tableFacade.setItems(items); // set the items
-
-        String html = getHtml(tableFacade);
-        request.setAttribute("presidents", html); // set the Html in the request for the JSP
+        request.setAttribute("presidents", tableFacade.render()); // set the Html in the request for the JSP
 
         return mv;
+    }
+
+    private void addWorksheetRow(TableFacade tableFacade) {
+        Worksheet worksheet = tableFacade.getWorksheet();
+        if (worksheet.isAddingRow()) {
+            President president = new President();
+            tableFacade.addWorksheetRow(president);
+        }
+    }
+
+    private void removeWorksheetRow(TableFacade tableFacade) {
+        Worksheet worksheet = tableFacade.getWorksheet();
+        if (worksheet.isRemovingRow()) {
+            tableFacade.removeWorksheetRow();
+        }
     }
 
     /**
@@ -140,12 +156,12 @@ public class WorksheetPresidentController extends AbstractController {
     /**
      * @return Get the html for the table.
      */
-    private String getHtml(TableFacade tableFacade) {
+    private void buildHtmlTable(TableFacade tableFacade) {
         // add a custom filter matcher to be the same pattern as the cell editor used
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         // set the column properties
-        tableFacade.setColumnProperties("selected", "name.firstName", "name.lastName", "term", "career", "born");
+        tableFacade.setColumnProperties("remove", "selected", "name.firstName", "name.lastName", "term", "career", "born");
 
         HtmlTable table = (HtmlTable) tableFacade.getTable();
         table.setCaption("Presidents");
@@ -153,6 +169,12 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlRow row = table.getRow();
         row.setUniqueProperty("id"); // the unique worksheet properties to identify the row
+
+        HtmlColumn remove = row.getColumn("remove");
+        remove.getCellRenderer().setWorksheetEditor(new RemoveRowWorksheetEditor());
+        remove.setTitle("&nbsp;");
+        remove.setFilterable(false);
+        remove.setSortable(false);
 
         HtmlColumn chkbox = row.getColumn("selected");
         chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
@@ -169,8 +191,6 @@ public class WorksheetPresidentController extends AbstractController {
         HtmlColumn born = row.getColumn("born");
         born.setEditable(false);
         born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
-
-        return tableFacade.render(); // return the Html
     }
 
     public void setPresidentService(PresidentService presidentService) {

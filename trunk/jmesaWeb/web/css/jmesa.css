@@ -147,6 +147,14 @@
     background-color: #e3e3e3;
 }
 
+.jmesa .addRow {
+    font-size: 12px;
+    font-weight: bold;
+    height: 20px;
+    color: white;
+    background-color: #888;
+}
+
 .jmesa .highlight td {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
