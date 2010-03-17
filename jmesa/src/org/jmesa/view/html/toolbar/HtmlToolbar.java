@@ -76,13 +76,14 @@ public class HtmlToolbar extends AbstractToolbar {
         }
         
         boolean editable = ViewUtils.isEditable(getCoreContext().getWorksheet());
-        if (editable && enableSeparators) {
-            addToolbarItem(ToolbarItemType.SEPARATOR);
-        }
-
         if (editable) {
+            if (enableSeparators) {
+                addToolbarItem(ToolbarItemType.SEPARATOR);
+            }
+
             addToolbarItem(ToolbarItemType.SAVE_WORKSHEET_ITEM);
             addToolbarItem(ToolbarItemType.FILTER_WORKSHEET_ITEM);
+            addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
         }
 
         return super.render();

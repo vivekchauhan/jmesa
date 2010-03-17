@@ -37,12 +37,15 @@ import org.jmesa.worksheet.Worksheet;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import org.jmesa.worksheet.WorksheetRow;
+import org.jmesa.worksheet.WorksheetRowStatus;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnippets {
+
     private HtmlTable table;
     private Toolbar toolbar;
 
@@ -161,8 +164,10 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
     public String body() {
         HtmlBuilder html = new HtmlBuilder();
 
-        CoreContext coreContext = getCoreContext();   
-        
+        CoreContext coreContext = getCoreContext();
+
+        html.append(worksheetRowsAdded());
+
         int rowcount = HtmlUtils.startingRowcount(coreContext);
 
         Collection<?> items = coreContext.getPageItems();
@@ -181,6 +186,53 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
 
             html.trEnd(1);
         }
+        return html.toString();
+    }
+
+    private String worksheetRowsAdded() {
+        HtmlBuilder html = new HtmlBuilder();
+
+        CoreContext coreContext = getCoreContext();
+        Worksheet worksheet = coreContext.getWorksheet();
+        if (worksheet == null) {
+            return "";
+        }
+
+        List<WorksheetRow> worksheetRows = worksheet.getRowsByStatus(WorksheetRowStatus.ADD);
+        if (worksheetRows.isEmpty()) {
+            return "";
+        }
+
+        int rowcount = 0;
+
+        for (WorksheetRow worksheetRow : worksheetRows) {
+            Object item = worksheetRow.getItem();
+
+            HtmlRow row = table.getRow();
+            List<Column> columns = row.getColumns();
+
+            html.append(row.getRowRenderer().render(item, --rowcount));
+
+            for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
+                HtmlColumn column = (HtmlColumn) iter.next();
+                html.append(column.getCellRenderer().render(item, 0));
+            }
+
+            html.trEnd(1);
+        }
+
+        html.append(worksheetRowsAddedHeader("", table.getRow().getColumns().size() + 1));
+
+        return html.toString();
+    }
+
+    private String worksheetRowsAddedHeader(String title, int colspan) {
+        HtmlBuilder html = new HtmlBuilder();
+
+        html.tr(1).styleClass("addRow").close();
+        html.td(2).colspan(String.valueOf(colspan)).close().append(title).tdEnd();
+        html.trEnd(1);
+
         return html.toString();
     }
 
@@ -270,7 +322,7 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
         for (Sort sort : limit.getSortSet().getSorts()) {
             html.tab().append(
                     "jQuery.jmesa.addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
-                            + "')").semicolon().newline();
+                    + "')").semicolon().newline();
         }
 
         for (Filter filter : limit.getFilterSet().getFilters()) {
@@ -287,12 +339,12 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
 
         html.tab().append("jQuery.jmesa.setOnInvokeAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_ACTION) + "')").semicolon().newline();
         html.tab().append("jQuery.jmesa.setOnInvokeExportAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_EXPORT_ACTION) + "')").semicolon().newline();
-        
+
         // I'm allowing getWebContext() to be null for backwards compatibility
         if (getWebContext() != null) {
             html.tab().append("jQuery.jmesa.setContextPath('" + limit.getId() + "','" + StringEscapeUtils.escapeJavaScript(getWebContext().getContextPath()) + "')").semicolon().newline();
         }
-        
+
         if (useDocumentReady) {
             html.append("});").newline();
         }

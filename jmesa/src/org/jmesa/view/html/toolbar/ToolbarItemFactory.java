@@ -43,4 +43,6 @@ public interface ToolbarItemFactory {
     public ImageItem createSaveWorksheetItem();
 
     public ImageItem createFilterWorksheetItem();
+
+    public ImageItem createAddWorksheetRowItem();
 }

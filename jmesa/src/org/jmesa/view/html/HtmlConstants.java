@@ -71,8 +71,10 @@ public class HtmlConstants {
     public static final String TOOLBAR_IMAGE_SEPARATOR = "html.toolbar.image.separator";
     public static final String TOOLBAR_IMAGE_SAVE_WORKSHEET = "html.toolbar.image.saveWorksheet";
     public static final String TOOLBAR_IMAGE_FILTER_WORKSHEET = "html.toolbar.image.filterWorksheet";
+    public static final String TOOLBAR_IMAGE_ADD_WORKSHEET_ROW = "html.toolbar.image.addWorksheetRow";
     public static final String TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED = "html.toolbar.image.saveWorksheetDisabled";
     public static final String TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED = "html.toolbar.image.filterWorksheetDisabled";
+    public static final String TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED = "html.toolbar.image.addWorksheetRowDisabled";
 
     // toolbar text tooltip messages
     public static final String TOOLBAR_TOOLTIP = "html.toolbar.tooltip.";
@@ -84,6 +86,7 @@ public class HtmlConstants {
     public static final String TOOLBAR_TOOLTIP_CLEAR = "html.toolbar.tooltip.clear";
     public static final String TOOLBAR_TOOLTIP_SAVE_WORKSHEET = "html.toolbar.tooltip.saveWorksheet";
     public static final String TOOLBAR_TOOLTIP_FILTER_WORKSHEET = "html.toolbar.tooltip.filterWorksheet";
+    public static final String TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW = "html.toolbar.tooltip.addWorksheetRow";
 
     // toolbar text messages
     public static final String TOOLBAR_TEXT_FIRST_PAGE = "html.toolbar.text.firstPage";
@@ -95,10 +98,13 @@ public class HtmlConstants {
     public static final String TOOLBAR_TEXT_MAX_ROWS_DROPLIST = "html.toolbar.text.maxRowsDroplist";
     public static final String TOOLBAR_TEXT_SAVE_WORKSHEET = "html.toolbar.text.saveWorksheet";
     public static final String TOOLBAR_TEXT_FILTER_WORKSHEET = "html.toolbar.text.filterWorksheet";
+    public static final String TOOLBAR_TEXT_ADD_WORKSHEET_ROW = "html.toolbar.text.addWorksheetRow";
 
     // statusbar text messages
     public static final String STATUSBAR_RESULTS_FOUND = "html.statusbar.resultsFound";
     public static final String STATUSBAR_NO_RESULTS_FOUND = "html.statusbar.noResultsFound";
     
     public static final String SNIPPETS_INIT_JAVASCRIPT_LIMIT_USE_DOCUMENT_READY = "html.snippets.initJavascriptLimit.useDocumentReady";
+
+    public static final String IMAGE_REMOVE_WORKSHEET_ROW = "html.worksheet.image.removeWorksheetRow";
 }

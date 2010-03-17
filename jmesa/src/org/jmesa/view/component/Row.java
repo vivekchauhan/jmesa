@@ -28,6 +28,11 @@ public interface Row {
     /**
      * @since 2.3
      */
+    public String getUniqueProperty();
+
+    /**
+     * @since 2.3
+     */
     public UniqueProperty getUniqueProperty(Object item);
 
     /**
