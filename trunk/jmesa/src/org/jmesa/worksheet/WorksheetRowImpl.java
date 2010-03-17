@@ -28,7 +28,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class WorksheetRowImpl implements WorksheetRow {
     private UniqueProperty uniqueProperty;
     private WorksheetRowStatus rowStatus;
-
+    private Object item;
+    
     private Map<String, WorksheetColumn> columns = new LinkedHashMap<String, WorksheetColumn>();
 
     public WorksheetRowImpl(UniqueProperty uniqueProperty) {
@@ -75,6 +76,14 @@ public class WorksheetRowImpl implements WorksheetRow {
         return false;
     }
 
+	public void setItem(Object item) {
+		this.item = item;
+	}
+	
+	public Object getItem() {
+		return item;
+	}
+	
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);

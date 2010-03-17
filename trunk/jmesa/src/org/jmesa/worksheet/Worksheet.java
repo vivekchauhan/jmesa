@@ -16,8 +16,10 @@
 package org.jmesa.worksheet;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.jmesa.core.message.Messages;
+import org.jmesa.view.component.Table;
 
 /**
  * <p>
@@ -75,6 +77,20 @@ public interface Worksheet {
     public void addRow(WorksheetRow row);
 
     /**
+     * Add a new object to the worksheet.
+     *
+     * @param row The worksheet row.
+     */
+    public void addRow(Object item, Table table);
+
+    /**
+     * Returns the list of worksheet rows by the given row status
+     *
+     * @param row The worksheet row status.
+     */
+     public List<WorksheetRow> getRowsByStatus(WorksheetRowStatus rowStatus);
+
+     /**
      * @return All the rows in the worksheet.
      */
     public Collection<WorksheetRow> getRows();
@@ -87,6 +103,13 @@ public interface Worksheet {
     public void removeRow(WorksheetRow row);
     
     /**
+     * Remove the specified worksheet row.
+     *
+     * @param uniqueProperty The unique property to recognize the row.
+     */
+    public void removeRow(UniqueProperty uniqueProperty);
+
+    /**
      * @return Is true if the user is requesting that the worksheet be saved.
      */
     public boolean isSaving();
@@ -96,6 +119,16 @@ public interface Worksheet {
      */
     public boolean isFiltering();
     
+    /**
+     * @return Is true if the user is requesting to add a row in worksheet.
+     */
+    public boolean isAddingRow();
+
+    /**
+     * @return Is true if the user is requesting to remove a row from worksheet.
+     */
+    public boolean isRemovingRow();
+
     /**
      * @return Is true if the worksheet contains changes, which really means the worksheet is
      *         populated.

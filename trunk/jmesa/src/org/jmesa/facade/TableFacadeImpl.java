@@ -76,6 +76,7 @@ import org.jmesa.view.pdfp.PdfPView;
 import org.jmesa.view.pdfp.PdfPViewExporter;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.state.SessionWorksheetState;
@@ -173,6 +174,24 @@ public class TableFacadeImpl implements TableFacade {
         this.worksheet = new WorksheetWrapper(ws, getWebContext());
 
         return worksheet;
+    }
+
+    public void addWorksheetRow(Object item) {
+        Worksheet ws = getWorksheet();
+        if (ws != null) {
+        	ws.addRow(item, getTable());
+        }
+    }
+
+    public void removeWorksheetRow() {
+        Worksheet ws = getWorksheet();
+        if (ws != null) {
+            String name = getTable().getRow().getUniqueProperty();
+            String up = getLimit().getId() + "_" +  WorksheetWrapper.REMOVE_WORKSHEET_ROW;
+            String value = getWebContext().getParameter(up);
+            UniqueProperty uniqueProperty = new UniqueProperty(name, value);
+            ws.removeRow(uniqueProperty);
+        }
     }
 
     public Limit getLimit() {

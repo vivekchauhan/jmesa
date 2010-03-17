@@ -15,13 +15,22 @@
  */
 package org.jmesa.worksheet;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.core.message.Messages;
+import org.jmesa.util.ItemUtils;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Row;
+import org.jmesa.view.component.Table;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.3
@@ -29,10 +38,13 @@ import org.jmesa.core.message.Messages;
  */
 public class WorksheetImpl implements Worksheet {
     
+    private static final Logger logger = LoggerFactory.getLogger(WorksheetImpl.class);
+
     private String id;
     private Messages messages;
+    private int lastAddedRowId = -1;
 
-    private Map<UniqueProperty, WorksheetRow> rows = new HashMap<UniqueProperty, WorksheetRow>();
+    private Map<UniqueProperty, WorksheetRow> rows = new LinkedHashMap<UniqueProperty, WorksheetRow>();
 
     public WorksheetImpl(String id, Messages messages) {
         this.id = id;
@@ -51,6 +63,65 @@ public class WorksheetImpl implements Worksheet {
         rows.put(row.getUniqueProperty(), row);
     }
 
+    public void addRow(Object item, Table table) {
+    	Map<String, Object> itemMap = new HashMap<String, Object>();
+
+    	Row row = table.getRow();
+
+    	UniqueProperty uniqueProperty = row.getUniqueProperty(item);
+    	if (uniqueProperty == null) {
+            throw new RuntimeException("Item does not have the uniqueProperty");
+    	}
+
+    	String upName = uniqueProperty.getName();
+
+        // get a random value for unique property
+    	String upValue = Integer.toString(lastAddedRowId--);
+    	uniqueProperty = new UniqueProperty(upName, upValue);
+
+    	WorksheetRow wsr = new WorksheetRowImpl(uniqueProperty);
+        if (logger.isDebugEnabled()) {
+        	logger.debug("Unique Property for added row: " + wsr.getUniqueProperty());
+        }
+
+    	// put unique property
+    	itemMap.put(upName, upValue);
+
+    	// Navigate through the columns and add either in worksheet column or in Map
+    	for (Column column: row.getColumns()) {
+			String property = column.getProperty();
+            Object value = ItemUtils.getItemValue(item, property);
+            if (value == null) {
+                value = "";
+            }
+
+            String originalValue = value.toString();
+            WorksheetColumn wsc = new WorksheetColumnImpl(property, originalValue, getMessages());
+            wsc.setChangedValue(originalValue);
+            wsr.addColumn(wsc);
+            itemMap.put(property, originalValue);
+    	}
+
+    	// add the orginal item
+    	itemMap.put(ItemUtils.JMESA_ITEM, item);
+    	wsr.setRowStatus(WorksheetRowStatus.ADD);
+    	wsr.setItem(itemMap);
+
+    	addRow(wsr);
+    }
+
+    public List<WorksheetRow> getRowsByStatus(WorksheetRowStatus rowStatus) {
+        List<WorksheetRow> results = new ArrayList<WorksheetRow>();
+
+        for (WorksheetRow row: getRows()) {
+    		if (rowStatus.equals(row.getRowStatus())) {
+    			results.add(row);
+            }
+        }
+
+    	return results;
+    }
+
     public WorksheetRow getRow(UniqueProperty uniqueProperty) {
         return rows.get(uniqueProperty);
     }
@@ -63,6 +134,13 @@ public class WorksheetImpl implements Worksheet {
         rows.remove(row.getUniqueProperty());
     }
     
+    public void removeRow(UniqueProperty uniqueProperty) {
+        WorksheetRow row = getRow(uniqueProperty);
+        if (row != null) {
+            removeRow(row);
+        }
+    }
+
     public boolean isSaving() {
         throw new UnsupportedOperationException("A request is needed to check for save logic.");
     }
@@ -71,6 +149,14 @@ public class WorksheetImpl implements Worksheet {
         throw new UnsupportedOperationException("A request is needed to check for filter logic.");
     }
 
+    public boolean isAddingRow() {
+        throw new UnsupportedOperationException("A request is needed to check for add row logic.");
+    }
+    
+    public boolean isRemovingRow() {
+        throw new UnsupportedOperationException("A request is needed to check for remove row logic.");
+    }
+    
     public boolean hasChanges() {
         return rows.size() > 0;
     }

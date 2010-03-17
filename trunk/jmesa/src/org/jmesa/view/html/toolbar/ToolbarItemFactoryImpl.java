@@ -51,6 +51,10 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_SAVE_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
 import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_ADD_WORKSHEET_ROW;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
@@ -239,6 +243,21 @@ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
 
         return item;
     }
+
+    public ImageItem createAddWorksheetRowItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_ADD_WORKSHEET_ROW));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_ADD_WORKSHEET_ROW));
+
+        ToolbarItemRenderer renderer = new AddWorksheetRowItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+	}
 
     protected String getImage(String image) {
         return imagesPath + coreContext.getPreference(image);

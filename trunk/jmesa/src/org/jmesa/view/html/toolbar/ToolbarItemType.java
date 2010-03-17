@@ -33,6 +33,7 @@ public enum ToolbarItemType {
     SEPARATOR,
     SAVE_WORKSHEET_ITEM,
     FILTER_WORKSHEET_ITEM,
+    ADD_WORKSHEET_ROW_ITEM,
     UNDO_ITEM;
 
     public String toCode() {
@@ -61,6 +62,8 @@ public enum ToolbarItemType {
             return "save_worksheet";
         case FILTER_WORKSHEET_ITEM:
             return "filter_worksheet";
+        case ADD_WORKSHEET_ROW_ITEM:
+            return "add_worksheet_row";
         case UNDO_ITEM:
             return "undo";
         default:

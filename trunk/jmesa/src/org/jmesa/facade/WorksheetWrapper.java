@@ -16,13 +16,17 @@
 package org.jmesa.facade;
 
 import java.util.Collection;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.message.Messages;
+import org.jmesa.view.component.Table;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetCallbackHandler;
 import org.jmesa.worksheet.WorksheetRow;
+import org.jmesa.worksheet.WorksheetRowStatus;
 
 /**
  * A wrapper for the Worksheet to implement the methods that need a request.
@@ -33,6 +37,8 @@ import org.jmesa.worksheet.WorksheetRow;
 public class WorksheetWrapper implements Worksheet {
     public static final String SAVE_WORKSHEET = "sw_";
     public static final String FILTER_WORKSHEET = "fw_";
+    public static final String ADD_WORKSHEET_ROW = "awr_";
+    public static final String REMOVE_WORKSHEET_ROW = "rwr_";
 
     private Worksheet worksheet;
     private WebContext webContext;
@@ -58,12 +64,24 @@ public class WorksheetWrapper implements Worksheet {
         worksheet.addRow(row);
     }
 
+    public void addRow(Object item, Table table) {
+        worksheet.addRow(item, table);
+    }
+
+    public List<WorksheetRow> getRowsByStatus(WorksheetRowStatus rowStatus) {
+    	return worksheet.getRowsByStatus(rowStatus);
+    }
+
     public Collection<WorksheetRow> getRows() {
         return worksheet.getRows();
     }
 
     public void removeRow(WorksheetRow row) {
         worksheet.removeRow(row);
+    }
+
+    public void removeRow(UniqueProperty uniqueProperty) {
+        worksheet.removeRow(uniqueProperty);
     }
 
     /**
@@ -75,6 +93,16 @@ public class WorksheetWrapper implements Worksheet {
     public boolean isSaving() {
         String save = webContext.getParameter(getId()  + "_" + SAVE_WORKSHEET);
         return StringUtils.isNotEmpty(save);
+    }
+    
+    public boolean isAddingRow() {
+        String add = webContext.getParameter(getId()  + "_" + ADD_WORKSHEET_ROW);
+        return StringUtils.isNotEmpty(add);
+    }
+
+    public boolean isRemovingRow() {
+        String remove = webContext.getParameter(getId()  + "_" + REMOVE_WORKSHEET_ROW);
+        return StringUtils.isNotEmpty(remove);
     }
     
     /**

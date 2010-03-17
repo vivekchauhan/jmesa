@@ -95,6 +95,9 @@ public abstract class ToolbarImpl extends AbstractContextSupport implements Tool
             case FILTER_WORKSHEET_ITEM:
                 item = factory.createFilterWorksheetItem();
                 break;
+            case ADD_WORKSHEET_ROW_ITEM:
+                item = factory.createAddWorksheetRowItem();
+                break;
         }
 
         if (item != null) {

@@ -122,7 +122,19 @@ public interface TableFacade {
      * @since 2.3
      */
     public Worksheet getWorksheet();
+
+    /**
+     * Add an already populated object to worksheet
+     *
+     * @param item (has to be same object as in collection of setItems()).
+     */
+    public void addWorksheetRow(Object item);
     
+    /**
+     * Remove a worksheet row
+     */
+    public void removeWorksheetRow();
+
     /**
      * <p>
      * Get the Limit. If the Limit does not exist then one will be created. If you are manually

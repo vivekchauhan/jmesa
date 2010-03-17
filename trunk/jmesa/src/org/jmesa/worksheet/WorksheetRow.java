@@ -82,4 +82,16 @@ public interface WorksheetRow {
      * @return Is true if any of the row columns contain errors.
      */
     public boolean hasErrors();
+
+    /**
+     * Set the backing worksheet item on the row.
+     * 
+     * @param item The backing worksheet item.
+     */
+    public void setItem(Object item);
+
+    /**
+     * @return Get the backing worksheet item.
+     */
+    public Object getItem();
 }
