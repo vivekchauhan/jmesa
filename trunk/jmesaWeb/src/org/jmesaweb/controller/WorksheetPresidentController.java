@@ -81,8 +81,7 @@ public class WorksheetPresidentController extends AbstractController {
     private void addWorksheetRow(TableFacade tableFacade) {
         Worksheet worksheet = tableFacade.getWorksheet();
         if (worksheet.isAddingRow()) {
-            President president = new President();
-            tableFacade.addWorksheetRow(president);
+            tableFacade.addWorksheetRow();
         }
     }
 
