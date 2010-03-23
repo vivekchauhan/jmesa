@@ -17,6 +17,7 @@ package org.jmesa.view.editor;
 
 import java.util.Date;
 import java.util.Locale;
+import org.apache.commons.lang.StringUtils;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.jmesa.util.ItemUtils;
@@ -51,7 +52,7 @@ public class DateCellEditor extends AbstractPatternCellEditor {
 
         try {
             itemValue = ItemUtils.getItemValue(item, property);
-            if (itemValue == null) {
+            if (itemValue == null || StringUtils.isBlank(String.valueOf(itemValue))) {
                 return null;
             }
 
