@@ -68,16 +68,14 @@ public class WorksheetImpl implements Worksheet {
 
     	Row row = table.getRow();
 
-    	UniqueProperty uniqueProperty = row.getUniqueProperty(item);
-    	if (uniqueProperty == null) {
+    	String upName = row.getUniqueProperty();
+    	if (upName == null) {
             throw new RuntimeException("Item does not have the uniqueProperty");
     	}
 
-    	String upName = uniqueProperty.getName();
-
         // get a random value for unique property
     	String upValue = Integer.toString(lastAddedRowId--);
-    	uniqueProperty = new UniqueProperty(upName, upValue);
+    	UniqueProperty uniqueProperty = new UniqueProperty(upName, upValue);
 
     	WorksheetRow wsr = new WorksheetRowImpl(uniqueProperty);
         if (logger.isDebugEnabled()) {
@@ -90,20 +88,22 @@ public class WorksheetImpl implements Worksheet {
     	// Navigate through the columns and add either in worksheet column or in Map
     	for (Column column: row.getColumns()) {
 			String property = column.getProperty();
-            Object value = ItemUtils.getItemValue(item, property);
+            Object value = (item == null) ? null : ItemUtils.getItemValue(item, property);
             if (value == null) {
                 value = "";
             }
 
+            WorksheetColumn wsc = new WorksheetColumnImpl(property, null, getMessages());
             String originalValue = value.toString();
-            WorksheetColumn wsc = new WorksheetColumnImpl(property, originalValue, getMessages());
             wsc.setChangedValue(originalValue);
             wsr.addColumn(wsc);
             itemMap.put(property, originalValue);
     	}
 
     	// add the orginal item
-    	itemMap.put(ItemUtils.JMESA_ITEM, item);
+        if (item != null) {
+        	itemMap.put(ItemUtils.JMESA_ITEM, item);
+        }
     	wsr.setRowStatus(WorksheetRowStatus.ADD);
     	wsr.setItem(itemMap);
 

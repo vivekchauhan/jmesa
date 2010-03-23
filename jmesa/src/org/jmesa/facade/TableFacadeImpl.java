@@ -176,6 +176,13 @@ public class TableFacadeImpl implements TableFacade {
         return worksheet;
     }
 
+    public void addWorksheetRow() {
+        Worksheet ws = getWorksheet();
+        if (ws != null) {
+        	ws.addRow(null, getTable());
+        }
+    }
+
     public void addWorksheetRow(Object item) {
         Worksheet ws = getWorksheet();
         if (ws != null) {

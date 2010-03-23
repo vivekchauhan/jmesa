@@ -16,6 +16,7 @@
 package org.jmesa.view.editor;
 
 import java.util.Locale;
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.util.ItemUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -44,13 +45,14 @@ public class DateTimeCellEditor extends DateCellEditor {
     /**
      * Get the formatted date value based on the pattern set.
      */
+    @Override
     public Object getValue(Object item, String property, int rowcount) {
         Object itemValue = null;
 
         try {
             itemValue = ItemUtils.getItemValue(item, property);
 
-            if (itemValue == null) {
+            if (itemValue == null || StringUtils.isBlank(String.valueOf(itemValue))) {
                 return null;
             }
 

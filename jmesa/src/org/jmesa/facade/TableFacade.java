@@ -124,12 +124,17 @@ public interface TableFacade {
     public Worksheet getWorksheet();
 
     /**
-     * Add an already populated object to worksheet
+     * Add a row to the worksheet.
+     */
+    public void addWorksheetRow();
+    
+    /**
+     * Add a row to the worksheet based on an already populated object.
      *
      * @param item (has to be same object as in collection of setItems()).
      */
     public void addWorksheetRow(Object item);
-    
+
     /**
      * Remove a worksheet row
      */
