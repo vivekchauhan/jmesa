@@ -34,6 +34,7 @@ import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 
 /**
@@ -134,11 +135,11 @@ public interface TableFacade {
      * @param item (has to be same object as in collection of setItems()).
      */
     public void addWorksheetRow(Object item);
-
+    
     /**
      * Remove a worksheet row
      */
-    public void removeWorksheetRow();
+    public UniqueProperty removeWorksheetRow();
 
     /**
      * <p>

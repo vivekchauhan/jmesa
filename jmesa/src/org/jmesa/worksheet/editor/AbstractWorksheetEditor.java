@@ -47,6 +47,10 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
     public void setCellEditor(CellEditor cellEditor) {
         this.cellEditor = cellEditor;
     }
+    
+    public Object getValueForWorksheet(Object item, String property, int rowcount) {
+    	return getCellEditor().getValue(item, property, rowcount);
+    }
 
     /**
      * @param item The Bean or Map.

@@ -28,14 +28,25 @@ import org.jmesa.worksheet.WorksheetColumn;
 public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
 
     private final static String REMOVE_WORKSHEET_ROW_ITEM = "remove_worksheet_row";
+    private final boolean showForAll;
+    
+    public RemoveRowWorksheetEditor() {
+    	this.showForAll = false;
+    }
+
+    public RemoveRowWorksheetEditor(boolean showForAll) {
+    	this.showForAll = showForAll;
+    }
     
     public Object getValue(Object item, String property, int rowcount) {
 
         HtmlBuilder html = new HtmlBuilder();
 
-        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
-        if (worksheetColumn == null) {
-            return "";
+        if (!showForAll) {
+        	WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
+        	if (worksheetColumn == null) {
+        		return "";
+        	}
         }
         
         Limit limit = getCoreContext().getLimit();

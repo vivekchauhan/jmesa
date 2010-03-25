@@ -574,7 +574,9 @@
                         var firstDiv = null;
 
                         for (i = 0 ; i < divElements.length ; i++){
-                            if (divElements[i].className == 'wsColumn'){
+                            if (divElements[i].className == 'wsColumn' ||
+                                divElements[i].className == 'wsColumnChange' ||
+                                divElements[i].className == 'wsColumnError'){
                                 if (firstDiv == null){
                                     firstDiv = divElements[i];
                                 }

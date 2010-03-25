@@ -79,6 +79,7 @@ import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetImpl;
+import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
 import org.slf4j.Logger;
@@ -177,10 +178,7 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     public void addWorksheetRow() {
-        Worksheet ws = getWorksheet();
-        if (ws != null) {
-        	ws.addRow(null, getTable());
-        }
+    	addWorksheetRow(null);
     }
 
     public void addWorksheetRow(Object item) {
@@ -190,15 +188,20 @@ public class TableFacadeImpl implements TableFacade {
         }
     }
 
-    public void removeWorksheetRow() {
+    public UniqueProperty removeWorksheetRow() {
+    	String up = getLimit().getId() + "_" +  WorksheetWrapper.REMOVE_WORKSHEET_ROW;
+    	String name = getTable().getRow().getUniqueProperty();
+    	String value = getWebContext().getParameter(up);
+    	UniqueProperty uniqueProperty = new UniqueProperty(name, value);
+
         Worksheet ws = getWorksheet();
-        if (ws != null) {
-            String name = getTable().getRow().getUniqueProperty();
-            String up = getLimit().getId() + "_" +  WorksheetWrapper.REMOVE_WORKSHEET_ROW;
-            String value = getWebContext().getParameter(up);
-            UniqueProperty uniqueProperty = new UniqueProperty(name, value);
-            ws.removeRow(uniqueProperty);
-        }
+    	WorksheetRow wsr = ws.getRow(uniqueProperty);
+    	if (wsr != null) {
+    		ws.removeRow(wsr);
+    		return null;
+    	}
+
+    	return uniqueProperty;
     }
 
     public Limit getLimit() {

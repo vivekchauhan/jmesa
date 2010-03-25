@@ -36,7 +36,7 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
         if (worksheetColumn != null) {
             value = worksheetColumn.getChangedValue();
         } else {
-            value = getCheckboxValue(getCellEditor().getValue(item, property, rowcount));
+            value = getValueForWorksheet(item, property, rowcount);
         }
 
         return getWsColumn(value, item);
@@ -49,8 +49,11 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
      * 
      * @return Either the value 'checked' or 'unchecked'.
      */
-    protected String getCheckboxValue(Object value) {
-        if (value == null) {
+    @Override
+    public String getValueForWorksheet(Object item, String property, int rowcount) {
+        Object value = super.getValueForWorksheet(item, property, rowcount);
+        
+    	if (value == null) {
             return UNCHECKED;
         }
         
