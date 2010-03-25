@@ -39,7 +39,7 @@ public class WorksheetTest {
 
         UniqueProperty thirdRowMap = new UniqueProperty("id", "3");
         WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
-        thirdRow.setRowStatus(WorksheetRowStatus.DELETE);
+        thirdRow.setRowStatus(WorksheetRowStatus.REMOVE);
 
         Worksheet worksheet = new WorksheetImpl("pres", null);
         worksheet.addRow(firstRow);
@@ -54,8 +54,8 @@ public class WorksheetTest {
 
         Iterator<WorksheetRow> iter = worksheet.getRows().iterator();
         WorksheetRowStatus status = iter.next().getRowStatus();
-        assertTrue("The first row exists.",  status == WorksheetRowStatus.ADD || status == WorksheetRowStatus.DELETE);
+        assertTrue("The first row exists.",  status == WorksheetRowStatus.ADD || status == WorksheetRowStatus.REMOVE);
         status = iter.next().getRowStatus();
-        assertTrue("The third row exists.",  status == WorksheetRowStatus.ADD || status == WorksheetRowStatus.DELETE);
+        assertTrue("The third row exists.",  status == WorksheetRowStatus.ADD || status == WorksheetRowStatus.REMOVE);
     }
 }

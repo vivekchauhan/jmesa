@@ -20,5 +20,5 @@ package org.jmesa.worksheet;
  * @author Jeff Johnston
  */
 public enum WorksheetRowStatus {
-    ADD, DELETE, MODIFY
+    ADD, REMOVE, MODIFY
 }
