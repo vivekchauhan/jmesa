@@ -30,4 +30,6 @@ public interface WorksheetEditor extends CellEditor {
     public CellEditor getCellEditor();
 
     public void setCellEditor(CellEditor cellEditor);
+
+    public Object getValueForWorksheet(Object item, String property, int rowcount);
 }

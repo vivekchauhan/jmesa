@@ -29,6 +29,8 @@ import org.jmesa.util.ItemUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
+import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,17 +89,28 @@ public class WorksheetImpl implements Worksheet {
 
     	// Navigate through the columns and add either in worksheet column or in Map
     	for (Column column: row.getColumns()) {
-			String property = column.getProperty();
-            Object value = (item == null) ? null : ItemUtils.getItemValue(item, property);
-            if (value == null) {
-                value = "";
-            }
+    		HtmlColumn htmlColumn = (HtmlColumn)column;
+    		String property = htmlColumn.getProperty();
 
-            WorksheetColumn wsc = new WorksheetColumnImpl(property, null, getMessages());
-            String originalValue = value.toString();
-            wsc.setChangedValue(originalValue);
-            wsr.addColumn(wsc);
-            itemMap.put(property, originalValue);
+			Object value = (item == null) ? null : ItemUtils.getItemValue(item, property);
+			if (value == null) {
+				value = "";
+			}
+
+    		itemMap.put(property, value);
+
+    		if (htmlColumn.isEditable()) {
+    			WorksheetEditor wse = (WorksheetEditor) htmlColumn.getCellRenderer().getCellEditor();
+    			value = (item == null) ? null : wse.getValueForWorksheet(item, property, -1);
+    			
+    			if (value == null) {
+    				value = "";
+    			}
+    			
+    			WorksheetColumn wsc = new WorksheetColumnImpl(property, null, getMessages());
+    			wsc.setChangedValue(value.toString());
+    			wsr.addColumn(wsc);
+    		}
     	}
 
     	// add the orginal item
