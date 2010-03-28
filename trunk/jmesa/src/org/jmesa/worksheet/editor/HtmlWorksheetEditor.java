@@ -59,7 +59,11 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
                 html.styleClass("wsColumnError");
                 html.title(worksheetColumn.getError());
             } else {
-                html.styleClass("wsColumnChange");
+            	if (worksheetColumn.getOriginalValue().equals(worksheetColumn.getChangedValue())) {
+                    html.styleClass("wsColumn");
+                } else {
+            		html.styleClass("wsColumnChange");
+                }
             }
         } else {
             html.styleClass("wsColumn");
