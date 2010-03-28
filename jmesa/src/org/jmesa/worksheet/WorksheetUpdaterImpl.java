@@ -39,7 +39,9 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
         Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow row = getWorksheetRow(worksheet, webContext);
         WorksheetColumn column = getWorksheetColumn(row, messages, webContext);
-        validateWorksheet(worksheet, row, column);
+    	if(row.getRowStatus() != WorksheetRowStatus.ADD) {
+    		validateWorksheet(worksheet, row, column);
+    	}
     }
 
     protected Worksheet getWorksheet(Messages messages, WebContext webContext) {

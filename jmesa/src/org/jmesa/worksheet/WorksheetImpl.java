@@ -107,7 +107,7 @@ public class WorksheetImpl implements Worksheet {
     				value = "";
     			}
     			
-    			WorksheetColumn wsc = new WorksheetColumnImpl(property, null, getMessages());
+    			WorksheetColumn wsc = new WorksheetColumnImpl(property, value.toString(), getMessages());
     			wsc.setChangedValue(value.toString());
     			wsr.addColumn(wsc);
     		}
