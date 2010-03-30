@@ -51,7 +51,7 @@ function onInvokeAction(id, action) {
     setExportToLimit(id, '');
 
     if (action == 'sort') {
-        var limit = LimitManager.getLimit(id);
+        var limit = jQuery.jmesa.getTableFacade(id).limit;
         var sortSet = limit.getSortSet();
         if (sortSet) {
             var sort = limit.sortSet[limit.sortSet.length - 1];
