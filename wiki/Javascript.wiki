@@ -55,7 +55,7 @@ function onInvokeAction(id, action) {
         var sortSet = limit.getSortSet();
         if (sortSet) {
             var sort = limit.sortSet[limit.sortSet.length - 1];
-            removeAllSortsFromLimit(id)
+            removeAllSortsFromLimit(id);
             limit.sortSet[0] = sort;
         }
     }
