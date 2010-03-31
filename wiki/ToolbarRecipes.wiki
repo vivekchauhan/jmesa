@@ -28,6 +28,8 @@ toolbar.enablePageNumbers(true);
 tableFacade.setToolbar(toolbar); 
 }}}
 
+_*Note:* You need to create the table before setting the toolbar on the !TableFacade. You can create the table by calling the !TableFacade.columnProperties() method, or by using the [HtmlTableBuilder builder] and calling the !TableFacade.setTable() method._
+
 ===== Tags =====
 
 If you are using the tags you need to extend the !HtmlToolbar and enable the page numbers.
