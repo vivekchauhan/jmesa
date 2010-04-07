@@ -125,7 +125,7 @@
     color: black;
 }
 
-.jmesa .odd td,.jmesa .even td {
+.jmesa .odd td,.jmesa .even td,.jmesa .removed td {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
     padding: 2px 3px 2px 3px;
@@ -139,12 +139,22 @@
     border: 1px solid #e3e3e3;
 }
 
+.jmesa .removed td {
+    border: 1px solid white;
+}
+
 .jmesa .odd {
     background-color: #ffffff;
 }
 
 .jmesa .even {
     background-color: #e3e3e3;
+}
+
+.jmesa .removed {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-style: italic;
+    color: #ccc;
 }
 
 .jmesa .addRow {
