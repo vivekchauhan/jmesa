@@ -38,6 +38,7 @@ public class HtmlConstants {
     public static final String ROW_RENDERER_HIGHLIGHT_CLASS = "html.row.renderer.highlightClass";
     public static final String ROW_RENDERER_EVEN_CLASS = "html.row.renderer.evenClass";
     public static final String ROW_RENDERER_ODD_CLASS = "html.row.renderer.oddClass";
+    public static final String ROW_RENDERER_REMOVED_CLASS = "html.row.renderer.removedClass";
 
     // column
     public static final String SORT_ASC_IMAGE = "html.column.header.renderer.image.sortAsc";
@@ -45,6 +46,7 @@ public class HtmlConstants {
     public static final String SORT_DEFAULT_IMAGE = "html.column.header.renderer.image.sortDefault";
     public static final String HEADER_RENDERER_ELEMENT = "html.column.header.renderer.element";
     public static final String DROPLIST_HANDLE_IMAGE = "html.column.filter.renderer.image.droplistHandle";
+    public static final String CELL_RENDERER_INCLUDE_ID = "html.column.cell.renderer.includeId";
 
     // css names
     public static final String TBODY_CLASS = "html.tbodyClass";
@@ -106,5 +108,9 @@ public class HtmlConstants {
     
     public static final String SNIPPETS_INIT_JAVASCRIPT_LIMIT_USE_DOCUMENT_READY = "html.snippets.initJavascriptLimit.useDocumentReady";
 
+    public static final String TEXT_REMOVE_WORKSHEET_ROW = "html.worksheet.text.removeWorksheetRow";
+    public static final String TEXT_UNDO_REMOVE_WORKSHEET_ROW = "html.worksheet.text.undoRemoveWorksheetRow";
     public static final String IMAGE_REMOVE_WORKSHEET_ROW = "html.worksheet.image.removeWorksheetRow";
+    public static final String IMAGE_UNDO_REMOVE_WORKSHEET_ROW = "html.worksheet.image.undoRemoveWorksheetRow";
+    public static final String TEXT_REMOVE_ROW_KEEP_CHANGED_VALUES = "html.worksheet.text.removeWorksheetRow.keepChangedValues";
 }

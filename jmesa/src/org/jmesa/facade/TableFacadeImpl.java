@@ -63,6 +63,7 @@ import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.csv.CsvViewExporter;
 import org.jmesa.view.excel.ExcelView;
 import org.jmesa.view.excel.ExcelViewExporter;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlTableFactory;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlTable;
@@ -80,6 +81,8 @@ import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.WorksheetRow;
+import org.jmesa.worksheet.WorksheetRowImpl;
+import org.jmesa.worksheet.WorksheetRowStatus;
 import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
 import org.slf4j.Logger;
@@ -188,20 +191,41 @@ public class TableFacadeImpl implements TableFacade {
         }
     }
 
-    public UniqueProperty removeWorksheetRow() {
-    	String up = getLimit().getId() + "_" +  WorksheetWrapper.REMOVE_WORKSHEET_ROW;
-    	String name = getTable().getRow().getUniqueProperty();
-    	String value = getWebContext().getParameter(up);
-    	UniqueProperty uniqueProperty = new UniqueProperty(name, value);
+    public void removeWorksheetRow() {
+        String up = getLimit().getId() + "_" +  WorksheetWrapper.REMOVE_WORKSHEET_ROW;
+        String name = getTable().getRow().getUniqueProperty();
+        String value = getWebContext().getParameter(up);
+        UniqueProperty uniqueProperty = new UniqueProperty(name, value);
 
         Worksheet ws = getWorksheet();
-    	WorksheetRow wsr = ws.getRow(uniqueProperty);
-    	if (wsr != null) {
-    		ws.removeRow(wsr);
-    		return null;
-    	}
+        WorksheetRow wsRow = ws.getRow(uniqueProperty);
 
-    	return uniqueProperty;
+        if (wsRow != null) {
+            if (wsRow.getRowStatus() == WorksheetRowStatus.ADD) {
+                // remove row if ADDED in worksheet
+                ws.removeRow(wsRow);
+            } else if (wsRow.getRowStatus() == WorksheetRowStatus.REMOVE) {
+                // undo - remove
+                if (wsRow.getColumns().size() == 0) {
+                    ws.removeRow(uniqueProperty);
+                } else {
+                    wsRow.setRowStatus(null);
+                }
+            } else {
+                wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
+
+                boolean keepChangedValues = Boolean.parseBoolean(
+                        getCoreContext().getPreference(HtmlConstants.TEXT_REMOVE_ROW_KEEP_CHANGED_VALUES));
+                if (!keepChangedValues) {
+                    wsRow.getColumns().clear();
+                }
+            }
+        } else {
+            // add a new REMOVED row in worksheet
+            wsRow = new WorksheetRowImpl(uniqueProperty);
+            wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
+            ws.addRow(wsRow);
+        }
     }
 
     public Limit getLimit() {

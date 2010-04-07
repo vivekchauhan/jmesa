@@ -18,6 +18,7 @@ package org.jmesa.worksheet.editor;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.WorksheetColumn;
+import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
 /**
  * Defines a checkbox for the worksheet editor.
@@ -87,8 +88,14 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
             html.checked();
         }
 
-        html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
-            + getColumn().getProperty() + "')");
+        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
+            html.disabled();
+        } else {
+            html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.submitWsCheckboxColumn(this,'" + 
+                    limit.getId() + "'," + UNIQUE_PROPERTY + ",'" +
+                    getColumn().getProperty() + "')");
+        }
+        
         html.end();
         
         return html.toString();

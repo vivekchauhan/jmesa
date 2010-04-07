@@ -19,6 +19,7 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
+import static org.jmesa.view.html.HtmlConstants.CELL_RENDERER_INCLUDE_ID;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractCellRenderer;
 import org.jmesa.worksheet.editor.HtmlWorksheetEditor;
@@ -96,9 +97,19 @@ public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCe
         SupportUtils.setColumn(worksheetEditor, getColumn());
     }
 
+    protected String getId(int rowcount) {
+        if (getCoreContext().getPreference(CELL_RENDERER_INCLUDE_ID).equals("false")) {
+            return null;
+        }
+
+        String id = getCoreContext().getLimit().getId() + "_column_" + getColumn().getProperty() + "_" + rowcount;
+        id = id.replaceAll("\\.", "_");
+        return id;
+    }
+
     public Object render(Object item, int rowcount) {
         HtmlBuilder html = new HtmlBuilder();
-        html.td(2);
+        html.td(2).id(getId(rowcount));
         html.width(getColumn().getWidth());
         html.style(getStyle());
         html.styleClass(getStyleClass());
