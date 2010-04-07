@@ -23,6 +23,7 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.renderer.AbstractRowRenderer;
+import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
 /**
  * @since 2.0
@@ -97,6 +98,14 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
 
         return getOddClass();
     }
+    
+    protected String getStyleClass(Object item, int rowcount) {
+        if (isRowRemoved(getCoreContext().getWorksheet(), getRow(), item)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_REMOVED_CLASS);
+        } else {
+            return getStyleClass(rowcount);
+        }
+    }
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
@@ -130,6 +139,10 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
      * @return The row events.
      */
     protected String getRowEvents(Object item, int rowcount) {
+        if (isRowRemoved(getCoreContext().getWorksheet(), getRow(), item)) {
+            return "";
+        }
+    	
         HtmlBuilder html = new HtmlBuilder();
         
         RowEvent onclick = getRow().getOnclick();
@@ -165,7 +178,7 @@ public class HtmlRowRendererImpl extends AbstractRowRenderer implements HtmlRowR
         html.tr(1);
         html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
         html.style(getStyle());
-        html.styleClass(getStyleClass(rowcount));
+        html.styleClass(getStyleClass(item, rowcount));
 
         html.append(getRowEvents(item, rowcount));
 

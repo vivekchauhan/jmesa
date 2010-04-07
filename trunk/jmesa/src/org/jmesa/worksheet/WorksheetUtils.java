@@ -18,6 +18,7 @@ package org.jmesa.worksheet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.jmesa.view.component.Row;
 
 /**
  * The utilities to work with the Worksheet.
@@ -53,5 +54,23 @@ public class WorksheetUtils {
         }
 
         return result;
+    }
+
+    public static boolean isRowRemoved(Worksheet worksheet, Row row, Object item) {
+        WorksheetRow worksheetRow = getWorksheetRow(worksheet, row, item);
+        if (worksheetRow == null) {
+            return false;
+        }
+
+        return (worksheetRow.getRowStatus() == WorksheetRowStatus.REMOVE);
+    }
+
+    private static WorksheetRow getWorksheetRow(Worksheet worksheet, Row row, Object item) {
+        if (worksheet == null) {
+            return null;
+        }
+
+        UniqueProperty uniqueProperty = row.getUniqueProperty(item);
+        return worksheet.getRow(uniqueProperty);
     }
 }

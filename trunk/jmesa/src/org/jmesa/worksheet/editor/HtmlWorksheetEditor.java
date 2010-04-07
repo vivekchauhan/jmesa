@@ -19,6 +19,7 @@ import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.WorksheetColumn;
+import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
 /**
  * Deals with CellEditors when the the table is being used as an editable worksheet. Wraps an
@@ -41,13 +42,17 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
         if (worksheetColumn != null) {
             value = escapeHtml(worksheetColumn.getChangedValue());
         } else {
-            value = getCellEditor().getValue(item, property, rowcount);
+            value = getValueForWorksheet(item, property, rowcount);
         }
 
         return getWsColumn(worksheetColumn, value, item);
     }
 
     private String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item) {
+        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
+            return value.toString();
+        }
+    	
         HtmlBuilder html = new HtmlBuilder();
 
         Limit limit = getCoreContext().getLimit();

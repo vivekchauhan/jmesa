@@ -19,7 +19,7 @@ import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlUtils;
-import org.jmesa.worksheet.WorksheetColumn;
+import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
 /**
  * @since 2.0
@@ -42,11 +42,9 @@ public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
 
         HtmlBuilder html = new HtmlBuilder();
 
-        if (!showForAll) {
-        	WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
-        	if (worksheetColumn == null) {
-        		return "";
-        	}
+        // Control to display the icon as the column will be present only in added rows 
+        if (!showForAll && getWorksheetColumn(item, property) == null) {
+            return "";
         }
         
         Limit limit = getCoreContext().getLimit();
@@ -55,11 +53,24 @@ public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
 
         html.img();
         String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
-        html.src(imagesPath + getCoreContext().getPreference(HtmlConstants.IMAGE_REMOVE_WORKSHEET_ROW));
+        String imageSrc = null;
+        String imageTitle = null;
+        
+        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
+            imageSrc = getCoreContext().getPreference(HtmlConstants.IMAGE_UNDO_REMOVE_WORKSHEET_ROW);
+            imageTitle = getCoreContext().getMessage(HtmlConstants.TEXT_UNDO_REMOVE_WORKSHEET_ROW);
+        } else {
+            imageSrc = getCoreContext().getPreference(HtmlConstants.IMAGE_REMOVE_WORKSHEET_ROW);
+            imageTitle = getCoreContext().getMessage(HtmlConstants.TEXT_REMOVE_WORKSHEET_ROW);
+        }
+        
+    	html.src(imagesPath + imageSrc);
         html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.setRemoveRowToWorksheet('" + limit.getId() 
                 + "'," + UNIQUE_PROPERTY + ");" + getOnInvokeActionJavaScript(limit));
         html.style("border:0;cursor:pointer");
-        html.alt("Remove Row");
+        html.alt(imageTitle);
+        html.title(imageTitle);
+        
         html.end();
 
         html.divEnd();
