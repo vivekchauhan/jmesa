@@ -170,7 +170,7 @@ public class WorksheetPresidentController extends AbstractController {
         row.setUniqueProperty("id"); // the unique worksheet properties to identify the row
 
         HtmlColumn remove = row.getColumn("remove");
-        remove.getCellRenderer().setWorksheetEditor(new RemoveRowWorksheetEditor());
+        remove.getCellRenderer().setWorksheetEditor(new RemoveRowWorksheetEditor(true));
         remove.setTitle("&nbsp;");
         remove.setFilterable(false);
         remove.setSortable(false);
