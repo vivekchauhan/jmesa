@@ -160,7 +160,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
         return Order.NONE;
     }
     
-    public String getOnInvokeActionJavaScript(Limit limit) {
+    protected String getOnInvokeActionJavaScript(Limit limit) {
         String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
         return onInvokeAction + "('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.toCode() + "')";
     }
