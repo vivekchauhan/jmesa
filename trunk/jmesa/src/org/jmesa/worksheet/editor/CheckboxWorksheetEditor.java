@@ -77,7 +77,7 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
         throw new IllegalStateException("Not able to convert the value for the checkbox.");
     }
     
-    private String getWsColumn(Object value, Object item) {
+    protected String getWsColumn(Object value, Object item) {
         HtmlBuilder html = new HtmlBuilder();
         
         Limit limit = getCoreContext().getLimit();

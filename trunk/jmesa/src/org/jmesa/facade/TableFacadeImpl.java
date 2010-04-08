@@ -215,7 +215,7 @@ public class TableFacadeImpl implements TableFacade {
                 wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
 
                 boolean keepChangedValues = Boolean.parseBoolean(
-                        getCoreContext().getPreference(HtmlConstants.TEXT_REMOVE_ROW_KEEP_CHANGED_VALUES));
+                        getCoreContext().getPreference(HtmlConstants.REMOVE_ROW_KEEP_CHANGED_VALUES));
                 if (!keepChangedValues) {
                     wsRow.getColumns().clear();
                 }

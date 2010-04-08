@@ -28,26 +28,10 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
 
     private final static String REMOVE_WORKSHEET_ROW_ITEM = "remove_worksheet_row";
-    private final boolean showForAll;
-    
-    public RemoveRowWorksheetEditor() {
-    	this.showForAll = false;
-    }
-
-    public RemoveRowWorksheetEditor(boolean showForAll) {
-    	this.showForAll = showForAll;
-    }
     
     public Object getValue(Object item, String property, int rowcount) {
 
         HtmlBuilder html = new HtmlBuilder();
-
-        // Control to display the icon as the column will be present only in added rows 
-        if (!showForAll && getWorksheetColumn(item, property) == null) {
-            return "";
-        }
-        
-        Limit limit = getCoreContext().getLimit();
 
         html.div().close();
 
@@ -64,6 +48,8 @@ public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
             imageTitle = getCoreContext().getMessage(HtmlConstants.TEXT_REMOVE_WORKSHEET_ROW);
         }
         
+        Limit limit = getCoreContext().getLimit();
+
     	html.src(imagesPath + imageSrc);
         html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.setRemoveRowToWorksheet('" + limit.getId() 
                 + "'," + UNIQUE_PROPERTY + ");" + getOnInvokeActionJavaScript(limit));
@@ -78,7 +64,7 @@ public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
         return html.toString();
 	}
 
-    public String getOnInvokeActionJavaScript(Limit limit) {
+    protected String getOnInvokeActionJavaScript(Limit limit) {
         String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
         return onInvokeAction + "('" + limit.getId() + "', '" + REMOVE_WORKSHEET_ROW_ITEM + "')";
     }
