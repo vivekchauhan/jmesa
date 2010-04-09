@@ -1,4 +1,4 @@
-This is a quick example that shows how you can modify the !SimpleRowFilter to do something more custom. It gets around an [http://code.google.com/p/jmesa/issues/detail?id=162 edge case] that I was not sure what to do about yet. I thought I would take the opportunity to put a [SupportInterfaces support] interface in so that custom code could get a hold of the !FilterMatcherRegistry and solve problem.
+This is a quick example that shows how you can modify the !SimpleRowFilter to do something more custom. It gets around an [http://code.google.com/p/jmesa/issues/detail?id=162 edge case] that I was not sure what to do about yet. I thought I would take the opportunity to put a [SupportInterfaces support] interface in so that custom code could get a hold of the !FilterMatcherRegistry to the solve problem as well.
 
 _Right now this example will only work on the trunk code base but will be part of the 2.4.3 release._
 
