@@ -24,6 +24,8 @@ Enter a revision number: [snapshot]
 
 _Note: you will get a Swing dialog box asking for your JDK1.4 directory. This is only used to build the retro jar files. You can just safely hit cancel and let the build proceed._
 
+_You also need to have a local copy of the repository to build the project with the groovy script. The main modification you will have to make is to the ivyconf.xml file to ensure that you point to your local repository. Just uncomment the lines that point to the local repository (which you can download from the site at 'http://jmesa.googlecode.com/svn/repository'). You might also have to change the path to be absolute depending on which version of ivy you use._
+
 === Clean Target Directory ===
 
 You can clean the directory by entering in 'groovy build.groovy -a clean'
