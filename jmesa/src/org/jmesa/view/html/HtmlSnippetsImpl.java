@@ -345,6 +345,8 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
             html.tab().append("jQuery.jmesa.setContextPath('" + limit.getId() + "','" + StringEscapeUtils.escapeJavaScript(getWebContext().getContextPath()) + "')").semicolon().newline();
         }
 
+        html.append(getWorksheetValidation());
+        
         if (useDocumentReady) {
             html.append("});").newline();
         }
@@ -352,5 +354,91 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
         html.scriptEnd();
 
         return html.toString();
+    }
+
+    private String getWorksheetValidation() {
+        HtmlBuilder html = new HtmlBuilder();
+        
+        String rules = getWorksheetValidationRules();
+        String messages = getWorksheetValidationMessages();
+        String customValidations = getCustomWorksheetValidations();
+        
+        String limitId = getCoreContext().getLimit().getId();
+        if (!"".equals(rules)) {
+            html.tab().append("$(jQuery.jmesa.getFormByTableId('" + limitId + "')).validate({").newline();
+            html.tabs(2).append("rules: {");
+            html.append(rules).newline();
+            html.tabs(2).append("}");
+
+            if (!"".equals(messages)) {
+                html.append(",").newline();
+                html.tabs(2).append("messages: {");
+                html.append(messages).newline();
+                html.tabs(2).append("}");
+            }
+
+            html.append(",").newline();
+            html.tabs(2).append("showErrors: function(errorMap, errorList) {").newline();
+            html.tabs(3).append("jQuery.jmesa.setError('" + limitId + "', errorMap);").newline();
+            html.tabs(2).append("},").newline();
+            html.tabs(2).append("onsubmit: false,").newline();
+            html.tabs(2).append("onkeyup: false,").newline();
+            html.tabs(2).append("onclick: false").newline();
+            html.tab().append("});").newline();
+
+            html.tab().append(customValidations);
+        }
+        
+        return html.toString();
+    }
+    
+    private String getWorksheetValidationRules() {
+        return prepareValidationJsonString("rules");
+    }
+
+    private String getWorksheetValidationMessages() {
+        return prepareValidationJsonString("messages");
+    }
+
+    private String prepareValidationJsonString(String type) {
+        HtmlBuilder json = new HtmlBuilder();
+        
+        boolean firstOccurance = true;
+        
+        for (Column column: table.getRow().getColumns()) {
+            // Add messages
+            HtmlColumn htmlColumn = (HtmlColumn)column;
+            
+            String nameValuePair = null;
+            if ("rules".equals(type)) {
+                nameValuePair = htmlColumn.getWorksheetValidationRules();
+            } else if ("messages".equals(type)) {
+                nameValuePair = htmlColumn.getWorksheetValidationMessages();
+            }
+            
+            if (!"".equals(nameValuePair)) {
+                if (firstOccurance) {
+                    firstOccurance = false;
+                } else {
+                    json.append(",");
+                }
+                
+                json.newline().tabs(3).append(nameValuePair);
+            }
+        }
+        
+        return json.toString();
+    }
+    
+    private String getCustomWorksheetValidations() {
+        StringBuffer customValidations = new StringBuffer();
+
+        for (Column column: table.getRow().getColumns()) {
+            // Add custom validation handlers
+            HtmlColumn htmlColumn = (HtmlColumn)column;
+            customValidations.append(htmlColumn.getCustomWorksheetValidation());
+        }
+        
+        return customValidations.toString();
     }
 }

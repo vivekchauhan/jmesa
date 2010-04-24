@@ -21,6 +21,7 @@ import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.worksheet.Validation;
 
 /**
  * @since 2.0
@@ -101,4 +102,12 @@ public interface HtmlColumn extends Column {
      * @since 2.2.1
      */
     public void setGeneratedOnTheFly(boolean generated);
+
+    public void addWorksheetValidation(Validation validation);
+    public void addWorksheetValidation(Validation validation, String value);
+    public void addWorksheetValidation(Validation validation, String value, String errorMessage);
+
+    public String getWorksheetValidationRules();
+    public String getWorksheetValidationMessages();
+    public String getCustomWorksheetValidation();
 }

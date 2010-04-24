@@ -28,5 +28,5 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public interface WorksheetUpdater {
-    void update(Messages messages, WebContext webContext);
+    String update(Messages messages, WebContext webContext);
 }
