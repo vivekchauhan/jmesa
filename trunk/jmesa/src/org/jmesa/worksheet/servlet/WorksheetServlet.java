@@ -17,6 +17,8 @@ package org.jmesa.worksheet.servlet;
 
 import static org.jmesa.core.message.MessagesFactory.getMessages;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +41,13 @@ public class WorksheetServlet extends HttpServlet {
         WebContext webContext = new HttpServletRequestWebContext(request);
         Messages messages = getMessages(webContext);
         WorksheetUpdater worksheetUpdater = new WorksheetUpdaterImpl();
-        worksheetUpdater.update(messages, webContext);
+        String columnStatus = worksheetUpdater.update(messages, webContext);
+        
+        try {
+            response.getWriter().print(columnStatus);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

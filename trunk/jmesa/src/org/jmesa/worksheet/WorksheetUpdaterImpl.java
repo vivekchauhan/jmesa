@@ -35,13 +35,17 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
     protected static String ORIGINAL_VALUE = "ov_";
     protected static String CHANGED_VALUE = "cv_";
 
-    public void update(Messages messages, WebContext webContext) {
+    protected static String ERROR_MESSAGE = "em_";
+
+    protected static String COL_REMOVED = "_rm_";
+    protected static String COL_UPDATED = "_uu_";
+    protected static String COL_HAS_ERROR = "_ue_";
+    
+    public String update(Messages messages, WebContext webContext) {
         Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow row = getWorksheetRow(worksheet, webContext);
         WorksheetColumn column = getWorksheetColumn(row, messages, webContext);
-    	if(row.getRowStatus() != WorksheetRowStatus.ADD) {
-    		validateWorksheet(worksheet, row, column);
-    	}
+        return validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
     }
 
     protected Worksheet getWorksheet(Messages messages, WebContext webContext) {
@@ -118,13 +122,34 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
      * @param row The current row.
      * @param column The current column.
      */
-    protected void validateWorksheet(Worksheet worksheet, WorksheetRow row, WorksheetColumn column) {
+    protected String validateWorksheet(Worksheet worksheet, WorksheetRow row, WorksheetColumn column, String errorMessage) {
+        String columnStatus = COL_UPDATED;
+        
+        if (errorMessage != null && !"".equals(errorMessage)) {
+            try {
+                column.setError(decode(errorMessage, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            columnStatus = COL_HAS_ERROR;
+        } else if (column.hasError()) {
+            column.removeError();
+        }
+        
         if (column.getChangedValue().equals(column.getOriginalValue())) {
-            row.removeColumn(column);
+            if (row.getRowStatus().equals(WorksheetRowStatus.ADD)) {
+                row.removeColumn(column);
+                
+                if (row.getColumns().size() == 0) {
+                    worksheet.removeRow(row);
+                }
+            }
+            
+            if (!columnStatus.equals(COL_HAS_ERROR)) {
+                columnStatus = COL_REMOVED;
+            }
         }
 
-        if (row.getColumns().size() == 0) {
-            worksheet.removeRow(row);
-        }
+        return columnStatus;
     }
 }

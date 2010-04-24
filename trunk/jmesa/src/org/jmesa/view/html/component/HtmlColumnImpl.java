@@ -15,6 +15,9 @@
  */
 package org.jmesa.view.html.component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.ColumnImpl;
@@ -22,6 +25,7 @@ import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.worksheet.Validation;
 
 /**
  * @since 2.0
@@ -35,6 +39,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     private FilterRenderer filterRenderer;
     private Order[] sortOrder;
     private boolean generatedOnTheFly;
+    private List<Validation> validations = new ArrayList<Validation>();
 
     public HtmlColumnImpl() {
         // default constructor
@@ -149,4 +154,69 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     public HtmlRow getRow() {
         return (HtmlRow) super.getRow();
     }
+
+    public void addWorksheetValidation(Validation validation) {
+        addWorksheetValidation(validation, null, null);
+    }
+
+    public void addWorksheetValidation(Validation validation, String value) {
+        addWorksheetValidation(validation, value, null);
+    }
+
+    public void addWorksheetValidation(Validation validation, String value, String errorMessage) {
+        validation.setValue(value);
+        validation.setMessage(errorMessage);
+        validations.add(validation);
+	}
+
+	public String getWorksheetValidationRules() {
+        return prepareJsonString("rule");
+	}
+
+	public String getWorksheetValidationMessages() {
+        return prepareJsonString("message");
+	}
+
+    private String prepareJsonString(String type) {
+        StringBuffer json = new StringBuffer();
+
+        boolean firstOccurance = true;
+        for (Validation validation: validations) {
+            String nameValuePair = null;
+            
+            if ("rule".equals(type)) {
+                nameValuePair = validation.getRule();
+            } else if ("message".equals(type)) {
+                nameValuePair = validation.getMessage();
+            }
+            
+            if (!"".equals(nameValuePair)) {
+                if (firstOccurance) {
+                    json.append("'" + getProperty() + "' : { ");
+                    firstOccurance = false;
+                } else {
+                    json.append(", ");
+                }
+                json.append(nameValuePair);
+            }
+        }
+
+        if (!"".equals(json.toString())) {
+            json.append(" }");
+        }
+
+        return json.toString();
+    }
+
+	public String getCustomWorksheetValidation() {
+	    StringBuffer customValidations = new StringBuffer();
+
+	    for (Validation validation: validations) {
+	        if (validation.equals(Validation.CUSTOM)) {
+	            customValidations.append("jQuery.validator.addMethod('" + validation.getValue() + "', " + validation.getValue() + ");\n");
+	        }
+	    }
+
+	    return customValidations.toString();
+	}
 }
