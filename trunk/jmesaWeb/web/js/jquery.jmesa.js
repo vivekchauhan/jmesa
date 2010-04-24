@@ -176,6 +176,9 @@
             } else {
                 f(id);
             }
+        },
+        getFormByTableId : function (id) {
+            return getFormByTableId(id);
         }
     };
 
@@ -521,6 +524,7 @@
     /*********** Worksheet ***********/
 
     var wsColumn = null;
+    var errorMap = {};
 
     var worksheetapi = {
         createWsColumn : function(column, id, uniqueProperties, property) {
@@ -539,7 +543,7 @@
             cell.parent().width(width);
             cell.css('overflow', 'visible');
 
-            cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="column" style="width:' + (width + 3) + 'px" value=""/></div>');
+            cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="' + property + '" style="width:' + (width + 3) + 'px" value=""/></div>');
 
             var input = $('#wsColumnInput');
             input.val(originalValue);
@@ -609,14 +613,16 @@
                         }
                     }
 
-                    var changedValue = input.val();
+                    /*var changedValue = input.val();
                     cell.text('');
                     cell.css('overflow', 'hidden');
                     cell.text(changedValue);
                     if (changedValue != originalValue) {
                         $.jmesa.submitWsColumn(originalValue, changedValue);
                     }
-                    wsColumn = null;
+                    wsColumn = null;*/
+
+                    $('#wsColumnInput').blur();
 
                     if (divToClick != null){
                         divToClick.onclick();
@@ -651,6 +657,9 @@
 
             wsColumn = null;
         },
+        setError : function(id, em) {
+           errorMap[id] = em;
+        },
         submitWsColumn : function(originalValue, changedValue) {
             var data = '{ "id" : "' + wsColumn.id + '"';
 
@@ -664,13 +673,47 @@
             data += ', "ov_" : "' + encodeURIComponent(originalValue) + '"';
             data += ', "cv_" : "' + encodeURIComponent(changedValue) + '"';
 
+            var errorMessage;
+            if (errorMap[wsColumn.id]) {
+               errorMessage = errorMap[wsColumn.id][wsColumn.property];
+               if (errorMessage) {
+                  data += ', "em_" : "' + encodeURIComponent(errorMessage) + '"';
+               }
+            }
+
             data += '}'
 
-        	var contextPath = coreapi.getContextPath(wsColumn.id);
-        	if (contextPath) {
-        		contextPath += "/";
-        	}
-            $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(data) {});
+            var contextPath = coreapi.getContextPath(wsColumn.id);
+            if (contextPath) {
+               contextPath += "/";
+            }
+
+            var cell = $(wsColumn.column);
+            $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(columnStatus) {
+                  jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
+            });
+        },
+        updateCssClass : function(columnStatus, cell, errorMessage) {
+            /* Column status returned from worksheet servlet */
+            var classNames = {
+               "_rm_" : 'wsColumn',
+               "_uu_" : 'wsColumnChange',
+               "_ue_" : 'wsColumnError'
+            };
+
+            /* Skip other editors, e.g. checkbox etc */
+            $.each(classNames, function(key, value) {
+              if (cell.attr('class') == value) {
+                 cell.attr('class', classNames[columnStatus]);
+
+                 if (errorMessage) {
+                    cell.attr('title', errorMessage);
+                 } else {
+                    cell.removeAttr('title');
+                 }
+                 return;
+              }
+            });
         }
     }
 
