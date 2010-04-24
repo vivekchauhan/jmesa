@@ -34,6 +34,7 @@ import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.worksheet.Validation;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetCallbackHandler;
 import org.jmesa.worksheet.WorksheetColumn;
@@ -183,6 +184,8 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlColumn firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
+        firstName.addWorksheetValidation(Validation.REQUIRED);
+        //firstName.addWorksheetValidation(Validation.MIN_VALUE, "4");
 
         HtmlColumn lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
