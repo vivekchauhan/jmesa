@@ -185,7 +185,6 @@ public class WorksheetPresidentController extends AbstractController {
         HtmlColumn firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
         firstName.addWorksheetValidation(WorksheetValidationType.REQUIRED);
-        firstName.addWorksheetValidation(WorksheetValidationType.MIN_VALUE, "4");
 
         HtmlColumn lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
