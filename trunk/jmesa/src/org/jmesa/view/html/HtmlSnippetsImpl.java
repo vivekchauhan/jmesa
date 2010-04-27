@@ -365,7 +365,8 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
         
         String limitId = getCoreContext().getLimit().getId();
         if (!"".equals(rules)) {
-            html.tab().append("$(jQuery.jmesa.getFormByTableId('" + limitId + "')).validate({").newline();
+            html.tab().append("jQuery.jmesa.setValidator('" + limitId + "', ");
+            html.append("$(jQuery.jmesa.getFormByTableId('" + limitId + "')).validate({").newline();
             html.tabs(2).append("rules: {");
             html.append(rules).newline();
             html.tabs(2).append("}");
@@ -382,9 +383,10 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
             html.tabs(3).append("jQuery.jmesa.setError('" + limitId + "', errorMap);").newline();
             html.tabs(2).append("},").newline();
             html.tabs(2).append("onsubmit: false,").newline();
+            html.tabs(2).append("onfocusout: false,").newline();
             html.tabs(2).append("onkeyup: false,").newline();
             html.tabs(2).append("onclick: false").newline();
-            html.tab().append("});").newline();
+            html.tab().append("}));").newline();
 
             html.tab().append(customValidations);
         }
