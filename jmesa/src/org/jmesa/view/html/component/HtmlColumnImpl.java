@@ -25,7 +25,8 @@ import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
-import org.jmesa.worksheet.Validation;
+import org.jmesa.worksheet.WorksheetValidation;
+import org.jmesa.worksheet.WorksheetValidationType;
 
 /**
  * @since 2.0
@@ -39,7 +40,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     private FilterRenderer filterRenderer;
     private Order[] sortOrder;
     private boolean generatedOnTheFly;
-    private List<Validation> validations = new ArrayList<Validation>();
+    private List<WorksheetValidation> validations = new ArrayList<WorksheetValidation>();
 
     public HtmlColumnImpl() {
         // default constructor
@@ -155,20 +156,54 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return (HtmlRow) super.getRow();
     }
 
-    public void addWorksheetValidation(Validation validation) {
-        addWorksheetValidation(validation, null, null);
+    public void addWorksheetValidation(WorksheetValidationType validationType) {
+        addWorksheetValidation(validationType, null, null);
     }
 
-    public void addWorksheetValidation(Validation validation, String value) {
-        addWorksheetValidation(validation, value, null);
+    public void addWorksheetValidation(WorksheetValidationType validationType, String value) {
+        addWorksheetValidation(validationType, value, null);
     }
 
-    public void addWorksheetValidation(Validation validation, String value, String errorMessage) {
+    public void addWorksheetValidation(WorksheetValidationType validationType, String value, String errorMessage) {
+        switch (validationType) {
+            case CUSTOM:
+                throw new IllegalArgumentException("Use addCustomWorksheetValidation() for custom worksheet validation");
+            case ACCEPT:
+            case MAX_LENGTH:
+            case MIN_LENGTH:
+            case RANGE_LENGTH:
+            case RANGE:
+            case MAX_VALUE:
+            case MIN_VALUE:
+                if (value == null || "".equals(value)) {
+                    throw new IllegalArgumentException("Value is required for worksheet validation: " + validationType);
+                }
+                break;
+            default:
+                value = null;
+        }
+        
+        WorksheetValidation validation = new WorksheetValidation();
+        validation.setValidationType(validationType);
+        validation.setValidationName(validationType.getCode());
         validation.setValue(value);
-        validation.setMessage(errorMessage);
+        validation.setErrorMessage(errorMessage);
         validations.add(validation);
-	}
+    }
 
+    public void addCustomWorksheetValidation(String handlerName, String value, String errorMessage) {
+        if (errorMessage == null || "".equals(errorMessage)) {
+            throw new IllegalArgumentException("Error message is required for custom worksheet validation");
+        }
+        
+        WorksheetValidation validation = new WorksheetValidation();
+        validation.setValidationType(WorksheetValidationType.CUSTOM);
+        validation.setValidationName(handlerName);
+        validation.setValue(value);
+        validation.setErrorMessage(errorMessage);
+        validations.add(validation);
+    }
+    
 	public String getWorksheetValidationRules() {
         return prepareJsonString("rule");
 	}
@@ -181,7 +216,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         StringBuffer json = new StringBuffer();
 
         boolean firstOccurance = true;
-        for (Validation validation: validations) {
+        for (WorksheetValidation validation: validations) {
             String nameValuePair = null;
             
             if ("rule".equals(type)) {
@@ -211,10 +246,8 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 	public String getCustomWorksheetValidation() {
 	    StringBuffer customValidations = new StringBuffer();
 
-	    for (Validation validation: validations) {
-	        if (validation.equals(Validation.CUSTOM)) {
-	            customValidations.append("jQuery.validator.addMethod('" + validation.getValue() + "', " + validation.getValue() + ");\n");
-	        }
+	    for (WorksheetValidation validation: validations) {
+	        customValidations.append(validation.attachHandlerScript());
 	    }
 
 	    return customValidations.toString();

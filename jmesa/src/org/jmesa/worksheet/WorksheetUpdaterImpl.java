@@ -72,6 +72,7 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
                 WorksheetRow row = worksheet.getRow(uniqueProperty);
                 if (row == null) {
                     row = new WorksheetRowImpl(uniqueProperty);
+                    row.setRowStatus(WorksheetRowStatus.MODIFY);
                     worksheet.addRow(row);
                 }
 

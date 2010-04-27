@@ -72,7 +72,7 @@ public class WorksheetImpl implements Worksheet {
 
     	String upName = row.getUniqueProperty();
     	if (upName == null) {
-            throw new RuntimeException("Item does not have the uniqueProperty");
+            throw new IllegalStateException("Item does not have the uniqueProperty");
     	}
 
         // get a random value for unique property
