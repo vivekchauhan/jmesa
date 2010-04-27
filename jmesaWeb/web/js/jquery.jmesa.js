@@ -525,6 +525,7 @@
 
     var wsColumn = null;
     var errorMap = {};
+    var validatorObject = {};
 
     var worksheetapi = {
         createWsColumn : function(column, id, uniqueProperties, property) {
@@ -556,6 +557,10 @@
 
             $('#wsColumnInput').blur(function() {
                 var changedValue = input.val();
+                /* validate manually */
+                if (changedValue != originalValue) {
+                    validatorObject[wsColumn.id].element($('#wsColumnInput'));
+                }
                 cell.text('');
                 cell.css('overflow', 'hidden');
                 cell.text(changedValue);
@@ -613,16 +618,18 @@
                         }
                     }
 
-                    /*var changedValue = input.val();
+                    var changedValue = input.val();
+                    /* validate manually */
+                    if (changedValue != originalValue) {
+                        validatorObject[wsColumn.id].element($('#wsColumnInput'));
+                    }
                     cell.text('');
                     cell.css('overflow', 'hidden');
                     cell.text(changedValue);
                     if (changedValue != originalValue) {
                         $.jmesa.submitWsColumn(originalValue, changedValue);
                     }
-                    wsColumn = null;*/
-
-                    $('#wsColumnInput').blur();
+                    wsColumn = null;
 
                     if (divToClick != null){
                         divToClick.onclick();
@@ -659,6 +666,9 @@
         },
         setError : function(id, em) {
            errorMap[id] = em;
+        },
+        setValidator : function(id, vr) {
+           validatorObject[id] = vr;
         },
         submitWsColumn : function(originalValue, changedValue) {
             var data = '{ "id" : "' + wsColumn.id + '"';
