@@ -79,14 +79,15 @@ public interface Worksheet {
     /**
      * Add a new object to the worksheet.
      *
-     * @param row The worksheet row.
+     * @param item The bean or map.
+     * @param table The worksheet table.
      */
     public void addRow(Object item, Table table);
 
     /**
      * Returns the list of worksheet rows by the given row status
      *
-     * @param row The worksheet row status.
+     * @param rowStatus The worksheet row status.
      */
      public List<WorksheetRow> getRowsByStatus(WorksheetRowStatus rowStatus);
 
