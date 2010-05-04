@@ -53,7 +53,6 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         Object value = cellRenderer.getCellEditor().getValue(item, column.getProperty(), 1);
 
         assertNotNull(value);
-        //assertTrue("The value is not changed.", value.equals("Changed Name"));
     }
 
     @Override
@@ -69,7 +68,7 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
 
         Worksheet worksheet = new WorksheetImpl(ID, null);
         
-        WorksheetColumn column = new WorksheetColumnImpl("name.firstName", null, null);
+        WorksheetColumn column = new WorksheetColumnImpl("name.firstName", "", null);
         column.setChangedValue("Changed Name");
         firstRow.addColumn(column);
         worksheet.addRow(firstRow);
