@@ -18,6 +18,7 @@ package org.jmesa.view.html.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.ColumnImpl;
@@ -160,7 +161,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     }
 
     public void addWorksheetValidation(String validationType, String value, String errorMessage) {
-        if (value == null || "".equals(value)) {
+        if (StringUtils.isEmpty(value)) {
             throw new IllegalArgumentException("Value is required for worksheet validation: " + validationType);
         }
         
@@ -172,7 +173,7 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     }
 
     public void addCustomWorksheetValidation(String validationHandlerName, String value, String errorMessage) {
-        if (errorMessage == null || "".equals(errorMessage)) {
+        if (StringUtils.isEmpty(errorMessage)) {
             throw new IllegalArgumentException("Error message is required for custom worksheet validation");
         }
         
