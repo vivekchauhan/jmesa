@@ -358,6 +358,61 @@ class TagUtils {
     }
 
     /**
+     * <p>
+     * Sets validations on the column
+     * </p>
+     * 
+     */
+    static void setWorksheetValidations(HtmlColumn column, String worksheetValidationString) {
+        if (!StringUtils.isEmpty(worksheetValidationString)) {
+            String worksheetValidations[] = worksheetValidationString.split(";");
+            for (String validation: worksheetValidations) {
+                String validationParams[] = validation.split(":");
+                
+                if (validationParams.length < 2 || validationParams.length > 3) {
+                    throw new IllegalArgumentException("Required format of worksheet validation is \"validationType:value:[errorMessage]\"");
+                }
+                
+                String validationType = validationParams[0].trim();
+                String value = validationParams[1].trim();
+                String errorMessage = null;
+                
+                if (validationParams.length == 3) {
+                    errorMessage = validationParams[2].trim();
+                }
+                
+                column.addWorksheetValidation(validationType, value, errorMessage);
+            }
+        }
+    }
+    
+    /**
+     * <p>
+     * Sets custom validations on the column
+     * </p>
+     * 
+     */
+    static void setCustomWorksheetValidations(HtmlColumn column, String customWorksheetValidationString) {
+        if (!StringUtils.isEmpty(customWorksheetValidationString)) {
+            String worksheetValidations[] = customWorksheetValidationString.split(";");
+            for (String validation: worksheetValidations) {
+                String validationParams[] = validation.split(":");
+                
+                if (validationParams.length != 3) {
+                    throw new IllegalArgumentException("Required format of custom worksheet validation is \"customValidationType:value:errorMessage\"");
+                }
+                
+                // Trim has be used here since spaces in validationType will lead to javascript error 
+                String validationType = validationParams[0].trim();
+                String value = validationParams[1].trim();
+                String errorMessage = validationParams[2].trim();
+                
+                column.addCustomWorksheetValidation(validationType, value, errorMessage);
+            }
+        }
+    }
+    
+    /**
      * Take the comma separted Order values and convert them into an Array. The legal values include
      * "none, asc, desc".
      * 
