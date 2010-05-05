@@ -21,25 +21,23 @@ package org.jmesa.worksheet;
  */
 public class WorksheetValidation {
 
-    private WorksheetValidationType validationType;
-    private String validationName;
+    public static final String TRUE = "true";
+    
+    private String validationType;
     private String value;
     private String errorMessage;
+    private boolean isCustomValidation = false;
 
-    public void setValidationType(WorksheetValidationType validationType) {
+    public void setCustomValidation(boolean isCustomValidation) {
+        this.isCustomValidation = isCustomValidation;
+    }
+
+    public void setValidationType(String validationType) {
         this.validationType = validationType;
     }
 
-    public void setValidationName(String validationName) {
-        this.validationName = validationName;
-    }
-
     public void setValue(String value) {
-        if (value == null) {
-            this.value = "true";
-        } else {
-            this.value = value;
-        }
+        this.value = value;
     }
 
     public void setErrorMessage(String errorMessage) {
@@ -47,7 +45,7 @@ public class WorksheetValidation {
     }
     
     public String getRule() {
-        return this.validationName + ": " + this.value;
+        return this.validationType + ": " + this.value;
     }
     
     public String getMessage() {
@@ -55,12 +53,12 @@ public class WorksheetValidation {
             return "";
         }
 
-        return this.validationName + ": '" + errorMessage + "'";
+        return this.validationType + ": '" + errorMessage + "'";
     }
 
     public String attachHandlerScript() {
-        if (validationType == WorksheetValidationType.CUSTOM) {
-            return "jQuery.validator.addMethod('" + validationName + "', " + validationName + ");\n";
+        if (isCustomValidation) {
+            return "jQuery.validator.addMethod('" + validationType + "', " + validationType + ");\n";
         }
         
         return "";

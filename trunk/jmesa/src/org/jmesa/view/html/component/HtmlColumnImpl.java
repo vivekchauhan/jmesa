@@ -26,7 +26,6 @@ import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
-import org.jmesa.worksheet.WorksheetValidationType;
 
 /**
  * @since 2.0
@@ -156,49 +155,30 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return (HtmlRow) super.getRow();
     }
 
-    public void addWorksheetValidation(WorksheetValidationType validationType) {
-        addWorksheetValidation(validationType, null, null);
-    }
-
-    public void addWorksheetValidation(WorksheetValidationType validationType, String value) {
+    public void addWorksheetValidation(String validationType, String value) {
         addWorksheetValidation(validationType, value, null);
     }
 
-    public void addWorksheetValidation(WorksheetValidationType validationType, String value, String errorMessage) {
-        switch (validationType) {
-            case CUSTOM:
-                throw new IllegalArgumentException("Use addCustomWorksheetValidation() for custom worksheet validation");
-            case ACCEPT:
-            case MAX_LENGTH:
-            case MIN_LENGTH:
-            case RANGE_LENGTH:
-            case RANGE:
-            case MAX_VALUE:
-            case MIN_VALUE:
-                if (value == null || "".equals(value)) {
-                    throw new IllegalArgumentException("Value is required for worksheet validation: " + validationType);
-                }
-                break;
-            default:
-                value = null;
+    public void addWorksheetValidation(String validationType, String value, String errorMessage) {
+        if (value == null || "".equals(value)) {
+            throw new IllegalArgumentException("Value is required for worksheet validation: " + validationType);
         }
         
         WorksheetValidation validation = new WorksheetValidation();
         validation.setValidationType(validationType);
-        validation.setValidationName(validationType.getCode());
         validation.setValue(value);
         validation.setErrorMessage(errorMessage);
         validations.add(validation);
     }
 
-    public void addCustomWorksheetValidation(String handlerName, String value, String errorMessage) {
+    public void addCustomWorksheetValidation(String validationHandlerName, String value, String errorMessage) {
         if (errorMessage == null || "".equals(errorMessage)) {
             throw new IllegalArgumentException("Error message is required for custom worksheet validation");
         }
         
         WorksheetValidation validation = new WorksheetValidation();
-        validation.setValidationType(WorksheetValidationType.CUSTOM);
-        validation.setValidationName(handlerName);
+        validation.setCustomValidation(true);
+        validation.setValidationType(validationHandlerName);
         validation.setValue(value);
         validation.setErrorMessage(errorMessage);
         validations.add(validation);

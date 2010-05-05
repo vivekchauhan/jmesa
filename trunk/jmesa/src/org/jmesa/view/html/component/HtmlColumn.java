@@ -21,7 +21,6 @@ import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
-import org.jmesa.worksheet.WorksheetValidationType;
 
 /**
  * @since 2.0
@@ -105,9 +104,11 @@ public interface HtmlColumn extends Column {
 
     /**
      * Add validation to a worksheet column
+     *
      * Examples:
-     * addWorksheetValidation(WorksheetValidationType.REQUIRED);
-     * addWorksheetValidation(WorksheetValidationType.EMAIL, null, "Provide valid email");
+     * addWorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE);
+     * addWorksheetValidation(WorksheetValidationType.EMAIL, WorksheetValidation.TRUE, "Please provide valid email");
+     *
      * addWorksheetValidation(WorksheetValidationType.ACCEPT, "'jpg|png'");
      * addWorksheetValidation(WorksheetValidationType.MAX_LENGTH, "10");
      * addWorksheetValidation(WorksheetValidationType.MIN_LENGTH, "5");
@@ -119,10 +120,9 @@ public interface HtmlColumn extends Column {
      * @since 2.4.7
      */
 
-    public void addWorksheetValidation(WorksheetValidationType validationType);
-    public void addWorksheetValidation(WorksheetValidationType validationType, String value);
-    public void addWorksheetValidation(WorksheetValidationType validationType, String value, String errorMessage);
-    public void addCustomWorksheetValidation(String handlerName, String Value, String errorMessage);
+    public void addWorksheetValidation(String validationType, String value);
+    public void addWorksheetValidation(String validationType, String value, String errorMessage);
+    public void addCustomWorksheetValidation(String validationHandlerName, String Value, String errorMessage);
 
     public String getWorksheetValidationRules();
     public String getWorksheetValidationMessages();

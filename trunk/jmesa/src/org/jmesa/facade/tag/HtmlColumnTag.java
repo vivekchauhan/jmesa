@@ -23,6 +23,8 @@ import static org.jmesa.facade.tag.TagUtils.getColumnFilterEditor;
 import static org.jmesa.facade.tag.TagUtils.getColumnHeaderRenderer;
 import static org.jmesa.facade.tag.TagUtils.getColumnHeaderEditor;
 import static org.jmesa.facade.tag.TagUtils.getColumnSortOrder;
+import static org.jmesa.facade.tag.TagUtils.setWorksheetValidations;
+import static org.jmesa.facade.tag.TagUtils.setCustomWorksheetValidations;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -74,6 +76,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String cellEditor;
     private String headerEditor;
     private String filterEditor;
+    private String worksheetValidation;
+    private String customWorksheetValidation;
 
     public String getProperty() {
         return property;
@@ -336,6 +340,38 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
+     * @since 2.6.7
+     * @param filterEditor The filter editor to use.
+     */
+    public String getWorksheetValidationString() {
+        return worksheetValidation;
+    }
+
+    /**
+     * @since 2.6.7
+     * @param filterEditor The filter editor to use.
+     */
+    public void setWorksheetValidation(String worksheetValidation) {
+        this.worksheetValidation = worksheetValidation;
+    }
+
+    /**
+     * @since 2.6.7
+     * @param filterEditor The filter editor to use.
+     */
+    public String getCustomWorksheetValidationString() {
+        return customWorksheetValidation;
+    }
+
+    /**
+     * @since 2.6.7
+     * @param filterEditor The filter editor to use.
+     */
+    public void setCustomWorksheetValidation(String customWorksheetValidation) {
+        this.customWorksheetValidation = customWorksheetValidation;
+    }
+
+    /**
      * The column to use. If the column does not exist then one will be created.
      */
     private HtmlColumn getColumn(HtmlComponentFactory factory) {
@@ -382,6 +418,9 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         HeaderEditor he = getColumnHeaderEditor(column, getHeaderEditor());
         hr.setHeaderEditor(he);
+        
+        setWorksheetValidations(column, getWorksheetValidationString());
+        setCustomWorksheetValidations(column, getCustomWorksheetValidationString());
 
         return column;
     }

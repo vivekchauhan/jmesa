@@ -19,31 +19,20 @@ package org.jmesa.worksheet;
  * @since 2.4.7
  * @author Siddhant Agrawal
  */
-public enum WorksheetValidationType {
-    REQUIRED("required"),
-    EMAIL("email"),
-    URL("url"),
-    DATE("date"),
-    DATE_ISO("dateISO"),
-    NUMBER("number"),
-    DIGITS("digits"),
-    CREDIT_CARD("creditcard"),
-    ACCEPT("accept"),
-    MAX_LENGTH("maxlength"),
-    MIN_LENGTH("minlength"),
-    RANGE_LENGTH("rangelength"),
-    RANGE("range"),
-    MAX_VALUE("max"),
-    MIN_VALUE("min"),
-    CUSTOM("custom");
-
-    private String code;
-
-    private WorksheetValidationType(String code) {
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
-    }
+public class WorksheetValidationType {
+    public static final String REQUIRED = "required";
+    public static final String EMAIL = "email";
+    public static final String URL = "url";
+    public static final String DATE = "date";
+    public static final String DATE_ISO = "dateISO";
+    public static final String NUMBER = "number";
+    public static final String DIGITS = "digits";
+    public static final String CREDIT_CARD = "creditcard";
+    public static final String ACCEPT = "accept";
+    public static final String MAX_LENGTH = "maxlength";
+    public static final String MIN_LENGTH = "minlength";
+    public static final String RANGE_LENGTH = "rangelength";
+    public static final String RANGE = "range";
+    public static final String MAX_VALUE = "max";
+    public static final String MIN_VALUE = "min";
 }
