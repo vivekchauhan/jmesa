@@ -40,6 +40,7 @@ import org.jmesa.worksheet.WorksheetCallbackHandler;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetUtils;
+import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.CheckboxWorksheetEditor;
 import org.jmesa.worksheet.editor.RemoveRowWorksheetEditor;
 import org.jmesaweb.domain.President;
@@ -184,7 +185,7 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlColumn firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
-        firstName.addWorksheetValidation(WorksheetValidationType.REQUIRED);
+        firstName.addWorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE);
 
         HtmlColumn lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
