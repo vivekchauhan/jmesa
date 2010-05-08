@@ -143,15 +143,15 @@ public class HtmlTableTag extends SimpleTagSupport {
         table.setCaptionKey(getCaptionKey());
         table.setTheme(getTheme());
 
-        HtmlTableRenderer tableRenderer = getTableTableRenderer(table, getTableRenderer());
-        table.setTableRenderer(tableRenderer);
+        HtmlTableRenderer renderer = getTableTableRenderer(table, getTableRenderer());
+        table.setTableRenderer(renderer);
 
-        tableRenderer.setWidth(getWidth());
-        tableRenderer.setStyle(getStyle());
-        tableRenderer.setStyleClass(getStyleClass());
-        tableRenderer.setBorder(getBorder());
-        tableRenderer.setCellpadding(getCellpadding());
-        tableRenderer.setCellspacing(getCellspacing());
+        renderer.setWidth(getWidth());
+        renderer.setStyle(getStyle());
+        renderer.setStyleClass(getStyleClass());
+        renderer.setBorder(getBorder());
+        renderer.setCellpadding(getCellpadding());
+        renderer.setCellspacing(getCellspacing());
 
         return table;
     }

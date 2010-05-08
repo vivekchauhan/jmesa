@@ -62,7 +62,7 @@ public class WorksheetUtils {
             return false;
         }
 
-        return (worksheetRow.getRowStatus() == WorksheetRowStatus.REMOVE);
+        return (worksheetRow.getRowStatus().equals(WorksheetRowStatus.REMOVE));
     }
 
     private static WorksheetRow getWorksheetRow(Worksheet worksheet, Row row, Object item) {

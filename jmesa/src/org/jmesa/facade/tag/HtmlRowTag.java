@@ -238,15 +238,15 @@ public class HtmlRowTag extends SimpleTagSupport {
         row.setOnmouseover(getRowOnmouseover(row, getOnmouseover()));
         row.setOnmouseout(getRowOnmouseout(row, getOnmouseout()));
 
-        HtmlRowRenderer rowRenderer = getRowRowRenderer(row, getRowRenderer());
-        row.setRowRenderer(rowRenderer);
+        HtmlRowRenderer renderer = getRowRowRenderer(row, getRowRenderer());
+        row.setRowRenderer(renderer);
 
-        rowRenderer.setStyle(getStyle());
-        rowRenderer.setStyleClass(getStyleClass());
-        rowRenderer.setEvenClass(getEvenClass());
-        rowRenderer.setOddClass(getOddClass());
-        rowRenderer.setHighlightStyle(getHighlightStyle());
-        rowRenderer.setHighlightClass(getHighlightClass());
+        renderer.setStyle(getStyle());
+        renderer.setStyleClass(getStyleClass());
+        renderer.setEvenClass(getEvenClass());
+        renderer.setOddClass(getOddClass());
+        renderer.setHighlightStyle(getHighlightStyle());
+        renderer.setHighlightClass(getHighlightClass());
 
         return row;
     }

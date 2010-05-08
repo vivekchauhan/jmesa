@@ -109,24 +109,13 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
     }
 
     /**
-     * <p>
      * Validate that the columns original value is not the same as the changed value. If it is
      * then remove the column from the row.
-     * </p>
-     *
-     * <p>
-     * If the column is removed then validate that there are still other columns in the row. If
-     * there is not then remove the row from the worksheet.
-     * </p>
-     *
-     * @param worksheet The current worksheet.
-     * @param row The current row.
-     * @param column The current column.
      */
     protected String validateWorksheet(Worksheet worksheet, WorksheetRow row, WorksheetColumn column, String errorMessage) {
         String columnStatus = COL_UPDATED;
         
-        if (errorMessage != null && !"".equals(errorMessage)) {
+        if (StringUtils.isNotEmpty(errorMessage)) {
             try {
                 column.setError(decode(errorMessage, "UTF-8"));
             } catch (UnsupportedEncodingException e) {
@@ -138,7 +127,7 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
         }
         
         if (column.getChangedValue().equals(column.getOriginalValue())) {
-            if (row.getRowStatus().equals(WorksheetRowStatus.ADD)) {
+            if (!row.getRowStatus().equals(WorksheetRowStatus.ADD)) {
                 row.removeColumn(column);
                 
                 if (row.getColumns().size() == 0) {

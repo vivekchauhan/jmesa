@@ -15,33 +15,67 @@
  */
 package org.jmesa.worksheet;
 
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.view.AbstractContextSupport;
+
 /**
  * @since 2.4.7
  * @author Siddhant Agrawal
  */
-public class WorksheetValidation {
+public class WorksheetValidation extends AbstractContextSupport {
 
     public static final String TRUE = "true";
-    
-    private String validationType;
-    private String value;
+
+    private final String validationType;
+    private final String value;
     private String errorMessage;
-    private boolean isCustomValidation = false;
+    private String errorMessageKey;
 
-    public void setCustomValidation(boolean isCustomValidation) {
-        this.isCustomValidation = isCustomValidation;
-    }
+    private boolean custom;
 
-    public void setValidationType(String validationType) {
+    /**
+     * WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE
+     * WorksheetValidationType.EMAIL, WorksheetValidation.TRUE
+     * WorksheetValidationType.ACCEPT, "'jpg|png'"
+     * WorksheetValidationType.MAX_LENGTH, "10"
+     * WorksheetValidationType.MIN_LENGTH, "5"
+     * WorksheetValidationType.RANGE_LENGTH, "[5, 10]"
+     * WorksheetValidationType.RANGE, "[15, 20]"
+     * WorksheetValidationType.MAX_VALUE, "20"
+     * WorksheetValidationType.MIN_VALUE, "15"
+     *
+     * @since 2.4.7
+     */
+    public WorksheetValidation(String validationType, String value) {
+
+        if (StringUtils.isEmpty(value)) {
+            throw new IllegalArgumentException("Value is required for worksheet validation: " + validationType);
+        }
+
         this.validationType = validationType;
-    }
-
-    public void setValue(String value) {
         this.value = value;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public boolean isCustom() {
+        return custom;
+    }
+
+    public void setCustom(boolean custom) {
+        this.custom = custom;
+    }
+
+    public String getValidationType() {
+        return validationType;
+    }
+
+    public WorksheetValidation setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+        return this;
+    }
+
+    public WorksheetValidation setErrorMessageKey(String errorMessageKey) {
+        this.errorMessageKey = errorMessageKey;
+        return this;
     }
     
     public String getRule() {
@@ -49,18 +83,16 @@ public class WorksheetValidation {
     }
     
     public String getMessage() {
-        if (errorMessage == null) {
+
+        String msg = errorMessage;
+        if (errorMessageKey != null) {
+            msg = getCoreContext().getMessage(errorMessageKey);
+        }
+
+        if (msg == null) {
             return "";
         }
 
-        return this.validationType + ": '" + errorMessage + "'";
-    }
-
-    public String attachHandlerScript() {
-        if (isCustomValidation) {
-            return "jQuery.validator.addMethod('" + validationType + "', " + validationType + ");\n";
-        }
-        
-        return "";
+        return this.validationType + ": '" + msg + "'";
     }
 }
