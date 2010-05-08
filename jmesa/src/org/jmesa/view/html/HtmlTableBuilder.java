@@ -29,6 +29,7 @@ import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
+import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
@@ -284,6 +285,16 @@ public class HtmlTableBuilder {
 
         public ColumnBuilder worksheetEditor(WorksheetEditor worksheetEditor) {
             column.getCellRenderer().setWorksheetEditor(worksheetEditor);
+            return this;
+        }
+
+        public ColumnBuilder addWorksheetValidation(WorksheetValidation worksheetValidation) {
+            column.addWorksheetValidation(worksheetValidation);
+            return this;
+        }
+
+        public ColumnBuilder addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
+            column.addCustomWorksheetValidation(worksheetValidation);
             return this;
         }
 
