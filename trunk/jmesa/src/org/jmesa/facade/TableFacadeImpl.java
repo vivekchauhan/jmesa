@@ -201,10 +201,10 @@ public class TableFacadeImpl implements TableFacade {
         WorksheetRow wsRow = ws.getRow(uniqueProperty);
 
         if (wsRow != null) {
-            if (wsRow.getRowStatus() == WorksheetRowStatus.ADD) {
+            if (wsRow.getRowStatus().equals(WorksheetRowStatus.ADD)) {
                 // remove row if ADDED in worksheet
                 ws.removeRow(wsRow);
-            } else if (wsRow.getRowStatus() == WorksheetRowStatus.REMOVE) {
+            } else if (wsRow.getRowStatus().equals(WorksheetRowStatus.REMOVE)) {
                 // undo - remove
                 if (wsRow.getColumns().size() == 0) {
                     ws.removeRow(uniqueProperty);

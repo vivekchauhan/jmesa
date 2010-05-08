@@ -15,12 +15,14 @@
  */
 package org.jmesa.view.html.component;
 
+import java.util.List;
 import org.jmesa.limit.Order;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.worksheet.WorksheetValidation;
 
 /**
  * @since 2.0
@@ -102,29 +104,9 @@ public interface HtmlColumn extends Column {
      */
     public void setGeneratedOnTheFly(boolean generated);
 
-    /**
-     * Add validation to a worksheet column
-     *
-     * Examples:
-     * addWorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE);
-     * addWorksheetValidation(WorksheetValidationType.EMAIL, WorksheetValidation.TRUE, "Please provide valid email");
-     *
-     * addWorksheetValidation(WorksheetValidationType.ACCEPT, "'jpg|png'");
-     * addWorksheetValidation(WorksheetValidationType.MAX_LENGTH, "10");
-     * addWorksheetValidation(WorksheetValidationType.MIN_LENGTH, "5");
-     * addWorksheetValidation(WorksheetValidationType.RANGE_LENGTH, "[5, 10]");
-     * addWorksheetValidation(WorksheetValidationType.RANGE, "[15, 20]");
-     * addWorksheetValidation(WorksheetValidationType.MAX_VALUE, "20");
-     * addWorksheetValidation(WorksheetValidationType.MIN_VALUE, "15");
-     * 
-     * @since 2.4.7
-     */
-
-    public void addWorksheetValidation(String validationType, String value);
-    public void addWorksheetValidation(String validationType, String value, String errorMessage);
-    public void addCustomWorksheetValidation(String validationHandlerName, String Value, String errorMessage);
-
+    public void addWorksheetValidation(WorksheetValidation worksheetValidation);
+    public void addCustomWorksheetValidation(WorksheetValidation worksheetValidation);
+    public List<WorksheetValidation> getWorksheetValidations();
     public String getWorksheetValidationRules();
     public String getWorksheetValidationMessages();
-    public String getCustomWorksheetValidation();
 }

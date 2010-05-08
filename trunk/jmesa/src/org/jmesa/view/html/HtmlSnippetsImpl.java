@@ -39,6 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetRowStatus;
+import org.jmesa.worksheet.WorksheetValidation;
 
 /**
  * @since 2.0
@@ -189,7 +190,7 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
         return html.toString();
     }
 
-    private String worksheetRowsAdded() {
+    public String worksheetRowsAdded() {
         HtmlBuilder html = new HtmlBuilder();
 
         CoreContext coreContext = getCoreContext();
@@ -433,14 +434,19 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
     }
     
     private String getCustomWorksheetValidations() {
-        StringBuffer customValidations = new StringBuffer();
+        StringBuffer html = new StringBuffer();
 
         for (Column column: table.getRow().getColumns()) {
-            // Add custom validation handlers
             HtmlColumn htmlColumn = (HtmlColumn)column;
-            customValidations.append(htmlColumn.getCustomWorksheetValidation());
+            List<WorksheetValidation> worksheetValidations = htmlColumn.getWorksheetValidations();
+            for (WorksheetValidation worksheetValidation : worksheetValidations) {
+                if (worksheetValidation.isCustom()) {
+                    String validationType = worksheetValidation.getValidationType();
+                    html.append("jQuery.validator.addMethod('" + validationType + "', " + validationType + ");\n");
+                }
+            }
         }
         
-        return customValidations.toString();
+        return html.toString();
     }
 }

@@ -18,7 +18,6 @@ package org.jmesa.view.html.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.ColumnImpl;
@@ -156,35 +155,21 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return (HtmlRow) super.getRow();
     }
 
-    public void addWorksheetValidation(String validationType, String value) {
-        addWorksheetValidation(validationType, value, null);
+    public List<WorksheetValidation> getWorksheetValidations() {
+        return validations;
     }
 
-    public void addWorksheetValidation(String validationType, String value, String errorMessage) {
-        if (StringUtils.isEmpty(value)) {
-            throw new IllegalArgumentException("Value is required for worksheet validation: " + validationType);
-        }
-        
-        WorksheetValidation validation = new WorksheetValidation();
-        validation.setValidationType(validationType);
-        validation.setValue(value);
-        validation.setErrorMessage(errorMessage);
-        validations.add(validation);
-    }
-
-    public void addCustomWorksheetValidation(String validationHandlerName, String value, String errorMessage) {
-        if (StringUtils.isEmpty(errorMessage)) {
-            throw new IllegalArgumentException("Error message is required for custom worksheet validation");
-        }
-        
-        WorksheetValidation validation = new WorksheetValidation();
-        validation.setCustomValidation(true);
-        validation.setValidationType(validationHandlerName);
-        validation.setValue(value);
-        validation.setErrorMessage(errorMessage);
-        validations.add(validation);
+    public void addWorksheetValidation(WorksheetValidation worksheetValidation) {
+        worksheetValidation.setCoreContext(getCoreContext());
+        validations.add(worksheetValidation);
     }
     
+    public void addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
+        worksheetValidation.setCoreContext(getCoreContext());
+        worksheetValidation.setCustom(true);
+        validations.add(worksheetValidation);
+    }
+
 	public String getWorksheetValidationRules() {
         return prepareJsonString("rule");
 	}
@@ -223,14 +208,4 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
 
         return json.toString();
     }
-
-	public String getCustomWorksheetValidation() {
-	    StringBuffer customValidations = new StringBuffer();
-
-	    for (WorksheetValidation validation: validations) {
-	        customValidations.append(validation.attachHandlerScript());
-	    }
-
-	    return customValidations.toString();
-	}
 }

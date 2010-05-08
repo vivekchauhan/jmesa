@@ -23,8 +23,7 @@ import static org.jmesa.facade.tag.TagUtils.getColumnFilterEditor;
 import static org.jmesa.facade.tag.TagUtils.getColumnHeaderRenderer;
 import static org.jmesa.facade.tag.TagUtils.getColumnHeaderEditor;
 import static org.jmesa.facade.tag.TagUtils.getColumnSortOrder;
-import static org.jmesa.facade.tag.TagUtils.setWorksheetValidations;
-import static org.jmesa.facade.tag.TagUtils.setCustomWorksheetValidations;
+import static org.jmesa.facade.tag.TagUtils.getWorksheetValidations;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -45,6 +44,7 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
+import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
@@ -341,15 +341,14 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     /**
      * @since 2.6.7
-     * @param filterEditor The filter editor to use.
      */
-    public String getWorksheetValidationString() {
+    public String getWorksheetValidation() {
         return worksheetValidation;
     }
 
     /**
      * @since 2.6.7
-     * @param filterEditor The filter editor to use.
+     * @param worksheetValidation The worksheet validation to use.
      */
     public void setWorksheetValidation(String worksheetValidation) {
         this.worksheetValidation = worksheetValidation;
@@ -357,15 +356,14 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     /**
      * @since 2.6.7
-     * @param filterEditor The filter editor to use.
      */
-    public String getCustomWorksheetValidationString() {
+    public String getCustomWorksheetValidation() {
         return customWorksheetValidation;
     }
 
     /**
      * @since 2.6.7
-     * @param filterEditor The filter editor to use.
+     * @param customWorksheetValidation The custom worksheet validation to use.
      */
     public void setCustomWorksheetValidation(String customWorksheetValidation) {
         this.customWorksheetValidation = customWorksheetValidation;
@@ -419,8 +417,12 @@ public class HtmlColumnTag extends SimpleTagSupport {
         HeaderEditor he = getColumnHeaderEditor(column, getHeaderEditor());
         hr.setHeaderEditor(he);
         
-        setWorksheetValidations(column, getWorksheetValidationString());
-        setCustomWorksheetValidations(column, getCustomWorksheetValidationString());
+        for (WorksheetValidation wsv : getWorksheetValidations(column, getWorksheetValidation(), false)) {
+            column.addWorksheetValidation(wsv);
+        }
+        for (WorksheetValidation wsv : getWorksheetValidations(column, getCustomWorksheetValidation(), true)) {
+            column.addWorksheetValidation(wsv);
+        }
 
         return column;
     }
