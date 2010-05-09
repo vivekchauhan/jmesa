@@ -18,6 +18,7 @@ package org.jmesa.view.html.toolbar;
 import java.util.List;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Row;
+import org.jmesa.view.html.HtmlConstants;
 
 /**
  * @since 2.2
@@ -83,7 +84,9 @@ public class HtmlToolbar extends AbstractToolbar {
 
             addToolbarItem(ToolbarItemType.SAVE_WORKSHEET_ITEM);
             addToolbarItem(ToolbarItemType.FILTER_WORKSHEET_ITEM);
-            addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
+            if (getCoreContext().getPreference(HtmlConstants.TOOLBAR_ADD_WORKSHEET_ROW_ENABLED).equals("true")) {
+                addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
+            }
         }
 
         return super.render();
