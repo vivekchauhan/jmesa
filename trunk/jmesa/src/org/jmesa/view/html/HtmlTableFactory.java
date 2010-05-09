@@ -15,21 +15,14 @@
  */
 package org.jmesa.view.html;
 
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractTableFactory;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class HtmlTableFactory extends AbstractTableFactory {
-    public HtmlTableFactory(WebContext webContext, CoreContext coreContext) {
-        setWebContext(webContext);
-        setCoreContext(coreContext);
-    }
-
     @Override
     public HtmlTable createTable(String... columnProperties) {
         return (HtmlTable) super.createTable(columnProperties);

@@ -15,9 +15,6 @@
  */
 package org.jmesa.view;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.web.WebContext;
-
 /**
  * <p>
  * The table factory specific to the exports.
@@ -27,11 +24,6 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ExportTableFactory extends AbstractTableFactory {
-    public ExportTableFactory(WebContext webContext, CoreContext coreContext) {
-        setWebContext(webContext);
-        setCoreContext(coreContext);
-    }
-
     @Override
     protected ComponentFactory getComponentFactory() {
         return new ExportComponentFactory(getWebContext(), getCoreContext());

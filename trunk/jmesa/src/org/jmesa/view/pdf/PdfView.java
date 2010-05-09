@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jmesa.core.CoreContext;
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
@@ -31,8 +31,6 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
-import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.web.WebContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,25 +43,15 @@ import org.slf4j.LoggerFactory;
 public class PdfView extends AbstractExportView {
     private static Logger logger = LoggerFactory.getLogger(PdfView.class);
     
-    private HtmlSnippets snippets;
-    private WebContext webContext;
     private String cssLocation;
-    private String doctype;
-
-    public PdfView(HtmlTable table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
-        super(table, coreContext);
-        this.webContext = webContext;
-        this.snippets = new HtmlSnippetsImpl(table, toolbar, coreContext);
-        SupportUtils.setWebContext(this.snippets, webContext);
-
-        this.cssLocation = coreContext.getPreference("pdf.cssLocation");
-        this.doctype = coreContext.getPreference("pdf.doctype");
-    }
 
     /**
      * @return The stylesheet to use for this pdf.
      */
     public String getCssLocation() {
+        if (StringUtils.isEmpty(cssLocation)) {
+            cssLocation = getCoreContext().getPreference("pdf.cssLocation");
+        }
         return cssLocation;
     }
 
@@ -97,19 +85,22 @@ public class PdfView extends AbstractExportView {
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
-        String contextPath = webContext.getContextPath();
+        String contextPath = getWebContext().getContextPath();
 
-        html.append(doctype);
+        html.append(getCoreContext().getPreference("pdf.doctype"));
 
         html.html().close();
 
         html.head().close();
 
-        html.link().rel("stylesheet").type("text/css").href(contextPath + cssLocation).media("print").end();
+        html.link().rel("stylesheet").type("text/css").href(contextPath + getCssLocation()).media("print").end();
 
         html.headEnd();
 
         html.body().close();
+
+        HtmlSnippets snippets = new HtmlSnippetsImpl((HtmlTable)getTable(), null, getCoreContext());
+        SupportUtils.setWebContext(snippets, getWebContext());
 
         html.append(snippets.themeStart());
 

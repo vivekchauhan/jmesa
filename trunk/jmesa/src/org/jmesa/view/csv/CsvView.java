@@ -18,20 +18,14 @@ package org.jmesa.view.csv;
 import java.util.Collection;
 import java.util.List;
 
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.component.Table;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class CsvView extends AbstractExportView {
-
-    public CsvView(Table table, CoreContext coreContext) {
-        super(table, coreContext);
-    }
 
     public byte[] getBytes() {
         String render = (String) render();

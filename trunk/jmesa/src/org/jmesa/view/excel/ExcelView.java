@@ -24,7 +24,6 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
@@ -35,10 +34,6 @@ import org.jmesa.view.component.Table;
  * @author jeff jie
  */
 public class ExcelView extends AbstractExportView {
-
-    public ExcelView(Table table, CoreContext coreContext) {
-        super(table, coreContext);
-    }
 
     public byte[] getBytes() {
         HSSFWorkbook render = (HSSFWorkbook) render();

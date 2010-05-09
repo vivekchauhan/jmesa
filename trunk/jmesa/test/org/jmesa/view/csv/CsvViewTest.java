@@ -78,7 +78,9 @@ public class CsvViewTest extends AbstractTestCase {
         row.addColumn(careerColumn);
 
         // create the view
-        CsvView view = new CsvView(table, coreContext);
+        CsvView view = new CsvView();
+        view.setCoreContext(coreContext);
+        view.setTable(table);
 
         Object csv = view.render();
 

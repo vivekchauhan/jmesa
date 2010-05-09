@@ -15,37 +15,22 @@
  */
 package org.jmesa.view;
 
-import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextSupport;
 import org.jmesa.view.component.Table;
+import org.jmesa.view.component.TableSupport;
 
 /**
  * @since 2.4.2
  * @author qxodream
  */
-public abstract class AbstractExportView implements View, CoreContextSupport {
+public abstract class AbstractExportView extends AbstractContextSupport implements TableSupport, View {
 
     private Table table;
-    private CoreContext coreContext;
 
-    protected AbstractExportView(Table table, CoreContext coreContext) {
-        this.table = table;
-        this.coreContext = coreContext;
-    }
-
-    public Table getTable() {
+     public Table getTable() {
         return table;
     }
 
     public void setTable(Table table) {
         this.table = table;
-    }
-
-    public CoreContext getCoreContext() {
-        return coreContext;
-    }
-
-    public void setCoreContext(CoreContext coreContext) {
-        this.coreContext = coreContext;
     }
 }
