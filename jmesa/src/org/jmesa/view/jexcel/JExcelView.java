@@ -33,7 +33,6 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
@@ -52,20 +51,8 @@ public class JExcelView extends AbstractExportView {
 
     private OutputStream outputStream;
 
-    public JExcelView(Table table, CoreContext coreContext) {
-        super(table, coreContext);
-    }
-
     public void setOutputStream(OutputStream outputStream) {
         this.outputStream = outputStream;
-    }
-
-    /**
-     * @deprecated Use the better named setOutputStream() method.
-     */
-    @Deprecated
-    public void setOut(OutputStream out) {
-        this.outputStream = out;
     }
 
     /**

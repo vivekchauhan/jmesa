@@ -46,7 +46,8 @@ public class RowFilterTest extends AbstractTestCase {
         FilterMatcher match = new StringFilterMatcher();
         registry.addFilterMatcher(key, match);
 
-        RowFilter itemsFilter = new SimpleRowFilter(registry);
+        SimpleRowFilter itemsFilter = new SimpleRowFilter();
+        itemsFilter.setFilterMatcherRegistry(registry);
 
         WebContext webContext = createWebContext();
         
@@ -73,7 +74,8 @@ public class RowFilterTest extends AbstractTestCase {
         FilterMatcher match = new StringFilterMatcher();
         registry.addFilterMatcher(key, match);
 
-        RowFilter itemsFilter = new SimpleRowFilter(registry);
+        SimpleRowFilter itemsFilter = new SimpleRowFilter();
+        itemsFilter.setFilterMatcherRegistry(registry);
 
         WebContext webContext = createWebContext();
         

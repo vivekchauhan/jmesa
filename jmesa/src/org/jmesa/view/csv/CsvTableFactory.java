@@ -15,21 +15,14 @@
  */
 package org.jmesa.view.csv;
 
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractTableFactory;
 import org.jmesa.view.ComponentFactory;
-import org.jmesa.web.WebContext;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class CsvTableFactory extends AbstractTableFactory {
-    public CsvTableFactory(WebContext webContext, CoreContext coreContext) {
-        setWebContext(webContext);
-        setCoreContext(coreContext);
-    }
-
     @Override
     protected ComponentFactory getComponentFactory() {
         return new CsvComponentFactory(getWebContext(), getCoreContext());

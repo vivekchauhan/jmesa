@@ -22,12 +22,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
-import org.jmesa.view.component.Table;
-import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.web.WebContext;
 
 import com.lowagie.text.Font;
 import static com.lowagie.text.Font.NORMAL;
@@ -56,7 +52,7 @@ import org.slf4j.LoggerFactory;
 public class PdfPView extends AbstractExportView {
 
     private Logger logger = LoggerFactory.getLogger(PdfPView.class);
-    private WebContext webContext;
+
     private Color evenCellBackgroundColor;
     private Color oddCellBackgroundColor;
     private Color headerBackgroundColor;
@@ -64,9 +60,7 @@ public class PdfPView extends AbstractExportView {
     private Color captionFontColor;
     private String captionAlignment;
 
-    public PdfPView(Table table, Toolbar toolbar, WebContext webContext, CoreContext coreContext) {
-        super(table, coreContext);
-        this.webContext = webContext;
+    public PdfPView() {
         this.evenCellBackgroundColor = new Color(227, 227, 227);
         this.oddCellBackgroundColor = new Color(255, 255, 255);
         this.headerBackgroundColor = new Color(114, 159, 207);
@@ -228,9 +222,5 @@ public class PdfPView extends AbstractExportView {
         }
 
         return getFont(HELVETICA, 12, NORMAL);
-    }
-
-    protected WebContext getWebContext() {
-        return webContext;
     }
 }

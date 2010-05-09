@@ -37,17 +37,6 @@ public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport 
     private Logger logger = LoggerFactory.getLogger(SimpleRowFilter.class);
     private FilterMatcherRegistry registry;
 
-    public SimpleRowFilter() {}
-
-    /**
-     * @deprecated Using the new FilterMatcherRegistrySupport class to automatically set
-     *              the FilterMatcherRegistry on this class.
-     */
-    @Deprecated
-    public SimpleRowFilter(FilterMatcherRegistry registry) {
-        this.registry = registry;
-    }
-
     public Collection<?> filterItems(Collection<?> items, Limit limit) {
         FilterSet filterSet = limit.getFilterSet();
         boolean filtered = filterSet.isFiltered();
