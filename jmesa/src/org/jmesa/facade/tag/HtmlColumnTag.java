@@ -78,6 +78,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String filterEditor;
     private String worksheetValidation;
     private String customWorksheetValidation;
+    private String errorMessageKey;
+    private String errorMessage;
 
     public String getProperty() {
         return property;
@@ -370,6 +372,40 @@ public class HtmlColumnTag extends SimpleTagSupport {
     }
 
     /**
+     * @since 2.6.7
+     */
+
+    public String getErrorMessageKey() {
+        return errorMessageKey;
+    }
+
+    /**
+     * @since 2.6.7
+     * @param errorMessageKey Error message key for worksheet validation.
+     */
+
+    public void setErrorMessageKey(String errorMessageKey) {
+        this.errorMessageKey = errorMessageKey;
+    }
+
+    /**
+     * @since 2.6.7
+     */
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * @since 2.6.7
+     * @param errorMessage Error message for worksheet validation.
+     */
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    /**
      * The column to use. If the column does not exist then one will be created.
      */
     private HtmlColumn getColumn(HtmlComponentFactory factory) {
@@ -417,10 +453,12 @@ public class HtmlColumnTag extends SimpleTagSupport {
         HeaderEditor he = getColumnHeaderEditor(column, getHeaderEditor());
         hr.setHeaderEditor(he);
         
-        for (WorksheetValidation wsv : getWorksheetValidations(column, getWorksheetValidation(), false)) {
+        for (WorksheetValidation wsv : getWorksheetValidations(column, getWorksheetValidation(), 
+                getErrorMessageKey(), getErrorMessage(), false)) {
             column.addWorksheetValidation(wsv);
         }
-        for (WorksheetValidation wsv : getWorksheetValidations(column, getCustomWorksheetValidation(), true)) {
+        for (WorksheetValidation wsv : getWorksheetValidations(column, getCustomWorksheetValidation(),
+                getErrorMessageKey(), getErrorMessage(), true)) {
             column.addWorksheetValidation(wsv);
         }
 

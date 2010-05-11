@@ -17,6 +17,7 @@ package org.jmesa.facade.tag;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -363,35 +364,59 @@ class TagUtils {
 
     /**
      * <p>
+     * Get a Map of name-value pairs for an input string having format "name1:value1;[name2:value2];..."
+     * </p>
+     */
+    static Map<String, String> getNameValueMap(String input, String errorMessage) {
+        if (StringUtils.isEmpty(input)) {
+            return Collections.emptyMap();
+        }
+        
+        Map<String, String> nameValueMap = new HashMap<String, String>();
+        
+        for (String nameValue: input.split(";")) {
+            String nameValueParams[] = nameValue.split(":");
+            if (nameValueParams.length != 2) {
+                throw new IllegalArgumentException(errorMessage);
+            }
+            nameValueMap.put(nameValueParams[0].trim(), nameValueParams[1].trim());
+        }
+        
+        return nameValueMap;
+    }
+
+    /**
+     * <p>
      * Get the validations on the column.
      * </p>
      */
-    static List<WorksheetValidation> getWorksheetValidations(HtmlColumn column, String worksheetValidation, boolean custom) {
+    static List<WorksheetValidation> getWorksheetValidations(HtmlColumn column, String worksheetValidation, 
+            String errorMessageKey, String errorMessage, boolean custom) {
+        
         if (StringUtils.isEmpty(worksheetValidation)) {
             return Collections.emptyList();
         }
 
         List<WorksheetValidation> results = new ArrayList<WorksheetValidation>();
 
-        String worksheetValidations[] = worksheetValidation.split(";");
-        for (String validation: worksheetValidations) {
-            String validationParams[] = validation.split(":");
-
-            if (validationParams.length < 2 || validationParams.length > 3) {
-                throw new IllegalArgumentException(
-                        "Required format of worksheet validation is \"validationType:value:[errorMessage]\"");
-            }
-
-            String validationType = validationParams[0].trim();
-            String value = validationParams[1].trim();
-            String errorMessageKey = null;
-
-            if (validationParams.length == 3) {
-                errorMessageKey = validationParams[2].trim();
-            }
+        Map<String, String> errorMessageKeys = getNameValueMap(errorMessageKey,
+                "Required format of errorMessageKey is \"validationType:error message key;[second pair]\"");
+        
+        Map<String, String> errorMessages = getNameValueMap(errorMessage,
+                "Required format of errorMessage is \"validationType:error message;[second pair]\"");
+        
+        Map<String, String> worksheetValidations = getNameValueMap(worksheetValidation,
+                "Required format of worksheetValidation / customWorksheetValidation is \"validationType:value;[second pair]\"");
+        
+        for (Map.Entry<String, String> validation: worksheetValidations.entrySet()) {
+            String validationType = validation.getKey();
+            String value = validation.getValue();
 
             WorksheetValidation result = new WorksheetValidation(validationType, value);
-            result.setErrorMessageKey(errorMessageKey);
+            
+            result.setErrorMessage(errorMessages.get(validationType));
+            result.setErrorMessageKey(errorMessageKeys.get(validationType));
+
             result.setCustom(custom);
             results.add(result);
         }
