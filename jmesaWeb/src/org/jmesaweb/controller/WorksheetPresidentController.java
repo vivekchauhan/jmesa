@@ -34,13 +34,14 @@ import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.worksheet.WorksheetValidationType;
+import static org.jmesa.worksheet.WorksheetValidationType.REQUIRED;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetCallbackHandler;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetUtils;
 import org.jmesa.worksheet.WorksheetValidation;
+import static org.jmesa.worksheet.WorksheetValidation.TRUE;
 import org.jmesa.worksheet.editor.CheckboxWorksheetEditor;
 import org.jmesa.worksheet.editor.RemoveRowWorksheetEditor;
 import org.jmesaweb.domain.President;
@@ -185,7 +186,7 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlColumn firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
-        firstName.addWorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE);
+        firstName.addWorksheetValidation(new WorksheetValidation(REQUIRED, TRUE));
 
         HtmlColumn lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
