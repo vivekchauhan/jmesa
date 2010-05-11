@@ -4,11 +4,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
         version="2.0">
-
+    
     <tlib-version>2.3</tlib-version>
     <short-name>jmesa</short-name>
     <uri>http://code.google.com/p/jmesa</uri>
-
+    
     <tag>
         <name>tableFacade</name>
         <tag-class>org.jmesa.facade.tag.TableFacadeTag</tag-class>
@@ -325,7 +325,7 @@
             <name>width</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>
+        </attribute> 
         <attribute>
             <name>cellpadding</name>
             <required>false</required>
@@ -337,7 +337,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-
+    
     <tag>
         <name>htmlRow</name>
         <tag-class>org.jmesa.facade.tag.HtmlRowTag</tag-class>
@@ -413,7 +413,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-
+    
     <tag>
         <name>htmlColumn</name>
         <tag-class>org.jmesa.facade.tag.HtmlColumnTag</tag-class>
@@ -528,8 +528,18 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>worksheetValidation</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>customWorksheetValidation</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
-
+    
     <tag>
         <name>htmlColumns</name>
         <tag-class>org.jmesa.facade.tag.HtmlColumnsTag</tag-class>
@@ -540,5 +550,5 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-
+    
 </taglib>
