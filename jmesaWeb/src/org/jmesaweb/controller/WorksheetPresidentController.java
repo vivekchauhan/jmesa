@@ -68,13 +68,14 @@ public class WorksheetPresidentController extends AbstractController {
 
         TableFacade tableFacade = createTableFacade(id, request);
         tableFacade.setEditable(true); // switch to flip that turns the table editable
-        Collection<President> items = presidentService.getPresidents();
-        tableFacade.setItems(items);
-        buildHtmlTable(tableFacade);
         
         addWorksheetRow(tableFacade);
         removeWorksheetRow(tableFacade);
         saveWorksheet(tableFacade);
+
+        Collection<President> items = presidentService.getPresidents();
+        tableFacade.setItems(items);
+        buildHtmlTable(tableFacade);
         
         request.setAttribute("presidents", tableFacade.render()); // set the Html in the request for the JSP
 
