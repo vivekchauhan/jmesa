@@ -38,13 +38,15 @@ _Note: currently this only works for the Excel and CSV exports. The JExcel and P
 ==== How can I plug in my own export view? ====
 You can create your own view and plug it in.
 
-With regards to PDF files you can look at !PdfPView or the !PdfView view as an example of what a view looks like. The !PdfPView uses iText directly, and the other uses the flying saucer API to create a PDF from html. I would pick whichever one you are more comfortable doing. In general I would always look at the example view source to see how things work as that is the best way to learn.
+With regards to PDF files you can look at PdfPView or the !PdfView view as an example of what a view looks like. The PdfPView uses iText directly, and the other uses the flying saucer API to create a PDF from html. I would pick whichever one you are more comfortable doing. In general I would always look at the example view source to see how things work as that is the best way to learn.
 
 Then there are two ways that you could plug in your view. The easiest way to understand what is going on may be to just extend the !TableFacadeImpl class and override the getExportView() method. If you look in the !TableFacadeImpl class I think it will make sense on what you need to do. Then you can also override the getExportTable() or renderExport() methods if you really need to customize things. Plus the examples might be easier to follow if you use the same methodology. You might even find it interesting to follow the render() method to understand things more.
 
 Be sure to get on the latest release as the exports were refactored a little to make it easier to work with!
 
-The other way you could plug in your View would be to use the tableFacade.setView() method. The setView() method does works with the [SupportInterfaces support interfaces] so if your implementation of the View implements any of the support interfaces then you will get injected with the supporting classes that you need automatically. Note: the default exports use the !AbstractExportView which does not work with the support interfaces well because it has a constructor defined. I think in the future this abstract class should just use the support interfaces, and not require a constructor, so keep that in mind as you look through the default views because I think it could be confusing. I didn't notice that until the release was already done.
+The other way you could plug in your View would be to use the tableFacade.setView() method. The setView() method does works with the [SupportInterfaces support interfaces] so if your implementation of the View implements any of the support interfaces then you will get injected with the supporting classes that you need automatically. 
+
+_Note: the default exports use the !AbstractExportView which does not work with the support interfaces well because it has a constructor defined. I think in the future this abstract class should just use the support interfaces, and not require a constructor, so keep that in mind as you look through the default views because I think it could be confusing. I didn't notice that until the release was already done. *Update: this has been fixed in the upcoming 2.5 release. That will mean that extending the !AbstractExportView will be the correct thing to do.*_
 
 If you choose the second way to plug your view into the !TableFacade your code will look something like this.
 
