@@ -559,7 +559,10 @@
                 var changedValue = input.val();
                 /* validate manually */
                 if (changedValue != originalValue) {
-                    validatorObject[wsColumn.id].element($('#wsColumnInput'));
+                    var validator = validatorObject[wsColumn.id];
+                    if (validator) {
+                        validator.element($('#wsColumnInput'));
+                    }
                 }
                 cell.text('');
                 cell.css('overflow', 'hidden');
@@ -621,7 +624,10 @@
                     var changedValue = input.val();
                     /* validate manually */
                     if (changedValue != originalValue) {
-                        validatorObject[wsColumn.id].element($('#wsColumnInput'));
+                        var validator = validatorObject[wsColumn.id];
+                        if (validator) {
+                            validator.element($('#wsColumnInput'));
+                        }
                     }
                     cell.text('');
                     cell.css('overflow', 'hidden');
