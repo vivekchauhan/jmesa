@@ -59,12 +59,15 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
     protected Worksheet getWorksheet() {
         UniqueProperty firstRowMap = new UniqueProperty("id", "1");
         WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
+        firstRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
         UniqueProperty secondRowMap = new UniqueProperty("id", "2");
         WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
+        secondRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
         UniqueProperty thirdRowMap = new UniqueProperty("id", "3");
         WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
+        thirdRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
         Worksheet worksheet = new WorksheetImpl(ID, null);
         
