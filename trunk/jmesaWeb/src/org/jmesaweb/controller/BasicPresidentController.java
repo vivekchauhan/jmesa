@@ -15,6 +15,9 @@
  */
 package org.jmesaweb.controller;
 
+import java.util.Map;
+import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.limit.ExportType;
 import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.JEXCEL;
 import static org.jmesa.limit.ExportType.PDF;
@@ -29,8 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.facade.TableFacadeTemplate;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.limit.Limit;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
@@ -42,7 +45,6 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
 import org.jmesa.view.html.editor.HtmlCellEditor;
-import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -62,81 +64,113 @@ public class BasicPresidentController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
-        Collection<President> items = presidentService.getPresidents();
 
         TableFacade tableFacade = createTableFacade(id, request);
-        tableFacade.setItems(items); // set the items
-        tableFacade.setExportTypes(response, CSV, JEXCEL, PDF); // set the exports allowed
-        tableFacade.setStateAttr("restore"); // return to the table in the same state that the user left it.
-        
-        Limit limit = tableFacade.getLimit();
-        if (limit.isExported()) {
-            export(tableFacade);
-            return null; // In Spring returning null tells the controller not to do anything.
+        TableFacadeTemplate template = new BasicPresidentTemplate();
+
+        String view = template.render(tableFacade, response);
+        if (view == null) { // an export will return null
+            return null;
         }
-        
-        String html = getHtml(tableFacade);
-        request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
-        
+
+        request.setAttribute("presidents", view); // Set the Html in the request for the JSP.
+
         return mv;
     }
 
-    private String getHtml(TableFacade tableFacade) {
-        // add a custom filter matcher to be the same pattern as the cell editor used.
-        tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+    private class BasicPresidentTemplate extends TableFacadeTemplate {
 
-        // set the column properties
-        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-        
-        HtmlTable table = (HtmlTable) tableFacade.getTable();
-        table.setCaption("Presidents");
-        table.getTableRenderer().setWidth("600px");
+        /**
+         * The array of available exports.
+         */
+        @Override
+        protected ExportType[] getExportTypes() {
+            return new ExportType[]{CSV, JEXCEL, PDF};
+        }
 
-        HtmlRow row = table.getRow();
+        /**
+         * Add a custom filter matcher to be the same pattern as the cell editor used.
+         */
+        @Override
+        protected void addFilterMatchers(Map<MatcherKey, FilterMatcher> filterMatchers) {
+            filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+        }
 
-        HtmlColumn firstName = row.getColumn("name.firstName");
-        firstName.setTitle("First Name");
+        /**
+         * Make it so that the table state is saved.
+         */
+        @Override
+        protected String getStateAttr() {
+            return "restore";
+        }
 
-        HtmlColumn lastName = row.getColumn("name.lastName");
-        lastName.setTitle("Last Name");
-
-        HtmlColumn career = row.getColumn("career");
-        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
-
-        Column born = row.getColumn("born");
-        born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
-
-        // Using an anonymous class to implement a custom editor.
-        firstName.getCellRenderer().setCellEditor(new CellEditor() {
-            public Object getValue(Object item, String property, int rowcount) {
-                Object value = new HtmlCellEditor().getValue(item, property, rowcount);
-                HtmlBuilder html = new HtmlBuilder();
-                html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
-                html.append(value);
-                html.aEnd();
-                return html.toString();
+        /**
+         * Set the column properties. Will be different based on if this is an export.
+         */
+        @Override
+        protected String[] getColumnProperties() {
+            if (isExporting()) {
+                return new String[]{"name.firstName", "name.lastName", "term", "career"};
             }
-        });
+            return new String[]{"name.firstName", "name.lastName", "term", "career", "born"};
+        }
 
-        return tableFacade.render(); // Return the Html.
-    }
+        /**
+         * After the column properties are set then we can modify the table.
+         *
+         * Note: a new (and better) way to build an html table would be to override the createTable()
+         * method and use the HtmlBuilder. Exports would still have to use this method to modify
+         * the table though.
+         */
+        @Override
+        protected void modifyTable(Table table) {
+            if (isExporting()) {
+                table.setCaption("Presidents");
 
-    private void export(TableFacade tableFacade) {
-        // set the column properties
-        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+                Row row = table.getRow();
 
-        Table table = tableFacade.getTable();
-        table.setCaption("Presidents");
+                Column firstName = row.getColumn("name.firstName");
+                firstName.setTitle("First Name");
 
-        Row row = table.getRow();
+                Column lastName = row.getColumn("name.lastName");
+                lastName.setTitle("Last Name");
+            } else {
+                HtmlTable htmlTable = (HtmlTable)table;
+                htmlTable.setCaption("Presidents");
+                htmlTable.getTableRenderer().setWidth("600px");
 
-        Column firstName = row.getColumn("name.firstName");
-        firstName.setTitle("First Name");
+                HtmlRow htmlRow = htmlTable.getRow();
 
-        Column lastName = row.getColumn("name.lastName");
-        lastName.setTitle("Last Name");
+                HtmlColumn firstName = htmlRow.getColumn("name.firstName");
+                firstName.setTitle("First Name");
 
-        tableFacade.render(); // Will write the export data out to the response.
+                HtmlColumn lastName = htmlRow.getColumn("name.lastName");
+                lastName.setTitle("Last Name");
+
+                HtmlColumn career = htmlRow.getColumn("career");
+                career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+
+                Column born = htmlRow.getColumn("born");
+                born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+
+                // Using an anonymous class to implement a custom editor.
+                firstName.getCellRenderer().setCellEditor(new CellEditor() {
+                    public Object getValue(Object item, String property, int rowcount) {
+                        Object value = new HtmlCellEditor().getValue(item, property, rowcount);
+                        HtmlBuilder html = new HtmlBuilder();
+                        html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+                        html.append(value);
+                        html.aEnd();
+                        return html.toString();
+                    }
+                });
+            }
+        }
+
+        @Override
+        protected Collection<?> getItems() {
+            return presidentService.getPresidents();
+        }
     }
 
     public void setPresidentService(PresidentService presidentService) {
