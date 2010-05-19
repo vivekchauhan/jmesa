@@ -5,6 +5,3 @@ Also, I wanted to point out that all the work on the worksheet was done by Siddh
 In addition to the worksheet changes the exports were reworked to extend the !AbstractExportView. This class implements the relevant [SupportInterfaces support interfaces]. This means that you should now always extend the !AbstractExportView when creating your own export view.
 
 _The reason for the major version change is one of the worksheet interfaces changed, and the deprecated methods throughout the API were removed. I do not expect the changes to effect anyone but I wanted to be safe by having the proper version numbers._
-
-
-
