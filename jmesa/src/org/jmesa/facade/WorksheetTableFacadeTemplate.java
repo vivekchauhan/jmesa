@@ -29,10 +29,12 @@ import org.jmesa.worksheet.Worksheet;
  */
 public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
 
+    @Override
     public String render(TableFacade tableFacade) {
         return render(tableFacade, null);
     }
 
+    @Override
     public String render(TableFacade tableFacade, HttpServletResponse response) {
         this.tableFacade = tableFacade;
         this.response = response;
@@ -40,7 +42,7 @@ public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
         tableFacade.setEditable(true);
 
         Worksheet worksheet = tableFacade.getWorksheet();
-        if (!worksheet.isSaving() || !worksheet.hasChanges()) {
+        if (worksheet.isSaving() && worksheet.hasChanges()) {
             saveWorksheet(worksheet);
         }
         
