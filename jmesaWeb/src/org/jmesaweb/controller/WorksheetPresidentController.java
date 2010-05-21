@@ -28,8 +28,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.jmesa.core.filter.DateFilterMatcher;
+import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeTemplate;
+import org.jmesa.facade.WorksheetTableFacadeTemplate;
+import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
@@ -67,135 +71,129 @@ public class WorksheetPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         TableFacade tableFacade = createTableFacade(id, request);
-        tableFacade.setEditable(true); // switch to flip that turns the table editable
-
-        saveWorksheet(tableFacade);
-        
-        Collection<President> items = presidentService.getPresidents();
-        tableFacade.setItems(items);
-        buildHtmlTable(tableFacade);
-
-        addWorksheetRow(tableFacade);
-        removeWorksheetRow(tableFacade);
-
-        request.setAttribute("presidents", tableFacade.render()); // set the Html in the request for the JSP
+        TableFacadeTemplate template = new WorksheetPresidentTemplate();
+        request.setAttribute("presidents", template.render(tableFacade)); // set the Html in the request for the JSP
 
         return mv;
     }
 
-    private void addWorksheetRow(TableFacade tableFacade) {
-        Worksheet worksheet = tableFacade.getWorksheet();
-        if (worksheet.isAddingRow()) {
-            tableFacade.addWorksheetRow();
-        }
-    }
+    private class WorksheetPresidentTemplate extends WorksheetTableFacadeTemplate {
 
-    private void removeWorksheetRow(TableFacade tableFacade) {
-        Worksheet worksheet = tableFacade.getWorksheet();
-        if (worksheet.isRemovingRow()) {
-            tableFacade.removeWorksheetRow();
-        }
-    }
+        @Override
+        protected void saveWorksheet(Worksheet worksheet) {
+            String uniquePropertyName = WorksheetUtils.getUniquePropertyName(worksheet);
+            List<String> uniquePropertyValues = WorksheetUtils.getUniquePropertyValues(worksheet);
+            final Map<String, President> presidents =
+                    presidentService.getPresidentsByUniqueIds(uniquePropertyName, uniquePropertyValues);
 
-    /**
-     * An example of how to save the worksheet.
-     */
-    private void saveWorksheet(TableFacade tableFacade) {
-        Worksheet worksheet = tableFacade.getWorksheet();
-        if (!worksheet.isSaving() || !worksheet.hasChanges()) {
-            return;
-        }
+            worksheet.processRows(new WorksheetCallbackHandler() {
+                public void process(WorksheetRow worksheetRow) {
+                    Collection<WorksheetColumn> columns = worksheetRow.getColumns();
+                    for (WorksheetColumn worksheetColumn : columns) {
+                        String changedValue = worksheetColumn.getChangedValue();
 
-        String uniquePropertyName = WorksheetUtils.getUniquePropertyName(worksheet);
-        List<String> uniquePropertyValues = WorksheetUtils.getUniquePropertyValues(worksheet);
-        final Map<String, President> presidents = presidentService.getPresidentsByUniqueIds(uniquePropertyName, uniquePropertyValues);
-        
-        worksheet.processRows(new WorksheetCallbackHandler() {
-            public void process(WorksheetRow worksheetRow) {
-                Collection<WorksheetColumn> columns = worksheetRow.getColumns();
-                for (WorksheetColumn worksheetColumn : columns) {
-                    String changedValue = worksheetColumn.getChangedValue();
-
-                    validateColumn(worksheetColumn, changedValue);
-                    if (worksheetColumn.hasError()) {
-                        continue;
-                    }
-
-                    String uniqueValue = worksheetRow.getUniqueProperty().getValue();
-                    President president = presidents.get(uniqueValue);
-                    String property = worksheetColumn.getProperty();
-
-                    try {
-                        if (worksheetColumn.getProperty().equals("selected")) {
-                            if (changedValue.equals(CheckboxWorksheetEditor.CHECKED)) {
-                                PropertyUtils.setProperty(president, property, "y");
-                            } else {
-                                PropertyUtils.setProperty(president, property, "n");
-                            }
-
-                        } else {
-                            PropertyUtils.setProperty(president, property, changedValue);
+                        validateColumn(worksheetColumn, changedValue);
+                        if (worksheetColumn.hasError()) {
+                            continue;
                         }
-                    } catch (Exception ex) {
-                        throw new RuntimeException("Not able to set the property [" + property + "] when saving worksheet.");
+
+                        String uniqueValue = worksheetRow.getUniqueProperty().getValue();
+                        President president = presidents.get(uniqueValue);
+                        String property = worksheetColumn.getProperty();
+
+                        try {
+                            if (worksheetColumn.getProperty().equals("selected")) {
+                                if (changedValue.equals(CheckboxWorksheetEditor.CHECKED)) {
+                                    PropertyUtils.setProperty(president, property, "y");
+                                } else {
+                                    PropertyUtils.setProperty(president, property, "n");
+                                }
+
+                            } else {
+                                PropertyUtils.setProperty(president, property, changedValue);
+                            }
+                        } catch (Exception ex) {
+                            String msg = "Not able to set the property [" + property + "] when saving worksheet.";
+                            throw new RuntimeException(msg);
+                        }
+
+                        presidentService.save(president);
                     }
-                        
-                    presidentService.save(president);
                 }
-            }
-        });
-    }
-
-    /**
-     * An example of how to validate the worksheet column cells.
-     */
-    private void validateColumn(WorksheetColumn worksheetColumn, String changedValue) {
-        if (changedValue.equals("foo")) {
-            worksheetColumn.setErrorKey("foo.error");
-        } else {
-            worksheetColumn.removeError();
+            });
         }
-    }
 
-    /**
-     * @return Get the html for the table.
-     */
-    private void buildHtmlTable(TableFacade tableFacade) {
-        // add a custom filter matcher to be the same pattern as the cell editor used
-        tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+        /**
+         * An example of how to validate the worksheet column cells.
+         */
+        private void validateColumn(WorksheetColumn worksheetColumn, String changedValue) {
+            if (changedValue.equals("foo")) {
+                worksheetColumn.setErrorKey("foo.error");
+            } else {
+                worksheetColumn.removeError();
+            }
+        }
 
-        // set the column properties
-        tableFacade.setColumnProperties("remove", "selected", "name.firstName", "name.lastName", "term", "career", "born");
+        /**
+         * Add a custom filter matcher to be the same pattern as the cell editor used.
+         */
+        @Override
+        protected void addFilterMatchers(Map<MatcherKey, FilterMatcher> filterMatchers) {
+            filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+        }
 
-        HtmlTable table = (HtmlTable) tableFacade.getTable();
-        table.setCaption("Presidents");
-        table.getTableRenderer().setWidth("600px");
+        /**
+         * Set the column properties. Will be different based on if this is an export.
+         */
+        @Override
+        protected String[] getColumnProperties() {
+            return new String[]{"remove", "selected", "name.firstName", "name.lastName", "term", "career", "born"};
+        }
 
-        HtmlRow row = table.getRow();
-        row.setUniqueProperty("id"); // the unique worksheet properties to identify the row
+        /**
+         * After the column properties are set then we can modify the table.
+         *
+         * Note: a new (and better) way to build an html table would be to override the createTable()
+         * method and use the HtmlBuilder. Exports would still have to use this method to modify
+         * the table though.
+         */
+        @Override
+        protected void modifyTable(Table table) {
+            HtmlTable htmlTable = (HtmlTable)table;
+            htmlTable.setCaption("Presidents");
+            htmlTable.getTableRenderer().setWidth("600px");
 
-        HtmlColumn remove = row.getColumn("remove");
-        remove.getCellRenderer().setWorksheetEditor(new RemoveRowWorksheetEditor());
-        remove.setTitle("&nbsp;");
-        remove.setFilterable(false);
-        remove.setSortable(false);
+            HtmlRow htmlRow = htmlTable.getRow();
+            htmlRow.setUniqueProperty("id"); // the unique worksheet properties to identify the row
 
-        HtmlColumn chkbox = row.getColumn("selected");
-        chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
-        chkbox.setTitle("&nbsp;");
-        chkbox.setFilterable(false);
-        chkbox.setSortable(false);
+            HtmlColumn remove = htmlRow.getColumn("remove");
+            remove.getCellRenderer().setWorksheetEditor(new RemoveRowWorksheetEditor());
+            remove.setTitle("&nbsp;");
+            remove.setFilterable(false);
+            remove.setSortable(false);
 
-        HtmlColumn firstName = row.getColumn("name.firstName");
-        firstName.setTitle("First Name");
-        firstName.addWorksheetValidation(new WorksheetValidation(REQUIRED, TRUE));
+            HtmlColumn chkbox = htmlRow.getColumn("selected");
+            chkbox.getCellRenderer().setWorksheetEditor(new CheckboxWorksheetEditor());
+            chkbox.setTitle("&nbsp;");
+            chkbox.setFilterable(false);
+            chkbox.setSortable(false);
 
-        HtmlColumn lastName = row.getColumn("name.lastName");
-        lastName.setTitle("Last Name");
+            HtmlColumn firstName = htmlRow.getColumn("name.firstName");
+            firstName.setTitle("First Name");
+            firstName.addWorksheetValidation(new WorksheetValidation(REQUIRED, TRUE));
 
-        HtmlColumn born = row.getColumn("born");
-        born.setEditable(false);
-        born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+            HtmlColumn lastName = htmlRow.getColumn("name.lastName");
+            lastName.setTitle("Last Name");
+
+            HtmlColumn born = htmlRow.getColumn("born");
+            born.setEditable(false);
+            born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+        }
+        
+        @Override
+        protected Collection<?> getItems() {
+            return presidentService.getPresidents();
+        }
     }
 
     public void setPresidentService(PresidentService presidentService) {
