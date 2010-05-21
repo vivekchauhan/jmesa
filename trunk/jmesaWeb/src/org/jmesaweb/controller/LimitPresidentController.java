@@ -19,12 +19,19 @@ import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.EXCEL;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jmesa.core.filter.DateFilterMatcher;
+import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.MatcherKey;
 
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeImpl;
+import org.jmesa.facade.TableFacadeTemplate;
+import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
@@ -38,7 +45,6 @@ import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.dao.PresidentFilter;
 import org.jmesaweb.dao.PresidentSort;
-import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -60,69 +66,24 @@ public class LimitPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        String html = render(request, response);
-        if (html == null) {
+        TableFacade tableFacade = new TableFacadeImpl(id, request);
+        TableFacadeTemplate template = new LimitPresidentTemplate(tableFacade, response);
+        String view = template.render();
+        if (view == null) {
             return null; // an export
         } else {
             // Setting a parameter to signal that this is an Ajax request.
             String ajax = request.getParameter("ajax");
             if (ajax != null && ajax.equals("true")) {
-                byte[] contents = html.getBytes();
+                byte[] contents = view.getBytes();
                 response.getOutputStream().write(contents);
                 return null;
             } else { // Not using Ajax if invoke the controller for the first time.
-                request.setAttribute("presidents", html); // Set the Html in the request for the JSP.
+                request.setAttribute("presidents", view); // Set the Html in the request for the JSP.
             }
         }
 
         return mv;
-    }
-
-    /**
-     * Create a new TableFacade and work with it just like with the basic example.
-     * 
-     * @param request The HttpServletRequest to use.
-     * @param response The HttpServletResponse to use.
-     */
-    protected String render(HttpServletRequest request, HttpServletResponse response) {
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
-        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career"); // define the column properties
-        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
-        tableFacade.setStateAttr("restore");
-
-        setDataAndLimitVariables(tableFacade); // Find the data to display and build the Limit.
-
-        Table table = tableFacade.getTable();
-        table.setCaption("Presidents");
-
-        Column firstName = table.getRow().getColumn("name.firstName");
-        firstName.setTitle("First Name");
-
-        Column lastName = table.getRow().getColumn("name.lastName");
-        lastName.setTitle("Last Name");
-
-        Limit limit = tableFacade.getLimit();
-        if (limit.isExported()) {
-            tableFacade.render(); // Will write the export data out to the response.
-            return null; // In Spring return null tells the controller not to do anything.
-        } else {
-            HtmlTable htmlTable = (HtmlTable) table;
-            htmlTable.getTableRenderer().setWidth("600px");
-
-            // Using an anonymous class to implement a custom editor.
-            firstName.getCellRenderer().setCellEditor(new CellEditor() {
-                public Object getValue(Object item, String property, int rowcount) {
-                    Object value = new BasicCellEditor().getValue(item, property, rowcount);
-                    HtmlBuilder html = new HtmlBuilder();
-                    html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
-                    html.append(value);
-                    html.aEnd();
-                    return html.toString();
-                }
-            });
-
-            return tableFacade.render(); // Return the Html.
-        }
     }
 
     /**
@@ -132,79 +93,138 @@ public class LimitPresidentController extends AbstractController {
      * However, to do that we must set the RowSelect object using the maxRows and totalRows to
      * create a valid Limit object.
      * </p>
-     * 
+     *
      * <p>
      * The idea is to first find the total rows. The total rows can only be figured out after
      * filtering out the data. The sorting does not effect the total row count but is needed to
      * return the correct set of sorted rows.
      * </p>
-     * 
+     *
      * @param tableFacade The TableFacade to use.
      */
-    protected void setDataAndLimitVariables(TableFacade tableFacade) {
-        Limit limit = tableFacade.getLimit();
+    private class LimitPresidentTemplate extends TableFacadeTemplate {
 
-        PresidentFilter presidentFilter = getPresidentFilter(limit);
-
-        /*
-         * Because we are using the State feature (via stateAttr) we can do a check to see if we
-         * have a complete limit already. See the State feature for more details
+        public LimitPresidentTemplate(TableFacade tableFacade, HttpServletResponse response) {
+            super(tableFacade, response);
+        }
+        
+        /**
+         * The array of available exports.
          */
-        if (!limit.isComplete()) {
-            int totalRows = presidentService.getPresidentsCountWithFilter(presidentFilter);
-            tableFacade.setTotalRows(totalRows); /*
-                                                  * Very important to set the totalRow
-                                                  * before trying to get the
-                                                  * row start and row end variables.
-                                                  */
+        @Override
+        protected ExportType[] getExportTypes() {
+            return new ExportType[]{CSV, EXCEL};
         }
 
-        PresidentSort presidentSort = getPresidentSort(limit);
-        int rowStart = limit.getRowSelect().getRowStart();
-        int rowEnd = limit.getRowSelect().getRowEnd();
-        Collection<President> items = presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
-        tableFacade.setItems(items); // Do not forget to set the items back on the tableFacade.
-    }
-
-    /**
-     * A very custom way to filter the items. The PresidentFilter acts as a command for the
-     * Hibernate criteria object. There are probably many ways to do this, but this is the most
-     * flexible way I have found. The point is you need to somehow take the Limit information and
-     * filter the rows.
-     * 
-     * @param limit The Limit to use.
-     */
-    protected PresidentFilter getPresidentFilter(Limit limit) {
-        PresidentFilter presidentFilter = new PresidentFilter();
-        FilterSet filterSet = limit.getFilterSet();
-        Collection<Filter> filters = filterSet.getFilters();
-        for (Filter filter : filters) {
-            String property = filter.getProperty();
-            String value = filter.getValue();
-            presidentFilter.addFilter(property, value);
+        /**
+         * Add a custom filter matcher to be the same pattern as the cell editor used.
+         */
+        @Override
+        protected void addFilterMatchers(Map<MatcherKey, FilterMatcher> filterMatchers) {
+            filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
         }
 
-        return presidentFilter;
-    }
-
-    /**
-     * A very custom way to sort the items. The PresidentSort acts as a command for the Hibernate
-     * criteria object. There are probably many ways to do this, but this is the most flexible way I
-     * have found. The point is you need to somehow take the Limit information and sort the rows.
-     * 
-     * @param limit The Limit to use.
-     */
-    protected PresidentSort getPresidentSort(Limit limit) {
-        PresidentSort presidentSort = new PresidentSort();
-        SortSet sortSet = limit.getSortSet();
-        Collection<Sort> sorts = sortSet.getSorts();
-        for (Sort sort : sorts) {
-            String property = sort.getProperty();
-            String order = sort.getOrder().toParam();
-            presidentSort.addSort(property, order);
+        /**
+         * Make it so that the table state is saved.
+         */
+        @Override
+        protected String getStateAttr() {
+            return "restore";
         }
 
-        return presidentSort;
+        @Override
+        protected String[] getColumnProperties() {
+            return new String[]{"name.firstName", "name.lastName", "term", "career"};
+        }
+
+        @Override
+        protected void modifyTable(Table table) {
+            table.setCaption("Presidents");
+
+            Column firstName = table.getRow().getColumn("name.firstName");
+            firstName.setTitle("First Name");
+
+            Column lastName = table.getRow().getColumn("name.lastName");
+            lastName.setTitle("Last Name");
+
+            if (!isExporting()) {
+                HtmlTable htmlTable = (HtmlTable) table;
+                htmlTable.getTableRenderer().setWidth("600px");
+
+                // Using an anonymous class to implement a custom editor.
+                firstName.getCellRenderer().setCellEditor(new CellEditor() {
+                    public Object getValue(Object item, String property, int rowcount) {
+                        Object value = new BasicCellEditor().getValue(item, property, rowcount);
+                        HtmlBuilder html = new HtmlBuilder();
+                        html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+                        html.append(value);
+                        html.aEnd();
+                        return html.toString();
+                    }
+                });
+            }
+        }
+
+        /**
+         * Very important to set the totalRow
+         * before trying to get the
+         * row start and row end variables.
+         */
+        @Override
+        protected int getTotalRows(Limit limit) {
+            PresidentFilter presidentFilter = getPresidentFilter(limit);
+            return presidentService.getPresidentsCountWithFilter(presidentFilter);
+        }
+
+        @Override
+        protected Collection<?> getItems(Limit limit) {
+            PresidentFilter presidentFilter = getPresidentFilter(limit);
+            PresidentSort presidentSort = getPresidentSort(limit);
+            int rowStart = limit.getRowSelect().getRowStart();
+            int rowEnd = limit.getRowSelect().getRowEnd();
+            return presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
+        }
+
+        /**
+         * A very custom way to filter the items. The PresidentFilter acts as a command for the
+         * Hibernate criteria object. There are probably many ways to do this, but this is the most
+         * flexible way I have found. The point is you need to somehow take the Limit information and
+         * filter the rows.
+         *
+         * @param limit The Limit to use.
+         */
+        protected PresidentFilter getPresidentFilter(Limit limit) {
+            PresidentFilter presidentFilter = new PresidentFilter();
+            FilterSet filterSet = limit.getFilterSet();
+            Collection<Filter> filters = filterSet.getFilters();
+            for (Filter filter : filters) {
+                String property = filter.getProperty();
+                String value = filter.getValue();
+                presidentFilter.addFilter(property, value);
+            }
+
+            return presidentFilter;
+        }
+
+        /**
+         * A very custom way to sort the items. The PresidentSort acts as a command for the Hibernate
+         * criteria object. There are probably many ways to do this, but this is the most flexible way I
+         * have found. The point is you need to somehow take the Limit information and sort the rows.
+         *
+         * @param limit The Limit to use.
+         */
+        protected PresidentSort getPresidentSort(Limit limit) {
+            PresidentSort presidentSort = new PresidentSort();
+            SortSet sortSet = limit.getSortSet();
+            Collection<Sort> sorts = sortSet.getSorts();
+            for (Sort sort : sorts) {
+                String property = sort.getProperty();
+                String order = sort.getOrder().toParam();
+                presidentSort.addSort(property, order);
+            }
+
+            return presidentSort;
+        }
     }
 
     public void setPresidentService(PresidentService presidentService) {

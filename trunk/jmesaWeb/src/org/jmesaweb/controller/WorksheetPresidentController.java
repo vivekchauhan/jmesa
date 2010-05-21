@@ -71,13 +71,17 @@ public class WorksheetPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         TableFacade tableFacade = createTableFacade(id, request);
-        TableFacadeTemplate template = new WorksheetPresidentTemplate();
-        request.setAttribute("presidents", template.render(tableFacade)); // set the Html in the request for the JSP
+        TableFacadeTemplate template = new WorksheetPresidentTemplate(tableFacade);
+        request.setAttribute("presidents", template.render()); // set the Html in the request for the JSP
 
         return mv;
     }
 
     private class WorksheetPresidentTemplate extends WorksheetTableFacadeTemplate {
+
+        public WorksheetPresidentTemplate(TableFacade tableFacade) {
+            super(tableFacade);
+        }
 
         @Override
         protected void saveWorksheet(Worksheet worksheet) {
@@ -142,9 +146,6 @@ public class WorksheetPresidentController extends AbstractController {
             filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
         }
 
-        /**
-         * Set the column properties. Will be different based on if this is an export.
-         */
         @Override
         protected String[] getColumnProperties() {
             return new String[]{"remove", "selected", "name.firstName", "name.lastName", "term", "career", "born"};

@@ -66,9 +66,9 @@ public class BasicPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         TableFacade tableFacade = createTableFacade(id, request);
-        TableFacadeTemplate template = new BasicPresidentTemplate();
+        TableFacadeTemplate template = new BasicPresidentTemplate(tableFacade, response);
 
-        String view = template.render(tableFacade, response);
+        String view = template.render();
         if (view == null) { // an export will return null
             return null;
         }
@@ -80,6 +80,10 @@ public class BasicPresidentController extends AbstractController {
 
     private class BasicPresidentTemplate extends TableFacadeTemplate {
 
+        public BasicPresidentTemplate(TableFacade tableFacade, HttpServletResponse response) {
+            super(tableFacade, response);
+        }
+        
         /**
          * The array of available exports.
          */
