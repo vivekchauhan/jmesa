@@ -43,10 +43,11 @@ import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetCallbackHandler;
 import org.jmesa.worksheet.WorksheetColumn;
 import org.jmesa.worksheet.WorksheetRow;
+import org.jmesa.worksheet.WorksheetRowStatus;
 import org.jmesa.worksheet.WorksheetUtils;
 import org.jmesa.worksheet.WorksheetValidation;
-import static org.jmesa.worksheet.WorksheetValidation.TRUE;
 import org.jmesa.worksheet.editor.CheckboxWorksheetEditor;
+import static org.jmesa.worksheet.WorksheetValidation.TRUE;
 import org.jmesa.worksheet.editor.RemoveRowWorksheetEditor;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
@@ -92,36 +93,42 @@ public class WorksheetPresidentController extends AbstractController {
 
             worksheet.processRows(new WorksheetCallbackHandler() {
                 public void process(WorksheetRow worksheetRow) {
-                    Collection<WorksheetColumn> columns = worksheetRow.getColumns();
-                    for (WorksheetColumn worksheetColumn : columns) {
-                        String changedValue = worksheetColumn.getChangedValue();
+                    if (worksheetRow.getRowStatus().equals(WorksheetRowStatus.ADD)) {
+                        // would save the new President here
+                    } else if (worksheetRow.getRowStatus().equals(WorksheetRowStatus.REMOVE)) {
+                        // would delete the President here
+                    } else if (worksheetRow.getRowStatus().equals(WorksheetRowStatus.MODIFY)) {
+                        Collection<WorksheetColumn> columns = worksheetRow.getColumns();
+                        for (WorksheetColumn worksheetColumn : columns) {
+                            String changedValue = worksheetColumn.getChangedValue();
 
-                        validateColumn(worksheetColumn, changedValue);
-                        if (worksheetColumn.hasError()) {
-                            continue;
-                        }
-
-                        String uniqueValue = worksheetRow.getUniqueProperty().getValue();
-                        President president = presidents.get(uniqueValue);
-                        String property = worksheetColumn.getProperty();
-
-                        try {
-                            if (worksheetColumn.getProperty().equals("selected")) {
-                                if (changedValue.equals(CheckboxWorksheetEditor.CHECKED)) {
-                                    PropertyUtils.setProperty(president, property, "y");
-                                } else {
-                                    PropertyUtils.setProperty(president, property, "n");
-                                }
-
-                            } else {
-                                PropertyUtils.setProperty(president, property, changedValue);
+                            validateColumn(worksheetColumn, changedValue);
+                            if (worksheetColumn.hasError()) {
+                                continue;
                             }
-                        } catch (Exception ex) {
-                            String msg = "Not able to set the property [" + property + "] when saving worksheet.";
-                            throw new RuntimeException(msg);
-                        }
 
-                        presidentService.save(president);
+                            String uniqueValue = worksheetRow.getUniqueProperty().getValue();
+                            President president = presidents.get(uniqueValue);
+                            String property = worksheetColumn.getProperty();
+
+                            try {
+                                if (worksheetColumn.getProperty().equals("selected")) {
+                                if (changedValue.equals(CheckboxWorksheetEditor.CHECKED)) {
+                                        PropertyUtils.setProperty(president, property, "y");
+                                    } else {
+                                        PropertyUtils.setProperty(president, property, "n");
+                                    }
+
+                                } else {
+                                    PropertyUtils.setProperty(president, property, changedValue);
+                                }
+                            } catch (Exception ex) {
+                                String msg = "Not able to set the property [" + property + "] when saving worksheet.";
+                                throw new RuntimeException(msg);
+                            }
+
+                            presidentService.save(president);
+                        }
                     }
                 }
             });
