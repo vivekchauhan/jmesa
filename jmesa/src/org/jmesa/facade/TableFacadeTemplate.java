@@ -38,17 +38,19 @@ import org.jmesa.view.html.toolbar.Toolbar;
  */
 public abstract class TableFacadeTemplate {
 
-    TableFacade tableFacade;
-    HttpServletResponse response;
+    final TableFacade tableFacade;
+    final HttpServletResponse response;
 
-    public String render(TableFacade tableFacade) {
-        return render(tableFacade, null);
+    public TableFacadeTemplate(TableFacade tableFacade) {
+        this(tableFacade, null);
     }
 
-    public String render(TableFacade tableFacade, HttpServletResponse response) {
+    public TableFacadeTemplate(TableFacade tableFacade, HttpServletResponse response) {
         this.tableFacade = tableFacade;
         this.response = response;
+    }
 
+    public String render() {
         setup();
 
         return tableFacade.render();

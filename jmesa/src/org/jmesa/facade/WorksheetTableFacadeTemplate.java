@@ -29,16 +29,16 @@ import org.jmesa.worksheet.Worksheet;
  */
 public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
 
-    @Override
-    public String render(TableFacade tableFacade) {
-        return render(tableFacade, null);
+    public WorksheetTableFacadeTemplate(TableFacade tableFacade) {
+        super(tableFacade);
+    }
+
+    public WorksheetTableFacadeTemplate(TableFacade tableFacade, HttpServletResponse response) {
+        super(tableFacade, response);
     }
 
     @Override
-    public String render(TableFacade tableFacade, HttpServletResponse response) {
-        this.tableFacade = tableFacade;
-        this.response = response;
-
+    public String render() {
         tableFacade.setEditable(true);
 
         Worksheet worksheet = tableFacade.getWorksheet();
