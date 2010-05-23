@@ -66,8 +66,8 @@ public class LimitPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
-        TableFacadeTemplate template = new LimitPresidentTemplate(tableFacade, response);
+        TableFacade tableFacade = new TableFacadeImpl(id, request, response);
+        TableFacadeTemplate template = new LimitPresidentTemplate(tableFacade);
         String view = template.render();
         if (view == null) {
             return null; // an export
@@ -104,8 +104,8 @@ public class LimitPresidentController extends AbstractController {
      */
     private class LimitPresidentTemplate extends TableFacadeTemplate {
 
-        public LimitPresidentTemplate(TableFacade tableFacade, HttpServletResponse response) {
-            super(tableFacade, response);
+        public LimitPresidentTemplate(TableFacade tableFacade) {
+            super(tableFacade);
         }
         
         /**
