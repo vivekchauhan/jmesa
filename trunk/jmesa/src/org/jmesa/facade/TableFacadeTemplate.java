@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.servlet.http.HttpServletResponse;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
@@ -39,15 +38,9 @@ import org.jmesa.view.html.toolbar.Toolbar;
 public abstract class TableFacadeTemplate {
 
     final TableFacade tableFacade;
-    final HttpServletResponse response;
 
     public TableFacadeTemplate(TableFacade tableFacade) {
-        this(tableFacade, null);
-    }
-
-    public TableFacadeTemplate(TableFacade tableFacade, HttpServletResponse response) {
         this.tableFacade = tableFacade;
-        this.response = response;
     }
 
     public String render() {
@@ -59,11 +52,7 @@ public abstract class TableFacadeTemplate {
     void setup() {
         ExportType[] exportTypes = getExportTypes();
         if (exportTypes != null) {
-            if (response == null) {
-                throw new IllegalStateException(
-                    "The HttpServletResponse is null. You need to call the constructor with the response object.");
-            }
-            tableFacade.setExportTypes(response, exportTypes);
+            tableFacade.setExportTypes(exportTypes);
         }
 
         String stateAttr = getStateAttr();

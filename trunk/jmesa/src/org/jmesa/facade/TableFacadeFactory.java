@@ -30,6 +30,7 @@ import org.jmesa.web.SpringWebContext;
 import org.jmesa.web.WebContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import com.opensymphony.xwork2.ActionContext;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * A factory to create TableFacade implementations.
@@ -44,8 +45,19 @@ public class TableFacadeFactory {
         return tableFacade;
     }
 
+    public static TableFacade createTableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
+        TableFacade tableFacade = new TableFacadeImpl(id, request, response);
+        return tableFacade;
+    }
+
     public static TableFacade createTableFacade(String id, WebContext webContext) {
         TableFacade tableFacade = new TableFacadeImpl(id, null);
+        tableFacade.setWebContext(webContext);
+        return tableFacade;
+    }
+
+    public static TableFacade createTableFacade(String id, WebContext webContext, HttpServletResponse response) {
+        TableFacade tableFacade = new TableFacadeImpl(id, null, response);
         tableFacade.setWebContext(webContext);
         return tableFacade;
     }
@@ -64,6 +76,11 @@ public class TableFacadeFactory {
         return createSpringTableFacade(id, springWebContext);
     }
 
+    public static TableFacade createSpringTableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
+        SpringWebContext springWebContext = new HttpServletRequestSpringWebContext(request);
+        return createSpringTableFacade(id, springWebContext, response);
+    }
+
     public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext) {
 
         springWebContext.setLocale(LocaleContextHolder.getLocale());
@@ -75,9 +92,25 @@ public class TableFacadeFactory {
         return tableFacade;
     }
 
+    public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext, HttpServletResponse response) {
+
+        springWebContext.setLocale(LocaleContextHolder.getLocale());
+
+        TableFacade tableFacade = createTableFacade(id, springWebContext, response);
+        Messages messages = MessagesFactory.getMessages(springWebContext);
+        SpringMessages springMessages = new SpringMessages(messages, springWebContext);
+        tableFacade.setMessages(springMessages);
+        return tableFacade;
+    }
+
     public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request) {
         WebContext webContext = new HttpServletRequestWebContext(request);
         return createStruts2TableFacade(id, webContext);
+    }
+
+    public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
+        WebContext webContext = new HttpServletRequestWebContext(request);
+        return createStruts2TableFacade(id, webContext, response);
     }
 
     public static TableFacade createStruts2TableFacade(String id, WebContext webContext) {
@@ -85,6 +118,17 @@ public class TableFacadeFactory {
         webContext.setLocale(ActionContext.getContext().getLocale());
 
         TableFacade tableFacade = createTableFacade(id, webContext);
+        Messages messages = MessagesFactory.getMessages(webContext);
+        Struts2Messages struts2Messages = new Struts2Messages(messages, webContext);
+        tableFacade.setMessages(struts2Messages);
+        return tableFacade;
+    }
+
+    public static TableFacade createStruts2TableFacade(String id, WebContext webContext, HttpServletResponse response) {
+
+        webContext.setLocale(ActionContext.getContext().getLocale());
+
+        TableFacade tableFacade = createTableFacade(id, webContext, response);
         Messages messages = MessagesFactory.getMessages(webContext);
         Struts2Messages struts2Messages = new Struts2Messages(messages, webContext);
         tableFacade.setMessages(struts2Messages);

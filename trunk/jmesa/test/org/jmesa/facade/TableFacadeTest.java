@@ -417,9 +417,9 @@ public class TableFacadeTest extends AbstractTestCase {
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExportType(ExportType.EXCEL);
 
-        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request, response);
         facade.setItems(items);
-        facade.setExportTypes(response, ExportType.EXCEL);
+        facade.setExportTypes(ExportType.EXCEL);
 
         Limit limit = facade.getLimit();
         assertTrue("The limit is not exportable", limit.isExported());
@@ -453,13 +453,14 @@ public class TableFacadeTest extends AbstractTestCase {
 
         Collection<President> items = PresidentDao.getPresidents();
 
-        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        assertTrue("The response is not empty.", response.getContentAsByteArray().length == 0);
+
+        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request, response);
         facade.setItems(items);
         facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
 
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        assertTrue("The response is not empty.", response.getContentAsByteArray().length == 0);
-        facade.setExportTypes(response, ExportType.CSV, ExportType.EXCEL);
+        facade.setExportTypes(ExportType.CSV, ExportType.EXCEL);
 
         String markup = facade.render();
         assertNull(markup);
