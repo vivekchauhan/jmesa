@@ -15,7 +15,6 @@
  */
 package org.jmesa.facade;
 
-import javax.servlet.http.HttpServletResponse;
 import org.jmesa.worksheet.Worksheet;
 
 /**
@@ -31,10 +30,6 @@ public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
 
     public WorksheetTableFacadeTemplate(TableFacade tableFacade) {
         super(tableFacade);
-    }
-
-    public WorksheetTableFacadeTemplate(TableFacade tableFacade, HttpServletResponse response) {
-        super(tableFacade, response);
     }
 
     @Override

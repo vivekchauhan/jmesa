@@ -441,7 +441,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setLimit(getLimit());
 
         tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements(getMaxRowsIncrements()));
-        tableFacade.setExportTypes(null, getTableFacadeExportTypes(getExportTypes()));
+        tableFacade.setExportTypes(getTableFacadeExportTypes(getExportTypes()));
 
         tableFacade.autoFilterAndSort(isAutoFilterAndSort());
         tableFacade.setPreferences(getTableFacadePreferences(getPreferences()));

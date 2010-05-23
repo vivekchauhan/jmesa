@@ -85,8 +85,17 @@ public interface TableFacade {
     /**
      * Set the comma separated list of export types. The currently supported types are
      * ExportType.CVS, ExportType.EXCEL, ExportType.JEXCEL, and ExportType.PDF.
+     *
+     * @deprecated Use the setExportTypes() method that does not explicitly set the response.
      */
+    @Deprecated
     public void setExportTypes(HttpServletResponse response, ExportType... exportTypes);
+
+    /**
+     * Set the comma separated list of export types. The currently supported types are
+     * ExportType.CVS, ExportType.EXCEL, ExportType.JEXCEL, and ExportType.PDF.
+     */
+    public void setExportTypes(ExportType... exportTypes);
 
     /**
      * Get the WebContext. If the WebContext does not exist then one will be created.

@@ -131,10 +131,32 @@ public class TableFacadeImpl implements TableFacade {
         this.request = request;
     }
 
+    /**
+     * <p>
+     * Create the table with the id.
+     * </p>
+     *
+     * @param id The unique identifier for this table.
+     * @param request The servlet request object.
+     * @param response The servlet response object.
+     */
+    public TableFacadeImpl(String id, HttpServletRequest request, HttpServletResponse response) {
+        this.id = id;
+        this.request = request;
+        this.response = response;
+    }
+
+    @Deprecated
     public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
         validateToolbarIsNull(toolbar, "exportTypes");
 
         this.response = response;
+        this.exportTypes = exportTypes;
+    }
+
+    public void setExportTypes(ExportType... exportTypes) {
+        validateToolbarIsNull(toolbar, "exportTypes");
+
         this.exportTypes = exportTypes;
     }
 
@@ -581,6 +603,12 @@ public class TableFacadeImpl implements TableFacade {
     }
 
     protected void renderExport(ExportType exportType, View view) {
+        if (response == null) {
+                throw new IllegalStateException(
+                    "The HttpServletResponse is null. You need to call the " +
+                    "TableFacadeImpl constructor (or factory) with the response object.");
+        }
+        
         try {
             CoreContext cc = getCoreContext();
 
