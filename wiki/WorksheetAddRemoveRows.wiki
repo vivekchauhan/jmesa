@@ -6,4 +6,4 @@ Lets start with a visual! What we have here is a worksheet that has most of the 
 
 === Example ===
 
-The code for this example is based on using the new [TableFacadeTemplate]. The template is a powerful extension to the framework (starting with version 2.5) and makes working with the worksheet very easy. In general I recommend using the new template, but when working with the new worksheet features I would say it is mandatory.
+The code for this example is based on using the new [TableFacadeTemplate]. The template is a powerful extension to the framework and makes working with the worksheet very easy. In general I recommend using the new template, but when working with the new worksheet features I would say it is mandatory.
