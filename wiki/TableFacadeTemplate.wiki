@@ -1,12 +1,12 @@
-One thing I wanted to improve with JMesa is how a person works with  the TableFacade when using the API. I think most people see why the !TableFacade abstraction is helpful, but it does require that you call  the methods of the !TableFacade in the correct order. However this  "order" is not obvious. 
+One thing I wanted to improve with JMesa is how a person works with  the TableFacade when using the API. I think most people see why the facade abstraction is helpful, but it does require that you call  the methods of the !TableFacade in the correct order. However this  "order" is not obvious. 
 
-What I came up with was using a template (!TableFacadeTemplate). So now  instead of having to call the correct method on the !TableFacade you  would extend the method on the !TableFacadeTemplate that represents what you want to customize. The template takes care of the calling  order so all you have to worry about is how you want to customize things.
+What I came up with was using a template (!TableFacadeTemplate). So now  instead of having to call the correct method on the facade you  would extend the method on the !TableFacadeTemplate that represents what you want to customize. The template takes care of the calling  order so all you have to worry about is how you want to customize things.
 
 === Example ===
 
-What we will do is take the [BasicTutorial basic tutorial] and have it work with the new template. However the format of this example will be different. First I will show you how the facade and template work together and then I will show you the template. Everything else you learned in the basic tutorial still holds, except instead of working with the !TableFacade directly you will use the template.
+What we will do is take the [BasicTutorial basic tutorial] and have it work with the new template. However the format of this example will be different. First I will show you how the facade and template work together and then I will show you the template. Everything else you learned in the basic tutorial still holds, except instead of working with the facade directly you will use the template.
 
-First create the !TableFacade exactly like you did before. Then create a new template (shown below) with the !TableFacade as the sole constructor argument. Lastly call the render method on the template now. Be sure that you call the render on the template. When I was converting over my tables I found that once or twice I forgot that last step, although you will quickly realize what you did when things do not work!
+First create the !TableFacade exactly like you did before. Then create a new !TableFacadeTemplate (shown below) with the !TableFacade as the sole constructor argument. Lastly call the render method on the template now. Be sure that you call the render on the template. When I was converting over my tables I found that once or twice I forgot that last step, although you will quickly realize what you did when things do not work!
 {{{
 TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request, response);
 TableFacadeTemplate template = new BasicPresidentTemplate(tableFacade);
@@ -14,4 +14,4 @@ String view = template.render();
 request.setAttribute("presidents", view);
 }}}
 
-So the template is nothing more than a wrapper for the !TableFacade that you are used to. What I really like is that the !TableFacade is still completely exposed in case someone wants to extend that and customize it. 
+As you can see, the template is nothing more than a wrapper for the facade that you are used to. What I really like is that the !TableFacade is still completely exposed in case someone wants to extend that to really customize things at a slightly lower level. 
