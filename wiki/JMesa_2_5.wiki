@@ -10,6 +10,6 @@ A nice side effect of the worksheet changes is that it became apparent that we n
 
 One minor refactoring (that should help a lot) is that the exports are reworked to extend the !AbstractExportView. This class implements the relevant [SupportInterfaces support interfaces]. This means that you should now always extend the !AbstractExportView when creating your own export view.
 
-==== Links ====
+=== Links ===
  * TableFacadeTemplate
  * WorksheetAddRemoveRows
