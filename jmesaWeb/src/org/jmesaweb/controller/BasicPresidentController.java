@@ -22,8 +22,6 @@ import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.JEXCEL;
 import static org.jmesa.limit.ExportType.PDF;
 
-import static org.jmesa.facade.TableFacadeFactory.createTableFacade;
-
 import java.util.Collection;
 import java.util.Date;
 
@@ -34,6 +32,7 @@ import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.facade.TableFacadeTemplate;
 import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
@@ -65,7 +64,7 @@ public class BasicPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        TableFacade tableFacade = createTableFacade(id, request, response);
+        TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request, response);
         TableFacadeTemplate template = new BasicPresidentTemplate(tableFacade);
 
         String view = template.render();
