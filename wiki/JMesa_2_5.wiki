@@ -6,6 +6,10 @@ The new worksheet features include the ability to add and remove worksheet rows,
 
 Also, I wanted to point out that all the work on the worksheet was done by Siddhant Agrawal! The work done was first rate and is cleanly incorporated into JMesa.
 
-A nice side effect of the worksheet changes is that it became apparent that we needed a better abstraction over the !TableFacade. What we came up with was using the template pattern to create the tables when using the API. In general this is going to be the recommended approach to using the API as it makes building tables even easier than before. The reason is because you no longer have to care about the order that things are run. Now you just extend the feature you want to build (or customize) and concentrate on what you want to do, not on how the API works.
+A nice side effect of the worksheet changes is that it became apparent that we needed a better abstraction over the !TableFacade. What we came up with was using a [TableFacadeTemplate template] to create the tables when using the API. In general this is going to be the recommended approach to using the API as it makes building tables even easier than before. The reason is because you no longer have to care about the order that things are run. Now you just extend the feature you want to build (or customize) and concentrate on what you want to do, not on how the API works.
 
 One minor refactoring (that should help a lot) is that the exports are reworked to extend the !AbstractExportView. This class implements the relevant [SupportInterfaces support interfaces]. This means that you should now always extend the !AbstractExportView when creating your own export view.
+
+==== Links ====
+ * TableFacadeTemplate
+ * WorksheetAddRemoveRows
