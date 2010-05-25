@@ -14,4 +14,96 @@ String view = template.render();
 request.setAttribute("presidents", view);
 }}}
 
-As you can see, the template is nothing more than a wrapper for the facade that you are used to. What I really like is that the !TableFacade is still completely exposed in case someone wants to extend that to really customize things at a slightly lower level. 
+As you can see, the template is nothing more than a wrapper for the facade that you are used to. What I really like is that the !TableFacade is still completely exposed in case someone wants to extend that to really customize things at a slightly lower level.
+
+And now the template...this should be very self explanatory if you understand the code in the [BasicTutorial basic tutorial]. Just extend the method of the !TableFacadeTemplate that does what you need to build or customize. It only took me a couple minutes to convert from one table to the other and really is a one for one mapping. Plus when you get to more advanced features like using the [LimitTutorial Limit] or the [WorksheetTutorial Worksheet] the template even starts saving you a lot of boilerplate code.
+
+{{{
+private class BasicPresidentTemplate extends TableFacadeTemplate {
+
+    public BasicPresidentTemplate(TableFacade tableFacade) {
+        super(tableFacade);
+    }
+    
+    /**
+     * The array of available exports.
+     */
+    @Override
+    protected ExportType[] getExportTypes() {
+        return new ExportType[]{CSV, JEXCEL, PDF};
+    }
+
+    /**
+     * Add a custom filter matcher to be the same pattern as the cell editor used.
+     */
+    @Override
+    protected void addFilterMatchers(Map<MatcherKey, FilterMatcher> filterMatchers) {
+        filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+    }
+
+    /**
+     * Make it so that the table state is saved.
+     */
+    @Override
+    protected String getStateAttr() {
+        return "restore";
+    }
+
+    /**
+     * Set the column properties.
+     */
+    @Override
+    protected String[] getColumnProperties() {
+        return new String[]{"name.firstName", "name.lastName", "term", "career", "born"};
+    }
+
+    /**
+     * After the column properties are set then we can modify the table.
+     *
+     * Note: a new (and better) way to build an html table would be to override the createTable()
+     * method and use the HtmlBuilder.
+     */
+    @Override
+    protected void modifyTable(Table table) {
+        HtmlTable htmlTable = (HtmlTable)table;
+        htmlTable.setCaption("Presidents");
+        htmlTable.getTableRenderer().setWidth("600px");
+
+        HtmlRow htmlRow = htmlTable.getRow();
+
+        HtmlColumn firstName = htmlRow.getColumn("name.firstName");
+        firstName.setTitle("First Name");
+
+        HtmlColumn lastName = htmlRow.getColumn("name.lastName");
+        lastName.setTitle("Last Name");
+
+        HtmlColumn career = htmlRow.getColumn("career");
+        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+
+        Column born = htmlRow.getColumn("born");
+        born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+
+        // Using an anonymous class to implement a custom editor.
+        firstName.getCellRenderer().setCellEditor(new CellEditor() {
+            public Object getValue(Object item, String property, int rowcount) {
+                Object value = new HtmlCellEditor().getValue(item, property, rowcount);
+                HtmlBuilder html = new HtmlBuilder();
+                html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+                html.append(value);
+                html.aEnd();
+                return html.toString();
+            }
+        });
+    }
+
+    @Override
+    protected Collection<?> getItems() {
+        return presidentService.getPresidents();
+    }
+}
+}}}
+
+
+
+
+ 
