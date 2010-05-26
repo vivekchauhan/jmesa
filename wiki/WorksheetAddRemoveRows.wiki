@@ -10,7 +10,7 @@ The code for this example is based on using the new !WorksheetTableFacadeTemplat
 
 === Adding Rows ===
 
-The only thing you need to do to turn on the add worksheet row feature is enable the button on the toolbar via the [Preferences preferences]. By using the !WorksheetTableFacadeTemplate you automatically gain support for adding rows to the worksheet. To save a row that was added refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
+The only thing you need to do to turn on the add worksheet row feature is enable the button on the toolbar via the [Preferences preferences]. Then by using the !WorksheetTableFacadeTemplate you automatically gain support for adding rows to the worksheet. To save a row that was added refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
 
 {{{
 html.toolbar.addWorksheetRow.enabled=true
@@ -24,7 +24,7 @@ addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
 
 === Removing Rows ===
 
-To enable the feature of removing a row from the worksheet involves using a special worksheet editor. By using the !WorksheetTableFacadeTemplate you automatically gain support for removing rows from the worksheet. To save a row that was removed refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
+To enable the feature of removing a row from the worksheet involves using a special worksheet editor. Then by using the !WorksheetTableFacadeTemplate you automatically gain support for removing rows from the worksheet. To save a row that was removed refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
 
 In this example we declared a made up column called "remove" and added it as the first column. _In general if you declare a column that does not exist JMesa will assume that this is a custom column._
 
