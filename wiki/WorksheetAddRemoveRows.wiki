@@ -21,3 +21,17 @@ If you have a custom toolbar you need to add the new proper toolbar type.
 {{{
 addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
 }}}
+
+=== Removing Rows ===
+
+To enable the feature of removing a row from the worksheet involves using a special worksheet editor. By using the !WorksheetTableFacadeTemplate you automatically gain support for removing rows from the worksheet. To save a row that was removed refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
+
+In this example we declared a made up column called "remove" and added it as the first column. _In general if you declare a column that does not exist JMesa will assume that this is a custom column._
+
+{{{
+HtmlColumn remove = htmlRow.getColumn("remove");
+remove.getCellRenderer().setWorksheetEditor(new RemoveRowWorksheetEditor());
+remove.setTitle("&nbsp;");
+remove.setFilterable(false);
+remove.setSortable(false);
+}}}
