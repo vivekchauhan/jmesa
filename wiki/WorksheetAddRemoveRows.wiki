@@ -4,6 +4,20 @@ Lets start with a visual! What we have here is a worksheet that has most of the 
 
 <img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/worksheet.png" />
 
-=== Example ===
+=== Worksheet Example ===
 
-The code for this example is based on using the new [TableFacadeTemplate]. The template is a powerful extension to the framework and makes working with the worksheet very easy. In general I recommend using the new template, but when working with the new worksheet features I would say it is mandatory.
+The code for this example is based on using the new !WorksheetTableFacadeTemplate, which extends the [TableFacadeTemplate] to offer worksheet specific functionality. The template is a powerful extension to the framework and makes working with the worksheet very easy. In general I recommend using the new template for creating tables, but when working with the new worksheet features I would say it is mandatory.
+
+=== Adding Rows ===
+
+The only thing you need to do to turn on the feature is enable the button on the toolbar via the [Preferences preferences]. By using the !WorksheetTableFacadeTemplate you automatically gain support for adding rows to the worksheet. To save a row that was added refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
+
+{{{
+html.toolbar.addWorksheetRow.enabled=true
+}}}
+
+If you have a custom toolbar you need to add the new proper toolbar type.
+
+{{{
+addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
+}}}
