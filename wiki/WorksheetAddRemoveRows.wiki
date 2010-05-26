@@ -10,7 +10,7 @@ The code for this example is based on using the new !WorksheetTableFacadeTemplat
 
 === Adding Rows ===
 
-The only thing you need to do to turn on the feature is enable the button on the toolbar via the [Preferences preferences]. By using the !WorksheetTableFacadeTemplate you automatically gain support for adding rows to the worksheet. To save a row that was added refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
+The only thing you need to do to turn on the add worksheet row feature is enable the button on the toolbar via the [Preferences preferences]. By using the !WorksheetTableFacadeTemplate you automatically gain support for adding rows to the worksheet. To save a row that was added refer to the section (below) on saving the worksheet. _Note: this feature is only supported by the API._
 
 {{{
 html.toolbar.addWorksheetRow.enabled=true
