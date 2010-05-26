@@ -35,3 +35,5 @@ remove.setTitle("&nbsp;");
 remove.setFilterable(false);
 remove.setSortable(false);
 }}}
+
+By default the !RemoveRowWorksheetEditor will allow you to remove any row in the  worksheet. If you only want to remove rows that were added you can use the !RemoveRowAddedWorksheetEditor instead.
