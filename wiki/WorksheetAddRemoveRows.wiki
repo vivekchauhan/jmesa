@@ -60,3 +60,54 @@ protected void saveWorksheet(Worksheet worksheet) {
     });
 }
 }}}
+
+=== Validation ===
+
+The new validation framework is based on the [http://bassistance.de/jquery-plugins/jquery-plugin-validation/ bassistance] jQuery plugin.
+
+The bassistance plugin is seamlessly integrated into the JMesa framework. All you need to do to use default validation is add the validation to the column. You can add as many validations to the column as you want.
+
+==== API ====
+{{{
+HtmlColumn firstName = htmlRow.getColumn("name.firstName");
+firstName.setTitle("First Name");
+firstName.addWorksheetValidation(new WorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE));
+}}}
+
+==== Tag ===
+
+For the tag you need to separate the validation name and value with a colon.
+
+{{{
+<jmesa:htmlColumn property="name.firstName" title="Last Name" worksheetValidation="required:true"/>
+}}}
+
+
+All the normal [http://docs.jquery.com/Plugins/Validation validation methods] are supported. As a convenience I am listing the types here. For more information about what each one is and how to use it you need to read the jQuery [http://docs.jquery.com/Plugins/Validation docs].
+
+{{{
+public class WorksheetValidationType {
+    public static final String REQUIRED = "required";
+    public static final String EMAIL = "email";
+    public static final String URL = "url";
+    public static final String DATE = "date";
+    public static final String DATE_ISO = "dateISO";
+    public static final String NUMBER = "number";
+    public static final String DIGITS = "digits";
+    public static final String CREDIT_CARD = "creditcard";
+    public static final String ACCEPT = "accept";
+    public static final String MAX_LENGTH = "maxlength";
+    public static final String MIN_LENGTH = "minlength";
+    public static final String RANGE_LENGTH = "rangelength";
+    public static final String RANGE = "range";
+    public static final String MAX_VALUE = "max";
+    public static final String MIN_VALUE = "min";
+}
+
+}}}
+
+
+
+
+
+
