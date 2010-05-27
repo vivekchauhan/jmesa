@@ -42,7 +42,7 @@ By default the !RemoveRowWorksheetEditor will allow you to remove any row in the
 
 === Saving Worksheet ===
 
-The nice thing about using the worksheet template is that you no longer have to check to see if there are values that need saving explicitly. Instead you will be notified if the worksheet has changes by overriding the saveWorksheet() method of the template. Once you get the worksheet you can use the normal !WorksheetCallbackHandler to simplify iterating over the worksheet rows. The one thing that is new however is the !WorksheetRowStatus should be checked to see what needs to be done with each row.
+The nice thing about using the worksheet template is that you no longer have to check to see if there are values that need saving explicitly. Instead you will be notified if the worksheet has changes by overriding the saveWorksheet() method of the template. Once you get the worksheet you can use the normal !WorksheetCallbackHandler to simplify iterating over the worksheet rows. The one thing that is new however is the !WorksheetRowStatus should be checked to see what needs to be done with each row. _Note: this feature is available regardless of if you use the API or the tag library._
 
 {{{
 @Override
