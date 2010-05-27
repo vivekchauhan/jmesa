@@ -65,7 +65,9 @@ protected void saveWorksheet(Worksheet worksheet) {
 
 The new validation framework is based on the [http://bassistance.de/jquery-plugins/jquery-plugin-validation/ bassistance] jQuery plugin.
 
-The bassistance plugin is seamlessly integrated into the JMesa framework. All you need to do to use default validation is add the validation to the column. You can add as many validations to the column as you want.
+The bassistance plugin is seamlessly integrated into the JMesa framework. All you need to do to use default validation is add the validation to the column. You can add as many validations to the column as you want. 
+
+_Do not forget to add the bassistance !JavaScript to your project as well!_
 
 ==== API ====
 {{{
@@ -103,10 +105,28 @@ public class WorksheetValidationType {
     public static final String MAX_VALUE = "max";
     public static final String MIN_VALUE = "min";
 }
-
 }}}
 
+==== Debugging Validation ====
 
+The validation is new so there is a chance you might have to look under the covers to see what the generated !JavaScript looks like when the page loads. So if you are having problems you should first do a view source on the page. Then look for something that looks like the following code. The generated code should be valid validation code as required by the bassistance plugin. If it is not you should submit a bug report so that we can take care of it.
+
+{{{
+jQuery.jmesa.setValidator('worksheet', $(jQuery.jmesa.getFormByTableId('worksheet')).validate({
+	rules: {
+		'name.firstName' : { required: true }
+	},
+	showErrors: function(errorMap, errorList) {
+		jQuery.jmesa.setError('worksheet', errorMap);
+	},
+	onsubmit: false,
+	onfocusout: false,
+	onkeyup: false,
+	onclick: false
+}));
+}}}
+
+_Also, if you do not have it already you should have the [http://getfirebug.com/ firebug] plugin installed to help you track down any errors. In general if you get firebug as it makes web development so much easier._
 
 
 
