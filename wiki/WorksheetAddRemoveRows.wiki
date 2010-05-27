@@ -8,7 +8,7 @@ Lets start with a visual! What we have here is a worksheet that has most of the 
 
 The code for this example is based on using the new !WorksheetTableFacadeTemplate, which extends the [TableFacadeTemplate] to offer worksheet specific functionality. The template is a powerful extension to the framework and makes working with the worksheet very easy. In general I recommend using the new template for creating tables, but when working with the new worksheet features I would say it is mandatory. 
 
-The following code is based on the worksheet [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java controller] in the examples war file. You should take a look at that to see how these code snippets fit in the overall template.
+The following code is based on the worksheet [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java controller] in the examples war file. You should take a look at that to see how these code snippets fit in the overall template. If you need more information about working with the worksheet you should look at the [WorksheetTutorial tutorial].
 
 === Adding Rows ===
 
