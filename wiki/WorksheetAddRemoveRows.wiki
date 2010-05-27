@@ -126,8 +126,6 @@ jQuery.jmesa.setValidator('worksheet', $(jQuery.jmesa.getFormByTableId('workshee
 }));
 }}}
 
-_Also, if you do not have it already you should have the [http://getfirebug.com/ firebug] plugin installed to help you track down any errors. In general if you get firebug as it makes web development so much easier._
-
-
+_If you do not have it already you should get the [http://getfirebug.com/ firebug] plugin installed to help you track down any errors. In general you should get firebug as it makes web development so much easier._
 
 
