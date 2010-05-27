@@ -76,14 +76,28 @@ firstName.setTitle("First Name");
 firstName.addWorksheetValidation(new WorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE));
 }}}
 
+You can also add an error message like so.
+
+{{{
+new WorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE).setsetErrorMessage("The first name is required.");
+}}}
+
+
 ==== Tag ===
 
-For the tag you need to separate the validation name and value with a colon.
+For the tag you need to separate the validation name and value with a colon. If you have multiple validations you need to separate the name/value pairs with a semi-colon.
 
 {{{
 <jmesa:htmlColumn property="name.firstName" title="Last Name" worksheetValidation="required:true"/>
 }}}
 
+You can also add an error message by separating the validation name and message with a colon. If you have multiple validations you need to separate the name/message pairs with a semi-colon.
+
+{{{
+<jmesa:htmlColumn property="name.firstName" title="Last Name" worksheetValidation="required:true" errorMessage="required:The first name is required" />
+}}}
+
+==== Validation Methods ====
 
 All the normal [http://docs.jquery.com/Plugins/Validation validation methods] are supported. As a convenience I am listing the types here. For more information about what each one is and how to use it you need to read the jQuery [http://docs.jquery.com/Plugins/Validation docs].
 
@@ -127,5 +141,3 @@ jQuery.jmesa.setValidator('worksheet', $(jQuery.jmesa.getFormByTableId('workshee
 }}}
 
 _If you do not have it already you should get the [http://getfirebug.com/ firebug] plugin installed to help you track down any errors. In general you should get firebug as it makes web development so much easier._
-
-
