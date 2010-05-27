@@ -6,7 +6,9 @@ Lets start with a visual! What we have here is a worksheet that has most of the 
 
 === Worksheet Example ===
 
-The code for this example is based on using the new !WorksheetTableFacadeTemplate, which extends the [TableFacadeTemplate] to offer worksheet specific functionality. The template is a powerful extension to the framework and makes working with the worksheet very easy. In general I recommend using the new template for creating tables, but when working with the new worksheet features I would say it is mandatory.
+The code for this example is based on using the new !WorksheetTableFacadeTemplate, which extends the [TableFacadeTemplate] to offer worksheet specific functionality. The template is a powerful extension to the framework and makes working with the worksheet very easy. In general I recommend using the new template for creating tables, but when working with the new worksheet features I would say it is mandatory. 
+
+The following code is based on the worksheet [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java controller] in the examples war file.
 
 === Adding Rows ===
 
@@ -37,3 +39,24 @@ remove.setSortable(false);
 }}}
 
 By default the !RemoveRowWorksheetEditor will allow you to remove any row in the  worksheet. If you only want to remove rows that were added you can use the !RemoveRowAddedWorksheetEditor instead.
+
+=== Saving Worksheet ===
+
+The nice thing about using the worksheet template is that you no longer have to check to see if there are values that need saving explicitly. Instead you will be notified if the worksheet has changes by overriding the saveWorksheet() method of the template. Once you get the worksheet you can use the normal !WorksheetCallbackHandler to simplify iterating over the worksheet rows. The one thing that is new however is the !WorksheetRowStatus should be checked to see what needs to be done with each row.
+
+{{{
+@Override
+protected void saveWorksheet(Worksheet worksheet) {
+    worksheet.processRows(new WorksheetCallbackHandler() {
+        public void process(WorksheetRow worksheetRow) {
+            if (worksheetRow.getRowStatus().equals(WorksheetRowStatus.ADD)) {
+                // would save the new President here
+            } else if (worksheetRow.getRowStatus().equals(WorksheetRowStatus.REMOVE)) {
+                // would delete the President here
+            } else if (worksheetRow.getRowStatus().equals(WorksheetRowStatus.MODIFY)) {
+                // would update the President here
+            }
+        }
+    });
+}
+}}}
