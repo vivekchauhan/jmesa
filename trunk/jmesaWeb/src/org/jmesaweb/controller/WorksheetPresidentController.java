@@ -162,8 +162,7 @@ public class WorksheetPresidentController extends AbstractController {
          * After the column properties are set then we can modify the table.
          *
          * Note: a new (and better) way to build an html table would be to override the createTable()
-         * method and use the HtmlBuilder. Exports would still have to use this method to modify
-         * the table though.
+         * method and use the HtmlBuilder.
          */
         @Override
         protected void modifyTable(Table table) {
