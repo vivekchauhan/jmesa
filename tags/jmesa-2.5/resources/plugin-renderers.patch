@@ -1,0 +1,515 @@
+### Eclipse Workspace Patch 1.0
+#P jmesa-trunk
+Index: src/org/jmesa/view/html/HtmlSnippetsImpl.java
+===================================================================
+--- src/org/jmesa/view/html/HtmlSnippetsImpl.java	(revision 2029)
++++ src/org/jmesa/view/html/HtmlSnippetsImpl.java	(working copy)
+@@ -255,30 +255,41 @@
+         boolean useDocumentReady = HtmlUtils.useDocumentReadyToInitJavascriptLimit(coreContext);
+         
+         if (useDocumentReady) {
+-            html.append("$(document).ready(function(){").newline();
++            html.append("jQuery(document).ready(function(){").newline();
+         }
++        
++        html.tab().append("document.jmesa.addTableFacadeToManager('")
++                    .append(limit.getId())
++                .append("')").semicolon().newline();
+ 
+-        html.tab().append("addTableFacadeToManager('" + limit.getId() + "')").semicolon().newline();
++        html.tab().append("document.jmesaTableFor('#").append(limit.getId()).append("')").newline();
++        
++        html.tabs(2).append(".addTableFacadeToManager()").newline();
+ 
+-        html.tab().append("setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
++        html.tabs(2).append(".setMaxRowsToLimit('" + limit.getRowSelect().getMaxRows() + "')").newline();
+ 
+         for (Sort sort : limit.getSortSet().getSorts()) {
+-            html.tab().append(
+-                    "addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
+-                            + "')").semicolon().newline();
++            html.tabs(2).append(".addSortToLimit('")
++                    .append(sort.getPosition()).append("','")
++                    .append(sort.getProperty()).append("','")
++                    .append(sort.getOrder().toParam())                    
++                .append("')").newline();
+         }
+ 
+         for (Filter filter : limit.getFilterSet().getFilters()) {
+             String value = escapeJavaScript(filter.getValue());
+-            html.tab().append("addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
++            html.tabs(2).append(".addFilterToLimit('")
++                    .append(filter.getProperty()).append("','")
++                    .append(value)
++                .append("')").newline();
+         }
+ 
+         Worksheet worksheet = coreContext.getWorksheet();
+         if (worksheet != null && worksheet.isFiltering()) {
+-            html.tab().append("setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
++            html.tabs(2).append(".setFilterToWorksheet()").newline();
+         }
+         
+-        html.tab().append("setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
++        html.tabs(2).append(".setPageToLimit('").append(limit.getRowSelect().getPage()).append("')").semicolon().newline();
+ 
+         if (useDocumentReady) {
+             html.append("});").newline();
+Index: src/org/jmesa/view/html/editor/DroplistFilterEditor.java
+===================================================================
+--- src/org/jmesa/view/html/editor/DroplistFilterEditor.java	(revision 2029)
++++ src/org/jmesa/view/html/editor/DroplistFilterEditor.java	(working copy)
+@@ -68,7 +68,7 @@
+ 
+         html.script().type("text/javascript").close().append(javascript).scriptEnd();
+         html.div().styleClass("dynFilter");
+-        html.onclick("createDynDroplistFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + name + ")");
++        html.onclick("document.jmesa.createDynDroplistFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + name + ")");
+         html.close();
+         html.append(filterValue);
+         html.divEnd();
+Index: src/org/jmesa/view/html/editor/HtmlFilterEditor.java
+===================================================================
+--- src/org/jmesa/view/html/editor/HtmlFilterEditor.java	(revision 2029)
++++ src/org/jmesa/view/html/editor/HtmlFilterEditor.java	(working copy)
+@@ -47,7 +47,7 @@
+         }
+ 
+         html.div().styleClass("dynFilter");
+-        html.onclick("createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
++        html.onclick("document.jmesa.createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
+         html.close();
+         html.append(filterValue);
+         html.divEnd();
+Index: src/org/jmesa/view/html/editor/HtmlHeaderEditor.java
+===================================================================
+--- src/org/jmesa/view/html/editor/HtmlHeaderEditor.java	(revision 2029)
++++ src/org/jmesa/view/html/editor/HtmlHeaderEditor.java	(working copy)
+@@ -108,10 +108,10 @@
+         int position = column.getRow().getColumns().indexOf(column);
+ 
+         if (currentOrder == Order.NONE) {
+-            html.onclick("removeSortFromLimit('" + limit.getId() + "','" + column.getProperty() + "');onInvokeAction('" + limit.getId() + "')");
++            html.onclick("document.jmesaTableFor(this).removeSortFromLimit('" + column.getProperty() + "').invokeAction()");
+         } else {
+-            html.onclick("addSortToLimit('" + limit.getId() + "','" + position + "','" + column.getProperty() + "','" + currentOrder.toParam()
+-                    + "');" + getOnInvokeActionJavaScript(limit));
++            html.onclick("document.jmesaTableFor(this).addSortToLimit('" + position + "','" + column.getProperty() + "','" + currentOrder.toParam()
++                    + "')" + getOnInvokeActionJavaScript(limit));
+         }
+ 
+         return html.toString();
+@@ -140,6 +140,6 @@
+     }
+     
+     public String getOnInvokeActionJavaScript(Limit limit) {
+-        return "onInvokeAction('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.toCode() + "')";
++        return ".invokeAction('" + ToolbarItemType.SORT_ITEM.toCode() + "')";
+     }
+ }
+Index: src/org/jmesa/view/html/toolbar/AbstractItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/AbstractItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/AbstractItemRenderer.java	(working copy)
+@@ -25,7 +25,8 @@
+ public abstract class AbstractItemRenderer extends AbstractContextSupport implements ToolbarItemRenderer {
+     private String onInvokeAction;
+     private ToolbarItem toolbarItem;
+-
++    private String resolveJMesaTable;
++    
+     public String getOnInvokeAction() {
+         return onInvokeAction;
+     }
+@@ -35,7 +36,7 @@
+     }
+ 
+     public String getOnInvokeActionJavaScript(Limit limit, ToolbarItem toolbarItem) {
+-        return getOnInvokeAction() + "('" + limit.getId() + "','" + toolbarItem.getCode() + "')";
++        return getOnInvokeAction() + "('" + toolbarItem.getCode() + "')";
+     }
+ 
+     public ToolbarItem getToolbarItem() {
+@@ -45,4 +46,12 @@
+     public void setToolbarItem(ToolbarItem toolbarItem) {
+         this.toolbarItem = toolbarItem;
+     }
++    
++    public void setResolveTableScript(String js) {
++        this.resolveJMesaTable = js;
++    }
++    
++    public String getResolveTableScript() {
++        return this.resolveJMesaTable;
++    }
+ }
+Index: src/org/jmesa/view/html/toolbar/ClearItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/ClearItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/ClearItemRenderer.java	(working copy)
+@@ -31,7 +31,7 @@
+     public String render() {
+         Limit limit = getCoreContext().getLimit();
+         ToolbarItem item = getToolbarItem();
+-        StringBuilder action = new StringBuilder("javascript:removeAllFiltersFromLimit('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
++        StringBuilder action = new StringBuilder("javascript: ").append(getResolveTableScript()).append(".removeAllFiltersFromLimit().").append(getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+         return item.enabled();
+     }
+Index: src/org/jmesa/view/html/toolbar/ExportItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/ExportItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/ExportItemRenderer.java	(working copy)
+@@ -34,7 +34,7 @@
+     public String render() {
+         Limit limit = getCoreContext().getLimit();
+         ToolbarItem item = getToolbarItem();
+-        StringBuilder action = new StringBuilder("javascript:setExportToLimit('" + limit.getId() + "','" + export.getExportType().toParam() + "');"
++        StringBuilder action = new StringBuilder("javascript: ").append(getResolveTableScript()).append(".setExportToLimit('" + export.getExportType().toParam() + "')."
+                 + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+         return item.enabled();
+Index: src/org/jmesa/view/html/toolbar/FilterItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/FilterItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/FilterItemRenderer.java	(working copy)
+@@ -31,7 +31,9 @@
+     public String render() {
+         Limit limit = getCoreContext().getLimit();
+         ToolbarItem item = getToolbarItem();
+-        StringBuilder action = new StringBuilder("javascript:" + getOnInvokeActionJavaScript(limit, item));
++        StringBuilder action = new StringBuilder("javascript: ")
++            .append(getResolveTableScript()).append('.')
++            .append(getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+         return item.enabled();
+     }
+Index: src/org/jmesa/view/html/toolbar/FilterWorksheetItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/FilterWorksheetItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/FilterWorksheetItemRenderer.java	(working copy)
+@@ -33,7 +33,7 @@
+ 
+         ToolbarItem item = getToolbarItem();
+         StringBuilder action = new StringBuilder("javascript:");
+-        action.append("setFilterToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
++        action.append(getResolveTableScript()).append(".setFilterToWorksheet()." + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+ 
+         return item.enabled();
+Index: src/org/jmesa/view/html/toolbar/FirstPageItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/FirstPageItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/FirstPageItemRenderer.java	(working copy)
+@@ -35,7 +35,7 @@
+ 
+         ToolbarItem item = getToolbarItem();
+         StringBuilder action = new StringBuilder("javascript:");
+-        action.append("setPageToLimit('" + limit.getId() + "','" + 1 + "');" + getOnInvokeActionJavaScript(limit, item));
++        action.append(getResolveTableScript()).append(".setPageToLimit('" + 1 + "')." + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+ 
+         if (!HtmlUtils.isFirstPageEnabled(page)) {
+Index: src/org/jmesa/view/html/toolbar/LastPageItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/LastPageItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/LastPageItemRenderer.java	(working copy)
+@@ -36,7 +36,7 @@
+ 
+         ToolbarItem item = getToolbarItem();
+         StringBuilder action = new StringBuilder("javascript:");
+-        action.append("setPageToLimit('" + limit.getId() + "','" + totalPages + "');" + getOnInvokeActionJavaScript(limit, item));
++        action.append(getResolveTableScript()).append(".setPageToLimit('" + totalPages + "')." + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+ 
+         if (!HtmlUtils.isLastPageEnabled(page, totalPages)) {
+Index: src/org/jmesa/view/html/toolbar/MaxRowsItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/MaxRowsItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/MaxRowsItemRenderer.java	(working copy)
+@@ -52,8 +52,9 @@
+         int maxRows = limit.getRowSelect().getMaxRows();
+         item.setMaxRows(maxRows);
+ 
+-        StringBuilder action = new StringBuilder("setMaxRowsToLimit('" + limit.getId() + "', this.options[this.selectedIndex].value);"
+-                + getOnInvokeActionJavaScript(limit, item));
++        StringBuilder action = new StringBuilder(getResolveTableScript())
++            .append(".setMaxRowsToLimit(this.options[this.selectedIndex].value).")
++            .append(getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+ 
+         return item.enabled();
+Index: src/org/jmesa/view/html/toolbar/NextPageItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/NextPageItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/NextPageItemRenderer.java	(working copy)
+@@ -35,7 +35,7 @@
+ 
+         ToolbarItem item = getToolbarItem();
+         StringBuilder action = new StringBuilder("javascript:");
+-        action.append("setPageToLimit('" + limit.getId() + "','" + (page + 1) + "');" + getOnInvokeActionJavaScript(limit, item));
++        action.append(getResolveTableScript()).append(".setPageToLimit('" + (page + 1) + "')." + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+ 
+         int totalPages = HtmlUtils.totalPages(getCoreContext());
+Index: src/org/jmesa/view/html/toolbar/PageNumberItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/PageNumberItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/PageNumberItemRenderer.java	(working copy)
+@@ -40,7 +40,7 @@
+         }
+ 
+         StringBuilder action = new StringBuilder("javascript:");
+-        action.append("setPageToLimit('" + limit.getId() + "','" + page + "');" + getOnInvokeActionJavaScript(limit, item));
++        action.append(getResolveTableScript()).append(".setPageToLimit('" + page + "');" + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+         return item.enabled();
+     }
+Index: src/org/jmesa/view/html/toolbar/PrevPageItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/PrevPageItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/PrevPageItemRenderer.java	(working copy)
+@@ -35,7 +35,7 @@
+ 
+         ToolbarItem item = getToolbarItem();
+         StringBuilder action = new StringBuilder("javascript:");
+-        action.append("setPageToLimit('" + limit.getId() + "','" + (page - 1) + "');" + getOnInvokeActionJavaScript(limit, item));
++        action.append(getResolveTableScript()).append(".setPageToLimit('" + (page - 1) + "')." + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+ 
+         if (!HtmlUtils.isPrevPageEnabled(page)) {
+Index: src/org/jmesa/view/html/toolbar/SaveWorksheetItemRenderer.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/SaveWorksheetItemRenderer.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/SaveWorksheetItemRenderer.java	(working copy)
+@@ -32,8 +32,8 @@
+         Limit limit = getCoreContext().getLimit();
+ 
+         ToolbarItem item = getToolbarItem();
+-        StringBuilder action = new StringBuilder("javascript:");
+-        action.append("setSaveToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
++        StringBuilder action = new StringBuilder("javascript: ");
++        action.append(getResolveTableScript()).append(".setSaveToWorksheet()." + getOnInvokeActionJavaScript(limit, item));
+         item.setAction(action.toString());
+ 
+         return item.enabled();
+Index: src/org/jmesa/view/html/toolbar/ToolbarItemFactoryImpl.java
+===================================================================
+--- src/org/jmesa/view/html/toolbar/ToolbarItemFactoryImpl.java	(revision 2029)
++++ src/org/jmesa/view/html/toolbar/ToolbarItemFactoryImpl.java	(working copy)
+@@ -64,9 +64,46 @@
+  * @author Jeff Johnston
+  */
+ public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
++    
+     private String imagesPath;
+     private CoreContext coreContext;
+ 
++    //private String invokeAction = null;
++    
++    protected String getInvokeAction() {
++        /*
++        if (invokeAction == null) {
++            invokeAction = new StringBuilder("document.jmesaTableFor('#")
++                                .append(coreContext.getLimit().getId())
++                                .append("').invokeAction")
++                                .toString();
++        }
++        return invokeAction;
++        */
++        return "invokeAction";
++    }
++    
++    protected String getInvokeExportAction() {
++        /*
++        return new StringBuilder("document.jmesaTableFor('#")
++                        .append(coreContext.getLimit().getId())
++                        .append("').invokeExportAction")
++                        .toString();
++        */
++        return "invokeExportAction";
++    }
++    
++    private String resolveJavascript = null;
++    
++    protected String getResolveTableScript() {
++        if (resolveJavascript == null) {
++            resolveJavascript = new StringBuilder("document.jmesaTableFor('#")
++                                        .append(coreContext.getLimit().getId())
++                                        .append("')").toString();
++        }
++        return resolveJavascript;
++    }
++    
+     public ToolbarItemFactoryImpl(WebContext webContext, CoreContext coreContext) {
+         this.imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
+         this.coreContext = coreContext;
+@@ -78,7 +115,8 @@
+         item.setCode(ToolbarItemType.PAGE_NUMBER_ITEMS.toCode());
+ 
+         PageNumberItemRenderer renderer = new PageNumberItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -92,8 +130,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FIRST_PAGE));
+ 
+-        ToolbarItemRenderer renderer = new FirstPageItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        FirstPageItemRenderer renderer = new FirstPageItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -107,8 +146,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_PREV_PAGE));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_PREV_PAGE));
+ 
+-        ToolbarItemRenderer renderer = new PrevPageItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        PrevPageItemRenderer renderer = new PrevPageItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -122,8 +162,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_NEXT_PAGE));
+ 
+-        ToolbarItemRenderer renderer = new NextPageItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        NextPageItemRenderer renderer = new NextPageItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -137,8 +178,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_LAST_PAGE));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_LAST_PAGE));
+ 
+-        ToolbarItemRenderer renderer = new LastPageItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        LastPageItemRenderer renderer = new LastPageItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -151,8 +193,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_FILTER));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER));
+ 
+-        ToolbarItemRenderer renderer = new FilterItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        FilterItemRenderer renderer = new FilterItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -165,8 +208,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_CLEAR));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_CLEAR));
+ 
+-        ToolbarItemRenderer renderer = new ClearItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        ClearItemRenderer renderer = new ClearItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -178,7 +222,8 @@
+         item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_TEXT_MAX_ROWS_DROPLIST));
+ 
+         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -193,8 +238,9 @@
+ 
+         item.setAlt(export.getText());
+ 
+-        ToolbarItemRenderer renderer = new ExportItemRenderer(item, export, coreContext);
+-        renderer.setOnInvokeAction("onInvokeExportAction");
++        AbstractItemRenderer renderer = new ExportItemRenderer(item, export, coreContext);
++        renderer.setOnInvokeAction(getInvokeExportAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -217,8 +263,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_SAVE_WORKSHEET));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_SAVE_WORKSHEET));
+ 
+-        ToolbarItemRenderer renderer = new SaveWorksheetItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        AbstractItemRenderer renderer = new SaveWorksheetItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+@@ -232,8 +279,9 @@
+         item.setImage(getImage(TOOLBAR_IMAGE_FILTER_WORKSHEET));
+         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER_WORKSHEET));
+ 
+-        ToolbarItemRenderer renderer = new FilterWorksheetItemRenderer(item, coreContext);
+-        renderer.setOnInvokeAction("onInvokeAction");
++        AbstractItemRenderer renderer = new FilterWorksheetItemRenderer(item, coreContext);
++        renderer.setOnInvokeAction(getInvokeAction());
++        renderer.setResolveTableScript(getResolveTableScript());
+         item.setToolbarItemRenderer(renderer);
+ 
+         return item;
+Index: src/org/jmesa/web/PortletRequestWebContext.java
+===================================================================
+--- src/org/jmesa/web/PortletRequestWebContext.java	(revision 2020)
++++ src/org/jmesa/web/PortletRequestWebContext.java	(working copy)
+@@ -65,8 +65,8 @@
+         return this.getPortletContext().getAttribute(name);
+     }
+ 
+-    public Object getApplicationInitParameter(String name) {
+-        return this.getPortletContext().getAttribute(name);
++    public String getApplicationInitParameter(String name) {
++        return this.getPortletContext().getInitParameter(name);
+     }
+ 
+     public void removeApplicationAttribute(String name) {
+Index: src/org/jmesa/worksheet/editor/CheckboxWorksheetEditor.java
+===================================================================
+--- src/org/jmesa/worksheet/editor/CheckboxWorksheetEditor.java	(revision 2007)
++++ src/org/jmesa/worksheet/editor/CheckboxWorksheetEditor.java	(working copy)
+@@ -84,7 +84,7 @@
+             html.checked();
+         }
+ 
+-        html.onclick(getUniquePropertyJavaScript(item) + "submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
++        html.onclick(getUniquePropertyJavaScript(item) + "document.jmesa.submitWsCheckboxColumn(this,'" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
+             + getColumn().getProperty() + "')");
+         html.end();
+         
+Index: src/org/jmesa/worksheet/editor/HtmlWorksheetEditor.java
+===================================================================
+--- src/org/jmesa/worksheet/editor/HtmlWorksheetEditor.java	(revision 2007)
++++ src/org/jmesa/worksheet/editor/HtmlWorksheetEditor.java	(working copy)
+@@ -64,7 +64,7 @@
+             html.styleClass("wsColumn");
+         }
+         
+-        html.onclick(getUniquePropertyJavaScript(item) + "createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
++        html.onclick(getUniquePropertyJavaScript(item) + "document.jmesa.createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
+             + getColumn().getProperty() + "')");
+         html.close();
+         html.append(value);
