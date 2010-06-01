@@ -61,7 +61,7 @@ private class BasicPresidentTemplate extends TableFacadeTemplate {
      * After the column properties are set then we can modify the table.
      *
      * Note: a new (and better) way to build an html table would be to override the createTable()
-     * method and use the HtmlBuilder.
+     * method and use the HtmlTableBuilder.
      */
     @Override
     protected void modifyTable(Table table) {
