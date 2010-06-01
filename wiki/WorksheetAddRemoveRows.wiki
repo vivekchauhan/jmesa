@@ -79,7 +79,9 @@ firstName.addWorksheetValidation(new WorksheetValidation(WorksheetValidationType
 You can also add an error message like so.
 
 {{{
-new WorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE).setsetErrorMessage("The first name is required.");
+new WorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE).setErrorMessage("The first name is required.");
+// OR
+new WorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TRUE).setErrorMessageKey("message.firstName.required");
 }}}
 
 
@@ -88,13 +90,15 @@ new WorksheetValidation(WorksheetValidationType.REQUIRED, WorksheetValidation.TR
 For the tag you need to separate the validation name and value with a colon. If you have multiple validations you need to separate the name/value pairs with a semi-colon.
 
 {{{
-<jmesa:htmlColumn property="name.firstName" title="Last Name" worksheetValidation="required:true"/>
+<jmesa:htmlColumn property="name.firstName" title="First Name" worksheetValidation="required:true"/>
 }}}
 
 You can also add an error message by separating the validation name and message with a colon. If you have multiple validations you need to separate the name/message pairs with a semi-colon.
 
 {{{
-<jmesa:htmlColumn property="name.firstName" title="Last Name" worksheetValidation="required:true" errorMessage="required:The first name is required" />
+<jmesa:htmlColumn property="name.firstName" title="First Name" worksheetValidation="required:true" errorMessage="required:The first name is required" />
+<!-- OR -->
+<jmesa:htmlColumn property="name.firstName" title="First Name" worksheetValidation="required:true" errorMessageKey="required:message.firstName.required" />
 }}}
 
 ==== Validation Methods ====
@@ -121,6 +125,32 @@ public class WorksheetValidationType {
 }
 }}}
 
+==== Custom Validation ====
+Apart from inbuilt validations, you can also provide a javascript function as validation. For that define a javascript function which returns true / false (valid / invalid). The value of column will be passed to the function.
+
+{{{
+function validateFirstName(firstName) {
+	if (firstName == 'foo') {
+		return false;
+	}
+	return true;
+}
+}}}
+
+==== API ====
+
+{{{
+HtmlColumn firstName = htmlRow.getColumn("name.firstName");
+firstName.setTitle("First Name");
+firstName.addCustomWorksheetValidation(new WorksheetValidation("validateFirstName", "validateFirstName").setErrorMessage("You cannot use foo as a value"));
+}}}
+
+==== Tag ====
+{{{
+<jmesa:htmlColumn property="name.firstName" title="First Name" customWorksheetValidation="validateFirstName:validateFirstName" errorMessage="validateFirstName:You cannot use foo as a value" />
+}}}
+
+
 ==== Debugging Validation ====
 
 The validation is new so there is a chance you might have to look under the covers to see what the generated !JavaScript looks like when the page loads. So if you are having problems you should first do a view source on the page. Then look for something that looks like the following code. The generated code should be valid validation code as required by the bassistance plugin. If it is not you should submit a bug report so that we can take care of it.
@@ -138,6 +168,8 @@ jQuery.jmesa.setValidator('worksheet', $(jQuery.jmesa.getFormByTableId('workshee
 	onkeyup: false,
 	onclick: false
 }));
+// Following will be generated only if custom validation is used
+jQuery.validator.addMethod('validateFirstName', validateFirstName);
 }}}
 
 _If you do not have it already you should get the [http://getfirebug.com/ firebug] plugin installed to help you track down any errors. In general you should get firebug as it makes web development so much easier._
