@@ -54,7 +54,7 @@ public class ImageItemImpl extends AbstractItem implements ImageItem {
     @Override
     public String disabled() {
         HtmlBuilder html = new HtmlBuilder();
-        html.img().src(getDisabledImage()).style(getStyle()).alt(getAlt()).end();
+        html.img().src(getDisabledImage()).styleClass(getStyleClass()).style(getStyle()).alt(getAlt()).end();
         return html.toString();
     }
 
@@ -67,10 +67,11 @@ public class ImageItemImpl extends AbstractItem implements ImageItem {
         html.quote().close();
 
         if (StringUtils.isNotBlank(getTooltip())) {
-            html.img().src(getImage()).style(getStyle()).title(getTooltip()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt())
-                    .end();
+            html.img().src(getImage()).styleClass(getStyleClass()).style(getStyle()).title(getTooltip())
+                    .onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
         } else {
-            html.img().src(getImage()).style(getStyle()).onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
+            html.img().src(getImage()).styleClass(getStyleClass()).style(getStyle())
+                    .onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
         }
 
         html.aEnd();
