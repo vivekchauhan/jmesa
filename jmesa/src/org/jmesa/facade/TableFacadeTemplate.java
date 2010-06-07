@@ -25,6 +25,7 @@ import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
+import org.jmesa.limit.RowSelectImpl;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.HtmlTableBuilder;
@@ -96,8 +97,14 @@ public abstract class TableFacadeTemplate {
             tableFacade.setItems(items);
         } else {
             Collection<?> items = getItems();
-            tableFacade.setTotalRows(items.size());
             tableFacade.setItems(items);
+            if (limit.isComplete()) {
+                int p = limit.getRowSelect().getPage();
+                int mr = limit.getRowSelect().getMaxRows();
+                limit.setRowSelect(new RowSelectImpl(p, mr, items.size()));
+            } else {
+                tableFacade.setTotalRows(items.size());
+            }
         }
 
         String[] columnProperties = getColumnProperties();

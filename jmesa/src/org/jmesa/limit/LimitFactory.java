@@ -42,9 +42,12 @@ public interface LimitFactory {
     /**
      * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
      * Limit by the id.
-     * 
+     *
      * @param stateAttr The parameter that will be searched to see if the state should be used.
+     * @deprecated The State should be set directly on the Limit. This really should not be a part of the interface because
+     *             it is an implementation detail.
      */
+    @Deprecated
     public void setStateAttr(String stateAttr);
 
     /**
