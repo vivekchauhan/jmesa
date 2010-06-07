@@ -53,6 +53,8 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.RowSelectImpl;
+import org.jmesa.limit.state.SessionState;
+import org.jmesa.limit.state.State;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.ExportTableFactory;
 import org.jmesa.view.TableFactory;
@@ -109,6 +111,7 @@ public class TableFacadeImpl implements TableFacade {
     private RowFilter rowFilter;
     private ColumnSort columnSort;
     private Limit limit;
+    private State state;
     private String stateAttr;
     private Table table;
     private Toolbar toolbar;
@@ -144,6 +147,10 @@ public class TableFacadeImpl implements TableFacade {
         this.id = id;
         this.request = request;
         this.response = response;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Deprecated
@@ -188,12 +195,12 @@ public class TableFacadeImpl implements TableFacade {
             return worksheet;
         }
 
-        WorksheetState state = new SessionWorksheetState(id, getWebContext());
-        Worksheet ws = state.retrieveWorksheet();
+        WorksheetState wst = new SessionWorksheetState(id, getWebContext());
+        Worksheet ws = wst.retrieveWorksheet();
 
         if (ws == null || !isTableRefreshing(id, getWebContext())) {
             ws = new WorksheetImpl(id, getMessages());
-            state.persistWorksheet(ws);
+            wst.persistWorksheet(ws);
         }
 
         this.worksheet = new WorksheetWrapper(ws, getWebContext());
@@ -254,8 +261,8 @@ public class TableFacadeImpl implements TableFacade {
             return limit;
         }
 
-        LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
-        limitFactory.setStateAttr(stateAttr);
+        LimitFactoryImpl limitFactory = new LimitFactoryImpl(id, getWebContext());
+        limitFactory.setState(getState());
         Limit l = limitFactory.createLimit();
 
         if (l.isComplete()) {
@@ -302,6 +309,27 @@ public class TableFacadeImpl implements TableFacade {
         return rowSelect;
     }
 
+    State getState() {
+        if (state != null) {
+            return state;
+        }
+
+        if (stateAttr == null) {
+            return null;
+        }
+
+        this.state = new SessionState(id, stateAttr);
+        SupportUtils.setWebContext(state, getWebContext());
+        return state;
+    }
+
+    public void setState(State state) {
+        validateLimitIsNull(limit, "state");
+
+        this.state = state;
+        SupportUtils.setWebContext(state, getWebContext());
+    }
+
     public void setStateAttr(String stateAttr) {
         validateLimitIsNull(limit, "stateAttr");
 
@@ -331,7 +359,7 @@ public class TableFacadeImpl implements TableFacade {
         SupportUtils.setWebContext(messages, getWebContext());
     }
 
-    Preferences getPreferences() {
+    public Preferences getPreferences() {
         if (preferences != null) {
             return preferences;
         }

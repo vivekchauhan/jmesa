@@ -18,6 +18,7 @@ package org.jmesa.limit;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.web.WebContext;
 
 /**
@@ -102,9 +103,15 @@ public class LimitFactoryImpl implements LimitFactory {
         this.limitActionFactory = new LimitActionFactoryImpl(id, webContext.getParameterMap());
     }
 
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    @Deprecated
     public void setStateAttr(String stateAttr) {
         if (StringUtils.isNotEmpty(stateAttr)) {
-            this.state = new SessionState(id, stateAttr, webContext);
+            this.state = new SessionState(id, stateAttr);
+            SupportUtils.setWebContext(state, webContext);
         }
     }
 

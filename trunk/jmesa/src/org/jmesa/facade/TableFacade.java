@@ -30,6 +30,7 @@ import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
+import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
@@ -81,6 +82,8 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public interface TableFacade {
+
+    public String getId();
 
     /**
      * Set the comma separated list of export types. The currently supported types are
@@ -181,9 +184,16 @@ public interface TableFacade {
     public RowSelect setTotalRows(int totalRows);
 
     /**
+     * Sets the State on the facade.
+     * 
+     * @param state The state to use.
+     */
+    public void setState(State state);
+
+    /**
      * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
      * Limit by the id.
-     * 
+     *
      * @param stateAttr The parameter that will be searched to see if the state should be used.
      */
     public void setStateAttr(String stateAttr);
@@ -220,9 +230,16 @@ public interface TableFacade {
     public void setMessages(Messages messages);
 
     /**
+     * Get the Preferences. If the Preferences does not exist then one will be created.
+     *
+     * @return The Preferences to use.
+     */
+    public Preferences getPreferences();
+
+    /**
      * Set the Preferences on the facade. This will override the Preferences if it was previously
      * set.
-     * 
+     *
      * @param preferences The Preferences to use.
      */
     public void setPreferences(Preferences preferences);

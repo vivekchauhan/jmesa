@@ -16,7 +16,6 @@
 package org.jmesa.limit.state;
 
 import org.jmesa.limit.Limit;
-import org.jmesa.web.WebContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,34 +28,28 @@ import org.slf4j.LoggerFactory;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SessionState implements State {
+public class SessionState extends AbstractState {
     private Logger logger = LoggerFactory.getLogger(SessionState.class);
     
-    private String id;
-    private String stateAttr;
-    private WebContext webContext;
-
-    public SessionState(String id, String stateAttr, WebContext webContext) {
-        this.id = id + "_LIMIT";
-        this.stateAttr = stateAttr;
-        this.webContext = webContext;
+    public SessionState(String id, String stateAttr) {
+        super(id + "_LIMIT", stateAttr);
     }
 
     public Limit retrieveLimit() {
-        String stateAttrValue = webContext.getParameter(stateAttr);
+        String stateAttrValue = getWebContext().getParameter(getStateAttr());
         if ("true".equalsIgnoreCase(stateAttrValue)) {
             if (logger.isDebugEnabled()) {
                 logger.debug("The Limit is being retrieved from the users session.");
             }
-            return (Limit) webContext.getSessionAttribute(id);
+            return (Limit) getWebContext().getSessionAttribute(getId());
         }
         
-        stateAttrValue = (String)webContext.getRequestAttribute(stateAttr);
+        stateAttrValue = (String)getWebContext().getRequestAttribute(getStateAttr());
         if ("true".equalsIgnoreCase(stateAttrValue)) {
             if (logger.isDebugEnabled()) {
                 logger.debug("The Limit is being retrieved from the users session.");
             }
-            return (Limit) webContext.getSessionAttribute(id);
+            return (Limit) getWebContext().getSessionAttribute(getId());
         }
 
         return null;
@@ -66,6 +59,6 @@ public class SessionState implements State {
         if (logger.isDebugEnabled()) {
             logger.debug("The Limit is being persisted on the users session.");
         }
-        webContext.setSessionAttribute(id, limit);
+        getWebContext().setSessionAttribute(getId(), limit);
     }
 }

@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
@@ -108,10 +109,13 @@ public class TableFacadeUtils {
      * @param stateAttr The attribute used to retrieve the Limit.
      * @param request The servlet request.
      * @return The Limit stored by the State implementation.
+     * @deprecated This method is not used in the core api and will be removed.
      */
+    @Deprecated
     public static Limit retrieveLimit(String id, String stateAttr, HttpServletRequest request) {
         WebContext webContext = new HttpServletRequestWebContext(request);
-        State state = new SessionState(id, stateAttr, webContext);
+        State state = new SessionState(id, stateAttr);
+        SupportUtils.setWebContext(state, webContext);
         return state.retrieveLimit();
     }
 }
