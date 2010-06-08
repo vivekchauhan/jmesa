@@ -110,7 +110,9 @@ public class LimitFactoryImpl implements LimitFactory {
     @Deprecated
     public void setStateAttr(String stateAttr) {
         if (StringUtils.isNotEmpty(stateAttr)) {
-            this.state = new SessionState(id, stateAttr);
+            this.state = new SessionState();
+            SupportUtils.setId(state, id);
+            SupportUtils.setStateAttr(state, stateAttr);
             SupportUtils.setWebContext(state, webContext);
         }
     }

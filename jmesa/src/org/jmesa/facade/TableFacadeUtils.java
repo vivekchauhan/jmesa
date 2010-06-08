@@ -114,7 +114,9 @@ public class TableFacadeUtils {
     @Deprecated
     public static Limit retrieveLimit(String id, String stateAttr, HttpServletRequest request) {
         WebContext webContext = new HttpServletRequestWebContext(request);
-        State state = new SessionState(id, stateAttr);
+        State state = new SessionState();
+        SupportUtils.setId(state, id);
+        SupportUtils.setStateAttr(state, stateAttr);
         SupportUtils.setWebContext(state, webContext);
         return state.retrieveLimit();
     }
