@@ -434,6 +434,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         }
 
         this.tableFacade = createTableFacade();
+        tableFacade.setPreferences(getTableFacadePreferences(getPreferences()));
         tableFacade.setEditable(isEditable());
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
@@ -444,7 +445,6 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setExportTypes(getTableFacadeExportTypes(getExportTypes()));
 
         tableFacade.autoFilterAndSort(isAutoFilterAndSort());
-        tableFacade.setPreferences(getTableFacadePreferences(getPreferences()));
         tableFacade.setColumnSort(getTableFacadeColumnSort(getColumnSort()));
         tableFacade.setRowFilter(getTableFacadeRowFilter(getRowFilter()));
         tableFacade.addFilterMatcherMap(getTableFacadeFilterMatcherMap(getFilterMatcherMap()));

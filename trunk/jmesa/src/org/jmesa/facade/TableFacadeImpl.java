@@ -329,6 +329,8 @@ public class TableFacadeImpl implements TableFacade {
         validateLimitIsNull(limit, "state");
 
         this.state = state;
+        SupportUtils.setId(state, id);
+        SupportUtils.setStateAttr(state, stateAttr);
         SupportUtils.setWebContext(state, getWebContext());
     }
 

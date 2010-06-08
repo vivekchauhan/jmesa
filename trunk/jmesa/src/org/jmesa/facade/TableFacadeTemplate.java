@@ -22,10 +22,13 @@ import java.util.Map.Entry;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelectImpl;
+import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.HtmlTableBuilder;
@@ -51,6 +54,16 @@ public abstract class TableFacadeTemplate {
     }
 
     void setup() {
+        Preferences preferences = getPreferences();
+        if (preferences != null) {
+            tableFacade.setPreferences(preferences);
+        }
+
+        Messages messages = getMessages();
+        if (messages != null) {
+            tableFacade.setMessages(messages);
+        }
+
         ExportType[] exportTypes = getExportTypes();
         if (exportTypes != null) {
             tableFacade.setExportTypes(exportTypes);
@@ -59,6 +72,11 @@ public abstract class TableFacadeTemplate {
         String stateAttr = getStateAttr();
         if (stateAttr != null) {
             tableFacade.setStateAttr(stateAttr);
+        }
+
+        State state = getState();
+        if (state != null) {
+            tableFacade.setState(state);
         }
 
         Map<MatcherKey, FilterMatcher> filterMatcherMap = new HashMap<MatcherKey, FilterMatcher>();
@@ -142,11 +160,23 @@ public abstract class TableFacadeTemplate {
         return tableFacade.getLimit().isExported();
     }
 
+    protected Preferences getPreferences() {
+        return null;
+    }
+
+    protected Messages getMessages() {
+        return null;
+    }
+
     protected ExportType[] getExportTypes() {
         return null;
     }
 
     protected String getStateAttr() {
+        return null;
+    }
+
+    protected State getState() {
         return null;
     }
 
