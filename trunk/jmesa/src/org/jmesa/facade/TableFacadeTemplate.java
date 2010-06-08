@@ -92,7 +92,13 @@ public abstract class TableFacadeTemplate {
         Limit limit = tableFacade.getLimit();
         int totalRows = getTotalRows(limit);
         if (totalRows != -1) {
-            tableFacade.setTotalRows(totalRows);
+            if (limit.isComplete()) {
+                int p = limit.getRowSelect().getPage();
+                int mr = limit.getRowSelect().getMaxRows();
+                limit.setRowSelect(new RowSelectImpl(p, mr, totalRows));
+            } else {
+                tableFacade.setTotalRows(totalRows);
+            }
             Collection<?> items = getItems(limit);
             tableFacade.setItems(items);
         } else {
