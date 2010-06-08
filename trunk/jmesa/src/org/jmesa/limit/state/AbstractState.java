@@ -15,6 +15,7 @@
  */
 package org.jmesa.limit.state;
 
+import org.jmesa.core.IdSupport;
 import org.jmesa.web.WebContext;
 import org.jmesa.web.WebContextSupport;
 
@@ -22,22 +23,25 @@ import org.jmesa.web.WebContextSupport;
  * @since 2.5.1
  * @author Jeff Johnston
  */
-public abstract class AbstractState implements State, WebContextSupport {
-    private final String id;
-    private final String stateAttr;
+public abstract class AbstractState implements State, WebContextSupport, IdSupport, StateAttrSupport {
+    private String id;
+    private String stateAttr;
     private WebContext webContext;
 
-    public AbstractState(String id, String stateAttr) {
-        this.id = id;
-        this.stateAttr = stateAttr;
-    }
-
-    protected String getId() {
+    public String getId() {
         return id;
     }
 
-    protected String getStateAttr() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getStateAttr() {
         return stateAttr;
+    }
+
+    public void setStateAttr(String stateAttr) {
+        this.stateAttr = stateAttr;
     }
 
     public WebContext getWebContext() {

@@ -39,7 +39,9 @@ public class SessionStateTest {
 
         webContext.setSessionAttribute(ID + "_LIMIT", new LimitImpl(ID));
 
-        SessionState state = new SessionState(ID, "restore");
+        SessionState state = new SessionState();
+        state.setId(ID);
+        state.setStateAttr("restore");
         state.setWebContext(webContext);
 
         Limit limit = state.retrieveLimit();
@@ -60,7 +62,9 @@ public class SessionStateTest {
 
         webContext.setSessionAttribute(ID + "_LIMIT", new LimitImpl(ID));
 
-        SessionState state = new SessionState(ID, "restore");
+        SessionState state = new SessionState();
+        state.setId(ID);
+        state.setStateAttr("restore");
         state.setWebContext(webContext);
 
         Limit limit = state.retrieveLimit();

@@ -17,9 +17,11 @@ package org.jmesa.util;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextSupport;
+import org.jmesa.core.IdSupport;
 import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.FilterMatcherRegistrySupport;
 import org.jmesa.limit.ExportType;
+import org.jmesa.limit.state.StateAttrSupport;
 import org.jmesa.view.ExportTypesSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
@@ -93,6 +95,30 @@ public class SupportUtils {
     public static void setTable(Object obj, Table table) {
         if ((obj instanceof TableSupport) && ((TableSupport) obj).getTable() == null) {
             ((TableSupport) obj).setTable(table);
+        }
+    }
+
+    /**
+     * Set the id on the object being inspected if it is not already set.
+     *
+     * @param obj The object being inspected.
+     * @param table The object to be injected.
+     */
+    public static void setId(Object obj, String id) {
+        if ((obj instanceof IdSupport) && ((IdSupport) obj).getId() == null) {
+            ((IdSupport) obj).setId(id);
+        }
+    }
+
+    /**
+     * Set the stateAttr on the object being inspected if it is not already set.
+     *
+     * @param obj The object being inspected.
+     * @param table The object to be injected.
+     */
+    public static void setStateAttr(Object obj, String stateAttr) {
+        if ((obj instanceof StateAttrSupport) && ((StateAttrSupport) obj).getStateAttr() == null) {
+            ((StateAttrSupport) obj).setStateAttr(stateAttr);
         }
     }
 

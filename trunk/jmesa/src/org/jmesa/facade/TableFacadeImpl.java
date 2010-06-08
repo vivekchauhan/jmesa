@@ -318,7 +318,9 @@ public class TableFacadeImpl implements TableFacade {
             return null;
         }
 
-        this.state = new SessionState(id, stateAttr);
+        this.state = new SessionState();
+        SupportUtils.setId(state, id);
+        SupportUtils.setStateAttr(state, stateAttr);
         SupportUtils.setWebContext(state, getWebContext());
         return state;
     }
