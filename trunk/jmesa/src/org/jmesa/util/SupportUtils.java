@@ -102,7 +102,7 @@ public class SupportUtils {
      * Set the id on the object being inspected if it is not already set.
      *
      * @param obj The object being inspected.
-     * @param table The object to be injected.
+     * @param id The object to be injected.
      */
     public static void setId(Object obj, String id) {
         if ((obj instanceof IdSupport) && ((IdSupport) obj).getId() == null) {
@@ -114,7 +114,7 @@ public class SupportUtils {
      * Set the stateAttr on the object being inspected if it is not already set.
      *
      * @param obj The object being inspected.
-     * @param table The object to be injected.
+     * @param stateAttr The object to be injected.
      */
     public static void setStateAttr(Object obj, String stateAttr) {
         if ((obj instanceof StateAttrSupport) && ((StateAttrSupport) obj).getStateAttr() == null) {
