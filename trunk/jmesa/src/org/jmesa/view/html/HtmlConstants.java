@@ -25,6 +25,7 @@ public class HtmlConstants {
     }
 
     public static final String IMAGES_PATH = "html.imagesPath";
+    public static final String IMAGES_URL = "html.imagesUrl";
     public static final String TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS = "html.toolbar.maxRowsDroplist.increments";
     public static final String TOOLBAR_MAX_PAGE_NUMBERS = "html.toolbar.maxPageNumbers";
     public static final String TOOLBAR_ADD_WORKSHEET_ROW_ENABLED = "html.toolbar.addWorksheetRow.enabled";
