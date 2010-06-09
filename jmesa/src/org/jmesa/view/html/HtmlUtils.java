@@ -111,6 +111,14 @@ public class HtmlUtils {
     }
 
     public static String imagesPath(WebContext webContext, CoreContext coreContext) {
+        String imagesUrl = coreContext.getMessage(HtmlConstants.IMAGES_URL);
+        if (imagesUrl == null) {
+            imagesUrl = coreContext.getPreference(HtmlConstants.IMAGES_URL);
+        }
+        if (imagesUrl != null) {
+            return imagesUrl;
+        }
+
         String contextPath = webContext.getContextPath();
         String imagesPath = coreContext.getMessage(HtmlConstants.IMAGES_PATH);
         if (imagesPath == null) {
