@@ -95,4 +95,12 @@ public class WorksheetValidation extends AbstractContextSupport {
 
         return this.validationType + ": '" + msg + "'";
     }
+    
+    public String getCustomWorksheetValidation() {
+    	if (!custom) {
+    		return "";
+    	}
+    	
+    	return "jQuery.validator.addMethod('" + validationType + "', " + value + ");\n";
+    }
 }
