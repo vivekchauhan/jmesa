@@ -438,12 +438,8 @@ public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnip
 
         for (Column column: table.getRow().getColumns()) {
             HtmlColumn htmlColumn = (HtmlColumn)column;
-            List<WorksheetValidation> worksheetValidations = htmlColumn.getWorksheetValidations();
-            for (WorksheetValidation worksheetValidation : worksheetValidations) {
-                if (worksheetValidation.isCustom()) {
-                    String validationType = worksheetValidation.getValidationType();
-                    html.append("jQuery.validator.addMethod('" + validationType + "', " + validationType + ");\n");
-                }
+            for (WorksheetValidation worksheetValidation : htmlColumn.getWorksheetValidations()) {
+            	html.append(worksheetValidation.getCustomWorksheetValidation());
             }
         }
         
