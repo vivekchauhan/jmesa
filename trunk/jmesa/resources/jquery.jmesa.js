@@ -557,6 +557,8 @@
 
             $('#wsColumnInput').blur(function() {
                 var changedValue = input.val();
+                var hasRules;
+                $.each($("#wsColumnInput").rules(), function() { hasRules = true; });
                 /* validate manually */
                 if (changedValue != originalValue) {
                     var validator = validatorObject[wsColumn.id];
@@ -568,7 +570,7 @@
                 cell.css('overflow', 'hidden');
                 cell.text(changedValue);
                 if (changedValue != originalValue) {
-                    $.jmesa.submitWsColumn(originalValue, changedValue);
+                    $.jmesa.submitWsColumn(originalValue, changedValue, hasRules);
                 }
                 wsColumn = null;
             });
@@ -622,6 +624,8 @@
                     }
 
                     var changedValue = input.val();
+                    var hasRules;
+                    $.each($("#wsColumnInput").rules(), function() { hasRules = true; });
                     /* validate manually */
                     if (changedValue != originalValue) {
                         var validator = validatorObject[wsColumn.id];
@@ -633,7 +637,7 @@
                     cell.css('overflow', 'hidden');
                     cell.text(changedValue);
                     if (changedValue != originalValue) {
-                        $.jmesa.submitWsColumn(originalValue, changedValue);
+                        $.jmesa.submitWsColumn(originalValue, changedValue, hasRules);
                     }
                     wsColumn = null;
 
@@ -676,7 +680,7 @@
         setValidator : function(id, vr) {
            validatorObject[id] = vr;
         },
-        submitWsColumn : function(originalValue, changedValue) {
+        submitWsColumn : function(originalValue, changedValue, hasRules) {
             var data = '{ "id" : "' + wsColumn.id + '"';
 
             data += ', "cp_" : "' + wsColumn.property + '"';
@@ -689,12 +693,19 @@
             data += ', "ov_" : "' + encodeURIComponent(originalValue) + '"';
             data += ', "cv_" : "' + encodeURIComponent(changedValue) + '"';
 
+            var cell = $(wsColumn.column);
             var errorMessage;
-            if (errorMap[wsColumn.id]) {
-               errorMessage = errorMap[wsColumn.id][wsColumn.property];
-               if (errorMessage) {
-                  data += ', "em_" : "' + encodeURIComponent(errorMessage) + '"';
+
+            if (hasRules) {
+               if (errorMap[wsColumn.id]) {
+                  errorMessage = errorMap[wsColumn.id][wsColumn.property];
                }
+            } else {
+               errorMessage = cell.attr('title');
+            }
+
+            if (errorMessage) {
+               data += ', "em_" : "' + encodeURIComponent(errorMessage) + '"';
             }
 
             data += '}'
@@ -704,7 +715,6 @@
                contextPath += "/";
             }
 
-            var cell = $(wsColumn.column);
             $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(columnStatus) {
                   jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
             });
