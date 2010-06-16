@@ -44,7 +44,11 @@ public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
         setup();
 
         if (worksheet.isAddingRow()) {
-            tableFacade.addWorksheetRow();
+        	if (getAddedRowObject() != null) {
+        		tableFacade.addWorksheetRow(getAddedRowObject());
+        	} else {
+        		tableFacade.addWorksheetRow();
+        	}
         }
 
         if (worksheet.isRemovingRow()) {
@@ -55,5 +59,9 @@ public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
     }
 
     protected void saveWorksheet(Worksheet worksheet) {
+    }
+
+    protected Object getAddedRowObject() {
+    	return null;
     }
 }
