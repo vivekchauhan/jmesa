@@ -44,8 +44,9 @@ public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
         setup();
 
         if (worksheet.isAddingRow()) {
-        	if (getAddedRowObject() != null) {
-        		tableFacade.addWorksheetRow(getAddedRowObject());
+            Object addedRowObject = getAddedRowObject();
+        	if (addedRowObject != null) {
+        		tableFacade.addWorksheetRow(addedRowObject);
         	} else {
         		tableFacade.addWorksheetRow();
         	}
