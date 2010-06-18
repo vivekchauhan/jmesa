@@ -237,7 +237,7 @@ public class TableFacadeImpl implements TableFacade {
                 if (wsRow.getColumns().size() == 0) {
                     ws.removeRow(uniqueProperty);
                 } else {
-                    wsRow.setRowStatus(null);
+                    wsRow.setRowStatus(WorksheetRowStatus.MODIFY);
                 }
             } else {
                 wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
