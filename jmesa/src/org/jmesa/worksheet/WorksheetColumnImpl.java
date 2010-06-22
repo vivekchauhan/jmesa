@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet;
 
+import java.io.Serializable;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.core.message.Messages;
@@ -23,7 +24,7 @@ import org.jmesa.core.message.Messages;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class WorksheetColumnImpl implements WorksheetColumn {
+public class WorksheetColumnImpl implements WorksheetColumn, Serializable {
     private String property;
     private Messages messages;
     private String error;
