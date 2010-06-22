@@ -15,6 +15,7 @@
  */
 package org.jmesa.core.message;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -29,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ResourceBundleMessages implements Messages {
+public class ResourceBundleMessages implements Messages, Serializable {
     private Logger logger = LoggerFactory.getLogger(ResourceBundleMessages.class);
 
     private static final String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/resource/jmesaResourceBundle";
