@@ -15,6 +15,8 @@
  */
 package org.jmesa.limit;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * The export types for the table.
@@ -23,7 +25,7 @@ package org.jmesa.limit;
  * @since 2.0
  * @author Jeff Johnston
  */
-public enum ExportType {
+public enum ExportType implements Serializable {
     CSV, EXCEL, JEXCEL, PDF, PDFP;
     
     public String toParam() {
