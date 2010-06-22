@@ -15,6 +15,7 @@
  */
 package org.jmesa.limit;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -27,7 +28,7 @@ import java.util.Collection;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface SortSet {
+public interface SortSet extends Serializable {
     /**
      * @return Is true if there are any columns that need to be sorted.
      */

@@ -15,13 +15,14 @@
  */
 package org.jmesa.limit;
 
+import java.io.Serializable;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class RowSelectImpl implements RowSelect {
+public class RowSelectImpl implements RowSelect, Serializable {
     private int page;
     private int maxRows;
     private int rowEnd;
