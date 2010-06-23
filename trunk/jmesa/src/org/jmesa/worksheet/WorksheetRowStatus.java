@@ -15,12 +15,10 @@
  */
 package org.jmesa.worksheet;
 
-import java.io.Serializable;
-
 /**
  * @since 2.3
  * @author Jeff Johnston
  */
-public enum WorksheetRowStatus implements Serializable {
+public enum WorksheetRowStatus {
     ADD, REMOVE, MODIFY
 }

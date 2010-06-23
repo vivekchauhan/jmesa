@@ -15,6 +15,8 @@
  */
 package org.jmesa.worksheet;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * A WorksheetColumn represents the edited HtmlColumn. The originalValue is the value that was
@@ -31,7 +33,7 @@ package org.jmesa.worksheet;
  * @since 2.3
  * @author Jeff Johnston
  */
-public interface WorksheetColumn {
+public interface WorksheetColumn extends Serializable {
     /**
      * @return The column property.
      */

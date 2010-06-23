@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -52,7 +53,7 @@ import org.jmesa.view.component.Table;
  * @since 2.3
  * @author Jeff Johnston
  */
-public interface Worksheet {
+public interface Worksheet extends Serializable {
     /**
      * @return The worksheet id, which is the same as the table id.
      */

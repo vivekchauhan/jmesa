@@ -15,11 +15,13 @@
  */
 package org.jmesa.core.preference;
 
+import java.io.Serializable;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Preferences {
+public interface Preferences extends Serializable {
     /**
      * Get the property.
      */

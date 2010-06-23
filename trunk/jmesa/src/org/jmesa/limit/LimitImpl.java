@@ -15,14 +15,13 @@
  */
 package org.jmesa.limit;
 
-import java.io.Serializable;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class LimitImpl implements Limit, Serializable {
+public class LimitImpl implements Limit {
     private final String id;
     private RowSelect rowSelect;
     private FilterSet filterSet;

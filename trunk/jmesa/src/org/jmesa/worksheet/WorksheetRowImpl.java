@@ -15,7 +15,6 @@
  */
 package org.jmesa.worksheet;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class WorksheetRowImpl implements WorksheetRow, Serializable {
+public class WorksheetRowImpl implements WorksheetRow {
     private UniqueProperty uniqueProperty;
     private WorksheetRowStatus rowStatus;
     private Object item;
