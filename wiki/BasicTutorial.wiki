@@ -4,6 +4,8 @@ You should also look at the [BasicExample complete example] to see the example i
 
 *_Note: as of release 2.4.6 you can also build tables using the [HtmlTableBuilder]. This uses the fluent pattern to build tables.* 
 
+*_Note: as of release 2.5 you can (should) use the [TableFacadeTemplate]. This makes customizing JMesa tables much easier than interacting with the !TableFacade directly.*
+
 === Setup ===
 To start with grab the latest JMesa [http://code.google.com/p/jmesa/downloads/list download]. In there you will find the following: jmesa.jar, jmesa.css, jmesa-pdf.css, jmesa.js, default images, and the source code.
 
