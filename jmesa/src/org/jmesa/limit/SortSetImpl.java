@@ -15,7 +15,6 @@
  */
 package org.jmesa.limit;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,7 +27,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SortSetImpl implements Serializable, SortSet {
+public class SortSetImpl implements SortSet {
     private List<Sort> sorts;
 
     public SortSetImpl() {

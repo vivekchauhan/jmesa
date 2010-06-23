@@ -15,7 +15,6 @@
  */
 package org.jmesa.limit;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,7 +26,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FilterSetImpl implements Serializable, FilterSet {
+public class FilterSetImpl implements FilterSet {
     private Set<Filter> filters;
 
     public FilterSetImpl() {

@@ -15,11 +15,13 @@
  */
 package org.jmesa.core.message;
 
+import java.io.Serializable;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Messages {
+public interface Messages extends Serializable {
     /**
      * Get the resource property.
      */

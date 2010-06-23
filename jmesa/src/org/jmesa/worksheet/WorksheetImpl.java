@@ -15,7 +15,6 @@
  */
 package org.jmesa.worksheet;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class WorksheetImpl implements Worksheet, Serializable {
+public class WorksheetImpl implements Worksheet {
     
     private static final Logger logger = LoggerFactory.getLogger(WorksheetImpl.class);
 

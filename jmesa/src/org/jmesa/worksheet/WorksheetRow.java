@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -34,7 +35,7 @@ import java.util.Collection;
  * @since 2.3
  * @author Jeff Johnston
  */
-public interface WorksheetRow {
+public interface WorksheetRow extends Serializable {
     /**
      * @return Map in which the map keys are the item properties and the map values are the item
      *         values.

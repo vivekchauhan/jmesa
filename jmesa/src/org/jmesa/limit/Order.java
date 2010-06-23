@@ -15,15 +15,13 @@
  */
 package org.jmesa.limit;
 
-import java.io.Serializable;
-
 /**
  * The available sort orders.
  * 
  * @since 2.0
  * @author Jeff Johnston
  */
-public enum Order implements Serializable {
+public enum Order {
     ASC, DESC, NONE;
 
     public String toParam() {

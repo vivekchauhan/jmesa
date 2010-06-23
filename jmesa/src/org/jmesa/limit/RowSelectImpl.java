@@ -15,14 +15,13 @@
  */
 package org.jmesa.limit;
 
-import java.io.Serializable;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class RowSelectImpl implements RowSelect, Serializable {
+public class RowSelectImpl implements RowSelect {
     private int page;
     private int maxRows;
     private int rowEnd;
@@ -62,17 +61,17 @@ public class RowSelectImpl implements RowSelect, Serializable {
     private void init(int page) {
         page = getValidPage(page, maxRows, totalRows);
 
-        int rowStart = (page - 1) * maxRows;
+        int rs = (page - 1) * maxRows;
 
-        int rowEnd = rowStart + maxRows;
+        int re = rs + maxRows;
 
-        if (rowEnd > totalRows) {
-            rowEnd = totalRows;
+        if (re > totalRows) {
+            re = totalRows;
         }
 
         this.page = page;
-        this.rowStart = rowStart;
-        this.rowEnd = rowEnd;
+        this.rowStart = rs;
+        this.rowEnd = re;
     }
 
     /**
@@ -94,12 +93,12 @@ public class RowSelectImpl implements RowSelect, Serializable {
             return true;
         }
 
-        int rowStart = (page - 1) * maxRows;
-        int rowEnd = rowStart + maxRows;
-        if (rowEnd > totalRows) {
-            rowEnd = totalRows;
+        int rs = (page - 1) * maxRows;
+        int re = rs + maxRows;
+        if (re > totalRows) {
+            re = totalRows;
         }
-        return rowEnd > rowStart;
+        return re > rs;
     }
 
     @Override
