@@ -39,6 +39,7 @@ public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
         Worksheet worksheet = tableFacade.getWorksheet();
         if (worksheet.isSaving() && worksheet.hasChanges()) {
             saveWorksheet(worksheet);
+            tableFacade.getWorksheetState().persistWorksheet(worksheet);
         }
         
         setup();
