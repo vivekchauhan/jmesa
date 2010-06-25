@@ -36,6 +36,7 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
+import org.jmesa.worksheet.state.WorksheetState;
 
 /**
  * <p>
@@ -135,6 +136,16 @@ public interface TableFacade {
      */
     public Worksheet getWorksheet();
 
+    /**
+     * <p>
+     * Get the WorksheetState.
+     * </p>
+     * 
+     * @return WorksheetState.
+     * @since 2.5.1
+     */
+    public WorksheetState getWorksheetState();
+    
     /**
      * Add a row to the worksheet.
      */

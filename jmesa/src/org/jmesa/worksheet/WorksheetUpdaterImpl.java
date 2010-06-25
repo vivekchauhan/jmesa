@@ -40,24 +40,37 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
     protected static String COL_REMOVED = "_rm_";
     protected static String COL_UPDATED = "_uu_";
     protected static String COL_HAS_ERROR = "_ue_";
+    protected WorksheetState wst;
     
     public String update(Messages messages, WebContext webContext) {
         Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow row = getWorksheetRow(worksheet, webContext);
         WorksheetColumn column = getWorksheetColumn(row, messages, webContext);
-        return validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
+        String columnStatus = validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
+        // for GAE
+        getWorksheetState(webContext).persistWorksheet(worksheet);
+        return columnStatus;
     }
 
     protected Worksheet getWorksheet(Messages messages, WebContext webContext) {
-        String id = webContext.getParameter("id");
-        WorksheetState state = new SessionWorksheetState(id, webContext);
-        Worksheet worksheet = state.retrieveWorksheet();
+        wst = getWorksheetState(webContext);
+        Worksheet worksheet = wst.retrieveWorksheet();
         if (worksheet == null) {
+        	String id = webContext.getParameter("id");
             worksheet = new WorksheetImpl(id, messages);
-            state.persistWorksheet(worksheet);
+            wst.persistWorksheet(worksheet);
         }
 
         return worksheet;
+    }
+
+    protected WorksheetState getWorksheetState(WebContext webContext) {
+    	if (wst == null) {
+    		String id = webContext.getParameter("id");
+    		return new SessionWorksheetState(id, webContext);
+    	}
+    	
+    	return wst;
     }
 
     protected WorksheetRow getWorksheetRow(Worksheet worksheet, WebContext webContext) {

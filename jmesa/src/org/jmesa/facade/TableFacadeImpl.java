@@ -120,6 +120,7 @@ public class TableFacadeImpl implements TableFacade {
     private boolean autoFilterAndSort = true;
     private boolean editable;
     private Worksheet worksheet;
+    private WorksheetState wst;
 
     /**
      * <p>
@@ -195,7 +196,7 @@ public class TableFacadeImpl implements TableFacade {
             return worksheet;
         }
 
-        WorksheetState wst = new SessionWorksheetState(id, getWebContext());
+        wst = getWorksheetState();
         Worksheet ws = wst.retrieveWorksheet();
 
         if (ws == null || !isTableRefreshing(id, getWebContext())) {
@@ -217,6 +218,16 @@ public class TableFacadeImpl implements TableFacade {
         if (ws != null) {
         	ws.addRow(item, getTable());
         }
+        // for GAE
+        getWorksheetState().persistWorksheet(ws);
+    }
+
+    public WorksheetState getWorksheetState() {
+    	if (wst == null) {
+    		return new SessionWorksheetState(id, getWebContext());
+    	}
+    	
+    	return wst;
     }
 
     public void removeWorksheetRow() {
@@ -254,6 +265,8 @@ public class TableFacadeImpl implements TableFacade {
             wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
             ws.addRow(wsRow);
         }
+        // for GAE
+        getWorksheetState().persistWorksheet(ws);
     }
 
     public Limit getLimit() {
