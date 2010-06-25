@@ -23,6 +23,7 @@ import static org.jmesa.facade.tag.TagUtils.getTableFacadeColumnSort;
 import static org.jmesa.facade.tag.TagUtils.getTableFacadeToolbar;
 import static org.jmesa.facade.tag.TagUtils.getTableFacadeMaxRowIncrements;
 import static org.jmesa.facade.tag.TagUtils.getTableFacadeView;
+import static org.jmesa.facade.tag.TagUtils.getTableFacadeState;
 import static org.jmesa.facade.tag.TagUtils.getTableFacadeExportTypes;
 
 import java.io.IOException;
@@ -60,6 +61,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private Limit limit;
     private int maxRows;
     private String maxRowsIncrements;
+    private String state;
     private String stateAttr;
     private boolean autoFilterAndSort = true;
     private String exportTypes;
@@ -144,6 +146,22 @@ public class TableFacadeTag extends SimpleTagSupport {
      */
     public void setMaxRowsIncrements(String maxRowsIncrements) {
         this.maxRowsIncrements = maxRowsIncrements;
+    }
+
+    /**
+     * @return The State to use.
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * Set the State on the facade. This will override the State if it was previously set.
+     *
+     * @param state The State to use.
+     */
+    public void setState(String state) {
+        this.state = state;
     }
 
     /**
@@ -439,6 +457,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setItems(getItems());
         tableFacade.setMaxRows(getMaxRows());
         tableFacade.setStateAttr(getStateAttr());
+        tableFacade.setState(getTableFacadeState(getState()));
         tableFacade.setLimit(getLimit());
 
         tableFacade.setMaxRowsIncrements(getTableFacadeMaxRowIncrements(getMaxRowsIncrements()));

@@ -31,6 +31,7 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
+import org.jmesa.limit.state.State;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.editor.BasicCellEditor;
@@ -175,6 +176,15 @@ class TagUtils {
      */
     static View getTableFacadeView(String view) {
         return (View) createInstance(view);
+    }
+
+    /**
+     * Get the State. If the State does not exist then one will be created.
+     *
+     * @return Get the State object.
+     */
+    static State getTableFacadeState(String state) {
+        return (State) createInstance(state);
     }
 
     /**

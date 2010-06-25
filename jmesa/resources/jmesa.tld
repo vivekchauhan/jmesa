@@ -49,6 +49,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>stateAttr</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -140,6 +145,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>stateAttr</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -227,6 +237,11 @@
         </attribute>
         <attribute>
             <name>limit</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>state</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
