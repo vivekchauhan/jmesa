@@ -76,6 +76,35 @@
           <include>**/*.properties</include>
         </includes>
       </resource>
+      <resource>
+        <targetPath>META-INF</targetPath>
+        <filtering>false</filtering>
+        <directory>resources</directory>
+        <includes>
+          <include>**/*.tld</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>css</targetPath>
+        <directory>resources</directory>
+        <includes>
+          <include>**/*.css</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>js</targetPath>
+        <directory>resources</directory>
+        <includes>
+          <include>**/*.js</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>images</targetPath>
+        <directory>resources/images</directory>
+        <includes>
+          <include>**/*.*</include>
+        </includes>
+      </resource>
     </resources>
 
     <testResources>
