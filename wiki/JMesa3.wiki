@@ -18,6 +18,8 @@ For those using the Limit to pull back one row at a time at minimum you will hav
 
 I will post real examples as I get things implemented. But let me know if there is something that you feel JMesa should do better that is different than what I am proposing. 
 
+Once the new code is ready I will go through the site and redo all the documentation! Should be easy now that I do not have to explain all the variations of how you could build a table.
+
 === Example ===
 
 The following is a straightword example, but note that was it cool about the new code is how clean it is, and the fact that order does not matter at all! Granted, it is not wildly different from what it is today, but it is so much cleaner.
