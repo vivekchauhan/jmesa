@@ -1,4 +1,4 @@
-The Preferences interface is used to avoid hard coding the default attribute values JMesa uses. The default implementation uses a Java [http://java.sun.com/j2se/1.5.0/docs/api/java/util/Properties.html properties] file. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then change the values you want.
+The Preferences interface is used to avoid hard coding the default attribute values JMesa uses. The default implementation uses a Java [http://java.sun.com/j2se/1.5.0/docs/api/java/util/Properties.html properties] file. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then override the values you want.
 
 To set up the properties file specify a context-param in your /WEB-INF/web.xml file and place the properties wherever you want to like this:
 
@@ -29,5 +29,4 @@ html.imagesPath=/images/table/
 
 If you want your images in some other directory just override this property in your custom properties file.
 
-_Here is the complete [http://jmesa.googlecode.com/svn/tags/jmesa-2.2/src/org/jmesa/core/preference/jmesa.properties listing] of all the default properties._
-
+_Here is the complete [http://code.google.com/p/jmesa/source/browse/trunk/jmesa/src/org/jmesa/core/preference/jmesa.properties listing] of all the default properties._
