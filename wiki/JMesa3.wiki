@@ -20,7 +20,7 @@ I will post real examples as I get things implemented. But let me know if there 
 
 === Example ===
 
-The following is a straightword example, but note that was it cool about the new code is how clean it is, and the fact that order does not matter at all!
+The following is a straightword example, but note that was it cool about the new code is how clean it is, and the fact that order does not matter at all! Granted, it is not wildly different from what it is today, but it is so much cleaner.
 
 {{{
 TableModel tableModel = new TableModel("id", request);
