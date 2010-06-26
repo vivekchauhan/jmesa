@@ -1,4 +1,4 @@
-The Preferences interface is used to avoid hard coding the default attribute values JMesa uses. The default implementation uses a Java [http://java.sun.com/j2se/1.5.0/docs/api/java/util/Properties.html properties] file. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then override the values you want.
+The Preferences interface is used to avoid hard coding the default attribute values JMesa uses. The default implementation uses a Java [http://java.sun.com/j2se/1.5.0/docs/api/java/util/Properties.html properties] file. If you need to override any of these default settings you can do so by creating your own jmesa.properties file and then override the values you want. And, just to be clear, you only have to have the values that you want to override in your properties file, or any properties that you want in your custom classes.
 
 To set up the properties file specify a context-param in your /WEB-INF/web.xml file and place the properties wherever you want to like this:
 
