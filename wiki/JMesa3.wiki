@@ -1,4 +1,6 @@
-I was at a crossroad recently...I know I need to update the documentation on the site, but I also know that the API in its current form is too hard to document. The reason is that there are so many ways to work with the API now. 
+The real change with JMesa 3.0 is to get one clear syntax, and have it so that the order that things get declared not matter. So let me explain...
+
+I was at a crossroad recently. I know I need to update the documentation on the site, but I also know that the API in its current form is too hard to document. The reason is that there are so many ways to work with the API now. 
 
 But thanks to the latest release it seems so obvious now on how to get JMesa to what the original vision was. Where I feel that things went off track was when I understood that the order of interacting with the !TableFacade mattered too much. That was never my intention and I was not sure what to do about it. But then in the last release the template code was introduced, and then it became obvious on what needed to be done. Plus through the releases we found better ways to build tables such as the fluent pattern and support interfaces. This is a chance to incorporate all that now.
 
@@ -6,7 +8,15 @@ So basically what I am proposing is that we take the !TableFacade and !TableFaca
 
 But I am in no way proposing a rewrite. I just want to get the syntax to what it should be. I still really like all the interfaces and implementations. So all of your existing custom classes will work perfectly. And I am making it a design goal that everything is backwards compatible so you can move your tables over as you get time.
 
-The other thing I want to do (and you can see in the example below) is not make developers care that the CellEditor is actually added to the renderer. I mean technically it would still be, but there is no reason why the CellEditor could not just have a method on the column, and then pass through to the editor. This is something that the tag library does and it looks cleaner.
+The other thing I want to do (and you can see in the example below) is not make developers care that the !CellEditor is actually added to the renderer. I mean technically it would still be, but there is no reason why the !CellEditor could not just have a method on the column, and then pass through to the editor. This is something that the tag library does and it looks cleaner. 
+
+Lastly, I will also do some general code cleanup, but it will not effect anyone. I might even see if I can get things like the !CellEditor to use Generics better.
+
+For those using the tag library even less will change. Really it might just be a name change from tableFacade to tableModel (just to keep the naming the same).
+
+For those using the Limit to pull back one row at a time at minimum you will have a callback functionality so that using the Limit is as easy as it is with the new template code.
+
+I will post real examples as I get things implemented. But let me know if there is something that you feel JMesa should do better that is different than what I am proposing. 
 
 === Example ===
 
@@ -57,3 +67,50 @@ tableModel.setTable(table);
 
 String html = tableModel.render();
 }}}
+
+=== Fluent Example ===
+
+Same as above but shows how the columns will use the fluent syntax. We could really use the fluent syntax on the model as well, but I am not sure if that makes as much sense.
+
+{{{
+TableModel tableModel = new TableModel("id", request);
+tableModel.setItems(items);
+tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+
+HtmlTable table = new HtmlTable().caption("Presidents").width("600px");
+
+Row row = new HtmlRow();
+
+Column firstName = new HtmlColumn("name.firstName");
+firstName.setTitle("First Name");
+firstName.setCellEditor(new CellEditor() {
+    public Object getValue(Object item, String property, int rowcount) {
+        Object value = new BasicCellEditor().getValue(item, property, rowcount);
+        HtmlBuilder html = new HtmlBuilder();
+        html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+        html.append(value);
+        html.aEnd();
+        return html.toString();
+    }
+});
+row.addColumn(firstName);
+
+Column lastName = new HtmlColumn("name.lastName").title("Last Name");
+row.addColumn(lastName);
+
+Column term = new HtmlColumn("term");
+row.addColumn(term);
+
+Column career = new HtmlColumn("career");
+row.addColumn(career);
+
+Column born = new HtmlColumn("born").cellEditor(new DateCellEditor("MM/yyyy"));
+row.addColumn(born);
+
+table.setRow(row);
+
+tableModel.setTable(table);
+
+String html = tableModel.render();
+}}}
+
