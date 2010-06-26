@@ -16,7 +16,7 @@ For those using the tag library even less will change. Really it might just be a
 
 For those using the Limit to pull back one row at a time at minimum you will have a callback functionality so that using the Limit is as easy as it is with the new template code.
 
-I will post real examples as I get things implemented. But let me know if there is something that you feel JMesa should do better that is different than what I am proposing. You can either use the groups (for open discussion), or contact me directly at jeff.johnston.mn@gmail.com.
+I will post real examples as I get things implemented. But let me know if there is something that you feel JMesa should do better that is different than what I am proposing. You can either use the groups (for an open discussion), or contact me directly at jeff.johnston.mn@gmail.com.
 
 Once the new code is ready I will go through the site and redo all the documentation! Should be easy now that I do not have to explain all the variations of how you could build a table!
 
