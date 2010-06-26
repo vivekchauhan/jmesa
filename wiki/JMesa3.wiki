@@ -6,7 +6,7 @@ But thanks to the latest release it seems so obvious now on how to get JMesa to 
 
 So basically what I am proposing is that we take the !TableFacade and !TableFacadeTemplate and move them down the chain (meaning they do not get interacted with directly). Then our new class (!TableModel) will handle the work of running things in the correct order, same as the template does now. Then we will just have one syntax for building tables. So, no more of the setColumnProperties() to build the table and then have to pull columns to modify it.
 
-But I am in no way proposing a rewrite. I just want to get the syntax to what it should be. I still really like all the interfaces and implementations. So all of your existing custom classes will work perfectly. And I am making it a design goal that everything is backwards compatible so you can move your tables over as you get time.
+But I am in no way proposing a rewrite. I just want to get the syntax to what it should be. I still really like all the interfaces and implementations. So all of your existing custom classes will work perfectly. And I am making it a design goal that everything is backwards compatible so you can move your tables over one by one as you get time.
 
 The other thing I want to do (and you can see in the example below) is not make developers care that the !CellEditor is actually added to the renderer. I mean technically it would still be, but there is no reason why the !CellEditor could not just have a method on the column, and then pass through to the editor. This is something that the tag library does and it looks cleaner. 
 
