@@ -14,7 +14,17 @@ Lastly, I will also do some general code cleanup, but it will not effect anyone.
 
 For those using the tag library even less will change. Really it might just be a name change from tableFacade to tableModel (just to keep the naming the same).
 
-For those using the Limit to pull back one row at a time at minimum you will have a callback functionality so that using the Limit is as easy as it is with the new template code.
+For those using the Limit to pull back one row at a time at minimum you will have a callback functionality so that using the Limit is as easy as it is with the new template code. Probably something like this:
+
+{{{
+tableModel.setItems(new PageResults() {
+    public int getTotalRows(Limit limit) {   
+    }
+
+    public Collection<?> getItems(Limit limit) {
+    }
+});
+}}}
 
 I will post real examples as I get things implemented. But let me know if there is something that you feel JMesa should do better that is different than what I am proposing. You can either use the groups (for an open discussion), or contact me directly at jeff.johnston.mn@gmail.com.
 
