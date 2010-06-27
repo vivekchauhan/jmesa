@@ -1,4 +1,4 @@
-The !TableModel will take over the work that the template was is doing in the 2.5 release. But instead of being a template that has callbacks (with the exception of the PageResults) we will store the object that was set and then run everything once the render() method is called.
+The !TableModel will take over the work that the template was is doing in the 2.5 release. But instead of being a template that has callbacks (with the exception of the !PageResults) we will store the object that was set and then run everything once the render() method is called.
 
 <img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/uml/JMesa3.png" />
 
