@@ -14,7 +14,7 @@ Lastly, I will also do some general code cleanup, but it will not effect anyone.
 
 For those using the tag library even less will change. It will just be a name change from tableFacade to tableModel (just to keep the naming the same as the API).
 
-For those using the Limit to pull back one row at a time at minimum you will have a callback functionality so that using the Limit is as easy as it is with the new template code. Probably something like this:
+For those using the Limit to pull back one row at a time at minimum you will have a callback functionality so that using the Limit is as easy as it is with the new template code. This is what I think it should be:
 
 {{{
 tableModel.setPageResults(new PageResults() {
