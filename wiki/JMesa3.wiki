@@ -17,7 +17,7 @@ For those using the tag library even less will change. Really it might just be a
 For those using the Limit to pull back one row at a time at minimum you will have a callback functionality so that using the Limit is as easy as it is with the new template code. Probably something like this:
 
 {{{
-tableModel.setItems(new PageResults() {
+tableModel.setPageResults(new PageResults() {
     public int getTotalRows(Limit limit) {   
     }
 
