@@ -10,4 +10,4 @@ There are a few things that are left out of the !TableModel.
 
  * We still want to have a convenient way to save the worksheet. Right now we interact with the !TableFacade to find out if the worksheet is being saved. This is another feature that should be handled with a static utility method that checks the request and session.
 
- * We want a simple way to get at the Limit.  Right now we interact with the !TableFacade to get the Limit. This is another feature that should be handled with a static utility method that can build the Limit with the factory classes.
+ * We want a simple way to get at the Limit.  Right now we interact with the !TableFacade to get the Limit. This is another feature that should be handled with a static utility method that can build the Limit with the factory classes. _The Limit tutorial talks about looking for Limit.isComplete(), and is something the template checks for us. First I will find out why it had to be in the template and not the facade. Then we might consider using the !PageResults callback interface for those using the tag library. I want tag users to not have boilerplate code like checking the complete status._
