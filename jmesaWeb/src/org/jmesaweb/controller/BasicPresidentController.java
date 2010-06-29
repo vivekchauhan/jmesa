@@ -15,35 +15,29 @@
  */
 package org.jmesaweb.controller;
 
-import java.util.Map;
-import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.limit.ExportType;
 import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.JEXCEL;
 import static org.jmesa.limit.ExportType.PDF;
 
-import java.util.Collection;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jmesa.core.filter.DateFilterMatcher;
-import org.jmesa.core.filter.MatcherKey;
-import org.jmesa.facade.TableFacadeTemplate;
-import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeFactory;
-import org.jmesa.view.component.Column;
-import org.jmesa.view.component.Row;
-import org.jmesa.view.component.Table;
+import org.jmesa.model.TableModel;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.editor.DroplistFilterEditor;
+import org.jmesa.view.html.component.HtmlColumnImpl;
+import org.jmesa.view.html.component.HtmlRowImpl;
+import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.editor.HtmlCellEditor;
+import org.jmesa.view.html.editor.HtmlFilterEditor;
+import org.jmesa.view.html.editor.HtmlHeaderEditor;
+import org.jmesa.view.html.renderer.HtmlCellRendererImpl;
+import org.jmesa.view.html.renderer.HtmlFilterRendererImpl;
+import org.jmesa.view.html.renderer.HtmlHeaderRendererImpl;
+import org.jmesa.view.html.renderer.HtmlRowRendererImpl;
+import org.jmesa.view.html.renderer.HtmlTableRendererImpl;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -64,116 +58,108 @@ public class BasicPresidentController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request, response);
-        TableFacadeTemplate template = new BasicPresidentTemplate(tableFacade);
+        TableModel tableModel = new TableModel(id, request);
+        tableModel.setItems(presidentService.getPresidents());
 
-        String view = template.render();
-        if (view == null) { // an export will return null
-            return null;
-        }
+        tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
+        tableModel.setStateAttr("restore");
 
-        request.setAttribute("presidents", view); // Set the Html in the request for the JSP.
+        //filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+
+        HtmlTableImpl htmlTable = new HtmlTableImpl();
+        htmlTable.setCaption("Presidents");
+        htmlTable.setTableRenderer(new HtmlTableRendererImpl(htmlTable));
+        htmlTable.getTableRenderer().setWidth("600px");
+
+        HtmlRowImpl htmlRow = new HtmlRowImpl();
+        htmlRow.setRowRenderer(new HtmlRowRendererImpl(htmlRow));
+        htmlTable.setRow(htmlRow);
+
+        // first name
+
+        HtmlColumnImpl firstName = new HtmlColumnImpl();
+        firstName.setCellRenderer(new HtmlCellRendererImpl(firstName, new HtmlCellEditor()));
+        
+        HtmlFilterRendererImpl firstNameFilterRenderer = new HtmlFilterRendererImpl(firstName);
+        firstNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
+        firstName.setFilterRenderer(firstNameFilterRenderer);
+
+        HtmlHeaderRendererImpl firstNameHeaderRenderer = new HtmlHeaderRendererImpl(firstName);
+        firstNameHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
+        firstName.setHeaderRenderer(firstNameHeaderRenderer);
+
+        firstName.setProperty("name.firstName");
+        firstName.setTitle("First Name");
+        firstName.getCellRenderer().setCellEditor(new CellEditor() {
+            public Object getValue(Object item, String property, int rowcount) {
+                Object value = new HtmlCellEditor().getValue(item, property, rowcount);
+                HtmlBuilder html = new HtmlBuilder();
+                html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+                html.append(value);
+                html.aEnd();
+                return html.toString();
+            }
+        });
+        htmlRow.addColumn(firstName);
+
+        // last name
+
+        HtmlColumnImpl lastName = new HtmlColumnImpl();
+        lastName.setCellRenderer(new HtmlCellRendererImpl(lastName, new HtmlCellEditor()));
+
+        HtmlFilterRendererImpl lastNameFilterRenderer = new HtmlFilterRendererImpl(lastName);
+        lastNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
+        lastName.setFilterRenderer(lastNameFilterRenderer);
+
+        HtmlHeaderRendererImpl lastNameHeaderRenderer = new HtmlHeaderRendererImpl(lastName);
+        lastNameHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
+        lastName.setHeaderRenderer(lastNameHeaderRenderer);
+
+        lastName.setProperty("name.lastName");
+        lastName.setTitle("Last Name");
+        htmlRow.addColumn(lastName);
+
+        // career
+
+        HtmlColumnImpl career = new HtmlColumnImpl();
+        career.setCellRenderer(new HtmlCellRendererImpl(career, new HtmlCellEditor()));
+
+        HtmlFilterRendererImpl careerFilterRenderer = new HtmlFilterRendererImpl(career);
+        careerFilterRenderer.setFilterEditor(new HtmlFilterEditor());
+        career.setFilterRenderer(careerFilterRenderer);
+
+        HtmlHeaderRendererImpl  careerHeaderRenderer = new HtmlHeaderRendererImpl(career);
+        careerHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
+        career.setHeaderRenderer(careerHeaderRenderer);
+
+        career.setProperty("career");
+        //career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+        htmlRow.addColumn(career);
+
+        // born
+
+        HtmlColumnImpl born = new HtmlColumnImpl();
+        born.setCellRenderer(new HtmlCellRendererImpl(born, new HtmlCellEditor()));
+
+        HtmlFilterRendererImpl bornFilterRenderer = new HtmlFilterRendererImpl(born);
+        bornFilterRenderer.setFilterEditor(new HtmlFilterEditor());
+        born.setFilterRenderer(bornFilterRenderer);
+
+        HtmlHeaderRendererImpl bornHeaderRenderer = new HtmlHeaderRendererImpl(born);
+        bornHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
+        born.setHeaderRenderer(bornHeaderRenderer);
+
+        born.setProperty("born");
+        born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+        htmlRow.addColumn(born);
+
+        tableModel.setTable(htmlTable);
+
+        String view = tableModel.render();
+
+        request.setAttribute("presidents", view);
 
         return mv;
-    }
-
-    private class BasicPresidentTemplate extends TableFacadeTemplate {
-
-        public BasicPresidentTemplate(TableFacade tableFacade) {
-            super(tableFacade);
-        }
-        
-        /**
-         * The array of available exports.
-         */
-        @Override
-        protected ExportType[] getExportTypes() {
-            return new ExportType[]{CSV, JEXCEL, PDF};
-        }
-
-        /**
-         * Add a custom filter matcher to be the same pattern as the cell editor used.
-         */
-        @Override
-        protected void addFilterMatchers(Map<MatcherKey, FilterMatcher> filterMatchers) {
-            filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
-        }
-
-        /**
-         * Make it so that the table state is saved.
-         */
-        @Override
-        protected String getStateAttr() {
-            return "restore";
-        }
-
-        /**
-         * Set the column properties. Will be different based on if this is an export.
-         */
-        @Override
-        protected String[] getColumnProperties() {
-            if (isExporting()) {
-                return new String[]{"name.firstName", "name.lastName", "term", "career"};
-            }
-            return new String[]{"name.firstName", "name.lastName", "term", "career", "born"};
-        }
-
-        /**
-         * After the column properties are set then we can modify the table.
-         *
-         * Note: a new (and better) way to build an html table would be to override the createTable()
-         * method and use the HtmlBuilder. Exports would still have to use this method to modify
-         * the table though.
-         */
-        @Override
-        protected void modifyTable(Table table) {
-            if (isExporting()) {
-                table.setCaption("Presidents");
-
-                Row row = table.getRow();
-
-                Column firstName = row.getColumn("name.firstName");
-                firstName.setTitle("First Name");
-
-                Column lastName = row.getColumn("name.lastName");
-                lastName.setTitle("Last Name");
-            } else {
-                HtmlTable htmlTable = (HtmlTable)table;
-                htmlTable.setCaption("Presidents");
-                htmlTable.getTableRenderer().setWidth("600px");
-
-                HtmlRow htmlRow = htmlTable.getRow();
-
-                HtmlColumn firstName = htmlRow.getColumn("name.firstName");
-                firstName.setTitle("First Name");
-
-                HtmlColumn lastName = htmlRow.getColumn("name.lastName");
-                lastName.setTitle("Last Name");
-
-                HtmlColumn career = htmlRow.getColumn("career");
-                career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
-
-                Column born = htmlRow.getColumn("born");
-                born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
-
-                // Using an anonymous class to implement a custom editor.
-                firstName.getCellRenderer().setCellEditor(new CellEditor() {
-                    public Object getValue(Object item, String property, int rowcount) {
-                        Object value = new HtmlCellEditor().getValue(item, property, rowcount);
-                        HtmlBuilder html = new HtmlBuilder();
-                        html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
-                        html.append(value);
-                        html.aEnd();
-                        return html.toString();
-                    }
-                });
-            }
-        }
-
-        @Override
-        protected Collection<?> getItems() {
-            return presidentService.getPresidents();
-        }
     }
 
     public void setPresidentService(PresidentService presidentService) {
