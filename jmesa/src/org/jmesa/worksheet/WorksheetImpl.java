@@ -217,4 +217,8 @@ public class WorksheetImpl implements Worksheet {
         builder.append("rows", rows);
         return builder.toString();
     }
+    
+    public Worksheet getWorksheetImpl() {
+        return this;
+    }
 }

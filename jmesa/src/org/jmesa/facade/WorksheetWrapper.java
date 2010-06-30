@@ -136,4 +136,8 @@ public class WorksheetWrapper implements Worksheet {
     public String toString() {
         return worksheet.toString();
     }
+    
+    public Worksheet getWorksheetImpl() {
+        return worksheet;
+    }
 }

@@ -153,4 +153,11 @@ public interface Worksheet extends Serializable {
      * @param handler The callback handler.
      */
     public void processRows(WorksheetCallbackHandler handler);
+    
+    /**
+     * Method to get actual worksheet implementation class.
+     * 
+     * @return WorksheetImpl class.
+     */
+    public Worksheet getWorksheetImpl();
 }
