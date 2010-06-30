@@ -201,7 +201,7 @@ public class TableFacadeImpl implements TableFacade {
 
         if (ws == null || !isTableRefreshing(id, getWebContext())) {
             ws = new WorksheetImpl(id, getMessages());
-            wst.persistWorksheet(ws);
+            persistWorksheet(ws);
         }
 
         this.worksheet = new WorksheetWrapper(ws, getWebContext());
@@ -219,15 +219,19 @@ public class TableFacadeImpl implements TableFacade {
         	ws.addRow(item, getTable());
         }
         // for GAE
-        getWorksheetState().persistWorksheet(ws);
+        persistWorksheet(ws);
     }
 
-    public WorksheetState getWorksheetState() {
+    private WorksheetState getWorksheetState() {
     	if (wst == null) {
     		return new SessionWorksheetState(id, getWebContext());
     	}
     	
     	return wst;
+    }
+
+    public void persistWorksheet(Worksheet worksheet) {
+    	getWorksheetState().persistWorksheet(worksheet.getWorksheetImpl());
     }
 
     public void removeWorksheetRow() {
@@ -266,7 +270,7 @@ public class TableFacadeImpl implements TableFacade {
             ws.addRow(wsRow);
         }
         // for GAE
-        getWorksheetState().persistWorksheet(ws);
+        persistWorksheet(ws);
     }
 
     public Limit getLimit() {

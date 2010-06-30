@@ -138,13 +138,12 @@ public interface TableFacade {
 
     /**
      * <p>
-     * Get the WorksheetState.
+     * Saves the worksheet in session.
      * </p>
      * 
-     * @return WorksheetState.
-     * @since 2.5.1
+     * @since 2.5.2
      */
-    public WorksheetState getWorksheetState();
+    public void persistWorksheet(Worksheet worksheet);
     
     /**
      * Add a row to the worksheet.
