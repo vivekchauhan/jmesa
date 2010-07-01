@@ -18,7 +18,7 @@ package org.jmesa.worksheet.state;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.jmesa.limit.LimitImpl;
+import org.jmesa.limit.Limit;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
@@ -38,7 +38,7 @@ public class WorksheetStateTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
 
-        webContext.setSessionAttribute(ID, new LimitImpl(ID));
+        webContext.setSessionAttribute(ID, new Limit(ID));
 
         WorksheetState state = new SessionWorksheetState(ID, webContext);
 

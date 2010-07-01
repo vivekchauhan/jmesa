@@ -26,7 +26,6 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
@@ -49,7 +48,7 @@ public abstract class AbstractTestCase {
     protected CoreContext createCoreContext(WebContext webContext) {
         Collection<President> items = PresidentDao.getPresidents();
 
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
         
         if (limit.isExported()) {

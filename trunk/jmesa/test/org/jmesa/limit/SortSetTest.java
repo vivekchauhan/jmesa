@@ -32,7 +32,7 @@ public class SortSetTest {
 
     @Test
     public void isSorted() {
-        SortSet sortSet = new SortSetImpl();
+        SortSet sortSet = new SortSet();
         boolean sorted = sortSet.isSorted();
         assertFalse("default constructor", sorted);
 
@@ -60,7 +60,7 @@ public class SortSetTest {
     }
 
     private SortSet getSortSet() {
-        SortSet sortSet = new SortSetImpl();
+        SortSet sortSet = new SortSet();
 
         sortSet.addSort(new Sort(2, "nickname", Order.DESC));
         sortSet.addSort(new Sort(1, "fullName", Order.ASC));

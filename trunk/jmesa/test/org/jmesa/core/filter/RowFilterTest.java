@@ -27,7 +27,6 @@ import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersAdapter;
 import org.jmesa.test.ParametersBuilder;
@@ -57,7 +56,7 @@ public class RowFilterTest extends AbstractTestCase {
         builder.addFilter("name.fullName", "george");
         webContext.setParameterMap(results);
         
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
 
         Collection<?> items = PresidentDao.getPresidents();
@@ -85,7 +84,7 @@ public class RowFilterTest extends AbstractTestCase {
         builder.addFilter("name.firstName", "James");
         webContext.setParameterMap(results);
         
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
 
         Collection items = new ArrayList<President>();

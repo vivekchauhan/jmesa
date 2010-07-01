@@ -23,7 +23,6 @@ import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
-import org.jmesa.limit.RowSelectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,7 +87,7 @@ public class ItemsImpl implements Items {
         RowSelect rowSelect = limit.getRowSelect();
         int page = rowSelect.getPage();
         int maxRows = rowSelect.getMaxRows();
-        RowSelect recalcRowSelect = new RowSelectImpl(page, maxRows, filteredItems.size());
+        RowSelect recalcRowSelect = new RowSelect(page, maxRows, filteredItems.size());
         limit.setRowSelect(recalcRowSelect);
     }
 

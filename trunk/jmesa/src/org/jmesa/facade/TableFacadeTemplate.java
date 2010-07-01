@@ -27,7 +27,7 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
-import org.jmesa.limit.RowSelectImpl;
+import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
@@ -124,7 +124,7 @@ public abstract class TableFacadeTemplate {
             if (limit.isComplete()) {
                 int p = limit.getRowSelect().getPage();
                 int mr = limit.getRowSelect().getMaxRows();
-                limit.setRowSelect(new RowSelectImpl(p, mr, totalRows));
+                limit.setRowSelect(new RowSelect(p, mr, totalRows));
             } else {
                 tableFacade.setTotalRows(totalRows);
             }
@@ -136,7 +136,7 @@ public abstract class TableFacadeTemplate {
             if (limit.isComplete()) {
                 int p = limit.getRowSelect().getPage();
                 int mr = limit.getRowSelect().getMaxRows();
-                limit.setRowSelect(new RowSelectImpl(p, mr, items.size()));
+                limit.setRowSelect(new RowSelect(p, mr, items.size()));
             } else {
                 tableFacade.setTotalRows(items.size());
             }

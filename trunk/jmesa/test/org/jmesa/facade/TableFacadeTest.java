@@ -33,7 +33,6 @@ import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
@@ -166,7 +165,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Limit stateLimit = facadeStateLimit.getLimit();
         assertTrue(stateLimit.isComplete());
 
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, facade.getWebContext());
+        LimitFactory limitFactory = new LimitFactory(ID, facade.getWebContext());
         Limit limitToSet = limitFactory.createLimit();
         facade.setLimit(limitToSet); // The Limit set should now be the one used.
         assertTrue("The limit is not the same.", limitToSet == facade.getLimit());

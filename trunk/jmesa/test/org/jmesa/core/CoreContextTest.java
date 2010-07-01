@@ -31,7 +31,7 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.core.sort.DefaultColumnSort;
-import org.jmesa.limit.LimitFactoryImpl;
+import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.Order;
@@ -55,7 +55,7 @@ public class CoreContextTest {
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
 		webContext.setLocale(Locale.US);
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+		LimitFactory limitFactory = new LimitFactory(ID, webContext);
 		Limit limit = limitFactory.createLimit();
 		
 		RowSelect rowSelect = limitFactory.createRowSelect(MAX_ROWS, TOTAL_ROWS);

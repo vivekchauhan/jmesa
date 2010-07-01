@@ -19,7 +19,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
 
 import org.jmesa.limit.Limit;
-import org.jmesa.limit.LimitImpl;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -37,7 +36,7 @@ public class SessionStateTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
 
-        webContext.setSessionAttribute(ID + "_LIMIT", new LimitImpl(ID));
+        webContext.setSessionAttribute(ID + "_LIMIT", new Limit(ID));
 
         SessionState state = new SessionState();
         state.setId(ID);
@@ -60,7 +59,7 @@ public class SessionStateTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
 
-        webContext.setSessionAttribute(ID + "_LIMIT", new LimitImpl(ID));
+        webContext.setSessionAttribute(ID + "_LIMIT", new Limit(ID));
 
         SessionState state = new SessionState();
         state.setId(ID);

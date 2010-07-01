@@ -16,6 +16,7 @@
 package org.jmesa.limit;
 
 import java.io.Serializable;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
@@ -25,78 +26,127 @@ import java.io.Serializable;
  * exporting. With this information you will be able to display the requested page filtered and
  * sorted correctly in the most efficient manner possible.
  * </p>
- * 
+ *
  * <p>
  * The RowSelect needs to be added to the Limit so that the row information is available.
  * </p>
- * 
+ *
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Limit extends Serializable {
+public class Limit implements Serializable {
+    private final String id;
+    private RowSelect rowSelect;
+    private FilterSet filterSet;
+    private SortSet sortSet;
+    private ExportType exportType;
+
+    /**
+     * @param id The code to uniquely identify the table.
+     */
+    public Limit(String id) {
+        this.id = id;
+    }
 
     /**
      * @return The code to uniquely identify the table.
      */
-    public String getId();
-
-    /**
-     * <p>
-     * A RowSelect represents the row information.
-     * </p>
-     */
-    public RowSelect getRowSelect();
-
-    /**
-     * <p>
-     * The RowSelect needs to be set on the Limit for the Limit to be useful. Of course the
-     * RowSelect cannot be created until the total rows is known.
-     * </p>
-     * 
-     * <p>
-     * The idea is you first create a Limit and use the FilterSet to retrieve the total rows. Once
-     * you have the total rows you can create a RowSelect and pass it in here.
-     * </p>
-     * 
-     * @param rowSelect The RowSelect to use for this Limit.
-     */
-    public void setRowSelect(RowSelect rowSelect);
+    public String getId() {
+        return id;
+    }
 
     /**
      * <p>
      * A FilterSet represents the set of Filter objects.
      * </p>
      */
-    public FilterSet getFilterSet();
+    public FilterSet getFilterSet() {
+        return filterSet;
+    }
 
-    public void setFilterSet(FilterSet filterSet);
+    public void setFilterSet(FilterSet filterSet) {
+        this.filterSet = filterSet;
+    }
 
     /**
      * <p>
      * A SortSet represents the set of Sort objects.
      * </p>
      */
-    public SortSet getSortSet();
+    public SortSet getSortSet() {
+        return sortSet;
+    }
 
-    public void setSortSet(SortSet sortSet);
+    public void setSortSet(SortSet sortSet) {
+        this.sortSet = sortSet;
+    }
+
+    /**
+     * <p>
+     * A RowSelect represents the row information.
+     * </p>
+     */
+    public RowSelect getRowSelect() {
+        return rowSelect;
+    }
+
+    /**
+     * <p>
+     * The RowSelect needs to be set on the Limit for the Limit to be useful. Of course the
+     * RowSelect cannot be created until the total rows is known.
+     * </p>
+     *
+     * <p>
+     * The idea is you first create a Limit and use the FilterSet to retrieve the total rows. Once
+     * you have the total rows you can create a RowSelect and pass it in here.
+     * </p>
+     *
+     * @param rowSelect The RowSelect to use for this Limit.
+     */
+    public void setRowSelect(RowSelect rowSelect) {
+        this.rowSelect = rowSelect;
+    }
 
     /**
      * <p>
      * Check to see if the user is trying to export a table.
      * </p>
-     * 
+     *
      * @return Is true if the user invoked an export.
      */
-    public boolean isExported();
+    public boolean isExported() {
+        return getExportType() != null;
+    }
 
     /**
      * <p>
      * The ExportType represents the export that the user invoked.
      * </p>
      */
-    public ExportType getExportType();
+    public ExportType getExportType() {
+        return exportType;
+    }
 
-    public void setExportType(ExportType exportType);
+    public void setExportType(ExportType exportType) {
+        this.exportType = exportType;
+    }
 
-    public boolean isComplete();
+    public boolean isComplete() {
+        if (rowSelect != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("id", getId());
+        builder.append("export", getExportType());
+        builder.append("rowSelect", getRowSelect());
+        builder.append("filterSet", getFilterSet());
+        builder.append("sortSet", getSortSet());
+        return builder.toString();
+    }
 }
