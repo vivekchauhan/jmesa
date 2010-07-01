@@ -40,7 +40,7 @@ import org.junit.Test;
 public class RowFilterTest extends AbstractTestCase {
     @Test
     public void filterItems() {
-        FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
+        FilterMatcherRegistry registry = new FilterMatcherRegistry();
         MatcherKey key = new MatcherKey(String.class);
         FilterMatcher match = new StringFilterMatcher();
         registry.addFilterMatcher(key, match);
@@ -68,7 +68,7 @@ public class RowFilterTest extends AbstractTestCase {
     @SuppressWarnings("unchecked")
     @Test
     public void filterNullItems() {
-        FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
+        FilterMatcherRegistry registry = new FilterMatcherRegistry();
         MatcherKey key = new MatcherKey(String.class);
         FilterMatcher match = new StringFilterMatcher();
         registry.addFilterMatcher(key, match);

@@ -20,7 +20,6 @@ import java.util.Collection;
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherRegistry;
-import org.jmesa.core.filter.FilterMatcherRegistryImpl;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.filter.SimpleRowFilter;
@@ -70,7 +69,7 @@ public class CoreContextFactory {
 
     protected FilterMatcherRegistry getFilterMatcherRegistry() {
         if (registry == null) {
-            registry = new FilterMatcherRegistryImpl();
+            registry = new FilterMatcherRegistry();
             StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();
             registry.addFilterMatcher(new MatcherKey(Object.class), stringFilterMatcher);
         }
