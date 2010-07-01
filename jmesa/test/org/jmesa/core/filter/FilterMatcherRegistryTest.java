@@ -31,7 +31,7 @@ import org.junit.Test;
 public class FilterMatcherRegistryTest extends AbstractTestCase {
     @Test
     public void getMatchWithDateObject() {
-        FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
+        FilterMatcherRegistry registry = new FilterMatcherRegistry();
         
         registry.addFilterMatcher(new MatcherKey(Object.class), new StringFilterMatcher());
         registry.addFilterMatcher(new MatcherKey(Date.class), new DateFilterMatcher());
@@ -45,7 +45,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
     @Test
     public void getMatchWithObject() {
-        FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
+        FilterMatcherRegistry registry = new FilterMatcherRegistry();
         registry.addFilterMatcher(new MatcherKey(Object.class), new StringFilterMatcher());
         MatcherKey key = new MatcherKey(String.class, "name");
         FilterMatcher result = registry.getFilterMatcher(key);
@@ -54,7 +54,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
     @Test
 	public void getMatchWithType() {
-		FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
+		FilterMatcherRegistry registry = new FilterMatcherRegistry();
 		registry.addFilterMatcher(new MatcherKey(String.class), new StringFilterMatcher());
 		MatcherKey key = new MatcherKey(String.class, "name");
 		FilterMatcher result = registry.getFilterMatcher(key);
@@ -63,7 +63,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
 	@Test
 	public void getMatchKeyWithProperty() {
-		FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
+		FilterMatcherRegistry registry = new FilterMatcherRegistry();
 		registry.addFilterMatcher(new MatcherKey(String.class, "name"), new StringFilterMatcher());
 		MatcherKey key = new MatcherKey(String.class, "name");
 		FilterMatcher result = registry.getFilterMatcher(key);
@@ -72,7 +72,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
 	@Test
 	public void getMatchKeyWithErrors() {
-		FilterMatcherRegistry registry = new FilterMatcherRegistryImpl();
+		FilterMatcherRegistry registry = new FilterMatcherRegistry();
 		registry.addFilterMatcher(new MatcherKey(Date.class), new StringFilterMatcher());
 		MatcherKey key = new MatcherKey(String.class);
 		try {
