@@ -31,7 +31,6 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.core.sort.DefaultColumnSort;
-import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.Order;
@@ -71,7 +70,7 @@ public class CoreContextTest {
 		Preferences preferences = new PropertiesPreferences("/org/jmesa/core/test.properties", webContext);
 		Messages messages = new ResourceBundleMessages("org.jmesa.core.message.testResourceBundle", webContext);
 
-		CoreContextImpl coreContext = new CoreContextImpl(items, limit, null, preferences, messages);
+		CoreContext coreContext = new CoreContext(items, limit, null, preferences, messages);
 		
 		assertNotNull(coreContext);
 	}
