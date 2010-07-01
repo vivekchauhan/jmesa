@@ -19,7 +19,6 @@ import java.util.Collection;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
-import org.jmesa.core.CoreContextFactoryImpl;
 import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.core.preference.Preferences;
@@ -62,7 +61,7 @@ public abstract class AbstractTestCase {
         
         Worksheet worksheet = getWorksheet();
 
-        CoreContextFactory factory = new CoreContextFactoryImpl(false, webContext);
+        CoreContextFactory factory = new CoreContextFactory(false, webContext);
         Preferences preferences = new PropertiesPreferences("/org/jmesa/core/test.properties", webContext);
         factory.setPreferences(preferences);
 

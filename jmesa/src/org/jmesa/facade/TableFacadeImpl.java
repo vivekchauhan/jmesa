@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextFactoryImpl;
+import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
@@ -478,7 +478,7 @@ public class TableFacadeImpl implements TableFacade {
 
         validateItemsIsNotNull(items);
 
-        CoreContextFactoryImpl factory = new CoreContextFactoryImpl(autoFilterAndSort, getWebContext());
+        CoreContextFactory factory = new CoreContextFactory(autoFilterAndSort, getWebContext());
         factory.setPreferences(getPreferences());
         factory.setMessages(getMessages());
         factory.setColumnSort(columnSort);
