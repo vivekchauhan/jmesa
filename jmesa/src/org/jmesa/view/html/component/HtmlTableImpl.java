@@ -53,4 +53,58 @@ public class HtmlTableImpl extends TableImpl implements HtmlTable {
     public HtmlTableRenderer getTableRenderer() {
         return (HtmlTableRenderer) super.getTableRenderer();
     }
+
+    public void setStyle(String style) {
+    	getTableRenderer().setStyle(style);
+    }
+    
+    public HtmlTableImpl style(String style) {
+    	setStyle(style);
+    	return this;
+    }
+
+    public void setStyleClass(String styleClass) {
+    	getTableRenderer().setStyleClass(styleClass);
+    }
+    
+    public HtmlTableImpl styleClass(String styleClass) {
+    	setStyleClass(styleClass);
+    	return this;
+    }
+
+    public void setBorder(String border) {
+    	getTableRenderer().setBorder(border);
+    }
+    
+    public HtmlTableImpl border(String border) {
+    	setBorder(border);
+    	return this;
+    }
+
+    public void setCellpadding(String cellpadding) {
+    	getTableRenderer().setCellpadding(cellpadding);
+    }
+    
+    public HtmlTableImpl cellpadding(String cellpadding) {
+    	setCellpadding(cellpadding);
+    	return this;
+    }
+
+    public void setCellspacing(String cellspacing) {
+    	getTableRenderer().setCellspacing(cellspacing);
+    }
+    
+    public HtmlTableImpl cellspacing(String cellspacing) {
+    	setCellspacing(cellspacing);
+    	return this;
+    }
+
+    public void setWidth(String width) {
+    	getTableRenderer().setWidth(width);
+    }
+
+    public HtmlTableImpl width(String width) {
+    	setWidth(width);
+    	return this;
+    }
 }

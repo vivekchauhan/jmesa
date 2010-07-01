@@ -54,4 +54,16 @@ public interface HtmlRow extends Row {
     public HtmlColumn getColumn(int index);
 
     public HtmlRowRenderer getRowRenderer();
+    
+    public void setStyle(String style);
+
+    public void setStyleClass(String styleClass);
+
+    public void setHighlightClass(String highlightClass);
+
+    public void setHighlightStyle(String highlightStyle);
+
+    public void setEvenClass(String evenClass);
+
+    public void setOddClass(String oddClass);
 }

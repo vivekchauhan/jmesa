@@ -30,4 +30,11 @@ public interface HtmlTable extends Table {
     public HtmlRow getRow();
 
     public HtmlTableRenderer getTableRenderer();
+
+    public void setStyle(String style);
+    public void setStyleClass(String styleClass);
+    public void setBorder(String border);
+    public void setCellpadding(String cellpadding);
+    public void setCellspacing(String cellspacing);
+    public void setWidth(String width);
 }

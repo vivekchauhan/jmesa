@@ -192,4 +192,58 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
     public HtmlRowRenderer getRowRenderer() {
         return (HtmlRowRenderer) super.getRowRenderer();
     }
+
+    public void setStyle(String style) {
+    	getRowRenderer().setStyle(style);
+    }
+    
+    public HtmlRowImpl style(String style) {
+    	setStyle(style);
+    	return this;
+    }
+
+    public void setStyleClass(String styleClass) {
+    	getRowRenderer().setStyleClass(styleClass);
+    }
+    
+    public HtmlRowImpl styleClass(String styleClass) {
+    	setStyleClass(styleClass);
+    	return this;
+    }
+
+    public void setHighlightClass(String highlightClass) {
+    	getRowRenderer().setHighlightClass(highlightClass);
+    }
+    
+    public HtmlRowImpl highlightClass(String highlightClass) {
+    	setHighlightClass(highlightClass);
+    	return this;
+    }
+
+    public void setHighlightStyle(String highlightStyle) {
+    	getRowRenderer().setHighlightStyle(highlightStyle);
+    }
+    
+    public HtmlRowImpl highlightStyle(String highlightStyle) {
+    	setHighlightStyle(highlightStyle);
+    	return this;
+    }
+
+    public void setEvenClass(String evenClass) {
+    	getRowRenderer().setEvenClass(evenClass);
+    }
+    
+    public HtmlRowImpl evenClass(String evenClass) {
+    	setEvenClass(evenClass);
+    	return this;
+    }
+
+    public void setOddClass(String oddClass) {
+    	getRowRenderer().setOddClass(oddClass);
+    }
+    
+    public HtmlRowImpl oddClass(String oddClass) {
+    	setOddClass(oddClass);
+    	return this;
+    }
 }
