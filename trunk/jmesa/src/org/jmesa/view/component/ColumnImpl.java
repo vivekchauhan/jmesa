@@ -19,6 +19,9 @@ import org.apache.commons.lang.StringUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.FilterEditor;
+import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
@@ -142,6 +145,33 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
 
     public ColumnImpl row(Row row) {
     	setRow(row);
+    	return this;
+    }
+
+    public void setCellEditor(CellEditor editor) {
+    	getCellRenderer().setCellEditor(editor);
+    }
+
+    public ColumnImpl cellEditor(CellEditor editor) {
+    	setCellEditor(editor);
+    	return this;
+    }
+
+    public void setHeaderEditor(HeaderEditor headerEditor) {
+    	getHeaderRenderer().setHeaderEditor(headerEditor);
+    }
+
+    public ColumnImpl headerEditor(HeaderEditor headerEditor) {
+    	setHeaderEditor(headerEditor);
+    	return this;
+    }
+    
+    public void setFilterEditor(FilterEditor filterEditor) {
+    	getFilterRenderer().setFilterEditor(filterEditor);
+    }
+
+    public ColumnImpl filterEditor(FilterEditor filterEditor) {
+    	setFilterEditor(filterEditor);
     	return this;
     }
 }

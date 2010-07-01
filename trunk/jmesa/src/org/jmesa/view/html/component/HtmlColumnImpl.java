@@ -26,6 +26,7 @@ import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
  * @since 2.0
@@ -244,5 +245,68 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         }
 
         return json.toString();
+    }
+    
+    public void setWorksheetEditor(WorksheetEditor editor){
+    	getCellRenderer().setWorksheetEditor(editor);
+    }
+
+    public HtmlColumnImpl worksheetEditor(WorksheetEditor editor){
+    	setWorksheetEditor(editor);
+    	return this;
+    }
+    
+    public void setStyle(String style) {
+    	getCellRenderer().setStyle(style);
+    }
+    
+    public HtmlColumnImpl style(String style) {
+    	setStyle(style);
+    	return this;
+    }
+    
+    public void setStyleClass(String styleClass) {
+    	getCellRenderer().setStyleClass(styleClass);
+    }
+
+    public HtmlColumnImpl styleClass(String styleClass) {
+    	setStyleClass(styleClass);
+    	return this;
+    }
+
+    public void setFilterStyle(String filterStyle) {
+    	getFilterRenderer().setStyle(filterStyle);
+    }
+    
+    public HtmlColumnImpl filterStyle(String filterStyle) {
+    	setFilterStyle(filterStyle);
+    	return this;
+    }
+    
+    public void setFilterStyleClass(String filterStyleClass) {
+    	getFilterRenderer().setStyleClass(filterStyleClass);
+    }
+    
+    public HtmlColumnImpl filterStyleClass(String filterStyleClass) {
+    	setFilterStyleClass(filterStyleClass);
+    	return this;
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+    	getHeaderRenderer().setStyle(headerStyle);
+    }
+    
+    public HtmlColumnImpl headerStyle(String headerStyle) {
+    	setHeaderStyle(headerStyle);
+    	return this;
+    }
+    
+    public void setHeaderStyleClass(String headerStyleClass) {
+    	getHeaderRenderer().setStyleClass(headerStyleClass);
+    }
+    
+    public HtmlColumnImpl headerStyleClass(String headerStyleClass) {
+    	setHeaderStyleClass(headerStyleClass);
+    	return this;
     }
 }

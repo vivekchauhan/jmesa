@@ -15,6 +15,9 @@
  */
 package org.jmesa.view.component;
 
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.FilterEditor;
+import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
@@ -49,4 +52,10 @@ public interface Column {
     public Row getRow();
 
     public void setRow(Row row);
+    
+    public void setCellEditor(CellEditor editor);
+    
+    public void setHeaderEditor(HeaderEditor headerEditor);
+    
+    public void setFilterEditor(FilterEditor filterEditor);
 }

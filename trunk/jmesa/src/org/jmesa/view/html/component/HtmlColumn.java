@@ -23,6 +23,7 @@ import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
  * @since 2.0
@@ -109,4 +110,12 @@ public interface HtmlColumn extends Column {
     public List<WorksheetValidation> getWorksheetValidations();
     public String getWorksheetValidationRules();
     public String getWorksheetValidationMessages();
+
+    public void setWorksheetEditor(WorksheetEditor editor);
+    public void setStyle(String style);
+    public void setStyleClass(String styleClass);
+    public void setFilterStyle(String filterStyle);
+    public void setFilterStyleClass(String filterStyleClass);
+    public void setHeaderStyle(String headerStyle);
+    public void setHeaderStyleClass(String headerStyleClass);
 }
