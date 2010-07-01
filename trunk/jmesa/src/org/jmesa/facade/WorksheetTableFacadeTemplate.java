@@ -25,13 +25,24 @@ import org.jmesa.worksheet.Worksheet;
  *
  * @since 2.1
  * @author Jeff Johnston
+ *
+ * @deprecated Use the new TableModel for building tables.
  */
+@Deprecated
 public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public WorksheetTableFacadeTemplate(TableFacade tableFacade) {
         super(tableFacade);
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     @Override
     public String render() {
         tableFacade.setEditable(true);
@@ -60,9 +71,17 @@ public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
         return tableFacade.render();
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected void saveWorksheet(Worksheet worksheet) {
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Object getAddedRowObject() {
     	return null;
     }

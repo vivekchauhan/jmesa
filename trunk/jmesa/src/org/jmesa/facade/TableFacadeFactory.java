@@ -40,22 +40,38 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TableFacadeFactory {
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createTableFacade(String id, HttpServletRequest request) {
         TableFacade tableFacade = new TableFacadeImpl(id, request);
         return tableFacade;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createTableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
         TableFacade tableFacade = new TableFacadeImpl(id, request, response);
         return tableFacade;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createTableFacade(String id, WebContext webContext) {
         TableFacade tableFacade = new TableFacadeImpl(id, null);
         tableFacade.setWebContext(webContext);
         return tableFacade;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createTableFacade(String id, WebContext webContext, HttpServletResponse response) {
         TableFacade tableFacade = new TableFacadeImpl(id, null, response);
         tableFacade.setWebContext(webContext);

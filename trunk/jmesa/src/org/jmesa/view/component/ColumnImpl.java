@@ -20,6 +20,7 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 
 /**
@@ -31,6 +32,7 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
     private String title;
     private CellRenderer cellRenderer;
     private HeaderRenderer headerRenderer;
+    private FilterRenderer filterRenderer;
     private Row row;
 
     public ColumnImpl() {
@@ -87,6 +89,17 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
         SupportUtils.setWebContext(headerRenderer, getWebContext());
         SupportUtils.setCoreContext(headerRenderer, getCoreContext());
         SupportUtils.setColumn(headerRenderer, this);
+    }
+
+    public FilterRenderer getFilterRenderer() {
+        return filterRenderer;
+    }
+
+    public void setFilterRenderer(FilterRenderer filterRenderer) {
+        this.filterRenderer = filterRenderer;
+        SupportUtils.setWebContext(filterRenderer, getWebContext());
+        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
+        SupportUtils.setColumn(filterRenderer, this);
     }
 
     public Row getRow() {

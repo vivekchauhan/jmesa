@@ -109,6 +109,7 @@ public class TableFacadeUtils {
      * @param stateAttr The attribute used to retrieve the Limit.
      * @param request The servlet request.
      * @return The Limit stored by the State implementation.
+     * 
      * @deprecated This method is not used in the core api and will be removed.
      */
     @Deprecated
