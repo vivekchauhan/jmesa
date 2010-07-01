@@ -44,6 +44,11 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         this.filterable = filterable;
     }
 
+	public HtmlRowImpl filterable(Boolean filterable) {
+		setFilterable(filterable);
+		return this;
+	}
+
     public Boolean isSortable() {
         return sortable;
     }
@@ -52,6 +57,11 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         this.sortable = sortable;
     }
 
+	public HtmlRowImpl sortable(Boolean sortable) {
+		setSortable(sortable);
+		return this;
+	}
+
     public boolean isHighlighter() {
         return highlighter;
     }
@@ -59,6 +69,11 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
     public void setHighlighter(boolean highlighter) {
         this.highlighter = highlighter;
     }
+
+	public HtmlRowImpl highlighter(boolean highlighter) {
+		setHighlighter(highlighter);
+		return this;
+	}
 
     public RowEvent getOnclick() {
         return onclick;
@@ -70,6 +85,11 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         SupportUtils.setCoreContext(onclick, getCoreContext());
         SupportUtils.setWebContext(onclick, getWebContext());
     }
+
+	public HtmlRowImpl onclick(RowEvent onclick) {
+		setOnclick(onclick);
+		return this;
+	}
 
     /**
      * <p>
@@ -102,6 +122,11 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         SupportUtils.setWebContext(onmouseout, getWebContext());
     }
 
+	public HtmlRowImpl onmouseout(RowEvent onmouseout) {
+		setOnmouseout(onmouseout);
+		return this;
+	}
+
     /**
      * <p>
      * Added Groovy support in the form of Closures for the onmouseout RowEvent.
@@ -132,6 +157,11 @@ public class HtmlRowImpl extends RowImpl implements HtmlRow {
         SupportUtils.setCoreContext(onmouseover, getCoreContext());
         SupportUtils.setWebContext(onmouseover, getWebContext());
     }
+
+	public HtmlRowImpl onmouseover(RowEvent onmouseover) {
+		setOnmouseover(onmouseover);
+		return this;
+	}
 
     /**
      * <p>

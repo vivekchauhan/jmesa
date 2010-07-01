@@ -67,6 +67,11 @@ public class RowImpl extends AbstractContextSupport implements Row {
         this.uniqueProperty = uniqueProperty;
     }
 
+	public RowImpl uniqueProperty(String uniqueProperty) {
+		setUniqueProperty(uniqueProperty);
+		return this;
+	}
+
     public Column getColumn(String property) {
         for (Column column : columns) {
             if (column.getProperty() == null) {
@@ -85,9 +90,10 @@ public class RowImpl extends AbstractContextSupport implements Row {
         return columns.get(index);
     }
 
-    public void addColumn(Column column) {
+    public RowImpl addColumn(Column column) {
         column.setRow(this);
         columns.add(column);
+        return this;
     }
 
     public List<Column> getColumns() {
@@ -104,4 +110,9 @@ public class RowImpl extends AbstractContextSupport implements Row {
         SupportUtils.setCoreContext(rowRenderer, getCoreContext());
         rowRenderer.setRow(this);
     }
+    
+	public RowImpl rowRenderer(RowRenderer rowRenderer) {
+		setRowRenderer(rowRenderer);
+		return this;
+	}
 }

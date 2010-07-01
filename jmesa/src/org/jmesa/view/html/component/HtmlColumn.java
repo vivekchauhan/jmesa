@@ -104,8 +104,8 @@ public interface HtmlColumn extends Column {
      */
     public void setGeneratedOnTheFly(boolean generated);
 
-    public void addWorksheetValidation(WorksheetValidation worksheetValidation);
-    public void addCustomWorksheetValidation(WorksheetValidation worksheetValidation);
+    public HtmlColumn addWorksheetValidation(WorksheetValidation worksheetValidation);
+    public HtmlColumn addCustomWorksheetValidation(WorksheetValidation worksheetValidation);
     public List<WorksheetValidation> getWorksheetValidations();
     public String getWorksheetValidationRules();
     public String getWorksheetValidationMessages();

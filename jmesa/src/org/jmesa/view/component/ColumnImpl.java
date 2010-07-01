@@ -51,6 +51,11 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
         this.property = property;
     }
 
+    public ColumnImpl property(String property) {
+    	setProperty(property);
+    	return this;
+    }
+    
     public String getTitle() {
         if (StringUtils.isBlank(title)) {
             return ViewUtils.camelCaseToWord(property);
@@ -63,12 +68,22 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
         this.title = title;
     }
 
+    public ColumnImpl title(String title) {
+    	setTitle(title);
+    	return this;
+    }
+    
     public void setTitleKey(String key) {
         if (StringUtils.isNotBlank(key)) {
             this.title = getCoreContext().getMessage(key);
         }
     }
 
+    public ColumnImpl titleKey(String key) {
+    	setTitleKey(key);
+    	return this;
+    }
+    
     public CellRenderer getCellRenderer() {
         return cellRenderer;
     }
@@ -80,6 +95,11 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
         SupportUtils.setColumn(cellRenderer, this);
     }
 
+    public ColumnImpl cellRenderer(CellRenderer cellRenderer) {
+    	setCellRenderer(cellRenderer);
+    	return this;
+    }
+    
     public HeaderRenderer getHeaderRenderer() {
         return headerRenderer;
     }
@@ -89,6 +109,11 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
         SupportUtils.setWebContext(headerRenderer, getWebContext());
         SupportUtils.setCoreContext(headerRenderer, getCoreContext());
         SupportUtils.setColumn(headerRenderer, this);
+    }
+
+    public ColumnImpl headerRenderer(HeaderRenderer headerRenderer) {
+    	setHeaderRenderer(headerRenderer);
+    	return this;
     }
 
     public FilterRenderer getFilterRenderer() {
@@ -102,11 +127,21 @@ public class ColumnImpl extends AbstractContextSupport implements Column {
         SupportUtils.setColumn(filterRenderer, this);
     }
 
+    public ColumnImpl filterRenderer(FilterRenderer filterRenderer) {
+    	setFilterRenderer(filterRenderer);
+    	return this;
+    }
+    
     public Row getRow() {
         return row;
     }
 
     public void setRow(Row row) {
         this.row = row;
+    }
+
+    public ColumnImpl row(Row row) {
+    	setRow(row);
+    	return this;
     }
 }
