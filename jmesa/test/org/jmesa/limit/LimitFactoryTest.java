@@ -47,7 +47,7 @@ public class LimitFactoryTest {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+		LimitFactory limitFactory = new LimitFactory(ID, webContext);
 		checkAssertions(limitFactory);
 	}
 	
@@ -55,7 +55,7 @@ public class LimitFactoryTest {
 	public void createLimitAndRowSelectWithSpringParameters() {
 		HttpServletRequest request = getSpringRequest();
 		WebContext context = new HttpServletRequestWebContext(request);
-		LimitFactory limitFactory = new LimitFactoryImpl(ID, context);
+		LimitFactory limitFactory = new LimitFactory(ID, context);
 		checkAssertions(limitFactory);
 	}
 	

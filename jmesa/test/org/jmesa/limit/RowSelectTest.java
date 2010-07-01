@@ -30,7 +30,7 @@ public class RowSelectTest {
         int totalRows = 5;
         int page = 5;
 
-        RowSelectImpl rowSelect = new RowSelectImpl(page, maxRows, totalRows);
+        RowSelect rowSelect = new RowSelect(page, maxRows, totalRows);
 
         assertTrue("page", rowSelect.getPage() == 3);
         assertTrue("max rows", rowSelect.getMaxRows() == 2);

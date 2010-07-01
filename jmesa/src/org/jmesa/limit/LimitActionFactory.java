@@ -15,34 +15,146 @@
  */
 package org.jmesa.limit;
 
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Figure out how the user interacted with the table.
- * 
+ *
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface LimitActionFactory {
+public class LimitActionFactory {
+    private Logger logger = LoggerFactory.getLogger(LimitActionFactory.class);
+    
+    private final Map<?, ?> parameters;
+    private final String id;
+    private final String prefixId;
 
-    public String getId();
+    public LimitActionFactory(String id, Map<?, ?> parameters) {
+        this.id = id;
+        this.parameters = parameters;
+        this.prefixId = id + "_";
+    }
+
+    public String getId() {
+        return id;
+    }
 
     /**
      * @return The max rows based on what the user selected. A null returned implies the default
      *         must be used.
      */
-    public Integer getMaxRows();
+    public Integer getMaxRows() {
+        String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.toParam()));
+        if (StringUtils.isNotBlank(maxRows)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Max Rows:" + maxRows);
+            }
+            return Integer.parseInt(maxRows);
+        }
+
+        return null;
+    }
 
     /**
      * @return The current page based on what the user selected. The default is to return the first
      *         page.
      */
-    public int getPage();
+    public int getPage() {
+        String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.toParam()));
+        if (StringUtils.isNotBlank(page)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("On Page :" + page);
+            }
+            return Integer.parseInt(page);
+        }
 
-    public FilterSet getFilterSet();
+        if (logger.isDebugEnabled()) {
+            logger.debug("Defaulting to Page 1");
+        }
 
-    public SortSet getSortSet();
+        return 1;
+    }
+
+    public FilterSet getFilterSet() {
+        FilterSet filterSet = new FilterSet();
+
+        String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.toParam()));
+        if (StringUtils.isNotEmpty(clear)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Cleared out the filters.");
+            }
+            return filterSet;
+        }
+
+        for (Object param : parameters.keySet()) {
+            String parameter = (String) param;
+            if (parameter.startsWith(prefixId + Action.FILTER.toParam())) {
+                String value = LimitUtils.getValue(parameters.get(parameter));
+                if (StringUtils.isNotBlank(value)) {
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.FILTER.toParam());
+                    Filter filter = new Filter(property, value);
+                    filterSet.addFilter(filter);
+                }
+            }
+        }
+
+        return filterSet;
+    }
+
+    public SortSet getSortSet() {
+        SortSet sortSet = new SortSet();
+
+        for (Object param : parameters.keySet()) {
+            String parameter = (String) param;
+            if (parameter.startsWith(prefixId + Action.SORT.toParam())) {
+                String value = LimitUtils.getValue(parameters.get(parameter));
+                if (StringUtils.isNotBlank(value)) {
+                    String position = StringUtils.substringBetween(parameter, prefixId + Action.SORT.toParam(), "_");
+                    String property = StringUtils.substringAfter(parameter, prefixId + Action.SORT.toParam() + position + "_");
+                    Order order = Order.valueOfParam(value);
+                    Sort sort = new Sort(new Integer(position), property, order);
+                    sortSet.addSort(sort);
+                }
+            }
+        }
+
+        return sortSet;
+    }
 
     /**
      * @return The current export type based on what the user selected.
      */
-    public ExportType getExportType();
+    public ExportType getExportType() {
+        String exportType = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
+        if (StringUtils.isNotBlank(exportType)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("ExportType: " + exportType);
+            }
+            ExportType et = ExportType.valueOfParam(exportType);
+            if (et != null) {
+                return et;
+            }
+
+            throw new IllegalStateException("Not able to handle the export of type: " + exportType);
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("id", id);
+        builder.append("prefixId", prefixId);
+        if (parameters != null) {
+            parameters.toString();
+        }
+        return builder.toString();
+    }
 }

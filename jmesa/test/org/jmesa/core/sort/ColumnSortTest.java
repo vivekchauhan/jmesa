@@ -28,7 +28,6 @@ import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.Order;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersAdapter;
@@ -52,7 +51,7 @@ public class ColumnSortTest extends AbstractTestCase {
         builder.addSort("name.lastName", Order.DESC);
 		webContext.setParameterMap(results);
         
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
 		
 		MultiColumnSort itemsSort = new MultiColumnSort();
@@ -83,7 +82,7 @@ public class ColumnSortTest extends AbstractTestCase {
         builder.addSort("name.lastName", Order.DESC);
         webContext.setParameterMap(results);
         
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
         
         MultiColumnSort itemsSort = new MultiColumnSort();
@@ -130,7 +129,7 @@ public class ColumnSortTest extends AbstractTestCase {
         builder.addSort("name.lastName", Order.DESC);
         webContext.setParameterMap(results);
         
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
         
         MultiColumnSort itemsSort = new MultiColumnSort();
@@ -176,7 +175,7 @@ public class ColumnSortTest extends AbstractTestCase {
         builder.addSort("born", Order.ASC);
         webContext.setParameterMap(results);
         
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
         
         MultiColumnSort itemsSort = new MultiColumnSort();
@@ -225,7 +224,7 @@ public class ColumnSortTest extends AbstractTestCase {
         builder.addSort("term", Order.ASC);
         webContext.setParameterMap(results);
         
-        LimitFactory limitFactory = new LimitFactoryImpl(ID, webContext);
+        LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
         
         MultiColumnSort itemsSort = new MultiColumnSort();

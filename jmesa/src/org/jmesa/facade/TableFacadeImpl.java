@@ -50,9 +50,7 @@ import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
-import org.jmesa.limit.LimitFactoryImpl;
 import org.jmesa.limit.RowSelect;
-import org.jmesa.limit.RowSelectImpl;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
 import org.jmesa.util.SupportUtils;
@@ -278,7 +276,7 @@ public class TableFacadeImpl implements TableFacade {
             return limit;
         }
 
-        LimitFactoryImpl limitFactory = new LimitFactoryImpl(id, getWebContext());
+        LimitFactory limitFactory = new LimitFactory(id, getWebContext());
         limitFactory.setState(getState());
         Limit l = limitFactory.createLimit();
 
@@ -287,14 +285,14 @@ public class TableFacadeImpl implements TableFacade {
             if (items != null) {
                 int p = l.getRowSelect().getPage();
                 int mr = l.getRowSelect().getMaxRows();
-                l.setRowSelect(new RowSelectImpl(p, mr, items.size()));
+                l.setRowSelect(new RowSelect(p, mr, items.size()));
             }
             return limit;
         }
 
         if (items != null) {
             if (l.isExported()) {
-                l.setRowSelect(new RowSelectImpl(1, items.size(), items.size()));
+                l.setRowSelect(new RowSelect(1, items.size(), items.size()));
             } else {
                 limitFactory.createRowSelect(getMaxRows(), items.size(), l);
             }
@@ -316,10 +314,10 @@ public class TableFacadeImpl implements TableFacade {
         Limit l = getLimit();
 
         if (l.isExported()) {
-            rowSelect = new RowSelectImpl(1, totalRows, totalRows);
+            rowSelect = new RowSelect(1, totalRows, totalRows);
             l.setRowSelect(rowSelect);
         } else {
-            LimitFactory limitFactory = new LimitFactoryImpl(id, getWebContext());
+            LimitFactory limitFactory = new LimitFactory(id, getWebContext());
             rowSelect = limitFactory.createRowSelect(getMaxRows(), totalRows, l);
         }
 

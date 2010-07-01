@@ -16,7 +16,13 @@
 package org.jmesa.limit;
 
 import java.io.Serializable;
+
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
@@ -24,53 +30,98 @@ import java.util.Collection;
  * filter value. Or, in other words, it is simply the column that the user is trying to filter and
  * the value that they entered.
  * </p>
- * 
+ *
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface FilterSet extends Serializable {
+public class FilterSet implements Serializable {
+    private Set<Filter> filters;
+
+    public FilterSet() {
+        filters = new HashSet<Filter>();
+    }
+
+    public boolean isFilterable() {
+        return isFiltered();
+    }
+
     /**
      * @return Is true if there are any columns that need to be filtered.
      */
-    public boolean isFiltered();
+    public boolean isFiltered() {
+        return filters != null && !filters.isEmpty();
+    }
 
     /**
      * @return The set of Filter objects.
      */
-    public Collection<Filter> getFilters();
+    public Collection<Filter> getFilters() {
+        return filters;
+    }
 
     /**
      * <p>
      * For a given item property, retrieve the Filter object based on the property.
      * </p>
-     * 
+     *
      * @param property The Filter property, which is also a column property.
      * @return The Filter object.
      */
-    public Filter getFilter(String property);
+    public Filter getFilter(String property) {
+        for (Iterator<Filter> iter = filters.iterator(); iter.hasNext();) {
+            Filter filter = iter.next();
+            if (filter.getProperty().equals(property)) {
+                return filter;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * <p>
      * For a given property, retrieve the Filter value.
      * </p>
-     * 
+     *
      * @param property The Filter property, which is also a column property.
      * @return The Filter value.
      */
-    public String getFilterValue(String property);
+    public String getFilterValue(String property) {
+        return getFilter(property).getValue();
+    }
 
     /**
      * <p>
      * The Filter to add to the set.
      * </p>
-     * 
+     *
      * @param property The column property to filter.
      * @param value The value to filter the column.
      */
-    public void addFilter(String property, String value);
+    public void addFilter(String property, String value) {
+        addFilter(new Filter(property, value));
+    }
 
     /**
      * @param filter The Filter to add to the set.
      */
-    public void addFilter(Filter filter);
+    public void addFilter(Filter filter) {
+        if (filters.contains(filter)) {
+            filters.remove(filter);
+        }
+
+        filters.add(filter);
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+
+        for (Iterator<Filter> iter = filters.iterator(); iter.hasNext();) {
+            Filter filter = iter.next();
+            builder.append(filter.toString());
+        }
+
+        return builder.toString();
+    }
 }
