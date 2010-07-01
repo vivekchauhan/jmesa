@@ -16,6 +16,7 @@
 package org.jmesa.view.component;
 
 import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 
 /**
@@ -40,6 +41,10 @@ public interface Column {
     public HeaderRenderer getHeaderRenderer();
 
     public void setHeaderRenderer(HeaderRenderer headerRenderer);
+
+    public FilterRenderer getFilterRenderer();
+
+    public void setFilterRenderer(FilterRenderer filterRenderer);
 
     public Row getRow();
 

@@ -38,15 +38,26 @@ import org.jmesa.view.html.toolbar.Toolbar;
  * The template is useful to abstract out the interaction with the TableFacade. So
  * instead of having to get the order of interaction with the TableFacade right you
  * just override the method that represents what you want to customize and
+ *
+ * @deprecated Use the new TableModel for building tables.
  */
+@Deprecated
 public abstract class TableFacadeTemplate {
 
     final TableFacade tableFacade;
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public TableFacadeTemplate(TableFacade tableFacade) {
         this.tableFacade = tableFacade;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public String render() {
         setup();
 
@@ -156,80 +167,160 @@ public abstract class TableFacadeTemplate {
         }
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected boolean isExporting() {
         return tableFacade.getLimit().isExported();
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Preferences getPreferences() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Messages getMessages() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected ExportType[] getExportTypes() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected String getStateAttr() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected State getState() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected void addFilterMatchers(Map<MatcherKey, FilterMatcher> filterMatchers) {
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected ColumnSort createColumnSort() {
         return null;
     }
     
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected RowFilter createRowFilter() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected int getTotalRows(Limit limit) {
         return -1;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected int getMaxRows() {
         return -1;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected int[] getMaxRowsIncrements() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected String[] getColumnProperties() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Table createTable(HtmlTableBuilder builder) {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Table createTable() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected void modifyTable(Table table) {
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Toolbar createToolbar() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected View createView() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Collection<?> getItems() {
         return null;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     protected Collection<?> getItems(Limit limit) {
         return null;
     }

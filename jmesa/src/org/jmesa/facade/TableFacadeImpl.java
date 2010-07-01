@@ -463,6 +463,10 @@ public class TableFacadeImpl implements TableFacade {
         this.maxRows = maxRows;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public void setColumnProperties(String... columnProperties) {
         validateTableIsNull(table, "columnProperties");
 
