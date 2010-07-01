@@ -46,7 +46,7 @@ public interface Row {
 
     public Column getColumn(int index);
 
-    public void addColumn(Column column);
+    public Row addColumn(Column column);
 
     public RowRenderer getRowRenderer();
 

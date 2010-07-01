@@ -44,6 +44,11 @@ public class HtmlTableImpl extends TableImpl implements HtmlTable {
         this.theme = theme;
     }
 
+    public HtmlTableImpl theme(String theme) {
+    	setTheme(theme);
+    	return this;
+    }
+    
     @Override
     public HtmlTableRenderer getTableRenderer() {
         return (HtmlTableRenderer) super.getTableRenderer();

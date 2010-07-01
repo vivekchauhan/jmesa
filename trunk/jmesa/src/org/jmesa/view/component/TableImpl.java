@@ -37,10 +37,20 @@ public class TableImpl extends AbstractContextSupport implements Table {
         this.caption = caption;
     }
 
+    public TableImpl caption(String caption) {
+    	setCaption(caption);
+    	return this;
+    }
+
     public void setCaptionKey(String key) {
         if (StringUtils.isNotEmpty(key)) {
             this.caption = getCoreContext().getMessage(key);
         }
+    }
+
+    public TableImpl captionKey(String key) {
+    	setCaptionKey(key);
+    	return this;
     }
 
     public Row getRow() {
@@ -49,6 +59,11 @@ public class TableImpl extends AbstractContextSupport implements Table {
 
     public void setRow(Row row) {
         this.row = row;
+    }
+
+    public TableImpl row(Row row) {
+    	setRow(row);
+    	return this;
     }
 
     public TableRenderer getTableRenderer() {
@@ -60,5 +75,10 @@ public class TableImpl extends AbstractContextSupport implements Table {
         SupportUtils.setWebContext(tableRenderer, getWebContext());
         SupportUtils.setCoreContext(tableRenderer, getCoreContext());
         tableRenderer.setTable(this);
+    }
+
+    public TableImpl tableRenderer(TableRenderer tableRenderer) {
+    	setTableRenderer(tableRenderer);
+    	return this;
     }
 }

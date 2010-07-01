@@ -66,6 +66,11 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         this.filterable = filterable;
     }
 
+    public HtmlColumnImpl filterable(Boolean filterable) {
+    	setFilterable(filterable);
+    	return this;
+    }
+    
     public boolean isSortable() {
         if (sortable != null) {
             return sortable.booleanValue();
@@ -82,7 +87,12 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     public void setSortable(Boolean sortable) {
         this.sortable = sortable;
     }
-    
+
+	public HtmlColumnImpl sortable(Boolean sortable) {
+		setSortable(sortable);
+		return this;
+	}
+	
     /**
      * @since 2.3
      */
@@ -101,6 +111,11 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         this.editable = editable;
     }
 
+	public HtmlColumnImpl editable(Boolean editable) {
+		setEditable(editable);
+		return this;
+	}
+	
     public Order[] getSortOrder() {
         if (sortOrder == null) {
             sortOrder = new Order[] { Order.NONE, Order.ASC, Order.DESC };
@@ -113,6 +128,11 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         this.sortOrder = sortOrder;
     }
 
+	public HtmlColumnImpl sortOrder(Order... sortOrder) {
+		setSortOrder(sortOrder);
+		return this;
+	}
+	
     public String getWidth() {
         return width;
     }
@@ -120,6 +140,11 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     public void setWidth(String width) {
         this.width = width;
     }
+
+	public HtmlColumnImpl width(String width) {
+		setWidth(width);
+		return this;
+	}
 
     public HtmlFilterRenderer getFilterRenderer() {
         return (HtmlFilterRenderer) filterRenderer;
@@ -132,6 +157,11 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         SupportUtils.setColumn(filterRenderer, this);
     }
 
+	public HtmlColumnImpl filterRenderer(FilterRenderer filterRenderer) {
+		setFilterRenderer(filterRenderer);
+		return this;
+	}
+
     public boolean isGeneratedOnTheFly() {
         return generatedOnTheFly;
     }
@@ -139,6 +169,11 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
     public void setGeneratedOnTheFly(boolean generatedOnTheFly) {
         this.generatedOnTheFly = generatedOnTheFly;
     }
+
+	public HtmlColumnImpl generatedOnTheFly(boolean generatedOnTheFly) {
+		setGeneratedOnTheFly(generatedOnTheFly);
+		return this;
+	}
 
     @Override
     public HtmlCellRenderer getCellRenderer() {
@@ -159,15 +194,17 @@ public class HtmlColumnImpl extends ColumnImpl implements HtmlColumn {
         return validations;
     }
 
-    public void addWorksheetValidation(WorksheetValidation worksheetValidation) {
+    public HtmlColumnImpl addWorksheetValidation(WorksheetValidation worksheetValidation) {
         worksheetValidation.setCoreContext(getCoreContext());
         validations.add(worksheetValidation);
+        return this;
     }
     
-    public void addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
+    public HtmlColumnImpl addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
         worksheetValidation.setCoreContext(getCoreContext());
         worksheetValidation.setCustom(true);
         validations.add(worksheetValidation);
+        return this;
     }
 
 	public String getWorksheetValidationRules() {
