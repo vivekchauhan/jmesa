@@ -15,8 +15,11 @@
  */
 package org.jmesa.view.html.component;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import org.jmesa.limit.Order;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
@@ -29,32 +32,106 @@ import org.jmesa.worksheet.editor.WorksheetEditor;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlColumn extends Column {
-    public boolean isFilterable();
+public class HtmlColumn extends Column {
+    private Boolean filterable;
+    private Boolean sortable;
+    private Boolean editable;
+    private String width;
+    private FilterRenderer filterRenderer;
+    private Order[] sortOrder;
+    private boolean generatedOnTheFly;
+    private List<WorksheetValidation> validations = new ArrayList<WorksheetValidation>();
 
-    public void setFilterable(Boolean filterable);
+    public HtmlColumn() {
+        // default constructor
+    }
 
-    public boolean isSortable();
+    public HtmlColumn(String property) {
+        setProperty(property);
+    }
 
-    public void setSortable(Boolean sortable);
+    public boolean isFilterable() {
+        if (filterable != null) {
+            return filterable.booleanValue();
+        }
+        
+        HtmlRow row = getRow();
+        if (row != null && row.isFilterable() != null) {
+            return row.isFilterable().booleanValue();
+        }
+        
+        return true;
+    }
+
+    public void setFilterable(Boolean filterable) {
+        this.filterable = filterable;
+    }
+
+    public HtmlColumn filterable(Boolean filterable) {
+    	setFilterable(filterable);
+    	return this;
+    }
     
+    public boolean isSortable() {
+        if (sortable != null) {
+            return sortable.booleanValue();
+        }
+        
+        HtmlRow row = getRow();
+        if (row != null && row.isSortable() != null) {
+            return row.isSortable().booleanValue();
+        }
+        
+        return true;
+    }
+
+    public void setSortable(Boolean sortable) {
+        this.sortable = sortable;
+    }
+
+	public HtmlColumn sortable(Boolean sortable) {
+		setSortable(sortable);
+		return this;
+	}
+	
     /**
      * @return Is true if the column is editable.
+     * @since 2.3
      */
-    public boolean isEditable();
+    public boolean isEditable() {
+        if (editable != null) {
+            return editable.booleanValue();
+        }
+        
+        return true;
+    }
 
     /**
      * Set if column is editable.
      * 
+     * @since 2.3
      * @param editable Is true if the column is editable.
      */
-    public void setEditable(Boolean editable);
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
 
+	public HtmlColumn editable(Boolean editable) {
+		setEditable(editable);
+		return this;
+	}
+	
     /**
      * @since 2.2
      * @return The sort order for the column.
      */
-    public Order[] getSortOrder();
+    public Order[] getSortOrder() {
+        if (sortOrder == null) {
+            sortOrder = new Order[] { Order.NONE, Order.ASC, Order.DESC };
+        }
+
+        return sortOrder;
+    }
 
     /**
      * <p>
@@ -76,26 +153,50 @@ public interface HtmlColumn extends Column {
      * @since 2.2
      * @param sortOrder The order array.
      */
-    public void setSortOrder(Order... sortOrder);
+    public void setSortOrder(Order... sortOrder) {
+        this.sortOrder = sortOrder;
+    }
 
-    public String getWidth();
+	public HtmlColumn sortOrder(Order... sortOrder) {
+		setSortOrder(sortOrder);
+		return this;
+	}
+	
+    public String getWidth() {
+        return width;
+    }
 
-    public void setWidth(String width);
+    public void setWidth(String width) {
+        this.width = width;
+    }
 
-    public HtmlFilterRenderer getFilterRenderer();
+	public HtmlColumn width(String width) {
+		setWidth(width);
+		return this;
+	}
 
-    public void setFilterRenderer(FilterRenderer filterRenderer);
+    public HtmlFilterRenderer getFilterRenderer() {
+        return (HtmlFilterRenderer) filterRenderer;
+    }
 
-    public HtmlCellRenderer getCellRenderer();
+    public void setFilterRenderer(FilterRenderer filterRenderer) {
+        this.filterRenderer = filterRenderer;
+        SupportUtils.setWebContext(filterRenderer, getWebContext());
+        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
+        SupportUtils.setColumn(filterRenderer, this);
+    }
 
-    public HtmlHeaderRenderer getHeaderRenderer();
-
-    public HtmlRow getRow();
+	public HtmlColumn filterRenderer(FilterRenderer filterRenderer) {
+		setFilterRenderer(filterRenderer);
+		return this;
+	}
 
     /**
      * @return Is true if generated on the fly through the api.
      */
-    public boolean isGeneratedOnTheFly();
+    public boolean isGeneratedOnTheFly() {
+        return generatedOnTheFly;
+    }
 
     /**
      * Flag the column that it was generated on the fly. Only useful for the internal api so
@@ -103,19 +204,146 @@ public interface HtmlColumn extends Column {
      * 
      * @since 2.2.1
      */
-    public void setGeneratedOnTheFly(boolean generated);
+    public void setGeneratedOnTheFly(boolean generatedOnTheFly) {
+        this.generatedOnTheFly = generatedOnTheFly;
+    }
 
-    public HtmlColumn addWorksheetValidation(WorksheetValidation worksheetValidation);
-    public HtmlColumn addCustomWorksheetValidation(WorksheetValidation worksheetValidation);
-    public List<WorksheetValidation> getWorksheetValidations();
-    public String getWorksheetValidationRules();
-    public String getWorksheetValidationMessages();
+	public HtmlColumn generatedOnTheFly(boolean generatedOnTheFly) {
+		setGeneratedOnTheFly(generatedOnTheFly);
+		return this;
+	}
 
-    public void setWorksheetEditor(WorksheetEditor editor);
-    public void setStyle(String style);
-    public void setStyleClass(String styleClass);
-    public void setFilterStyle(String filterStyle);
-    public void setFilterStyleClass(String filterStyleClass);
-    public void setHeaderStyle(String headerStyle);
-    public void setHeaderStyleClass(String headerStyleClass);
+    @Override
+    public HtmlCellRenderer getCellRenderer() {
+        return (HtmlCellRenderer) super.getCellRenderer();
+    }
+
+    @Override
+    public HtmlHeaderRenderer getHeaderRenderer() {
+        return (HtmlHeaderRenderer) super.getHeaderRenderer();
+    }
+
+    @Override
+    public HtmlRow getRow() {
+        return (HtmlRow) super.getRow();
+    }
+
+    public List<WorksheetValidation> getWorksheetValidations() {
+        return validations;
+    }
+
+    public HtmlColumn addWorksheetValidation(WorksheetValidation worksheetValidation) {
+        worksheetValidation.setCoreContext(getCoreContext());
+        validations.add(worksheetValidation);
+        return this;
+    }
+    
+    public HtmlColumn addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
+        worksheetValidation.setCoreContext(getCoreContext());
+        worksheetValidation.setCustom(true);
+        validations.add(worksheetValidation);
+        return this;
+    }
+
+	public String getWorksheetValidationRules() {
+        return prepareJsonString("rule");
+	}
+
+	public String getWorksheetValidationMessages() {
+        return prepareJsonString("message");
+	}
+
+    private String prepareJsonString(String type) {
+        StringBuffer json = new StringBuffer();
+
+        boolean firstOccurance = true;
+        for (WorksheetValidation validation: validations) {
+            String nameValuePair = null;
+            
+            if ("rule".equals(type)) {
+                nameValuePair = validation.getRule();
+            } else if ("message".equals(type)) {
+                nameValuePair = validation.getMessage();
+            }
+            
+            if (!"".equals(nameValuePair)) {
+                if (firstOccurance) {
+                    json.append("'" + getProperty() + "' : { ");
+                    firstOccurance = false;
+                } else {
+                    json.append(", ");
+                }
+                json.append(nameValuePair);
+            }
+        }
+
+        if (!"".equals(json.toString())) {
+            json.append(" }");
+        }
+
+        return json.toString();
+    }
+    
+    public void setWorksheetEditor(WorksheetEditor editor){
+    	getCellRenderer().setWorksheetEditor(editor);
+    }
+
+    public HtmlColumn worksheetEditor(WorksheetEditor editor){
+    	setWorksheetEditor(editor);
+    	return this;
+    }
+    
+    public void setStyle(String style) {
+    	getCellRenderer().setStyle(style);
+    }
+    
+    public HtmlColumn style(String style) {
+    	setStyle(style);
+    	return this;
+    }
+    
+    public void setStyleClass(String styleClass) {
+    	getCellRenderer().setStyleClass(styleClass);
+    }
+
+    public HtmlColumn styleClass(String styleClass) {
+    	setStyleClass(styleClass);
+    	return this;
+    }
+
+    public void setFilterStyle(String filterStyle) {
+    	getFilterRenderer().setStyle(filterStyle);
+    }
+    
+    public HtmlColumn filterStyle(String filterStyle) {
+    	setFilterStyle(filterStyle);
+    	return this;
+    }
+    
+    public void setFilterStyleClass(String filterStyleClass) {
+    	getFilterRenderer().setStyleClass(filterStyleClass);
+    }
+    
+    public HtmlColumn filterStyleClass(String filterStyleClass) {
+    	setFilterStyleClass(filterStyleClass);
+    	return this;
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+    	getHeaderRenderer().setStyle(headerStyle);
+    }
+    
+    public HtmlColumn headerStyle(String headerStyle) {
+    	setHeaderStyle(headerStyle);
+    	return this;
+    }
+    
+    public void setHeaderStyleClass(String headerStyleClass) {
+    	getHeaderRenderer().setStyleClass(headerStyleClass);
+    }
+    
+    public HtmlColumn headerStyleClass(String headerStyleClass) {
+    	setHeaderStyleClass(headerStyleClass);
+    	return this;
+    }
 }

@@ -20,11 +20,8 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.component.HtmlColumnImpl;
 import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.component.HtmlTableImpl;
 import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.editor.HtmlFilterEditor;
 import org.jmesa.view.html.editor.HtmlHeaderEditor;
@@ -47,7 +44,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 
     @Override
     public HtmlTable createTable() {
-        HtmlTableImpl table = new HtmlTableImpl();
+        HtmlTable table = new HtmlTable();
         table.setWebContext(getWebContext());
         table.setCoreContext(getCoreContext());
 
@@ -61,7 +58,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
 
     @Override
     public HtmlRow createRow() {
-        HtmlRowImpl row = new HtmlRowImpl();
+        HtmlRow row = new HtmlRow();
         row.setWebContext(getWebContext());
         row.setCoreContext(getCoreContext());
 
@@ -103,7 +100,7 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
     }
 
     public HtmlColumn createColumn(String property, CellEditor editor) {
-        HtmlColumnImpl column = new HtmlColumnImpl(property);
+        HtmlColumn column = new HtmlColumn(property);
         column.setWebContext(getWebContext());
         column.setCoreContext(getCoreContext());
 

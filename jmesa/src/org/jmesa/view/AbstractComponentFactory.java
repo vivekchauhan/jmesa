@@ -17,9 +17,7 @@ package org.jmesa.view;
 
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
-import org.jmesa.view.component.RowImpl;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.component.TableImpl;
 import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
@@ -31,7 +29,7 @@ import org.jmesa.view.editor.NumberCellEditor;
  */
 public abstract class AbstractComponentFactory extends AbstractContextSupport implements ComponentFactory {
     public Table createTable() {
-        TableImpl table = new TableImpl();
+        Table table = new Table();
         table.setWebContext(getWebContext());
         table.setCoreContext(getCoreContext());
 
@@ -39,7 +37,7 @@ public abstract class AbstractComponentFactory extends AbstractContextSupport im
     }
 
     public Row createRow() {
-        RowImpl row = new RowImpl();
+        Row row = new Row();
         row.setWebContext(getWebContext());
         row.setCoreContext(getCoreContext());
 
