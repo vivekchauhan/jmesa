@@ -27,7 +27,7 @@ import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.html.component.HtmlColumnImpl;
+import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.editor.DroplistFilterEditor.Option;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class DroplistFilterEditorTest extends AbstractTestCase {
         editor.setCoreContext(coreContext);
         editor.setWebContext(webContext);
 
-        Column column = new HtmlColumnImpl("name.firstName");
+        Column column = new HtmlColumn("name.firstName");
 
         editor.setColumn(column);
 
@@ -67,7 +67,7 @@ public class DroplistFilterEditorTest extends AbstractTestCase {
         editor.setCoreContext(coreContext);
         editor.setWebContext(webContext);
 
-        Column column = new HtmlColumnImpl("name.firstName");
+        Column column = new HtmlColumn("name.firstName");
 
         editor.setColumn(column);
 
@@ -91,7 +91,7 @@ public class DroplistFilterEditorTest extends AbstractTestCase {
         editor.setCoreContext(coreContext);
         editor.setWebContext(webContext);
 
-        Column column = new HtmlColumnImpl("name.firstName");
+        Column column = new HtmlColumn("name.firstName");
 
         editor.setColumn(column);
 

@@ -22,7 +22,6 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.core.President;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.html.component.HtmlRowImpl;
 import org.jmesa.view.html.event.AbstractRowEvent;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -37,7 +36,7 @@ public class HtmlRowRendererTest extends AbstractTestCase {
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
-        HtmlRow row = new HtmlRowImpl();
+        HtmlRow row = new HtmlRow();
 
         row.setOnclick(new AbstractRowEvent() {
             public String execute(Object item, int rowcount) {
