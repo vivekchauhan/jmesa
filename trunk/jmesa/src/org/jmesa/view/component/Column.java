@@ -15,6 +15,10 @@
  */
 package org.jmesa.view.component;
 
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
+import org.jmesa.view.AbstractContextSupport;
+import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
@@ -26,36 +30,148 @@ import org.jmesa.view.renderer.HeaderRenderer;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Column {
-    public String getProperty();
+public class Column extends AbstractContextSupport {
+    private String property;
+    private String title;
+    private CellRenderer cellRenderer;
+    private HeaderRenderer headerRenderer;
+    private FilterRenderer filterRenderer;
+    private Row row;
 
-    public void setProperty(String property);
+    public Column() {
+        // default constructor
+    }
 
-    public String getTitle();
+    public Column(String property) {
+        this.property = property;
+    }
 
-    public void setTitle(String title);
+    public String getProperty() {
+        return property;
+    }
 
-    public void setTitleKey(String key);
+    public void setProperty(String property) {
+        this.property = property;
+    }
 
-    public CellRenderer getCellRenderer();
-
-    public void setCellRenderer(CellRenderer cellRenderer);
-
-    public HeaderRenderer getHeaderRenderer();
-
-    public void setHeaderRenderer(HeaderRenderer headerRenderer);
-
-    public FilterRenderer getFilterRenderer();
-
-    public void setFilterRenderer(FilterRenderer filterRenderer);
-
-    public Row getRow();
-
-    public void setRow(Row row);
+    public Column property(String property) {
+    	setProperty(property);
+    	return this;
+    }
     
-    public void setCellEditor(CellEditor editor);
+    public String getTitle() {
+        if (StringUtils.isBlank(title)) {
+            return ViewUtils.camelCaseToWord(property);
+        }
+
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Column title(String title) {
+    	setTitle(title);
+    	return this;
+    }
     
-    public void setHeaderEditor(HeaderEditor headerEditor);
+    public void setTitleKey(String key) {
+        if (StringUtils.isNotBlank(key)) {
+            this.title = getCoreContext().getMessage(key);
+        }
+    }
+
+    public Column titleKey(String key) {
+    	setTitleKey(key);
+    	return this;
+    }
     
-    public void setFilterEditor(FilterEditor filterEditor);
+    public CellRenderer getCellRenderer() {
+        return cellRenderer;
+    }
+
+    public void setCellRenderer(CellRenderer cellRenderer) {
+        this.cellRenderer = cellRenderer;
+        SupportUtils.setWebContext(cellRenderer, getWebContext());
+        SupportUtils.setCoreContext(cellRenderer, getCoreContext());
+        SupportUtils.setColumn(cellRenderer, this);
+    }
+
+    public Column cellRenderer(CellRenderer cellRenderer) {
+    	setCellRenderer(cellRenderer);
+    	return this;
+    }
+    
+    public HeaderRenderer getHeaderRenderer() {
+        return headerRenderer;
+    }
+
+    public void setHeaderRenderer(HeaderRenderer headerRenderer) {
+        this.headerRenderer = headerRenderer;
+        SupportUtils.setWebContext(headerRenderer, getWebContext());
+        SupportUtils.setCoreContext(headerRenderer, getCoreContext());
+        SupportUtils.setColumn(headerRenderer, this);
+    }
+
+    public Column headerRenderer(HeaderRenderer headerRenderer) {
+    	setHeaderRenderer(headerRenderer);
+    	return this;
+    }
+
+    public FilterRenderer getFilterRenderer() {
+        return filterRenderer;
+    }
+
+    public void setFilterRenderer(FilterRenderer filterRenderer) {
+        this.filterRenderer = filterRenderer;
+        SupportUtils.setWebContext(filterRenderer, getWebContext());
+        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
+        SupportUtils.setColumn(filterRenderer, this);
+    }
+
+    public Column filterRenderer(FilterRenderer filterRenderer) {
+    	setFilterRenderer(filterRenderer);
+    	return this;
+    }
+    
+    public Row getRow() {
+        return row;
+    }
+
+    public void setRow(Row row) {
+        this.row = row;
+    }
+
+    public Column row(Row row) {
+    	setRow(row);
+    	return this;
+    }
+
+    public void setCellEditor(CellEditor editor) {
+    	getCellRenderer().setCellEditor(editor);
+    }
+
+    public Column cellEditor(CellEditor editor) {
+    	setCellEditor(editor);
+    	return this;
+    }
+
+    public void setHeaderEditor(HeaderEditor headerEditor) {
+    	getHeaderRenderer().setHeaderEditor(headerEditor);
+    }
+
+    public Column headerEditor(HeaderEditor headerEditor) {
+    	setHeaderEditor(headerEditor);
+    	return this;
+    }
+    
+    public void setFilterEditor(FilterEditor filterEditor) {
+    	getFilterRenderer().setFilterEditor(filterEditor);
+    }
+
+    public Column filterEditor(FilterEditor filterEditor) {
+    	setFilterEditor(filterEditor);
+    	return this;
+    }
 }

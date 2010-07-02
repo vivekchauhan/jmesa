@@ -15,24 +15,70 @@
  */
 package org.jmesa.view.component;
 
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.TableRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Table {
-    public String getCaption();
+public class Table extends AbstractContextSupport {
+    private Row row;
+    private String caption;
+    private TableRenderer tableRenderer;
 
-    public void setCaption(String caption);
+    public String getCaption() {
+        return caption;
+    }
 
-    public void setCaptionKey(String key);
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
 
-    public Row getRow();
+    public Table caption(String caption) {
+    	setCaption(caption);
+    	return this;
+    }
 
-    public void setRow(Row row);
+    public void setCaptionKey(String key) {
+        if (StringUtils.isNotEmpty(key)) {
+            this.caption = getCoreContext().getMessage(key);
+        }
+    }
 
-    public TableRenderer getTableRenderer();
+    public Table captionKey(String key) {
+    	setCaptionKey(key);
+    	return this;
+    }
 
-    public void setTableRenderer(TableRenderer tableRenderer);
+    public Row getRow() {
+        return row;
+    }
+
+    public void setRow(Row row) {
+        this.row = row;
+    }
+
+    public Table row(Row row) {
+    	setRow(row);
+    	return this;
+    }
+
+    public TableRenderer getTableRenderer() {
+        return tableRenderer;
+    }
+
+    public void setTableRenderer(TableRenderer tableRenderer) {
+        this.tableRenderer = tableRenderer;
+        SupportUtils.setWebContext(tableRenderer, getWebContext());
+        SupportUtils.setCoreContext(tableRenderer, getCoreContext());
+        tableRenderer.setTable(this);
+    }
+
+    public Table tableRenderer(TableRenderer tableRenderer) {
+    	setTableRenderer(tableRenderer);
+    	return this;
+    }
 }

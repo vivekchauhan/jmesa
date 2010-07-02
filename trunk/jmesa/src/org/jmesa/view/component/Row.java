@@ -15,8 +15,12 @@
  */
 package org.jmesa.view.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jmesa.util.ItemUtils;
+import org.jmesa.util.SupportUtils;
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.RowRenderer;
 import org.jmesa.worksheet.UniqueProperty;
 
@@ -24,31 +28,91 @@ import org.jmesa.worksheet.UniqueProperty;
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface Row {
-    /**
-     * @since 2.3
-     */
-    public String getUniqueProperty();
+public class Row extends AbstractContextSupport {
+    private String uniqueProperty;
+
+    private RowRenderer rowRenderer;
+
+    private List<Column> columns = new ArrayList<Column>();
 
     /**
+     * The property that uniquely identifies the row.
      * @since 2.3
      */
-    public UniqueProperty getUniqueProperty(Object item);
+    public String getUniqueProperty() {
+
+        return uniqueProperty;
+    }
+    
+    /**
+     * @param item The Bean (or Map) for the current row.
+     * @since 2.3
+     */
+    public UniqueProperty getUniqueProperty(Object item) {
+        if (uniqueProperty != null) {
+            Object value = ItemUtils.getItemValue(item, uniqueProperty);
+            if (value != null) {
+                return new UniqueProperty(uniqueProperty, value.toString());
+            }
+        }
+
+        return null;
+    }
 
     /**
+     * @param uniqueProperty The property that uniquely identifies the row.
      * @since 2.3
      */
-    public void setUniqueProperty(String uniqueProperty);
+    public void setUniqueProperty(String uniqueProperty) {
+        this.uniqueProperty = uniqueProperty;
+    }
 
-    public List<Column> getColumns();
+	public Row uniqueProperty(String uniqueProperty) {
+		setUniqueProperty(uniqueProperty);
+		return this;
+	}
 
-    public Column getColumn(String property);
+    public Column getColumn(String property) {
+        for (Column column : columns) {
+            if (column.getProperty() == null) {
+                continue;
+            }
 
-    public Column getColumn(int index);
+            if (column.getProperty().equals(property)) {
+                return column;
+            }
+        }
+        
+        throw new IllegalStateException("The column property [" + property + "] does not exist.");
+    }
 
-    public Row addColumn(Column column);
+    public Column getColumn(int index) {
+        return columns.get(index);
+    }
 
-    public RowRenderer getRowRenderer();
+    public Row addColumn(Column column) {
+        column.setRow(this);
+        columns.add(column);
+        return this;
+    }
 
-    public void setRowRenderer(RowRenderer renderer);
+    public List<Column> getColumns() {
+        return columns;
+    }
+
+    public RowRenderer getRowRenderer() {
+        return rowRenderer;
+    }
+
+    public void setRowRenderer(RowRenderer rowRenderer) {
+        this.rowRenderer = rowRenderer;
+        SupportUtils.setWebContext(rowRenderer, getWebContext());
+        SupportUtils.setCoreContext(rowRenderer, getCoreContext());
+        rowRenderer.setRow(this);
+    }
+    
+	public Row rowRenderer(RowRenderer rowRenderer) {
+		setRowRenderer(rowRenderer);
+		return this;
+	}
 }

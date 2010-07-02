@@ -15,26 +15,96 @@
  */
 package org.jmesa.view.html.component;
 
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.component.Table;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlTable extends Table {
-    public String getTheme();
+public class HtmlTable extends Table {
+    private String theme;
 
-    public void setTheme(String theme);
+    @Override
+    public HtmlRow getRow() {
+        return (HtmlRow) super.getRow();
+    }
 
-    public HtmlRow getRow();
+    public String getTheme() {
+        if (StringUtils.isBlank(theme)) {
+            return getCoreContext().getPreference(HtmlConstants.TABLE_COMPONENT_THEME);
+        }
 
-    public HtmlTableRenderer getTableRenderer();
+        return theme;
+    }
 
-    public void setStyle(String style);
-    public void setStyleClass(String styleClass);
-    public void setBorder(String border);
-    public void setCellpadding(String cellpadding);
-    public void setCellspacing(String cellspacing);
-    public void setWidth(String width);
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public HtmlTable theme(String theme) {
+    	setTheme(theme);
+    	return this;
+    }
+    
+    @Override
+    public HtmlTableRenderer getTableRenderer() {
+        return (HtmlTableRenderer) super.getTableRenderer();
+    }
+
+    public void setStyle(String style) {
+    	getTableRenderer().setStyle(style);
+    }
+    
+    public HtmlTable style(String style) {
+    	setStyle(style);
+    	return this;
+    }
+
+    public void setStyleClass(String styleClass) {
+    	getTableRenderer().setStyleClass(styleClass);
+    }
+    
+    public HtmlTable styleClass(String styleClass) {
+    	setStyleClass(styleClass);
+    	return this;
+    }
+
+    public void setBorder(String border) {
+    	getTableRenderer().setBorder(border);
+    }
+    
+    public HtmlTable border(String border) {
+    	setBorder(border);
+    	return this;
+    }
+
+    public void setCellpadding(String cellpadding) {
+    	getTableRenderer().setCellpadding(cellpadding);
+    }
+    
+    public HtmlTable cellpadding(String cellpadding) {
+    	setCellpadding(cellpadding);
+    	return this;
+    }
+
+    public void setCellspacing(String cellspacing) {
+    	getTableRenderer().setCellspacing(cellspacing);
+    }
+    
+    public HtmlTable cellspacing(String cellspacing) {
+    	setCellspacing(cellspacing);
+    	return this;
+    }
+
+    public void setWidth(String width) {
+    	getTableRenderer().setWidth(width);
+    }
+
+    public HtmlTable width(String width) {
+    	setWidth(width);
+    	return this;
+    }
 }

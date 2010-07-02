@@ -18,7 +18,6 @@ package org.jmesa.view.csv;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.component.ColumnImpl;
 import org.jmesa.view.csv.renderer.CsvCellRendererImpl;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.web.WebContext;
@@ -43,7 +42,7 @@ public class CsvComponentFactory extends AbstractComponentFactory {
     }
 
     public Column createColumn(String property, CellEditor editor) {
-        ColumnImpl column = new ColumnImpl(property);
+        Column column = new Column(property);
         column.setWebContext(getWebContext());
         column.setCoreContext(getCoreContext());
 
