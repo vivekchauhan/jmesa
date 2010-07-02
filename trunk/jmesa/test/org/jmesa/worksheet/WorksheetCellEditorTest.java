@@ -22,7 +22,7 @@ import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.component.HtmlRowImpl;
+import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         HtmlColumn column = factory.createColumn("name.firstName");
         
         // set the row unique properties
-        Row row = new HtmlRowImpl();
+        Row row = new HtmlRow();
         row.setUniqueProperty("id");
         row.addColumn(column); // add column for back reference
 

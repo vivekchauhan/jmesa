@@ -17,7 +17,7 @@ package org.jmesa.view.html.renderer;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.test.AbstractTestCase;
-import org.jmesa.view.html.component.HtmlColumnImpl;
+import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class HtmlHeaderRendererTest extends AbstractTestCase {
 		WebContext webContext = createWebContext();
 		CoreContext coreContext = createCoreContext(webContext);
 		
-		HtmlColumnImpl column = new HtmlColumnImpl("firstName");
+		HtmlColumn column = new HtmlColumn("firstName");
 		column.setWebContext(webContext);
 		column.setCoreContext(coreContext);
 		
