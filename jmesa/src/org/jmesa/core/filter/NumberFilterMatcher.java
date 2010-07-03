@@ -29,7 +29,6 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class NumberFilterMatcher extends AbstractPatternFilterMatcher {
-
     public NumberFilterMatcher() {
     	// default constructor
     }

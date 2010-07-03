@@ -32,7 +32,6 @@ import static org.jmesa.view.html.HtmlUtils.totalPages;
  * @author Jeff Johnston
  */
 public abstract class ToolbarImpl extends AbstractContextSupport implements Toolbar {
-
     private ToolbarItemFactory toolbarItemFactory;
     private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
 

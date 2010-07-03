@@ -22,7 +22,6 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jeff Johnston
  */
 public class PageNumberItem extends AbstractItem {
-
     private int page;
 
     public PageNumberItem(int page) {
@@ -33,7 +32,6 @@ public class PageNumberItem extends AbstractItem {
         return page;
     }
 
-    @Override
     public String disabled() {
         HtmlBuilder html = new HtmlBuilder();
 
@@ -47,7 +45,6 @@ public class PageNumberItem extends AbstractItem {
         return html.toString();
     }
 
-    @Override
     public String enabled() {
         HtmlBuilder html = new HtmlBuilder();
 

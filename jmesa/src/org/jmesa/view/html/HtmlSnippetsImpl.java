@@ -46,7 +46,6 @@ import org.jmesa.worksheet.WorksheetValidation;
  * @author Jeff Johnston
  */
 public class HtmlSnippetsImpl extends AbstractContextSupport implements HtmlSnippets {
-
     private HtmlTable table;
     private Toolbar toolbar;
 

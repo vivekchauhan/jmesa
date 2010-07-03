@@ -41,7 +41,6 @@ import org.xhtmlrenderer.util.XRLog;
  * @author Jeff Johnston
  */
 public class ExportUtils {
-    
     /**
      * Use the view caption for the export. If the caption is not defined then use a default.
      * 

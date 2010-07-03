@@ -50,7 +50,6 @@ import org.slf4j.LoggerFactory;
  * @author Ismail Seyfi
  */
 public class PdfPView extends AbstractExportView {
-
     private Logger logger = LoggerFactory.getLogger(PdfPView.class);
 
     private Color evenCellBackgroundColor;

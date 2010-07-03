@@ -48,7 +48,6 @@ import org.springframework.util.FileCopyUtils;
  * @author Paul Horn
  */
 public class JExcelView extends AbstractExportView {
-
     private OutputStream outputStream;
 
     public void setOutputStream(OutputStream outputStream) {

@@ -20,54 +20,29 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public enum ToolbarItemType {
-    PAGE_NUMBER_ITEMS,
-    FIRST_PAGE_ITEM, 
-    PREV_PAGE_ITEM, 
-    NEXT_PAGE_ITEM, 
-    LAST_PAGE_ITEM, 
-    MAX_ROWS_ITEM, 
-    FILTER_ITEM, 
-    CLEAR_ITEM, 
-    SORT_ITEM, 
-    EXPORT_ITEM, 
-    SEPARATOR,
-    SAVE_WORKSHEET_ITEM,
-    FILTER_WORKSHEET_ITEM,
-    ADD_WORKSHEET_ROW_ITEM,
-    UNDO_ITEM;
+    PAGE_NUMBER_ITEMS("page_number"),
+    FIRST_PAGE_ITEM("first_page"),
+    PREV_PAGE_ITEM("prev_page"),
+    NEXT_PAGE_ITEM("next_page"),
+    LAST_PAGE_ITEM("last_page"),
+    MAX_ROWS_ITEM("max_rows"),
+    FILTER_ITEM("filter"),
+    CLEAR_ITEM("clear"),
+    SORT_ITEM("sort"),
+    EXPORT_ITEM("export"),
+    SEPARATOR("separator"),
+    SAVE_WORKSHEET_ITEM("save_worksheet"),
+    FILTER_WORKSHEET_ITEM("filter_worksheet"),
+    ADD_WORKSHEET_ROW_ITEM("add_worksheet_row"),
+    UNDO_ITEM("undo");
+
+    private final String code;
+
+    private ToolbarItemType(String code) {
+        this.code = code;
+    }
 
     public String toCode() {
-        switch (this) {
-        case PAGE_NUMBER_ITEMS:
-            return "page_number";
-        case FIRST_PAGE_ITEM:
-            return "first_page";
-        case PREV_PAGE_ITEM:
-            return "prev_page";
-        case NEXT_PAGE_ITEM:
-            return "next_page";
-        case LAST_PAGE_ITEM:
-            return "last_page";
-        case MAX_ROWS_ITEM:
-            return "max_rows";
-        case FILTER_ITEM:
-            return "filter";
-        case CLEAR_ITEM:
-            return "clear";
-        case SORT_ITEM:
-            return "sort";
-        case EXPORT_ITEM:
-            return "export";
-        case SAVE_WORKSHEET_ITEM:
-            return "save_worksheet";
-        case FILTER_WORKSHEET_ITEM:
-            return "filter_worksheet";
-        case ADD_WORKSHEET_ROW_ITEM:
-            return "add_worksheet_row";
-        case UNDO_ITEM:
-            return "undo";
-        default:
-            return "";
-        }
+        return code;
     }
 }

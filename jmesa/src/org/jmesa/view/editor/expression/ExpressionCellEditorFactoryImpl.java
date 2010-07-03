@@ -22,7 +22,6 @@ import org.jmesa.view.editor.CellEditor;
  * @author bgould
  */
 public class ExpressionCellEditorFactoryImpl implements ExpressionCellEditorFactory {
-
     public CellEditor createCellEditor(Expression expression) {
         Language language = expression.getLanguage();
 

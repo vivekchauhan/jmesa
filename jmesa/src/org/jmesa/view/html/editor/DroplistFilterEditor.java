@@ -41,7 +41,6 @@ import org.jmesa.view.html.component.HtmlColumn;
  * @author Jeff Johnston
  */
 public class DroplistFilterEditor extends AbstractFilterEditor {
-
     private Set<Option> options;
     
     public Object getValue() {

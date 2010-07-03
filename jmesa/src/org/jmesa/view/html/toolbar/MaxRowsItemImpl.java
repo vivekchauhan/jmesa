@@ -72,9 +72,9 @@ public class MaxRowsItemImpl extends AbstractItem implements MaxRowsItem {
         html.newline();
         html.tabs(4);
 
-        int[] increments = getIncrements();
-        for (int i = 0; i < increments.length; i++) {
-            int increment = increments[i];
+        int[] inc = getIncrements();
+        for (int i = 0; i < inc.length; i++) {
+            int increment = inc[i];
             html.option().value(String.valueOf(increment));
             if (increment == maxRows) {
                 html.selected();

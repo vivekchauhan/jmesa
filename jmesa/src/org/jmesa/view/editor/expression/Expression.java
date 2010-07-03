@@ -22,7 +22,6 @@ import static org.jmesa.util.AssertUtils.notNull;
  * @author bgould
  */
 public class Expression {
-
     private final Language language;
     private final String var;
     private final Object template;

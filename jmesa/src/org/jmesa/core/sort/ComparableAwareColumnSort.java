@@ -36,7 +36,6 @@ import static org.jmesa.util.ItemUtils.getPropertyClassType;
  * @author David Sills
  */
 public class ComparableAwareColumnSort implements ColumnSort {
-
     private Logger logger = LoggerFactory.getLogger(ComparableAwareColumnSort.class);
 
     @SuppressWarnings("unchecked")

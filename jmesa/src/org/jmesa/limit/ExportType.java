@@ -24,23 +24,16 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum ExportType {
-    CSV, EXCEL, JEXCEL, PDF, PDFP;
+    CSV("csv"), EXCEL("excel"), JEXCEL("jexcel"), PDF("pdf"), PDFP("pdfp");
+
+    private final String param;
+
+    private ExportType(String param) {
+        this.param = param;
+    }
     
     public String toParam() {
-        switch (this) {
-        case CSV:
-            return "csv";
-        case EXCEL:
-            return "excel";
-        case JEXCEL:
-            return "jexcel";
-        case PDF:
-            return "pdf";
-        case PDFP:
-            return "pdfp";
-        default:
-            return "";
-        }
+        return param;
     }
 
     public static ExportType valueOfParam(String param) {

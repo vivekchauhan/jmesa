@@ -22,13 +22,7 @@ package org.jmesa.view.editor;
  * @author Jeff Johnston
  */
 public interface PatternSupport {
-    /**
-     * @return The pattern to use.
-     */
     public String getPattern();
-
-    /**
-     * @param pattern The pattern to use.
-     */
+    
     public void setPattern(String pattern);
 }

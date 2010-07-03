@@ -67,13 +67,11 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class ToolbarItemFactoryImpl implements ToolbarItemFactory {
-    
     private String imagesPath;
     private CoreContext coreContext;
     
     public ToolbarItemFactoryImpl(WebContext webContext, CoreContext coreContext) {
         this.imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
-        
         this.coreContext = coreContext;
     }
 

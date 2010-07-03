@@ -25,7 +25,6 @@ import org.jmesa.view.component.TableSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractToolbar extends ToolbarImpl implements TableSupport, ExportTypesSupport, MaxRowsIncrementsSupport {
-
     private Table table;
     private ExportType[] exportTypes;
     private int[] maxRowsIncrements;

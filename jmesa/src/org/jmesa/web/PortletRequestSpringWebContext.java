@@ -26,7 +26,6 @@ import org.springframework.web.portlet.context.PortletApplicationContextUtils;
  * @author bgould
  */
 public class PortletRequestSpringWebContext extends PortletRequestWebContext implements SpringWebContext {
-
     public PortletRequestSpringWebContext(PortletRequest request) {
         super(request);
     }

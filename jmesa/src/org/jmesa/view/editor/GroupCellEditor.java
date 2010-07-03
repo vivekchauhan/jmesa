@@ -24,8 +24,8 @@ import org.jmesa.view.component.Row;
  * @author Jeff Johnston
  */
 public class GroupCellEditor extends AbstractCellEditor {
-
     private static final String LAST_GROUPED_COLUMN = "LAST_GROUPED_COLUMN";
+
     private Row currentRow;
     private Object lastColumnValue;
     private CellEditor decoratedCellEditor;

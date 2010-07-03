@@ -26,7 +26,6 @@ import org.apache.commons.lang.StringUtils;
  * @author Oscar Perez
  */
 public class StringWildCardFilterMatcher implements FilterMatcher {
-
     private static final String ANYCHAR = "?";
     private static final String ANYSTRING = "*";
     private static final String ANYCHARREGEXP = ".";

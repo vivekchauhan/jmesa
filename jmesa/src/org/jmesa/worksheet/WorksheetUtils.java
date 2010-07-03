@@ -26,9 +26,7 @@ import org.jmesa.view.component.Row;
  * @author Jeff Johnston
  */
 public class WorksheetUtils {
-
-    private WorksheetUtils() {
-    }
+    private WorksheetUtils() {}
 
     /**
      * @return Get the unique row property name. If there are no rows then return null.

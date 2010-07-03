@@ -45,10 +45,7 @@ import org.jmesa.web.WebContextSupport;
  * @author Jeff Johnston
  */
 public class SupportUtils {
-
-    private SupportUtils() {
-    // cannot instantiate object.
-    }
+    private SupportUtils() {}
 
     /**
      * Set the WebContext on the object being inspected if it is not already set.

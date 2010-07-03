@@ -30,14 +30,11 @@ import org.jmesa.worksheet.editor.WorksheetEditor;
  * @author Jeff Johnston
  */
 public class HtmlCellRendererImpl extends AbstractCellRenderer implements HtmlCellRenderer {
-
     private String style;
     private String styleClass;
     private WorksheetEditor worksheetEditor;
 
-    public HtmlCellRendererImpl() {
-    // default constructor
-    }
+    public HtmlCellRendererImpl() {}
 
     public HtmlCellRendererImpl(HtmlColumn column, CellEditor editor) {
         setColumn(column);

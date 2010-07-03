@@ -23,7 +23,6 @@ import org.jmesa.view.ComponentFactory;
  * @author Jeff Johnston
  */
 public class CsvTableFactory extends AbstractTableFactory {
-    @Override
     protected ComponentFactory getComponentFactory() {
         return new CsvComponentFactory(getWebContext(), getCoreContext());
     }

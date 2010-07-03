@@ -27,7 +27,6 @@ import static org.jmesa.view.ExportConstants.ENCODING;
  * @author Jeff Johnston
  */
 public abstract class AbstractViewExporter implements ViewExporter, CoreContextSupport {
-
     private View view;
     private CoreContext coreContext;
     private HttpServletResponse response;

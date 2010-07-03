@@ -22,13 +22,7 @@ package org.jmesa.view.component;
  * @author Jeff Johnston
  */
 public interface TableSupport {
-    /**
-     * @return The Table to use.
-     */
     public Table getTable();
-
-    /**
-     * @param table The Table to use.
-     */
+    
     public void setTable(Table table);
 }

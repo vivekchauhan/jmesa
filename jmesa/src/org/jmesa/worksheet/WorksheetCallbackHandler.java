@@ -21,7 +21,5 @@ package org.jmesa.worksheet;
  * @author Jeff Johnston
  */
 public interface WorksheetCallbackHandler {
-    
     public void process(WorksheetRow worksheetRow);
-
 }

@@ -25,13 +25,10 @@ import org.jmesa.view.renderer.AbstractHeaderRenderer;
  * @author Jeff Johnston
  */
 public class HtmlHeaderRendererImpl extends AbstractHeaderRenderer implements HtmlHeaderRenderer {
-
     private String style;
     private String styleClass;
 
-    public HtmlHeaderRendererImpl() {
-    // default constructor
-    }
+    public HtmlHeaderRendererImpl() {}
 
     public HtmlHeaderRendererImpl(HtmlColumn column) {
         setColumn(column);

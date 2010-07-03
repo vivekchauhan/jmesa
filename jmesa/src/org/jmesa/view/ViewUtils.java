@@ -27,9 +27,7 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class ViewUtils {
-    private ViewUtils() {
-        // hide constructor
-    }
+    private ViewUtils() {}
 
     /**
      * Convert camelCase text to a readable word. example: camelCaseToWord --> Camel Case To Word

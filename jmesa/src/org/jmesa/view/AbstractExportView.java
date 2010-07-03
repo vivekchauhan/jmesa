@@ -23,7 +23,6 @@ import org.jmesa.view.component.TableSupport;
  * @author qxodream
  */
 public abstract class AbstractExportView extends AbstractContextSupport implements TableSupport, View {
-
     private Table table;
 
      public Table getTable() {

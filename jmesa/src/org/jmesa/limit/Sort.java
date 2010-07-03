@@ -127,8 +127,8 @@ public final class Sort implements Serializable, Comparable<Sort> {
     @Override
     public int hashCode() {
         int result = 17;
-        int property = this.getProperty() == null ? 0 : this.getProperty().hashCode();
-        result = result * 37 + property;
+        int prop = this.getProperty() == null ? 0 : this.getProperty().hashCode();
+        result = result * 37 + prop;
         return result;
     }
 

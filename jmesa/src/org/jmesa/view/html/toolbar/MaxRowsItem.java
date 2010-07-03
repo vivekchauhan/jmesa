@@ -21,14 +21,9 @@ package org.jmesa.view.html.toolbar;
  */
 public interface MaxRowsItem extends ToolbarItem {
     public int getMaxRows();
-
     public void setMaxRows(int maxRows);
-
     public String getText();
-
     public void setText(String text);
-
     public int[] getIncrements();
-
     public void setIncrements(int[] increments);
 }

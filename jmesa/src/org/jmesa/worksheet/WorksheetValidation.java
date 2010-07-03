@@ -23,7 +23,6 @@ import org.jmesa.view.AbstractContextSupport;
  * @author Siddhant Agrawal
  */
 public class WorksheetValidation extends AbstractContextSupport {
-
     public static final String TRUE = "true";
 
     private final String validationType;

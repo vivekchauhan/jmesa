@@ -24,25 +24,16 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum Action {
-    FILTER, SORT, CLEAR, PAGE, MAX_ROWS, EXPORT;
+    FILTER("f_"), SORT("s_"), CLEAR("c_"), PAGE("p_"), MAX_ROWS("mr_"), EXPORT("e_");
+
+    private final String param;
+
+    private Action(String param) {
+        this.param = param;
+    }
 
     public String toParam() {
-        switch (this) {
-        case FILTER:
-            return "f_";
-        case SORT:
-            return "s_";
-        case CLEAR:
-            return "c_";
-        case PAGE:
-            return "p_";
-        case MAX_ROWS:
-            return "mr_";
-        case EXPORT:
-            return "e_";
-        default:
-            return "";
-        }
+        return param;
     }
 
     public static Action valueOfParam(String param) {

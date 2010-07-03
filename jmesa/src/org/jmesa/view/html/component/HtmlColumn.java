@@ -42,9 +42,7 @@ public class HtmlColumn extends Column {
     private boolean generatedOnTheFly;
     private List<WorksheetValidation> validations = new ArrayList<WorksheetValidation>();
 
-    public HtmlColumn() {
-        // default constructor
-    }
+    public HtmlColumn() {}
 
     public HtmlColumn(String property) {
         setProperty(property);
@@ -175,10 +173,12 @@ public class HtmlColumn extends Column {
 		return this;
 	}
 
+    @Override
     public HtmlFilterRenderer getFilterRenderer() {
         return (HtmlFilterRenderer) filterRenderer;
     }
 
+    @Override
     public void setFilterRenderer(FilterRenderer filterRenderer) {
         this.filterRenderer = filterRenderer;
         SupportUtils.setWebContext(filterRenderer, getWebContext());
@@ -186,6 +186,7 @@ public class HtmlColumn extends Column {
         SupportUtils.setColumn(filterRenderer, this);
     }
 
+    @Override
 	public HtmlColumn filterRenderer(FilterRenderer filterRenderer) {
 		setFilterRenderer(filterRenderer);
 		return this;

@@ -21,28 +21,16 @@ package org.jmesa.view.html.toolbar;
  */
 public interface ToolbarItemFactory {
     public PageNumberItem createPageNumberItem(int page);
-
     public ImageItem createFirstPageItem();
-
     public ImageItem createPrevPageItem();
-
     public ImageItem createNextPageItem();
-
     public ImageItem createLastPageItem();
-
     public ImageItem createFilterItem();
-
     public ImageItem createClearItem();
-
     public MaxRowsItem createMaxRowsItem();
-
     public ImageItem createExportItem(ToolbarExport export);
-
     public ImageItem createSeparatorItem();
-
     public ImageItem createSaveWorksheetItem();
-
     public ImageItem createFilterWorksheetItem();
-
     public ImageItem createAddWorksheetRowItem();
 }

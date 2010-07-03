@@ -48,9 +48,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jeff Johnston
  */
 public class TableFacadeFilter implements Filter {
-
-    public void init(FilterConfig config) throws ServletException {
-    }
+    public void init(FilterConfig config) throws ServletException {}
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
@@ -63,8 +61,7 @@ public class TableFacadeFilter implements Filter {
         FilterThreadLocal.set(null, null);
     }
 
-    public void destroy() {
-    }
+    public void destroy() {}
 
     public static class FilterThreadLocal {
 

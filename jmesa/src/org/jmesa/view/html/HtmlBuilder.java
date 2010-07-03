@@ -33,7 +33,6 @@ import org.apache.commons.lang.StringUtils;
  * @author Jeff Johnston
  */
 public class HtmlBuilder {
-
     private StringBuilder builder;
 
     /**
