@@ -39,7 +39,6 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class WorksheetImpl implements Worksheet {
-    
     private static final Logger logger = LoggerFactory.getLogger(WorksheetImpl.class);
 
     private String id;

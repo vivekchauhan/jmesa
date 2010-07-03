@@ -24,7 +24,6 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public class ExportTableFactory extends AbstractTableFactory {
-    @Override
     protected ComponentFactory getComponentFactory() {
         return new ExportComponentFactory(getWebContext(), getCoreContext());
     }

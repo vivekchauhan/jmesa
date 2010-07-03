@@ -30,7 +30,6 @@ import org.jmesa.worksheet.Worksheet;
  */
 @Deprecated
 public class WorksheetTableFacadeTemplate extends TableFacadeTemplate {
-
     /**
      * @deprecated Use the new TableModel for building tables.
      */

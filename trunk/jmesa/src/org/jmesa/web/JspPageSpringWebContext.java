@@ -24,7 +24,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author Jeff Johnston
  */
 public class JspPageSpringWebContext extends JspPageWebContext implements SpringWebContext {
-
     public JspPageSpringWebContext(PageContext pageContext) {
         super(pageContext);
     }

@@ -23,9 +23,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class HtmlUtils {
-    private HtmlUtils() {
-        // hide constructor
-    }
+    private HtmlUtils() {}
 
     public static boolean isFirstPageEnabled(int page) {
         if (page == 1) {

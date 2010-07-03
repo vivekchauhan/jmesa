@@ -25,7 +25,6 @@ import org.jmesa.view.html.HtmlConstants;
  * @author Jeff Johnston
  */
 public class HtmlToolbar extends AbstractToolbar {
-
     @SuppressWarnings("unchecked")
     @Override
     public String render() {

@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
  * @author wliu
  */
 public class BeanUtils {
-
     private static final Logger logger = Logger.getLogger(BeanUtils.class);
     
     /**

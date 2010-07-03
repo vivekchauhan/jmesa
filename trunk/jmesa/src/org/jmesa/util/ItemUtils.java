@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class ItemUtils {
-
     private static final Logger logger = LoggerFactory.getLogger(ItemUtils.class);
+
     public static final String JMESA_ITEM = "jmesa-item";
 
     private ItemUtils() {
@@ -50,13 +50,13 @@ public class ItemUtils {
 
         try {
             if (item instanceof Map) {
-                itemValue = ((Map<?, ?>) item).get(property);
+                itemValue = ((Map)item).get(property);
                 if (itemValue != null) {
                     return itemValue;
                 }
 
                 // ports such as the tags will store the original bean
-                Object bean = ((Map<?, ?>) item).get(JMESA_ITEM);
+                Object bean = ((Map)item).get(JMESA_ITEM);
 
                 if (bean == null) {
                     logger.debug("the map does not have property " + property);

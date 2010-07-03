@@ -28,7 +28,6 @@ import javax.servlet.jsp.PageContext;
  * @author Jeff Johnston
  */
 public class JspPageWebContext implements WebContext {
-
     private PageContext pageContext;
     private Map<?, ?> parameterMap;
     private Locale locale;

@@ -22,13 +22,7 @@ package org.jmesa.view.component;
  * @author Jeff Johnston
  */
 public interface RowSupport {
-    /**
-     * @return The Row to use.
-     */
     public Row getRow();
-
-    /**
-     * @param row The Row to use.
-     */
+    
     public void setRow(Row row);
 }

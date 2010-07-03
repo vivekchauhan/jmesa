@@ -30,7 +30,6 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @author Jeff Johnston
  */
 public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
-
     /**
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */

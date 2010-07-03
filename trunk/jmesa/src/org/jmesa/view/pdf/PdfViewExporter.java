@@ -35,7 +35,6 @@ import org.xhtmlrenderer.resource.FSEntityResolver;
  * @author Paul Horn
  */
 public class PdfViewExporter extends AbstractViewExporter {
-
     private HttpServletRequest request;
 
     public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
@@ -93,12 +92,10 @@ public class PdfViewExporter extends AbstractViewExporter {
         return null;
     }
 
-    @Override
     public String getContextType() {
         return "application/pdf";
     }
 
-    @Override
     public String getExtensionName() {
         return "pdf";
     }

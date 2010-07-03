@@ -34,7 +34,6 @@ import org.jmesa.view.View;
  * @author Ismail Seyfi
  */
 public class PdfPViewExporter extends AbstractViewExporter {
-
     private HttpServletRequest request;
 
     public PdfPViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
@@ -64,12 +63,10 @@ public class PdfPViewExporter extends AbstractViewExporter {
         out.flush();
     }
 
-    @Override
     public String getContextType() {
         return "application/pdf";
     }
 
-    @Override
     public String getExtensionName() {
         return "pdf";
     }

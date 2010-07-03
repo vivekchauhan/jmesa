@@ -27,10 +27,9 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class MessagesFactory {
-
     private static final String JMESA_MESSAGES_LOCATION = "jmesaMessagesLocation";
-    private MessagesFactory() {
-    }
+
+    private MessagesFactory() {}
 
     /**
      * @return The default messages.

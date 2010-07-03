@@ -26,7 +26,6 @@ import org.jmesa.view.component.Column;
  * @author Jeff Johnston
  */
 public class CsvView extends AbstractExportView {
-
     public byte[] getBytes() {
         String render = (String) render();
         return render.getBytes();

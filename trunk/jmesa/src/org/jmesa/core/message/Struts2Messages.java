@@ -25,7 +25,6 @@ import com.opensymphony.xwork2.util.LocalizedTextUtil;
  * @author Oscar Perez
  */
 public class Struts2Messages implements Messages {
-
     private Messages defaultMessages;
     private WebContext webContext;
 
@@ -34,16 +33,10 @@ public class Struts2Messages implements Messages {
         this.webContext = webContext;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public String getMessage(String code) {
         return this.getMessage(code, null);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public String getMessage(String code, Object[] args) {
         String message = LocalizedTextUtil.findDefaultText(code, webContext.getLocale(), args);
         if (message == null) {

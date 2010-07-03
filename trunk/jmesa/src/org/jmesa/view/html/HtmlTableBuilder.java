@@ -39,7 +39,6 @@ import org.jmesa.worksheet.editor.WorksheetEditor;
  * @author Jeff Johnston
  */
 public class HtmlTableBuilder {
-
     private final HtmlComponentFactory componentFactory;
 
     private HtmlTable table;

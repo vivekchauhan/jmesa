@@ -22,13 +22,7 @@ package org.jmesa.view.component;
  * @author Jeff Johnston
  */
 public interface ColumnSupport {
-    /**
-     * @return The Column to use.
-     */
     public Column getColumn();
 
-    /**
-     * @param column The Column to use.
-     */
     public void setColumn(Column column);
 }

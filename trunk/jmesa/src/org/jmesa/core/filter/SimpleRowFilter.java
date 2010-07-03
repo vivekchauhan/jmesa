@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport {
-
     private Logger logger = LoggerFactory.getLogger(SimpleRowFilter.class);
+
     private FilterMatcherRegistry registry;
 
     public Collection<?> filterItems(Collection<?> items, Limit limit) {

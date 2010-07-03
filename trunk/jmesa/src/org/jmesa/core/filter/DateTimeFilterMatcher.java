@@ -43,6 +43,7 @@ public class DateTimeFilterMatcher extends DateFilterMatcher {
         super(pattern, webContext);
     }
 
+    @Override
     public boolean evaluate(Object itemValue, String filterValue) {
         if (itemValue == null) {
             return false;

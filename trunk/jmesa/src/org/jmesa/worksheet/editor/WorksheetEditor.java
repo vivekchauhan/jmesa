@@ -26,7 +26,6 @@ import org.jmesa.view.editor.CellEditor;
  * @author Jeff Johnston
  */
 public interface WorksheetEditor extends CellEditor {
-
     public CellEditor getCellEditor();
 
     public void setCellEditor(CellEditor cellEditor);

@@ -36,7 +36,6 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
-import org.jmesa.worksheet.state.WorksheetState;
 
 /**
  * <p>
@@ -83,7 +82,6 @@ import org.jmesa.worksheet.state.WorksheetState;
  * @author Jeff Johnston
  */
 public interface TableFacade {
-
     public String getId();
 
     /**

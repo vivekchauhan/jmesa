@@ -22,9 +22,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Jeff Johnston
  */
 public class AssertUtils {
-
     public static void notNull(String msg, Object obj) {
-
         if (obj == null) {
             throw new IllegalArgumentException(msg);
         }

@@ -34,7 +34,6 @@ import javax.portlet.PortletSession;
  * @author bgould
  */
 public class PortletRequestWebContext implements WebContext {
-
     private final PortletRequest request;
     private final PortletContext context;
     private int sessionScope;

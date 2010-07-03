@@ -27,7 +27,6 @@ import org.jmesa.view.View;
  * @author Jeff Johnston
  */
 public class CsvViewExporter extends AbstractViewExporter {
-
     public CsvViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
         super(view, coreContext, response, null);
     }
@@ -46,12 +45,10 @@ public class CsvViewExporter extends AbstractViewExporter {
         outputStream.flush();
     }
 
-    @Override
     public String getContextType() {
         return "text/csv";
     }
 
-    @Override
     public String getExtensionName() {
         return "txt";
     }

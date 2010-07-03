@@ -43,7 +43,6 @@ import org.jmesa.view.html.toolbar.Toolbar;
  */
 @Deprecated
 public abstract class TableFacadeTemplate {
-
     final TableFacade tableFacade;
 
     /**
