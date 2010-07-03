@@ -25,7 +25,6 @@ import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetRow;
-import org.jmesa.worksheet.WorksheetRowImpl;
 import org.jmesa.worksheet.WorksheetUpdaterImpl;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -47,7 +46,7 @@ public class WorksheetServletTest {
 
         Worksheet worksheet = servlet.getAccessToWorksheet(null, webContext);
         
-        WorksheetRow row = new WorksheetRowImpl(new UniqueProperty(null, null));
+        WorksheetRow row = new WorksheetRow(new UniqueProperty(null, null));
         worksheet.addRow(row);
 
         assertNotNull(worksheet);

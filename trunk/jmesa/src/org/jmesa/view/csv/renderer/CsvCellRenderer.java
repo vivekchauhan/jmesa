@@ -15,14 +15,39 @@
  */
 package org.jmesa.view.csv.renderer;
 
-import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.renderer.AbstractCellRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface CsvCellRenderer extends CellRenderer {
-    public String getDelimiter();
+public class CsvCellRenderer extends AbstractCellRenderer {
+    private String delimiter;
 
-    public void setDelimiter(String delimiter);
+    public CsvCellRenderer(Column column, CellEditor editor) {
+        setColumn(column);
+        setCellEditor(editor);
+    }
+
+    public String getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
+
+    public Object render(Object item, int rowcount) {
+        StringBuilder data = new StringBuilder();
+
+        String property = getColumn().getProperty();
+
+        Object value = getCellEditor().getValue(item, property, rowcount);
+        data.append("\"").append(value).append("\"");
+        data.append(delimiter);
+
+        return data.toString();
+    }
 }

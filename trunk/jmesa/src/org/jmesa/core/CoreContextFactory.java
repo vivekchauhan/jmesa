@@ -168,9 +168,9 @@ public class CoreContextFactory {
         Items itemsImpl;
 
         if (autoFilterAndSort) {
-            itemsImpl = new ItemsImpl(items, limit, getRowFilter(), getColumnSort());
+            itemsImpl = new Items(items, limit, getRowFilter(), getColumnSort());
         } else {
-            itemsImpl = new ItemsImpl(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
+            itemsImpl = new Items(items, limit, new DefaultRowFilter(), new DefaultColumnSort());
         }
 
         CoreContext coreContext = new CoreContext(itemsImpl, limit, worksheet, getPreferences(), getMessages());

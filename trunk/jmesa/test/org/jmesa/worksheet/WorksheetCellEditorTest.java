@@ -58,20 +58,20 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
     @Override
     protected Worksheet getWorksheet() {
         UniqueProperty firstRowMap = new UniqueProperty("id", "1");
-        WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
+        WorksheetRow firstRow = new WorksheetRow(firstRowMap);
         firstRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
         UniqueProperty secondRowMap = new UniqueProperty("id", "2");
-        WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
+        WorksheetRow secondRow = new WorksheetRow(secondRowMap);
         secondRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
         UniqueProperty thirdRowMap = new UniqueProperty("id", "3");
-        WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
+        WorksheetRow thirdRow = new WorksheetRow(thirdRowMap);
         thirdRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
         Worksheet worksheet = new WorksheetImpl(ID, null);
         
-        WorksheetColumn column = new WorksheetColumnImpl("name.firstName", "", null);
+        WorksheetColumn column = new WorksheetColumn("name.firstName", "", null);
         column.setChangedValue("Changed Name");
         firstRow.addColumn(column);
         worksheet.addRow(firstRow);

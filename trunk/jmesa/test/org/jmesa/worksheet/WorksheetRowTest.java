@@ -28,11 +28,11 @@ import org.junit.Test;
 public class WorksheetRowTest {
     @Test
     public void removeColumn() {
-        WorksheetColumn firstName = new WorksheetColumnImpl("name.firstName", null, null);
-        WorksheetColumn born = new WorksheetColumnImpl("born", null, null);
-        WorksheetColumn lastName = new WorksheetColumnImpl("name.lastName", null, null);
+        WorksheetColumn firstName = new WorksheetColumn("name.firstName", null, null);
+        WorksheetColumn born = new WorksheetColumn("born", null, null);
+        WorksheetColumn lastName = new WorksheetColumn("name.lastName", null, null);
 
-        WorksheetRow row = new WorksheetRowImpl(null);
+        WorksheetRow row = new WorksheetRow(null);
         row.addColumn(firstName);
         row.addColumn(born);
         row.addColumn(lastName);
