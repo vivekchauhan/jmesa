@@ -25,8 +25,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class UniqueProperty implements Serializable {
-    private String name;
-    private String value;
+    private final String name;
+    private final String value;
 
     public UniqueProperty(String name, String value) {
         this.name = name;

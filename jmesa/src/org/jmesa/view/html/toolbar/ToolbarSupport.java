@@ -22,13 +22,7 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarSupport {
-    /**
-     * @return The Toolbar to use.
-     */
     public Toolbar getToolbar();
 
-    /**
-     * @param toolbar The Toolbar to use.
-     */
     public void setToolbar(Toolbar toolbar);
 }

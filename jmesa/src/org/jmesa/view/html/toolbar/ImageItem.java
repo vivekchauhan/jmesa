@@ -15,20 +15,67 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.view.html.HtmlBuilder;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ImageItem extends ToolbarItem {
-    public String getDisabledImage();
+public class ImageItem extends AbstractItem {
+    String image;
+    String disabledImage;
+    String alt;
 
-    public void setDisabledImage(String disabledImage);
+    public String getDisabledImage() {
+        return disabledImage;
+    }
 
-    public String getImage();
+    public void setDisabledImage(String disabledImage) {
+        this.disabledImage = disabledImage;
+    }
 
-    public void setImage(String image);
+    public String getImage() {
+        return image;
+    }
 
-    public String getAlt();
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-    public void setAlt(String alt);
+    public String getAlt() {
+        return alt;
+    }
+
+    public void setAlt(String alt) {
+        this.alt = alt;
+    }
+
+    @Override
+    public String disabled() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.img().src(getDisabledImage()).styleClass(getStyleClass()).style(getStyle()).alt(getAlt()).end();
+        return html.toString();
+    }
+
+    @Override
+    public String enabled() {
+        HtmlBuilder html = new HtmlBuilder();
+        html.a().href();
+        html.quote();
+        html.append(getAction());
+        html.quote().close();
+
+        if (StringUtils.isNotBlank(getTooltip())) {
+            html.img().src(getImage()).styleClass(getStyleClass()).style(getStyle()).title(getTooltip())
+                    .onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
+        } else {
+            html.img().src(getImage()).styleClass(getStyleClass()).style(getStyle())
+                    .onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
+        }
+
+        html.aEnd();
+
+        return html.toString();
+    }
 }

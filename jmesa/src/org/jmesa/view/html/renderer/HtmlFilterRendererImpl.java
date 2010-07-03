@@ -15,58 +15,27 @@
  */
 package org.jmesa.view.html.renderer;
 
-import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.renderer.AbstractFilterRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated You should extend the HtmlFilterRenderer class directly.
  */
-public class HtmlFilterRendererImpl extends AbstractFilterRenderer implements HtmlFilterRenderer {
-    private String style;
-    private String styleClass;
-
+@Deprecated
+public class HtmlFilterRendererImpl extends HtmlFilterRenderer {
+    /**
+     * @deprecated You should extend the HtmlFilterRenderer class directly.
+     */
+    @Deprecated
     public HtmlFilterRendererImpl() {}
 
+    /**
+     * @deprecated You should extend the HtmlFilterRenderer class directly.
+     */
+    @Deprecated
     public HtmlFilterRendererImpl(HtmlColumn column) {
-        setColumn(column);
-    }
-
-    @Override
-    public HtmlColumn getColumn() {
-        return (HtmlColumn) super.getColumn();
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    public String getStyleClass() {
-        return styleClass;
-    }
-
-    public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
-    }
-
-    public Object render() {
-        HtmlBuilder html = new HtmlBuilder();
-
-        html.td(2);
-        html.width(getColumn().getWidth());
-        html.style(getStyle());
-        html.styleClass(getStyleClass());
-        html.close();
-
-        html.append(getFilterEditor().getValue());
-
-        html.tdEnd();
-
-        return html.toString();
+        super(column);
     }
 }
