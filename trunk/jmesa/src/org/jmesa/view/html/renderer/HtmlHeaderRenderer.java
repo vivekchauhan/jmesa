@@ -15,21 +15,69 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.renderer.HeaderRenderer;
+import org.jmesa.view.renderer.AbstractHeaderRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlHeaderRenderer extends HeaderRenderer {
-    public HtmlColumn getColumn();
+public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
+    private String style;
+    private String styleClass;
 
-    public String getStyle();
+    public HtmlHeaderRenderer() {}
 
-    public void setStyle(String style);
+    public HtmlHeaderRenderer(HtmlColumn column) {
+        setColumn(column);
+    }
 
-    public String getStyleClass();
+    @Override
+    public HtmlColumn getColumn() {
+        return (HtmlColumn) super.getColumn();
+    }
 
-    public void setStyleClass(String styleClass);
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    public Object render() {
+        HtmlBuilder html = new HtmlBuilder();
+
+        String element = getCoreContext().getPreference(HtmlConstants.HEADER_RENDERER_ELEMENT);
+        if (element.equalsIgnoreCase("td")) {
+            html.td(2);
+        } else {
+            html.th(2);
+        }
+
+        html.width(getColumn().getWidth());
+        html.style(getStyle());
+        html.styleClass(getStyleClass());
+        html.close();
+
+        html.append(getHeaderEditor().getValue());
+
+        if (element.equalsIgnoreCase("td")) {
+            html.tdEnd();
+        } else {
+            html.thEnd();
+        }
+
+        return html.toString();
+    }
 }

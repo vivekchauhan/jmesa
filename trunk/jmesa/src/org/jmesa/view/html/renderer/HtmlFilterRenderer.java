@@ -15,21 +15,58 @@
  */
 package org.jmesa.view.html.renderer;
 
+import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.view.renderer.AbstractFilterRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface HtmlFilterRenderer extends FilterRenderer {
-    public HtmlColumn getColumn();
+public class HtmlFilterRenderer extends AbstractFilterRenderer {
+    private String style;
+    private String styleClass;
 
-    public String getStyle();
+    public HtmlFilterRenderer() {}
 
-    public void setStyle(String style);
+    public HtmlFilterRenderer(HtmlColumn column) {
+        setColumn(column);
+    }
 
-    public String getStyleClass();
+    @Override
+    public HtmlColumn getColumn() {
+        return (HtmlColumn) super.getColumn();
+    }
 
-    public void setStyleClass(String styleClass);
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    public Object render() {
+        HtmlBuilder html = new HtmlBuilder();
+
+        html.td(2);
+        html.width(getColumn().getWidth());
+        html.style(getStyle());
+        html.styleClass(getStyleClass());
+        html.close();
+
+        html.append(getFilterEditor().getValue());
+
+        html.tdEnd();
+
+        return html.toString();
+    }
 }

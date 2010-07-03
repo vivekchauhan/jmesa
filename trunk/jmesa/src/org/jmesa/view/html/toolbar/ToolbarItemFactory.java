@@ -15,22 +15,279 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_LAST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_LAST_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SEPARATOR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_NUMBER_CLASS;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FIRST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_LAST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_NEXT_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_PREV_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_SAVE_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FIRST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_LAST_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_NEXT_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_SAVE_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_ADD_WORKSHEET_ROW;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW;
+
+import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.CoreContext;
+import org.jmesa.view.html.HtmlConstants;
+import org.jmesa.view.html.HtmlUtils;
+import org.jmesa.web.WebContext;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ToolbarItemFactory {
-    public PageNumberItem createPageNumberItem(int page);
-    public ImageItem createFirstPageItem();
-    public ImageItem createPrevPageItem();
-    public ImageItem createNextPageItem();
-    public ImageItem createLastPageItem();
-    public ImageItem createFilterItem();
-    public ImageItem createClearItem();
-    public MaxRowsItem createMaxRowsItem();
-    public ImageItem createExportItem(ToolbarExport export);
-    public ImageItem createSeparatorItem();
-    public ImageItem createSaveWorksheetItem();
-    public ImageItem createFilterWorksheetItem();
-    public ImageItem createAddWorksheetRowItem();
+public class ToolbarItemFactory {
+    private String imagesPath;
+    private CoreContext coreContext;
+
+    public ToolbarItemFactory(WebContext webContext, CoreContext coreContext) {
+        this.imagesPath = HtmlUtils.imagesPath(webContext, coreContext);
+        this.coreContext = coreContext;
+    }
+
+    public PageNumberItem createPageNumberItem(int page) {
+        PageNumberItem item = new PageNumberItem(page);
+        item.setStyleClass(coreContext.getPreference(TOOLBAR_PAGE_NUMBER_CLASS));
+        item.setCode(ToolbarItemType.PAGE_NUMBER_ITEMS.toCode());
+
+        PageNumberItemRenderer renderer = new PageNumberItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createFirstPageItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.FIRST_PAGE_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FIRST_PAGE));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FIRST_PAGE));
+
+        ToolbarItemRenderer renderer = new FirstPageItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createPrevPageItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.PREV_PAGE_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_PREV_PAGE));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_PREV_PAGE_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_PREV_PAGE));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_PREV_PAGE));
+
+        ToolbarItemRenderer renderer = new PrevPageItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createNextPageItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.NEXT_PAGE_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_NEXT_PAGE));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_NEXT_PAGE));
+
+        ToolbarItemRenderer renderer = new NextPageItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createLastPageItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.LAST_PAGE_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_LAST_PAGE));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_LAST_PAGE_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_LAST_PAGE));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_LAST_PAGE));
+
+        ToolbarItemRenderer renderer = new LastPageItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createFilterItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.FILTER_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER));
+        item.setImage(getImage(TOOLBAR_IMAGE_FILTER));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER));
+
+        ToolbarItemRenderer renderer = new FilterItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createClearItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.CLEAR_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR));
+        item.setImage(getImage(TOOLBAR_IMAGE_CLEAR));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_CLEAR));
+
+        ToolbarItemRenderer renderer = new ClearItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public MaxRowsItem createMaxRowsItem() {
+        MaxRowsItemImpl item = new MaxRowsItemImpl();
+        item.setCode(ToolbarItemType.MAX_ROWS_ITEM.toCode());
+        item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_TEXT_MAX_ROWS_DROPLIST));
+
+        MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createExportItem(ToolbarExport export) {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.EXPORT_ITEM.toCode());
+
+        item.setTooltip(getExportTooltip(export));
+        item.setImage(imagesPath + getExportImage(export));
+
+        item.setAlt(export.getText());
+
+        ToolbarItemRenderer renderer = new ExportItemRenderer(item, export, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeExportAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createSeparatorItem() {
+        ImageItemImpl item = new SeparatorItem();
+
+        item.setImage(getImage(TOOLBAR_IMAGE_SEPARATOR));
+        item.setAlt("Separator");
+
+        return item;
+    }
+
+    public ImageItem createSaveWorksheetItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.SAVE_WORKSHEET_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_SAVE_WORKSHEET));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_SAVE_WORKSHEET));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_SAVE_WORKSHEET));
+
+        ToolbarItemRenderer renderer = new SaveWorksheetItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createFilterWorksheetItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.FILTER_WORKSHEET_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER_WORKSHEET));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_FILTER_WORKSHEET));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER_WORKSHEET));
+
+        ToolbarItemRenderer renderer = new FilterWorksheetItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+    }
+
+    public ImageItem createAddWorksheetRowItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_ADD_WORKSHEET_ROW));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_ADD_WORKSHEET_ROW));
+
+        ToolbarItemRenderer renderer = new AddWorksheetRowItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+
+        return item;
+	}
+
+    protected String getImage(String image) {
+        return imagesPath + coreContext.getPreference(image);
+    }
+
+    protected String getExportImage(ToolbarExport export) {
+        String image = export.getImage();
+        if (StringUtils.isNotBlank(image)) {
+            return image;
+        }
+
+        image = coreContext.getPreference(TOOLBAR_IMAGE + export.getExportType().toParam());
+
+        return image;
+    }
+
+    protected String getExportTooltip(ToolbarExport export) {
+        String tooltip = export.getTooltip();
+        if (StringUtils.isNotBlank(tooltip)) {
+            return tooltip;
+        }
+
+        tooltip = coreContext.getMessage(TOOLBAR_TOOLTIP + export.getExportType().toParam());
+
+        return tooltip;
+    }
+
+    protected String getOnInvokeAction() {
+        return coreContext.getPreference(ON_INVOKE_ACTION);
+    }
+
+    protected String getOnInvokeExportAction() {
+        return coreContext.getPreference(ON_INVOKE_EXPORT_ACTION);
+    }
 }

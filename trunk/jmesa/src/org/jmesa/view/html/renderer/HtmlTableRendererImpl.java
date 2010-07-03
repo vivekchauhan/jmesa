@@ -15,110 +15,24 @@
  */
 package org.jmesa.view.html.renderer;
 
-import org.apache.commons.lang.StringUtils;
-import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.renderer.AbstractTableRenderer;
 
-public class HtmlTableRendererImpl extends AbstractTableRenderer implements HtmlTableRenderer {
-    private String style;
-    private String styleClass;
-    private String border;
-    private String cellpadding;
-    private String cellspacing;
-    private String width;
-
+/**
+ * @deprecated You should extend the HtmlTableRenderer class directly.
+ */
+@Deprecated
+public class HtmlTableRendererImpl extends HtmlTableRenderer {
+    /**
+     * @deprecated You should extend the HtmlTableRenderer class directly.
+     */
+    @Deprecated
     public HtmlTableRendererImpl() {}
 
+    /**
+     * @deprecated You should extend the HtmlTableRenderer class directly.
+     */
+    @Deprecated
     public HtmlTableRendererImpl(HtmlTable table) {
-        setTable(table);
-    }
-
-    @Override
-    public HtmlTable getTable() {
-        return (HtmlTable) super.getTable();
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    public String getStyleClass() {
-        if (StringUtils.isBlank(styleClass)) {
-            return getCoreContext().getPreference(HtmlConstants.TABLE_RENDERER_STYLE_CLASS);
-        }
-
-        return styleClass;
-    }
-
-    public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
-    }
-
-    public String getBorder() {
-        if (StringUtils.isBlank(border)) {
-            return "0";
-        }
-
-        return border;
-    }
-
-    public void setBorder(String border) {
-        this.border = border;
-    }
-
-    public String getCellpadding() {
-        if (StringUtils.isBlank(cellpadding)) {
-            return "0";
-        }
-
-        return cellpadding;
-    }
-
-    public void setCellpadding(String cellpadding) {
-        this.cellpadding = cellpadding;
-    }
-
-    public String getCellspacing() {
-        if (StringUtils.isBlank(cellspacing)) {
-            return "0";
-        }
-
-        return cellspacing;
-    }
-
-    public void setCellspacing(String cellspacing) {
-        this.cellspacing = cellspacing;
-    }
-
-    public String getWidth() {
-        return width;
-    }
-
-    public void setWidth(String width) {
-        this.width = width;
-    }
-
-    public Object render() {
-        HtmlBuilder html = new HtmlBuilder();
-        html.table(0);
-        String id = getCoreContext().getLimit().getId();
-        html.id(id);
-        html.border(getBorder()).cellpadding(getCellpadding()).cellspacing(getCellspacing());
-        html.style(getStyle());
-        html.styleClass(getStyleClass());
-        html.width(getWidth());
-        html.close();
-
-        if (StringUtils.isNotBlank(getTable().getCaption())) {
-            html.caption().close().append(getTable().getCaption()).captionEnd();
-        }
-
-        return html;
+        super(table);
     }
 }
