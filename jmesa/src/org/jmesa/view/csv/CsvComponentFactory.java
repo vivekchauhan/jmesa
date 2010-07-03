@@ -18,7 +18,7 @@ package org.jmesa.view.csv;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.csv.renderer.CsvCellRendererImpl;
+import org.jmesa.view.csv.renderer.CsvCellRenderer;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.web.WebContext;
 
@@ -46,7 +46,7 @@ public class CsvComponentFactory extends AbstractComponentFactory {
         column.setWebContext(getWebContext());
         column.setCoreContext(getCoreContext());
 
-        CsvCellRendererImpl columnRenderer = new CsvCellRendererImpl(column, editor);
+        CsvCellRenderer columnRenderer = new CsvCellRenderer(column, editor);
         columnRenderer.setWebContext(getWebContext());
         columnRenderer.setCoreContext(getCoreContext());
         columnRenderer.setDelimiter(delimiter);

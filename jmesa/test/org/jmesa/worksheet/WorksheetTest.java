@@ -30,15 +30,15 @@ public class WorksheetTest {
     public void removeRow() {
 
         UniqueProperty firstRowMap = new UniqueProperty("id", "1");
-        WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
+        WorksheetRow firstRow = new WorksheetRow(firstRowMap);
         firstRow.setRowStatus(WorksheetRowStatus.ADD);
 
         UniqueProperty secondRowMap = new UniqueProperty("id", "2");
-        WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
+        WorksheetRow secondRow = new WorksheetRow(secondRowMap);
         secondRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
         UniqueProperty thirdRowMap = new UniqueProperty("id", "3");
-        WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
+        WorksheetRow thirdRow = new WorksheetRow(thirdRowMap);
         thirdRow.setRowStatus(WorksheetRowStatus.REMOVE);
 
         Worksheet worksheet = new WorksheetImpl("pres", null);

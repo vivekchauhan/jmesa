@@ -15,7 +15,9 @@
  */
 package org.jmesa.worksheet;
 
-import java.io.Serializable;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.jmesa.core.message.Messages;
 
 /**
  * <p>
@@ -23,65 +25,129 @@ import java.io.Serializable;
  * originally pulled from the bean (ie, pulled from database). This allows a table to revert back to
  * the original value if needed. The changedValue is the value that was modified by the user.
  * </p>
- * 
+ *
  * <p>
  * You are also able to register an error with the column. I debated being able to put more than one
  * error, but the GUI would have a hard time dealing with multiple errors anyway so I kept this down
  * to one error.
  * </p>
- * 
+ *
  * @since 2.3
  * @author Jeff Johnston
  */
-public interface WorksheetColumn extends Serializable {
+public class WorksheetColumn {
+    private String property;
+    private Messages messages;
+    private String error;
+    private String originalValue;
+    private String changedValue;
+
+    public WorksheetColumn(String property, String originalValue, Messages messages) {
+        this.property = property;
+        this.originalValue = originalValue;
+        this.messages = messages;
+    }
+
     /**
      * @return The column property.
      */
-    public String getProperty();
+    public String getProperty() {
+        return property;
+    }
 
     /**
      * @return The original column value before editing it.
      */
-    public String getOriginalValue();
+    public String getOriginalValue() {
+        return originalValue;
+    }
 
     /**
      * @return The value of the column after it was edited.
      */
-    public String getChangedValue();
+    public String getChangedValue() {
+        return changedValue;
+    }
 
     /**
      * Set the changed value for this column.
-     * 
+     *
      * @param changedValue The edited column value.
      */
-    public void setChangedValue(String changedValue);
+    public void setChangedValue(String changedValue) {
+        this.changedValue = changedValue;
+    }
 
     /**
      * Set the error for this column.
-     * 
+     *
      * @param error The text of what went wrong.
      */
-    public void setError(String error);
+    public void setError(String error) {
+        this.error = error;
+    }
 
     /**
      * Set the error for this column.
-     * 
+     *
      * @param key The error key to find in the messages.
      */
-    public void setErrorKey(String key);
+    public void setErrorKey(String key) {
+        setError(messages.getMessage(key));
+    }
 
     /**
      * @return The text error.
      */
-    public String getError();
+    public String getError() {
+        return error;
+    }
 
     /**
      * @return Is true if an error is set.
      */
-    public boolean hasError();
-    
+    public boolean hasError() {
+        return StringUtils.isNotBlank(error);
+    }
+
     /**
      * Remove the error that was previously set.
      */
-    public void removeError();
+    public void removeError() {
+        this.error = null;
+    }
+
+    /**
+     * Equality is based on the property. In other words no two Column Objects can have the same
+     * property.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof WorksheetColumn))
+            return false;
+
+        WorksheetColumn that = (WorksheetColumn) o;
+
+        return that.getProperty().equals(this.getProperty());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        int prop = this.getProperty() == null ? 0 : this.getProperty().hashCode();
+        result = result * 37 + prop;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("property", this.getProperty());
+        builder.append("originalValue", this.getOriginalValue());
+        builder.append("changedValue", this.getChangedValue());
+        return builder.toString();
+    }
 }

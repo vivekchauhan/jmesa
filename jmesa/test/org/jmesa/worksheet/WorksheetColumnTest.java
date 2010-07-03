@@ -34,7 +34,7 @@ public class WorksheetColumnTest {
 
     @Test
     public void hasError() {
-        WorksheetColumn column = new WorksheetColumnImpl("name.firstName", null, null);
+        WorksheetColumn column = new WorksheetColumn("name.firstName", null, null);
         column.setError("Cannot be null value.");
         assertTrue("The column does not have an error.", column.hasError());
     }
@@ -47,7 +47,7 @@ public class WorksheetColumnTest {
 
         Messages messages = new ResourceBundleMessages("org.jmesa.worksheet.testResourceBundle", webContext);
         
-        WorksheetColumn column = new WorksheetColumnImpl("name.firstName", null, messages);
+        WorksheetColumn column = new WorksheetColumn("name.firstName", null, messages);
         column.setErrorKey("column.nullvalue");
         assertTrue("The column does not have an error.", column.hasError());
     }

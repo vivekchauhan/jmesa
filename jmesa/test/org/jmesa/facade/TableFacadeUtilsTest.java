@@ -30,7 +30,6 @@ import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.WorksheetRow;
-import org.jmesa.worksheet.WorksheetRowImpl;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -53,13 +52,13 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
     @Override
     protected Worksheet getWorksheet() {
         UniqueProperty firstRowMap = new UniqueProperty("id", "1");
-        WorksheetRow firstRow = new WorksheetRowImpl(firstRowMap);
+        WorksheetRow firstRow = new WorksheetRow(firstRowMap);
 
         UniqueProperty secondRowMap = new UniqueProperty("id", "2");
-        WorksheetRow secondRow = new WorksheetRowImpl(secondRowMap);
+        WorksheetRow secondRow = new WorksheetRow(secondRowMap);
 
         UniqueProperty thirdRowMap = new UniqueProperty("id", "3");
-        WorksheetRow thirdRow = new WorksheetRowImpl(thirdRowMap);
+        WorksheetRow thirdRow = new WorksheetRow(thirdRowMap);
 
         HttpServletRequest request = getSpringRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade(ID, request);

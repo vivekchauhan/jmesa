@@ -79,7 +79,7 @@ public class WorksheetImpl implements Worksheet {
     	String upValue = Integer.toString(lastAddedRowId--);
     	UniqueProperty uniqueProperty = new UniqueProperty(upName, upValue);
 
-    	WorksheetRow wsr = new WorksheetRowImpl(uniqueProperty);
+    	WorksheetRow wsr = new WorksheetRow(uniqueProperty);
         if (logger.isDebugEnabled()) {
         	logger.debug("Unique Property for added row: " + wsr.getUniqueProperty());
         }
@@ -107,7 +107,7 @@ public class WorksheetImpl implements Worksheet {
     				value = "";
     			}
     			
-    			WorksheetColumn wsc = new WorksheetColumnImpl(property, value.toString(), getMessages());
+    			WorksheetColumn wsc = new WorksheetColumn(property, value.toString(), getMessages());
     			wsc.setChangedValue(value.toString());
     			wsr.addColumn(wsc);
     		}

@@ -84,7 +84,7 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
                 UniqueProperty uniqueProperty = new UniqueProperty(property, value);
                 WorksheetRow row = worksheet.getRow(uniqueProperty);
                 if (row == null) {
-                    row = new WorksheetRowImpl(uniqueProperty);
+                    row = new WorksheetRow(uniqueProperty);
                     row.setRowStatus(WorksheetRowStatus.MODIFY);
                     worksheet.addRow(row);
                 }
@@ -106,7 +106,7 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            column = new WorksheetColumnImpl(property, orginalValue, messages);
+            column = new WorksheetColumn(property, orginalValue, messages);
             row.addColumn(column);
         }
 

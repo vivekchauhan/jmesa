@@ -80,7 +80,6 @@ import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.WorksheetRow;
-import org.jmesa.worksheet.WorksheetRowImpl;
 import org.jmesa.worksheet.WorksheetRowStatus;
 import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
@@ -263,7 +262,7 @@ public class TableFacadeImpl implements TableFacade {
             }
         } else {
             // add a new REMOVED row in worksheet
-            wsRow = new WorksheetRowImpl(uniqueProperty);
+            wsRow = new WorksheetRow(uniqueProperty);
             wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
             ws.addRow(wsRow);
         }

@@ -15,15 +15,18 @@
  */
 package org.jmesa.worksheet;
 
-import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
  * A WorksheetRow contains WorksheetColumns. A row also has a given status. It can be a newly added
  * row, a modified row, or a deleted row.
  * </p>
- * 
+ *
  * <p>
  * If a row is modified and then later deleted (before being saved) then it will be deleted from the
  * Worksheet. There is no reason for anyone to be aware that a row was almost created. That should
@@ -31,68 +34,114 @@ import java.util.Collection;
  * the database) then you have to flag the row as being deleted so that you would know to delete the
  * row in the database.
  * </p>
- * 
+ *
  * @since 2.3
  * @author Jeff Johnston
  */
-public interface WorksheetRow extends Serializable {
+public class WorksheetRow {
+    private UniqueProperty uniqueProperty;
+    private WorksheetRowStatus rowStatus;
+    private Object item;
+
+    private Map<String, WorksheetColumn> columns = new LinkedHashMap<String, WorksheetColumn>();
+
+    public WorksheetRow(UniqueProperty uniqueProperty) {
+        this.uniqueProperty = uniqueProperty;
+    }
+
     /**
      * @return Map in which the map keys are the item properties and the map values are the item
      *         values.
      */
-    public UniqueProperty getUniqueProperty();
+    public UniqueProperty getUniqueProperty() {
+        return uniqueProperty;
+    }
 
     /**
      * Add a column to the worksheet row.
-     * 
+     *
      * @param column The worksheet row column.
      */
-    public void addColumn(WorksheetColumn column);
+    public void addColumn(WorksheetColumn column) {
+        columns.put(column.getProperty(), column);
+    }
 
     /**
      * @param property The column property.
      * @return The worksheet row column.
      */
-    public WorksheetColumn getColumn(String property);
+    public WorksheetColumn getColumn(String property) {
+        return columns.get(property);
+    }
 
     /**
      * @return All the row columns in the worksheet.
      */
-    public Collection<WorksheetColumn> getColumns();
+    public Collection<WorksheetColumn> getColumns() {
+        return columns.values();
+    }
 
     /**
      * Remove the specified worksheet row column.
-     * 
+     *
      * @param column The worksheet row column to remove.
      */
-    public void removeColumn(WorksheetColumn column);
+    public void removeColumn(WorksheetColumn column) {
+        columns.remove(column.getProperty());
+    }
 
     /**
      * @return Get the row status.
      */
-    public WorksheetRowStatus getRowStatus();
+    public WorksheetRowStatus getRowStatus() {
+        return rowStatus;
+    }
 
     /**
      * Set the row status.
-     * 
+     *
      * @param rowStatus The row status.
      */
-    public void setRowStatus(WorksheetRowStatus rowStatus);
+    public void setRowStatus(WorksheetRowStatus rowStatus) {
+        this.rowStatus = rowStatus;
+    }
 
     /**
      * @return Is true if any of the row columns contain errors.
      */
-    public boolean hasErrors();
+    public boolean hasErrors() {
+        Collection<WorksheetColumn> values = columns.values();
+        for (WorksheetColumn worksheetColumn : values) {
+            boolean hasError = worksheetColumn.hasError();
+            if (hasError) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Set the backing worksheet item on the row.
-     * 
+     *
      * @param item The backing worksheet item.
      */
-    public void setItem(Object item);
+	public void setItem(Object item) {
+		this.item = item;
+	}
 
     /**
      * @return Get the backing worksheet item.
      */
-    public Object getItem();
+	public Object getItem() {
+		return item;
+	}
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("uniqueProperty", uniqueProperty);
+        builder.append("columns", columns);
+        return builder.toString();
+    }
 }
