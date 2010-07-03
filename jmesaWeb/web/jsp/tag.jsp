@@ -41,7 +41,7 @@
                     </jmesa:htmlColumn>
                     <jmesa:htmlColumn property="name.lastName" title="Last Name"/>
                     <jmesa:htmlColumn property="term"/>
-                    <jmesa:htmlColumn property="career"/>
+                    <jmesa:htmlColumn property="career" filterEditor="org.jmesa.view.html.editor.DroplistFilterEditor"/>
                     <jmesa:htmlColumn property="born" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
                 </jmesa:htmlRow>
             </jmesa:htmlTable> 

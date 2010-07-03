@@ -423,8 +423,9 @@
                     cell.css('overflow', 'hidden');
                     cell.text(changedValue);
                     $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-                    $.jmesa.onInvokeAction(dynFilter.id, 'filter');
+                    var id = dynFilter.id;
                     dynFilter = null;
+                    $.jmesa.onInvokeAction(id, 'filter');
                 }
             });
 
@@ -502,13 +503,14 @@
 
             /* Something was selected or the clicked off the droplist. */
 
-            $(input).change(function() {
+            $(input).click(function() {
                 var changedValue = $("#dynFilterDroplistDiv option:selected").val();
                 var changedText = $("#dynFilterDroplistDiv option:selected").text();
                 cell.text(changedText);
                 $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-                $.jmesa.onInvokeAction(dynFilter.id, 'filter');
+                var id = dynFilter.id;
                 dynFilter = null;
+                $.jmesa.onInvokeAction(id, 'filter');
             });
 
             $(input).blur(function() {
