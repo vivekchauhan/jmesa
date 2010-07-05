@@ -16,16 +16,23 @@
 package org.jmesa.view.html.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
+import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.FilterEditor;
+import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
+import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
+import org.jmesa.worksheet.editor.HtmlWorksheetEditor;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
@@ -40,7 +47,11 @@ public class HtmlColumn extends Column {
     private FilterRenderer filterRenderer;
     private Order[] sortOrder;
     private boolean generatedOnTheFly;
-    private List<WorksheetValidation> validations = new ArrayList<WorksheetValidation>();
+    private String style;
+    private String styleClass;
+    private List<WorksheetValidation> validations;
+
+    private WorksheetEditor worksheetEditor;
 
     public HtmlColumn() {}
 
@@ -173,12 +184,10 @@ public class HtmlColumn extends Column {
 		return this;
 	}
 
-    @Override
     public HtmlFilterRenderer getFilterRenderer() {
         return (HtmlFilterRenderer) filterRenderer;
     }
 
-    @Override
     public void setFilterRenderer(FilterRenderer filterRenderer) {
         this.filterRenderer = filterRenderer;
         SupportUtils.setWebContext(filterRenderer, getWebContext());
@@ -186,11 +195,19 @@ public class HtmlColumn extends Column {
         SupportUtils.setColumn(filterRenderer, this);
     }
 
-    @Override
 	public HtmlColumn filterRenderer(FilterRenderer filterRenderer) {
 		setFilterRenderer(filterRenderer);
 		return this;
 	}
+
+    public void setFilterEditor(FilterEditor filterEditor) {
+    	getFilterRenderer().setFilterEditor(filterEditor);
+    }
+
+    public Column filterEditor(FilterEditor filterEditor) {
+    	setFilterEditor(filterEditor);
+    	return this;
+    }
 
     /**
      * @return Is true if generated on the fly through the api.
@@ -216,7 +233,58 @@ public class HtmlColumn extends Column {
 
     @Override
     public HtmlCellRenderer getCellRenderer() {
-        return (HtmlCellRenderer) super.getCellRenderer();
+        CellRenderer cellRenderer = super.getCellRenderer();
+        if (cellRenderer == null) {
+            HtmlCellRenderer htmlCellRenderer = new HtmlCellRenderer(this);
+            super.setCellRenderer(htmlCellRenderer);
+            return htmlCellRenderer;
+        }
+        return (HtmlCellRenderer) cellRenderer;
+    }
+
+    /**
+     * @return The CellEditor for this column. If this is an editable worksheet then return the WorksheetEditor.
+     */
+    @Override
+    public CellEditor getCellEditor() {
+        if (ViewUtils.isEditable(getCoreContext().getWorksheet()) && isEditable()) {
+            if (worksheetEditor == null) {
+                setWorksheetEditor(new HtmlWorksheetEditor());
+            }
+
+            if (worksheetEditor.getCellEditor() == null) {
+                worksheetEditor.setCellEditor(super.getCellEditor());
+            }
+
+            return worksheetEditor;
+        }
+
+        CellEditor cellEditor = super.getCellEditor();
+        if (cellEditor == null) {
+            HtmlCellEditor htmlCellEditor = new HtmlCellEditor();
+            super.setCellEditor(cellEditor);
+            return htmlCellEditor;
+        }
+
+        return cellEditor;
+    }
+
+    public WorksheetEditor getWorksheetEditor() {
+        return worksheetEditor;
+    }
+
+    public void setWorksheetEditor(WorksheetEditor worksheetEditor) {
+        this.worksheetEditor = worksheetEditor;
+        
+        //TODO: this will be removed when we remove 3.0 deprecated methods
+        SupportUtils.setWebContext(worksheetEditor, getWebContext());
+        SupportUtils.setCoreContext(worksheetEditor, getCoreContext());
+        SupportUtils.setColumn(worksheetEditor, this);
+    }
+
+    public HtmlColumn worksheetEditor(WorksheetEditor editor){
+    	setWorksheetEditor(editor);
+    	return this;
     }
 
     @Override
@@ -230,11 +298,18 @@ public class HtmlColumn extends Column {
     }
 
     public List<WorksheetValidation> getWorksheetValidations() {
+        if (validations == null) {
+            return Collections.emptyList();
+        }
+
         return validations;
     }
 
     public HtmlColumn addWorksheetValidation(WorksheetValidation worksheetValidation) {
         worksheetValidation.setCoreContext(getCoreContext());
+        if (validations == null) {
+             validations = new ArrayList<WorksheetValidation>();
+        }
         validations.add(worksheetValidation);
         return this;
     }
@@ -242,6 +317,9 @@ public class HtmlColumn extends Column {
     public HtmlColumn addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
         worksheetValidation.setCoreContext(getCoreContext());
         worksheetValidation.setCustom(true);
+        if (validations == null) {
+             validations = new ArrayList<WorksheetValidation>();
+        }
         validations.add(worksheetValidation);
         return this;
     }
@@ -255,6 +333,10 @@ public class HtmlColumn extends Column {
 	}
 
     private String prepareJsonString(String type) {
+        if (validations == null) {
+            return "";
+        }
+
         StringBuffer json = new StringBuffer();
 
         boolean firstOccurance = true;
@@ -285,17 +367,12 @@ public class HtmlColumn extends Column {
         return json.toString();
     }
     
-    public void setWorksheetEditor(WorksheetEditor editor){
-    	getCellRenderer().setWorksheetEditor(editor);
+    public String getStyle() {
+        return style;
     }
 
-    public HtmlColumn worksheetEditor(WorksheetEditor editor){
-    	setWorksheetEditor(editor);
-    	return this;
-    }
-    
     public void setStyle(String style) {
-    	getCellRenderer().setStyle(style);
+    	this.style = style;
     }
     
     public HtmlColumn style(String style) {
@@ -303,8 +380,12 @@ public class HtmlColumn extends Column {
     	return this;
     }
     
+    public String getStyleClass() {
+        return styleClass;
+    }
+
     public void setStyleClass(String styleClass) {
-    	getCellRenderer().setStyleClass(styleClass);
+    	this.styleClass = styleClass;
     }
 
     public HtmlColumn styleClass(String styleClass) {

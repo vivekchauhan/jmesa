@@ -15,15 +15,14 @@
  */
 package org.jmesa.view.component;
 
+import groovy.lang.Closure;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.renderer.CellRenderer;
-import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 
 /**
@@ -33,14 +32,15 @@ import org.jmesa.view.renderer.HeaderRenderer;
 public class Column extends AbstractContextSupport {
     private String property;
     private String title;
+
     private CellRenderer cellRenderer;
+    private CellEditor cellEditor;
+
     private HeaderRenderer headerRenderer;
-    private FilterRenderer filterRenderer;
+
     private Row row;
 
-    public Column() {
-        // default constructor
-    }
+    public Column() {}
 
     public Column(String property) {
         this.property = property;
@@ -93,6 +93,8 @@ public class Column extends AbstractContextSupport {
 
     public void setCellRenderer(CellRenderer cellRenderer) {
         this.cellRenderer = cellRenderer;
+
+        //TODO: figure out how to get this removed here
         SupportUtils.setWebContext(cellRenderer, getWebContext());
         SupportUtils.setCoreContext(cellRenderer, getCoreContext());
         SupportUtils.setColumn(cellRenderer, this);
@@ -102,13 +104,62 @@ public class Column extends AbstractContextSupport {
     	setCellRenderer(cellRenderer);
     	return this;
     }
-    
+
+    public CellEditor getCellEditor() {
+        return cellEditor;
+    }
+
+    public void setCellEditor(CellEditor cellEditor) {
+        this.cellEditor = cellEditor;
+
+        //TODO: figure out how to get this removed here
+        SupportUtils.setWebContext(cellEditor, getWebContext());
+        SupportUtils.setCoreContext(cellEditor, getCoreContext());
+        SupportUtils.setColumn(cellEditor, this);
+    }
+
+    public Column cellEditor(CellEditor editor) {
+    	setCellEditor(editor);
+    	return this;
+    }
+
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the CellEditor.
+     * </p>
+     *
+     * <p>
+     * And example is as follows:
+     * </p>
+     *
+     * <pre>
+     * firstName.cellRenderer.setCellEditor({item, property, rowcount -&gt;
+     *      def value = new BasicCellEditor().getValue(item, property, rowcount);
+     *      return &quot;&quot;&quot;
+     *              &lt;a href=&quot;http://www.whitehouse.gov/history/presidents/&quot;&gt;
+     *                 $value
+     *              &lt;/a&gt;
+     *             &quot;&quot;&quot;});
+     * </pre>
+     *
+     * @param closure The Groovy closure to use.
+     */
+    public void setCellEditor(final Closure closure) {
+        this.cellEditor = new CellEditor() {
+            public Object getValue(Object item, String property, int rowcount) {
+                return closure.call(new Object[] { item, property, rowcount });
+            }
+        };
+    }
+
     public HeaderRenderer getHeaderRenderer() {
         return headerRenderer;
     }
 
     public void setHeaderRenderer(HeaderRenderer headerRenderer) {
         this.headerRenderer = headerRenderer;
+
+        //TODO: figure out how to get this removed here
         SupportUtils.setWebContext(headerRenderer, getWebContext());
         SupportUtils.setCoreContext(headerRenderer, getCoreContext());
         SupportUtils.setColumn(headerRenderer, this);
@@ -116,44 +167,6 @@ public class Column extends AbstractContextSupport {
 
     public Column headerRenderer(HeaderRenderer headerRenderer) {
     	setHeaderRenderer(headerRenderer);
-    	return this;
-    }
-
-    public FilterRenderer getFilterRenderer() {
-        return filterRenderer;
-    }
-
-    public void setFilterRenderer(FilterRenderer filterRenderer) {
-        this.filterRenderer = filterRenderer;
-        SupportUtils.setWebContext(filterRenderer, getWebContext());
-        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
-        SupportUtils.setColumn(filterRenderer, this);
-    }
-
-    public Column filterRenderer(FilterRenderer filterRenderer) {
-    	setFilterRenderer(filterRenderer);
-    	return this;
-    }
-    
-    public Row getRow() {
-        return row;
-    }
-
-    public void setRow(Row row) {
-        this.row = row;
-    }
-
-    public Column row(Row row) {
-    	setRow(row);
-    	return this;
-    }
-
-    public void setCellEditor(CellEditor editor) {
-    	getCellRenderer().setCellEditor(editor);
-    }
-
-    public Column cellEditor(CellEditor editor) {
-    	setCellEditor(editor);
     	return this;
     }
 
@@ -165,13 +178,17 @@ public class Column extends AbstractContextSupport {
     	setHeaderEditor(headerEditor);
     	return this;
     }
-    
-    public void setFilterEditor(FilterEditor filterEditor) {
-    	getFilterRenderer().setFilterEditor(filterEditor);
+
+    public Row getRow() {
+        return row;
     }
 
-    public Column filterEditor(FilterEditor filterEditor) {
-    	setFilterEditor(filterEditor);
+    public void setRow(Row row) {
+        this.row = row;
+    }
+
+    public Column row(Row row) {
+    	setRow(row);
     	return this;
     }
 }
