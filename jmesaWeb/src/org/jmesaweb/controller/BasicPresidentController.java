@@ -33,7 +33,6 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.editor.HtmlFilterEditor;
 import org.jmesa.view.html.editor.HtmlHeaderEditor;
-import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
@@ -79,7 +78,6 @@ public class BasicPresidentController extends AbstractController {
         // first name
 
         HtmlColumn firstName = new HtmlColumn();
-        firstName.setCellRenderer(new HtmlCellRenderer(firstName, new HtmlCellEditor()));
         
         HtmlFilterRenderer firstNameFilterRenderer = new HtmlFilterRenderer(firstName);
         firstNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
@@ -91,7 +89,7 @@ public class BasicPresidentController extends AbstractController {
 
         firstName.setProperty("name.firstName");
         firstName.setTitle("First Name");
-        firstName.getCellRenderer().setCellEditor(new CellEditor() {
+        firstName.setCellEditor(new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
                 Object value = new HtmlCellEditor().getValue(item, property, rowcount);
                 HtmlBuilder html = new HtmlBuilder();
@@ -106,7 +104,6 @@ public class BasicPresidentController extends AbstractController {
         // last name
 
         HtmlColumn lastName = new HtmlColumn();
-        lastName.setCellRenderer(new HtmlCellRenderer(lastName, new HtmlCellEditor()));
 
         HtmlFilterRenderer lastNameFilterRenderer = new HtmlFilterRenderer(lastName);
         lastNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
@@ -123,7 +120,6 @@ public class BasicPresidentController extends AbstractController {
         // career
 
         HtmlColumn career = new HtmlColumn();
-        career.setCellRenderer(new HtmlCellRenderer(career, new HtmlCellEditor()));
 
         HtmlFilterRenderer careerFilterRenderer = new HtmlFilterRenderer(career);
         careerFilterRenderer.setFilterEditor(new HtmlFilterEditor());
@@ -140,7 +136,6 @@ public class BasicPresidentController extends AbstractController {
         // born
 
         HtmlColumn born = new HtmlColumn();
-        born.setCellRenderer(new HtmlCellRenderer(born, new HtmlCellEditor()));
 
         HtmlFilterRenderer bornFilterRenderer = new HtmlFilterRenderer(born);
         bornFilterRenderer.setFilterEditor(new HtmlFilterEditor());
@@ -151,7 +146,7 @@ public class BasicPresidentController extends AbstractController {
         born.setHeaderRenderer(bornHeaderRenderer);
 
         born.setProperty("born");
-        born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+        born.setCellEditor(new DateCellEditor("MM/yyyy"));
         htmlRow.addColumn(born);
 
         tableModel.setTable(htmlTable);
