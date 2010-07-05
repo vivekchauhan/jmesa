@@ -16,14 +16,11 @@
 package org.jmesa.view.html.renderer;
 
 
-import org.jmesa.util.SupportUtils;
-import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import static org.jmesa.view.html.HtmlConstants.CELL_RENDERER_INCLUDE_ID;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.renderer.AbstractCellRenderer;
-import org.jmesa.worksheet.editor.HtmlWorksheetEditor;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
@@ -31,12 +28,17 @@ import org.jmesa.worksheet.editor.WorksheetEditor;
  * @author Jeff Johnston
  */
 public class HtmlCellRenderer extends AbstractCellRenderer {
-    private String style;
-    private String styleClass;
-    private WorksheetEditor worksheetEditor;
 
     public HtmlCellRenderer() {}
 
+    public HtmlCellRenderer(HtmlColumn column) {
+        setColumn(column);
+    }
+
+    /**
+     * @deprecated The CellEditor should be set directly on the HtmlColumn.
+     */
+    @Deprecated
     public HtmlCellRenderer(HtmlColumn column, CellEditor editor) {
         setColumn(column);
         setCellEditor(editor);
@@ -47,52 +49,67 @@ public class HtmlCellRenderer extends AbstractCellRenderer {
         return (HtmlColumn) super.getColumn();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    public String getStyleClass() {
-        return styleClass;
-    }
-
-    public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
+        return getColumn().getStyle();
     }
 
     /**
-     * @return The CellEditor for this column. If this is an editable worksheet then return the WorksheetEditor.
+     * @deprecated Should get/set the value on the HtmlColumn.
      */
+    @Deprecated
+    public void setStyle(String style) {
+        getColumn().setStyle(style);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
+    public String getStyleClass() {
+        return getColumn().getStyleClass();
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
+    public void setStyleClass(String styleClass) {
+        getColumn().setStyleClass(styleClass);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     @Override
     public CellEditor getCellEditor() {
-        boolean editable = ViewUtils.isEditable(getCoreContext().getWorksheet());
-        if (editable && getColumn().isEditable()) {
-            if (worksheetEditor == null) {
-                setWorksheetEditor(new HtmlWorksheetEditor());
-            }
-
-            if (worksheetEditor.getCellEditor() == null) {
-                worksheetEditor.setCellEditor(super.getCellEditor());
-            }
-
-            return worksheetEditor;
-        }
-
-        return super.getCellEditor();
+        return getColumn().getCellEditor();
     }
 
+    @Deprecated
+    @Override
+    public void setCellEditor(CellEditor cellEditor) {
+        getColumn().setCellEditor(cellEditor);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     public WorksheetEditor getWorksheetEditor() {
-        return worksheetEditor;
+        return getColumn().getWorksheetEditor();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     public void setWorksheetEditor(WorksheetEditor worksheetEditor) {
-        this.worksheetEditor = worksheetEditor;
-        SupportUtils.setWebContext(worksheetEditor, getWebContext());
-        SupportUtils.setCoreContext(worksheetEditor, getCoreContext());
-        SupportUtils.setColumn(worksheetEditor, getColumn());
+        getColumn().setWorksheetEditor(worksheetEditor);
     }
 
     protected String getId(int rowcount) {

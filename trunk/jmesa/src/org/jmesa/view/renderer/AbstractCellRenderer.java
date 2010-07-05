@@ -17,7 +17,6 @@ package org.jmesa.view.renderer;
 
 import groovy.lang.Closure;
 
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
@@ -29,7 +28,6 @@ import org.jmesa.view.editor.CellEditor;
  */
 public abstract class AbstractCellRenderer extends AbstractContextSupport implements CellRenderer, ColumnSupport {
     private Column column;
-    private CellEditor cellEditor;
 
     public Column getColumn() {
         return column;
@@ -40,45 +38,26 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
     }
 
     /**
-     * @return The CellEditor.
+     * @deprecated Should get/set the value on the Column.
      */
+    @Deprecated
     public CellEditor getCellEditor() {
-        return cellEditor;
-    }
-
-    public void setCellEditor(CellEditor cellEditor) {
-        this.cellEditor = cellEditor;
-        SupportUtils.setWebContext(cellEditor, getWebContext());
-        SupportUtils.setCoreContext(cellEditor, getCoreContext());
-        SupportUtils.setColumn(cellEditor, getColumn());
+        return getColumn().getCellEditor();
     }
 
     /**
-     * <p>
-     * Added Groovy support in the form of Closures for the CellEditor.
-     * </p>
-     * 
-     * <p>
-     * And example is as follows:
-     * </p>
-     * 
-     * <pre>
-     * firstName.cellRenderer.setCellEditor({item, property, rowcount -&gt; 
-     *      def value = new BasicCellEditor().getValue(item, property, rowcount);
-     *      return &quot;&quot;&quot;
-     *              &lt;a href=&quot;http://www.whitehouse.gov/history/presidents/&quot;&gt;
-     *                 $value
-     *              &lt;/a&gt;
-     *             &quot;&quot;&quot;});
-     * </pre>
-     * 
-     * @param closure The Groovy closure to use.
+     * @deprecated Should get/set the value on the Column.
      */
+    @Deprecated
+    public void setCellEditor(CellEditor cellEditor) {
+        getColumn().setCellEditor(cellEditor);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public void setCellEditor(final Closure closure) {
-        this.cellEditor = new CellEditor() {
-            public Object getValue(Object item, String property, int rowcount) {
-                return closure.call(new Object[] { item, property, rowcount });
-            }
-        };
+       getColumn().setCellEditor(closure);
     }
 }

@@ -42,6 +42,7 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
+import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
@@ -269,27 +270,33 @@ public class TableModel {
 
             CellRenderer cellRenderer = column.getCellRenderer();
             init(cellRenderer, webContext, coreContext);
+            SupportUtils.setColumn(cellRenderer, column);
 
             CellEditor cellEditor = cellRenderer.getCellEditor();
             init(cellEditor, webContext, coreContext);
-
-            // filter
-
-            FilterRenderer filterRenderer = column.getFilterRenderer();
-            init(filterRenderer, webContext, coreContext);
-
-            FilterEditor filterEditor = filterRenderer.getFilterEditor();
-            init(filterEditor, webContext, coreContext);
-            SupportUtils.setColumn(filterEditor, column);
 
             // header
 
             HeaderRenderer headerRenderer = column.getHeaderRenderer();
             init(headerRenderer, webContext, coreContext);
+            SupportUtils.setColumn(headerRenderer, column);
 
             HeaderEditor headerEditor = headerRenderer.getHeaderEditor();
             init(headerEditor, webContext, coreContext);
             SupportUtils.setColumn(headerEditor, column);
+
+            // filter
+
+            if (column instanceof HtmlColumn) {
+                HtmlColumn htmlColumn = (HtmlColumn)column;
+                FilterRenderer filterRenderer = htmlColumn.getFilterRenderer();
+                init(filterRenderer, webContext, coreContext);
+                SupportUtils.setColumn(filterRenderer, column);
+
+                FilterEditor filterEditor = filterRenderer.getFilterEditor();
+                init(filterEditor, webContext, coreContext);
+                SupportUtils.setColumn(filterEditor, column);
+            }
         }
     }
 
