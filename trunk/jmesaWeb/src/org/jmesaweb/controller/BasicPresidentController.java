@@ -62,18 +62,14 @@ public class BasicPresidentController extends AbstractController {
         tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
         tableModel.setStateAttr("restore");
 
-        HtmlTable htmlTable = new HtmlTable();
-        htmlTable.setCaption("Presidents");
-        htmlTable.setWidth("600px");
+        HtmlTable htmlTable = new HtmlTable().caption("Presidents").width("600px");
 
         HtmlRow htmlRow = new HtmlRow();
         htmlTable.setRow(htmlRow);
 
         // first name
 
-        HtmlColumn firstName = new HtmlColumn();
-        firstName.setProperty("name.firstName");
-        firstName.setTitle("First Name");
+        HtmlColumn firstName = new HtmlColumn().property("name.firstName").title("First Name");
         firstName.setCellEditor(new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
                 Object value = new HtmlCellEditor().getValue(item, property, rowcount);
@@ -88,23 +84,17 @@ public class BasicPresidentController extends AbstractController {
 
         // last name
 
-        HtmlColumn lastName = new HtmlColumn();
-        lastName.setProperty("name.lastName");
-        lastName.setTitle("Last Name");
+        HtmlColumn lastName = new HtmlColumn().property("name.lastName").title("Last Name");
         htmlRow.addColumn(lastName);
 
         // career
 
-        HtmlColumn career = new HtmlColumn();
-        career.setProperty("career");
-        career.setFilterEditor(new DroplistFilterEditor());
+        HtmlColumn career = new HtmlColumn().property("career").filterEditor(new DroplistFilterEditor());
         htmlRow.addColumn(career);
 
         // born
 
-        HtmlColumn born = new HtmlColumn();
-        born.setProperty("born");
-        born.setCellEditor(new DateCellEditor("MM/yyyy"));
+        HtmlColumn born = new HtmlColumn().property("born").cellEditor(new DateCellEditor("MM/yyyy"));
         htmlRow.addColumn(born);
 
         tableModel.setTable(htmlTable);
