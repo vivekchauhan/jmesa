@@ -38,6 +38,7 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
     /**
      * @deprecated Should get/set the value on the HtmlColumn.
      */
+    @Deprecated
     public String getStyle() {
         return getColumn().getFilterStyle();
     }
@@ -45,6 +46,7 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
     /**
      * @deprecated Should get/set the value on the HtmlColumn.
      */
+    @Deprecated
     public void setStyle(String style) {
         getColumn().setFilterStyle(style);
     }
@@ -52,6 +54,7 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
     /**
      * @deprecated Should get/set the value on the HtmlColumn.
      */
+    @Deprecated
     public String getStyleClass() {
         return getColumn().getFilterClass();
     }
@@ -59,6 +62,7 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
     /**
      * @deprecated Should get/set the value on the HtmlColumn.
      */
+    @Deprecated
     public void setStyleClass(String styleClass) {
         getColumn().setFilterClass(styleClass);
     }

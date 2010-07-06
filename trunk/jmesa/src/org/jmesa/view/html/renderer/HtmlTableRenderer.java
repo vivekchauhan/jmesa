@@ -17,18 +17,10 @@ package org.jmesa.view.html.renderer;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.renderer.AbstractTableRenderer;
 
 public class HtmlTableRenderer extends AbstractTableRenderer {
-    private String style;
-    private String styleClass;
-    private String border;
-    private String cellpadding;
-    private String cellspacing;
-    private String width;
-
     public HtmlTableRenderer() {}
 
     public HtmlTableRenderer(HtmlTable table) {
@@ -40,68 +32,100 @@ public class HtmlTableRenderer extends AbstractTableRenderer {
         return (HtmlTable) super.getTable();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getStyle() {
-        return style;
+        return getTable().getStyle();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setStyle(String style) {
-        this.style = style;
+        getTable().setStyle(style);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getStyleClass() {
-        if (StringUtils.isBlank(styleClass)) {
-            return getCoreContext().getPreference(HtmlConstants.TABLE_RENDERER_STYLE_CLASS);
-        }
-
-        return styleClass;
+        return getTable().getStyleClass();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
+        getTable().setStyleClass(styleClass);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getBorder() {
-        if (StringUtils.isBlank(border)) {
-            return "0";
-        }
-
-        return border;
+        return getTable().getBorder();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setBorder(String border) {
-        this.border = border;
+        getTable().setBorder(border);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getCellpadding() {
-        if (StringUtils.isBlank(cellpadding)) {
-            return "0";
-        }
-
-        return cellpadding;
+        return getTable().getCellpadding();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setCellpadding(String cellpadding) {
-        this.cellpadding = cellpadding;
+        getTable().setCellpadding(cellpadding);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getCellspacing() {
-        if (StringUtils.isBlank(cellspacing)) {
-            return "0";
-        }
-
-        return cellspacing;
+        return getTable().getCellspacing();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setCellspacing(String cellspacing) {
-        this.cellspacing = cellspacing;
+        getTable().setCellspacing(cellspacing);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getWidth() {
-        return width;
+        return getTable().getWidth();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setWidth(String width) {
-        this.width = width;
+        getTable().setWidth(width);
     }
 
     public Object render() {

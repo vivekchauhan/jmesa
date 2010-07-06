@@ -18,7 +18,9 @@ package org.jmesa.view.html.component;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.HtmlConstants;
+import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
+import org.jmesa.view.renderer.TableRenderer;
 
 /**
  * @since 2.0
@@ -26,6 +28,12 @@ import org.jmesa.view.html.renderer.HtmlTableRenderer;
  */
 public class HtmlTable extends Table {
     private String theme;
+    private String style;
+    private String styleClass;
+    private String border;
+    private String cellpadding;
+    private String cellspacing;
+    private String width;
 
     @Override
     public HtmlRow getRow() {
@@ -48,63 +56,109 @@ public class HtmlTable extends Table {
     	setTheme(theme);
     	return this;
     }
-    
-    @Override
-    public HtmlTableRenderer getTableRenderer() {
-        return (HtmlTableRenderer) super.getTableRenderer();
+
+    public String getStyle() {
+        return style;
     }
 
     public void setStyle(String style) {
-    	getTableRenderer().setStyle(style);
+        this.style = style;
     }
-    
+
     public HtmlTable style(String style) {
-    	setStyle(style);
-    	return this;
+        setStyle(style);
+        return this;
+    }
+
+    public String getStyleClass() {
+        if (StringUtils.isBlank(styleClass)) {
+            return getCoreContext().getPreference(HtmlConstants.TABLE_RENDERER_STYLE_CLASS);
+        }
+
+        return styleClass;
     }
 
     public void setStyleClass(String styleClass) {
-    	getTableRenderer().setStyleClass(styleClass);
+        this.styleClass = styleClass;
     }
-    
+
     public HtmlTable styleClass(String styleClass) {
-    	setStyleClass(styleClass);
-    	return this;
+        setStyleClass(styleClass);
+        return this;
+    }
+
+    public String getBorder() {
+        if (StringUtils.isBlank(border)) {
+            return "0";
+        }
+
+        return border;
     }
 
     public void setBorder(String border) {
-    	getTableRenderer().setBorder(border);
+        this.border = border;
     }
-    
+
     public HtmlTable border(String border) {
-    	setBorder(border);
-    	return this;
+        setBorder(border);
+        return this;
+    }
+
+    public String getCellpadding() {
+        if (StringUtils.isBlank(cellpadding)) {
+            return "0";
+        }
+
+        return cellpadding;
     }
 
     public void setCellpadding(String cellpadding) {
-    	getTableRenderer().setCellpadding(cellpadding);
+        this.cellpadding = cellpadding;
     }
-    
+
     public HtmlTable cellpadding(String cellpadding) {
-    	setCellpadding(cellpadding);
-    	return this;
+        setCellpadding(cellpadding);
+        return this;
+    }
+
+    public String getCellspacing() {
+        if (StringUtils.isBlank(cellspacing)) {
+            return "0";
+        }
+
+        return cellspacing;
     }
 
     public void setCellspacing(String cellspacing) {
-    	getTableRenderer().setCellspacing(cellspacing);
+        this.cellspacing = cellspacing;
     }
-    
+
     public HtmlTable cellspacing(String cellspacing) {
-    	setCellspacing(cellspacing);
-    	return this;
+        setCellspacing(cellspacing);
+        return this;
+    }
+
+    public String getWidth() {
+        return width;
     }
 
     public void setWidth(String width) {
-    	getTableRenderer().setWidth(width);
+        this.width = width;
+    }
+    
+    public HtmlTable width(String width) {
+        setWidth(width);
+        return this;
     }
 
-    public HtmlTable width(String width) {
-    	setWidth(width);
-    	return this;
+    @Override
+    public HtmlTableRenderer getTableRenderer() {
+        TableRenderer tableRenderer = super.getTableRenderer();
+        if (tableRenderer == null) {
+            HtmlTableRenderer htmlTableRenderer = new HtmlTableRenderer(this);
+            super.setTableRenderer(htmlTableRenderer);
+            return htmlTableRenderer;
+        }
+        return (HtmlTableRenderer) tableRenderer;
     }
 }
