@@ -25,9 +25,6 @@ import org.jmesa.view.renderer.AbstractHeaderRenderer;
  * @author Jeff Johnston
  */
 public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
-    private String style;
-    private String styleClass;
-
     public HtmlHeaderRenderer() {}
 
     public HtmlHeaderRenderer(HtmlColumn column) {
@@ -39,20 +36,36 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
         return (HtmlColumn) super.getColumn();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     public String getStyle() {
-        return style;
+        return getColumn().getHeaderStyle();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     public void setStyle(String style) {
-        this.style = style;
+        getColumn().setStyle(style);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     public String getStyleClass() {
-        return styleClass;
+        return getColumn().getHeaderClass();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
+    @Deprecated
     public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
+        getColumn().setStyleClass(styleClass);
     }
 
     public Object render() {
