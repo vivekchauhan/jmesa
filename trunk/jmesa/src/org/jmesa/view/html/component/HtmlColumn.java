@@ -66,6 +66,24 @@ public class HtmlColumn extends Column {
         setProperty(property);
     }
 
+    @Override
+    public HtmlColumn property(String property) {
+    	setProperty(property);
+    	return this;
+    }
+
+    @Override
+    public HtmlColumn title(String title) {
+    	setTitle(title);
+    	return this;
+    }
+
+    @Override
+    public HtmlColumn titleKey(String key) {
+    	setTitleKey(key);
+    	return this;
+    }
+
     public boolean isFilterable() {
         if (filterable != null) {
             return filterable.booleanValue();
@@ -250,6 +268,12 @@ public class HtmlColumn extends Column {
         return cellEditor;
     }
 
+    @Override
+    public HtmlColumn cellEditor(CellEditor editor) {
+    	setCellEditor(editor);
+    	return this;
+    }
+
     public WorksheetEditor getWorksheetEditor() {
         return worksheetEditor;
     }
@@ -310,6 +334,12 @@ public class HtmlColumn extends Column {
             return htmlFilterEditor;
         }
         return filterEditor;
+    }
+
+    @Override
+    public HtmlColumn filterEditor(FilterEditor filterEditor) {
+    	setFilterEditor(filterEditor);
+    	return this;
     }
 
     @Override
