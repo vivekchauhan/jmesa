@@ -18,7 +18,6 @@ package org.jmesa.view.html.component;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.HtmlConstants;
-import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 import org.jmesa.view.renderer.TableRenderer;
 
