@@ -15,6 +15,7 @@
  */
 package org.jmesaweb.controller;
 
+import java.util.Date;
 import org.jmesa.limit.ExportType;
 import static org.jmesa.limit.ExportType.CSV;
 import static org.jmesa.limit.ExportType.JEXCEL;
@@ -22,6 +23,8 @@ import static org.jmesa.limit.ExportType.PDF;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jmesa.core.filter.DateFilterMatcher;
+import org.jmesa.core.filter.MatcherKey;
 
 import org.jmesa.model.TableModel;
 import org.jmesa.view.editor.CellEditor;
@@ -30,9 +33,8 @@ import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.view.html.editor.DroplistFilterEditor;
 import org.jmesa.view.html.editor.HtmlCellEditor;
-import org.jmesa.view.html.editor.HtmlFilterEditor;
-import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 import org.jmesaweb.service.PresidentService;
@@ -58,11 +60,9 @@ public class BasicPresidentController extends AbstractController {
 
         TableModel tableModel = new TableModel(id, request);
         tableModel.setItems(presidentService.getPresidents());
-
+        tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
         tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
         tableModel.setStateAttr("restore");
-
-        //filterMatchers.put(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         HtmlTable htmlTable = new HtmlTable();
         htmlTable.setCaption("Presidents");
@@ -76,11 +76,6 @@ public class BasicPresidentController extends AbstractController {
         // first name
 
         HtmlColumn firstName = new HtmlColumn();
-        
-        HtmlFilterRenderer firstNameFilterRenderer = new HtmlFilterRenderer(firstName);
-        firstNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
-        firstName.setFilterRenderer(firstNameFilterRenderer);
-
         firstName.setProperty("name.firstName");
         firstName.setTitle("First Name");
         firstName.setCellEditor(new CellEditor() {
@@ -98,11 +93,6 @@ public class BasicPresidentController extends AbstractController {
         // last name
 
         HtmlColumn lastName = new HtmlColumn();
-
-        HtmlFilterRenderer lastNameFilterRenderer = new HtmlFilterRenderer(lastName);
-        lastNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
-        lastName.setFilterRenderer(lastNameFilterRenderer);
-
         lastName.setProperty("name.lastName");
         lastName.setTitle("Last Name");
         htmlRow.addColumn(lastName);
@@ -110,23 +100,13 @@ public class BasicPresidentController extends AbstractController {
         // career
 
         HtmlColumn career = new HtmlColumn();
-
-        HtmlFilterRenderer careerFilterRenderer = new HtmlFilterRenderer(career);
-        careerFilterRenderer.setFilterEditor(new HtmlFilterEditor());
-        career.setFilterRenderer(careerFilterRenderer);
-
         career.setProperty("career");
-        //career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+        career.setFilterEditor(new DroplistFilterEditor());
         htmlRow.addColumn(career);
 
         // born
 
         HtmlColumn born = new HtmlColumn();
-
-        HtmlFilterRenderer bornFilterRenderer = new HtmlFilterRenderer(born);
-        bornFilterRenderer.setFilterEditor(new HtmlFilterEditor());
-        born.setFilterRenderer(bornFilterRenderer);
-
         born.setProperty("born");
         born.setCellEditor(new DateCellEditor("MM/yyyy"));
         htmlRow.addColumn(born);
