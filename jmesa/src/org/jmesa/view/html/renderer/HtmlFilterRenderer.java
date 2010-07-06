@@ -24,9 +24,6 @@ import org.jmesa.view.renderer.AbstractFilterRenderer;
  * @author Jeff Johnston
  */
 public class HtmlFilterRenderer extends AbstractFilterRenderer {
-    private String style;
-    private String styleClass;
-
     public HtmlFilterRenderer() {}
 
     public HtmlFilterRenderer(HtmlColumn column) {
@@ -38,20 +35,32 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
         return (HtmlColumn) super.getColumn();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
     public String getStyle() {
-        return style;
+        return getColumn().getFilterStyle();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
     public void setStyle(String style) {
-        this.style = style;
+        getColumn().setFilterStyle(style);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
     public String getStyleClass() {
-        return styleClass;
+        return getColumn().getFilterClass();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlColumn.
+     */
     public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
+        getColumn().setFilterClass(styleClass);
     }
 
     public Object render() {

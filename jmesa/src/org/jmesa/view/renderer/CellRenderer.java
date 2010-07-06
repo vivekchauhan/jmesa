@@ -27,8 +27,16 @@ public interface CellRenderer {
 
     public void setColumn(Column column);
 
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public CellEditor getCellEditor();
 
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public void setCellEditor(CellEditor editor);
 
     public Object render(Object item, int rowcount);

@@ -17,7 +17,6 @@ package org.jmesa.view.renderer;
 
 import groovy.lang.Closure;
 
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
@@ -29,7 +28,6 @@ import org.jmesa.view.editor.FilterEditor;
  */
 public abstract class AbstractFilterRenderer extends AbstractContextSupport implements FilterRenderer, ColumnSupport {
     private Column column;
-    private FilterEditor filterEditor;
 
     public Column getColumn() {
         return column;
@@ -39,29 +37,27 @@ public abstract class AbstractFilterRenderer extends AbstractContextSupport impl
         this.column = column;
     }
 
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public FilterEditor getFilterEditor() {
-        return filterEditor;
-    }
-
-    public void setFilterEditor(FilterEditor filterEditor) {
-        this.filterEditor = filterEditor;
-        SupportUtils.setWebContext(filterEditor, getWebContext());
-        SupportUtils.setCoreContext(filterEditor, getCoreContext());
-        SupportUtils.setColumn(filterEditor, getColumn());
+        return getColumn().getFilterEditor();
     }
 
     /**
-     * <p>
-     * Added Groovy support in the form of Closures for the filterEditor.
-     * </p>
-     * 
-     * @param closure The Groovy closure to use.
+     * @deprecated Should get/set the value on the Column.
      */
+    @Deprecated
+    public void setFilterEditor(FilterEditor filterEditor) {
+        getColumn().setFilterEditor(filterEditor);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public void setFilterEditor(final Closure closure) {
-        this.filterEditor = new FilterEditor() {
-            public Object getValue() {
-                return closure.call();
-            }
-        };
+        getColumn().setFilterEditor(closure);
     }
 }

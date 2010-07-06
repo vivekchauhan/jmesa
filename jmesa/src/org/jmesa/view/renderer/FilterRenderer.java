@@ -27,8 +27,16 @@ public interface FilterRenderer {
 
     public void setColumn(Column column);
 
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public FilterEditor getFilterEditor();
 
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public void setFilterEditor(FilterEditor filterEditor);
 
     public Object render();
