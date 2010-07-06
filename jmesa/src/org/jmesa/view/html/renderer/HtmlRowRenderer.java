@@ -30,13 +30,6 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @author Jeff Johnston
  */
 public class HtmlRowRenderer extends AbstractRowRenderer {
-    private String style;
-    private String styleClass;
-    private String highlightStyle;
-    private String highlightClass;
-    private String evenClass;
-    private String oddClass;
-
     public HtmlRowRenderer() {}
 
     public HtmlRowRenderer(HtmlRow row) {
@@ -48,53 +41,113 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
         return (HtmlRow) super.getRow();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getStyle() {
-        return style;
+        return getRow().getStyle();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setStyle(String style) {
-        this.style = style;
+        getRow().setStyle(style);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getStyleClass() {
-        return styleClass;
+        return getRow().getStyleClass();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getEvenClass() {
-        if (StringUtils.isBlank(evenClass)) {
-            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_EVEN_CLASS);
-        }
-
-        return evenClass;
+        return getRow().getEvenClass();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setEvenClass(String evenClass) {
-        this.evenClass = evenClass;
+        getRow().setEvenClass(evenClass);
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public String getOddClass() {
-        if (StringUtils.isBlank(oddClass)) {
-            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_ODD_CLASS);
-        }
-
-        return oddClass;
+        return getRow().getOddClass();
     }
 
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
     public void setOddClass(String oddClass) {
-        this.oddClass = oddClass;
+        getRow().setOddClass(oddClass);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
+    public void setStyleClass(String styleClass) {
+        getRow().setStyleClass(styleClass);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
+    public String getHighlightClass() {
+        return getRow().getHighlightClass();
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
+    public void setHighlightClass(String highlightClass) {
+        getRow().setHighlightClass(highlightClass);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
+    public String getHighlightStyle() {
+        return getRow().getHighlightStyle();
+    }
+
+    /**
+     * @deprecated Should get/set the value on the HtmlTable.
+     */
+    @Deprecated
+    public void setHighlightStyle(String highlightStyle) {
+        getRow().setHighlightStyle(highlightStyle);
     }
 
     protected String getStyleClass(int rowcount) {
-        String sc = getStyleClass();
+        String sc = getRow().getStyleClass();
         if (StringUtils.isNotBlank(sc)) {
             return sc;
         }
 
         if (ViewUtils.isRowEven(rowcount)) {
-            return getEvenClass();
+            return getRow().getEvenClass();
         }
 
-        return getOddClass();
+        return getRow().getOddClass();
     }
 
     protected String getStyleClass(Object item, int rowcount) {
@@ -103,30 +156,6 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
         } else {
             return getStyleClass(rowcount);
         }
-    }
-
-    public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
-    }
-
-    public String getHighlightClass() {
-        if (StringUtils.isBlank(highlightClass)) {
-            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_HIGHLIGHT_CLASS);
-        }
-
-        return highlightClass;
-    }
-
-    public void setHighlightClass(String highlightClass) {
-        this.highlightClass = highlightClass;
-    }
-
-    public String getHighlightStyle() {
-        return highlightStyle;
-    }
-
-    public void setHighlightStyle(String highlightStyle) {
-        this.highlightStyle = highlightStyle;
     }
 
     /**

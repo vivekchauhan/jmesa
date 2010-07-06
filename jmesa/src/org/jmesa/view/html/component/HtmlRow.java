@@ -16,25 +16,94 @@
 package org.jmesa.view.html.component;
 
 import groovy.lang.Closure;
+import org.apache.commons.lang.StringUtils;
 
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.Row;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.event.AbstractRowEvent;
 import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
+import org.jmesa.view.renderer.RowRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class HtmlRow extends Row {
+    private String style;
+    private String styleClass;
+    private String highlightStyle;
+    private String highlightClass;
+    private String evenClass;
+    private String oddClass;
     private Boolean filterable;
     private Boolean sortable;
     private boolean highlighter = true;
     private RowEvent onclick;
     private RowEvent onmouseout;
     private RowEvent onmouseover;
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public String getEvenClass() {
+        if (StringUtils.isBlank(evenClass)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_EVEN_CLASS);
+        }
+
+        return evenClass;
+    }
+
+    public void setEvenClass(String evenClass) {
+        this.evenClass = evenClass;
+    }
+
+    public String getOddClass() {
+        if (StringUtils.isBlank(oddClass)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_ODD_CLASS);
+        }
+
+        return oddClass;
+    }
+
+    public void setOddClass(String oddClass) {
+        this.oddClass = oddClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+
+    public String getHighlightClass() {
+        if (StringUtils.isBlank(highlightClass)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_HIGHLIGHT_CLASS);
+        }
+
+        return highlightClass;
+    }
+
+    public void setHighlightClass(String highlightClass) {
+        this.highlightClass = highlightClass;
+    }
+
+    public String getHighlightStyle() {
+        return highlightStyle;
+    }
+
+    public void setHighlightStyle(String highlightStyle) {
+        this.highlightStyle = highlightStyle;
+    }
 
     public Boolean isFilterable() {
         return filterable;
@@ -190,60 +259,12 @@ public class HtmlRow extends Row {
 
     @Override
     public HtmlRowRenderer getRowRenderer() {
-        return (HtmlRowRenderer) super.getRowRenderer();
-    }
-
-    public void setStyle(String style) {
-    	getRowRenderer().setStyle(style);
-    }
-    
-    public HtmlRow style(String style) {
-    	setStyle(style);
-    	return this;
-    }
-
-    public void setStyleClass(String styleClass) {
-    	getRowRenderer().setStyleClass(styleClass);
-    }
-    
-    public HtmlRow styleClass(String styleClass) {
-    	setStyleClass(styleClass);
-    	return this;
-    }
-
-    public void setHighlightClass(String highlightClass) {
-    	getRowRenderer().setHighlightClass(highlightClass);
-    }
-    
-    public HtmlRow highlightClass(String highlightClass) {
-    	setHighlightClass(highlightClass);
-    	return this;
-    }
-
-    public void setHighlightStyle(String highlightStyle) {
-    	getRowRenderer().setHighlightStyle(highlightStyle);
-    }
-    
-    public HtmlRow highlightStyle(String highlightStyle) {
-    	setHighlightStyle(highlightStyle);
-    	return this;
-    }
-
-    public void setEvenClass(String evenClass) {
-    	getRowRenderer().setEvenClass(evenClass);
-    }
-    
-    public HtmlRow evenClass(String evenClass) {
-    	setEvenClass(evenClass);
-    	return this;
-    }
-
-    public void setOddClass(String oddClass) {
-    	getRowRenderer().setOddClass(oddClass);
-    }
-    
-    public HtmlRow oddClass(String oddClass) {
-    	setOddClass(oddClass);
-    	return this;
+        RowRenderer rowRenderer = super.getRowRenderer();
+        if (rowRenderer == null) {
+            HtmlRowRenderer htmlRowRenderer = new HtmlRowRenderer(this);
+            super.setRowRenderer(htmlRowRenderer);
+            return htmlRowRenderer;
+        }
+        return (HtmlRowRenderer) rowRenderer;
     }
 }

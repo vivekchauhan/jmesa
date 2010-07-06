@@ -106,6 +106,8 @@ public class Row extends AbstractContextSupport {
 
     public void setRowRenderer(RowRenderer rowRenderer) {
         this.rowRenderer = rowRenderer;
+
+        //TODO: figure out how to get this removed here
         SupportUtils.setWebContext(rowRenderer, getWebContext());
         SupportUtils.setCoreContext(rowRenderer, getCoreContext());
         rowRenderer.setRow(this);
