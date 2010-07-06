@@ -37,6 +37,7 @@ public class Column extends AbstractContextSupport {
     private CellEditor cellEditor;
 
     private HeaderRenderer headerRenderer;
+    private HeaderEditor headerEditor;
 
     private Row row;
 
@@ -170,8 +171,32 @@ public class Column extends AbstractContextSupport {
     	return this;
     }
 
+    public HeaderEditor getHeaderEditor() {
+        return headerEditor;
+    }
+
     public void setHeaderEditor(HeaderEditor headerEditor) {
-    	getHeaderRenderer().setHeaderEditor(headerEditor);
+        this.headerEditor = headerEditor;
+
+        //TODO: figure out how to get this removed here
+        SupportUtils.setWebContext(headerEditor, getWebContext());
+        SupportUtils.setCoreContext(headerEditor, getCoreContext());
+        SupportUtils.setColumn(headerEditor, this);
+    }
+
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the headerEditor.
+     * </p>
+     *
+     * @param closure The Groovy closure to use.
+     */
+    public void setHeaderEditor(final Closure closure) {
+        this.headerEditor = new HeaderEditor() {
+            public Object getValue() {
+                return closure.call();
+            }
+        };
     }
 
     public Column headerEditor(HeaderEditor headerEditor) {

@@ -17,7 +17,6 @@ package org.jmesa.view.renderer;
 
 import groovy.lang.Closure;
 
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
@@ -29,7 +28,6 @@ import org.jmesa.view.editor.HeaderEditor;
  */
 public abstract class AbstractHeaderRenderer extends AbstractContextSupport implements HeaderRenderer, ColumnSupport {
     private Column column;
-    private HeaderEditor headerEditor;
 
     public Column getColumn() {
         return column;
@@ -39,29 +37,27 @@ public abstract class AbstractHeaderRenderer extends AbstractContextSupport impl
         this.column = column;
     }
 
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public HeaderEditor getHeaderEditor() {
-        return headerEditor;
-    }
-
-    public void setHeaderEditor(HeaderEditor headerEditor) {
-        this.headerEditor = headerEditor;
-        SupportUtils.setWebContext(headerEditor, getWebContext());
-        SupportUtils.setCoreContext(headerEditor, getCoreContext());
-        SupportUtils.setColumn(headerEditor, getColumn());
+        return getColumn().getHeaderEditor();
     }
 
     /**
-     * <p>
-     * Added Groovy support in the form of Closures for the headerEditor.
-     * </p>
-     * 
-     * @param closure The Groovy closure to use.
+     * @deprecated Should get/set the value on the Column.
      */
+    @Deprecated
+    public void setHeaderEditor(HeaderEditor headerEditor) {
+        getColumn().setHeaderEditor(headerEditor);
+    }
+
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public void setHeaderEditor(final Closure closure) {
-        this.headerEditor = new HeaderEditor() {
-            public Object getValue() {
-                return closure.call();
-            }
-        };
+        getColumn().setHeaderEditor(closure);
     }
 }

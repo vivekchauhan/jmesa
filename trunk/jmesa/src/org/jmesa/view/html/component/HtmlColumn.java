@@ -25,12 +25,15 @@ import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
+import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.editor.HtmlCellEditor;
+import org.jmesa.view.html.editor.HtmlHeaderEditor;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.view.renderer.HeaderRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.HtmlWorksheetEditor;
 import org.jmesa.worksheet.editor.WorksheetEditor;
@@ -49,6 +52,8 @@ public class HtmlColumn extends Column {
     private boolean generatedOnTheFly;
     private String style;
     private String styleClass;
+    private String headerStyle;
+    private String headerClass;
     private List<WorksheetValidation> validations;
 
     private WorksheetEditor worksheetEditor;
@@ -265,7 +270,6 @@ public class HtmlColumn extends Column {
             super.setCellEditor(cellEditor);
             return htmlCellEditor;
         }
-
         return cellEditor;
     }
 
@@ -289,7 +293,24 @@ public class HtmlColumn extends Column {
 
     @Override
     public HtmlHeaderRenderer getHeaderRenderer() {
-        return (HtmlHeaderRenderer) super.getHeaderRenderer();
+        HeaderRenderer headerRenderer = super.getHeaderRenderer();
+        if (headerRenderer == null) {
+            HtmlHeaderRenderer htmlHeaderRenderer = new HtmlHeaderRenderer(this);
+            super.setHeaderRenderer(htmlHeaderRenderer);
+            return htmlHeaderRenderer;
+        }
+        return (HtmlHeaderRenderer) headerRenderer;
+    }
+
+    @Override
+    public HeaderEditor getHeaderEditor() {
+        HeaderEditor headerEditor = super.getHeaderEditor();
+        if (headerEditor == null) {
+            HtmlHeaderEditor htmlHeaderEditor = new HtmlHeaderEditor();
+            super.setHeaderEditor(htmlHeaderEditor);
+            return htmlHeaderEditor;
+        }
+        return headerEditor;
     }
 
     @Override
@@ -411,21 +432,29 @@ public class HtmlColumn extends Column {
     	return this;
     }
 
+    public String getHeaderStyle() {
+        return headerStyle;
+    }
+    
     public void setHeaderStyle(String headerStyle) {
-    	getHeaderRenderer().setStyle(headerStyle);
+    	this.headerStyle = headerStyle;
     }
     
     public HtmlColumn headerStyle(String headerStyle) {
     	setHeaderStyle(headerStyle);
     	return this;
     }
-    
-    public void setHeaderStyleClass(String headerStyleClass) {
-    	getHeaderRenderer().setStyleClass(headerStyleClass);
+
+    public String getHeaderClass() {
+        return headerClass;
     }
     
-    public HtmlColumn headerStyleClass(String headerStyleClass) {
-    	setHeaderStyleClass(headerStyleClass);
+    public void setHeaderClass(String headerClass) {
+    	this.headerClass = headerClass;
+    }
+    
+    public HtmlColumn headerClass(String headerClass) {
+    	setHeaderClass(headerClass);
     	return this;
     }
 }
