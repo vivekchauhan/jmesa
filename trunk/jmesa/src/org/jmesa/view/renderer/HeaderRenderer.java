@@ -27,8 +27,16 @@ public interface HeaderRenderer {
 
     public void setColumn(Column column);
     
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public HeaderEditor getHeaderEditor();
 
+    /**
+     * @deprecated Should get/set the value on the Column.
+     */
+    @Deprecated
     public void setHeaderEditor(HeaderEditor headerEditor);
 
     public Object render();

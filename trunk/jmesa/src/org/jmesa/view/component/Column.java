@@ -21,8 +21,10 @@ import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 
 /**
@@ -38,6 +40,9 @@ public class Column extends AbstractContextSupport {
 
     private HeaderRenderer headerRenderer;
     private HeaderEditor headerEditor;
+
+    private FilterRenderer filterRenderer;
+    private FilterEditor filterEditor;
 
     private Row row;
 
@@ -145,12 +150,13 @@ public class Column extends AbstractContextSupport {
      *
      * @param closure The Groovy closure to use.
      */
-    public void setCellEditor(final Closure closure) {
-        this.cellEditor = new CellEditor() {
+    public Column setCellEditor(final Closure closure) {
+        setCellEditor(new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
                 return closure.call(new Object[] { item, property, rowcount });
             }
-        };
+        });
+        return this;
     }
 
     public HeaderRenderer getHeaderRenderer() {
@@ -184,6 +190,11 @@ public class Column extends AbstractContextSupport {
         SupportUtils.setColumn(headerEditor, this);
     }
 
+    public Column headerEditor(HeaderEditor headerEditor) {
+    	setHeaderEditor(headerEditor);
+    	return this;
+    }
+
     /**
      * <p>
      * Added Groovy support in the form of Closures for the headerEditor.
@@ -191,17 +202,65 @@ public class Column extends AbstractContextSupport {
      *
      * @param closure The Groovy closure to use.
      */
-    public void setHeaderEditor(final Closure closure) {
-        this.headerEditor = new HeaderEditor() {
+    public Column setHeaderEditor(final Closure closure) {
+        setHeaderEditor(new HeaderEditor() {
             public Object getValue() {
                 return closure.call();
             }
-        };
+        });
+        return this;
     }
 
-    public Column headerEditor(HeaderEditor headerEditor) {
-    	setHeaderEditor(headerEditor);
+    public FilterRenderer getFilterRenderer() {
+        return filterRenderer;
+    }
+
+    public void setFilterRenderer(FilterRenderer filterRenderer) {
+        this.filterRenderer = filterRenderer;
+
+        //TODO: figure out how to get this removed here
+        SupportUtils.setWebContext(filterRenderer, getWebContext());
+        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
+        SupportUtils.setColumn(filterRenderer, this);
+    }
+
+    public Column filterRenderer(FilterRenderer filterRenderer) {
+    	setFilterRenderer(filterRenderer);
     	return this;
+    }
+
+    public FilterEditor getFilterEditor() {
+        return filterEditor;
+    }
+
+    public void setFilterEditor(FilterEditor filterEditor) {
+        this.filterEditor = filterEditor;
+
+        //TODO: figure out how to get this removed here
+        SupportUtils.setWebContext(filterEditor, getWebContext());
+        SupportUtils.setCoreContext(filterEditor, getCoreContext());
+        SupportUtils.setColumn(filterEditor, this);
+    }
+
+    public Column filterEditor(FilterEditor filterEditor) {
+    	setFilterEditor(filterEditor);
+    	return this;
+    }
+
+    /**
+     * <p>
+     * Added Groovy support in the form of Closures for the filterEditor.
+     * </p>
+     *
+     * @param closure The Groovy closure to use.
+     */
+    public Column setFilterEditor(final Closure closure) {
+        setFilterEditor(new FilterEditor() {
+            public Object getValue() {
+                return closure.call();
+            }
+        });
+        return this;
     }
 
     public Row getRow() {

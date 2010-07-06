@@ -27,6 +27,7 @@ import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.editor.HtmlCellEditor;
+import org.jmesa.view.html.editor.HtmlFilterEditor;
 import org.jmesa.view.html.editor.HtmlHeaderEditor;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
@@ -47,13 +48,14 @@ public class HtmlColumn extends Column {
     private Boolean sortable;
     private Boolean editable;
     private String width;
-    private FilterRenderer filterRenderer;
     private Order[] sortOrder;
     private boolean generatedOnTheFly;
     private String style;
     private String styleClass;
     private String headerStyle;
     private String headerClass;
+    private String filterStyle;
+    private String filterClass;
     private List<WorksheetValidation> validations;
 
     private WorksheetEditor worksheetEditor;
@@ -189,31 +191,6 @@ public class HtmlColumn extends Column {
 		return this;
 	}
 
-    public HtmlFilterRenderer getFilterRenderer() {
-        return (HtmlFilterRenderer) filterRenderer;
-    }
-
-    public void setFilterRenderer(FilterRenderer filterRenderer) {
-        this.filterRenderer = filterRenderer;
-        SupportUtils.setWebContext(filterRenderer, getWebContext());
-        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
-        SupportUtils.setColumn(filterRenderer, this);
-    }
-
-	public HtmlColumn filterRenderer(FilterRenderer filterRenderer) {
-		setFilterRenderer(filterRenderer);
-		return this;
-	}
-
-    public void setFilterEditor(FilterEditor filterEditor) {
-    	getFilterRenderer().setFilterEditor(filterEditor);
-    }
-
-    public Column filterEditor(FilterEditor filterEditor) {
-    	setFilterEditor(filterEditor);
-    	return this;
-    }
-
     /**
      * @return Is true if generated on the fly through the api.
      */
@@ -311,6 +288,28 @@ public class HtmlColumn extends Column {
             return htmlHeaderEditor;
         }
         return headerEditor;
+    }
+
+    @Override
+    public HtmlFilterRenderer getFilterRenderer() {
+        FilterRenderer filterRenderer = super.getFilterRenderer();
+        if (filterRenderer == null) {
+            HtmlFilterRenderer htmlFilterRenderer = new HtmlFilterRenderer(this);
+            super.setFilterRenderer(htmlFilterRenderer);
+            return htmlFilterRenderer;
+        }
+        return (HtmlFilterRenderer) filterRenderer;
+    }
+
+    @Override
+    public FilterEditor getFilterEditor() {
+        FilterEditor filterEditor = super.getFilterEditor();
+        if (filterEditor == null) {
+            HtmlFilterEditor htmlFilterEditor = new HtmlFilterEditor();
+            super.setFilterEditor(htmlFilterEditor);
+            return htmlFilterEditor;
+        }
+        return filterEditor;
     }
 
     @Override
@@ -414,24 +413,6 @@ public class HtmlColumn extends Column {
     	return this;
     }
 
-    public void setFilterStyle(String filterStyle) {
-    	getFilterRenderer().setStyle(filterStyle);
-    }
-    
-    public HtmlColumn filterStyle(String filterStyle) {
-    	setFilterStyle(filterStyle);
-    	return this;
-    }
-    
-    public void setFilterStyleClass(String filterStyleClass) {
-    	getFilterRenderer().setStyleClass(filterStyleClass);
-    }
-    
-    public HtmlColumn filterStyleClass(String filterStyleClass) {
-    	setFilterStyleClass(filterStyleClass);
-    	return this;
-    }
-
     public String getHeaderStyle() {
         return headerStyle;
     }
@@ -455,6 +436,32 @@ public class HtmlColumn extends Column {
     
     public HtmlColumn headerClass(String headerClass) {
     	setHeaderClass(headerClass);
+    	return this;
+    }
+
+    public String getFilterStyle() {
+        return filterStyle;
+    }
+
+    public void setFilterStyle(String filterStyle) {
+    	this.filterStyle = filterStyle;
+    }
+
+    public HtmlColumn filterStyle(String filterStyle) {
+    	setFilterStyle(filterStyle);
+    	return this;
+    }
+
+    public String getFilterClass() {
+        return filterClass;
+    }
+
+    public void setFilterClass(String filterClass) {
+    	this.filterClass = filterClass;
+    }
+
+    public HtmlColumn filterClass(String filterClass) {
+    	setFilterClass(filterClass);
     	return this;
     }
 }
