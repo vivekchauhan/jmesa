@@ -32,9 +32,7 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.editor.HtmlFilterEditor;
-import org.jmesa.view.html.editor.HtmlHeaderEditor;
 import org.jmesa.view.html.renderer.HtmlFilterRenderer;
-import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 import org.jmesaweb.service.PresidentService;
@@ -83,10 +81,6 @@ public class BasicPresidentController extends AbstractController {
         firstNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
         firstName.setFilterRenderer(firstNameFilterRenderer);
 
-        HtmlHeaderRenderer firstNameHeaderRenderer = new HtmlHeaderRenderer(firstName);
-        firstNameHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
-        firstName.setHeaderRenderer(firstNameHeaderRenderer);
-
         firstName.setProperty("name.firstName");
         firstName.setTitle("First Name");
         firstName.setCellEditor(new CellEditor() {
@@ -109,10 +103,6 @@ public class BasicPresidentController extends AbstractController {
         lastNameFilterRenderer.setFilterEditor(new HtmlFilterEditor());
         lastName.setFilterRenderer(lastNameFilterRenderer);
 
-        HtmlHeaderRenderer lastNameHeaderRenderer = new HtmlHeaderRenderer(lastName);
-        lastNameHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
-        lastName.setHeaderRenderer(lastNameHeaderRenderer);
-
         lastName.setProperty("name.lastName");
         lastName.setTitle("Last Name");
         htmlRow.addColumn(lastName);
@@ -125,10 +115,6 @@ public class BasicPresidentController extends AbstractController {
         careerFilterRenderer.setFilterEditor(new HtmlFilterEditor());
         career.setFilterRenderer(careerFilterRenderer);
 
-        HtmlHeaderRenderer  careerHeaderRenderer = new HtmlHeaderRenderer(career);
-        careerHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
-        career.setHeaderRenderer(careerHeaderRenderer);
-
         career.setProperty("career");
         //career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
         htmlRow.addColumn(career);
@@ -140,10 +126,6 @@ public class BasicPresidentController extends AbstractController {
         HtmlFilterRenderer bornFilterRenderer = new HtmlFilterRenderer(born);
         bornFilterRenderer.setFilterEditor(new HtmlFilterEditor());
         born.setFilterRenderer(bornFilterRenderer);
-
-        HtmlHeaderRenderer bornHeaderRenderer = new HtmlHeaderRenderer(born);
-        bornHeaderRenderer.setHeaderEditor(new HtmlHeaderEditor());
-        born.setHeaderRenderer(bornHeaderRenderer);
 
         born.setProperty("born");
         born.setCellEditor(new DateCellEditor("MM/yyyy"));
