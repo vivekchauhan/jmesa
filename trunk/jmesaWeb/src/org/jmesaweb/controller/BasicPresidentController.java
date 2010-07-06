@@ -36,7 +36,6 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.editor.DroplistFilterEditor;
 import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
-import org.jmesa.view.html.renderer.HtmlTableRenderer;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -66,7 +65,6 @@ public class BasicPresidentController extends AbstractController {
 
         HtmlTable htmlTable = new HtmlTable();
         htmlTable.setCaption("Presidents");
-        htmlTable.setTableRenderer(new HtmlTableRenderer(htmlTable));
         htmlTable.setWidth("600px");
 
         HtmlRow htmlRow = new HtmlRow();
