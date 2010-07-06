@@ -39,6 +39,18 @@ public class HtmlTable extends Table {
         return (HtmlRow) super.getRow();
     }
 
+    @Override
+    public HtmlTable caption(String caption) {
+        setCaption(caption);
+        return this;
+    }
+
+    @Override
+    public HtmlTable captionKey(String key) {
+    	setCaptionKey(key);
+    	return this;
+    }
+
     public String getTheme() {
         if (StringUtils.isBlank(theme)) {
             return getCoreContext().getPreference(HtmlConstants.TABLE_COMPONENT_THEME);
