@@ -72,6 +72,8 @@ public class Table extends AbstractContextSupport {
 
     public void setTableRenderer(TableRenderer tableRenderer) {
         this.tableRenderer = tableRenderer;
+        
+        //TODO: figure out how to get this removed here
         SupportUtils.setWebContext(tableRenderer, getWebContext());
         SupportUtils.setCoreContext(tableRenderer, getCoreContext());
         tableRenderer.setTable(this);
