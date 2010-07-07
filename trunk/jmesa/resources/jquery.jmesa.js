@@ -422,7 +422,9 @@
                     cell.text('');
                     cell.css('overflow', 'hidden');
                     cell.text(changedValue);
-                    $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+                    if(originalValue != changedValue) {
+                       $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+                    }
                     var id = dynFilter.id;
                     dynFilter = null;
                     $.jmesa.onInvokeAction(id, 'filter');
@@ -434,7 +436,9 @@
                 cell.text('');
                 cell.css('overflow', 'hidden');
                 cell.text(changedValue);
-                $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+                if(originalValue != changedValue) {
+                   $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+                }
                 dynFilter = null;
             });
         },
@@ -558,23 +562,7 @@
             this.wsColumnKeyEvent(cell, input, originalValue);
 
             $('#wsColumnInput').blur(function() {
-                var changedValue = input.val();
-                var hasRules;
-                $.each($("#wsColumnInput").rules(), function() { hasRules = true; });
-                /* validate manually */
-                if (changedValue != originalValue) {
-                    var validator = validatorObject[wsColumn.id];
-                    if (validator) {
-                        validator.element($('#wsColumnInput'));
-                    }
-                }
-                cell.text('');
-                cell.css('overflow', 'hidden');
-                cell.text(changedValue);
-                if (changedValue != originalValue) {
-                    $.jmesa.submitWsColumn(originalValue, changedValue, hasRules);
-                }
-                wsColumn = null;
+                $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
             });
         },
         wsColumnKeyEvent : function(cell, input, originalValue) {
@@ -590,9 +578,8 @@
                         var firstDiv = null;
 
                         for (i = 0 ; i < divElements.length ; i++){
-                            if (divElements[i].className == 'wsColumn' ||
-                                divElements[i].className == 'wsColumnChange' ||
-                                divElements[i].className == 'wsColumnError'){
+                            /* identify wsColumn, wsColumnChange or wsColumnError if className startsWith wsColumn */
+                            if (divElements[i].className.indexOf('wsColumn') == 0) {
                                 if (firstDiv == null){
                                     firstDiv = divElements[i];
                                 }
@@ -625,36 +612,24 @@
                         }
                     }
 
-                    var changedValue = input.val();
-                    var hasRules;
-                    $.each($("#wsColumnInput").rules(), function() { hasRules = true; });
-                    /* validate manually */
-                    if (changedValue != originalValue) {
-                        var validator = validatorObject[wsColumn.id];
-                        if (validator) {
-                            validator.element($('#wsColumnInput'));
-                        }
-                    }
-                    cell.text('');
-                    cell.css('overflow', 'hidden');
-                    cell.text(changedValue);
-                    if (changedValue != originalValue) {
-                        $.jmesa.submitWsColumn(originalValue, changedValue, hasRules);
-                    }
-                    wsColumn = null;
+                    $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
 
                     if (divToClick != null){
                         divToClick.onclick();
                         return false; /* Stop event for IE */
                     }
-
+                } else if (event.altKey && event.keyCode == 90) { /* Press Alt+z key to get initial value (undo). */
+                    /* Get initial value only if column has been modified. */
+                    if (cell.attr('class') != 'wsColumn') {
+                       $.jmesa.setWsColumnInitialValue(input);
+                    }
                 }
             };
 
             if (jQuery.browser.msie || jQuery.browser.safari) { /* IE and Safari don't catch tabulation on keypress */
-                $('#wsColumnInput').keydown(keyEvent);
+                input.keydown(keyEvent);
             } else {
-                $('#wsColumnInput').keypress(keyEvent);
+                input.keypress(keyEvent);
             }
         },
         submitWsCheckboxColumn : function(column, id, uniqueProperties, property) {
@@ -682,7 +657,53 @@
         setValidator : function(id, vr) {
            validatorObject[id] = vr;
         },
+        validateAndSubmitWsColumn : function(cell, input, originalValue) {
+            var changedValue = input.val();
+            var hasRules;
+            $.each(input.rules(), function() { hasRules = true; });
+            /* validate manually */
+            if (changedValue != originalValue) {
+                var validator = validatorObject[wsColumn.id];
+                if (validator) {
+                    validator.element($('#wsColumnInput'));
+                }
+            }
+            cell.text('');
+            cell.css('overflow', 'hidden');
+            cell.text(changedValue);
+            if (changedValue != originalValue) {
+                $.jmesa.submitWsColumn(originalValue, changedValue, hasRules);
+            }
+            wsColumn = null;
+        },
+        setWsColumnInitialValue : function(input) {
+            var data = '{ "id" : "' + wsColumn.id + '"';
+
+            data += ', "cp_" : "' + wsColumn.property + '"';
+            data += ', "iv_" : "true"';
+
+            var props = wsColumn.uniqueProperties;
+            $.each(props, function(key, value) {
+                data += ', "up_' + key + '" : "' + value + '"';
+            });
+
+            data += '}'
+
+            var contextPath = coreapi.getContextPath(wsColumn.id);
+            if (contextPath) {
+               contextPath += "/";
+            }
+
+            /* fetch initial value from worksheet servlet */
+            $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(initialValue) {
+               /* only if wsColumn is still present */
+               if (wsColumn) {
+                  input.val(initialValue);
+               }
+            });
+        },
         submitWsColumn : function(originalValue, changedValue, hasRules) {
+            /* hasRules is optional parameter and will be true only if the column has validations */
             var data = '{ "id" : "' + wsColumn.id + '"';
 
             data += ', "cp_" : "' + wsColumn.property + '"';
@@ -718,7 +739,7 @@
             }
 
             $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(columnStatus) {
-                  jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
+               jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
             });
         },
         updateCssClass : function(columnStatus, cell, errorMessage) {
