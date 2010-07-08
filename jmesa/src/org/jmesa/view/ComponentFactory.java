@@ -23,17 +23,44 @@ import org.jmesa.view.editor.CellEditor;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
+@Deprecated
 public interface ComponentFactory {
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Table createTable();
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Row createRow();
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Column createColumn(String property);
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Column createColumn(CellEditor editor);
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Column createColumn(String property, CellEditor editor);
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public CellEditor createBasicCellEditor();
 }

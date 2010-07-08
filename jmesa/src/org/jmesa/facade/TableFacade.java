@@ -720,25 +720,23 @@ public class TableFacade {
      * @return The Table to use.
      */
     public Table getTable() {
-        if (table != null) {
-            return table;
+        if (table == null) {
+            validateColumnPropertiesIsNotNull(columnProperties);
+
+            Limit l = getLimit();
+
+            if (!l.isExported()) {
+                validateRowSelectIsNotNull(l);
+
+                HtmlTableFactory tableFactory = new HtmlTableFactory();
+                this.table = tableFactory.createTable(columnProperties);
+            } else {
+                this.table = getExportTable(l.getExportType());
+            }
         }
 
-        validateColumnPropertiesIsNotNull(columnProperties);
-
-        Limit l = getLimit();
-
-        if (!l.isExported()) {
-            validateRowSelectIsNotNull(l);
-
-            HtmlTableFactory tableFactory = new HtmlTableFactory();
-            SupportUtils.setCoreContext(tableFactory, getCoreContext());
-            SupportUtils.setWebContext(tableFactory, getWebContext());
-            this.table = tableFactory.createTable(columnProperties);
-        } else {
-            this.table = getExportTable(l.getExportType());
-        }
-
+        TableFacadeUtils.initTable(this, table);
+        
         return table;
     }
 
@@ -759,8 +757,6 @@ public class TableFacade {
         }
 
         if (tableFactory != null) {
-            SupportUtils.setCoreContext(tableFactory, getCoreContext());
-            SupportUtils.setWebContext(tableFactory, getWebContext());
             return tableFactory.createTable(columnProperties);
         }
 

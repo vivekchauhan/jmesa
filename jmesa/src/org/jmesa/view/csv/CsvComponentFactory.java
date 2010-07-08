@@ -25,30 +25,33 @@ import org.jmesa.web.WebContext;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
+@Deprecated
 public class CsvComponentFactory extends AbstractComponentFactory {
     private static final String DEFAULT_DELIMITER = ",";
 
     private String delimiter = DEFAULT_DELIMITER;
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public CsvComponentFactory(String delimiter, WebContext webContext, CoreContext coreContext) {
-        this(webContext, coreContext);
         this.delimiter = delimiter;
     }
 
-    public CsvComponentFactory(WebContext webContext, CoreContext coreContext) {
-        setWebContext(webContext);
-        setCoreContext(coreContext);
-    }
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
+    public CsvComponentFactory(WebContext webContext, CoreContext coreContext) {}
 
     public Column createColumn(String property, CellEditor editor) {
         Column column = new Column(property);
-        column.setWebContext(getWebContext());
-        column.setCoreContext(getCoreContext());
 
         CsvCellRenderer columnRenderer = new CsvCellRenderer(column, editor);
-        columnRenderer.setWebContext(getWebContext());
-        columnRenderer.setCoreContext(getCoreContext());
         columnRenderer.setDelimiter(delimiter);
         column.setCellRenderer(columnRenderer);
 

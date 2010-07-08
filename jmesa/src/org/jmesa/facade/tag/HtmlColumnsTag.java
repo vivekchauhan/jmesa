@@ -50,11 +50,11 @@ public class HtmlColumnsTag extends SimpleTagSupport {
      * @return The list of columns generated on the fly.
      */
     private List<HtmlColumn> getColumns(HtmlComponentFactory factory, WebContext webContext, CoreContext coreContext) {
-        HtmlColumnsGenerator htmlColumnsGenerator = (HtmlColumnsGenerator) createInstance(getHtmlColumnsGenerator());
-        SupportUtils.setWebContext(htmlColumnsGenerator, webContext);
-        SupportUtils.setCoreContext(htmlColumnsGenerator, coreContext);
+        HtmlColumnsGenerator columnsGenerator = (HtmlColumnsGenerator) createInstance(getHtmlColumnsGenerator());
+        SupportUtils.setWebContext(columnsGenerator, webContext);
+        SupportUtils.setCoreContext(columnsGenerator, coreContext);
 
-        return htmlColumnsGenerator.getColumns(factory);
+        return columnsGenerator.getColumns(factory);
     }
 
     /**

@@ -37,7 +37,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @since 2.2
  * @author Jeff Johnston
+ *
+ * @deprecated Use the new TableModel for building tables.
  */
+@Deprecated
 public class TableFacadeFactory {
 
     /**

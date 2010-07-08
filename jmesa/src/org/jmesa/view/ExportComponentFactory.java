@@ -16,7 +16,6 @@
 package org.jmesa.view;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.renderer.ExportCellRenderer;
@@ -29,25 +28,26 @@ import org.jmesa.web.WebContext;
  *
  * @since 2.3.4
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
+@Deprecated
 public class ExportComponentFactory extends AbstractComponentFactory {
-    public ExportComponentFactory(WebContext webContext, CoreContext coreContext) {
-        setWebContext(webContext);
-        setCoreContext(coreContext);
-    }
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
+    public ExportComponentFactory(WebContext webContext, CoreContext coreContext) {}
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Column createColumn(String property, CellEditor editor) {
         Column column = new Column(property);
-        column.setWebContext(getWebContext());
-        column.setCoreContext(getCoreContext());
 
         ExportCellRenderer exr = new ExportCellRenderer(column, editor);
-        exr.setCoreContext(getCoreContext());
-        exr.setWebContext(getWebContext());
         column.setCellRenderer(exr);
-        
-        SupportUtils.setCoreContext(editor, getCoreContext());
-        SupportUtils.setWebContext(editor, getWebContext());
         
         return column;
     }

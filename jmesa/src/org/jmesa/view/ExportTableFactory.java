@@ -22,9 +22,15 @@ package org.jmesa.view;
  *
  * @since 2.3.4
  * @author Jeff Johnston
+ * @deprecated Should build components directly now instead of using factory.
  */
+@Deprecated
 public class ExportTableFactory extends AbstractTableFactory {
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     protected ComponentFactory getComponentFactory() {
-        return new ExportComponentFactory(getWebContext(), getCoreContext());
+        return new ExportComponentFactory(null, null);
     }
 }

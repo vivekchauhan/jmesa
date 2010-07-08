@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jmesa.util.ItemUtils;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.RowRenderer;
 import org.jmesa.worksheet.UniqueProperty;
@@ -106,11 +105,7 @@ public class Row extends AbstractContextSupport {
 
     public void setRowRenderer(RowRenderer rowRenderer) {
         this.rowRenderer = rowRenderer;
-
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(rowRenderer, getWebContext());
-        SupportUtils.setCoreContext(rowRenderer, getCoreContext());
-        rowRenderer.setRow(this);
+        this.rowRenderer.setRow(this);
     }
     
 	public Row rowRenderer(RowRenderer rowRenderer) {
