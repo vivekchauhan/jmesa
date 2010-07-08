@@ -57,10 +57,6 @@ public class BasicPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         TableModel tableModel = new TableModel(id, request, response);
-        tableModel.setItems(presidentService.getPresidents());
-        tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
-        tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
-        tableModel.setStateAttr("restore");
 
         HtmlTable htmlTable = new HtmlTable().caption("Presidents").width("600px");
 
@@ -98,6 +94,13 @@ public class BasicPresidentController extends AbstractController {
         htmlRow.addColumn(born);
 
         tableModel.setTable(htmlTable);
+
+        // Note how the order of definitions does not matter anymore!
+
+        tableModel.setItems(presidentService.getPresidents());
+        tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+        tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
+        tableModel.setStateAttr("restore");
 
         String view = tableModel.render();
 
