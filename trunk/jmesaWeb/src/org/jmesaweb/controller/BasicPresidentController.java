@@ -56,7 +56,7 @@ public class BasicPresidentController extends AbstractController {
             throws Exception {
         ModelAndView mv = new ModelAndView(successView);
 
-        TableModel tableModel = new TableModel(id, request);
+        TableModel tableModel = new TableModel(id, request, response);
         tableModel.setItems(presidentService.getPresidents());
         tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
         tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
