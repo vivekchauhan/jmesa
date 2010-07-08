@@ -618,7 +618,7 @@
                         divToClick.onclick();
                         return false; /* Stop event for IE */
                     }
-                } else if (event.altKey && event.keyCode == 90) { /* Press Alt+z key to get initial value (undo). */
+                } else if (event.shiftKey && event.ctrlKey && event.keyCode == 90) { /* Press ctrl+shift+z key to get initial value (undo). */
                     /* Get initial value only if column has been modified. */
                     if (cell.attr('class') != 'wsColumn') {
                        $.jmesa.setWsColumnInitialValue(input);
@@ -626,11 +626,8 @@
                 }
             };
 
-            if (jQuery.browser.msie || jQuery.browser.safari) { /* IE and Safari don't catch tabulation on keypress */
-                input.keydown(keyEvent);
-            } else {
-                input.keypress(keyEvent);
-            }
+            /* Use keydown across all browsers as IE and Safari don't catch tabulation and Firefox doesn't catch ctrl / alt on keypress */
+            input.keydown(keyEvent);
         },
         submitWsCheckboxColumn : function(column, id, uniqueProperties, property) {
             wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
