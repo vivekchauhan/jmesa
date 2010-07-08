@@ -30,6 +30,6 @@ public class HtmlTableFactory extends AbstractTableFactory {
 
     @Override
     protected HtmlComponentFactory getComponentFactory() {
-        return new HtmlComponentFactory(getWebContext(), getCoreContext());
+        return new HtmlComponentFactory(null, null);
     }
 }

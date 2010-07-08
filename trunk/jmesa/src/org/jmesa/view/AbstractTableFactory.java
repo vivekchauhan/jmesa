@@ -22,8 +22,15 @@ import org.jmesa.view.component.Table;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
-public abstract class AbstractTableFactory extends AbstractContextSupport implements TableFactory {
+@Deprecated
+public abstract class AbstractTableFactory implements TableFactory {
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Table createTable(String... columnProperties) {
         ComponentFactory factory = getComponentFactory();
 
@@ -45,5 +52,9 @@ public abstract class AbstractTableFactory extends AbstractContextSupport implem
         return table;
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     protected abstract ComponentFactory getComponentFactory();
 }

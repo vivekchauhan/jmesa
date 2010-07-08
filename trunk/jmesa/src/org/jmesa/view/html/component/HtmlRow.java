@@ -151,8 +151,6 @@ public class HtmlRow extends Row {
     public void setOnclick(RowEvent onclick) {
         this.onclick = onclick;
         SupportUtils.setRow(onclick, this);
-        SupportUtils.setCoreContext(onclick, getCoreContext());
-        SupportUtils.setWebContext(onclick, getWebContext());
     }
 
 	public HtmlRow onclick(RowEvent onclick) {
@@ -187,8 +185,6 @@ public class HtmlRow extends Row {
     public void setOnmouseout(RowEvent onmouseout) {
         this.onmouseout = onmouseout;
         SupportUtils.setRow(onmouseout, this);
-        SupportUtils.setCoreContext(onmouseout, getCoreContext());
-        SupportUtils.setWebContext(onmouseout, getWebContext());
     }
 
 	public HtmlRow onmouseout(RowEvent onmouseout) {
@@ -223,8 +219,6 @@ public class HtmlRow extends Row {
     public void setOnmouseover(RowEvent onmouseover) {
         this.onmouseover = onmouseover;
         SupportUtils.setRow(onmouseover, this);
-        SupportUtils.setCoreContext(onmouseover, getCoreContext());
-        SupportUtils.setWebContext(onmouseover, getWebContext());
     }
 
 	public HtmlRow onmouseover(RowEvent onmouseover) {

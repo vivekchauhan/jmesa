@@ -16,7 +16,6 @@
 package org.jmesa.view.html;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractComponentFactory;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
@@ -35,46 +34,48 @@ import org.jmesa.web.WebContext;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
+@Deprecated
 public class HtmlComponentFactory extends AbstractComponentFactory {
-    public HtmlComponentFactory(WebContext webContext, CoreContext coreContext) {
-        setWebContext(webContext);
-        setCoreContext(coreContext);
-    }
+    public HtmlComponentFactory(WebContext webContext, CoreContext coreContext) {}
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     @Override
     public HtmlTable createTable() {
         HtmlTable table = new HtmlTable();
-        table.setWebContext(getWebContext());
-        table.setCoreContext(getCoreContext());
 
         HtmlTableRendererImpl tableRenderer = new HtmlTableRendererImpl(table);
-        tableRenderer.setWebContext(getWebContext());
-        tableRenderer.setCoreContext(getCoreContext());
         table.setTableRenderer(tableRenderer);
 
         return table;
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     @Override
     public HtmlRow createRow() {
         HtmlRow row = new HtmlRow();
-        row.setWebContext(getWebContext());
-        row.setCoreContext(getCoreContext());
 
         HtmlRowRendererImpl rowRenderer = new HtmlRowRendererImpl(row);
-        rowRenderer.setWebContext(getWebContext());
-        rowRenderer.setCoreContext(getCoreContext());
         row.setRowRenderer(rowRenderer);
 
         return row;
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     @Override
     public CellEditor createBasicCellEditor() {
         HtmlCellEditor editor = new HtmlCellEditor();
-        editor.setWebContext(getWebContext());
-        editor.setCoreContext(getCoreContext());
         return editor;
     }
 
@@ -83,7 +84,9 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
      * 
      * @param property The column property.
      * @return The HtmlColumn instance.
+     * @deprecated Should build components directly now instead of using factory.
      */
+    @Deprecated
     @Override
     public HtmlColumn createColumn(String property) {
         return createColumn(property, createBasicCellEditor());
@@ -93,50 +96,41 @@ public class HtmlComponentFactory extends AbstractComponentFactory {
      * Create a column that does not require cell editor.
      * 
      * @return The HtmlColumn instance.
+     * @deprecated Should build components directly now instead of using factory.
      */
+    @Deprecated
     @Override
     public HtmlColumn createColumn(CellEditor editor) {
         return createColumn(null, editor);
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public HtmlColumn createColumn(String property, CellEditor editor) {
         HtmlColumn column = new HtmlColumn(property);
-        column.setWebContext(getWebContext());
-        column.setCoreContext(getCoreContext());
-
-        SupportUtils.setWebContext(editor, getWebContext());
-        SupportUtils.setCoreContext(editor, getCoreContext());
         
         // cell
 
         HtmlCellRendererImpl cellRenderer = new HtmlCellRendererImpl(column, editor);
-        cellRenderer.setWebContext(getWebContext());
-        cellRenderer.setCoreContext(getCoreContext());
         column.setCellRenderer(cellRenderer);
 
         // filter
         
         HtmlFilterRendererImpl filterRenderer = new HtmlFilterRendererImpl(column);
-        filterRenderer.setWebContext(getWebContext());
-        filterRenderer.setCoreContext(getCoreContext());
         column.setFilterRenderer(filterRenderer);
 
         HtmlFilterEditor filterEditor = new HtmlFilterEditor();
-        filterEditor.setWebContext(getWebContext());
-        filterEditor.setCoreContext(getCoreContext());
         filterEditor.setColumn(column);
         filterRenderer.setFilterEditor(filterEditor);
         
         // header
 
         HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
-        headerRenderer.setWebContext(getWebContext());
-        headerRenderer.setCoreContext(getCoreContext());
         column.setHeaderRenderer(headerRenderer);
 
         HtmlHeaderEditor headerEditor = new HtmlHeaderEditor();
-        headerEditor.setWebContext(getWebContext());
-        headerEditor.setCoreContext(getCoreContext());
         headerEditor.setColumn(column);
         headerRenderer.setHeaderEditor(headerEditor);
 

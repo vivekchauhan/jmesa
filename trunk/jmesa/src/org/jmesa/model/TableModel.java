@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jmesa.core.CoreContext;
 import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
@@ -29,26 +28,13 @@ import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.state.State;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
-import org.jmesa.view.component.Column;
-import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.editor.CellEditor;
-import org.jmesa.view.editor.FilterEditor;
-import org.jmesa.view.editor.HeaderEditor;
-import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.toolbar.Toolbar;
-import org.jmesa.view.renderer.CellRenderer;
-import org.jmesa.view.renderer.FilterRenderer;
-import org.jmesa.view.renderer.HeaderRenderer;
-import org.jmesa.view.renderer.RowRenderer;
-import org.jmesa.view.renderer.TableRenderer;
 import org.jmesa.web.WebContext;
 
 /**
@@ -76,20 +62,20 @@ public class TableModel {
     private TableFacade tableFacade;
 
     public TableModel(String id, HttpServletRequest request) {
-        this.tableFacade = new TableFacadeImpl(id, request);
+        this.tableFacade = new TableFacade(id, request);
     }
 
     public TableModel(String id, HttpServletRequest request, HttpServletResponse response) {
-        this.tableFacade = new TableFacadeImpl(id, request, response);
+        this.tableFacade = new TableFacade(id, request, response);
     }
 
     public TableModel(String id, WebContext webContext) {
-        this.tableFacade = new TableFacadeImpl(id, null);
+        this.tableFacade = new TableFacade(id, null);
         tableFacade.setWebContext(webContext);
     }
 
     public TableModel(String id, WebContext webContext, HttpServletResponse response) {
-        this.tableFacade = new TableFacadeImpl(id, null, response);
+        this.tableFacade = new TableFacade(id, null, response);
         tableFacade.setWebContext(webContext);
     }
 
@@ -234,74 +220,6 @@ public class TableModel {
             tableFacade.setView(view);
         }
 
-        init(table);
-        
         return tableFacade.render();
-    }
-
-    /**
-     * Spin through the components and set the WebContext and CoreContext.
-     */
-    private void init(Table table) {
-        WebContext webContext = tableFacade.getWebContext();
-        CoreContext coreContext = tableFacade.getCoreContext();
-
-        // get the table set up
-
-        init(table, webContext, coreContext);
-
-        TableRenderer tableRenderer = table.getTableRenderer();
-        init(tableRenderer, webContext, coreContext);
-
-        // get the row set up
-        
-        Row row = table.getRow();
-        init(row, webContext, coreContext);
-
-        RowRenderer rowRenderer = row.getRowRenderer();
-        init(rowRenderer, webContext, coreContext);
-
-        // get the column set up
-
-        for (Column column : row.getColumns()) {
-            init(column, webContext, coreContext);
-
-            // cell
-
-            CellRenderer cellRenderer = column.getCellRenderer();
-            init(cellRenderer, webContext, coreContext);
-            SupportUtils.setColumn(cellRenderer, column);
-
-            CellEditor cellEditor = cellRenderer.getCellEditor();
-            init(cellEditor, webContext, coreContext);
-
-            // header
-
-            HeaderRenderer headerRenderer = column.getHeaderRenderer();
-            init(headerRenderer, webContext, coreContext);
-            SupportUtils.setColumn(headerRenderer, column);
-
-            HeaderEditor headerEditor = headerRenderer.getHeaderEditor();
-            init(headerEditor, webContext, coreContext);
-            SupportUtils.setColumn(headerEditor, column);
-
-            // filter
-
-            if (column instanceof HtmlColumn) {
-                HtmlColumn htmlColumn = (HtmlColumn)column;
-                FilterRenderer filterRenderer = htmlColumn.getFilterRenderer();
-                init(filterRenderer, webContext, coreContext);
-                SupportUtils.setColumn(filterRenderer, column);
-
-                FilterEditor filterEditor = filterRenderer.getFilterEditor();
-                init(filterEditor, webContext, coreContext);
-                SupportUtils.setColumn(filterEditor, column);
-            }
-        }
-    }
-
-    private void init(Object obj, WebContext webContext, CoreContext coreContext) {
-        SupportUtils.setWebContext(obj, webContext);
-        SupportUtils.setCoreContext(obj, coreContext);
     }
 }

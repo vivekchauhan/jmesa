@@ -37,46 +37,85 @@ import org.jmesa.worksheet.editor.WorksheetEditor;
  *
  * @since 2.4.6
  * @author Jeff Johnston
+ * 
+ * @deprecated Use the new TableModel for building tables.
  */
+@Deprecated
 public class HtmlTableBuilder {
     private final HtmlComponentFactory componentFactory;
 
     private HtmlTable table;
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public HtmlTableBuilder(TableFacade tableFacade) {
         this.componentFactory = new HtmlComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public TableBuilder htmlTable() {
         table = componentFactory.createTable();
         return new TableBuilder();
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public HtmlTable build() {
         return table;
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public class TableBuilder {
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder htmlRow() {
             return new RowBuilder();
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder caption(String caption) {
             table.setCaption(caption);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder captionKey(String captionKey) {
             table.setCaptionKey(captionKey);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder theme(String theme) {
             table.setTheme(theme);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder tableRenderer(HtmlTableRenderer tableRenderer) {
             // reset in case other variables were set
             HtmlTableRenderer tr = table.getTableRenderer();
@@ -91,85 +130,153 @@ public class HtmlTableBuilder {
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder width(String width) {
             table.getTableRenderer().setWidth(width);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder style(String style) {
             table.getTableRenderer().setStyle(style);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder styleClass(String styleClass) {
             table.getTableRenderer().setStyleClass(styleClass);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder border(String border) {
             table.getTableRenderer().setBorder(border);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder cellpadding(String cellpadding) {
             table.getTableRenderer().setCellpadding(cellpadding);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public TableBuilder cellspacing(String cellspacing) {
             table.getTableRenderer().setCellspacing(cellspacing);
             return this;
         }
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public class RowBuilder {
 
         private final HtmlRow row;
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder() {
             this.row = componentFactory.createRow();
             table.setRow(row);
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder htmlColumn(String property) {
             return new ColumnBuilder(property);
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder uniqueProperty(String uniqueProperty) {
             row.setUniqueProperty(uniqueProperty);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder highlighter(boolean highlighter) {
             row.setHighlighter(highlighter);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder sortable(boolean sortable) {
             row.setSortable(sortable);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder filterable(boolean filterable) {
             row.setFilterable(filterable);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder onclick(RowEvent onclick) {
             row.setOnclick(onclick);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder onmouseover(RowEvent onmouseover) {
             row.setOnmouseover(onmouseover);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder onmouseout(RowEvent onmouseout) {
             row.setOnmouseout(onmouseout);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder rowRenderer(HtmlRowRenderer rowRenderer) {
             HtmlRowRenderer rr = row.getRowRenderer();
             rowRenderer.setStyle(rr.getStyle());
@@ -183,81 +290,145 @@ public class HtmlTableBuilder {
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder style(String style) {
             row.getRowRenderer().setStyle(style);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder styleClass(String styleClass) {
             row.getRowRenderer().setStyleClass(styleClass);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder evenClass(String evenClass) {
             row.getRowRenderer().setEvenClass(evenClass);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder oddClass(String oddClass) {
             row.getRowRenderer().setOddClass(oddClass);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder highlightStyle(String highlightStyle) {
             row.getRowRenderer().setHighlightStyle(highlightStyle);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public RowBuilder highlightClass(String highlightClass) {
             row.getRowRenderer().setHighlightClass(highlightClass);
             return this;
         }
     }
 
+    /**
+     * @deprecated Use the new TableModel for building tables.
+     */
+    @Deprecated
     public class ColumnBuilder {
         
         private final HtmlColumn column;
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder(String property) {
             this.column = componentFactory.createColumn(property);
             table.getRow().addColumn(column);
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder title(String title) {
             column.setTitle(title);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder titleKey(String titleKey) {
             column.setTitleKey(titleKey);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder sortable(boolean sortable) {
             column.setSortable(sortable);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder sortOrder(Order sortOrder) {
             column.setSortOrder(sortOrder);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder filterable(boolean filterable) {
             column.setFilterable(filterable);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder editable(boolean editable) {
             column.setEditable(editable);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder width(String width) {
             column.setWidth(width);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder cellRenderer(HtmlCellRenderer cellRenderer) {
             // reset in case other variables were set
             HtmlCellRenderer cr = column.getCellRenderer();
@@ -270,11 +441,19 @@ public class HtmlTableBuilder {
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder style(String style) {
             column.getCellRenderer().setStyle(style);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder styleClass(String styleClass) {
             column.getCellRenderer().setStyleClass(styleClass);
             return this;
@@ -282,16 +461,28 @@ public class HtmlTableBuilder {
 
         // worksheet
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder worksheetEditor(WorksheetEditor worksheetEditor) {
             column.getCellRenderer().setWorksheetEditor(worksheetEditor);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder addWorksheetValidation(WorksheetValidation worksheetValidation) {
             column.addWorksheetValidation(worksheetValidation);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
             column.addCustomWorksheetValidation(worksheetValidation);
             return this;
@@ -299,6 +490,10 @@ public class HtmlTableBuilder {
 
         // cell
         
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder cellEditor(CellEditor cellEditor) {
             column.getCellRenderer().setCellEditor(cellEditor);
             return this;
@@ -306,6 +501,10 @@ public class HtmlTableBuilder {
 
         // filter
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder filterRenderer(HtmlFilterRenderer filterRenderer) {
             // reset in case other variables were set
             HtmlFilterRenderer fr = column.getFilterRenderer();
@@ -317,16 +516,28 @@ public class HtmlTableBuilder {
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder filterStyle(String filterStyle) {
             column.getFilterRenderer().setStyle(filterStyle);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder filterClass(String filterClass) {
             column.getFilterRenderer().setStyleClass(filterClass);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder filterEditor(FilterEditor filterEditor) {
             column.getFilterRenderer().setFilterEditor(filterEditor);
             return this;
@@ -334,6 +545,10 @@ public class HtmlTableBuilder {
 
         // header
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder headerRenderer(HtmlHeaderRenderer headerRenderer) {
 
             // reset in case other variables were set
@@ -346,21 +561,37 @@ public class HtmlTableBuilder {
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder headerStyle(String headerStyle) {
             column.getHeaderRenderer().setStyle(headerStyle);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder headerClass(String headerClass) {
             column.getHeaderRenderer().setStyleClass(headerClass);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder headerEditor(HeaderEditor headerEditor) {
             column.getHeaderRenderer().setHeaderEditor(headerEditor);
             return this;
         }
 
+        /**
+         * @deprecated Use the new TableModel for building tables.
+         */
+        @Deprecated
         public ColumnBuilder htmlColumn(String property) {
             return new ColumnBuilder(property);
         }

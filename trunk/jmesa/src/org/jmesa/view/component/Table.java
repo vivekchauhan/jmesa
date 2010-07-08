@@ -16,7 +16,6 @@
 package org.jmesa.view.component;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.TableRenderer;
 
@@ -27,9 +26,14 @@ import org.jmesa.view.renderer.TableRenderer;
 public class Table extends AbstractContextSupport {
     private Row row;
     private String caption;
+    private String captionKey;
     private TableRenderer tableRenderer;
 
     public String getCaption() {
+        if (captionKey != null) {
+            return getCoreContext().getMessage(captionKey);
+        }
+
         return caption;
     }
 
@@ -42,14 +46,12 @@ public class Table extends AbstractContextSupport {
     	return this;
     }
 
-    public void setCaptionKey(String key) {
-        if (StringUtils.isNotEmpty(key)) {
-            this.caption = getCoreContext().getMessage(key);
-        }
+    public void setCaptionKey(String captionKey) {
+        this.captionKey = captionKey;
     }
 
-    public Table captionKey(String key) {
-    	setCaptionKey(key);
+    public Table captionKey(String captionKey) {
+    	setCaptionKey(captionKey);
     	return this;
     }
 
@@ -72,11 +74,7 @@ public class Table extends AbstractContextSupport {
 
     public void setTableRenderer(TableRenderer tableRenderer) {
         this.tableRenderer = tableRenderer;
-        
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(tableRenderer, getWebContext());
-        SupportUtils.setCoreContext(tableRenderer, getCoreContext());
-        tableRenderer.setTable(this);
+        this.tableRenderer.setTable(this);
     }
 
     public Table tableRenderer(TableRenderer tableRenderer) {

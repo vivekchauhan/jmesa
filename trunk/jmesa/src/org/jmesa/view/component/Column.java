@@ -17,7 +17,6 @@ package org.jmesa.view.component;
 
 import groovy.lang.Closure;
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.CellEditor;
@@ -34,6 +33,7 @@ import org.jmesa.view.renderer.HeaderRenderer;
 public class Column extends AbstractContextSupport {
     private String property;
     private String title;
+    private String titleKey;
 
     private CellRenderer cellRenderer;
     private CellEditor cellEditor;
@@ -66,6 +66,10 @@ public class Column extends AbstractContextSupport {
     }
     
     public String getTitle() {
+        if (titleKey != null) {
+            return getCoreContext().getMessage(titleKey);
+        }
+
         if (StringUtils.isBlank(title)) {
             return ViewUtils.camelCaseToWord(property);
         }
@@ -82,14 +86,12 @@ public class Column extends AbstractContextSupport {
     	return this;
     }
     
-    public void setTitleKey(String key) {
-        if (StringUtils.isNotBlank(key)) {
-            this.title = getCoreContext().getMessage(key);
-        }
+    public void setTitleKey(String titleKey) {
+        this.titleKey = titleKey;
     }
 
-    public Column titleKey(String key) {
-    	setTitleKey(key);
+    public Column titleKey(String titleKey) {
+    	setTitleKey(titleKey);
     	return this;
     }
     
@@ -99,11 +101,7 @@ public class Column extends AbstractContextSupport {
 
     public void setCellRenderer(CellRenderer cellRenderer) {
         this.cellRenderer = cellRenderer;
-
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(cellRenderer, getWebContext());
-        SupportUtils.setCoreContext(cellRenderer, getCoreContext());
-        SupportUtils.setColumn(cellRenderer, this);
+        this.cellRenderer.setColumn(this);
     }
 
     public Column cellRenderer(CellRenderer cellRenderer) {
@@ -117,11 +115,6 @@ public class Column extends AbstractContextSupport {
 
     public void setCellEditor(CellEditor cellEditor) {
         this.cellEditor = cellEditor;
-
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(cellEditor, getWebContext());
-        SupportUtils.setCoreContext(cellEditor, getCoreContext());
-        SupportUtils.setColumn(cellEditor, this);
     }
 
     public Column cellEditor(CellEditor editor) {
@@ -165,11 +158,7 @@ public class Column extends AbstractContextSupport {
 
     public void setHeaderRenderer(HeaderRenderer headerRenderer) {
         this.headerRenderer = headerRenderer;
-
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(headerRenderer, getWebContext());
-        SupportUtils.setCoreContext(headerRenderer, getCoreContext());
-        SupportUtils.setColumn(headerRenderer, this);
+        this.headerRenderer.setColumn(this);
     }
 
     public Column headerRenderer(HeaderRenderer headerRenderer) {
@@ -183,11 +172,6 @@ public class Column extends AbstractContextSupport {
 
     public void setHeaderEditor(HeaderEditor headerEditor) {
         this.headerEditor = headerEditor;
-
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(headerEditor, getWebContext());
-        SupportUtils.setCoreContext(headerEditor, getCoreContext());
-        SupportUtils.setColumn(headerEditor, this);
     }
 
     public Column headerEditor(HeaderEditor headerEditor) {
@@ -217,11 +201,7 @@ public class Column extends AbstractContextSupport {
 
     public void setFilterRenderer(FilterRenderer filterRenderer) {
         this.filterRenderer = filterRenderer;
-
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(filterRenderer, getWebContext());
-        SupportUtils.setCoreContext(filterRenderer, getCoreContext());
-        SupportUtils.setColumn(filterRenderer, this);
+        this.filterRenderer.setColumn(this);
     }
 
     public Column filterRenderer(FilterRenderer filterRenderer) {
@@ -235,11 +215,6 @@ public class Column extends AbstractContextSupport {
 
     public void setFilterEditor(FilterEditor filterEditor) {
         this.filterEditor = filterEditor;
-
-        //TODO: figure out how to get this removed here
-        SupportUtils.setWebContext(filterEditor, getWebContext());
-        SupportUtils.setCoreContext(filterEditor, getCoreContext());
-        SupportUtils.setColumn(filterEditor, this);
     }
 
     public Column filterEditor(FilterEditor filterEditor) {

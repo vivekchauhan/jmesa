@@ -21,9 +21,16 @@ import org.jmesa.view.ComponentFactory;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
+@Deprecated
 public class CsvTableFactory extends AbstractTableFactory {
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     protected ComponentFactory getComponentFactory() {
-        return new CsvComponentFactory(getWebContext(), getCoreContext());
+        return new CsvComponentFactory(null, null);
     }
 }

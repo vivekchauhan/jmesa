@@ -439,7 +439,7 @@ public class TableFacadeTag extends SimpleTagSupport {
             return componentFactory;
         }
 
-        this.componentFactory = new HtmlComponentFactory(tableFacade.getWebContext(), tableFacade.getCoreContext());
+        this.componentFactory = new HtmlComponentFactory(null, null);
 
         return componentFactory;
     }
@@ -509,8 +509,7 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.getCoreContext().setPageItems(getPageItems());
 
         Worksheet worksheet = tableFacade.getWorksheet();
-        boolean editable = ViewUtils.isEditable(worksheet);
-        if (editable) {
+        if (ViewUtils.isEditable(worksheet)) {
         	if (worksheet.isAddingRow()) {
         		tableFacade.addWorksheetRow(getAddedRowObject());
         	}

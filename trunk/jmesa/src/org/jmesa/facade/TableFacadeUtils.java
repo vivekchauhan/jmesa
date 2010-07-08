@@ -23,14 +23,29 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
 import org.jmesa.util.SupportUtils;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Row;
+import org.jmesa.view.component.Table;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.FilterEditor;
+import org.jmesa.view.editor.HeaderEditor;
+import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.view.renderer.HeaderRenderer;
+import org.jmesa.view.renderer.RowRenderer;
+import org.jmesa.view.renderer.TableRenderer;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetRow;
+import org.jmesa.worksheet.editor.WorksheetEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,5 +135,82 @@ public class TableFacadeUtils {
         SupportUtils.setStateAttr(state, stateAttr);
         SupportUtils.setWebContext(state, webContext);
         return state.retrieveLimit();
+    }
+
+    /**
+     * Spin through the components and set the WebContext and CoreContext.
+     */
+    public static void initTable(TableFacade tableFacade, Table table) {
+        WebContext webContext = tableFacade.getWebContext();
+        CoreContext coreContext = tableFacade.getCoreContext();
+
+        // get the table set up
+
+        init(table, webContext, coreContext);
+
+        TableRenderer tableRenderer = table.getTableRenderer();
+        init(tableRenderer, webContext, coreContext);
+
+        // get the row set up
+
+        Row row = table.getRow();
+        init(row, webContext, coreContext);
+
+        if (row instanceof HtmlRow) {
+            HtmlRow htmlRow = (HtmlRow)row;
+            init(htmlRow.getOnclick(), webContext, coreContext);
+            init(htmlRow.getOnmouseover(), webContext, coreContext);
+            init(htmlRow.getOnmouseout(), webContext, coreContext);
+        }
+
+        RowRenderer rowRenderer = row.getRowRenderer();
+        init(rowRenderer, webContext, coreContext);
+
+        // get the column set up
+
+        for (Column column : row.getColumns()) {
+            init(column, webContext, coreContext);
+
+            // cell
+
+            CellRenderer cellRenderer = column.getCellRenderer();
+            init(cellRenderer, webContext, coreContext);
+
+            CellEditor cellEditor = column.getCellEditor();
+            init(cellEditor, webContext, coreContext);
+            SupportUtils.setColumn(cellEditor, column);
+
+            // header
+
+            HeaderRenderer headerRenderer = column.getHeaderRenderer();
+            init(headerRenderer, webContext, coreContext);
+
+            HeaderEditor headerEditor = column.getHeaderEditor();
+            init(headerEditor, webContext, coreContext);
+            SupportUtils.setColumn(headerEditor, column);
+
+            // filter
+
+            if (column instanceof HtmlColumn) {
+                HtmlColumn htmlColumn = (HtmlColumn)column;
+                
+                WorksheetEditor worksheetEditor = htmlColumn.getWorksheetEditor();
+                init(worksheetEditor, webContext, coreContext);
+                SupportUtils.setColumn(worksheetEditor, column);
+
+                FilterRenderer filterRenderer = htmlColumn.getFilterRenderer();
+                init(filterRenderer, webContext, coreContext);
+                SupportUtils.setColumn(filterRenderer, column);
+
+                FilterEditor filterEditor = column.getFilterEditor();
+                init(filterEditor, webContext, coreContext);
+                SupportUtils.setColumn(filterEditor, column);
+            }
+        }
+    }
+
+    private static void init(Object obj, WebContext webContext, CoreContext coreContext) {
+        SupportUtils.setWebContext(obj, webContext);
+        SupportUtils.setCoreContext(obj, coreContext);
     }
 }

@@ -26,43 +26,49 @@ import org.jmesa.view.editor.NumberCellEditor;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
-public abstract class AbstractComponentFactory extends AbstractContextSupport implements ComponentFactory {
+@Deprecated
+public abstract class AbstractComponentFactory implements ComponentFactory {
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Table createTable() {
-        Table table = new Table();
-        table.setWebContext(getWebContext());
-        table.setCoreContext(getCoreContext());
-
-        return table;
+        return new Table();
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public Row createRow() {
-        Row row = new Row();
-        row.setWebContext(getWebContext());
-        row.setCoreContext(getCoreContext());
-
-        return row;
+        return new Row();
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public CellEditor createBasicCellEditor() {
-        BasicCellEditor editor = new BasicCellEditor();
-        editor.setWebContext(getWebContext());
-        editor.setCoreContext(getCoreContext());
-        return editor;
+        return new BasicCellEditor();
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public CellEditor createDateCellEditor(String pattern) {
-        DateCellEditor editor = new DateCellEditor(pattern);
-        editor.setWebContext(getWebContext());
-        editor.setCoreContext(getCoreContext());
-        return editor;
+        return new DateCellEditor(pattern);
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     public CellEditor createNumberCellEditor(String pattern) {
-        NumberCellEditor editor = new NumberCellEditor(pattern);
-        editor.setWebContext(getWebContext());
-        editor.setCoreContext(getCoreContext());
-        return editor;
+        return new NumberCellEditor(pattern);
     }
 
     /**
@@ -70,7 +76,9 @@ public abstract class AbstractComponentFactory extends AbstractContextSupport im
      * 
      * @param property The column property.
      * @return The HtmlColumn instance.
+     * @deprecated Should build components directly now instead of using factory.
      */
+    @Deprecated
     public Column createColumn(String property) {
         return createColumn(property, createBasicCellEditor());
     }
@@ -79,7 +87,9 @@ public abstract class AbstractComponentFactory extends AbstractContextSupport im
      * Create a column that does not require a property.
      * 
      * @return The HtmlColumn instance.
+     * @deprecated Should build components directly now instead of using factory.
      */
+    @Deprecated
     public Column createColumn(CellEditor editor) {
         return createColumn(null, editor);
     }
