@@ -65,7 +65,7 @@ public class BasicPresidentController extends AbstractController {
 
         // first name
 
-        HtmlColumn firstName = new HtmlColumn().property("name.firstName").title("First Name");
+        HtmlColumn firstName = new HtmlColumn("name.firstName").title("First Name");
         firstName.setCellEditor(new CellEditor() {
             public Object getValue(Object item, String property, int rowcount) {
                 Object value = new HtmlCellEditor().getValue(item, property, rowcount);
@@ -80,17 +80,17 @@ public class BasicPresidentController extends AbstractController {
 
         // last name
 
-        HtmlColumn lastName = new HtmlColumn().property("name.lastName").title("Last Name");
+        HtmlColumn lastName = new HtmlColumn("name.lastName").title("Last Name");
         htmlRow.addColumn(lastName);
 
         // career
 
-        HtmlColumn career = new HtmlColumn().property("career").filterEditor(new DroplistFilterEditor());
+        HtmlColumn career = new HtmlColumn("career").filterEditor(new DroplistFilterEditor());
         htmlRow.addColumn(career);
 
         // born
 
-        HtmlColumn born = new HtmlColumn().property("born").cellEditor(new DateCellEditor("MM/yyyy"));
+        HtmlColumn born = new HtmlColumn("born").cellEditor(new DateCellEditor("MM/yyyy"));
         htmlRow.addColumn(born);
 
         tableModel.setTable(htmlTable);
