@@ -96,17 +96,6 @@ import org.slf4j.LoggerFactory;
  * </p>
  *
  * <p>
- * The simple example is:
- * </p>
- *
- * <pre>
- *  TableFacade tableFacade = new TableFacadeImpl(id, request);
- *  tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");\
- *  tableFacade.setItems(items);
- *  String html = tableFacade.render();
- * </pre>
- *
- * <p>
  * Notice how there are no factories to deal with. However any API Object that you would have used
  * before is available through the facade, including the WebContext, CoreContext, Limit, Table,
  * Toolbar, and View. When you ask the facade for a given object it builds everything it needs up to
@@ -115,7 +104,7 @@ import org.slf4j.LoggerFactory;
  * </p>
  *
  * <p>
- * The TableFacade interface also has setters for all the facade objects including the WebContext,
+ * The TableFacade also has setters for all the facade objects including the WebContext,
  * CoreContext, Limit, Table, Toolbar, and View. The reason is if you really need to customize
  * something and want to set your own implementation you can. Your object just goes into the flow of
  * the facade. For instance if you want a custom toolbar just set the Toolbar on the facade and when
@@ -131,7 +120,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class TableFacade {
-    private Logger logger = LoggerFactory.getLogger(TableFacadeImpl.class);
+    private Logger logger = LoggerFactory.getLogger(TableFacade.class);
 
     private HttpServletRequest request;
     private HttpServletResponse response;
@@ -157,7 +146,7 @@ public class TableFacade {
     private boolean autoFilterAndSort = true;
     private boolean editable;
     private Worksheet worksheet;
-    private WorksheetState wst;
+    private WorksheetState worksheetState;
 
     /**
      * <p>
@@ -179,7 +168,7 @@ public class TableFacade {
      *
      * @param id The unique identifier for this table.
      * @param request The servlet request object.
-     * @param response The servlet response object.
+     * @param response The servlet response object used for the exports.
      */
     public TableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
         this.id = id;
@@ -217,8 +206,6 @@ public class TableFacade {
 
     /**
      * Get the WebContext. If the WebContext does not exist then one will be created.
-     *
-     * @return The WebContext to use.
      */
     public WebContext getWebContext() {
         if (webContext == null) {
@@ -230,8 +217,6 @@ public class TableFacade {
 
     /**
      * Set the WebContext on the facade. This will override the WebContext if it was previously set.
-     *
-     * @param webContext The WebContext to use.
      */
     public void setWebContext(WebContext webContext) {
         this.webContext = webContext;
@@ -244,8 +229,7 @@ public class TableFacade {
 
     /**
      * <p>
-     * This feature will enable the table to be put in an editable state. Until the 2.3 release is officially out
-     * this feature is in an alpha state.
+     * This feature will enable the table to be put in an editable state.
      * </p>
      *
      * @param editable If true will put table in an editable state.
@@ -258,11 +242,8 @@ public class TableFacade {
     }
 
     /**
-     * <p>
      * Get the Worksheet.
-     * </p>
-     *
-     * @return The current Worksheet.
+     * 
      * @since 2.3
      */
     public Worksheet getWorksheet() {
@@ -270,8 +251,8 @@ public class TableFacade {
             return worksheet;
         }
 
-        wst = getWorksheetState();
-        Worksheet ws = wst.retrieveWorksheet();
+        this.worksheetState = getWorksheetState();
+        Worksheet ws = worksheetState.retrieveWorksheet();
 
         if (ws == null || !isTableRefreshing(id, getWebContext())) {
             ws = new WorksheetImpl(id, getMessages());
@@ -304,18 +285,19 @@ public class TableFacade {
         persistWorksheet(ws);
     }
 
+    /**
+     * Get the WorksheetState.
+     */
     private WorksheetState getWorksheetState() {
-    	if (wst == null) {
+    	if (worksheetState == null) {
     		return new SessionWorksheetState(id, getWebContext());
     	}
 
-    	return wst;
+    	return worksheetState;
     }
 
     /**
-     * <p>
-     * Saves the worksheet in session.
-     * </p>
+     * Saves the worksheet.
      *
      * @since 2.5.2
      */
@@ -324,7 +306,7 @@ public class TableFacade {
     }
 
     /**
-     * Remove a worksheet row
+     * Remove a worksheet row.
      */
     public void removeWorksheetRow() {
         String up = getLimit().getId() + "_" +  WorksheetWrapper.REMOVE_WORKSHEET_ROW;
@@ -376,8 +358,6 @@ public class TableFacade {
      * If using the State interface then be sure to call the setStateAttr() method on the facade before
      * calling the Limit.
      * </p>
-     *
-     * @return The Limit to use.
      */
     public Limit getLimit() {
         if (limit != null) {
@@ -412,8 +392,6 @@ public class TableFacade {
 
     /**
      * Set the Limit on the facade. This will override the Limit if it was previously set.
-     *
-     * @param limit The Limit to use.
      */
     public void setLimit(Limit limit) {
         validateCoreContextIsNull(coreContext, "Limit");
@@ -426,7 +404,10 @@ public class TableFacade {
      * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit.
      *
      * @return The totalRows to set on the Limit.
+     * 
+     * @deprecated Setting the total rows is now handled in the TableModel PageResults object.
      */
+    @Deprecated
     public RowSelect setTotalRows(int totalRows) {
         RowSelect rowSelect;
 
@@ -443,7 +424,7 @@ public class TableFacade {
         return rowSelect;
     }
 
-    State getState() {
+    public State getState() {
         if (state != null) {
             return state;
         }
@@ -461,8 +442,6 @@ public class TableFacade {
 
     /**
      * Sets the State on the facade.
-     *
-     * @param state The state to use.
      */
     public void setState(State state) {
         validateLimitIsNull(limit, "state");
@@ -499,7 +478,10 @@ public class TableFacade {
         this.autoFilterAndSort = autoFilterAndSort;
     }
 
-    Messages getMessages() {
+    /**
+     * Get the Messages. If the Messages does not exist then one will be created.
+     */
+    public Messages getMessages() {
         if (messages != null) {
             return messages;
         }
@@ -510,8 +492,6 @@ public class TableFacade {
 
     /**
      * Set the Messages on the facade. This will override the Messages if it was previously set.
-     *
-     * @param messages The Messages to use.
      */
     public void setMessages(Messages messages) {
         validateCoreContextIsNull(coreContext, "Messages");
@@ -522,8 +502,6 @@ public class TableFacade {
 
     /**
      * Get the Preferences. If the Preferences does not exist then one will be created.
-     *
-     * @return The Preferences to use.
      */
     public Preferences getPreferences() {
         if (preferences != null) {
@@ -537,8 +515,6 @@ public class TableFacade {
     /**
      * Set the Preferences on the facade. This will override the Preferences if it was previously
      * set.
-     *
-     * @param preferences The Preferences to use.
      */
     public void setPreferences(Preferences preferences) {
         validateCoreContextIsNull(coreContext, "Preferences");
@@ -550,9 +526,6 @@ public class TableFacade {
     /**
      * Add a FilterMatcher on the facade. This will override the FilterMatcher if it was previously
      * set.
-     *
-     * @param key The MatcherKey to use.
-     * @param matcher The FilterMatcher to use.
      */
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
         validateCoreContextIsNull(coreContext, "FilterMatcher");
@@ -574,8 +547,6 @@ public class TableFacade {
      * Most useful for the tag library because they have to use the FilterMatcherMap to register
      * filter matcher strategies, but could also be used as a way to bundle up filter matchers.
      * </p>
-     *
-     * @param filterMatcherMap The FilterMatcherMap to use.
      */
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
         validateCoreContextIsNull(coreContext, "FilterMatcher");
@@ -596,8 +567,6 @@ public class TableFacade {
 
     /**
      * Set the ColumnSort on the facade. This will override the ColumnSort if it was previously set.
-     *
-     * @param columnSort The ColumnSort to use.
      */
     public void setColumnSort(ColumnSort columnSort) {
         validateCoreContextIsNull(coreContext, "ColumnSort");
@@ -608,8 +577,6 @@ public class TableFacade {
 
     /**
      * Set the RowFilter on the facade. This will override the RowFilter if it was previously set.
-     *
-     * @param rowFilter The RowFilter to use.
      */
     public void setRowFilter(RowFilter rowFilter) {
         validateCoreContextIsNull(coreContext, "RowFilter");
@@ -648,8 +615,6 @@ public class TableFacade {
     /**
      * Set the maxRows on the facade. The max rows is the total rows that will display
      * on one page. This will override the maxRows if it was previously set.
-     *
-     * @param maxRows The maxRows to use.
      */
     public void setMaxRows(int maxRows) {
         validateCoreContextIsNull(coreContext, "maxRows");
@@ -673,8 +638,6 @@ public class TableFacade {
 
     /**
      * Get the CoreContext. If the CoreContext does not exist then one will be created.
-     *
-     * @return The CoreContext to use.
      */
     public CoreContext getCoreContext() {
         if (coreContext != null) {
@@ -702,10 +665,7 @@ public class TableFacade {
     }
 
     /**
-     * Set the CoreContext on the facade. This will override the CoreContext if it was previously
-     * set.
-     *
-     * @param coreContext The CoreContext to use.
+     * Set the CoreContext on the facade. This will override the CoreContext if it was previously set.
      */
     public void setCoreContext(CoreContext coreContext) {
         validateTableIsNull(table, "CoreContext");
@@ -716,10 +676,9 @@ public class TableFacade {
 
     /**
      * Get the Table. If the Table does not exist then one will be created.
-     *
-     * @return The Table to use.
      */
     public Table getTable() {
+        //TODO: the follow code should be removed when the 3.0 deprecated methods are removed.
         if (table == null) {
             validateColumnPropertiesIsNotNull(columnProperties);
 
@@ -742,6 +701,8 @@ public class TableFacade {
 
     protected Table getExportTable(ExportType exportType) {
 
+        //TODO: the follow code should be removed when the 3.0 deprecated methods are removed.
+        
         TableFactory tableFactory = null;
 
         if (exportType == ExportType.CSV) {
@@ -765,8 +726,6 @@ public class TableFacade {
 
     /**
      * Set the Table on the facade. This will override the Table if it was previously set.
-     *
-     * @param table The Table to use.
      */
     public void setTable(Table table) {
         validateViewIsNull(view, "Table");
@@ -776,8 +735,6 @@ public class TableFacade {
 
     /**
      * Get the Toolbar. If the Toolbar does not exist then one will be created.
-     *
-     * @return The Toolbar to use.
      */
     public Toolbar getToolbar() {
         if (toolbar != null) {
@@ -796,8 +753,6 @@ public class TableFacade {
 
     /**
      * Set the Toolbar on the facade. This will override the Toolbar if it was previously set.
-     *
-     * @param toolbar The Toolbar to use.
      */
     public void setToolbar(Toolbar toolbar) {
         validateViewIsNull(view, "Toolbar");
@@ -813,8 +768,6 @@ public class TableFacade {
     /**
      * Set the comma separated list of values to use for the max rows droplist. Be sure that one of
      * the values is the same as the maxRows set on the facade.
-     *
-     * @param maxRowsIncrements The max rows increments to use.
      */
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
         validateToolbarIsNull(toolbar, "maxRowsIncrements");
@@ -824,8 +777,6 @@ public class TableFacade {
 
     /**
      * Get the View. If the View does not exist then one will be created.
-     *
-     * @return The View to use.
      */
     public View getView() {
         if (view != null) {
@@ -871,8 +822,6 @@ public class TableFacade {
 
     /**
      * Set the View on the facade. This will override the View if it was previously set.
-     *
-     * @param view The View to use.
      */
     public void setView(View view) {
         this.view = view;

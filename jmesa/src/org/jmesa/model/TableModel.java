@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
@@ -50,7 +51,9 @@ public class TableModel {
     private ExportType[] exportTypes;
     private State state;
     private String stateAttr;
+    private boolean autoFilterAndSort = true;
     private Map<MatcherKey, FilterMatcher> filterMatchers;
+    private FilterMatcherMap filterMatcherMap;
     private ColumnSort columnSort;
     private RowFilter rowFilter;
     private int maxRows;
@@ -107,11 +110,19 @@ public class TableModel {
         this.stateAttr = stateAttr;
     }
 
+    public void autoFilterAndSort(boolean autoFilterAndSort) {
+        this.autoFilterAndSort = autoFilterAndSort;
+    }
+
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
         if (filterMatchers == null) {
             filterMatchers = new HashMap<MatcherKey, FilterMatcher>();
         }
         filterMatchers.put(key, matcher);
+    }
+
+    public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
+        this.filterMatcherMap = filterMatcherMap;
     }
 
     public void setColumnSort(ColumnSort columnSort) {
@@ -142,6 +153,12 @@ public class TableModel {
         this.table = table;
     }
 
+    /**
+     * Generate the view.
+     *
+     * @return An html generated table will return the String markup. An export will be written out
+     *         to the response and this method will return null.
+     */
     public String render() {
         if (preferences != null) {
             tableFacade.setPreferences(preferences);
@@ -219,6 +236,8 @@ public class TableModel {
         if (view != null) {
             tableFacade.setView(view);
         }
+
+        tableFacade.autoFilterAndSort(autoFilterAndSort);
 
         return tableFacade.render();
     }

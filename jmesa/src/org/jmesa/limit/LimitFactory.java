@@ -23,8 +23,7 @@ import org.jmesa.web.WebContext;
 
 /**
  * <p>
- * Uses the default implementation of the Limit and RowSelect to construct a Limit and a RowSelect
- * implementation object.
+ * Constructs a Limit and a RowSelect object.
  * </p>
  *
  * <p>
@@ -39,8 +38,7 @@ import org.jmesa.web.WebContext;
  * <pre>
  * String id = &quot;pres&quot;;
  * WebContext webContext = new HttpServletRequestWebContext(request);
- *
- * LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
+ * LimitFactory limitFactory = new LimitFactory(id, webContext);
  * Limit limit = limitFactory.createLimit();
  * </pre>
  *
@@ -70,7 +68,7 @@ import org.jmesa.web.WebContext;
  * </p>
  *
  * <pre>
- * LimitFactory limitFactory = new LimitFactoryImpl(id, webContext);
+ * LimitFactory limitFactory = new LimitFactory(id, webContext);
  * Limit limit = limitFactory.createLimitAndRowSelect(maxRows, totalRows);
  * </pre>
  *
@@ -80,7 +78,7 @@ import org.jmesa.web.WebContext;
  * </p>
  *
  * <pre>
- * RowSelect rowSelect = new RowSelectImpl(1, totalRows, totalRows);
+ * RowSelect rowSelect = new RowSelect(1, totalRows, totalRows);
  * limit.setRowSelect(rowSelect);
  * </pre>
  *
@@ -112,6 +110,7 @@ public class LimitFactory {
      * Limit by the id.
      *
      * @param stateAttr The parameter that will be searched to see if the state should be used.
+     * 
      * @deprecated The State should be set directly on the Limit. This really should not be a part of the interface because
      *             it is an implementation detail.
      */
@@ -137,8 +136,6 @@ public class LimitFactory {
      * filter and sort the table to only return one page of data. If you are doing that then you
      * should use the FilterSet to manually filter the table to figure out the totalRows.
      * </p>
-     *
-     * @return The created Limit object.
      */
     public Limit createLimit() {
         Limit limit = getStateLimit();
@@ -174,14 +171,12 @@ public class LimitFactory {
      *
      * <p>
      * If you do not want the RowSelect to be created based on how the user is interacting with the
-     * table, then do not use this method. Instead you should instantiate the RowSelectImpl object
+     * table, then do not use this method. Instead you should instantiate the RowSelect object
      * yourself and set it on the Limit.
      * </p>
      *
      * @param maxRows The maximum page rows that should be displayed on the current page.
      * @param totalRows The total rows across all the pages.
-     *
-     * @return The created RowSelect object.
      */
     public RowSelect createRowSelect(int maxRows, int totalRows) {
         int page = limitActionFactory.getPage();
@@ -192,28 +187,9 @@ public class LimitFactory {
     }
 
     /**
-     * <p>
-     * Create the RowSelect object. This is created with dynamic values for the page and maxRows.
-     * What this means is if the user is paginating or selected a different maxRows on the table
-     * then the RowSelect will be created using those values.
-     * </p>
-     *
-     * <p>
-     * In additon set the RowSelect on the Limit at the same time. This is a convenience method to
-     * make things a little easier.
-     * </p>
-     *
-     * <p>
-     * If you do not want the RowSelect to be created based on how the user is interacting with the
-     * table, then do not use this method. Instead you should instantiate the RowSelectImpl object
-     * yourself and set it on the Limit.
-     * </p>
-     *
-     * @param maxRows The maximum page rows that should be displayed on the current page.
-     * @param totalRows The total rows across all the pages.
-     *
-     * @return The created RowSelect object.
+     * @deprecated Because the Limit is injected this is not a very good factory method.
      */
+    @Deprecated
     public RowSelect createRowSelect(int maxRows, int totalRows, Limit limit) {
         RowSelect rowSelect = createRowSelect(maxRows, totalRows);
         limit.setRowSelect(rowSelect);

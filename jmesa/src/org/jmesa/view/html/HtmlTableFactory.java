@@ -21,13 +21,24 @@ import org.jmesa.view.html.component.HtmlTable;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated Should build components directly now instead of using factory.
  */
+@Deprecated
 public class HtmlTableFactory extends AbstractTableFactory {
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     @Override
     public HtmlTable createTable(String... columnProperties) {
         return (HtmlTable) super.createTable(columnProperties);
     }
 
+    /**
+     * @deprecated Should build components directly now instead of using factory.
+     */
+    @Deprecated
     @Override
     protected HtmlComponentFactory getComponentFactory() {
         return new HtmlComponentFactory(null, null);
