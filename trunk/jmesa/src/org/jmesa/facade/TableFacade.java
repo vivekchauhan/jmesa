@@ -355,8 +355,7 @@ public class TableFacade {
      * </p>
      *
      * <p>
-     * If using the State interface then be sure to call the setStateAttr() method on the facade before
-     * calling the Limit.
+     * If using the State interface then be sure to set that on the facade before requesting the Limit.
      * </p>
      */
     public Limit getLimit() {
@@ -368,21 +367,33 @@ public class TableFacade {
         limitFactory.setState(getState());
         Limit l = limitFactory.createLimit();
 
-        if (l.isComplete()) {
-            this.limit = l;
+        /*
+         * We will have a RowSelect if the State returned a Limit. However,
+         * we will still need to re-populate the Limit's RowSelect based
+         * on what the current items (if available) total rowcount is.
+         */
+        if (l.hasRowSelect()) {
             if (items != null) {
                 int p = l.getRowSelect().getPage();
                 int mr = l.getRowSelect().getMaxRows();
-                l.setRowSelect(new RowSelect(p, mr, items.size()));
+                RowSelect rowSelect = new RowSelect(p, mr, items.size());
+                l.setRowSelect(rowSelect);
             }
+            this.limit = l;
             return limit;
         }
 
+        /*
+         * We need to populate the Limit's RowSelect based on what the current
+         * items (if available) total rowcount is.
+         */
         if (items != null) {
-            if (l.isExported()) {
-                l.setRowSelect(new RowSelect(1, items.size(), items.size()));
+            if (l.hasExport()) {
+                RowSelect rowSelect = new RowSelect(1, items.size(), items.size());
+                l.setRowSelect(rowSelect);
             } else {
-                limitFactory.createRowSelect(getMaxRows(), items.size(), l);
+                RowSelect rowSelect = limitFactory.createRowSelect(getMaxRows(), items.size());
+                l.setRowSelect(rowSelect);
             }
         }
 
@@ -404,22 +415,20 @@ public class TableFacade {
      * set the RowSelect on the Limit. Using this method will set the RowSelect on the Limit.
      *
      * @return The totalRows to set on the Limit.
-     * 
-     * @deprecated Setting the total rows is now handled in the TableModel PageResults object.
      */
-    @Deprecated
     public RowSelect setTotalRows(int totalRows) {
         RowSelect rowSelect;
 
         Limit l = getLimit();
 
-        if (l.isExported()) {
+        if (l.hasExport()) {
             rowSelect = new RowSelect(1, totalRows, totalRows);
-            l.setRowSelect(rowSelect);
         } else {
             LimitFactory limitFactory = new LimitFactory(id, getWebContext());
-            rowSelect = limitFactory.createRowSelect(getMaxRows(), totalRows, l);
+            rowSelect = limitFactory.createRowSelect(getMaxRows(), totalRows);
         }
+           
+        l.setRowSelect(rowSelect);
 
         return rowSelect;
     }
@@ -602,7 +611,7 @@ public class TableFacade {
         }
     }
 
-    int getMaxRows() {
+    public int getMaxRows() {
         if (maxRows == 0) {
             Preferences pref = getPreferences();
             String mr = pref.getPreference(LIMIT_ROWSELECT_MAXROWS);

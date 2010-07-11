@@ -132,6 +132,11 @@ public class LimitFactory {
      * </p>
      *
      * <p>
+     * Also note that if you are using the State feature the returned object will be the Limit as
+     * it exists in the State.
+     * </p>
+     *
+     * <p>
      * One reason to create the Limit separately from the RowSelect is if you are going to manually
      * filter and sort the table to only return one page of data. If you are doing that then you
      * should use the FilterSet to manually filter the table to figure out the totalRows.
@@ -155,7 +160,7 @@ public class LimitFactory {
         ExportType exportType = limitActionFactory.getExportType();
         limit.setExportType(exportType);
 
-        if (state != null && !limit.isExported()) {
+        if (state != null && !limit.hasExport()) {
             state.persistLimit(limit);
         }
 
@@ -227,11 +232,11 @@ public class LimitFactory {
     public Limit createLimitAndRowSelect(int maxRows, int totalRows) {
         Limit limit = createLimit();
 
-        if (limit.isComplete()) {
+        if (limit.hasRowSelect()) {
             return limit;
         }
 
-        if (limit.isExported()) {
+        if (limit.hasExport()) {
             RowSelect rowSelect = new RowSelect(1, totalRows, totalRows);
             limit.setRowSelect(rowSelect);
         } else {
