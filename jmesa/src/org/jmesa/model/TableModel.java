@@ -51,6 +51,7 @@ public class TableModel {
     private ExportType[] exportTypes;
     private State state;
     private String stateAttr;
+    private Limit limit;
     private boolean autoFilterAndSort = true;
     private Map<MatcherKey, FilterMatcher> filterMatchers;
     private FilterMatcherMap filterMatcherMap;
@@ -108,6 +109,10 @@ public class TableModel {
 
     public void setStateAttr(String stateAttr) {
         this.stateAttr = stateAttr;
+    }
+
+    public void setLimit(Limit limit) {
+        this.limit = limit;
     }
 
     public void autoFilterAndSort(boolean autoFilterAndSort) {
@@ -186,6 +191,10 @@ public class TableModel {
             }
         }
 
+        if (filterMatcherMap != null) {
+            tableFacade.addFilterMatcherMap(filterMatcherMap);
+        }
+
         if (columnSort != null) {
             tableFacade.setColumnSort(columnSort);
         }
@@ -202,28 +211,23 @@ public class TableModel {
             tableFacade.setMaxRowsIncrements(maxRowsIncrements);
         }
 
-        Limit limit = tableFacade.getLimit();
-        if (pageResults != null) {
-            int totalRows = pageResults.getTotalRows(limit);
-            if (limit.isComplete()) {
-                int p = limit.getRowSelect().getPage();
-                int mr = limit.getRowSelect().getMaxRows();
-                limit.setRowSelect(new RowSelect(p, mr, totalRows));
+        if (limit != null) {
+            tableFacade.setLimit(limit);
+        } else if (pageResults != null) {
+            Limit l = tableFacade.getLimit();
+            int totalRows = pageResults.getTotalRows(l);
+            if (l.hasRowSelect()) {
+                int p = l.getRowSelect().getPage();
+                int mr = l.getRowSelect().getMaxRows();
+                l.setRowSelect(new RowSelect(p, mr, totalRows));
             } else {
                 tableFacade.setTotalRows(totalRows);
             }
-            this.items = pageResults.getItems(limit);
-            tableFacade.setItems(items);
-        } else {
-            tableFacade.setItems(items);
-            if (limit.isComplete()) {
-                int p = limit.getRowSelect().getPage();
-                int mr = limit.getRowSelect().getMaxRows();
-                limit.setRowSelect(new RowSelect(p, mr, items.size()));
-            } else {
-                tableFacade.setTotalRows(items.size());
-            }
+            this.items = pageResults.getItems(l);
         }
+        
+        tableFacade.setItems(items);
+        tableFacade.autoFilterAndSort(autoFilterAndSort);
 
         if (table != null) {
             tableFacade.setTable(table);
@@ -236,8 +240,6 @@ public class TableModel {
         if (view != null) {
             tableFacade.setView(view);
         }
-
-        tableFacade.autoFilterAndSort(autoFilterAndSort);
 
         return tableFacade.render();
     }

@@ -113,8 +113,22 @@ public class Limit implements Serializable {
      * </p>
      *
      * @return Is true if the user invoked an export.
+     * 
+     * @deprecated Use the better named method hasExport().
      */
+    @Deprecated
     public boolean isExported() {
+        return getExportType() != null;
+    }
+
+    /**
+     * <p>
+     * Check to see if the user is trying to export a table.
+     * </p>
+     *
+     * @return Is true if the user invoked an export.
+     */
+    public boolean hasExport() {
         return getExportType() != null;
     }
 
@@ -131,6 +145,14 @@ public class Limit implements Serializable {
         this.exportType = exportType;
     }
 
+    public boolean hasRowSelect() {
+        return rowSelect != null;
+    }
+
+    /**
+     * @deprecated Use the better named method hasRowSelect().
+     */
+    @Deprecated
     public boolean isComplete() {
         if (rowSelect != null) {
             return true;
