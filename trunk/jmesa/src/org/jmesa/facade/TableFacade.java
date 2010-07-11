@@ -365,39 +365,33 @@ public class TableFacade {
 
         LimitFactory limitFactory = new LimitFactory(id, getWebContext());
         limitFactory.setState(getState());
-        Limit l = limitFactory.createLimit();
+        this.limit = limitFactory.createLimit();
 
-        /*
-         * We will have a RowSelect if the State returned a Limit. However,
-         * we will still need to re-populate the Limit's RowSelect based
-         * on what the current items (if available) total rowcount is.
-         */
-        if (l.hasRowSelect()) {
-            if (items != null) {
-                int p = l.getRowSelect().getPage();
-                int mr = l.getRowSelect().getMaxRows();
-                RowSelect rowSelect = new RowSelect(p, mr, items.size());
-                l.setRowSelect(rowSelect);
-            }
-            this.limit = l;
+        if (items == null) {
             return limit;
         }
 
         /*
-         * We need to populate the Limit's RowSelect based on what the current
-         * items (if available) total rowcount is.
+         * We will have a RowSelect if the State returned a Limit. However,
+         * we will still need to re-populate the Limit's RowSelect based
+         * on what the current items total rowcount is.
+         *
+         * If we do not have a RowSelect then we need to populate the Limit's
+         * RowSelect based on what the current items total rowcount is.
          */
-        if (items != null) {
-            if (l.hasExport()) {
-                RowSelect rowSelect = new RowSelect(1, items.size(), items.size());
-                l.setRowSelect(rowSelect);
-            } else {
-                RowSelect rowSelect = limitFactory.createRowSelect(getMaxRows(), items.size());
-                l.setRowSelect(rowSelect);
-            }
+        if (limit.hasRowSelect()) {
+            int p = limit.getRowSelect().getPage();
+            int mr = limit.getRowSelect().getMaxRows();
+            RowSelect rowSelect = new RowSelect(p, mr, items.size());
+            limit.setRowSelect(rowSelect);
+        } else if (limit.hasExport()) {
+            RowSelect rowSelect = new RowSelect(1, items.size(), items.size());
+            limit.setRowSelect(rowSelect);
+        } else {
+            RowSelect rowSelect = limitFactory.createRowSelect(getMaxRows(), items.size());
+            limit.setRowSelect(rowSelect);
         }
 
-        this.limit = l;
         return limit;
     }
 
