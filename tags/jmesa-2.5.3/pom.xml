@@ -1,0 +1,374 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>2</version>
+  </parent>
+
+  <groupId>org.jmesa</groupId>
+  <artifactId>jmesa</artifactId>
+  <version>2.5.2</version>
+  <packaging>jar</packaging>
+
+  <name>jmesa</name>
+  <description>jmesa</description>
+  <inceptionYear>2007</inceptionYear>
+  <url>http://code.google.com/p/jmesa</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:svn:http://jmesa.googlecode.com/svn/trunk/jmesa</connection>
+    <developerConnection>scm:svn:https://jmesa.googlecode.com/svn/trunk/jmesa</developerConnection>
+    <url>http://jmesa.googlecode.com/svn/trunk/jmesa</url>
+  </scm>
+
+  <properties>
+    <!-- General Values -->
+    <compileSource>1.5</compileSource>
+
+    <!-- Maven plugins versions -->
+    <compilerPluginVersion>2.2</compilerPluginVersion>
+    <surefirePluginVersion>2.5</surefirePluginVersion>
+
+    <!-- Frameworks versions - production use -->
+    <bsfVersion>2.4.0</bsfVersion>
+    <commonsBeanUtilsVersion>1.7.0</commonsBeanUtilsVersion>
+    <commonsCollectionsVersion>3.2</commonsCollectionsVersion>
+    <commonsElVersion>1.0</commonsElVersion>
+    <commonsLangVersion>2.2</commonsLangVersion>
+    <coreRendererVersion>R8pre2</coreRendererVersion>
+    <groovyVersion>1.0</groovyVersion>
+    <itextVersion>2.1.3</itextVersion>
+    <jodaVersion>1.6</jodaVersion>
+    <jxlVersion>2.6.10</jxlVersion>
+    <poiVersion>3.0.1-FINAL</poiVersion>
+    <portletApiVersion>2.0</portletApiVersion>
+    <rhinoVersion>1.7R2</rhinoVersion>
+    <servletApiVersion>2.4</servletApiVersion>
+    <servletJspApiVersion>2.0</servletJspApiVersion>
+    <slf4jVersion>1.4.3</slf4jVersion>
+    <springFrameworkVersion>2.5.5</springFrameworkVersion>
+    <tagsoupVersion>1.1.3</tagsoupVersion>
+    <xworkVersion>2.0.5</xworkVersion>
+
+    <!-- Frameworks versions - testing use -->
+    <junitVersion>4.3.1</junitVersion>
+
+    <project.build.sourceEncoding>
+      UTF-8
+    </project.build.sourceEncoding>
+    <project.reporting.outputEncoding>
+      UTF-8
+    </project.reporting.outputEncoding>
+  </properties>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>META-INF</targetPath>
+        <filtering>false</filtering>
+        <directory>resources</directory>
+        <includes>
+          <include>**/*.tld</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>css</targetPath>
+        <directory>resources</directory>
+        <includes>
+          <include>**/*.css</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>js</targetPath>
+        <directory>resources</directory>
+        <includes>
+          <include>**/*.js</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>images</targetPath>
+        <directory>resources/images</directory>
+        <includes>
+          <include>**/*.*</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <testResources>
+      <testResource>
+        <directory>testResources</directory>
+      </testResource>
+      <testResource>
+        <directory>src</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </testResource>
+      <testResource>
+        <directory>test</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </testResource>
+    </testResources>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${compilerPluginVersion}</version>
+          <configuration>
+            <source>${compileSource}</source>
+            <target>${compileSource}</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${surefirePluginVersion}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <dependencies>
+
+    <!-- Test deps first -->
+    <!-- a logger for tests to use -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4jVersion}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junitVersion}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${springFrameworkVersion}</version>
+<!--
+TODO Spring Test is a test framework but org.jmesa.test is in src (prod code dir) and uses it
+Should move org.jmesa.test to test?
+      <scope>test</scope>
+so make optional until Jeff decides on resolution (must not have test in prod)
+-->
+      <optional>true</optional>
+    </dependency>
+
+    <!-- Logging deps before frameworks to override their deps -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4jVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl104-over-slf4j</artifactId>
+      <version>${slf4jVersion}</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+      <version>${slf4jVersion}</version>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- Apache Commons -->
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>${commonsBeanUtilsVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>${commonsCollectionsVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${commonsLangVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-el</groupId>
+      <artifactId>commons-el</artifactId>
+      <version>${commonsElVersion}</version>
+    </dependency>
+
+    <!-- JEE -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>${servletJspApiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${servletApiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>${portletApiVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${springFrameworkVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${springFrameworkVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${springFrameworkVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc-portlet</artifactId>
+      <version>${springFrameworkVersion}</version>
+    </dependency>
+
+    <!-- Javascript -->
+    <dependency>
+      <groupId>rhino</groupId>
+      <artifactId>js</artifactId>
+      <version>${rhinoVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>bsf</groupId>
+      <artifactId>bsf</artifactId>
+      <version>${bsfVersion}</version>
+    </dependency>
+
+    <!-- Exports (xls, pdf, etc.) -->
+    <dependency>
+    <!--
+      <groupId>jexcel</groupId>
+      <artifactId>jexcel</artifactId>
+      this has been relocated (watch for further relocation to net.sf.)
+      unfortunately 2.6.6 has not been deployed to the global repositories so will require local deployment
+      The most recent one in the global repository (as at October 13 2008) is 2.6.3 which I will try here
+      Note the changelog for the differences between versions http://www.andykhan.com/jexcelapi/changehistory.html
+      -->
+      <groupId>net.sourceforge.jexcelapi</groupId>
+      <artifactId>jxl</artifactId>
+      <version>${jxlVersion}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+<!--
+      <groupId>poi</groupId>
+      this has been relocated
+-->
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>${poiVersion}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+<!--
+      <groupId>xhtmlrenderer</groupId>
+      <artifactId>core-renderer</artifactId>
+      this has been relocated
+-->
+      <groupId>org.xhtmlrenderer</groupId>
+      <artifactId>core-renderer</artifactId>
+      <version>${coreRendererVersion}</version>
+    </dependency>
+    <dependency>
+    <!--
+      <groupId>xhtmlrenderer</groupId>
+      <artifactId>itext-paulo</artifactId>
+      <version>155</version>
+      this looks like an early jdk15 branch from 2005 that should be in the trunk by now. See http://www.1t3xt.com/about/history.php
+      trying the current (as at October 13 2008) one in the global repositories
+      -->
+      <groupId>com.lowagie</groupId>
+      <artifactId>itext</artifactId>
+      <version>${itextVersion}</version>
+    </dependency>
+
+    <!-- JSP tag needs -->
+    <dependency>
+<!--
+      <groupId>tagsoup</groupId>
+      <artifactId>tagsoup</artifactId>
+     this has been relocated
+-->
+      <groupId>org.ccil.cowan.tagsoup</groupId>
+      <artifactId>tagsoup</artifactId>
+      <version>${tagsoupVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.opensymphony</groupId>
+      <artifactId>xwork</artifactId>
+      <version>${xworkVersion}</version>
+    </dependency>
+
+    <!-- Date/time -->
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${jodaVersion}</version>
+    </dependency>
+
+    <!-- Other/optional -->
+    <dependency>
+      <groupId>groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <version>${groovyVersion}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
+        </exclusion>
+      </exclusions>
+      <optional>true</optional>
+    </dependency>
+
+  </dependencies>
+</project>
