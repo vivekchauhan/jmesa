@@ -41,11 +41,13 @@ import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.View;
+import org.jmesa.view.ViewUtils;
 import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.web.JspPageWebContext;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * A tag abstraction similar to the TableFacade. See the TableFacade document for more information.
@@ -78,6 +80,7 @@ public class TableFacadeTag extends SimpleTagSupport {
     private HtmlTable table;
     private HtmlComponentFactory componentFactory;
     private Collection<Map<String, Object>> pageItems = new ArrayList<Map<String, Object>>();
+    private Object addedRowObject;
 
     /**
      * The id to use.
@@ -113,6 +116,20 @@ public class TableFacadeTag extends SimpleTagSupport {
     @SuppressWarnings("unchecked")
     public void setItems(Collection items) {
         this.items = items;
+    }
+
+    /**
+     * The bean to be added in the added row.
+     */
+    public Object getAddedRowObject() {
+    	return addedRowObject;
+    }
+
+    /**
+     * The bean to be added in the added row.
+     */
+    public void setAddedRowObject(Object addedRowObject) {
+    	this.addedRowObject = addedRowObject;
     }
 
     /**
@@ -490,6 +507,17 @@ public class TableFacadeTag extends SimpleTagSupport {
         tableFacade.setToolbar(getTableFacadeToolbar(getToolbar()));
         tableFacade.setView(getTableFacadeView(getView()));
         tableFacade.getCoreContext().setPageItems(getPageItems());
+
+        Worksheet worksheet = tableFacade.getWorksheet();
+        if (ViewUtils.isEditable(worksheet)) {
+        	if (worksheet.isAddingRow()) {
+        		tableFacade.addWorksheetRow(getAddedRowObject());
+        	}
+        	
+        	if (worksheet.isRemovingRow()) {
+        		tableFacade.removeWorksheetRow();
+        	}
+        }
 
         View v = tableFacade.getView();
         String html = v.render().toString();
