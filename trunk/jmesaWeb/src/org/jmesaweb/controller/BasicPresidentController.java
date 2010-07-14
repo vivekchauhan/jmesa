@@ -27,6 +27,10 @@ import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 
 import org.jmesa.model.TableModel;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Row;
+import org.jmesa.view.component.Table;
+import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
@@ -57,7 +61,62 @@ public class BasicPresidentController extends AbstractController {
         ModelAndView mv = new ModelAndView(successView);
 
         TableModel tableModel = new TableModel(id, request, response);
+        tableModel.setItems(presidentService.getPresidents());
+        tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+        tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
+        tableModel.setStateAttr("restore");
 
+
+        if (tableModel.isExporting()) {
+            Table table = getExportTable();
+            tableModel.setTable(table);
+
+            if (tableModel.getExportType().equals(ExportType.CSV)) {
+                CsvView csvView = new CsvView("|");
+                tableModel.setView(csvView);
+            }
+        } else {
+            Table table = getHtmlTable();
+            tableModel.setTable(table);
+        }
+
+        String view = tableModel.render();
+
+        request.setAttribute("presidents", view);
+
+        return mv;
+    }
+
+    private Table getExportTable() {
+        Table table = new Table().caption("Presidents");
+
+        Row row = new Row();
+        table.setRow(row);
+
+        // first name
+
+        Column firstName = new Column("name.firstName").title("First Name");
+        row.addColumn(firstName);
+
+        // last name
+
+        Column lastName = new Column("name.lastName").title("Last Name");
+        row.addColumn(lastName);
+
+        // career
+
+        Column career = new Column("career").filterEditor(new DroplistFilterEditor());
+        row.addColumn(career);
+
+        // born
+
+        Column born = new Column("born").cellEditor(new DateCellEditor("MM/yyyy"));
+        row.addColumn(born);
+
+        return table;
+    }
+
+    private Table getHtmlTable() {
         HtmlTable htmlTable = new HtmlTable().caption("Presidents").width("600px");
 
         HtmlRow htmlRow = new HtmlRow();
@@ -93,20 +152,7 @@ public class BasicPresidentController extends AbstractController {
         HtmlColumn born = new HtmlColumn("born").cellEditor(new DateCellEditor("MM/yyyy"));
         htmlRow.addColumn(born);
 
-        tableModel.setTable(htmlTable);
-
-        // Note how the order of definitions does not matter anymore!
-
-        tableModel.setItems(presidentService.getPresidents());
-        tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
-        tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
-        tableModel.setStateAttr("restore");
-
-        String view = tableModel.render();
-
-        request.setAttribute("presidents", view);
-
-        return mv;
+        return htmlTable;
     }
 
     public void setPresidentService(PresidentService presidentService) {
