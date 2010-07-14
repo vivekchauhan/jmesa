@@ -20,15 +20,24 @@ import java.util.List;
 
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.csv.renderer.CsvCellRenderer;
+import org.jmesa.view.renderer.CellRenderer;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public class CsvView extends AbstractExportView {
-    public byte[] getBytes() {
-        String render = (String) render();
-        return render.getBytes();
+    private String delimiter;
+
+    public CsvView() {}
+
+    public CsvView(String delimiter) {
+        this.delimiter = delimiter;
+    }
+
+    protected String getDelimiter() {
+        return delimiter;
     }
 
     public Object render() {
@@ -42,7 +51,14 @@ public class CsvView extends AbstractExportView {
             rowcount++;
 
             for (Column column : columns) {
-                data.append(column.getCellRenderer().render(item, rowcount));
+                CellRenderer cellRenderer = column.getCellRenderer();
+                if (cellRenderer instanceof CsvCellRenderer) {
+                    data.append(column.getCellRenderer().render(item, rowcount));
+                } else {
+                    Object value = cellRenderer.render(item, rowcount);
+                    data.append("\"").append(value).append("\"");
+                    data.append(getDelimiter());
+                }
             }
 
             data.append("\r\n");

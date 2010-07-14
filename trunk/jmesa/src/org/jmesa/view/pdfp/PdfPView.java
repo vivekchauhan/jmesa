@@ -68,10 +68,6 @@ public class PdfPView extends AbstractExportView {
         this.captionAlignment = "center";
     }
 
-    public byte[] getBytes() {
-        return null;
-    }
-
     public Paragraph getTableCaption() throws Exception {
         Paragraph p = new Paragraph(getTable().getCaption(), getFont(HELVETICA, 18, BOLD, getCaptionFontColor()));
         p.setAlignment(getCaptionAlignment());

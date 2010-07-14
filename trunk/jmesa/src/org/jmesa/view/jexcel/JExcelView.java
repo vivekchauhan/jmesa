@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.jexcel;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +36,6 @@ import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.springframework.util.FileCopyUtils;
 
 /**
  * <p>
@@ -52,25 +50,6 @@ public class JExcelView extends AbstractExportView {
 
     public void setOutputStream(OutputStream outputStream) {
         this.outputStream = outputStream;
-    }
-
-    /**
-     * A utility method used to debug views.
-     *
-     * @return The byte array that represents the JExcel view.
-     */
-    public byte[] getBytes() {
-        WritableWorkbook workbook = (WritableWorkbook) render();
-        File temp;
-        try {
-            temp = File.createTempFile(System.currentTimeMillis() + "_" + (Math.random() * 1000), null);
-            workbook.setOutputFile(temp);
-            workbook.write();
-            workbook.close();
-            return FileCopyUtils.copyToByteArray(temp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public Object render() {

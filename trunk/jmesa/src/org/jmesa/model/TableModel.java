@@ -31,6 +31,7 @@ import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
+import org.jmesa.limit.LimitActionFactory;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
@@ -44,6 +45,8 @@ import org.jmesa.web.WebContext;
  */
 public class TableModel {
 
+    private String id;
+    private HttpServletRequest request;
     private Collection<?> items;
     private PageResults pageResults;
     private Preferences preferences;
@@ -66,10 +69,14 @@ public class TableModel {
     private TableFacade tableFacade;
 
     public TableModel(String id, HttpServletRequest request) {
+        this.id = id;
+        this.request = request;
         this.tableFacade = new TableFacade(id, request);
     }
 
     public TableModel(String id, HttpServletRequest request, HttpServletResponse response) {
+        this.id = id;
+        this.request = request;
         this.tableFacade = new TableFacade(id, request, response);
     }
 
@@ -156,6 +163,15 @@ public class TableModel {
 
     public void setTable(Table table) {
         this.table = table;
+    }
+
+    public boolean isExporting() {
+        return getExportType() != null;
+    }
+
+    public ExportType getExportType() {
+        LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
+        return actionFactory.getExportType();
     }
 
     /**

@@ -22,23 +22,42 @@ import org.jmesa.view.renderer.AbstractCellRenderer;
 /**
  * @since 2.0
  * @author Jeff Johnston
+ *
+ * @deprecated This renderer will be easier to work with as a view.
  */
+@Deprecated
 public class CsvCellRenderer extends AbstractCellRenderer {
     private String delimiter;
 
+    /**
+     * @deprecated This renderer will be easier to work with as a view.
+     */
+    @Deprecated
     public CsvCellRenderer(Column column, CellEditor editor) {
         setColumn(column);
         setCellEditor(editor);
     }
 
+    /**
+     * @deprecated This renderer will be easier to work with as a view.
+     */
+    @Deprecated
     public String getDelimiter() {
         return delimiter;
     }
 
+    /**
+     * @deprecated This renderer will be easier to work with as a view.
+     */
+    @Deprecated
     public void setDelimiter(String delimiter) {
         this.delimiter = delimiter;
     }
 
+    /**
+     * @deprecated This renderer will be easier to work with as a view.
+     */
+    @Deprecated
     public Object render(Object item, int rowcount) {
         StringBuilder data = new StringBuilder();
 

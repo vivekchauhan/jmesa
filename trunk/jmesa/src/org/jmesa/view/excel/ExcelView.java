@@ -34,11 +34,6 @@ import org.jmesa.view.component.Table;
  * @author jeff jie
  */
 public class ExcelView extends AbstractExportView {
-    public byte[] getBytes() {
-        HSSFWorkbook render = (HSSFWorkbook) render();
-        return render.getBytes();
-    }
-
     public Object render() {
         HSSFWorkbook workbook = new HSSFWorkbook();
         Table table = this.getTable();
