@@ -16,30 +16,17 @@
 package org.jmesa.view.renderer;
 
 import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.CellEditor;
 
 /**
- * @since 2.3.4
+ * @since 3.0
  * @author Jeff Johnston
- *
- * @deprecated Not a very useful renderer.
  */
-@Deprecated
-public class ExportCellRenderer extends AbstractCellRenderer {
-    /**
-     * @deprecated Not a very useful renderer.
-     */
-    @Deprecated
-    public ExportCellRenderer(Column column, CellEditor editor) {
+public class BasicCellRenderer extends AbstractCellRenderer {
+    public BasicCellRenderer(Column column) {
         setColumn(column);
-        setCellEditor(editor);
     }
 
-    /**
-     * @deprecated Not a very useful renderer.
-     */
-    @Deprecated
     public Object render(Object item, int rowcount) {
-        return getCellEditor().getValue(item, getColumn().getProperty(), rowcount);
+        return getColumn().getCellEditor().getValue(item, getColumn().getProperty(), rowcount);
     }
 }

@@ -30,7 +30,10 @@ public interface View {
      * Great tool for debugging views by being able to look at the byte array.
      * 
      * @return The byte array that represents this view.
+     * 
+     * @deprecated This method has not turned out to be very useful and will be returned in a future release.
      */
+    @Deprecated
     public byte[] getBytes();
 
     public Object render();

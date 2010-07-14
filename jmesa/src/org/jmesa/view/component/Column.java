@@ -19,9 +19,11 @@ import groovy.lang.Closure;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
+import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
+import org.jmesa.view.renderer.BasicCellRenderer;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
@@ -96,6 +98,9 @@ public class Column extends AbstractContextSupport {
     }
     
     public CellRenderer getCellRenderer() {
+        if (cellRenderer == null) {
+            this.cellRenderer = new BasicCellRenderer(this);
+        }
         return cellRenderer;
     }
 
@@ -110,6 +115,9 @@ public class Column extends AbstractContextSupport {
     }
 
     public CellEditor getCellEditor() {
+        if (cellEditor == null) {
+            this.cellEditor = new BasicCellEditor();
+        }
         return cellEditor;
     }
 

@@ -58,6 +58,10 @@ public class ExportUtils {
         return "table-data." + exportType;
     }
 
+    /**
+     * @deprecated This method has not turned out to be very useful and will be returned in a future release.
+     */
+    @Deprecated
     public static void exportToFile(TableFacade tableFacade, String filePath) {
         Limit limit = tableFacade.getLimit();
         if (limit.isExported() && limit.getExportType() == ExportType.PDF) {
@@ -65,6 +69,10 @@ public class ExportUtils {
         }
     }
 
+    /**
+     * @deprecated This method has not turned out to be very useful and will be returned in a future release.
+     */
+    @Deprecated
     private static void exportPdf(TableFacade tableFacade, String filePath) {
         View view = tableFacade.getView();
         byte[] contents = view.getBytes();

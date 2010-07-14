@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.model;
+
+import javax.servlet.http.HttpServletRequest;
+import org.jmesa.limit.ExportType;
+import org.jmesa.limit.LimitActionFactory;
 
 /**
- * <p>
- * The table factory specific to the exports.
- * </p>
- *
- * @since 2.3.4
+ * @since 3.0
  * @author Jeff Johnston
- * 
- * @deprecated Should build components directly now instead of using factory.
  */
-@Deprecated
-public class ExportTableFactory extends AbstractTableFactory {
-    /**
-     * @deprecated Should build components directly now instead of using factory.
-     */
-    @Deprecated
-    protected ComponentFactory getComponentFactory() {
-        return new ExportComponentFactory(null, null);
+public class TableModelUtils {
+    private TableModelUtils(){}
+
+    public static boolean isExporting(String id, HttpServletRequest request) {
+        return getExportType(id, request) != null;
+    }
+
+    public static ExportType getExportType(String id, HttpServletRequest request) {
+        LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
+        return actionFactory.getExportType();
     }
 }

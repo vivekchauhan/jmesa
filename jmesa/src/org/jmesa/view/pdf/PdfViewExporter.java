@@ -16,6 +16,7 @@
 package org.jmesa.view.pdf;
 
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractViewExporter;
 import org.jmesa.view.View;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.util.XRLog;
@@ -35,6 +38,7 @@ import org.xhtmlrenderer.resource.FSEntityResolver;
  * @author Paul Horn
  */
 public class PdfViewExporter extends AbstractViewExporter {
+    private static Logger logger = LoggerFactory.getLogger(PdfViewExporter.class);
     private HttpServletRequest request;
 
     public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
@@ -48,7 +52,15 @@ public class PdfViewExporter extends AbstractViewExporter {
     }
 
     public void export() throws Exception {
-        byte[] contents = getView().getBytes();
+        String string = (String) getView().render();
+
+        byte[] contents = null;
+        try {
+            contents = string.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            logger.info("Not able to process the PDF file using the UTF-8 encoding.");
+        }
+
         HttpServletResponse response = getResponse();
         responseHeaders(response);
 

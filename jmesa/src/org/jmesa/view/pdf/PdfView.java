@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.pdf;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -68,18 +67,6 @@ public class PdfView extends AbstractExportView {
      */
     public void setCssLocation(String cssLocation) {
         this.cssLocation = cssLocation;
-    }
-
-    public byte[] getBytes() {
-        String render = (String) render();
-
-        try {
-            return render.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            logger.info("Not able to process the PDF file using the UTF-8 encoding.");
-        }
-
-        return render.getBytes();
     }
 
     public Object render() {
