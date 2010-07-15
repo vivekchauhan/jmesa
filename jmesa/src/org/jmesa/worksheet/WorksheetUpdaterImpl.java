@@ -34,7 +34,6 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
     protected static String COLUMN_PROPERTY = "cp_";
     protected static String ORIGINAL_VALUE = "ov_";
     protected static String CHANGED_VALUE = "cv_";
-    protected static String INITIAL_VALUE = "iv_";
 
     protected static String ERROR_MESSAGE = "em_";
 
@@ -47,18 +46,12 @@ public class WorksheetUpdaterImpl implements WorksheetUpdater {
         Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow row = getWorksheetRow(worksheet, webContext);
         
-        String returnValue;
+        WorksheetColumn column = getWorksheetColumn(row, messages, webContext);
+        String columnStatus = validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
         
-        if (!StringUtils.isEmpty(webContext.getParameter(INITIAL_VALUE))) {
-        	String property = webContext.getParameter(COLUMN_PROPERTY);
-        	returnValue = row.getColumn(property).getOriginalValue();
-        } else {
-        	WorksheetColumn column = getWorksheetColumn(row, messages, webContext);
-        	returnValue = validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
-        }
         // for GAE
         getWorksheetState(webContext).persistWorksheet(worksheet);
-        return returnValue;
+        return columnStatus;
     }
 
     protected Worksheet getWorksheet(Messages messages, WebContext webContext) {

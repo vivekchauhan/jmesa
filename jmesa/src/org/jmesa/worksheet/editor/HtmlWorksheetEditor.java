@@ -61,19 +61,23 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
         if (worksheetColumn != null) {
             if (worksheetColumn.hasError()) {
                 html.styleClass("wsColumnError");
-                html.title(worksheetColumn.getError());
+                // use custom attributes for original value & error message
+                html.append("data-ov=\"" + worksheetColumn.getOriginalValue() + "\" ");
+                html.append("data-em=\"" + worksheetColumn.getError() + "\" ");
             } else {
             	if (worksheetColumn.getOriginalValue().equals(worksheetColumn.getChangedValue())) {
                     html.styleClass("wsColumn");
                 } else {
             		html.styleClass("wsColumnChange");
+            		html.append("data-ov=\"" + worksheetColumn.getOriginalValue() + "\" ");
                 }
             }
         } else {
             html.styleClass("wsColumn");
         }
         
-        html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
+        html.onmouseover("$.jmesa.setTitle(this, event)");
+        html.onclick(getUniquePropertyJavaScript(item) + "$.jmesa.createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
             + getColumn().getProperty() + "')");
         html.close();
         html.append(value);

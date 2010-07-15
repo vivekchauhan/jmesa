@@ -41,10 +41,10 @@ public class WorksheetServlet extends HttpServlet {
         WebContext webContext = new HttpServletRequestWebContext(request);
         Messages messages = getMessages(webContext);
         WorksheetUpdater worksheetUpdater = new WorksheetUpdaterImpl();
-        String returnValue = worksheetUpdater.update(messages, webContext);
+        String columnStatus = worksheetUpdater.update(messages, webContext);
         
         try {
-            response.getWriter().print(returnValue);
+            response.getWriter().print(columnStatus);
         } catch (IOException e) {
             e.printStackTrace();
         }
