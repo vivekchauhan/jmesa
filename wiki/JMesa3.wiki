@@ -125,3 +125,56 @@ tableModel.setTable(table);
 
 String html = tableModel.render();
 }}}
+
+=== Column Properties ===
+
+I was going to completely leave out the building of tables by starting with column properties, but I could still see it being very convenient. So instead I moved this functionality into the !TableModelUtils class.
+
+{{{
+private Table getExportTable() {
+    Table table = TableModelUtils.createTable("name.firstName", "name.lastName", "career", "born");
+    table.caption("Presidents");
+
+    Row row = table.getRow();
+
+    row.getColumn("name.firstName").title("First Name");
+    row.getColumn("name.lastName").title("Last Name");
+    row.getColumn("career").filterEditor(new DroplistFilterEditor());
+    row.getColumn("born").cellEditor(new DateCellEditor("MM/yyyy"));
+
+    return table;
+}
+
+private Table getHtmlTable() {
+    HtmlTable htmlTable = TableModelUtils.createHtmlTable("name.firstName", "name.lastName", "career", "born");
+
+    HtmlRow htmlRow = htmlTable.getRow();
+
+    HtmlColumn firstName = htmlRow.getColumn("name.firstName").title("First Name");
+    firstName.setCellEditor(new CellEditor() {
+        public Object getValue(Object item, String property, int rowcount) {
+            Object value = new HtmlCellEditor().getValue(item, property, rowcount);
+            HtmlBuilder html = new HtmlBuilder();
+            html.a().href().quote().append("http://www.whitehouse.gov/history/presidents/").quote().close();
+            html.append(value);
+            html.aEnd();
+            return html.toString();
+        }
+    });
+
+    htmlRow.getColumn("name.lastName").title("Last Name");
+    htmlRow.getColumn("career").filterEditor(new DroplistFilterEditor());
+    htmlRow.getColumn("born").cellEditor(new DateCellEditor("MM/yyyy"));
+
+    return htmlTable;
+}
+
+
+}}}
+
+
+
+
+
+
+
