@@ -32,7 +32,7 @@ import org.jmesa.facade.TableFacade;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitActionFactory;
-import org.jmesa.limit.RowSelect;
+import static org.jmesa.model.TableModelUtils.getItems;
 import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
@@ -94,7 +94,7 @@ public class TableModel {
         this.items = items;
     }
 
-    public void setPageResults(PageResults pageResults) {
+    public void setItems(PageResults pageResults) {
         this.pageResults = pageResults;
     }
     
@@ -230,16 +230,7 @@ public class TableModel {
         if (limit != null) {
             tableFacade.setLimit(limit);
         } else if (pageResults != null) {
-            Limit l = tableFacade.getLimit();
-            int totalRows = pageResults.getTotalRows(l);
-            if (l.hasRowSelect()) {
-                int p = l.getRowSelect().getPage();
-                int mr = l.getRowSelect().getMaxRows();
-                l.setRowSelect(new RowSelect(p, mr, totalRows));
-            } else {
-                tableFacade.setTotalRows(totalRows);
-            }
-            this.items = pageResults.getItems(l);
+            items = getItems(tableFacade, pageResults);
         }
         
         tableFacade.setItems(items);
