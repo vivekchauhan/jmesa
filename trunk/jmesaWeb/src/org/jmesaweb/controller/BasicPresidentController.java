@@ -30,7 +30,6 @@ import org.jmesa.model.TableModel;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.HtmlBuilder;
@@ -66,18 +65,10 @@ public class BasicPresidentController extends AbstractController {
         tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
         tableModel.setStateAttr("restore");
 
-
         if (tableModel.isExporting()) {
-            Table table = getExportTable();
-            tableModel.setTable(table);
-
-            if (tableModel.getExportType().equals(ExportType.CSV)) {
-                CsvView csvView = new CsvView("|");
-                tableModel.setView(csvView);
-            }
+            tableModel.setTable(getExportTable());
         } else {
-            Table table = getHtmlTable();
-            tableModel.setTable(table);
+            tableModel.setTable(getHtmlTable());
         }
 
         String view = tableModel.render();
@@ -93,22 +84,14 @@ public class BasicPresidentController extends AbstractController {
         Row row = new Row();
         table.setRow(row);
 
-        // first name
-
         Column firstName = new Column("name.firstName").title("First Name");
         row.addColumn(firstName);
-
-        // last name
 
         Column lastName = new Column("name.lastName").title("Last Name");
         row.addColumn(lastName);
 
-        // career
-
         Column career = new Column("career").filterEditor(new DroplistFilterEditor());
         row.addColumn(career);
-
-        // born
 
         Column born = new Column("born").cellEditor(new DateCellEditor("MM/yyyy"));
         row.addColumn(born);
@@ -121,8 +104,6 @@ public class BasicPresidentController extends AbstractController {
 
         HtmlRow htmlRow = new HtmlRow();
         htmlTable.setRow(htmlRow);
-
-        // first name
 
         HtmlColumn firstName = new HtmlColumn("name.firstName").title("First Name");
         firstName.setCellEditor(new CellEditor() {
@@ -137,17 +118,11 @@ public class BasicPresidentController extends AbstractController {
         });
         htmlRow.addColumn(firstName);
 
-        // last name
-
         HtmlColumn lastName = new HtmlColumn("name.lastName").title("Last Name");
         htmlRow.addColumn(lastName);
 
-        // career
-
         HtmlColumn career = new HtmlColumn("career").filterEditor(new DroplistFilterEditor());
         htmlRow.addColumn(career);
-
-        // born
 
         HtmlColumn born = new HtmlColumn("born").cellEditor(new DateCellEditor("MM/yyyy"));
         htmlRow.addColumn(born);
