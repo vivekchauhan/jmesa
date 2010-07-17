@@ -23,7 +23,7 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 
 /**
- * Helper to contain all the exceptions returned from the TableFacadeImpl.
+ * Helper to contain all the exceptions returned from the TableFacade.
  * 
  * @since 2.2
  * @author Jeff Johnston
@@ -90,7 +90,7 @@ final class TableFacadeExceptions {
 
     static void validateItemsIsNotNull(Collection<?> items) {
         if (items == null) {
-            throw new IllegalStateException("The items are null. You need to set the items on the facade.");
+            throw new IllegalStateException("The items are null. You need to set the items on the facade (or model).");
         }
     }
 }

@@ -15,9 +15,13 @@
  */
 package org.jmesa.model;
 
+import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
+import org.jmesa.facade.TableFacade;
 import org.jmesa.limit.ExportType;
+import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitActionFactory;
+import org.jmesa.limit.RowSelect;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
@@ -39,6 +43,25 @@ public class TableModelUtils {
     public static ExportType getExportType(String id, HttpServletRequest request) {
         LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
         return actionFactory.getExportType();
+    }
+
+    public static Collection<?> getItems(String id, HttpServletRequest request, PageResults pageResults) {
+        TableFacade tableFacade = new TableFacade(id, request);
+        return getItems(tableFacade, pageResults);
+    }
+
+    protected static Collection<?> getItems(TableFacade tableFacade, PageResults pageResults) {
+        Limit limit = tableFacade.getLimit();
+        int totalRows = pageResults.getTotalRows(limit);
+        if (limit.hasRowSelect()) {
+            int page = limit.getRowSelect().getPage();
+            int maxRows = limit.getRowSelect().getMaxRows();
+            limit.setRowSelect(new RowSelect(page, maxRows, totalRows));
+        } else {
+            tableFacade.setTotalRows(totalRows);
+        }
+
+        return pageResults.getItems(limit);
     }
 
     public static Table createTable(String... columnProperties) {
