@@ -18,6 +18,12 @@ package org.jmesa.model;
 import javax.servlet.http.HttpServletRequest;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.LimitActionFactory;
+import org.jmesa.view.component.Column;
+import org.jmesa.view.component.Row;
+import org.jmesa.view.component.Table;
+import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.component.HtmlRow;
+import org.jmesa.view.html.component.HtmlTable;
 
 /**
  * @since 3.0
@@ -33,5 +39,35 @@ public class TableModelUtils {
     public static ExportType getExportType(String id, HttpServletRequest request) {
         LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
         return actionFactory.getExportType();
+    }
+
+    public static Table createTable(String... columnProperties) {
+        Table table = new Table();
+
+        Row row = new Row();
+        table.setRow(row);
+
+        for (int i = 0; i < columnProperties.length; i++) {
+            String property = columnProperties[i];
+            Column column = new Column(property);
+            row.addColumn(column);
+        }
+
+        return table;
+    }
+
+    public static HtmlTable createHtmlTable(String... columnProperties) {
+        HtmlTable htmlTable = new HtmlTable();
+
+        HtmlRow htmlRow = new HtmlRow();
+        htmlTable.setRow(htmlRow);
+
+        for (int i = 0; i < columnProperties.length; i++) {
+            String property = columnProperties[i];
+            HtmlColumn htmlColumn = new HtmlColumn(property);
+            htmlRow.addColumn(htmlColumn);
+        }
+
+        return htmlTable;
     }
 }

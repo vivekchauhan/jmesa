@@ -802,7 +802,7 @@ public class TableFacade {
         View exportView = null;
 
         if (exportType == ExportType.CSV) {
-            exportView = new CsvView();
+            exportView = new CsvView(",");
         } else if (exportType == ExportType.EXCEL) {
             exportView = new ExcelView();
         } else if (exportType == ExportType.JEXCEL) {
