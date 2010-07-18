@@ -25,7 +25,7 @@ import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetRow;
-import org.jmesa.worksheet.WorksheetUpdaterImpl;
+import org.jmesa.worksheet.WorksheetUpdater;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -57,7 +57,7 @@ public class WorksheetServletTest {
         assertTrue("Did not return the same worksheet.", worksheet == worksheet2);
     }
 
-    private class WorksheetUpdaterTemp extends WorksheetUpdaterImpl {
+    private class WorksheetUpdaterTemp extends WorksheetUpdater {
         public Worksheet getAccessToWorksheet(Messages messages, WebContext webContext) {
             return super.getWorksheet(messages, webContext);
         }

@@ -27,7 +27,6 @@ import org.jmesa.core.message.Messages;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.WorksheetUpdater;
-import org.jmesa.worksheet.WorksheetUpdaterImpl;
 
 /**
  * The default invoker of the worksheet updater.
@@ -40,7 +39,7 @@ public class WorksheetServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         WebContext webContext = new HttpServletRequestWebContext(request);
         Messages messages = getMessages(webContext);
-        WorksheetUpdater worksheetUpdater = new WorksheetUpdaterImpl();
+        WorksheetUpdater worksheetUpdater = new WorksheetUpdater();
         String columnStatus = worksheetUpdater.update(messages, webContext);
         
         try {
