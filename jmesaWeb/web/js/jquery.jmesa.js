@@ -618,19 +618,16 @@
                         divToClick.onclick();
                         return false; /* Stop event for IE */
                     }
-                } else if (event.altKey && event.keyCode == 90) { /* Press Alt+z key to get initial value (undo). */
-                    /* Get initial value only if column has been modified. */
-                    if (cell.attr('class') != 'wsColumn') {
-                       $.jmesa.setWsColumnInitialValue(input);
+                } else if (event.shiftKey && event.ctrlKey && event.keyCode == 90) { /* Ctrl+Shift+z key to get original value (undo). */
+                    /* Get original value */
+                    if (cell.attr('data-ov')) {
+                       input.val(cell.attr('data-ov'));
                     }
                 }
             };
 
-            if (jQuery.browser.msie || jQuery.browser.safari) { /* IE and Safari don't catch tabulation on keypress */
-                input.keydown(keyEvent);
-            } else {
-                input.keypress(keyEvent);
-            }
+            /* Use keydown across all browsers as IE and Safari don't catch tabulation and Firefox doesn't catch Ctrl / Alt on keypress */
+            input.keydown(keyEvent);
         },
         submitWsCheckboxColumn : function(column, id, uniqueProperties, property) {
             wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
@@ -672,35 +669,13 @@
             cell.css('overflow', 'hidden');
             cell.text(changedValue);
             if (changedValue != originalValue) {
+                if (!cell.attr('data-ov')) {
+                   /* use custom attribute to store original value */
+                   cell.attr('data-ov', originalValue);
+                }
                 $.jmesa.submitWsColumn(originalValue, changedValue, hasRules);
             }
             wsColumn = null;
-        },
-        setWsColumnInitialValue : function(input) {
-            var data = '{ "id" : "' + wsColumn.id + '"';
-
-            data += ', "cp_" : "' + wsColumn.property + '"';
-            data += ', "iv_" : "true"';
-
-            var props = wsColumn.uniqueProperties;
-            $.each(props, function(key, value) {
-                data += ', "up_' + key + '" : "' + value + '"';
-            });
-
-            data += '}'
-
-            var contextPath = coreapi.getContextPath(wsColumn.id);
-            if (contextPath) {
-               contextPath += "/";
-            }
-
-            /* fetch initial value from worksheet servlet */
-            $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(initialValue) {
-               /* only if wsColumn is still present */
-               if (wsColumn) {
-                  input.val(initialValue);
-               }
-            });
         },
         submitWsColumn : function(originalValue, changedValue, hasRules) {
             /* hasRules is optional parameter and will be true only if the column has validations */
@@ -724,7 +699,7 @@
                   errorMessage = errorMap[wsColumn.id][wsColumn.property];
                }
             } else {
-               errorMessage = cell.attr('title');
+               errorMessage = cell.attr('data-em');
             }
 
             if (errorMessage) {
@@ -751,18 +726,36 @@
             };
 
             /* Skip other editors, e.g. checkbox etc */
-            $.each(classNames, function(key, value) {
-              if (cell.attr('class') == value) {
+            if (cell.attr('class').indexOf('wsColumn') == 0) {
                  cell.attr('class', classNames[columnStatus]);
 
-                 if (errorMessage) {
-                    cell.attr('title', errorMessage);
-                 } else {
-                    cell.removeAttr('title');
+                 if ('wsColumn' == classNames[columnStatus]) {
+                    cell.removeAttr('data-ov');
                  }
-                 return;
-              }
-            });
+
+                 if (errorMessage) {
+                    /* use custom attribute to store error message */
+                    cell.attr('data-em', errorMessage);
+                 } else {
+                    cell.removeAttr('data-em');
+                 }
+            }
+        },
+        setTitle : function(column, e) {
+            var title;
+            var cell = $(column);
+
+            if(e.ctrlKey) {
+                title = cell.attr("data-ov");
+            } else {
+                title = cell.attr("data-em");
+            }
+
+            if(title) {
+                cell.attr("title", title);
+            } else {
+                cell.removeAttr("title");
+            }
         }
     }
 
