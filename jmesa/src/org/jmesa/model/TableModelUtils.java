@@ -28,6 +28,7 @@ import org.jmesa.view.component.Table;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 3.0
@@ -62,6 +63,20 @@ public class TableModelUtils {
         }
 
         return pageResults.getItems(limit);
+    }
+
+    public static void saveWorksheet(String id, HttpServletRequest request, WorksheetSaver worksheetSaver) {
+        TableFacade tableFacade = new TableFacade(id, request);
+        saveWorksheet(tableFacade, worksheetSaver);
+    }
+
+    protected static void saveWorksheet(TableFacade tableFacade, WorksheetSaver worksheetSaver) {
+        tableFacade.setEditable(true);
+        Worksheet worksheet = tableFacade.getWorksheet();
+        if (worksheet.isSaving() && worksheet.hasChanges()) {
+            worksheetSaver.saveWorksheet(worksheet);
+            tableFacade.persistWorksheet(worksheet);
+        }
     }
 
     public static Table createTable(String... columnProperties) {

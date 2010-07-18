@@ -38,6 +38,7 @@ import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 3.0
@@ -65,8 +66,14 @@ public class TableModel {
     private Toolbar toolbar;
     private View view;
     private Table table;
+    private boolean editable;
+    private WorksheetSaver worksheetSaver;
+    private Object addedRowObject;
 
     private TableFacade tableFacade;
+
+    // only used to subclass the model
+    protected TableModel() {}
 
     public TableModel(String id, HttpServletRequest request) {
         this.id = id;
@@ -83,11 +90,26 @@ public class TableModel {
     public TableModel(String id, WebContext webContext) {
         this.tableFacade = new TableFacade(id, null);
         tableFacade.setWebContext(webContext);
+        setHttpServletRequest(tableFacade);
     }
 
     public TableModel(String id, WebContext webContext, HttpServletResponse response) {
         this.tableFacade = new TableFacade(id, null, response);
         tableFacade.setWebContext(webContext);
+        setHttpServletRequest(tableFacade);
+    }
+
+    protected void setTableFacade(TableFacade tableFacade) {
+        this.tableFacade = tableFacade;
+        this.id = tableFacade.getId();
+        setHttpServletRequest(tableFacade);
+    }
+
+    private void setHttpServletRequest(TableFacade tableFacade) {
+        Object backingObject = tableFacade.getWebContext().getBackingObject();
+        if (backingObject instanceof HttpServletRequest) {
+            request = (HttpServletRequest) backingObject;
+        }
     }
 
     public void setItems(Collection<?> items) {
@@ -165,6 +187,18 @@ public class TableModel {
         this.table = table;
     }
 
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    public void addRowObject(Object addedRowObject) {
+        this.addedRowObject = addedRowObject;
+    }
+
+    public void saveWorksheet(WorksheetSaver worksheetSaver) {
+        this.worksheetSaver = worksheetSaver;
+    }
+
     public boolean isExporting() {
         return getExportType() != null;
     }
@@ -181,6 +215,12 @@ public class TableModel {
      *         to the response and this method will return null.
      */
     public String render() {
+        tableFacade.setEditable(editable);
+
+        if (worksheetSaver != null) {
+            TableModelUtils.saveWorksheet(tableFacade, worksheetSaver);
+        }
+
         if (preferences != null) {
             tableFacade.setPreferences(preferences);
         }
@@ -246,6 +286,19 @@ public class TableModel {
 
         if (view != null) {
             tableFacade.setView(view);
+        }
+
+        Worksheet worksheet = tableFacade.getWorksheet();
+        if (editable && worksheet.isAddingRow()) {
+        	if (addedRowObject != null) {
+        		tableFacade.addWorksheetRow(addedRowObject);
+        	} else {
+        		tableFacade.addWorksheetRow();
+        	}
+        }
+
+        if (editable && worksheet.isRemovingRow()) {
+            tableFacade.removeWorksheetRow();
         }
 
         return tableFacade.render();
