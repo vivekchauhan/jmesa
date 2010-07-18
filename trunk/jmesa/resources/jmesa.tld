@@ -10,8 +10,8 @@
     <uri>http://code.google.com/p/jmesa</uri>
     
     <tag>
-        <name>tableFacade</name>
-        <tag-class>org.jmesa.facade.tag.TableFacadeTag</tag-class>
+        <name>tableModel</name>
+        <tag-class>org.jmesa.model.tag.TableModelTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>id</name>
@@ -111,8 +111,8 @@
     </tag>
 
     <tag>
-        <name>springTableFacade</name>
-        <tag-class>org.jmesa.facade.tag.SpringTableFacadeTag</tag-class>
+        <name>springTableModel</name>
+        <tag-class>org.jmesa.model.tag.SpringTableModelTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>id</name>
@@ -207,8 +207,8 @@
     </tag>
 
     <tag>
-        <name>struts2TableFacade</name>
-        <tag-class>org.jmesa.facade.tag.Struts2TableFacadeTag</tag-class>
+        <name>struts2TableModel</name>
+        <tag-class>org.jmesa.model.tag.Struts2TableModelTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>id</name>
@@ -304,7 +304,7 @@
 
     <tag>
         <name>htmlTable</name>
-        <tag-class>org.jmesa.facade.tag.HtmlTableTag</tag-class>
+        <tag-class>org.jmesa.model.tag.HtmlTableTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>caption</name>
@@ -436,7 +436,7 @@
     
     <tag>
         <name>htmlColumn</name>
-        <tag-class>org.jmesa.facade.tag.HtmlColumnTag</tag-class>
+        <tag-class>org.jmesa.model.tag.HtmlColumnTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>property</name>
@@ -572,7 +572,7 @@
     
     <tag>
         <name>htmlColumns</name>
-        <tag-class>org.jmesa.facade.tag.HtmlColumnsTag</tag-class>
+        <tag-class>org.jmesa.model.tag.HtmlColumnsTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>htmlColumnsGenerator</name>
