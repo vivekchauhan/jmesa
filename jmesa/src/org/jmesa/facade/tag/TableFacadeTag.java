@@ -40,6 +40,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.Limit;
+import org.jmesa.model.TableModelUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.html.HtmlComponentFactory;
@@ -274,6 +275,10 @@ public class TableFacadeTag extends SimpleTagSupport {
      * @return The Limit to use.
      */
     public Limit getLimit() {
+        Limit l = (Limit)getJspContext().getAttribute(getId() + TableModelUtils.LIMIT_ATTR);
+        if (l != null) {
+            return l;
+        }
         return limit;
     }
 
