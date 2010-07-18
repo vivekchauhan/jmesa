@@ -23,9 +23,9 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeImpl;
-import org.jmesa.limit.Limit;
+import org.jmesa.model.TableModel;
+import org.jmesa.model.TableModelUtils;
+import org.jmesa.view.component.Table;
 import org.jmesaweb.domain.President;
 import org.jmesaweb.service.PresidentService;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,18 +51,20 @@ public class TagPresidentController extends AbstractController {
 
         Collection<President> items = presidentService.getPresidents();
 
-        TableFacade tableFacade = new TableFacadeImpl(id, request);
-        tableFacade.setItems(items);
-        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-        tableFacade.setExportTypes(response, CSV, EXCEL); // Tell the tableFacade what exports to use.
-        tableFacade.addFilterMatcherMap(new TagFilterMatcherMap());
+        TableModel tableModel = new TableModel(id, request, response);
 
-        Limit limit = tableFacade.getLimit();
-        if (limit.isExported()) {
-            tableFacade.getTable().setCaption("Presidents");
-            tableFacade.getTable().getRow().getColumn("name.firstName").setTitle("First Name");
-            tableFacade.getTable().getRow().getColumn("name.lastName").setTitle("Last Name");
-            tableFacade.render();
+        if (tableModel.isExporting()) {
+            tableModel.setItems(items);
+            tableModel.setExportTypes(CSV, EXCEL);
+            tableModel.addFilterMatcherMap(new TagFilterMatcherMap());
+
+            Table table = TableModelUtils.createTable("name.firstName", "name.lastName", "term", "career", "born");
+            table.setCaption("Presidents");
+            table.getRow().getColumn("name.firstName").setTitle("First Name");
+            table.getRow().getColumn("name.lastName").setTitle("Last Name");
+            tableModel.setTable(table);
+
+            tableModel.render();
             return null;
         }
 
