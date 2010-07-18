@@ -81,25 +81,45 @@ public class TableFacadeFactory {
         return tableFacade;
     }
 
+    /**
+     * @deprecated Use the new PortletTableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createPortletTableFacade(String id, PortletRequest request) {
         return createTableFacade(id, new PortletRequestWebContext(request));
     }
 
+    /**
+     * @deprecated Use the new SpringPortletTableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createSpringPortletTableFacade(String id, PortletRequest request) {
         SpringWebContext springWebContext = new PortletRequestSpringWebContext(request);
         return createSpringTableFacade(id, springWebContext);
     }
 
+    /**
+     * @deprecated Use the new SpringTableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createSpringTableFacade(String id, HttpServletRequest request) {
         SpringWebContext springWebContext = new HttpServletRequestSpringWebContext(request);
         return createSpringTableFacade(id, springWebContext);
     }
 
+    /**
+     * @deprecated Use the new SpringTableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createSpringTableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
         SpringWebContext springWebContext = new HttpServletRequestSpringWebContext(request);
         return createSpringTableFacade(id, springWebContext, response);
     }
 
+    /**
+     * @deprecated Use the new SpringTableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext) {
 
         springWebContext.setLocale(LocaleContextHolder.getLocale());
@@ -111,6 +131,10 @@ public class TableFacadeFactory {
         return tableFacade;
     }
 
+    /**
+     * @deprecated Use the new SpringTableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext, HttpServletResponse response) {
 
         springWebContext.setLocale(LocaleContextHolder.getLocale());
@@ -122,16 +146,28 @@ public class TableFacadeFactory {
         return tableFacade;
     }
 
+    /**
+     * @deprecated Use the new Struts2TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request) {
         WebContext webContext = new HttpServletRequestWebContext(request);
         return createStruts2TableFacade(id, webContext);
     }
 
+    /**
+     * @deprecated Use the new Struts2TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
         WebContext webContext = new HttpServletRequestWebContext(request);
         return createStruts2TableFacade(id, webContext, response);
     }
 
+    /**
+     * @deprecated Use the new Struts2TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createStruts2TableFacade(String id, WebContext webContext) {
 
         webContext.setLocale(ActionContext.getContext().getLocale());
@@ -143,6 +179,10 @@ public class TableFacadeFactory {
         return tableFacade;
     }
 
+    /**
+     * @deprecated Use the new Struts2TableModel for building tables.
+     */
+    @Deprecated
     public static TableFacade createStruts2TableFacade(String id, WebContext webContext, HttpServletResponse response) {
 
         webContext.setLocale(ActionContext.getContext().getLocale());
