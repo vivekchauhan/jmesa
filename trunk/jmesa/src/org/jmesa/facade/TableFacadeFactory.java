@@ -38,13 +38,13 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2.2
  * @author Jeff Johnston
  *
- * @deprecated Use the new TableModel for building tables.
+ * @deprecated For internal use only. Use the new TableModel for building tables.
  */
 @Deprecated
 public class TableFacadeFactory {
 
     /**
-     * @deprecated Use the new TableModel for building tables.
+     * @deprecated For internal use only. Use the new TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createTableFacade(String id, HttpServletRequest request) {
@@ -53,7 +53,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new TableModel for building tables.
+     * @deprecated For internal use only. Use the new TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createTableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
@@ -62,7 +62,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new TableModel for building tables.
+     * @deprecated For internal use only. Use the new TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createTableFacade(String id, WebContext webContext) {
@@ -72,7 +72,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new TableModel for building tables.
+     * @deprecated For internal use only. Use the new TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createTableFacade(String id, WebContext webContext, HttpServletResponse response) {
@@ -82,7 +82,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new PortletTableModel for building tables.
+     * @deprecated For internal use only. Use the new PortletTableModel for building tables.
      */
     @Deprecated
     public static TableFacade createPortletTableFacade(String id, PortletRequest request) {
@@ -90,7 +90,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new SpringPortletTableModel for building tables.
+     * @deprecated For internal use only. Use the new SpringPortletTableModel for building tables.
      */
     @Deprecated
     public static TableFacade createSpringPortletTableFacade(String id, PortletRequest request) {
@@ -99,7 +99,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new SpringTableModel for building tables.
+     * @deprecated For internal use only. Use the new SpringTableModel for building tables.
      */
     @Deprecated
     public static TableFacade createSpringTableFacade(String id, HttpServletRequest request) {
@@ -108,7 +108,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new SpringTableModel for building tables.
+     * @deprecated For internal use only. Use the new SpringTableModel for building tables.
      */
     @Deprecated
     public static TableFacade createSpringTableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
@@ -117,7 +117,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new SpringTableModel for building tables.
+     * @deprecated For internal use only. Use the new SpringTableModel for building tables.
      */
     @Deprecated
     public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext) {
@@ -132,7 +132,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new SpringTableModel for building tables.
+     * @deprecated For internal use only. Use the new SpringTableModel for building tables.
      */
     @Deprecated
     public static TableFacade createSpringTableFacade(String id, SpringWebContext springWebContext, HttpServletResponse response) {
@@ -147,7 +147,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new Struts2TableModel for building tables.
+     * @deprecated For internal use only. Use the new Struts2TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request) {
@@ -156,7 +156,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new Struts2TableModel for building tables.
+     * @deprecated For internal use only. Use the new Struts2TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createStruts2TableFacade(String id, HttpServletRequest request, HttpServletResponse response) {
@@ -165,7 +165,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new Struts2TableModel for building tables.
+     * @deprecated For internal use only. Use the new Struts2TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createStruts2TableFacade(String id, WebContext webContext) {
@@ -180,7 +180,7 @@ public class TableFacadeFactory {
     }
 
     /**
-     * @deprecated Use the new Struts2TableModel for building tables.
+     * @deprecated For internal use only. Use the new Struts2TableModel for building tables.
      */
     @Deprecated
     public static TableFacade createStruts2TableFacade(String id, WebContext webContext, HttpServletResponse response) {

@@ -17,13 +17,9 @@ package org.jmesa.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jmesa.core.message.Messages;
-import org.jmesa.core.message.MessagesFactory;
-import org.jmesa.core.message.SpringMessages;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.web.HttpServletRequestSpringWebContext;
+import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.web.SpringWebContext;
-import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * @since 3.0
@@ -31,36 +27,22 @@ import org.springframework.context.i18n.LocaleContextHolder;
  */
 public class SpringTableModel extends TableModel {
     public SpringTableModel(String id, HttpServletRequest request) {
-        this(id, new HttpServletRequestSpringWebContext(request));
+        TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, request);
+        super.setTableFacade(tableFacade);
     }
 
     public SpringTableModel(String id, HttpServletRequest request, HttpServletResponse response) {
-        this(id, new HttpServletRequestSpringWebContext(request), response);
+        TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, request, response);
+        super.setTableFacade(tableFacade);
     }
     
     public SpringTableModel(String id, SpringWebContext springWebContext) {
-        springWebContext.setLocale(LocaleContextHolder.getLocale());
-
-        TableFacade tableFacade = new TableFacade(id, null);
-        tableFacade.setWebContext(springWebContext);
-
-        Messages messages = MessagesFactory.getMessages(springWebContext);
-        SpringMessages springMessages = new SpringMessages(messages, springWebContext);
-        tableFacade.setMessages(springMessages);
-
+        TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, springWebContext);
         super.setTableFacade(tableFacade);
     }
 
     public SpringTableModel(String id, SpringWebContext springWebContext, HttpServletResponse response) {
-        springWebContext.setLocale(LocaleContextHolder.getLocale());
-
-        TableFacade tableFacade = new TableFacade(id, null, response);
-        tableFacade.setWebContext(springWebContext);
-
-        Messages messages = MessagesFactory.getMessages(springWebContext);
-        SpringMessages springMessages = new SpringMessages(messages, springWebContext);
-        tableFacade.setMessages(springMessages);
-
+        TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, springWebContext, response);
         super.setTableFacade(tableFacade);
     }
 }
