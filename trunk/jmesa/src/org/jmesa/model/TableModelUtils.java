@@ -35,7 +35,9 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class TableModelUtils {
-    private TableModelUtils(){}
+    public static String LIMIT_ATTR = "_LIMIT_ATTR";
+
+    protected TableModelUtils(){}
 
     public static boolean isExporting(String id, HttpServletRequest request) {
         return getExportType(id, request) != null;
@@ -48,7 +50,9 @@ public class TableModelUtils {
 
     public static Collection<?> getItems(String id, HttpServletRequest request, PageResults pageResults) {
         TableFacade tableFacade = new TableFacade(id, request);
-        return getItems(tableFacade, pageResults);
+        Collection<?> items = getItems(tableFacade, pageResults);
+        request.setAttribute(tableFacade.getId() + LIMIT_ATTR, tableFacade.getLimit());
+        return items;
     }
 
     protected static Collection<?> getItems(TableFacade tableFacade, PageResults pageResults) {
