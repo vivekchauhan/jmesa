@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,7 +40,7 @@ import org.jmesa.core.message.Messages;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class WorksheetRow {
+public class WorksheetRow implements Serializable {
     private Worksheet worksheet;
     private UniqueProperty uniqueProperty;
     private WorksheetRowStatus rowStatus;

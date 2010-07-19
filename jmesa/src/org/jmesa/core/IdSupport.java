@@ -21,6 +21,5 @@ package org.jmesa.core;
  */
 public interface IdSupport {
     public String getId();
-    
     public void setId(String id);
 }
