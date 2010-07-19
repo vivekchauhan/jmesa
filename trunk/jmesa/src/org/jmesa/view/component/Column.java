@@ -17,6 +17,7 @@ package org.jmesa.view.component;
 
 import groovy.lang.Closure;
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.editor.BasicCellEditor;
@@ -123,6 +124,15 @@ public class Column extends AbstractContextSupport {
 
     public void setCellEditor(CellEditor cellEditor) {
         this.cellEditor = cellEditor;
+
+        /*
+         * This is useful for editors that are decorated at
+         * runtime. Most of the support classes are handled
+         * in the TableFacadeUtils.init() method though.
+         */
+        SupportUtils.setWebContext(cellEditor, getWebContext());
+        SupportUtils.setCoreContext(cellEditor, getCoreContext());
+        SupportUtils.setColumn(cellEditor, this);
     }
 
     public Column cellEditor(CellEditor editor) {

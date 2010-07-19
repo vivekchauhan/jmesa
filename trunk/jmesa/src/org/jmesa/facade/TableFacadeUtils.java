@@ -138,7 +138,8 @@ public class TableFacadeUtils {
     }
 
     /**
-     * Spin through the components and set the WebContext and CoreContext.
+     * Spin through the components and inject the proper support classes. This is kind
+     * of a mini IOC implementation.
      */
     public static void initTable(TableFacade tableFacade, Table table) {
         WebContext webContext = tableFacade.getWebContext();
@@ -175,6 +176,7 @@ public class TableFacadeUtils {
 
             CellRenderer cellRenderer = column.getCellRenderer();
             init(cellRenderer, webContext, coreContext);
+            SupportUtils.setColumn(cellRenderer, column);
 
             CellEditor cellEditor = column.getCellEditor();
             init(cellEditor, webContext, coreContext);
@@ -184,6 +186,7 @@ public class TableFacadeUtils {
 
             HeaderRenderer headerRenderer = column.getHeaderRenderer();
             init(headerRenderer, webContext, coreContext);
+            SupportUtils.setColumn(headerRenderer, column);
 
             HeaderEditor headerEditor = column.getHeaderEditor();
             init(headerEditor, webContext, coreContext);
