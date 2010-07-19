@@ -58,6 +58,10 @@ public class HtmlColumn extends Column {
     private String filterClass;
     private List<WorksheetValidation> validations;
 
+    /*
+     * Store locally because the super class
+     * will create defaults.
+     */
     private CellRenderer cellRenderer;
     private CellEditor cellEditor;
 
@@ -284,6 +288,15 @@ public class HtmlColumn extends Column {
     @Override
     public void setCellEditor(CellEditor cellEditor) {
         this.cellEditor = cellEditor;
+
+        /*
+         * This is useful for editors that are decorated at 
+         * runtime. Most of the support classes are handled
+         * in the TableFacadeUtils.init() method though.
+         */
+        SupportUtils.setWebContext(cellEditor, getWebContext());
+        SupportUtils.setCoreContext(cellEditor, getCoreContext());
+        SupportUtils.setColumn(cellEditor, this);
     }
 
     public WorksheetEditor getWorksheetEditor() {
@@ -292,11 +305,6 @@ public class HtmlColumn extends Column {
 
     public void setWorksheetEditor(WorksheetEditor worksheetEditor) {
         this.worksheetEditor = worksheetEditor;
-        
-        //TODO: this will be removed when we remove 3.0 deprecated methods
-        SupportUtils.setWebContext(worksheetEditor, getWebContext());
-        SupportUtils.setCoreContext(worksheetEditor, getCoreContext());
-        SupportUtils.setColumn(worksheetEditor, this);
     }
 
     public HtmlColumn worksheetEditor(WorksheetEditor editor){
