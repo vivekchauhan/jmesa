@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet;
 
+import java.io.Serializable;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -34,7 +35,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class WorksheetColumn {
+public class WorksheetColumn implements Serializable {
     private WorksheetRow row;
     private String property;
     private String error;
