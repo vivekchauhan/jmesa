@@ -297,12 +297,12 @@ public class TableFacade {
     }
 
     /**
-     * Saves the worksheet.
+     * Saves the worksheet in session.
      *
      * @since 2.5.2
      */
     public void persistWorksheet(Worksheet worksheet) {
-    	getWorksheetState().persistWorksheet(worksheet.getWorksheetImpl());
+    	getWorksheetState().persistWorksheet(worksheet);
     }
 
     /**

@@ -327,8 +327,4 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
         builder.append("rows", rows);
         return builder.toString();
     }
-
-    public Worksheet getWorksheetImpl() {
-        return this;
-    }
 }
