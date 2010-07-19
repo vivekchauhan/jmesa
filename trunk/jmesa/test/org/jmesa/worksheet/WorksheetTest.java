@@ -41,7 +41,7 @@ public class WorksheetTest {
         WorksheetRow thirdRow = new WorksheetRow(thirdRowMap);
         thirdRow.setRowStatus(WorksheetRowStatus.REMOVE);
 
-        Worksheet worksheet = new WorksheetImpl("pres", null);
+        Worksheet worksheet = new Worksheet("pres");
         worksheet.addRow(firstRow);
         worksheet.addRow(secondRow);
         worksheet.addRow(thirdRow);

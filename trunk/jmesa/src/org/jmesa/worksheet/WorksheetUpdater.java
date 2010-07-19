@@ -51,11 +51,9 @@ public class WorksheetUpdater {
         Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow row = getWorksheetRow(worksheet, webContext);
 
-        WorksheetColumn column = getWorksheetColumn(row, messages, webContext);
+        WorksheetColumn column = getWorksheetColumn(row, webContext);
         String columnStatus = validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
 
-        // for GAE
-        getWorksheetState(webContext).persistWorksheet(worksheet);
         return columnStatus;
     }
 
@@ -64,7 +62,9 @@ public class WorksheetUpdater {
         Worksheet worksheet = wst.retrieveWorksheet();
         if (worksheet == null) {
         	String id = webContext.getParameter("id");
-            worksheet = new WorksheetImpl(id, messages);
+            worksheet = new Worksheet(id);
+            worksheet.setWebContext(webContext);
+            worksheet.setMessages(messages);
             wst.persistWorksheet(worksheet);
         }
 
@@ -103,7 +103,7 @@ public class WorksheetUpdater {
         return null;
     }
 
-    protected WorksheetColumn getWorksheetColumn(WorksheetRow row, Messages messages, WebContext webContext) {
+    protected WorksheetColumn getWorksheetColumn(WorksheetRow row, WebContext webContext) {
         String property = webContext.getParameter(COLUMN_PROPERTY);
         WorksheetColumn column = row.getColumn(property);
         if (column == null) {
@@ -113,7 +113,7 @@ public class WorksheetUpdater {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            column = new WorksheetColumn(property, orginalValue, messages);
+            column = new WorksheetColumn(property, orginalValue);
             row.addColumn(column);
         }
 

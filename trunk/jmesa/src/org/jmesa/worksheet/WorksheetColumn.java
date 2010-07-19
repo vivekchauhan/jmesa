@@ -17,7 +17,6 @@ package org.jmesa.worksheet;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.jmesa.core.message.Messages;
 
 /**
  * <p>
@@ -36,16 +35,19 @@ import org.jmesa.core.message.Messages;
  * @author Jeff Johnston
  */
 public class WorksheetColumn {
+    private WorksheetRow row;
     private String property;
-    private Messages messages;
     private String error;
     private String originalValue;
     private String changedValue;
 
-    public WorksheetColumn(String property, String originalValue, Messages messages) {
+    public WorksheetColumn(String property, String originalValue) {
         this.property = property;
         this.originalValue = originalValue;
-        this.messages = messages;
+    }
+
+    public void setRow(WorksheetRow row) {
+        this.row = row;
     }
 
     /**
@@ -93,7 +95,7 @@ public class WorksheetColumn {
      * @param key The error key to find in the messages.
      */
     public void setErrorKey(String key) {
-        setError(messages.getMessage(key));
+        setError(row.getMessages().getMessage(key));
     }
 
     /**

@@ -28,9 +28,9 @@ import org.junit.Test;
 public class WorksheetRowTest {
     @Test
     public void removeColumn() {
-        WorksheetColumn firstName = new WorksheetColumn("name.firstName", null, null);
-        WorksheetColumn born = new WorksheetColumn("born", null, null);
-        WorksheetColumn lastName = new WorksheetColumn("name.lastName", null, null);
+        WorksheetColumn firstName = new WorksheetColumn("name.firstName", null);
+        WorksheetColumn born = new WorksheetColumn("born", null);
+        WorksheetColumn lastName = new WorksheetColumn("name.lastName", null);
 
         WorksheetRow row = new WorksheetRow(null);
         row.addColumn(firstName);

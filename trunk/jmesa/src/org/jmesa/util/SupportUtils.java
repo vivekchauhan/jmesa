@@ -20,6 +20,8 @@ import org.jmesa.core.CoreContextSupport;
 import org.jmesa.core.IdSupport;
 import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.FilterMatcherRegistrySupport;
+import org.jmesa.core.message.Messages;
+import org.jmesa.core.message.MessagesSupport;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.state.StateAttrSupport;
 import org.jmesa.view.ExportTypesSupport;
@@ -68,6 +70,18 @@ public class SupportUtils {
     public static void setCoreContext(Object obj, CoreContext coreContext) {
         if ((obj instanceof CoreContextSupport) && ((CoreContextSupport) obj).getCoreContext() == null) {
             ((CoreContextSupport) obj).setCoreContext(coreContext);
+        }
+    }
+
+    /**
+     * Set the Messages on the object being inspected if it is not already set.
+     *
+     * @param obj The object being inspected.
+     * @param messages The object to be injected.
+     */
+    public static void setMessages(Object obj, Messages messages) {
+        if ((obj instanceof MessagesSupport) && ((MessagesSupport) obj).getMessages() == null) {
+            ((MessagesSupport) obj).setMessages(messages);
         }
     }
 

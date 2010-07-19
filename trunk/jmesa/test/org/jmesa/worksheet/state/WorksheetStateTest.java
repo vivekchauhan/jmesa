@@ -22,7 +22,6 @@ import org.jmesa.limit.Limit;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
-import org.jmesa.worksheet.WorksheetImpl;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -42,7 +41,8 @@ public class WorksheetStateTest {
 
         WorksheetState state = new SessionWorksheetState(ID, webContext);
 
-        Worksheet worksheet = new WorksheetImpl(ID, null);
+        Worksheet worksheet = new Worksheet(ID);
+        worksheet.setWebContext(webContext);
 
         assertNull("The worksheet is not null.", state.retrieveWorksheet());
 

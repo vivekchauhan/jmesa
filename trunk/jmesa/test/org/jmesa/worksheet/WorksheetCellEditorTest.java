@@ -71,9 +71,9 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         WorksheetRow thirdRow = new WorksheetRow(thirdRowMap);
         thirdRow.setRowStatus(WorksheetRowStatus.MODIFY);
 
-        Worksheet worksheet = new WorksheetImpl(ID, null);
+        Worksheet worksheet = new Worksheet(ID);
         
-        WorksheetColumn column = new WorksheetColumn("name.firstName", "", null);
+        WorksheetColumn column = new WorksheetColumn("name.firstName", "");
         column.setChangedValue("Changed Name");
         firstRow.addColumn(column);
         worksheet.addRow(firstRow);

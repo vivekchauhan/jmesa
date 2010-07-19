@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.jmesa.core.message.Messages;
 
 /**
  * <p>
@@ -39,6 +40,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class WorksheetRow {
+    private Worksheet worksheet;
     private UniqueProperty uniqueProperty;
     private WorksheetRowStatus rowStatus;
     private Object item;
@@ -47,6 +49,10 @@ public class WorksheetRow {
 
     public WorksheetRow(UniqueProperty uniqueProperty) {
         this.uniqueProperty = uniqueProperty;
+    }
+
+    public void setWorksheet(Worksheet worksheet) {
+        this.worksheet = worksheet;
     }
 
     /**
@@ -64,6 +70,7 @@ public class WorksheetRow {
      */
     public void addColumn(WorksheetColumn column) {
         columns.put(column.getProperty(), column);
+        column.setRow(this);
     }
 
     /**
@@ -136,6 +143,10 @@ public class WorksheetRow {
 	public Object getItem() {
 		return item;
 	}
+
+    public Messages getMessages() {
+        return worksheet.getMessages();
+    }
 
     @Override
     public String toString() {
