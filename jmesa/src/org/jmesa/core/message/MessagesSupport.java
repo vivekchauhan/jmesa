@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.worksheet.state;
-
-import org.jmesa.worksheet.Worksheet;
+package org.jmesa.core.message;
 
 /**
- * <p>
- * Abstracts out where the Worksheet is being held so that the servlet and facade can work with the
- * Worksheet transparently.
- * </p>
- * 
- * @since 2.3
+ * @since 3.0
  * @author Jeff Johnston
  */
-public interface WorksheetState {
-    public Worksheet retrieveWorksheet();
-    public void persistWorksheet(Worksheet worksheet);
+public interface MessagesSupport {
+    public Messages getMessages();
+    public void setMessages(Messages messages);
 }

@@ -28,7 +28,6 @@ import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
-import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.WorksheetRow;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -63,7 +62,8 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
         HttpServletRequest request = getSpringRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade(ID, request);
 
-        Worksheet worksheet = new WorksheetWrapper(new WorksheetImpl(ID, null), facade.getWebContext());
+        Worksheet worksheet = new Worksheet(ID);
+        worksheet.setWebContext(facade.getWebContext());
 
         worksheet.addRow(firstRow);
         worksheet.addRow(secondRow);

@@ -78,7 +78,6 @@ import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
-import org.jmesa.worksheet.WorksheetImpl;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetRowStatus;
 import org.jmesa.worksheet.state.SessionWorksheetState;
@@ -252,14 +251,15 @@ public class TableFacade {
         }
 
         this.worksheetState = getWorksheetState();
-        Worksheet ws = worksheetState.retrieveWorksheet();
+        this.worksheet = worksheetState.retrieveWorksheet();
 
-        if (ws == null || !isTableRefreshing(id, getWebContext())) {
-            ws = new WorksheetImpl(id, getMessages());
-            persistWorksheet(ws);
+        if (worksheet == null || !isTableRefreshing(id, getWebContext())) {
+            this.worksheet = new Worksheet(id);
+            persistWorksheet(worksheet);
         }
 
-        this.worksheet = new WorksheetWrapper(ws, getWebContext());
+        worksheet.setWebContext(getWebContext());
+        worksheet.setMessages(getMessages());
 
         return worksheet;
     }
@@ -309,7 +309,7 @@ public class TableFacade {
      * Remove a worksheet row.
      */
     public void removeWorksheetRow() {
-        String up = getLimit().getId() + "_" +  WorksheetWrapper.REMOVE_WORKSHEET_ROW;
+        String up = getLimit().getId() + "_" +  Worksheet.REMOVE_WORKSHEET_ROW;
         String name = getTable().getRow().getUniqueProperty();
         String value = getWebContext().getParameter(up);
         UniqueProperty uniqueProperty = new UniqueProperty(name, value);

@@ -15,8 +15,8 @@
  */
 package org.jmesa.test;
 
-import static org.jmesa.facade.WorksheetWrapper.FILTER_WORKSHEET;
-import static org.jmesa.facade.WorksheetWrapper.SAVE_WORKSHEET;
+import static org.jmesa.worksheet.Worksheet.FILTER_WORKSHEET;
+import static org.jmesa.worksheet.Worksheet.SAVE_WORKSHEET;
 
 import java.util.ArrayList;
 import java.util.List;
