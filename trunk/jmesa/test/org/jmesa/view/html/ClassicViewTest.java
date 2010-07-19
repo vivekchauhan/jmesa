@@ -18,6 +18,8 @@ package org.jmesa.view.html;
 import static org.junit.Assert.assertNotNull;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.facade.TableFacade;
+import org.jmesa.facade.TableFacadeUtils;
 import org.jmesa.limit.ExportType;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.editor.CellEditor;
@@ -37,6 +39,10 @@ public class ClassicViewTest extends AbstractTestCase {
     public void render() {
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
+
+        TableFacade tableFacade = new TableFacade(ID, null);
+        tableFacade.setWebContext(webContext);
+        tableFacade.setCoreContext(coreContext);
 
         HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
 
@@ -81,6 +87,9 @@ public class ClassicViewTest extends AbstractTestCase {
         view.setTable(table);
         view.setToolbar(toolbar);
         view.setCoreContext(coreContext);
+
+        TableFacadeUtils.initTable(tableFacade, table);
+
         Object html = view.render();
 
         assertNotNull(html);
