@@ -656,12 +656,14 @@
         },
         validateAndSubmitWsColumn : function(cell, input, originalValue) {
             var changedValue = input.val();
+            var validator = validatorObject[wsColumn.id];
             var hasRules;
-            $.each(input.rules(), function() { hasRules = true; });
-            /* validate manually */
+            if (validator) {
+                $.each(input.rules(), function() { hasRules = true; });
+            }
             if (changedValue != originalValue) {
-                var validator = validatorObject[wsColumn.id];
-                if (validator) {
+                if (hasRules) {
+                    /* trigger validation */
                     validator.element($('#wsColumnInput'));
                 }
             }
