@@ -37,6 +37,7 @@ public class HtmlRowRendererTest extends AbstractTestCase {
         CoreContext coreContext = createCoreContext(webContext);
 
         HtmlRow row = new HtmlRow();
+        row.setCoreContext(coreContext);
 
         row.setOnclick(new AbstractRowEvent() {
             public String execute(Object item, int rowcount) {

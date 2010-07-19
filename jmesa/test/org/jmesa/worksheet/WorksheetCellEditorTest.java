@@ -40,7 +40,9 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         // get the column
         HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
         HtmlColumn column = factory.createColumn("name.firstName");
-        
+
+        column.setCoreContext(coreContext);
+
         // set the row unique properties
         Row row = new HtmlRow();
         row.setUniqueProperty("id");
