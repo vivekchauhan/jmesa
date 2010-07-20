@@ -26,6 +26,7 @@ import static org.jmesa.facade.TableFacadeExceptions.validateToolbarIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateViewIsNull;
 import static org.jmesa.facade.TableFacadeUtils.filterWorksheetItems;
 import static org.jmesa.facade.TableFacadeUtils.isTableRefreshing;
+import static org.jmesa.facade.TableFacadeUtils.isClearingWorksheet;
 import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
 
 import java.util.Collection;
@@ -253,7 +254,7 @@ public class TableFacade {
         this.worksheetState = getWorksheetState();
         this.worksheet = worksheetState.retrieveWorksheet();
 
-        if (worksheet == null || !isTableRefreshing(id, getWebContext())) {
+        if (isClearingWorksheet(id, getWebContext()) || worksheet == null || !isTableRefreshing(id, getWebContext())) {
             this.worksheet = new Worksheet(id);
             persistWorksheet(worksheet);
         }

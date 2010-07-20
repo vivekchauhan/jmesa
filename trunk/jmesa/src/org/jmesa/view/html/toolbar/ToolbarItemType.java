@@ -33,6 +33,7 @@ public enum ToolbarItemType {
     SEPARATOR("separator"),
     SAVE_WORKSHEET_ITEM("save_worksheet"),
     FILTER_WORKSHEET_ITEM("filter_worksheet"),
+    CLEAR_WORKSHEET_ITEM("clear_worksheet"),
     ADD_WORKSHEET_ROW_ITEM("add_worksheet_row"),
     UNDO_ITEM("undo");
 

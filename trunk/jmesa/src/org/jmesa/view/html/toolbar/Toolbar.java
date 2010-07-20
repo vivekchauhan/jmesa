@@ -94,6 +94,9 @@ public abstract class Toolbar extends AbstractContextSupport {
             case FILTER_WORKSHEET_ITEM:
                 item = factory.createFilterWorksheetItem();
                 break;
+            case CLEAR_WORKSHEET_ITEM:
+                item = factory.createClearWorksheetItem();
+                break;
             case ADD_WORKSHEET_ROW_ITEM:
                 item = factory.createAddWorksheetRowItem();
                 break;
