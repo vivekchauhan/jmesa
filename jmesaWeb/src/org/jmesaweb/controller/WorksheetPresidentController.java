@@ -29,6 +29,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.model.TableModel;
+import org.jmesa.model.WorksheetSaver;
 import org.jmesa.view.editor.DateCellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
@@ -70,6 +71,12 @@ public class WorksheetPresidentController extends AbstractController {
         tableModel.setEditable(true);
         tableModel.setItems(presidentService.getPresidents());
         tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
+
+        tableModel.saveWorksheet(new WorksheetSaver() {
+            public void saveWorksheet(Worksheet worksheet) {
+                saveWorksheetChanges(worksheet);
+            }
+        });
 
         HtmlTable htmlTable = new HtmlTable();
         htmlTable.setCaption("Presidents");
@@ -114,7 +121,7 @@ public class WorksheetPresidentController extends AbstractController {
         return mv;
     }
 
-    protected void saveWorksheet(Worksheet worksheet) {
+    protected void saveWorksheetChanges(Worksheet worksheet) {
         String uniquePropertyName = WorksheetUtils.getUniquePropertyName(worksheet);
         List<String> uniquePropertyValues = WorksheetUtils.getUniquePropertyValues(worksheet);
         final Map<String, President> presidents =
