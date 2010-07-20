@@ -15,8 +15,14 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
+import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR_WORKSHEET_DISABLED;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED;
@@ -32,7 +38,9 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SEPARATOR;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_NUMBER_CLASS;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_ADD_WORKSHEET_ROW;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FIRST_PAGE;
@@ -41,7 +49,9 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_NEXT_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_PREV_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_SAVE_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR;
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER_WORKSHEET;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FIRST_PAGE;
@@ -49,12 +59,6 @@ import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_LAST_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_NEXT_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
 import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_SAVE_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_ADD_WORKSHEET_ROW;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
@@ -242,6 +246,21 @@ public class ToolbarItemFactory {
         return item;
     }
 
+    public ImageItem createClearWorksheetItem() {
+        ImageItemImpl item = new ImageItemImpl();
+        item.setCode(ToolbarItemType.CLEAR_WORKSHEET_ITEM.toCode());
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR_WORKSHEET));
+        item.setDisabledImage(getImage(TOOLBAR_IMAGE_CLEAR_WORKSHEET_DISABLED));
+        item.setImage(getImage(TOOLBAR_IMAGE_CLEAR_WORKSHEET));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_CLEAR_WORKSHEET));
+        
+        ToolbarItemRenderer renderer = new ClearWorksheetItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+        
+        return item;
+    }
+    
     public ImageItem createAddWorksheetRowItem() {
         ImageItemImpl item = new ImageItemImpl();
         item.setCode(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM.toCode());

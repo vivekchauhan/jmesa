@@ -59,6 +59,7 @@ public class TableFacadeUtils {
     private static final Logger logger = LoggerFactory.getLogger(TableFacadeUtils.class);
 
     public static final String TABLE_REFRESHING = "tr_";
+    public static final String CLEARING_WORKSHEET = "cw_";
     
     private TableFacadeUtils() {}
     
@@ -72,6 +73,20 @@ public class TableFacadeUtils {
     static boolean isTableRefreshing(String id, WebContext webContext) {
         String refreshing = webContext.getParameter(id + "_" + TABLE_REFRESHING);
         if (StringUtils.isNotEmpty(refreshing) && refreshing.equals("true")) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * @param id The table identifier.
+     * @param webContext The web context.
+     * @return Is true if the user is requesting to clear all the worksheet changes.
+     */
+    static boolean isClearingWorksheet(String id, WebContext webContext) {
+        String clearingWorksheet = webContext.getParameter(id + "_" + CLEARING_WORKSHEET);
+        if (StringUtils.isNotEmpty(clearingWorksheet) && clearingWorksheet.equals("true")) {
             return true;
         }
         
