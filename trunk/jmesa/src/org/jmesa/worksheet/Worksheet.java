@@ -142,23 +142,16 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
         	logger.debug("Unique Property for added row: " + wsr.getUniqueProperty());
         }
 
-    	// put unique property
-    	itemMap.put(upName, upValue);
-
-    	// Navigate through the columns and add either in worksheet column or in Map
+    	// Navigate through the columns and add in Map (and in editable column)
     	for (Column column: row.getColumns()) {
     		HtmlColumn htmlColumn = (HtmlColumn)column;
     		String property = htmlColumn.getProperty();
 
 			Object value = (item == null) ? null : ItemUtils.getItemValue(item, property);
-			if (value == null) {
-				value = "";
-			}
-
     		itemMap.put(property, value);
 
     		if (htmlColumn.isEditable()) {
-    			WorksheetEditor wse = (WorksheetEditor) htmlColumn.getCellRenderer().getCellEditor();
+    			WorksheetEditor wse = (WorksheetEditor) htmlColumn.getCellEditor();
     			value = (item == null) ? null : wse.getValueForWorksheet(item, property, -1);
 
     			if (value == null) {
@@ -175,6 +168,10 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
         if (item != null) {
         	itemMap.put(ItemUtils.JMESA_ITEM, item);
         }
+
+        // put unique property (overwrite if displayed in table)
+        itemMap.put(upName, upValue);
+
     	wsr.setRowStatus(WorksheetRowStatus.ADD);
     	wsr.setItem(itemMap);
 
