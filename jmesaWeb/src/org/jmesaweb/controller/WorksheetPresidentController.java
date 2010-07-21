@@ -78,14 +78,13 @@ public class WorksheetPresidentController extends AbstractController {
             }
         });
 
-        HtmlTable htmlTable = new HtmlTable();
-        htmlTable.setCaption("Presidents");
-        htmlTable.setWidth("600px");
+        HtmlTable htmlTable = new HtmlTable().caption("Presidents").width("600px");
 
         HtmlRow htmlRow = new HtmlRow();
         htmlRow.setUniqueProperty("id"); // the unique worksheet properties to identify the row
         htmlTable.setRow(htmlRow);
 
+        // non-fluent columns
         HtmlColumn remove = new HtmlColumn("remove");
         remove.setWorksheetEditor(new RemoveRowWorksheetEditor());
         remove.setTitle("&nbsp;");
@@ -93,24 +92,20 @@ public class WorksheetPresidentController extends AbstractController {
         remove.setSortable(false);
         htmlRow.addColumn(remove);
 
-        HtmlColumn chkbox = new HtmlColumn("selected");
+        // fluent columns
+        HtmlColumn chkbox = new HtmlColumn("selected").title("&nbsp;");
         chkbox.setWorksheetEditor(new CheckboxWorksheetEditor());
-        chkbox.setTitle("&nbsp;");
-        chkbox.setFilterable(false);
-        chkbox.setSortable(false);
+        chkbox.filterable(false).sortable(false);
         htmlRow.addColumn(chkbox);
 
-        HtmlColumn firstName = new HtmlColumn("name.firstName");
-        firstName.setTitle("First Name");
+        HtmlColumn firstName = new HtmlColumn("name.firstName").title("First Name");
         firstName.addWorksheetValidation(new WorksheetValidation(REQUIRED, TRUE));
         htmlRow.addColumn(firstName);
 
-        HtmlColumn lastName = new HtmlColumn("name.lastName");
-        lastName.setTitle("Last Name");
+        HtmlColumn lastName = new HtmlColumn("name.lastName").title("Last Name");
         htmlRow.addColumn(lastName);
 
-        HtmlColumn born = new HtmlColumn("born");
-        born.setEditable(false);
+        HtmlColumn born = new HtmlColumn("born").editable(false);
         born.setCellEditor(new DateCellEditor("MM/yyyy"));
         htmlRow.addColumn(born);
 
