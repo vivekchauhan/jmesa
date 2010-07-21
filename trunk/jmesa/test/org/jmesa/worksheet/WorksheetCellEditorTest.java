@@ -25,12 +25,14 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.web.WebContext;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @since 2.3
  * @author Jeff Johnston
  */
+@Ignore
 public class WorksheetCellEditorTest extends AbstractTestCase {
     @Test
     public void getEditedValue() {
