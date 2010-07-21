@@ -427,32 +427,38 @@
             var input = $('#dynFilterInput');
             input.val(originalValue);
             input.focus();
+            if (jQuery.browser.msie) { /* IE need a second focus */
+                input.focus();
+            }
 
-            $(input).keypress(function(event) {
+            $(input).keydown(function(event) {
                 if (event.keyCode == 13) { /* Press the enter key. */
-                    var changedValue = input.val();
-                    cell.text('');
-                    cell.css('overflow', 'hidden');
-                    cell.text(changedValue);
-                    if(originalValue != changedValue) {
-                       $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-                    }
                     var id = dynFilter.id;
-                    dynFilter = null;
+                    $.jmesa.saveDynFilterData(cell, input, originalValue);
                     $.jmesa.onInvokeAction(id, 'filter');
+                } else if (event.keyCode == 9) { /* Press the tab key. */
+                    var divToClick = $.jmesa.findNextCell('dynFilter', event.shiftKey);
+                    $.jmesa.saveDynFilterData(cell, input, originalValue);
+                    if (divToClick != null){
+                        divToClick.onclick();
+                        return false; /* Stop event for IE */
+                    }
                 }
             });
 
             $(input).blur(function() {
-                var changedValue = input.val();
-                cell.text('');
-                cell.css('overflow', 'hidden');
-                cell.text(changedValue);
-                if(originalValue != changedValue) {
-                   $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
-                }
-                dynFilter = null;
+                $.jmesa.saveDynFilterData(cell, input, originalValue);
             });
+        },
+        saveDynFilterData : function(cell, input, originalValue) {
+            var changedValue = input.val();
+            cell.text('');
+            cell.css('overflow', 'hidden');
+            cell.text(changedValue);
+            if(originalValue != changedValue) {
+               $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+            }
+            dynFilter = null;
         },
         createDroplistDynFilter : function(filter, id, property, options) {
             if (dynFilter) {
@@ -467,6 +473,7 @@
 
             /* The cell that represents the filter. */
             var cell = $(filter);
+            cell.css('overflow', 'visible');
 
             /* Get the original filter value and width. */
             var originalValue = cell.text();
@@ -520,22 +527,43 @@
             /* Something was selected or the clicked off the droplist. */
 
             $(input).click(function() {
-                var changedValue = $("#dynFilterDroplistDiv option:selected").val();
-                var changedText = $("#dynFilterDroplistDiv option:selected").text();
-                cell.text(changedText);
-                $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
                 var id = dynFilter.id;
-                dynFilter = null;
+                $.jmesa.saveDroplistDynFilterData(cell, originalValue, originalBackgroundColor);
                 $.jmesa.onInvokeAction(id, 'filter');
             });
 
             $(input).blur(function() {
-                var changedText = $("#dynFilterDroplistDiv option:selected").text();
-                cell.text(changedText);
-                $('#dynFilterDroplistDiv').remove();
-                cell.css({backgroundColor:originalBackgroundColor});
-                dynFilter = null;
+                $.jmesa.saveDroplistDynFilterData(cell, originalValue, originalBackgroundColor);
             });
+
+            div.keydown(function(event) {
+                if (event.keyCode == 13) { /* Press the enter key. */
+                    var id = dynFilter.id;
+                    $.jmesa.saveDroplistDynFilterData(cell, originalValue, originalBackgroundColor);
+                    $.jmesa.onInvokeAction(id, 'filter');
+                } else if (event.keyCode == 9) { /* Press the tab key. */
+                    var divToClick = $.jmesa.findNextCell('dynFilter', event.shiftKey);
+                    $.jmesa.saveDroplistDynFilterData(cell, originalValue, originalBackgroundColor);
+
+                    if (divToClick != null){
+                        divToClick.onclick();
+                        return false; /* Stop event for IE */
+                    }
+                }
+
+            });
+        },
+        saveDroplistDynFilterData : function(cell, originalValue, originalBackgroundColor) {
+            var changedValue = $("#dynFilterDroplistDiv option:selected").val();
+            var changedText = $("#dynFilterDroplistDiv option:selected").text();
+            cell.text(changedText);
+            cell.css('overflow', 'hidden');
+            if (originalValue != changedValue) {
+                $.jmesa.addFilterToLimit(dynFilter.id, dynFilter.property, changedValue);
+            }
+            $('#dynFilterDroplistDiv').remove();
+            cell.css({backgroundColor:originalBackgroundColor});
+            dynFilter = null;
         }
     }
 
@@ -577,51 +605,57 @@
                 $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
             });
         },
+        findNextCell : function(classToMatch, shiftKey) {
+            var divToClick = null;
+            var divElements = document.getElementsByTagName('div');
+            var nextCell = false;
+            var lastCell = false;
+            var lastDiv = null;
+            var firstDiv = null;
+
+            for (i = 0 ; i < divElements.length ; i++){
+                /* identify wsColumn, wsColumnChange or wsColumnError if className startsWith wsColumn */
+                if (divElements[i].className.indexOf(classToMatch) == 0) {
+                    if (firstDiv == null){
+                        firstDiv = divElements[i];
+                    }
+
+                    if (nextCell){
+                        divToClick = divElements[i];
+                        break;
+                    } else if (divElements[i].style.overflow == 'visible'){
+                        if (shiftKey){ /* shift-tabulation ==> Precedent cell */
+                            if (divElements[i] == firstDiv){ /* shitf-tabulation in first cell */
+                                lastCell = true;
+                            } else {
+                                divToClick = lastDiv;
+                                break;
+                            }
+                        } else { /* tabulation ==> Next cell */
+                            nextCell = true;
+                        }
+                    }
+                    lastDiv = divElements[i];
+                }
+            }
+
+            if (divToClick == null){
+                if (nextCell){ /* tabulation in last cell */
+                    divToClick = firstDiv;
+                } else if (lastCell) { /* shitf-tabulation in first cell */
+                    divToClick = lastDiv;
+                }
+            }
+
+            return divToClick;
+        },
         wsColumnKeyEvent : function(cell, input, originalValue) {
             var keyEvent = function(event) {
                 if (event.keyCode == 13 || event.keyCode == 9) { /* Press the enter or tabulation key. */
                     var divToClick = null;
 
                     if (event.keyCode == 9) { /* Press the tabulation key ==> search last or next cell */
-                        var divElements = document.getElementsByTagName('div');
-                        var nextCell = false;
-                        var lastCell = false;
-                        var lastDiv = null;
-                        var firstDiv = null;
-
-                        for (i = 0 ; i < divElements.length ; i++){
-                            /* identify wsColumn, wsColumnChange or wsColumnError if className startsWith wsColumn */
-                            if (divElements[i].className.indexOf('wsColumn') == 0) {
-                                if (firstDiv == null){
-                                    firstDiv = divElements[i];
-                                }
-
-                                if (nextCell){
-                                    divToClick = divElements[i];
-                                    break;
-                                } else if (divElements[i].style.overflow == 'visible'){
-                                    if (event.shiftKey){ /* shift-tabulation ==> Precedent cell */
-                                        if (divElements[i] == firstDiv){ /* shitf-tabulation in first cell */
-                                            lastCell = true;
-                                        } else {
-                                            divToClick = lastDiv;
-                                            break;
-                                        }
-                                    } else { /* tabulation ==> Next cell */
-                                        nextCell = true;
-                                    }
-                                }
-                                lastDiv = divElements[i];
-                            }
-                        }
-
-                        if (divToClick == null){
-                            if (nextCell){ /* tabulation in last cell */
-                                divToClick = firstDiv;
-                            } else if (lastCell) { /* shitf-tabulation in first cell */
-                                divToClick = lastDiv;
-                            }
-                        }
+                        divToClick = $.jmesa.findNextCell('wsColumn', event.shiftKey);
                     }
 
                     $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
