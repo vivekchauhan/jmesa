@@ -30,6 +30,9 @@
             this.getTableFacade(id).worksheet.filter='true';
             this.setPageToLimit(id, '1');
         },
+        setClearToWorksheet : function(id) {
+            this.getTableFacade(id).worksheet.clear='true';
+        },
         setAddRowToWorksheet : function(id) {
             this.getTableFacade(id).worksheet.addRow='true';
         },
@@ -195,6 +198,7 @@
         Worksheet : function () {
             this.save = null;
             this.filter = null;
+            this.clear = null;
             this.addRow = null;
             this.removeRow = null;
         },
@@ -305,6 +309,10 @@
                 $(form).append('<input type="hidden" name="' + limit.id + '_fw_" value="true"/>');
             }
 
+            if (this.worksheet.clear) {
+                $(form).append('<input type="hidden" name="' + limit.id + '_cw_" value="true"/>');
+            }
+
             if (this.worksheet.addRow) {
                 $(form).append('<input type="hidden" name="' + limit.id + '_awr_" value="true"/>');
             }
@@ -373,6 +381,10 @@
 
             if (this.worksheet.filter) {
                 url += '&' + limit.id + '_fw_=true';
+            }
+
+            if (this.worksheet.clear) {
+                url += '&' + limit.id + '_cw_=true';
             }
 
             if (this.worksheet.addRow) {
@@ -656,12 +668,14 @@
         },
         validateAndSubmitWsColumn : function(cell, input, originalValue) {
             var changedValue = input.val();
+            var validator = validatorObject[wsColumn.id];
             var hasRules;
-            $.each(input.rules(), function() { hasRules = true; });
-            /* validate manually */
+            if (validator) {
+                $.each(input.rules(), function() { hasRules = true; });
+            }
             if (changedValue != originalValue) {
-                var validator = validatorObject[wsColumn.id];
-                if (validator) {
+                if (hasRules) {
+                    /* trigger validation */
                     validator.element($('#wsColumnInput'));
                 }
             }
