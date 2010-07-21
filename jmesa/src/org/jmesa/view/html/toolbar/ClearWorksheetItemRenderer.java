@@ -35,8 +35,8 @@ public class ClearWorksheetItemRenderer extends AbstractItemRenderer {
         ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
         String alertText = getCoreContext().getMessage(HtmlConstants.ALERT_CLEAR_WORKSHEET);
-        action.append("if (!confirm('" + alertText + "')) { return; }; ");
-        action.append("jQuery.jmesa.setClearToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
+        action.append("if (confirm('" + alertText + "')) {");
+        action.append("jQuery.jmesa.setClearToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item) + "}");
         item.setAction(action.toString());
 
         return item.enabled();
