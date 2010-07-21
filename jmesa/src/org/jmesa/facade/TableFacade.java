@@ -254,7 +254,7 @@ public class TableFacade {
         this.worksheetState = getWorksheetState();
         this.worksheet = worksheetState.retrieveWorksheet();
 
-        if (isClearingWorksheet(id, getWebContext()) || worksheet == null || !isTableRefreshing(id, getWebContext())) {
+        if (worksheet == null || isClearingWorksheet(id, getWebContext()) || !isTableRefreshing(id, getWebContext())) {
             this.worksheet = new Worksheet(id);
             persistWorksheet(worksheet);
         }
