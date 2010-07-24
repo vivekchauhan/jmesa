@@ -81,8 +81,7 @@ public class WorksheetPresidentController extends AbstractController {
 
         HtmlTable htmlTable = new HtmlTable().caption("Presidents").width("600px");
 
-        HtmlRow htmlRow = new HtmlRow();
-        htmlRow.setUniqueProperty("id"); // the unique worksheet properties to identify the row
+        HtmlRow htmlRow = new HtmlRow().uniqueProperty("id");
         htmlTable.setRow(htmlRow);
 
         // non-fluent columns
