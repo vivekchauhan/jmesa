@@ -30,6 +30,8 @@ import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesaweb.controller.HtmlTableTemplate;
+import org.jmesa.util.ItemUtils;
+import org.jmesa.view.editor.CellEditor;
 
 /**
  * This example is exactly like the basic example except it is using Groovy. It is 
@@ -60,13 +62,16 @@ class BasicGroovyPresident implements HtmlTableTemplate {
         table.tableRenderer.width = "600px"
 
         // Using a closure to implement a custom editor.
-        firstName.cellRenderer.setCellEditor({item, property, rowcount -> 
-            def value = new BasicCellEditor().getValue(item, property, rowcount);
-            return """
-                    <a href="http://www.whitehouse.gov/history/presidents/">
-                       $value
-                    </a>
-                   """})
+        firstName.cellRenderer.setCellEditor(new CellEditor() {
+            Object getValue(Object item, String property, int rowcount) {
+                def value = ItemUtils.getItemValue(item, property);
+                return """
+                        <a href="http://www.whitehouse.gov/history/presidents/">
+                           $value
+                        </a>
+                       """
+            }
+        })
 
         return tableFacade.render() // Return the Html.
     }
