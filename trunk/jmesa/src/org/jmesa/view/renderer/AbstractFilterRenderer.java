@@ -15,8 +15,6 @@
  */
 package org.jmesa.view.renderer;
 
-import groovy.lang.Closure;
-
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
@@ -51,13 +49,5 @@ public abstract class AbstractFilterRenderer extends AbstractContextSupport impl
     @Deprecated
     public void setFilterEditor(FilterEditor filterEditor) {
         getColumn().setFilterEditor(filterEditor);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public void setFilterEditor(final Closure closure) {
-        getColumn().setFilterEditor(closure);
     }
 }

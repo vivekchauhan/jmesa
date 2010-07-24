@@ -15,8 +15,6 @@
  */
 package org.jmesa.view.renderer;
 
-import groovy.lang.Closure;
-
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
@@ -51,13 +49,5 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
     @Deprecated
     public void setCellEditor(CellEditor cellEditor) {
         getColumn().setCellEditor(cellEditor);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public void setCellEditor(final Closure closure) {
-       getColumn().setCellEditor(closure);
     }
 }
