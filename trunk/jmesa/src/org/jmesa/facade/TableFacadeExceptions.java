@@ -67,10 +67,11 @@ final class TableFacadeExceptions {
         }
     }
 
+    @Deprecated
     static void validateColumnPropertiesIsNotNull(String[] columnProperties) {
         if (columnProperties == null || columnProperties.length == 0) {
             throw new IllegalStateException(
-                "The column properties are null. You need to set the columnProperties, or build the Table with the factory.");
+                "The table is null. You need to set the table on the facade (or model).");
         }
     }
 
