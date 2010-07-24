@@ -43,6 +43,12 @@ public class HtmlRow extends Row {
     private RowEvent onmouseout;
     private RowEvent onmouseover;
 
+    @Override
+	public HtmlRow uniqueProperty(String uniqueProperty) {
+        super.uniqueProperty(uniqueProperty);
+		return this;
+	}
+
     public String getStyle() {
         return style;
     }
