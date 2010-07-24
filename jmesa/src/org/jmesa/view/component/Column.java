@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.component;
 
-import groovy.lang.Closure;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.AbstractContextSupport;
@@ -140,36 +139,6 @@ public class Column extends AbstractContextSupport {
     	return this;
     }
 
-    /**
-     * <p>
-     * Added Groovy support in the form of Closures for the CellEditor.
-     * </p>
-     *
-     * <p>
-     * And example is as follows:
-     * </p>
-     *
-     * <pre>
-     * firstName.cellRenderer.setCellEditor({item, property, rowcount -&gt;
-     *      def value = new BasicCellEditor().getValue(item, property, rowcount);
-     *      return &quot;&quot;&quot;
-     *              &lt;a href=&quot;http://www.whitehouse.gov/history/presidents/&quot;&gt;
-     *                 $value
-     *              &lt;/a&gt;
-     *             &quot;&quot;&quot;});
-     * </pre>
-     *
-     * @param closure The Groovy closure to use.
-     */
-    public Column setCellEditor(final Closure closure) {
-        setCellEditor(new CellEditor() {
-            public Object getValue(Object item, String property, int rowcount) {
-                return closure.call(new Object[] { item, property, rowcount });
-            }
-        });
-        return this;
-    }
-
     public HeaderRenderer getHeaderRenderer() {
         return headerRenderer;
     }
@@ -197,22 +166,6 @@ public class Column extends AbstractContextSupport {
     	return this;
     }
 
-    /**
-     * <p>
-     * Added Groovy support in the form of Closures for the headerEditor.
-     * </p>
-     *
-     * @param closure The Groovy closure to use.
-     */
-    public Column setHeaderEditor(final Closure closure) {
-        setHeaderEditor(new HeaderEditor() {
-            public Object getValue() {
-                return closure.call();
-            }
-        });
-        return this;
-    }
-
     public FilterRenderer getFilterRenderer() {
         return filterRenderer;
     }
@@ -238,22 +191,6 @@ public class Column extends AbstractContextSupport {
     public Column filterEditor(FilterEditor filterEditor) {
     	setFilterEditor(filterEditor);
     	return this;
-    }
-
-    /**
-     * <p>
-     * Added Groovy support in the form of Closures for the filterEditor.
-     * </p>
-     *
-     * @param closure The Groovy closure to use.
-     */
-    public Column setFilterEditor(final Closure closure) {
-        setFilterEditor(new FilterEditor() {
-            public Object getValue() {
-                return closure.call();
-            }
-        });
-        return this;
     }
 
     public Row getRow() {
