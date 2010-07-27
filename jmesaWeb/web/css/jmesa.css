@@ -7,7 +7,7 @@
     caption-side: top;
     color: #444444;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1.2em;
     text-align: left;
     padding-left: 5px;
 }
@@ -35,10 +35,10 @@
     font-size: 13px;
     font-weight: bold;
     color: #c4634d;
+    padding: 0px 2px;
 }
 
 .jmesa .toolbar .pageNumber a {
-    font-size: 13px;
     font-weight: normal;
     color: black;
 }
