@@ -432,12 +432,12 @@
             }
 
             $(input).keydown(function(event) {
+                var id = dynFilter.id;
                 if (event.keyCode == 13) { /* Press the enter key. */
-                    var id = dynFilter.id;
                     $.jmesa.saveDynFilterData(cell, input, originalValue);
                     $.jmesa.onInvokeAction(id, 'filter');
                 } else if (event.keyCode == 9) { /* Press the tab key. */
-                    var divToClick = $.jmesa.findNextCell('dynFilter', event.shiftKey);
+                    var divToClick = $.jmesa.findNextCell(id, 'dynFilter', event.shiftKey);
                     $.jmesa.saveDynFilterData(cell, input, originalValue);
                     if (divToClick != null){
                         divToClick.onclick();
@@ -537,12 +537,12 @@
             });
 
             div.keydown(function(event) {
+                var id = dynFilter.id;
                 if (event.keyCode == 13) { /* Press the enter key. */
-                    var id = dynFilter.id;
                     $.jmesa.saveDroplistDynFilterData(cell, originalValue, originalBackgroundColor);
                     $.jmesa.onInvokeAction(id, 'filter');
                 } else if (event.keyCode == 9) { /* Press the tab key. */
-                    var divToClick = $.jmesa.findNextCell('dynFilter', event.shiftKey);
+                    var divToClick = $.jmesa.findNextCell(id, 'dynFilter', event.shiftKey);
                     $.jmesa.saveDroplistDynFilterData(cell, originalValue, originalBackgroundColor);
 
                     if (divToClick != null){
@@ -605,39 +605,36 @@
                 $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
             });
         },
-        findNextCell : function(classToMatch, shiftKey) {
+        findNextCell : function(tableId, classToMatch, shiftKey) {
             var divToClick = null;
-            var divElements = document.getElementsByTagName('div');
             var nextCell = false;
             var lastCell = false;
             var lastDiv = null;
             var firstDiv = null;
 
-            for (i = 0 ; i < divElements.length ; i++){
-                /* identify wsColumn, wsColumnChange or wsColumnError if className startsWith wsColumn */
-                if (divElements[i].className.indexOf(classToMatch) == 0) {
-                    if (firstDiv == null){
-                        firstDiv = divElements[i];
-                    }
+            /* identify wsColumn, wsColumnChange or wsColumnError if classToMatch startsWith wsColumn */
+            $('#' + tableId).find('div:[class^=' + classToMatch + ']').each(function(index, divElement) {
+                 if (firstDiv == null){
+                     firstDiv = divElement;
+                 }
 
-                    if (nextCell){
-                        divToClick = divElements[i];
-                        break;
-                    } else if (divElements[i].style.overflow == 'visible'){
-                        if (shiftKey){ /* shift-tabulation ==> Precedent cell */
-                            if (divElements[i] == firstDiv){ /* shitf-tabulation in first cell */
-                                lastCell = true;
-                            } else {
-                                divToClick = lastDiv;
-                                break;
-                            }
-                        } else { /* tabulation ==> Next cell */
-                            nextCell = true;
-                        }
-                    }
-                    lastDiv = divElements[i];
-                }
-            }
+                 if (nextCell){
+                     divToClick = divElement;
+                     return false;
+                 } else if (divElement.style.overflow == 'visible'){
+                     if (shiftKey){ /* shift-tabulation ==> Precedent cell */
+                         if (divElement == firstDiv){ /* shitf-tabulation in first cell */
+                             lastCell = true;
+                         } else {
+                             divToClick = lastDiv;
+                             return false;
+                         }
+                     } else { /* tabulation ==> Next cell */
+                         nextCell = true;
+                     }
+                 }
+                 lastDiv = divElement;
+            });
 
             if (divToClick == null){
                 if (nextCell){ /* tabulation in last cell */
@@ -655,7 +652,7 @@
                     var divToClick = null;
 
                     if (event.keyCode == 9) { /* Press the tabulation key ==> search last or next cell */
-                        divToClick = $.jmesa.findNextCell('wsColumn', event.shiftKey);
+                        divToClick = $.jmesa.findNextCell(wsColumn.id, 'wsColumn', event.shiftKey);
                     }
 
                     $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
