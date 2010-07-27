@@ -4,3 +4,5 @@ For right now you should look at the examples in the default war to see how to b
  * [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/LimitPresidentController.java limit example]
  * [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java worksheet example]
 
+
+If you still want to build tables by defining the column properties you should use the !TableModelUtils.createHtmlTable(). See the [http://code.google.com/p/jmesa/wiki/JMesa3 Column Properties] section.
