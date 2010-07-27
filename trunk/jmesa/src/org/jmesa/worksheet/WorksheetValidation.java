@@ -67,13 +67,21 @@ public class WorksheetValidation extends AbstractContextSupport {
         return validationType;
     }
 
-    public WorksheetValidation setErrorMessage(String errorMessage) {
+    public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public void setErrorMessageKey(String errorMessageKey) {
+        this.errorMessageKey = errorMessageKey;
+    }
+    
+    public WorksheetValidation errorMessage(String errorMessage) {
+        setErrorMessage(errorMessage);
         return this;
     }
 
-    public WorksheetValidation setErrorMessageKey(String errorMessageKey) {
-        this.errorMessageKey = errorMessageKey;
+    public WorksheetValidation errorMessageKey(String errorMessageKey) {
+        setErrorMessageKey(errorMessageKey);
         return this;
     }
     
