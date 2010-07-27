@@ -360,7 +360,7 @@
     
     <tag>
         <name>htmlRow</name>
-        <tag-class>org.jmesa.facade.tag.HtmlRowTag</tag-class>
+        <tag-class>org.jmesa.model.tag.HtmlRowTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>uniqueProperty</name>
