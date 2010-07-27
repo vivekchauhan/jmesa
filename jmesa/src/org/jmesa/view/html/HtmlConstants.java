@@ -27,6 +27,7 @@ public class HtmlConstants {
     public static final String TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS = "html.toolbar.maxRowsDroplist.increments";
     public static final String TOOLBAR_MAX_PAGE_NUMBERS = "html.toolbar.maxPageNumbers";
     public static final String TOOLBAR_ADD_WORKSHEET_ROW_ENABLED = "html.toolbar.addWorksheetRow.enabled";
+    public static final String TOOLBAR_PAGE_NUMBERS_ENABLED = "html.toolbar.pageNumbers.enabled";
 
     // table
     public static final String TABLE_RENDERER_STYLE_CLASS = "html.table.renderer.styleClass";

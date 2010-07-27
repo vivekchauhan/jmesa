@@ -34,8 +34,10 @@ public class HtmlToolbar extends AbstractToolbar {
         
         addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
         addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
+
+        String pageNumbersEnabled = getCoreContext().getPreference(HtmlConstants.TOOLBAR_PAGE_NUMBERS_ENABLED);
         
-        if (enablePageNumbers) {
+        if (enablePageNumbers || (pageNumbersEnabled != null && pageNumbersEnabled.equals("true"))) {
             addToolbarItem(ToolbarItemType.PAGE_NUMBER_ITEMS);
         }
         
