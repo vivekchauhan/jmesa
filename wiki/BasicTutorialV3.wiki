@@ -1,4 +1,4 @@
-The following is a walk-through of an example of creating a JMesa table using the [TableFacade API] directly.
+The following is a walk-through of an example of creating a JMesa table using the API directly.
 
 You should also look at the [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/BasicPresidentController.java complete example] to see the example in its full context.
 
