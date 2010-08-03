@@ -1,7 +1,7 @@
 #labels Featured
 In addition to the [Examples examples] I am starting to write up tutorials so that developers can get more information about how to go about building and interacting with JMesa tables.
 
- * [BasicTutorial Basic Tutorial] ([BasicTutorialV3 JMesa 3.0 Tutorial])
+ * [BasicTutorial Basic Tutorial] - ([BasicTutorialV3 JMesa 3.0 Tutorial])
   * A complete walk through of how to create a table using the API.
  * [ExportTutorial Export Tutorial]
   * Learn the basics of creating an export.
