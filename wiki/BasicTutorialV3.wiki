@@ -96,9 +96,9 @@ HtmlTable htmlTable = new HtmlTable().caption("Presidents").width("600px");
 
 ===== Column Titles =====
 
-We now need to fix the titles of the first two columns. The reason the other column titles display correctly is because the default column title is defined by taking the column property and converting it to a properly formatted title. Or, in other words, it converts a camelcase word to a proper title. The first two columns have nested properties that make it impossible to clean up.
+We now need to fix the titles of the first two columns. The reason the other column titles display correctly is because the default column title is defined by taking the column property and converting it to a properly formatted title. Or, in other words, it converts a camelcase word to a proper title. The first two columns have nested properties that make it impossible to convert automatically.
 
-Fixing this is easy. Just pull each column and set the title manually.  _Note: if you want the title to be Locale specific then use the setTitleKey() method instead._
+Fixing this is easy though. Just set the title manually on the column.  _Note: if you want the title to be Locale specific then use the setTitleKey() method instead._
 
 {{{
 HtmlColumn firstName = new HtmlColumn("name.firstName").title("First Name");
