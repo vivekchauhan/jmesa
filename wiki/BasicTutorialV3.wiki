@@ -13,6 +13,7 @@ The places I have been recommending are pretty common, but you could use whateve
   * css
    * jmesa.css
   * js
+   * jquery.jmesa.js
    * jmesa.js
   * images
    * table
