@@ -31,7 +31,7 @@ html.imagesPath=/images/table/
 }}}
 
 === Controller ===
-You will always build JMesa tables in the controller when using the API directly. In the Spring framework the controller corresponds with the Controller interface, and in Struts it is called the Action. JMesa is very generic and will work in any type of servlet controller. In fact I like to think of a JMesa table as just another form element. The reason is because it is always placed inside an HTML form and renders as a component in the same manner as an input field, or dropdown list. It is easy to think it is something more than that, but if you keep in mind the simplicity of it it may help you conceptualize what is happening. In addition I recommend doing a view source on the rendered output to get comfortable with what JMesa is doing. 
+You will always build JMesa tables in the controller when using the API directly. In the Spring framework the controller corresponds with the Controller interface, and in Struts it is called the Action. JMesa is very generic and will work in any type of servlet controller though. In fact I like to think of a JMesa table as just another form element. The reason is because it is always placed inside an HTML form and renders as a component in the same manner as an input field, or dropdown list. It is easy to think it is something more than that, but if you keep in mind the simplicity of it it may help you conceptualize what is happening. In addition I recommend doing a view source on the rendered output to get comfortable with what JMesa is doing. 
 
 ==== Example ====
 
