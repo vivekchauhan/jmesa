@@ -107,7 +107,7 @@ HtmlColumn lastName = new HtmlColumn("name.lastName").title("Last Name");
 
 ===== Column Formatting =====
 
-To format a column you need to add a custom cell editor that knows how to format dates. Luckily JMesa includes an editor called the !DateCellEditor, and only requires a format in the constructor.
+To format a column you need to add a custom cell editor that knows how to format dates. Luckily JMesa includes an editor called the !DateCellEditor, and only requires a format in the constructor. _If you use Joda Time there is also a !DateTimeCellEditor._
 
 {{{
 Column born = new Column("born").cellEditor(new DateCellEditor("MM/yyyy"));
