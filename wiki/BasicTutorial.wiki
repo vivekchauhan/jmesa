@@ -5,9 +5,9 @@ You should also look at the [BasicExample complete example] to see the example i
 *_Note: If you are using [BasicTutorialV3 JMesa 3.0] you should be using the new syntax_* 
 
 === Setup ===
-To start with grab the latest JMesa [http://code.google.com/p/jmesa/downloads/list download]. In there you will find the following: jmesa.jar, jmesa.css, jmesa-pdf.css, jmesa.js, default images, and the source code.
+To start with grab the latest JMesa [http://code.google.com/p/jmesa/downloads/list download]. In there you will find the following: jmesa.jar, jmesa.css, jmesa-pdf.css, jquery.jmesa.js, jmesa.js, default images, and the source code.
 
-The first thing to do is take the jmesa.jar file and place it in your projects WEB-INF/lib directory. Next copy the jmesa.css and jmesa-pdf.css into a folder named css at the top of the web project. Then copy the jmesa.js into a folder named js at the top of the web project. You will also want to grab the latest version of [http://www.jquery.com jQuery] as JMesa requires that library now. Lastly, copy the default images into a folder named images/table at the top of the web project.
+The first thing to do is take the jmesa.jar file and place it in your projects WEB-INF/lib directory. Next copy the jmesa.css and jmesa-pdf.css into a folder named css at the top of the web project. Then copy the jquery.jmesa.js and jmesa.js into a folder named js at the top of the web project. You will also want to grab the latest version of [http://www.jquery.com jQuery] as JMesa requires that library now. Lastly, copy the default images into a folder named images/table at the top of the web project.
 
 Of course all these files could be placed where ever you want. The places I have been recommending are pretty common, but you could use whatever you want. Here is a visual for you to look at.
 
