@@ -6,6 +6,9 @@ In addition to being a stable choice, defining the exports separately in the Con
 
 Because the exports are just an extension to the core functionality this tutorial is a complement to the [BasicTutorial basic tutorial].
 
+
+*_Note: If you are using JMesa 3.0 you should be using the [ExportTutorialV3 new syntax]._* 
+
 === Controller ===
 
 Exports are always declared in the Controller.
