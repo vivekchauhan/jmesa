@@ -3,7 +3,7 @@ In addition to the [Examples examples] I am starting to write up tutorials so th
 
  * [BasicTutorial Basic Tutorial] - ([BasicTutorialV3 JMesa 3.0 Tutorial])
   * A complete walk through of how to create a table using the API.
- * [ExportTutorial Export Tutorial]
+ * [ExportTutorial Export Tutorial] - ([ExportTutorialV3 JMesa 3.0 Tutorial])
   * Learn the basics of creating an export.
  * [JSPTagTutorial JSP Tag Tutorial]
   * A complete walk through of how to create a table using the JSP Tag library.
