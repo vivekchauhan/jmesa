@@ -14,7 +14,7 @@ Exports are always declared in the Controller.
 
 ==== Example ====
 
-If you remember from the basic example, in its simplest form you can have a working table in just a few lines of code. The first line creates a new !TableModel instance. The second line adds the items. Then lastly we create the table.
+If you remember from the basic example, in its simplest form you can have a working table in just a few lines of code. The first line creates a new !TableModel instance. The second line adds the items. Then lastly we create the table using the non-HTML components (Table, Row, Column).
 
 {{{
 TableModel tableModel = new TableModel(id, request, response);
