@@ -107,6 +107,6 @@ _Be sure to read the [Javascript] page so that you understand how Javascript is 
 
 === PDF Notes: ===
  * If you want to use the Flying Saucer API to render the PDF export you need to include the jmesa-pdf.css. You also need to create a table using the HTML components (!HtmlTable, !HtmlRow, and !HtmlColumn).
- * The difference between the PDF and PDFP view is that the PDF export uses the Flying Saucer API and the PDF export uses the iText API directly.
  * The PDFP does not require that you use the HTML components. So use Table, Row, and Column instead of the !HtmlTable, !HtmlRow, and !HtmlColumn.
+ * The difference between the PDF and PDFP view is that the PDF export uses the Flying Saucer API and the PDF export uses the iText API directly.
  
