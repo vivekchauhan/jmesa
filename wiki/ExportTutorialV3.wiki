@@ -49,7 +49,7 @@ TableModel tableModel = new TableModel(id, request, response);
 tableModel.setExportTypes(CSV, JEXCEL, PDFP);
 }}}
 
-Our table is now defined with the exports. However, at runtime we now need a way to know if we are exporting, or rendering an HTML table. This information is found on the !TableModel with the boolean method isExporting(). So now we do a simple check to see if an export is being done. If it is we create the export table. If not then we create the HTML table and render that.
+Our table is now defined with the exports. However, at runtime we now need a way to know if we are exporting. This information is found on the !TableModel with the boolean method isExporting(). So now we do a simple check to see if an export is being done.
 
 {{{
 if (tableModel.isExporting()) {
