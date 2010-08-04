@@ -105,7 +105,7 @@ function onInvokeAction(id) {
 
 _Be sure to read the [Javascript] page so that you understand how Javascript is used to interact with the table and what your options are._
 
-=== PDF Notes ===
+=== PDF Notes: ===
  * If you want to use the Flying Saucer API to render the PDF export you need to include the jmesa-pdf.css. You also need to create an HTML table to use the PDF export.
  * The difference between the PDF and PDFP view is that the PDF export uses the Flying Saucer API and the PDF export uses the iText API directly.
  
