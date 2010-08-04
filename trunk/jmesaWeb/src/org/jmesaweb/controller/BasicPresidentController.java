@@ -62,7 +62,7 @@ public class BasicPresidentController extends AbstractController {
         TableModel tableModel = new TableModel(id, request, response);
         tableModel.setItems(presidentService.getPresidents());
         tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
-        tableModel.setExportTypes(new ExportType[]{CSV, JEXCEL, PDF});
+        tableModel.setExportTypes(CSV, JEXCEL, PDF);
         tableModel.setStateAttr("restore");
 
         if (tableModel.isExporting()) {
@@ -90,7 +90,7 @@ public class BasicPresidentController extends AbstractController {
         Column lastName = new Column("name.lastName").title("Last Name");
         row.addColumn(lastName);
 
-        Column career = new Column("career").filterEditor(new DroplistFilterEditor());
+        Column career = new Column("career");
         row.addColumn(career);
 
         Column born = new Column("born").cellEditor(new DateCellEditor("MM/yyyy"));
