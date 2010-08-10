@@ -2,6 +2,8 @@ The following is a walk-through of an example of creating a JMesa table with the
 
 You should also look at the [JSPTagExample complete example] to see the example in its full context. Or look [Examples here] to see all the examples.
 
+*_Note: If you are using JMesa 3.0 you should be using the [JSPTagTutorialV3 new syntax]._* 
+
 === Setup ===
 To start with grab the latest JMesa [http://code.google.com/p/jmesa/downloads/list download]. In there you will find the following: jmesa.jar, jmesa.css, jmesa-pdf.css, jmesa.js, jmesa.tld, default images, and the source code.
 
