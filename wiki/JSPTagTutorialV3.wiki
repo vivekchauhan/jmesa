@@ -1,4 +1,4 @@
-The following is a walk-through example of creating a JMesa table with the JSP tag library. This is the same as the [BasicTutorialV3 basic tutorial] but modified to use the tag library. You should notice that it feels just about the same. 
+The following is a walk-through example of creating a JMesa table with the JSP tag library. This is the same as the [BasicTutorialV3 basic tutorial] but modified to use the tag library. You should notice that it feels just about the same. _Note: if you are coming from the 2.x tag library the only thing you need to do is place the new tld in your project, and change your tableFacade tag to the new tableModel tag._
 
 You should also look at the [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/web/jsp/tag.jsp complete example] to see the example in its full context.
 
