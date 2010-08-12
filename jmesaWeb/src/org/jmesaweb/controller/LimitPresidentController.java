@@ -31,7 +31,7 @@ import org.jmesa.limit.FilterSet;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.Sort;
 import org.jmesa.limit.SortSet;
-import org.jmesa.model.PageResults;
+import org.jmesa.model.PageItems;
 import org.jmesa.model.TableModel;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
@@ -78,7 +78,7 @@ public class LimitPresidentController extends AbstractController {
          * The total rows can only be figured out after filtering out the data. The sorting does
          * not effect the total row count but is needed to return the correct set of sorted rows.
          */
-        tableModel.setItems(new PageResults() {
+        tableModel.setItems(new PageItems() {
             public int getTotalRows(Limit limit) {
                 PresidentFilter presidentFilter = getPresidentFilter(limit);
                 return presidentService.getPresidentsCountWithFilter(presidentFilter);
