@@ -34,13 +34,14 @@ import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import static javax.servlet.jsp.PageContext.REQUEST_SCOPE;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.Limit;
-import org.jmesa.model.TableModelUtils;
+import static org.jmesa.model.TableModelUtils.LIMIT_ATTR;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.html.HtmlComponentFactory;
@@ -275,7 +276,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The Limit to use.
      */
     public Limit getLimit() {
-        Limit l = (Limit)getJspContext().getAttribute(getId() + TableModelUtils.LIMIT_ATTR);
+        Limit l = (Limit)getJspContext().getAttribute(getId() + LIMIT_ATTR, REQUEST_SCOPE);
         if (l != null) {
             return l;
         }

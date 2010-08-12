@@ -275,7 +275,7 @@ public class TableFacadeTag extends SimpleTagSupport {
      * @return The Limit to use.
      */
     public Limit getLimit() {
-        Limit l = (Limit)getJspContext().getAttribute(getId() + TableModelUtils.LIMIT_ATTR);
+        Limit l = (Limit)getJspContext().getAttribute(getId() + TableModelUtils.LIMIT_ATTR, PageContext.REQUEST_SCOPE);
         if (l != null) {
             return l;
         }
