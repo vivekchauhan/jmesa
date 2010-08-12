@@ -49,7 +49,7 @@ public class TableModel {
     private String id;
     private HttpServletRequest request;
     private Collection<?> items;
-    private PageResults pageResults;
+    private PageItems pageItems;
     private Preferences preferences;
     private Messages messages;
     private ExportType[] exportTypes;
@@ -116,8 +116,8 @@ public class TableModel {
         this.items = items;
     }
 
-    public void setItems(PageResults pageResults) {
-        this.pageResults = pageResults;
+    public void setItems(PageItems pageItems) {
+        this.pageItems = pageItems;
     }
     
     public void setPreferences(Preferences preferences) {
@@ -269,8 +269,8 @@ public class TableModel {
 
         if (limit != null) {
             tableFacade.setLimit(limit);
-        } else if (pageResults != null) {
-            items = getItems(tableFacade, pageResults);
+        } else if (pageItems != null) {
+            items = getItems(tableFacade, pageItems);
         }
         
         tableFacade.setItems(items);

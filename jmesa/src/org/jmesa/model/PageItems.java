@@ -22,7 +22,7 @@ import org.jmesa.limit.Limit;
  * @since 3.0
  * @author Jeff Johnston
  */
-public interface PageResults {
+public interface PageItems {
     public int getTotalRows(Limit limit);
     public Collection<?> getItems(Limit limit);
 }
