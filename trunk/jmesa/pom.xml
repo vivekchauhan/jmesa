@@ -9,7 +9,7 @@
 
   <groupId>org.jmesa</groupId>
   <artifactId>jmesa</artifactId>
-  <version>3.0_rc2</version>
+  <version>3.0_rc3</version>
   <packaging>jar</packaging>
 
   <name>jmesa</name>
