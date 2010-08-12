@@ -48,16 +48,16 @@ public class TableModelUtils {
         return actionFactory.getExportType();
     }
 
-    public static Collection<?> getItems(String id, HttpServletRequest request, PageResults pageResults) {
+    public static Collection<?> getItems(String id, HttpServletRequest request, PageItems pageItems) {
         TableFacade tableFacade = new TableFacade(id, request);
-        Collection<?> items = getItems(tableFacade, pageResults);
+        Collection<?> items = getItems(tableFacade, pageItems);
         request.setAttribute(tableFacade.getId() + LIMIT_ATTR, tableFacade.getLimit());
         return items;
     }
 
-    protected static Collection<?> getItems(TableFacade tableFacade, PageResults pageResults) {
+    protected static Collection<?> getItems(TableFacade tableFacade, PageItems pageItems) {
         Limit limit = tableFacade.getLimit();
-        int totalRows = pageResults.getTotalRows(limit);
+        int totalRows = pageItems.getTotalRows(limit);
         if (limit.hasRowSelect()) {
             int page = limit.getRowSelect().getPage();
             int maxRows = limit.getRowSelect().getMaxRows();
@@ -66,7 +66,7 @@ public class TableModelUtils {
             tableFacade.setTotalRows(totalRows);
         }
 
-        return pageResults.getItems(limit);
+        return pageItems.getItems(limit);
     }
 
     public static void saveWorksheet(String id, HttpServletRequest request, WorksheetSaver worksheetSaver) {
