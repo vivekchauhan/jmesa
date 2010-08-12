@@ -10,8 +10,8 @@ In addition to the [Examples examples] I am starting to write up tutorials so th
  * [WorksheetTutorial Worksheet Tutorial]
   * Learn how to use the new editable table feature.
  * [AjaxTutorial AJAX Tutorial]
-  * How to use AJAX technology with JMesa tables.
- * [LimitTutorial Limit Tutorial]
+  * How to use AJAX technology with JMesa tables.  
+ * [LimitTutorial Limit Tutorial] - ([LimitTutorialV3 JMesa 3.0 Tutorial])
   * Learn how to use the Limit object to efficiently pull data from the database.
  * [CustomToolbarTutorial Custom Toolbar Tutorial]
   * Learn how to create a custom toolbar to add your own functionality.
