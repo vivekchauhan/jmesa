@@ -2,7 +2,7 @@ One thing I wanted to improve with JMesa is how a person works with  the TableFa
 
 What I came up with was using a template (!TableFacadeTemplate). So now  instead of having to call the correct method on the facade you  would extend the method on the !TableFacadeTemplate that represents what you want to customize. The template takes care of the calling  order so all you have to worry about is how you want to customize things.
 
-_*Note: the template code is deprecated in [JMesa3 JMesa 3.0]. It is replaced by the !TableModel.*_
+_*Note: The template code is deprecated in [JMesa3 JMesa 3.0]. It is replaced by the !TableModel.*_
 
 === Example ===
 
