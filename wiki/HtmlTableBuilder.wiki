@@ -1,5 +1,7 @@
 The !HtmlTableBuilder (version 2.4.6) class allows creation of tables using the [http://martinfowler.com/bliki/FluentInterface.html FluentInterface] pattern.
 
+_*Be aware that building tables as shown (in either example) is deprecated in JMesa 3.0. In its place we have a new !TableModel (instead of the !TableFacade) and the components (Table, Row, Column) have fluent methods built in now.*_
+
 Here is a recent table that I converted over to using the !HtmlTableBuilder. 
 
 This is what the table looked like using the API like we are used to.
