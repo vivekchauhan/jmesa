@@ -76,7 +76,7 @@ The last thing we need to do is plug the custom view into the !TableFacade. Be s
 tableFacade.setView(new CustomView());
 }}}
 
-==== Tags ====
+==== JSP Tag ====
 
 {{{
 <jmesa:tableFacade view="com.mycompany.CustomView">
