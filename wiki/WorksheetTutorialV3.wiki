@@ -177,6 +177,9 @@ chkbox.setSortable(false);
  <jmesa:htmlColumn property="chkbox" title="&nbsp;" worksheetEditor="org.jmesa.worksheet.editor.CheckboxWorksheetEditor" filterable="false" sortable="false"/>
 }}}
 
+=== Advanced Functionality ===
+
+If you need to add and remove rows, or put in advanced validation you should look at the add/remove [WorksheetAddRemoveRowsV3 tutorial].
 
 === Custom Functionality ===
 
