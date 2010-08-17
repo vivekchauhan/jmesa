@@ -40,7 +40,7 @@ tableModel.setEditable(true);
 row.setUniqueProperty("id"); 
 }}}
 
-==== tags ====
+==== JSP Tag ====
 
 {{{
 <jmesa:tableModel editable="true" >
@@ -157,7 +157,7 @@ chkbox.setFilterable(false);
 chkbox.setSortable(false);
 }}}
 
-==== tags ====
+==== JSP Tag ====
 
 {{{
  <jmesa:htmlColumn property="chkbox" title="&nbsp;" worksheetEditor="org.jmesa.worksheet.editor.CheckboxWorksheetEditor" filterable="false" sortable="false"/>
