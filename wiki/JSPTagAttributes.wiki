@@ -9,7 +9,7 @@
 || maxRowsIncrements || String[] || The comma separated list of max rows increments. ||
 || stateAttr || String || The parameter to use for the [State]. ||
 || exportTypes || String[] || The comma separated list of exports. ||
-|| performFilterAndSort || boolean || Whether the API should filter and sort the items. ||
+|| autoFilterAndSort || boolean || Whether the API should filter and sort the items. ||
 || filterMatcherMap || [FilterMatcher FilterMatcherMap] ++ || Used to register custom filter matchers. ||
 || view || [View] ++ || The View object to use. ||
 || messages || [Messages] ++ || The Messages to use. ||
