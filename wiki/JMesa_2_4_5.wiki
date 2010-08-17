@@ -1,3 +1,0 @@
- * Can ask the worksheet if it has any errors
- * Changed the CSV export to be text/csv - [http://code.google.com/p/jmesa/issues/detail?id=222 issue 222]
- * Fixed a bug in which the maxRows dropdown was not being reset properly when using the state feature.
