@@ -1,4 +1,4 @@
-To do totaling with the current version of JMesa (version <= 2.3.4) requires making a custom view. As you will see this is very easy to do. 
+To do totaling with JMesa requires making a custom view. As you will see this is very easy to do. 
 
 The easiest way to approach this is to extend the !AbstractHtmlView and override the render() method. Then copy the existing render method from the [http://code.google.com/p/jmesa/source/browse/trunk/jmesa/src/org/jmesa/view/html/HtmlView.java HtmlView]. The code that really contains all the parts of the table is in the !HtmlSnippets implementation so it is expected that you will just use the parts of the snippets that you want, and then customize the rest in your view.
 
