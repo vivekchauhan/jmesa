@@ -259,23 +259,22 @@ public class HtmlColumn extends Column {
      */
     @Override
     public CellEditor getCellEditor() {
+        if (cellEditor == null) {
+            this.cellEditor = new HtmlCellEditor();
+        }
+
         if (ViewUtils.isEditable(getCoreContext().getWorksheet()) && isEditable()) {
             if (worksheetEditor == null) {
-                setWorksheetEditor(new HtmlWorksheetEditor());
+                this.worksheetEditor = new HtmlWorksheetEditor();
             }
 
             if (worksheetEditor.getCellEditor() == null) {
-                worksheetEditor.setCellEditor(super.getCellEditor());
+                worksheetEditor.setCellEditor(cellEditor);
             }
 
             return worksheetEditor;
         }
 
-        if (cellEditor == null) {
-            HtmlCellEditor htmlCellEditor = new HtmlCellEditor();
-            setCellEditor(cellEditor);
-            return htmlCellEditor;
-        }
         return cellEditor;
     }
 

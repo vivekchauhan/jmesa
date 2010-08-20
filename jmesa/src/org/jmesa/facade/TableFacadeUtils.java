@@ -213,8 +213,14 @@ public class TableFacadeUtils {
                 HtmlColumn htmlColumn = (HtmlColumn)column;
                 
                 WorksheetEditor worksheetEditor = htmlColumn.getWorksheetEditor();
-                init(worksheetEditor, webContext, coreContext);
-                SupportUtils.setColumn(worksheetEditor, column);
+                if (worksheetEditor != null) {
+                    init(worksheetEditor, webContext, coreContext);
+                    SupportUtils.setColumn(worksheetEditor, column);
+
+                    CellEditor worksheetCellEditor = worksheetEditor.getCellEditor();
+                    init(worksheetCellEditor, webContext, coreContext);
+                    SupportUtils.setColumn(worksheetCellEditor, column);
+                }
 
                 FilterRenderer filterRenderer = htmlColumn.getFilterRenderer();
                 init(filterRenderer, webContext, coreContext);
