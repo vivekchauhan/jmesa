@@ -50,9 +50,22 @@ public class TextItem extends AbstractItem {
     public String enabled() {
         HtmlBuilder html = new HtmlBuilder();
 
-        html.span().styleClass(getStyleClass()).style(getStyle()).title(getTooltip()).alt(getAlt()).close();
-        html.append(String.valueOf(getText()));
-        html.spanEnd();
+        String action = getAction();
+
+        if (action != null) {
+            html.span().styleClass(getStyleClass()).style(getStyle()).title(getTooltip()).alt(getAlt()).close();
+            html.a().href();
+            html.quote();
+            html.append(getAction());
+            html.quote().close();
+            html.append(String.valueOf(getText()));
+            html.aEnd();
+            html.spanEnd();
+        } else {
+            html.span().styleClass(getStyleClass()).style(getStyle()).title(getTooltip()).alt(getAlt()).close();
+            html.append(String.valueOf(getText()));
+            html.spanEnd();
+        }
 
         return html.toString();
     }

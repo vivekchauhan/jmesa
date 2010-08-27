@@ -22,6 +22,7 @@ import org.jmesa.core.CoreContext;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.web.WebContext;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 2.0
@@ -235,8 +236,15 @@ public class ToolbarItemFactory {
 
     public TextItem createUnsavedMessageItem() {
         TextItem item = new TextItem();
-        item.setCode(ToolbarItemType.UNSAVED_MESSAGE_ITEM.toCode());
-        item.setStyleClass(coreContext.getPreference(TOOLBAR_MESSAGE_CLASS));
+        item.setCode(ToolbarItemType.FILTER_WORKSHEET_ITEM.toCode());
+
+        Worksheet worksheet = coreContext.getWorksheet();
+        if (worksheet != null && worksheet.hasErrors()) {
+            item.setStyleClass(coreContext.getPreference(TOOLBAR_ERROR_CLASS));
+        } else {
+            item.setStyleClass(coreContext.getPreference(TOOLBAR_MESSAGE_CLASS));
+        }
+
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_UNSAVED_MESSAGE));
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_UNSAVED_MESSAGE));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_UNSAVED_MESSAGE));
