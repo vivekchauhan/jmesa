@@ -57,6 +57,7 @@ public class HtmlConstants {
     public static final String TOOLBAR_CLASS = "html.toolbarClass";
     public static final String TOOLBAR_PAGE_NUMBER_CLASS = "html.toolbar.pageNumberClass";
     public static final String TOOLBAR_MESSAGE_CLASS = "html.toolbar.messageClass";
+    public static final String TOOLBAR_ERROR_CLASS = "html.toolbar.errorClass";
     public static final String STATUS_BAR_CLASS = "html.statusBarClass";
     public static final String ROWCOUNT_INCLUDE_PAGINATION = "html.rowcount.includePagination";
 
