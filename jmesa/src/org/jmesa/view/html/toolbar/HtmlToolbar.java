@@ -89,6 +89,8 @@ public class HtmlToolbar extends AbstractToolbar {
             if (getCoreContext().getPreference(HtmlConstants.TOOLBAR_ADD_WORKSHEET_ROW_ENABLED).equals("true")) {
                 addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
             }
+            
+            addToolbarItem(ToolbarItemType.UNSAVED_MESSAGE_ITEM);
         }
 
         return super.render();

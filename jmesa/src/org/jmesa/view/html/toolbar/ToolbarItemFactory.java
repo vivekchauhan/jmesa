@@ -15,50 +15,7 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_CLEAR_WORKSHEET_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_FIRST_PAGE_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_LAST_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_LAST_PAGE_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_NEXT_PAGE_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_PREV_PAGE_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_IMAGE_SEPARATOR;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_PAGE_NUMBER_CLASS;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_ADD_WORKSHEET_ROW;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_CLEAR_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FILTER_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_FIRST_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_LAST_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_NEXT_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_PREV_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TEXT_SAVE_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_CLEAR_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FILTER_WORKSHEET;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_FIRST_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_LAST_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_NEXT_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_PREV_PAGE;
-import static org.jmesa.view.html.HtmlConstants.TOOLBAR_TOOLTIP_SAVE_WORKSHEET;
+import static org.jmesa.view.html.HtmlConstants.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
@@ -275,6 +232,21 @@ public class ToolbarItemFactory {
 
         return item;
 	}
+
+    public TextItem createUnsavedMessageItem() {
+        TextItem item = new TextItem();
+        item.setCode(ToolbarItemType.UNSAVED_MESSAGE_ITEM.toCode());
+        item.setStyleClass(coreContext.getPreference(TOOLBAR_MESSAGE_CLASS));
+        item.setText(coreContext.getMessage(TOOLBAR_TEXT_UNSAVED_MESSAGE));
+        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_UNSAVED_MESSAGE));
+        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_UNSAVED_MESSAGE));
+        
+        ToolbarItemRenderer renderer = new UnsavedChangesItemRenderer(item, coreContext);
+        renderer.setOnInvokeAction(getOnInvokeAction());
+        item.setToolbarItemRenderer(renderer);
+        
+        return item;
+    }
 
     protected String getImage(String image) {
         return imagesPath + coreContext.getPreference(image);

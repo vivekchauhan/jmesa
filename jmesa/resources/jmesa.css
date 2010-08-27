@@ -43,6 +43,14 @@
     color: black;
 }
 
+.jmesa .toolbar .toolbarMessage {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #729fcf;
+    padding: 0px 2px;
+}
+
 .jmesa .toolbar img {
     border:0px;
 }

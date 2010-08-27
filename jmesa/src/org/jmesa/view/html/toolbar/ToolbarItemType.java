@@ -35,7 +35,7 @@ public enum ToolbarItemType {
     FILTER_WORKSHEET_ITEM("filter_worksheet"),
     CLEAR_WORKSHEET_ITEM("clear_worksheet"),
     ADD_WORKSHEET_ROW_ITEM("add_worksheet_row"),
-    UNDO_ITEM("undo");
+    UNSAVED_MESSAGE_ITEM("unsaved_message");
 
     private final String code;
 
