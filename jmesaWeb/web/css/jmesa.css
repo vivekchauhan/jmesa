@@ -43,6 +43,32 @@
     color: black;
 }
 
+.jmesa .toolbar .toolbarText {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    font-style: italic;
+    color: #729fcf;
+    padding: 0px 2px;
+}
+
+.jmesa .toolbar .toolbarText a {
+    color: #729fcf;
+}
+
+.jmesa .toolbar .toolbarError {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    font-style: italic;
+    color: #ec4646;
+    padding: 0px 2px;
+}
+
+.jmesa .toolbar .toolbarError a {
+    color: #ec4646;
+}
+
 .jmesa .toolbar img {
     border:0px;
 }
