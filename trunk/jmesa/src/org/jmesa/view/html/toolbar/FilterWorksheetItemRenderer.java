@@ -17,6 +17,7 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
+import org.jmesa.worksheet.Worksheet;
 
 /**
  * @since 2.0
@@ -29,13 +30,18 @@ public class FilterWorksheetItemRenderer extends AbstractItemRenderer {
     }
 
     public String render() {
-        Limit limit = getCoreContext().getLimit();
 
-        ToolbarItem item = getToolbarItem();
-        StringBuilder action = new StringBuilder("javascript:");
-        action.append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
-        item.setAction(action.toString());
+        Worksheet worksheet = getCoreContext().getWorksheet();
 
-        return item.enabled();
+        if (worksheet != null && worksheet.hasChanges()) {
+            Limit limit = getCoreContext().getLimit();
+            ToolbarItem item = getToolbarItem();
+            StringBuilder action = new StringBuilder("javascript:");
+            action.append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
+            item.setAction(action.toString());
+            return item.enabled();
+        } else {
+            return getToolbarItem().disabled();
+        }
     }
 }

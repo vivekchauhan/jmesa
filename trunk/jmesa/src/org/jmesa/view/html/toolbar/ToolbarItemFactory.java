@@ -189,12 +189,19 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createFilterWorksheetItem() {
-        ImageItemImpl item = new ImageItemImpl();
+    public TextItem createFilterWorksheetItem() {
+        TextItem item = new TextItem();
         item.setCode(ToolbarItemType.FILTER_WORKSHEET_ITEM.toCode());
+
+        Worksheet worksheet = coreContext.getWorksheet();
+        if (worksheet != null && worksheet.hasErrors()) {
+            item.setStyleClass(coreContext.getPreference(TOOLBAR_ERROR_CLASS));
+        } else {
+            item.setStyleClass(coreContext.getPreference(TOOLBAR_TEXT_CLASS));
+        }
+
+        item.setText(coreContext.getMessage(TOOLBAR_TEXT_FILTER_WORKSHEET));
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER_WORKSHEET));
-        item.setDisabledImage(getImage(TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED));
-        item.setImage(getImage(TOOLBAR_IMAGE_FILTER_WORKSHEET));
         item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_FILTER_WORKSHEET));
 
         ToolbarItemRenderer renderer = new FilterWorksheetItemRenderer(item, coreContext);
@@ -233,28 +240,6 @@ public class ToolbarItemFactory {
 
         return item;
 	}
-
-    public TextItem createUnsavedMessageItem() {
-        TextItem item = new TextItem();
-        item.setCode(ToolbarItemType.FILTER_WORKSHEET_ITEM.toCode());
-
-        Worksheet worksheet = coreContext.getWorksheet();
-        if (worksheet != null && worksheet.hasErrors()) {
-            item.setStyleClass(coreContext.getPreference(TOOLBAR_ERROR_CLASS));
-        } else {
-            item.setStyleClass(coreContext.getPreference(TOOLBAR_MESSAGE_CLASS));
-        }
-
-        item.setText(coreContext.getMessage(TOOLBAR_TEXT_UNSAVED_MESSAGE));
-        item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_UNSAVED_MESSAGE));
-        item.setAlt(coreContext.getMessage(TOOLBAR_TEXT_UNSAVED_MESSAGE));
-        
-        ToolbarItemRenderer renderer = new UnsavedChangesItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction(getOnInvokeAction());
-        item.setToolbarItemRenderer(renderer);
-        
-        return item;
-    }
 
     protected String getImage(String image) {
         return imagesPath + coreContext.getPreference(image);

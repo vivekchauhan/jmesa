@@ -56,7 +56,7 @@ public class HtmlConstants {
     public static final String HEADER_CLASS = "html.headerClass";
     public static final String TOOLBAR_CLASS = "html.toolbarClass";
     public static final String TOOLBAR_PAGE_NUMBER_CLASS = "html.toolbar.pageNumberClass";
-    public static final String TOOLBAR_MESSAGE_CLASS = "html.toolbar.messageClass";
+    public static final String TOOLBAR_TEXT_CLASS = "html.toolbar.textClass";
     public static final String TOOLBAR_ERROR_CLASS = "html.toolbar.errorClass";
     public static final String STATUS_BAR_CLASS = "html.statusBarClass";
     public static final String ROWCOUNT_INCLUDE_PAGINATION = "html.rowcount.includePagination";
@@ -75,11 +75,9 @@ public class HtmlConstants {
     public static final String TOOLBAR_IMAGE_FILTER = "html.toolbar.image.filter";
     public static final String TOOLBAR_IMAGE_SEPARATOR = "html.toolbar.image.separator";
     public static final String TOOLBAR_IMAGE_SAVE_WORKSHEET = "html.toolbar.image.saveWorksheet";
-    public static final String TOOLBAR_IMAGE_FILTER_WORKSHEET = "html.toolbar.image.filterWorksheet";
     public static final String TOOLBAR_IMAGE_CLEAR_WORKSHEET = "html.toolbar.image.clearWorksheet";
     public static final String TOOLBAR_IMAGE_ADD_WORKSHEET_ROW = "html.toolbar.image.addWorksheetRow";
     public static final String TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED = "html.toolbar.image.saveWorksheetDisabled";
-    public static final String TOOLBAR_IMAGE_FILTER_WORKSHEET_DISABLED = "html.toolbar.image.filterWorksheetDisabled";
     public static final String TOOLBAR_IMAGE_CLEAR_WORKSHEET_DISABLED = "html.toolbar.image.clearWorksheetDisabled";
     public static final String TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED = "html.toolbar.image.addWorksheetRowDisabled";
 
@@ -95,7 +93,6 @@ public class HtmlConstants {
     public static final String TOOLBAR_TOOLTIP_FILTER_WORKSHEET = "html.toolbar.tooltip.filterWorksheet";
     public static final String TOOLBAR_TOOLTIP_CLEAR_WORKSHEET = "html.toolbar.tooltip.clearWorksheet";
     public static final String TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW = "html.toolbar.tooltip.addWorksheetRow";
-    public static final String TOOLBAR_TOOLTIP_UNSAVED_MESSAGE = "html.toolbar.tooltip.unsavedMessage";
 
     // toolbar text messages
     public static final String TOOLBAR_TEXT_FIRST_PAGE = "html.toolbar.text.firstPage";
@@ -109,7 +106,6 @@ public class HtmlConstants {
     public static final String TOOLBAR_TEXT_FILTER_WORKSHEET = "html.toolbar.text.filterWorksheet";
     public static final String TOOLBAR_TEXT_CLEAR_WORKSHEET = "html.toolbar.text.clearWorksheet";
     public static final String TOOLBAR_TEXT_ADD_WORKSHEET_ROW = "html.toolbar.text.addWorksheetRow";
-    public static final String TOOLBAR_TEXT_UNSAVED_MESSAGE = "html.toolbar.text.unsavedMessage";
 
     // statusbar text messages
     public static final String STATUSBAR_RESULTS_FOUND = "html.statusbar.resultsFound";

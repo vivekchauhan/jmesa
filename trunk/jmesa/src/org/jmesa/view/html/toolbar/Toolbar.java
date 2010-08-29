@@ -100,9 +100,6 @@ public abstract class Toolbar extends AbstractContextSupport {
             case ADD_WORKSHEET_ROW_ITEM:
                 item = factory.createAddWorksheetRowItem();
                 break;
-            case UNSAVED_MESSAGE_ITEM:
-                item = factory.createUnsavedMessageItem();
-                break;
         }
 
         if (item != null) {
