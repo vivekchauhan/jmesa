@@ -15,8 +15,6 @@
  */
 package org.jmesaweb.controller;
 
-
-
 import java.util.Collection;
 import java.util.Date;
 
@@ -28,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
+import org.jmesa.model.AllItems;
 import org.jmesa.model.TableModel;
 import org.jmesa.model.WorksheetSaver;
 import org.jmesa.view.editor.DateCellEditor;
@@ -70,12 +69,17 @@ public class WorksheetPresidentController extends AbstractController {
 
         TableModel tableModel = new TableModel(id, request);
         tableModel.setEditable(true);
-        tableModel.setItems(presidentService.getPresidents());
         tableModel.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
         tableModel.saveWorksheet(new WorksheetSaver() {
             public void saveWorksheet(Worksheet worksheet) {
                 saveWorksheetChanges(worksheet);
+            }
+        });
+
+        tableModel.setItems(new AllItems() {
+            public Collection<?> getItems() {
+                return presidentService.getPresidents();
             }
         });
 
