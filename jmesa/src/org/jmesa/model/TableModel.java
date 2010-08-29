@@ -50,6 +50,7 @@ public class TableModel {
     private HttpServletRequest request;
     private Collection<?> items;
     private PageItems pageItems;
+    private AllItems allItems;
     private Preferences preferences;
     private Messages messages;
     private ExportType[] exportTypes;
@@ -112,14 +113,30 @@ public class TableModel {
         }
     }
 
+    /**
+     * The most common way to set the items. If you need
+     * to delay setting the items then call the method
+     * with the AllItems interface.
+     */
     public void setItems(Collection<?> items) {
         this.items = items;
     }
 
+    /**
+     * Use to set one page of items.
+     */
     public void setItems(PageItems pageItems) {
         this.pageItems = pageItems;
     }
-    
+
+    /**
+     * Use if you need to delay calculating the items until
+     * some other action, such as saving to a worksheet.
+     */
+    public void setItems(AllItems allItems) {
+        this.allItems = allItems;
+    }
+
     public void setPreferences(Preferences preferences) {
         this.preferences = preferences;
     }
@@ -269,8 +286,12 @@ public class TableModel {
 
         if (limit != null) {
             tableFacade.setLimit(limit);
-        } else if (pageItems != null) {
+        }
+
+        if (pageItems != null) {
             items = getItems(tableFacade, pageItems);
+        } else if (allItems != null) {
+            items = allItems.getItems();
         }
         
         tableFacade.setItems(items);
