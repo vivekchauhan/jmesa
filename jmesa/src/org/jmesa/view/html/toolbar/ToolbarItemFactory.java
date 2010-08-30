@@ -195,9 +195,9 @@ public class ToolbarItemFactory {
 
         Worksheet worksheet = coreContext.getWorksheet();
         if (worksheet != null && worksheet.hasErrors()) {
-            item.setStyleClass(coreContext.getPreference(TOOLBAR_ERROR_CLASS));
+            item.setStyleClass(coreContext.getPreference(TOOLBAR_TEXT_ITEM_ERROR_CLASS));
         } else {
-            item.setStyleClass(coreContext.getPreference(TOOLBAR_TEXT_CLASS));
+            item.setStyleClass(coreContext.getPreference(TOOLBAR_TEXT_ITEM_CLASS));
         }
 
         item.setText(coreContext.getMessage(TOOLBAR_TEXT_FILTER_WORKSHEET));
