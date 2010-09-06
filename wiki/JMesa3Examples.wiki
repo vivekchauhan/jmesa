@@ -1,4 +1,4 @@
-I have started to convert the [Tutorials tutorials] over now. But, for the most part though you should look at the following examples to see how to build with the new API. For the motivation behind 3.0 you can read that [JMesa3 here].
+I have most of the [Tutorials tutorials] converted over now, but for the most part though you should look at the following examples to see how to build with the new API. For the motivation behind 3.0 you can read that [JMesa3 here].
 
  * [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/BasicPresidentController.java basic example]
  * [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/LimitPresidentController.java limit example]
