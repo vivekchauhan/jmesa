@@ -43,7 +43,7 @@
     color: black;
 }
 
-.jmesa .toolbar .toolbarText {
+.jmesa .toolbar .textItem {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
     font-weight: bold;
@@ -52,11 +52,11 @@
     padding: 0px 2px;
 }
 
-.jmesa .toolbar .toolbarText a {
+.jmesa .toolbar .textItem a {
     color: #729fcf;
 }
 
-.jmesa .toolbar .toolbarError {
+.jmesa .toolbar .textItemError {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
     font-weight: bold;
@@ -65,7 +65,7 @@
     padding: 0px 2px;
 }
 
-.jmesa .toolbar .toolbarError a {
+.jmesa .toolbar .textItemError a {
     color: #ec4646;
 }
 
