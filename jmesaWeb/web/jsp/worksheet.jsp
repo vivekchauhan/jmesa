@@ -26,12 +26,6 @@
             ${presidents}
         </form>
         
-        <p class="content">
-            This example source code can be found 
-            <a href="http://code.google.com/p/jmesa/wiki/WorksheetExample">here</a>.
-        </p>
-        
-        
         <script type="text/javascript">
 
             $(document).ready(function() {
