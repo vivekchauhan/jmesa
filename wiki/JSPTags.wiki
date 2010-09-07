@@ -6,7 +6,7 @@ JMesa has a complete tag library, which is very intuitive and should feel very s
 The following will define the html table.
 
 {{{
-<jmesa:tableFacade
+<jmesa:tableModel
     id="pres" 
     items="${presidents}"
     exportTypes="csv,excel"
@@ -27,5 +27,5 @@ The following will define the html table.
             <jmesa:htmlColumn property="born" filterable="false" pattern="MM/yyyy" cellEditor="org.jmesa.view.editor.DateCellEditor"/>
         </jmesa:htmlRow>
     </jmesa:htmlTable> 
-</jmesa:tableFacade>
+</jmesa:tableModel>
 }}}
