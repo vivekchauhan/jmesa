@@ -1,6 +1,6 @@
 When working with the worksheet many times you would like a checkbox in the header that allows you to select and unselect all the rows. This tutorial will describe on how you can do that.
 
-_This custom JavaScript for the checkbox is a little buggy. I think you would need to do something like inspect the columns and find out which are checked and which are not checked on loading of the page. The problem is that when you select all the rows and then go to the next page, and then return, the re-checking of the header causes problems. This code could just be viewed as a starting point...._
+_This custom Javascript for the checkbox is a little buggy. I think you would need to do something like inspect the columns and find out which are checked and which are not checked on loading of the page. The problem is that when you select all the rows and then go to the next page, and then return, the re-checking of the header causes problems. This code could just be viewed as a starting point...._
 
 
 First create a custom header editor. 
