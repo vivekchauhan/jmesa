@@ -48,7 +48,7 @@ In the jmesa.zip file you will find everything you need to get started:
  * default images
  * source code
 
-The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directory and you are all ready to start coding your table. Of course to render correctly on the web page you will need to install the !JavaScript, CSS, and Images. Your project probably has plenty of those resources and should be used consistently.
+The installation is easy. Simply put the jmesa.jar into your WEB-INF/lib directory and you are all ready to start coding your table. Of course to render correctly on the web page you will need to install the Javascript, CSS, and Images. Your project probably has plenty of those resources and should be used consistently.
 
 Note: make sure that you declare the jquery.jmesa.js before the jmesa.js, but also after the jQuery (distribution) file.
 
