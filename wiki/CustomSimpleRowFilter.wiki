@@ -22,10 +22,10 @@ Then plug your custom !RowFilter into the !TableFacade.
 
  * API 
 {{{
-tableFacade.setRowFilter(new CustomSimpleRowFilter());
+tableModel.setRowFilter(new CustomSimpleRowFilter());
 }}}
 
  * JSP Tag 
 {{{
-<jmesa:tableFacade rowFilter="com.mycompany.CustomSimpleRowFilter">
+<jmesa:tableModel rowFilter="com.mycompany.CustomSimpleRowFilter">
 }}}
