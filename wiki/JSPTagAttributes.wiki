@@ -1,6 +1,6 @@
 ++ _Denotes an attribute in which you need to specify the fully qualified path to the class implementation._
 
-==== !TableFacadeTag ====
+==== !TableModelTag ====
 || *Attribute* || *Type* || *Description* ||
 || id || String || The unique table id. ||
 || [Items items] || Collection || The Collection of beans or maps. ||
