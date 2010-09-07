@@ -4,15 +4,15 @@ All you have to do is set the stateAttr to the parameter to look for in the url,
 
 ==== Example ===
 
-For example in the [TableFacade] just pass in the name of the parameter to use:
+For example in the !TableModel just pass in the name of the parameter to use:
 {{{
-TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
-tableFacade.setStateAttr("restore");
+TableModel tableModel = new TableModel(id, request);
+tableModel.setStateAttr("restore");
 }}}
 
 The same goes for using the tags:
 {{{
-<jmesa:tableFacade
+<jmesa:tableModel
         id="basic" 
         stateAttr="restore"
         ...
