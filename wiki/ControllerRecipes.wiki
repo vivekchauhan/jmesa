@@ -6,8 +6,7 @@ First setup the filter:
 {{{
 <filter>
     <filter-name>TableFacadeFilter</filter-name>
-    <filter-class>org.jmesa.facade.filter.TableFacadeFilter</
-filter-class>
+    <filter-class>org.jmesa.facade.filter.TableFacadeFilter</filter-class>
 </filter>
 <filter-mapping>
     <filter-name>TableFacadeFilter</filter-name>
