@@ -34,4 +34,4 @@ Because of how customizable JMesa is you just need to create a custom view to re
 
 ==== How do I group the columns? ====
 
-In the 2.3.3 release you can use the new !GroupColumnsHtmlView view. See the [GroupColumnsTutorial tutorial] for more information.
+You can use the !GroupColumnsHtmlView view. See the [GroupColumnsTutorial tutorial] for more information.
