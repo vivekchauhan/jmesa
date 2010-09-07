@@ -69,7 +69,7 @@ Now we need to create our new toolbar item. For that we need to implement the !T
 For a toolbar item that displays an image we can get some help from the special !ToolbarItem called the !ImageItem. The tooltip, image and alt are all used to define the <img> element. The code is used to identify the toolbar item from the other items.
 
 {{{
-ImageItemImpl item = new ImageItemImpl();
+ImageItem item = new ImageItem();
 item.setCode("custom-item");
 item.setTooltip("Hello World");
 item.setImage(getImage("custom.png", getWebContext(), getCoreContext()));
@@ -114,16 +114,16 @@ addToolbarItem(item);
 
 ==== Plug into !TableFacade ====
 
-To use your custom toolbar you will need to plug it into your !TableFacade.
+To use your custom toolbar you will need to plug it into your !TableModele.
 
 ===== API =====
 
 {{{
-tableFacade.setToolbar(new CustomToolbar());
+tableModel.setToolbar(new CustomToolbar());
 }}}
 
 ===== JSP Tag =====
 
 {{{
-<jmesa:tableFacade toolbar="com.mycompany.table.CustomToolbar">
+<jmesa:tableModel toolbar="com.mycompany.table.CustomToolbar">
 }}}
