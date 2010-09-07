@@ -21,7 +21,7 @@ import static org.jmesa.facade.filter.TableFacadeFilter.FilterThreadLocal.getHtt
 import static org.jmesa.facade.filter.TableFacadeFilter.FilterThreadLocal.getHttpServletResponse;
 ...
 
-TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, getHttpServletRequest());
-tableFacade.setExportTypes(getHttpServletResponse(), CSV, JEXCEL, PDF);
+TableModel tableModel = new TableModel(id, getHttpServletRequest(), getHttpServletResponse());
+tableModel.setExportTypes(CSV, JEXCEL, PDF);
 ...
 }}}
