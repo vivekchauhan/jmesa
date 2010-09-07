@@ -21,10 +21,8 @@ Now plug in your newly created editor.
 ==== API ====
 
 {{{
-HtmlTable table = (HtmlTable) tableFacade.getTable();
-HtmlRow row = table.getRow();
-HtmlColumn available = row.getColumn("available");
-available.getFilterRenderer().setFilterEditor(new AvailableDroplistFilterEditor());
+HtmlColumn column = new HtmlColumn("available");
+column.setFilterEditor(new AvailableDroplistFilterEditor());
 }}}
 
 ==== Tag ==== 
@@ -54,12 +52,12 @@ public class AvailableFilterMatcher implements FilterMatcher {
 }
 }}}
 
-Lastly, add the filter matcher to the table facade before you start setting up your columns.
+Lastly, add the filter matcher to the table model before you start setting up your columns.
 
 ==== API ====
 
 {{{
-tableFacade.addFilterMatcher(new MatcherKey(String.class, "available"), new AvailableFilterMatcher());
+tableModel.addFilterMatcher(new MatcherKey(String.class, "available"), new AvailableFilterMatcher());
 }}}
 
 ==== Tag ====
@@ -67,5 +65,5 @@ tableFacade.addFilterMatcher(new MatcherKey(String.class, "available"), new Avai
 For the tag library we need to use the [FilterMatcher FilterMatcherMap] interface.
 
 {{{
-<jmesa:tableFacade filterMatcherMap="com.mycompany.AvailableFilterMatcherMap" />
+<jmesa:tableModel filterMatcherMap="com.mycompany.AvailableFilterMatcherMap" />
 }}}
