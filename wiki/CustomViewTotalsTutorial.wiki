@@ -68,16 +68,16 @@ protected String totals() {
 }
 }}}
 
-The last thing we need to do is plug the custom view into the !TableFacade. Be sure to set the view on the facade after any custom toolbar and table code.
+The last thing we need to do is plug the custom view into the !TableModel.
 
 ==== API ====
 
 {{{
-tableFacade.setView(new CustomView());
+tableModel.setView(new CustomView());
 }}}
 
 ==== JSP Tag ====
 
 {{{
-<jmesa:tableFacade view="com.mycompany.CustomView">
+<jmesa:tableModel view="com.mycompany.CustomView">
 }}}
