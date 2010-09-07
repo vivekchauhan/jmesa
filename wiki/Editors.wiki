@@ -23,7 +23,7 @@ public class BasicCellEditor extends AbstractCellEditor {
 }
 }}}
 
-The !CellEditors that ship with the JMesa API include the !BasicCellEditor, !DateCellEditor and the !NumberCellEditor. Again, you would not normally work directly with the !BasicCellEditor, but be sure to use it as a reference.
+The !CellEditors that ship with the JMesa API include the !BasicCellEditor, !DateCellEditor, !DateTimeCellEditor and the !NumberCellEditor. Again, you would not normally work directly with the !BasicCellEditor, but be sure to use it as a reference.
 
 ==== !CellEditor Example ====
 If you want to create a custom editor then just implement the !CellEditor interface. The easiest way to do that is to extend the !AbstractCellEditor class.
