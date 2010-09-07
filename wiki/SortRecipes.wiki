@@ -3,7 +3,7 @@
 If you need to sort differently than how it is out of the box you can define your own sorting strategy. Just implement the !ColumnSort and set it on the !TableModel of the API or tags.
 
 Creating your own sorting strategy is fairly easy. As an example here is the 
-[http://code.google.com/p/jmesa/source/browse/tags/jmesa-2.3/src/org/jmesa/core/sort/MultiColumnSort.java default] sorting class.
+[http://code.google.com/p/jmesa/source/browse/tags/jmesa-3.0/src/org/jmesa/core/sort/MultiColumnSort.java default] sorting class.
 
 ===== API ====
 {{{
