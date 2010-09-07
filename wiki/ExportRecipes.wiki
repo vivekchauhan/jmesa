@@ -22,7 +22,7 @@ if (tableFacade.getLimit().getExportType() == PDF) {
 }}}
 
 ==== How can I plug in my own export view? ====
-You can create your own view (extending AbstractExportView) and plug it in.
+You can create your own view (extending !AbstractExportView) and plug it in.
 
 {{{
 if (tableModel.isExporting()) {
