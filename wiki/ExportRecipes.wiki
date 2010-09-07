@@ -21,20 +21,6 @@ if (tableFacade.getLimit().getExportType() == PDF) {
 }
 }}}
 
-==== My exports are not readable. What is wrong? ====
-
-It could be that the export is having a hard time reading out to the response. We should
-first check to see if the document is being created correctly. Try the following code versus the tableFacade.render():
-
-{{{
-View view = tableFacade.getView();
-FileUtils.writeByteArrayToFile(new File("/home/jeff/workspace/output.xls"), view.getBytes());
-}}}
-
-What this is doing is writing the Excel file out to a local file instead of the response stream. The !FileUtils comes from the jakarta commons io package so if you do not use that just output the file however you are used to. If the file looks good then the problem is something in your servlet container. Chances are it is a filter problem at this point. Take a look at your web.xml file and remove servlet filters until you find the filter causing problems.
-
-_Note: currently this only works for the Excel and CSV exports. The JExcel and PDF do not currently work with this debugging feature._
-
 ==== How can I plug in my own export view? ====
 You can create your own view and plug it in.
 
