@@ -2,12 +2,12 @@ This tutorial will show how to customize a table's column display. The example w
 
 http://jmesa.org/wiki/images/customCellRenderer.jpg
 
-We will start by creating our own custom !HtmlCellRenderer. The easiest way to do this is by extending the default !HtmlCellRendererImpl and overriding the render() method. The default implementation is very simple and is meant to be copied and tweaked to your liking.
+We will start by creating our own custom !HtmlCellRenderer. The easiest way to do this is by extending the default !HtmlCellRenderer and overriding the render() method.
 
 Note: in most cases you will want to just pass through to your cell editor to get the column value. However, if you need to get values from other columns you have two other choices. You could either cast the item down to the bean that it really is, or use the !ItemUtils.getItemValue() method to get at the value you want.
 
 {{{
-private static class CustomHtmlCellRenderer extends HtmlCellRendererImpl {
+private static class CustomHtmlCellRenderer extends HtmlCellRenderer {
 
     @Override
     public Object render(Object item, int rowcount) {
@@ -39,27 +39,15 @@ private static class CustomHtmlCellRenderer extends HtmlCellRendererImpl {
 }
 }}}
 
-Then we need to plug in our custom cell renderer. To do that we need to first grab the cell editor, instantiate the custom cell renderer, and then add that to the column.
+Then we need to plug in our custom cell renderer. 
 
 {{{
-private void customCellRenderer(TableFacade tableFacade) {
-
-    HtmlTable table = (HtmlTable) tableFacade.getTable();
-    HtmlRow row = table.getRow();
-    HtmlColumn career = row.getColumn("career");
-
-    // get the cell editor 
-    CellEditor cellEditor = career.getCellRenderer().getCellEditor();
-
-    // instantiate the custom cell renderer and set the editor on it
-    HtmlCellRenderer htmlCellRenderer = new CustomHtmlCellRenderer();
-    htmlCellRenderer.setCellEditor(cellEditor);
-    career.setCellRenderer(htmlCellRenderer);
-}
+HtmlColumn column = new HtmlColumn("career");
+column.setCellRenderer(new CustomHtmlCellRenderer());
 }}}
 
 
-However, if you are using the tags then you just need to give the fully qualified path to your custom cell renderer. The tags will take care of plugging in the cell editor for you.
+However, if you are using the tags then you just need to give the fully qualified path to your custom cell renderer.
 
 {{{
 <jmesa:htmlColumn property="career" cellRenderer="com.mycompany.view.CustomHtmlCellRenderer"/>
