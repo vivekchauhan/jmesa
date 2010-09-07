@@ -94,7 +94,7 @@ function onInvokeExportAction(id) {
 </script>
 }}}
 
-Also be sure to set the export on the Limit in the !JavaScript back to null in the onInvokeAction(). The reason you do this is because the export does not force a page refresh and the !JavaScript Limit will still think an export is being performed.
+Also be sure to set the export on the Limit in the !Javascript back to null in the onInvokeAction(). The reason you do this is because the export does not force a page refresh and the !JavaScript Limit will still think an export is being performed.
 
 {{{
 function onInvokeAction(id) {
