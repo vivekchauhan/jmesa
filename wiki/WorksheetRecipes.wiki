@@ -22,7 +22,7 @@ sessionWorksheetState.persistWorksheet(worksheet);
 
 ==== Is there a way to just have a Save button under the worksheet to save the changes? ====
 
-What you need to do is just create a button like you normally would under the table, and then set the JavaScript to call the save action on the worksheet and then call your onInvokeAction script. Be sure to replace the 'id' parameter with the name of your table id.
+What you need to do is just create a button like you normally would under the table, and then set the Javascript to call the save action on the worksheet and then call your onInvokeAction script. Be sure to replace the 'id' parameter with the name of your table id.
 
 {{{
 <input type="button" value="Save" class="btn" style="margin-top:10px" onclick="setSaveToWorksheet('id');onInvokeAction('id','save_worksheet')" />
