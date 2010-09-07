@@ -1,18 +1,18 @@
 ==== How do I sort the table differently than the default? ====
 
-If you need to sort differently than how it is out of the box you can define your own sorting strategy. Just implement the !ColumnSort and set it on the !TableFacade of the API or tags.
+If you need to sort differently than how it is out of the box you can define your own sorting strategy. Just implement the !ColumnSort and set it on the !TableModel of the API or tags.
 
 Creating your own sorting strategy is fairly easy. As an example here is the 
 [http://code.google.com/p/jmesa/source/browse/tags/jmesa-2.3/src/org/jmesa/core/sort/MultiColumnSort.java default] sorting class.
 
 ===== API ====
 {{{
-tableFacade.setColumnSort(new CustomColumnSort());
+tableModel.setColumnSort(new CustomColumnSort());
 }}}
 
 ===== Tag ====
 {{{
-<jmesa:tableFacade columnSort="com.mycompany.CustomColumnSort"
+<jmesa:tableModel columnSort="com.mycompany.CustomColumnSort"
 }}}
 
 ==== How do I sort a column that pulls values from two different properties? ====
