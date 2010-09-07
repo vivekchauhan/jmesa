@@ -1,5 +1,5 @@
 #labels Featured
-I have been reading the Groovy Recipes book recently and I thought it would be a good format for pulling together the JMesa documentation. This will be a work in progress, but the goal is to make this the jumping point to the rest of the wiki. The way this will work is each high level section will be broken down into a question with a brief answer, along with a reference to the rest of the wiki.
+I thought it would be a good format for pulling together the JMesa documentation. This will be a work in progress, but the goal is to make this the jumping point to the rest of the wiki. The way this will work is each high level section will be broken down into a question with a brief answer, along with a reference to the rest of the wiki.
 
  * [FilterRecipes Filter Recipes]
  * [SortRecipes Sort Recipes]
@@ -8,7 +8,6 @@ I have been reading the Groovy Recipes book recently and I thought it would be a
  * [ExportRecipes Export Recipes]
  * [ControllerRecipes Controller Recipes]
  * [JSPTagRecipes JSP Tag Recipes]
- * [GroovyRecipes Groovy Recipes]
  * [WorksheetRecipes Worksheet Recipes]
  * [MiscRecipes Misc Recipes]
  * [ExportRecipes Export Recipes]
