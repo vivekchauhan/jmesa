@@ -133,7 +133,7 @@ careerColumn.getFilterRenderer().setFilterEditor(new FilterEditor() {
 <jmesa:column filterEditor="org.jmesaweb.controller.TagFilterEditor">
 }}}
 
-Keep in mind though that for this filter example you would still need to add the [Javascript] to interact with the !Javascript Limit. If this is something you are interested in you can look at the !HtmlFilterEditor to see the default example.
+Keep in mind though that for this filter example you would still need to add the [Javascript] to interact with the Javascript Limit. If this is something you are interested in you can look at the !HtmlFilterEditor to see the default example.
 
 ==== !DroplistFilterEditor ====
 
