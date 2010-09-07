@@ -11,8 +11,8 @@ builder.setSaveWorksheet();
 Then create a worksheet object through the API and then use the !SessionWorksheetState object to save your object in the test session.
 
 {{{
-Worksheet worksheet = new WorksheetImpl(ID, null); // pass in null for the Messages object.
-WorksheetRow row = new WorksheetRowImpl(new UniqueProperty("id", "2"));
+Worksheet worksheet = new Worksheet(ID);
+WorksheetRow row = new WorksheetRow(new UniqueProperty("id", "2"));
 worksheet.addRow(row);
 
 WebContext webContext = new HttpServletRequestWebContext(request);
@@ -46,5 +46,3 @@ that it could be expanded in the future and be fully backwards compatible.
 The workaround is to create a bean (or map) attribute that combines the attributes you
 need and then put something like a pipe between them. Then in your controller you
 can parse the values back out.
-
-
