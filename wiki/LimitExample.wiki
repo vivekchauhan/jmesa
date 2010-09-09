@@ -1,21 +1,16 @@
-This is the code that corresponds with the Limit [LimitTutorial tutorial].
+This is the code that corresponds with the Limit [LimitTutorial tutorial]. It uses JMesa, along with Spring and Hibernate (Criteria API).
 
-=== Example ===
-
-The example uses JMesa, along with Spring and Hibernate (Criteria API). It also assumes you have already followed the [Setup setup] instructions.
-
-==== code references ====
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code. 
 
-For the Limit example there is a service and dao class of interest, but how you implement those is very custom and will differ on how you work. The class to really pay attention to is the controller as that is how you will interact with the [TableFacade].
+For the Limit example there is a service and DAO class of interest, but how you implement those is very custom and will differ on how you work. The class to really pay attention to is the controller as that is how you will interact with the [TableFacade].
 
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/controller/LimitPresidentController.java Controller]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/service/PresidentServiceImpl.java  Service]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/dao/PresidentDaoImpl.java Dao]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/dao/CriteriaCommand.java Command]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/dao/PresidentFilter.java Filter Command]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/dao/PresidentSort.java Sort Command]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/web/jsp/limit.jsp JSP]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/controller/LimitPresidentController.java Controller]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/service/PresidentServiceImpl.java  Service]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/dao/PresidentDaoImpl.java Dao]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/dao/CriteriaCommand.java Command]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/dao/PresidentFilter.java Filter Command]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/dao/PresidentSort.java Sort Command]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/web/jsp/limit.jsp JSP]
 
 Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table through the onInvokeAction and onInvokeExportAction.
 
