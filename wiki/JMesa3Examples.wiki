@@ -6,7 +6,7 @@ I have most of the [Tutorials tutorials] converted over now, and you should star
 
  * If you are using Groovy you will need to define your !CellEditor as an inner class now. The reason is using closures was no longer possible now that the components (table, row, column) are concrete classes instead of an interface. It is easier to build tables with the API when these are concrete classes, but now the polymorphism for the setCellEditor() methods are resolved at compile-time. This means that to use the API Groovy would have to be mandatory. The other reason I thought I could drop closures is that the syntax is almost identical to an inner class when using JMesa.
 
- * If you are using the tag library then only grab the latest jmesa.tld file if you want to change the !TableFacadeTag to the !TableModelTag.
+ * If you are using the tag library then only grab the latest jmesa.tld file if you want to change the !TableFacadeTag to the !TableModelTag. You will eventually want to move all your tables to use the !TableModel, but with tags you have to do them all in your application at once. As you can see it is just a small name change.
 
 {{{
 <jmesa:tableFacade />
