@@ -1,22 +1,9 @@
-The easiest way to work with JMesa is to create a new [TableFacade] and tweak it however you need to. 
+=== Basic Example ===
 
-=== Example ===
-The following examples uses JMesa, along with Spring. It also assumes you have already followed the [Setup setup] instructions.
-
-In its simplest form you can create a table in four lines of code:
-{{{
-TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
-tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-tableFacade.setItems(items);
-String html = tableFacade.render();
-}}}
-
-A more common example is to start with a facade and then customize it. I will show that next.
-
-==== code references ====
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code.
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/src/org/jmesaweb/controller/BasicPresidentController.java Controller]
- * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-2.3/web/jsp/basic.jsp JSP]
+
+ * [http://jmesa.googlecode.com/svn/tags/jmesa-3.0/src/org/jmesaweb/controller/BasicPresidentController.java Controller]
+ * [http://jmesa.googlecode.com/svn/tags/jmesa-3.0/web/jsp/basic.jsp JSP]
 
 Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table through the onInvokeAction and onInvokeExportAction.
 
