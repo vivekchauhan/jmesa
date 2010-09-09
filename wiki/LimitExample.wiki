@@ -2,7 +2,7 @@ This is the code that corresponds with the Limit [LimitTutorial tutorial]. It us
 
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code. 
 
-For the Limit example there is a service and DAO class of interest, but how you implement those is very custom and will differ on how you work. The class to really pay attention to is the controller as that is how you will interact with the !TableModel.
+For the Limit example there is a service and DAO class of interest, but how you implement those is very custom and will differ on how you work. The class to really pay attention to is the controller as that will show you how to interact with the !TableModel.
 
  * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/controller/LimitPresidentController.java Controller]
  * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/service/PresidentServiceImpl.java  Service]
