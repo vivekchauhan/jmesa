@@ -2,8 +2,8 @@
 
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code.
 
- * [http://jmesa.googlecode.com/svn/tags/jmesa-3.0/src/org/jmesaweb/controller/BasicPresidentController.java Controller]
- * [http://jmesa.googlecode.com/svn/tags/jmesa-3.0/web/jsp/basic.jsp JSP]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/controller/BasicPresidentController.java Controller]
+ * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/web/jsp/basic.jsp JSP]
 
 Be sure to pay attention to the [Javascript] page link so that you understand how Javascript is used to interact with the table through the onInvokeAction and onInvokeExportAction.
 
