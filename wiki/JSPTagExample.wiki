@@ -1,5 +1,3 @@
-=== JSP Tag Example ===
-
 All the code examples are checked into subversion. The best way to present these examples may be to just let you walk through the source code.
 
  * [http://jmesa.googlecode.com/svn/tags/jmesaWeb-3.0/src/org/jmesaweb/controller/TagPresidentController.java Controller]
