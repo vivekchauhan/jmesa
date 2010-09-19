@@ -31,6 +31,10 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.worksheet.Worksheet;
 
 /**
+ * A series of utilities that complements the TableModel object. Especially useful
+ * for developers that use the tag library and use features like the Worksheet
+ * and Limit.
+ *
  * @since 3.0
  * @author Jeff Johnston
  */
@@ -46,6 +50,14 @@ public class TableModelUtils {
     public static ExportType getExportType(String id, HttpServletRequest request) {
         LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
         return actionFactory.getExportType();
+    }
+
+    public static Collection<?> getItems(String id, String stateAttr, HttpServletRequest request, PageItems pageItems) {
+        TableFacade tableFacade = new TableFacade(id, request);
+        tableFacade.setStateAttr(stateAttr);
+        Collection<?> items = getItems(tableFacade, pageItems);
+        request.setAttribute(tableFacade.getId() + LIMIT_ATTR, tableFacade.getLimit());
+        return items;
     }
 
     public static Collection<?> getItems(String id, HttpServletRequest request, PageItems pageItems) {
