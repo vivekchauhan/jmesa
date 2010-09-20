@@ -282,7 +282,7 @@ public class TableFacade {
         if (ws != null) {
         	ws.addRow(item, getTable());
         }
-        // for GAE
+        // for distributed deployment (e.g. GAE)
         persistWorksheet(ws);
     }
 
@@ -344,7 +344,7 @@ public class TableFacade {
             wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
             ws.addRow(wsRow);
         }
-        // for GAE
+        // for distributed deployment (e.g. GAE)
         persistWorksheet(ws);
     }
 

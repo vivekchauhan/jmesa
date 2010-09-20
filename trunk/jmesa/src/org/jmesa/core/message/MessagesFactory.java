@@ -17,7 +17,6 @@ package org.jmesa.core.message;
 
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PreferencesFactory;
-import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.web.WebContext;
 
 /**
@@ -38,11 +37,6 @@ public class MessagesFactory {
         String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
         Preferences preferences = PreferencesFactory.getPreferences(webContext);
 
-        if (Boolean.parseBoolean(preferences.getPreference(HtmlConstants.DISTRIBUTED_DEPLOYMENT))) {
-        	return new ResourceBundleMessagesMap(jmesaMessagesLocation, webContext);
-        }
-        else {
-        	return new ResourceBundleMessages(jmesaMessagesLocation, webContext);
-        }
+        return new ResourceBundleMessages(jmesaMessagesLocation, webContext);
     }
 }
