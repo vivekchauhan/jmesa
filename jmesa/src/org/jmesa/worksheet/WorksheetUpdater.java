@@ -54,6 +54,9 @@ public class WorksheetUpdater {
         WorksheetColumn column = getWorksheetColumn(row, webContext);
         String columnStatus = validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
 
+        // for distributed deployment (e.g. GAE)
+        getWorksheetState(webContext).persistWorksheet(worksheet);
+
         return columnStatus;
     }
 
