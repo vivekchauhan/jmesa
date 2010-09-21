@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>jmesaPreferencesLocation</param-name>
+		<param-value>WEB-INF/jmesa.properties</param-value>
+	</context-param>	
+
+	<filter>
+	    <filter-name>Sitemesh</filter-name>
+	    <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>Sitemesh</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <servlet>
+        <servlet-name>PresidentController</servlet-name>
+        <servlet-class>org.jmesalive.controller.PresidentController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PresidentController</servlet-name>
+        <url-pattern>/PresidentController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>worksheet</servlet-name>
+        <servlet-class>org.jmesa.worksheet.servlet.WorksheetServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>worksheet</servlet-name>
+        <url-pattern>*.wrk</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
