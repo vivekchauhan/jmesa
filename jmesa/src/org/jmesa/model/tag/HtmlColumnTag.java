@@ -15,14 +15,14 @@
  */
 package org.jmesa.model.tag;
 
-import static org.jmesa.model.tag.TagUtils.getColumnCellRenderer;
 import static org.jmesa.model.tag.TagUtils.getColumnCellEditor;
-import static org.jmesa.model.tag.TagUtils.getColumnWorksheetEditor;
-import static org.jmesa.model.tag.TagUtils.getColumnFilterRenderer;
+import static org.jmesa.model.tag.TagUtils.getColumnCellRenderer;
 import static org.jmesa.model.tag.TagUtils.getColumnFilterEditor;
-import static org.jmesa.model.tag.TagUtils.getColumnHeaderRenderer;
+import static org.jmesa.model.tag.TagUtils.getColumnFilterRenderer;
 import static org.jmesa.model.tag.TagUtils.getColumnHeaderEditor;
+import static org.jmesa.model.tag.TagUtils.getColumnHeaderRenderer;
 import static org.jmesa.model.tag.TagUtils.getColumnSortOrder;
+import static org.jmesa.model.tag.TagUtils.getColumnWorksheetEditor;
 import static org.jmesa.model.tag.TagUtils.getWorksheetValidations;
 
 import java.io.IOException;
@@ -38,7 +38,6 @@ import org.jmesa.util.ItemUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
-import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
@@ -408,8 +407,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
     /**
      * The column to use. If the column does not exist then one will be created.
      */
-    private HtmlColumn getColumn(HtmlComponentFactory factory) {
-        HtmlColumn column = factory.createColumn(getProperty());
+    private HtmlColumn getColumn() {
+        HtmlColumn column = new HtmlColumn(getProperty());
         column.setTitle(getTitle());
         column.setTitleKey(getTitleKey());
         column.setSortable(isSortable());
@@ -417,41 +416,41 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setFilterable(isFilterable());
         column.setEditable(isEditable());
         column.setWidth(getWidth());
+        column.setStyle(getStyle());
+        column.setStyleClass(getStyleClass());
 
         HtmlCellRenderer cr = getColumnCellRenderer(column, getCellRenderer());
-        cr.setStyle(getStyle());
-        cr.setStyleClass(getStyleClass());
-        column.setCellRenderer(cr);
+        column.setCellRenderer(cr);    
         
-        // worksheet
+        // worksheet    
         
         WorksheetEditor we = getColumnWorksheetEditor(column, getWorksheetEditor());
-        cr.setWorksheetEditor(we);
-
+        column.setWorksheetEditor(we);
+        
         // cell
-
+        
         CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern(), getJspBody() != null);
-        cr.setCellEditor(ce);
+        column.setCellEditor(ce);
 
         // filter
 
         HtmlFilterRenderer fr = getColumnFilterRenderer(column, getFilterRenderer());
-        fr.setStyle(getFilterStyle());
-        fr.setStyleClass(getFilterClass());
         column.setFilterRenderer(fr);
+        column.setFilterStyle(getFilterStyle());
+        column.setFilterClass(getFilterClass());       
 
         FilterEditor fe = getColumnFilterEditor(column, getFilterEditor());
-        fr.setFilterEditor(fe);
+        column.setFilterEditor(fe);
 
         // header
 
         HtmlHeaderRenderer hr = getColumnHeaderRenderer(column, getHeaderRenderer());
-        hr.setStyle(getHeaderStyle());
-        hr.setStyleClass(getHeaderClass());
         column.setHeaderRenderer(hr);
+        column.setHeaderStyle(getHeaderStyle());
+        column.setHeaderClass(getHeaderClass());        
 
         HeaderEditor he = getColumnHeaderEditor(column, getHeaderEditor());
-        hr.setHeaderEditor(he);
+        column.setHeaderEditor(he);
         
         for (WorksheetValidation wsv : getWorksheetValidations(column, getWorksheetValidation(), 
                 getErrorMessageKey(), getErrorMessage(), false)) {
@@ -496,8 +495,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         Collection<Map<String, Object>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
             HtmlRow row = facadeTag.getTable().getRow();
-            HtmlComponentFactory factory = facadeTag.getComponentFactory();
-            HtmlColumn column = getColumn(factory);
+            HtmlColumn column = getColumn();
             TagUtils.validateColumn(this, getProperty());
             row.addColumn(column);
         }
