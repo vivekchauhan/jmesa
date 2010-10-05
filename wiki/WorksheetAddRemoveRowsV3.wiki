@@ -1,5 +1,3 @@
-In version 2.5 we now have the ability to add and remove rows in the worksheet. In addition there is also a very flexible validation framework. 
-
 Lets start with a visual! What we have here is a worksheet that has most of the new features applied. The row above the gray line is new. The second row in the body is being deleted. And the forth row is showing us the validation in action.
 
 <img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/worksheet.png" />
@@ -66,7 +64,20 @@ worksheet.processRows(new WorksheetCallbackHandler() {
 
 === Validation ===
 
-The new validation framework is based on the [http://bassistance.de/jquery-plugins/jquery-plugin-validation/ bassistance] jQuery plugin.
+For some time JMesa's worksheet has had server side validation upon saving changes. What this allow you to do is attach errors to the worksheet column. You can see this in the [WorksheetTutorialV3 worksheet tutorial] and looks like the following:
+
+{{{
+private void validateColumn(WorksheetColumn worksheetColumn, String changedValue) {
+    if (changedValue.equals("foo")) {
+        worksheetColumn.setErrorKey("foo.error");
+    } else {
+        worksheetColumn.removeError(); // remove previous errors
+    }
+}
+}}}
+
+
+But now we also have a new client side validation framework, based on the [http://bassistance.de/jquery-plugins/jquery-plugin-validation/ bassistance] jQuery plugin.
 
 The bassistance plugin is seamlessly integrated into the JMesa framework. All you need to do to use default validation is add the validation to the column. You can add as many validations to the column as you want. 
 
