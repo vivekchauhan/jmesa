@@ -605,6 +605,122 @@
                 $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
             });
         },
+        createWsDroplistColumn : function(column, id, uniqueProperties, property, options) {
+            if (wsColumn) {
+                return;
+            }
+
+            wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
+
+            if ($('#wsColumnDroplistDiv').size() > 0) {
+                return; /* Column already created. */
+            }
+
+            /* The cell that represents the column. */
+            var cell = $(column);
+            cell.css('overflow', 'visible');
+
+            /* Get the original column value and width. */
+            var originalValue = cell.text();
+            var originalKey = "";
+            var width = cell.width();
+
+            /* Need to first get the size of the array. */
+            var size = 0;
+            $.each(options, function() {
+                size++;
+                if (size > 10) {
+                    size = 10;
+                    return false;
+                }
+            });
+
+            /* Enforce the width with a style. */
+            cell.width(width);
+            cell.parent().width(width);
+
+            /* Create the dynamic select input box. */
+            cell.html('<div id="wsColumnDroplistDiv" style="top:17px">');
+
+            var html = '<select id="wsColumnDroplistInput" name="wsColumn" size="' + size + '">';
+            //html += '<option value=""> </option>';
+            $.each(options, function(key, value) {
+                if (value == originalValue) {
+                    html += '<option selected="selected" value="' + key + '">' + value + '</option>';
+                    originalKey = key;
+                } else {
+                    html += '<option value="' + key + '">' + value + '</option>';
+                }
+            });
+
+            html += '</select>';
+
+            var div = $('#wsColumnDroplistDiv');
+            div.html(html);
+
+            var input = $('#wsColumnDroplistInput');
+
+            /* Resize the column if it is not at least as wide as the column. */
+            var selectWidth = input.width();
+            if (selectWidth < width) {
+                input.width(width + 5); /* always make the droplist overlap some */
+            }
+
+            input.focus();
+
+            var originalBackgroundColor = cell.css("backgroundColor");
+            cell.css({backgroundColor:div.css("backgroundColor")});
+
+            /* Something was selected or the clicked off the droplist. */
+
+            $(input).click(function() {
+                $.jmesa.submitWsDroplistColumn(cell, originalKey, originalBackgroundColor);
+                return false;
+            });
+
+            $(input).blur(function() {
+                $.jmesa.submitWsDroplistColumn(cell, originalKey, originalBackgroundColor);
+            });
+
+            div.keydown(function(event) {
+                var id = wsColumn.id;
+                if (event.keyCode == 13 || event.keyCode == 9) { /* Press the enter or tabulation key. */
+                    if (event.keyCode == 13) { /* Press the enter key. */
+                        $.jmesa.submitWsDroplistColumn(cell, originalKey, originalBackgroundColor);
+                    } else if (event.keyCode == 9) { /* Press the tab key. */
+                        var divToClick = $.jmesa.findNextCell(id, 'wsColumn', event.shiftKey);
+                        $.jmesa.submitWsDroplistColumn(cell, originalKey, originalBackgroundColor);
+
+                        if (divToClick != null){
+                            divToClick.onclick();
+                            return false; /* Stop event for IE */
+                        }
+                    }
+                } else if (event.shiftKey && event.ctrlKey && event.keyCode == 90) { /* Ctrl+Shift+z key to get original value (undo). */
+                    /* Get original value */
+                    if (cell.attr('data-ov')) {
+                       input.val(cell.attr('data-ov'));
+                    }
+                }
+
+            });
+        },
+        submitWsDroplistColumn : function(cell, originalKey, originalBackgroundColor) {
+            var changedKey = $("#wsColumnDroplistDiv option:selected").val();
+            var changedValue = $("#wsColumnDroplistDiv option:selected").text();
+            cell.text(changedValue);
+            cell.css('overflow', 'hidden');
+            if (originalKey != changedKey) {
+                if (!cell.attr('data-ov')) {
+                   /* use custom attribute to store original value */
+                   cell.attr('data-ov', originalKey);
+                }
+                $.jmesa.submitWsColumn(originalKey, changedKey);
+            }
+            $('#wsColumnDroplistDiv').remove();
+            cell.css({backgroundColor:originalBackgroundColor});
+            wsColumn = null;
+        },
         findNextCell : function(tableId, classToMatch, shiftKey) {
             var divToClick = null;
             var nextCell = false;
