@@ -115,7 +115,7 @@
     background-color: #e1ebf4;
 }
 
-.jmesa .filter #dynFilterDroplistDiv {
+.jmesa .filter #dynFilterDroplistDiv, #wsColumnDroplistDiv {
     position: absolute;
     top: -2px;
     left: -2px;
@@ -126,7 +126,7 @@
     z-index: 2;
 }
 
-.jmesa .filter #dynFilterDroplist {
+.jmesa .filter #dynFilterDroplist, #wsColumnDroplistInput {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 12px;
     padding: 0;
