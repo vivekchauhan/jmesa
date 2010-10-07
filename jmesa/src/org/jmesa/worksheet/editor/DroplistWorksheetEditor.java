@@ -37,10 +37,16 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
         
         int i = 0;
         
+        // If the value is outside of Set, treat as null 
+        if (!options.contains(value)) {
+            value = null;
+        }
+        
         for (String label : options) {
         	array.append("'").append(label).append("':'").append(label).append("'");
 
-        	if (i == 0 && value == null) {
+        	// if value is null, get first label from the Set 
+            if (value == null && i == 0) {
         		value = label;
         	}
         	

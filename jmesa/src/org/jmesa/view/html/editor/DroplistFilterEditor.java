@@ -133,6 +133,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         if (this.options == null) {
             Set<String> values = new HashSet<String>();
+            values.add("");
             String property = getColumn().getProperty();
             for (Object item : getCoreContext().getAllItems()) {
                 Object value = ItemUtils.getItemValue(item, property);

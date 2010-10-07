@@ -480,7 +480,7 @@
             var width = cell.width();
 
             /* Need to first get the size of the arrary. */
-            var size = 1;
+            var size = 0;
             $.each(options, function() {
                 size++;
                 if (size > 10) {
@@ -497,7 +497,6 @@
             cell.html('<div id="dynFilterDroplistDiv" style="top:17px">');
 
             var html = '<select id="dynFilterDroplist" name="filter" size="' + size + '">';
-            html += '<option value=""> </option>';
             $.each(options, function(key, value) {
                 if (key == originalValue) {
                     html += '<option selected="selected" value="' + key + '">' + value + '</option>';
@@ -643,7 +642,6 @@
             cell.html('<div id="wsColumnDroplistDiv" style="top:17px">');
 
             var html = '<select id="wsColumnDroplistInput" name="wsColumn" size="' + size + '">';
-            //html += '<option value=""> </option>';
             $.each(options, function(key, value) {
                 if (value == originalValue) {
                     html += '<option selected="selected" value="' + key + '">' + value + '</option>';
@@ -675,6 +673,8 @@
 
             $(input).click(function() {
                 $.jmesa.submitWsDroplistColumn(cell, originalKey, originalBackgroundColor);
+                /* This little hack is required to remove the highlighing after selecting the value using mouse */
+                cell.parent().parent().mouseout();
                 return false;
             });
 
@@ -698,7 +698,7 @@
                     }
                 } else if (event.shiftKey && event.ctrlKey && event.keyCode == 90) { /* Ctrl+Shift+z key to get original value (undo). */
                     /* Get original value */
-                    if (cell.attr('data-ov')) {
+                    if (cell.attr('class') != 'wsColumn') {
                        input.val(cell.attr('data-ov'));
                     }
                 }
@@ -711,7 +711,7 @@
             cell.text(changedValue);
             cell.css('overflow', 'hidden');
             if (originalKey != changedKey) {
-                if (!cell.attr('data-ov')) {
+                if (cell.attr('class') == 'wsColumn') {
                    /* use custom attribute to store original value */
                    cell.attr('data-ov', originalKey);
                 }
@@ -779,7 +779,7 @@
                     }
                 } else if (event.shiftKey && event.ctrlKey && event.keyCode == 90) { /* Ctrl+Shift+z key to get original value (undo). */
                     /* Get original value */
-                    if (cell.attr('data-ov')) {
+                    if (cell.attr('class') != 'wsColumn') {
                        input.val(cell.attr('data-ov'));
                     }
                 }
@@ -830,7 +830,7 @@
             cell.css('overflow', 'hidden');
             cell.text(changedValue);
             if (changedValue != originalValue) {
-                if (!cell.attr('data-ov')) {
+                if (cell.attr('class') == 'wsColumn') {
                    /* use custom attribute to store original value */
                    cell.attr('data-ov', originalValue);
                 }
