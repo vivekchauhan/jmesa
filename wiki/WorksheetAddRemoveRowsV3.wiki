@@ -187,7 +187,7 @@ jQuery.validator.addMethod('validateFirstName', validateFirstName);
 }}}
 
 === Worksheet Flow Diagram ===
-Here is a basic flow diagram depicting the changes being saved in worksheet
+Here is a basic flow diagram depicting how the changes made in worksheet are saved in session.
 
 <img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/worksheetBasicFlow.png" />
 
