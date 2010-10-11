@@ -186,4 +186,9 @@ jQuery.jmesa.setValidator('worksheet', $(jQuery.jmesa.getFormByTableId('workshee
 jQuery.validator.addMethod('validateFirstName', validateFirstName);
 }}}
 
+=== Worksheet Flow Diagram ===
+Here is a basic flow diagram depicting the changes being saved in worksheet
+
+<img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/worksheetBasicFlow.png" />
+
 _If you do not have it already you should get the [http://getfirebug.com/ firebug] plugin installed to help you track down any errors. In general you should get firebug as it makes web development so much easier._
