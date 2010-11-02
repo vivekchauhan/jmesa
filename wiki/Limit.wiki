@@ -94,6 +94,7 @@ If you are using the tag library there is no difference to how you use the Limit
 === The Limit Exposed ===
 The real power of the Limit implementation becomes apparent when you want to put the table into a different state. Here we are adding a Sort object to sort the first name in ascending order. Then we are adding a Filter object to filter the last name. This will also force the table to go right to the second page.
 {{{
+Limit limit = new Limit();
 limit.getSortSet().addSort("name.firstName", Order.ASC);
 limit.getFilterSet().addFilter("name.lastName", "a");
 limit.getRowSelect().setPage(2);
