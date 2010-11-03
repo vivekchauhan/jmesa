@@ -52,6 +52,19 @@ public class TableModelUtils {
         return actionFactory.getExportType();
     }
 
+    public static Limit getLimit(String id, HttpServletRequest request, Collection<?> items) {
+        TableFacade tableFacade = new TableFacade(id, request);
+        tableFacade.setItems(items);
+        return tableFacade.getLimit();
+    }
+
+    public static Limit getLimit(String id, String stateAttr, HttpServletRequest request, Collection<?> items) {
+        TableFacade tableFacade = new TableFacade(id, request);
+        tableFacade.setItems(items);
+        tableFacade.setStateAttr(stateAttr);
+        return tableFacade.getLimit();
+    }
+
     public static Collection<?> getItems(String id, String stateAttr, HttpServletRequest request, PageItems pageItems) {
         TableFacade tableFacade = new TableFacade(id, request);
         tableFacade.setStateAttr(stateAttr);
