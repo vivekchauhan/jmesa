@@ -142,6 +142,21 @@
                 form.submit();
             }
         },
+        createHiddenInputFieldsForLimitAndSubmit : function() {
+            var form;
+            var created;
+
+            $.each(tableFacades, function(id, tableFacade) {
+                if (!form) {
+                    form = getFormByTableId(id);
+                }
+                created = tableFacade.createHiddenInputFields(form);
+            });
+
+            if (created) {
+                form.submit();
+            }
+        },
         createParameterStringForLimit : function(id) {
             var tableFacade = this.getTableFacade(id);
             return tableFacade.createParameterString();
