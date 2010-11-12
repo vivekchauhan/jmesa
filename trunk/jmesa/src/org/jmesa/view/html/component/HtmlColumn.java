@@ -18,6 +18,7 @@ package org.jmesa.view.html.component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.jmesa.core.CoreContext;
 
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
@@ -263,7 +264,8 @@ public class HtmlColumn extends Column {
             this.cellEditor = new HtmlCellEditor();
         }
 
-        if (ViewUtils.isEditable(getCoreContext().getWorksheet()) && isEditable()) {
+        CoreContext coreContext = getCoreContext();
+        if (coreContext != null && (ViewUtils.isEditable(coreContext.getWorksheet()) && isEditable())) {
             if (worksheetEditor == null) {
                 this.worksheetEditor = new HtmlWorksheetEditor();
             }

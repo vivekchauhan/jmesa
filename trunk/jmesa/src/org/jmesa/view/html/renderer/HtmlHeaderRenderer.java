@@ -49,7 +49,7 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
      */
     @Deprecated
     public void setStyle(String style) {
-        getColumn().setStyle(style);
+        getColumn().setHeaderStyle(style);
     }
 
     /**
@@ -65,7 +65,7 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
      */
     @Deprecated
     public void setStyleClass(String styleClass) {
-        getColumn().setStyleClass(styleClass);
+        getColumn().setHeaderClass(styleClass);
     }
 
     public Object render() {

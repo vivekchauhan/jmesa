@@ -418,17 +418,16 @@ public class HtmlColumnTag extends SimpleTagSupport {
         column.setWidth(getWidth());
         column.setStyle(getStyle());
         column.setStyleClass(getStyleClass());
+        column.setFilterStyle(getFilterStyle());
+        column.setFilterClass(getFilterClass());
+        column.setHeaderStyle(getHeaderStyle());
+        column.setHeaderClass(getHeaderClass());
 
-        HtmlCellRenderer cr = getColumnCellRenderer(column, getCellRenderer());
-        column.setCellRenderer(cr);    
-        
-        // worksheet    
-        
-        WorksheetEditor we = getColumnWorksheetEditor(column, getWorksheetEditor());
-        column.setWorksheetEditor(we);
-        
         // cell
         
+        HtmlCellRenderer cr = getColumnCellRenderer(column, getCellRenderer());
+        column.setCellRenderer(cr);
+
         CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern(), getJspBody() != null);
         column.setCellEditor(ce);
 
@@ -436,8 +435,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         HtmlFilterRenderer fr = getColumnFilterRenderer(column, getFilterRenderer());
         column.setFilterRenderer(fr);
-        column.setFilterStyle(getFilterStyle());
-        column.setFilterClass(getFilterClass());       
 
         FilterEditor fe = getColumnFilterEditor(column, getFilterEditor());
         column.setFilterEditor(fe);
@@ -446,12 +443,15 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         HtmlHeaderRenderer hr = getColumnHeaderRenderer(column, getHeaderRenderer());
         column.setHeaderRenderer(hr);
-        column.setHeaderStyle(getHeaderStyle());
-        column.setHeaderClass(getHeaderClass());        
 
         HeaderEditor he = getColumnHeaderEditor(column, getHeaderEditor());
         column.setHeaderEditor(he);
         
+        // worksheet
+
+        WorksheetEditor we = getColumnWorksheetEditor(column, getWorksheetEditor());
+        column.setWorksheetEditor(we);
+
         for (WorksheetValidation wsv : getWorksheetValidations(column, getWorksheetValidation(), 
                 getErrorMessageKey(), getErrorMessage(), false)) {
             column.addWorksheetValidation(wsv);
