@@ -255,10 +255,7 @@ class TagUtils {
             return column.getCellRenderer();
         }
 
-        HtmlCellRenderer result = (HtmlCellRenderer) createInstance(cellRenderer);
-        result.setCellEditor(column.getCellRenderer().getCellEditor()); // reset the default
-
-        return result;
+        return (HtmlCellRenderer) createInstance(cellRenderer);
     }
 
     /**
@@ -278,9 +275,7 @@ class TagUtils {
             return null;
         }
 
-        WorksheetEditor result = (WorksheetEditor) createInstance(worksheetEditor);
-
-        return result;
+        return (WorksheetEditor) createInstance(worksheetEditor);
     }
 
     /**
@@ -319,10 +314,7 @@ class TagUtils {
             return column.getFilterRenderer();
         }
 
-        HtmlFilterRenderer result = (HtmlFilterRenderer) createInstance(filterRenderer);
-        result.setFilterEditor(column.getFilterRenderer().getFilterEditor()); // reset the default
-
-        return result;
+        return (HtmlFilterRenderer) createInstance(filterRenderer);
     }
 
     /**
@@ -335,7 +327,7 @@ class TagUtils {
      */
     static FilterEditor getColumnFilterEditor(HtmlColumn column, String filterEditor) {
         if (StringUtils.isEmpty(filterEditor)) {
-            return column.getFilterRenderer().getFilterEditor();
+            return column.getFilterEditor();
         }
 
         return (FilterEditor) createInstance(filterEditor);
@@ -350,10 +342,7 @@ class TagUtils {
             return column.getHeaderRenderer();
         }
 
-        HtmlHeaderRenderer result = (HtmlHeaderRenderer) createInstance(headerRenderer);
-        result.setHeaderEditor(column.getHeaderRenderer().getHeaderEditor()); // reset the default
-
-        return result;
+        return (HtmlHeaderRenderer) createInstance(headerRenderer);
     }
 
     /**
@@ -366,7 +355,7 @@ class TagUtils {
      */
     static HeaderEditor getColumnHeaderEditor(HtmlColumn column, String headerEditor) {
         if (StringUtils.isEmpty(headerEditor)) {
-            return column.getHeaderRenderer().getHeaderEditor();
+            return column.getHeaderEditor();
         }
 
         return (HeaderEditor) createInstance(headerEditor);
