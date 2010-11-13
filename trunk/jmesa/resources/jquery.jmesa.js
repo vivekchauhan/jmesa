@@ -142,6 +142,21 @@
                 form.submit();
             }
         },
+        createHiddenInputFieldsAllFormTablesForLimitAndSubmit : function() {
+            var form;
+            var created;
+
+            $.each(tableFacades, function(id, tableFacade) {
+                if (!form) {
+                    form = getFormByTableId(id);
+                }
+                created = tableFacade.createHiddenInputFields(form);
+            });
+
+            if (created) {
+                form.submit();
+            }
+        },
         createParameterStringForLimit : function(id) {
             var tableFacade = this.getTableFacade(id);
             return tableFacade.createParameterString();
@@ -585,8 +600,11 @@
     /*********** Worksheet ***********/
 
     var wsColumn = null;
-    var errorMap = {};
-    var validatorObject = {};
+    var errorMap;
+    var validatorOptions = {};
+
+    /* used when multiple tables are present in a single page */
+    var previousTableId;
 
     var worksheetapi = {
         createWsColumn : function(column, id, uniqueProperties, property) {
@@ -784,15 +802,36 @@
 
             wsColumn = null;
         },
-        setError : function(id, em) {
-           errorMap[id] = em;
+        setError : function(em) {
+           errorMap = em;
         },
-        setValidator : function(id, vr) {
-           validatorObject[id] = vr;
+        setValidator : function(id, options) {
+           validatorOptions[id] = options;
+        },
+        getValidator : function(id) {
+           if (!validatorOptions[id])
+               return;
+
+           var form = $.jmesa.getFormByTableId(id);
+
+           /* If there are multiple tables in a SINGLE form then... */
+           /* 1. Check from which table the cell is getting modified */
+           /* 2. If it is from same table that of last cell, do nothing */
+           /* 3. If it is from different table that of last cell, check if the two tables are in single form */
+               /* 3.1 If yes, we need to delete the existing validator and create a new for the new table */
+           /* This is a small hack (maipulation with data structure of validator plugin) */
+           /* This is required since validator object gets created only ONCE per form */
+           /* i.e, if a "validator" has been created (for previous table options), it will not be created again (for new table options) */
+           if (previousTableId && (previousTableId != id) && ($.jmesa.getFormByTableId(previousTableId) == form)) {
+               $.data(form, 'validator', null);
+           }
+
+           previousTableId = id;
+           return $(form).validate(validatorOptions[id]);
         },
         validateAndSubmitWsColumn : function(cell, input, originalValue) {
             var changedValue = input.val();
-            var validator = validatorObject[wsColumn.id];
+            var validator = $.jmesa.getValidator(wsColumn.id);
             var hasRules;
             if (validator) {
                 $.each(input.rules(), function() { hasRules = true; });
@@ -833,8 +872,8 @@
             var errorMessage;
 
             if (hasRules) {
-               if (errorMap[wsColumn.id]) {
-                  errorMessage = errorMap[wsColumn.id][wsColumn.property];
+               if (errorMap) {
+                  errorMessage = errorMap[wsColumn.property];
                }
             } else {
                errorMessage = cell.attr('data-em');
