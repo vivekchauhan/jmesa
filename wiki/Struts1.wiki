@@ -25,7 +25,7 @@ Place jmesa.properties inside WEB-INF. Inside web.xml create its entry like the 
 </context-param>
 }}}
 
-Place JMesa related css,js and image files inside css,js and images folders respectively, all these folders are under the folder !WebContent. Roughly the folder structure would be like
+Place JMesa related css,js and image files inside css,js and images folders respectively, all these folders are under the folder !WebContent.
 
 http://jmesa.org/wiki/images/struts-project-setup.png
 

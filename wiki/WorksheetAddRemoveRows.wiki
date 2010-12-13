@@ -1,7 +1,5 @@
 In version 2.5 we now have the ability to add and remove rows in the worksheet. In addition there is also a very flexible validation framework. 
 
-Lets start with a visual! What we have here is a worksheet that has most of the new features applied. The row above the gray line is new. The second row in the body is being deleted. And the forth row is showing us the validation in action.
-
 <img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/worksheet.png" />
 
 === Worksheet Example ===

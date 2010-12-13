@@ -19,7 +19,7 @@ The same goes for using the tags:
         >
 }}}
 
-As you can see in the following example, by passing in a parameter of "restore=true" then the table is rendered in the same way that you left it. That is really all there is too it! 
+So, by passing in a parameter of "restore=true" the table is rendered in the same way that you left it. That is really all there is too it! 
 
 http://jmesa.org/wiki/images/state-save.gif
 
