@@ -526,10 +526,11 @@
 
             /* Something was selected or the clicked off the droplist. */
 
-            $(input).click(function() {
+            $(input).click(function(event) {
                 var id = dynFilter.id;
                 $.jmesa.saveDroplistDynFilterData(cell, originalValue, originalBackgroundColor);
                 $.jmesa.onInvokeAction(id, 'filter');
+                event.stopPropagation();
             });
 
             $(input).blur(function() {
