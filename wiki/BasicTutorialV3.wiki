@@ -67,7 +67,7 @@ String html = tableModel.render();
 }}}
 
 
-http://www.jmesa.org/wiki/images/api-example-before.gif
+<img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/api-example-before.png" />
 
 ==== Modifications ====
 
@@ -145,7 +145,7 @@ firstName.setCellEditor(new CellEditor() {
 
 Thats it! We now have a fully functional, and good looking, HTML table!
 
-http://www.jmesa.org/wiki/images/api-example-after.gif
+<img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/api-example-after.png" />
 
 ==== Pass Html To View ====
 
