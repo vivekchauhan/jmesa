@@ -75,7 +75,8 @@ Also notice how the tableModel items attribute is being set with the presidents 
 </form>
 }}}
 
-http://www.jmesa.org/wiki/images/api-example-before.gif
+
+<img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/api-example-before.png" />
 
 ==== Modifications ====
 
@@ -161,7 +162,8 @@ _You could also define a custom [Editors cellEditor] to do more advanced types o
 
 Thats it! We now have a fully functional, and good looking, HTML table!
 
-http://www.jmesa.org/wiki/images/api-example-after.gif
+
+<img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/api-example-after.png" />
 
 The last thing we need to do is wire up the JMesa actions to the jmesa.js script. The actions, of course, are the filtering, sorting, paging, and max rows. Most of the time you will just need to create hidden input fields and submit the form, and is what we are doing here. 
 
