@@ -8,7 +8,8 @@ In addition to being able to save a Worksheet you also have the ability to filte
 
 Because the worksheet is just an extension to the core functionality this tutorial is a complement to the [BasicTutorialV3 basic tutorial].
 
-http://jmesa.org/wiki/images/worksheet-save.gif
+
+<img src="http://jmesa.googlecode.com/svn/trunk/jmesa/resources/wiki/worksheet-save.png" />
 
 _Also see the [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java worksheet example] for more information._
 
