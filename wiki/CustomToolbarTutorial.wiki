@@ -15,7 +15,7 @@ public class CustomToolbar extends AbstractToolbar {
 }
 }}}
 
-However this doesn't give you much to start with, so how about if we just drag in the [http://code.google.com/p/jmesa/source/browse/trunk/jmesa/src/org/jmesa/view/html/toolbar/HtmlToolbar.java default] toolbar items first.
+However this doesn't give you much to start with, so how about if we just drag in the [http://code.google.com/p/jmesa/source/browse/trunk/jmesa/src/org/jmesa/view/html/toolbar/HtmlToolbar.java default] toolbar items first. _Note: you can, of course, just bring in what you want. Typically when I create a new toolbar item I know exactly what functionality I need and just include the items I need._
 
 {{{
 @Override
