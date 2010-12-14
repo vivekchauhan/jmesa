@@ -15,48 +15,19 @@ public class CustomToolbar extends AbstractToolbar {
 }
 }}}
 
-However this doesn't give you much to start with, so how about if we just drag in the [http://code.google.com/p/jmesa/source/browse/tags/jmesa-2.3/src/org/jmesa/view/html/toolbar/DefaultToolbar.java default] toolbar items first.
+However this doesn't give you much to start with, so how about if we just drag in the [http://code.google.com/p/jmesa/source/browse/trunk/jmesa/src/org/jmesa/view/html/toolbar/HtmlToolbar.java default] toolbar items first.
 
 {{{
 @Override
 public String render() {
+   if (hasToolbarItems()) { // already has items
+        return super.render();
+    }
+    
     addToolbarItem(ToolbarItemType.FIRST_PAGE_ITEM);
     addToolbarItem(ToolbarItemType.PREV_PAGE_ITEM);
-    addToolbarItem(ToolbarItemType.NEXT_PAGE_ITEM);
-    addToolbarItem(ToolbarItemType.LAST_PAGE_ITEM);
 
-    addToolbarItem(ToolbarItemType.SEPARATOR);
-
-    MaxRowsItem maxRowsItem = (MaxRowsItem) addToolbarItem(ToolbarItemType.MAX_ROWS_ITEM);
-    if (getMaxRowsIncrements() != null) {
-        maxRowsItem.setIncrements(getMaxRowsIncrements());
-    }
-
-    boolean exportable = ViewUtils.isExportable(getExportTypes());
-
-    if (exportable) {
-        addToolbarItem(ToolbarItemType.SEPARATOR);
-        addExportToolbarItems(getExportTypes());
-    }
-
-    Row row = getTable().getRow();
-    List columns = row.getColumns();
-
-    boolean filterable = ViewUtils.isFilterable(columns);
-
-    if (filterable) {
-        addToolbarItem(ToolbarItemType.SEPARATOR);
-        addToolbarItem(ToolbarItemType.FILTER_ITEM);
-        addToolbarItem(ToolbarItemType.CLEAR_ITEM);
-    }
-
-    boolean editable = ViewUtils.isEditable(getCoreContext().getWorksheet());
-
-    if (editable) {
-        addToolbarItem(ToolbarItemType.SEPARATOR);
-        addToolbarItem(ToolbarItemType.SAVE_WORKSHEET_ITEM);
-        addToolbarItem(ToolbarItemType.FILTER_WORKSHEET_ITEM);
-    }
+    ...
 
     return super.render();
 }
