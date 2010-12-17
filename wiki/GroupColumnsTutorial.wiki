@@ -123,6 +123,8 @@ public class CategoryTooltipCellEditor extends AbstractCellEditor {
 
 If you just want to group your columns you can use the new !GroupColumnsHtmlView. What it does is extend the !HtmlView so that it can decorate each cell editor with the new !GroupCellEditor.
 
+Then to plug the view into the !TableModel you will do the following.
+
 ==== API ====
 
 {{{
