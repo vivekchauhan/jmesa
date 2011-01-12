@@ -180,7 +180,7 @@ chkbox.setSortable(false);
 
 === Add/Remove/Validate ===
 
-If you need to add and remove rows, or put in advanced validation you should look at the [WorksheetAddRemoveRowsV3 add/remove tutorial].
+If you need to add and remove rows, or put in advanced validation you should look at the [WorksheetAddRemoveValidateRowsV3 add/remove tutorial].
 
 === Custom Functionality ===
 
