@@ -26,7 +26,7 @@ To enable the feature of removing a row from the worksheet involves using a spec
 
 In this example we declared a made up column called "remove" and added it as the first column. _In general if you declare a column that does not exist JMesa will assume that this is a custom column._
 
-_By default the !RemoveRowWorksheetEditor will allow you to remove any row in the  worksheet. If you only want to remove rows that were added you can use the !RemoveRowAddedWorksheetEditor instead._
+_Note: by default the !RemoveRowWorksheetEditor will allow you to remove any row in the  worksheet. If you only want to remove rows that were added you can use the !RemoveRowAddedWorksheetEditor instead._
 
 ==== API ====
 
