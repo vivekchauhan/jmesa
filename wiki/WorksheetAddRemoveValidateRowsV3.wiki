@@ -79,7 +79,7 @@ private void validateColumn(WorksheetColumn worksheetColumn, String changedValue
 
 But now we also have a new validation framework, based on the [http://bassistance.de/jquery-plugins/jquery-plugin-validation/ bassistance] jQuery plugin. This will not only validate on the client, but will also update the worksheet column so that you can check to see if there are errors on the server side code when pressing save.
 
-_Note: if you need to do both client side and serverside validation you can still set the error directly on the column manually._
+_Note: if you need to do both client side and server side validation you can still set the error directly on the column manually._
 
 The bassistance plugin is seamlessly integrated into the JMesa framework. All you need to do to use default validation is add the validation to the column. You can add as many validations to the column as you want. 
 
