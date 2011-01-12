@@ -46,7 +46,7 @@ remove.setSortable(false);
 
 === Saving Worksheet ===
 
-For more information about saving the worksheet refer to the worksheet [WorksheetTutorialV3 tutorial]. What I wanted to show you here is the !WorksheetRowStatus enum values. With the row status you will know whether you need to add, remove, or modify the column values.
+For more information about saving the worksheet refer to the worksheet [WorksheetTutorialV3 tutorial]. What I wanted to show you here is the !WorksheetRowStatus enum values. With the row status you will know whether you need to add, remove, or modify the row.
 
 {{{
 worksheet.processRows(new WorksheetCallbackHandler() {
