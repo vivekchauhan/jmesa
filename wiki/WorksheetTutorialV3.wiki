@@ -178,9 +178,9 @@ chkbox.setSortable(false);
  <jmesa:htmlColumn property="chkbox" title="&nbsp;" worksheetEditor="org.jmesa.worksheet.editor.CheckboxWorksheetEditor" filterable="false" sortable="false"/>
 }}}
 
-=== Advanced Functionality ===
+=== Add/Remove/Validate ===
 
-If you need to add and remove rows, or put in advanced validation you should look at the add/remove [WorksheetAddRemoveRowsV3 tutorial].
+If you need to add and remove rows, or put in advanced validation you should look at the [WorksheetAddRemoveRowsV3 add/remove tutorial].
 
 === Custom Functionality ===
 
@@ -191,5 +191,5 @@ You can read about more custom ways to modify the worksheet in the [WorksheetRec
 
 === FAQ ===
 
-===== How come my errors are not showing up on my table.  =====
+==== How come my errors are not showing up on my table.  ====
  * The worksheet will not function correctly if you do a redirect back to the table when there are errors. Just remember that a JMesa table is like an advanced form component so normal form submit rules apply. In this case there are some key attributes that are not getting passed along when doing a redirect.
