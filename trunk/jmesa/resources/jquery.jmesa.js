@@ -142,7 +142,7 @@
                 form.submit();
             }
         },
-        createHiddenInputFieldsAllFormTablesForLimitAndSubmit : function() {
+        createHiddenInputFieldsAllTablesForLimitAndSubmit : function() {
             var form;
             var created;
 
@@ -890,7 +890,7 @@
                contextPath += "/";
             }
 
-            $.post(contextPath + 'jmesa.wrk?', eval('(' + data + ')'), function(columnStatus) {
+            $.post(contextPath + 'jmesa.wrk', jQuery.parseJSON(data), function(columnStatus) {
                jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
             });
         },
