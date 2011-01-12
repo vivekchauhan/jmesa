@@ -7,8 +7,10 @@ In addition to the [Examples examples] these are some tutorials so that develope
   * Learn the basics of creating an export.  
  * [JSPTagTutorialV3 JSP Tag Tutorial]
   * A complete walk through of how to create a table using the JSP Tag library.
- * [WorksheetTutorialV3 Worksheet Tutorial]
-  * Learn how to use the new editable table feature. 
+ * [WorksheetTutorialV3 Worksheet Tutorial Part 1]
+  * Learn how to use the editable table feature. 
+ * [WorksheetAddRemoveValidateRowsV3 Worksheet Tutorial Part 2]
+  * Learn how to take an editable table and add/remove/validate row columnns. 
  * [AjaxTutorialV3 AJAX Tutorial]
   * How to use AJAX technology with JMesa tables.  
  * [LimitTutorialV3 Limit Tutorial]
