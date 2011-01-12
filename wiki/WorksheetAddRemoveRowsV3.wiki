@@ -14,7 +14,7 @@ The only thing you need to do to turn on the add worksheet row feature is enable
 html.toolbar.addWorksheetRow.enabled=true
 }}}
 
-If you have a custom toolbar you need to add the new proper toolbar type.
+If you have a custom toolbar you will need to add the new proper toolbar type.
 
 {{{
 addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
