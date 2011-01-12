@@ -83,7 +83,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     private transient Messages messages;
     private int lastAddedRowId = -1;
 
-    private Map<UniqueProperty, WorksheetRow> rows = new LinkedHashMap<UniqueProperty, WorksheetRow>();
+    private Map<UniqueProperty, WorksheetRow> worksheetRows = new LinkedHashMap<UniqueProperty, WorksheetRow>();
 
     public Worksheet(String id) {
         this.id = id;
@@ -112,9 +112,9 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
         this.messages = messages;
     }
 
-    public void addRow(WorksheetRow row) {
-        rows.put(row.getUniqueProperty(), row);
-        row.setWorksheet(this);
+    public void addRow(WorksheetRow worksheetRow) {
+        worksheetRows.put(worksheetRow.getUniqueProperty(), worksheetRow);
+        worksheetRow.setWorksheet(this);
     }
 
     /**
@@ -137,9 +137,9 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     	String upValue = Integer.toString(lastAddedRowId--);
     	UniqueProperty uniqueProperty = new UniqueProperty(upName, upValue);
 
-    	WorksheetRow wsr = new WorksheetRow(uniqueProperty);
+    	WorksheetRow worksheetRow = new WorksheetRow(uniqueProperty);
         if (logger.isDebugEnabled()) {
-        	logger.debug("Unique Property for added row: " + wsr.getUniqueProperty());
+        	logger.debug("Unique Property for added row: " + worksheetRow.getUniqueProperty());
         }
 
     	// Navigate through the columns and add in Map (and in editable column)
@@ -158,9 +158,9 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     				value = "";
     			}
 
-    			WorksheetColumn wsc = new WorksheetColumn(property, value.toString());
-    			wsc.setChangedValue(value.toString());
-    			wsr.addColumn(wsc);
+    			WorksheetColumn worksheetColumn = new WorksheetColumn(property, value.toString());
+    			worksheetColumn.setChangedValue(value.toString());
+    			worksheetRow.addColumn(worksheetColumn);
     		}
     	}
 
@@ -172,10 +172,10 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
         // put unique property (overwrite if displayed in table)
         itemMap.put(upName, upValue);
 
-    	wsr.setRowStatus(WorksheetRowStatus.ADD);
-    	wsr.setItem(itemMap);
+    	worksheetRow.setRowStatus(WorksheetRowStatus.ADD);
+    	worksheetRow.setItem(itemMap);
 
-    	addRow(wsr);
+    	addRow(worksheetRow);
     }
 
     /**
@@ -186,9 +186,9 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     public List<WorksheetRow> getRowsByStatus(WorksheetRowStatus rowStatus) {
         List<WorksheetRow> results = new ArrayList<WorksheetRow>();
 
-        for (WorksheetRow row: getRows()) {
-    		if (rowStatus.equals(row.getRowStatus())) {
-    			results.add(row);
+        for (WorksheetRow worksheetRow: getRows()) {
+    		if (rowStatus.equals(worksheetRow.getRowStatus())) {
+    			results.add(worksheetRow);
             }
         }
 
@@ -199,14 +199,14 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      * @param uniqueProperty The property that uniquely identifies this row.
      */
     public WorksheetRow getRow(UniqueProperty uniqueProperty) {
-        return rows.get(uniqueProperty);
+        return worksheetRows.get(uniqueProperty);
     }
 
      /**
      * @return All the rows in the worksheet.
      */
     public Collection<WorksheetRow> getRows() {
-        return rows.values();
+        return worksheetRows.values();
     }
 
     /**
@@ -215,7 +215,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      * @param row The worksheet row to remove.
      */
     public void removeRow(WorksheetRow row) {
-        rows.remove(row.getUniqueProperty());
+        worksheetRows.remove(row.getUniqueProperty());
     }
 
     /**
@@ -224,9 +224,9 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      * @param uniqueProperty The unique property to recognize the row.
      */
     public void removeRow(UniqueProperty uniqueProperty) {
-        WorksheetRow row = getRow(uniqueProperty);
-        if (row != null) {
-            removeRow(row);
+        WorksheetRow worksheetRow = getRow(uniqueProperty);
+        if (worksheetRow != null) {
+            removeRow(worksheetRow);
         }
     }
 
@@ -267,22 +267,21 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      *         populated.
      */
     public boolean hasChanges() {
-        return rows.size() > 0;
+        return worksheetRows.size() > 0;
     }
 
     /**
      * Remove all the changes from the worksheet...clears the worksheet.
      */
     public void removeAllChanges() {
-        rows.clear();
+        worksheetRows.clear();
     }
 
     /**
      * @return Is true if any of the worksheet columns contain errors.
      */
     public boolean hasErrors() {
-        Collection<WorksheetRow> worksheetRows = rows.values();
-        for (WorksheetRow worksheetRow : worksheetRows) {
+        for (WorksheetRow worksheetRow : worksheetRows.values()) {
             boolean hasErrors = worksheetRow.hasErrors();
             if (hasErrors) {
                 return true;
@@ -298,9 +297,9 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      * @param handler The callback handler.
      */
     public void processRows(WorksheetCallbackHandler handler) {
-        Iterator<WorksheetRow> worksheetRows = getRows().iterator();
-        while (worksheetRows.hasNext()) {
-            WorksheetRow worksheetRow = worksheetRows.next();
+        Iterator<WorksheetRow> iterator = getRows().iterator();
+        while (iterator.hasNext()) {
+            WorksheetRow worksheetRow = iterator.next();
             handler.process(worksheetRow);
 
             Iterator<WorksheetColumn> worksheetColumns = worksheetRow.getColumns().iterator();
@@ -312,7 +311,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
             }
 
             if (worksheetRow.getColumns().size() == 0) {
-                worksheetRows.remove();
+                iterator.remove();
             }
         }
     }
@@ -321,7 +320,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("id", id);
-        builder.append("rows", rows);
+        builder.append("rows", worksheetRows);
         return builder.toString();
     }
 }

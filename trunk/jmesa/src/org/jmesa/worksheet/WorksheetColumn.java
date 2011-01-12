@@ -36,7 +36,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class WorksheetColumn implements Serializable {
-    private WorksheetRow row;
+    private WorksheetRow worksheetRow;
     private String property;
     private String error;
     private String originalValue;
@@ -47,8 +47,8 @@ public class WorksheetColumn implements Serializable {
         this.originalValue = originalValue;
     }
 
-    public void setRow(WorksheetRow row) {
-        this.row = row;
+    public void setRow(WorksheetRow worksheetRow) {
+        this.worksheetRow = worksheetRow;
     }
 
     /**
@@ -96,7 +96,7 @@ public class WorksheetColumn implements Serializable {
      * @param key The error key to find in the messages.
      */
     public void setErrorKey(String key) {
-        setError(row.getMessages().getMessage(key));
+        setError(worksheetRow.getMessages().getMessage(key));
     }
 
     /**

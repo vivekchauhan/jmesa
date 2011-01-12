@@ -50,10 +50,10 @@ public class WorksheetUpdater {
 
     public String update(Messages messages, WebContext webContext) {
         Worksheet worksheet = getWorksheet(messages, webContext);
-        WorksheetRow row = getWorksheetRow(worksheet, webContext);
+        WorksheetRow worksheetRow = getWorksheetRow(worksheet, webContext);
 
-        WorksheetColumn column = getWorksheetColumn(row, webContext);
-        String columnStatus = validateWorksheet(worksheet, row, column, webContext.getParameter(ERROR_MESSAGE));
+        WorksheetColumn worksheetColumn = getWorksheetColumn(worksheetRow, webContext);
+        String columnStatus = validateWorksheet(worksheet, worksheetRow, worksheetColumn, webContext.getParameter(ERROR_MESSAGE));
 
         // for distributed deployment (e.g. GAE)
         getWorksheetState(webContext).persistWorksheet(worksheet);
@@ -93,32 +93,32 @@ public class WorksheetUpdater {
                 String property = StringUtils.substringAfter(parameter, UNIQUE_PROPERTIES);
 
                 UniqueProperty uniqueProperty = new UniqueProperty(property, value);
-                WorksheetRow row = worksheet.getRow(uniqueProperty);
-                if (row == null) {
-                    row = new WorksheetRow(uniqueProperty);
-                    row.setRowStatus(WorksheetRowStatus.MODIFY);
-                    worksheet.addRow(row);
+                WorksheetRow worksheetRow = worksheet.getRow(uniqueProperty);
+                if (worksheetRow == null) {
+                    worksheetRow = new WorksheetRow(uniqueProperty);
+                    worksheetRow.setRowStatus(WorksheetRowStatus.MODIFY);
+                    worksheet.addRow(worksheetRow);
                 }
 
-                return row;
+                return worksheetRow;
             }
         }
 
         return null;
     }
 
-    protected WorksheetColumn getWorksheetColumn(WorksheetRow row, WebContext webContext) {
+    protected WorksheetColumn getWorksheetColumn(WorksheetRow worksheetRow, WebContext webContext) {
         String property = webContext.getParameter(COLUMN_PROPERTY);
-        WorksheetColumn column = row.getColumn(property);
-        if (column == null) {
+        WorksheetColumn worksheetColumn = worksheetRow.getColumn(property);
+        if (worksheetColumn == null) {
             String orginalValue = webContext.getParameter(ORIGINAL_VALUE);
             try {
                 orginalValue = decode(orginalValue, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            column = new WorksheetColumn(property, orginalValue);
-            row.addColumn(column);
+            worksheetColumn = new WorksheetColumn(property, orginalValue);
+            worksheetRow.addColumn(worksheetColumn);
         }
 
         String changedValue = webContext.getParameter(CHANGED_VALUE);
@@ -127,9 +127,9 @@ public class WorksheetUpdater {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        column.setChangedValue(changedValue);
+        worksheetColumn.setChangedValue(changedValue);
 
-        return column;
+        return worksheetColumn;
     }
 
     /**

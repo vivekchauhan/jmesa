@@ -46,7 +46,7 @@ public class WorksheetRow implements Serializable {
     private WorksheetRowStatus rowStatus;
     private Object item;
 
-    private Map<String, WorksheetColumn> columns = new LinkedHashMap<String, WorksheetColumn>();
+    private Map<String, WorksheetColumn> worksheetColumns = new LinkedHashMap<String, WorksheetColumn>();
 
     public WorksheetRow(UniqueProperty uniqueProperty) {
         this.uniqueProperty = uniqueProperty;
@@ -67,11 +67,11 @@ public class WorksheetRow implements Serializable {
     /**
      * Add a column to the worksheet row.
      *
-     * @param column The worksheet row column.
+     * @param worksheetColumn The worksheet row column.
      */
-    public void addColumn(WorksheetColumn column) {
-        columns.put(column.getProperty(), column);
-        column.setRow(this);
+    public void addColumn(WorksheetColumn worksheetColumn) {
+        worksheetColumns.put(worksheetColumn.getProperty(), worksheetColumn);
+        worksheetColumn.setRow(this);
     }
 
     /**
@@ -79,14 +79,14 @@ public class WorksheetRow implements Serializable {
      * @return The worksheet row column.
      */
     public WorksheetColumn getColumn(String property) {
-        return columns.get(property);
+        return worksheetColumns.get(property);
     }
 
     /**
      * @return All the row columns in the worksheet.
      */
     public Collection<WorksheetColumn> getColumns() {
-        return columns.values();
+        return worksheetColumns.values();
     }
 
     /**
@@ -95,7 +95,7 @@ public class WorksheetRow implements Serializable {
      * @param column The worksheet row column to remove.
      */
     public void removeColumn(WorksheetColumn column) {
-        columns.remove(column.getProperty());
+        worksheetColumns.remove(column.getProperty());
     }
 
     /**
@@ -118,8 +118,7 @@ public class WorksheetRow implements Serializable {
      * @return Is true if any of the row columns contain errors.
      */
     public boolean hasErrors() {
-        Collection<WorksheetColumn> values = columns.values();
-        for (WorksheetColumn worksheetColumn : values) {
+        for (WorksheetColumn worksheetColumn : worksheetColumns.values()) {
             boolean hasError = worksheetColumn.hasError();
             if (hasError) {
                 return true;
@@ -153,7 +152,7 @@ public class WorksheetRow implements Serializable {
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("uniqueProperty", uniqueProperty);
-        builder.append("columns", columns);
+        builder.append("columns", worksheetColumns);
         return builder.toString();
     }
 }
