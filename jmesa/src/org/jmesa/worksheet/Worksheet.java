@@ -48,11 +48,11 @@ import org.slf4j.LoggerFactory;
  * </p>
  *
  * <p>
- * To get this functionality you will have to tell the TableFacade that it is editable.
+ * To get this functionality you will have to tell the TableModel that it is editable.
  * </p>
  *
  * <pre>
- * tableFacade.setEditable(true);
+ * tableModel.setEditable(true);
  * </pre>
  *
  * <p>
@@ -133,7 +133,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
             throw new IllegalStateException("Item does not have the uniqueProperty");
     	}
 
-        // get a random value for unique property
+        // generate a unique value
     	String upValue = Integer.toString(lastAddedRowId--);
     	UniqueProperty uniqueProperty = new UniqueProperty(upName, upValue);
 
