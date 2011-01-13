@@ -30,7 +30,7 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEditor {
 
     private String url;
-    private int max = 50;
+    private String options;
 
     public AutoCompleteWorksheetEditor() {}
     
@@ -51,10 +51,10 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
             value = getValueForWorksheet(item, property, rowcount);
         }
 
-        return getWsColumn(worksheetColumn, value, item);
+        return getWsColumn(worksheetColumn, value, item, property);
     }
 
-    protected String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item) {
+    protected String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item, String property) {
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             if (value == null) {
                 return "";
@@ -86,14 +86,14 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
             html.styleClass("wsColumn");
         }
 
-        String urlValue = getUrl();
+        String urlValue = getUrl(item, property);
         if (urlValue == null) {
             throw new IllegalStateException("You need to set the url when using the AutoCompleteWorksheetEditor.");
         }
 
         html.onmouseover("$.jmesa.setTitle(this, event)");
         html.onclick(getUniquePropertyJavaScript(item) + "$.jmesa.createWsAutoCompleteColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'"
-            + getColumn().getProperty() + "','" + urlValue + "','" + getMax() + "')");
+            + getColumn().getProperty() + "','" + urlValue + "','" + getOptions(item, property) + "')");
         html.close();
         html.append(value);
         html.divEnd();
@@ -101,7 +101,7 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
         return html.toString();
     }
 
-    protected String getUrl() {
+    protected String getUrl(Object item, String property) {
         return url;
     }
 
@@ -109,11 +109,15 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
         this.url = url;
     }
 
-    protected int getMax() {
-        return max;
+    protected String getOptions(Object item, String property) {
+        if (options == null) {
+            return "{max:50}";
+        }
+        return options;
     }
 
-    public void setMax(int max) {
-        this.max = max;
+    public void setOptions(String options) {
+        this.options = options;
     }
 }
+
