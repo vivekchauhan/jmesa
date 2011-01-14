@@ -638,6 +638,39 @@
                 $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
             });
         },
+        createWsAutoCompleteColumn : function(column, id, uniqueProperties, property, url, options) {
+            if (wsColumn) {
+                return;
+            }
+
+            wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
+
+            var cell = $(column);
+            var width = cell.width();
+            var originalValue = cell.text();
+
+            /* Enforce the width with a style. */
+            cell.width(width);
+            cell.parent().width(width);
+            cell.css('overflow', 'visible');
+
+            cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="' + property + '" style="width:' + (width + 3) + 'px" value=""/></div>');
+
+            $('input[name=' + property + ']').autocomplete(url, options);
+
+            var input = $('#wsColumnInput');
+            input.val(originalValue);
+            input.focus();
+            if (jQuery.browser.msie) { /* IE need a second focus */
+                input.focus();
+            }
+
+            this.wsColumnKeyEvent(cell, input, originalValue);
+
+            $('#wsColumnInput').blur(function() {
+                $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
+            });
+        },
         findNextCell : function(tableId, classToMatch, shiftKey) {
             var divToClick = null;
             var nextCell = false;

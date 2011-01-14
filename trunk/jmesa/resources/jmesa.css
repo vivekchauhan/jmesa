@@ -151,7 +151,7 @@
     color: black;
 }
 
-.jmesa .odd td,.jmesa .even td,.jmesa .removed td {
+.jmesa .odd td,.jmesa .even td,.jmesa .removed td,.jmesa .rowError td {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 11px;
     padding: 2px 3px 2px 3px;
@@ -181,6 +181,11 @@
     font-family: verdana, arial, helvetica, sans-serif;
     font-style: italic;
     color: #ccc;
+}
+
+.jmesa .rowError {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-style: italic;
 }
 
 .jmesa .addRow {
