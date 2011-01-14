@@ -1,3 +1,18 @@
+/*
+ * Copyright 2004 original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jmesa.worksheet.editor;
 
 import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
@@ -76,30 +91,13 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
         array.append("}");
 
         // If value is outside of the Set
-        if (value == null || !droplistLabels.contains(value)) {
+        if (value == null || !droplistLabels.contains(value.toString())) {
         	value = firstLabel;
         }
         
         html.div();
-        
-        if (worksheetColumn != null) {
-        	String originalValue = worksheetColumn.getOriginalValue();
-            if (worksheetColumn.hasError()) {
-                html.styleClass("wsColumnError");
-                // use custom attributes for original value & error message
-                html.append("data-ov=\"" + originalValue + "\" ");
-                html.append("data-em=\"" + worksheetColumn.getError() + "\" ");
-            } else {
-            	if (worksheetColumn.getOriginalValue().equals(worksheetColumn.getChangedValue())) {
-                    html.styleClass("wsColumn");
-                } else {
-            		html.styleClass("wsColumnChange");
-            		html.append("data-ov=\"" + originalValue + "\" ");
-                }
-            }
-        } else {
-            html.styleClass("wsColumn");
-        }
+
+        html.append(getStyleClass(worksheetColumn));
         
         html.onmouseover("$.jmesa.setTitle(this, event)");
         html.onclick(getUniquePropertyJavaScript(item) + "$.jmesa.createWsDroplistColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" + getColumn().getProperty() + "', " + array + ")");

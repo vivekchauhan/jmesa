@@ -151,8 +151,8 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     		itemMap.put(property, value);
 
     		if (htmlColumn.isEditable()) {
-    			WorksheetEditor wse = (WorksheetEditor) htmlColumn.getCellEditor();
-    			value = (item == null) ? null : wse.getValueForWorksheet(item, property, -1);
+    			WorksheetEditor worksheetEditor = (WorksheetEditor) htmlColumn.getCellEditor();
+    			value = (item == null) ? null : worksheetEditor.getValueForWorksheet(item, property, -1);
 
     			if (value == null) {
     				value = "";
@@ -212,10 +212,11 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     /**
      * Remove the specified worksheet row.
      *
-     * @param row The worksheet row to remove.
+     * @param worksheetRow The worksheet row to remove.
      */
-    public void removeRow(WorksheetRow row) {
-        worksheetRows.remove(row.getUniqueProperty());
+    public void removeRow(WorksheetRow worksheetRow) {
+        worksheetRows.remove(worksheetRow.getUniqueProperty());
+        worksheetRow.removeError();
     }
 
     /**
@@ -282,7 +283,11 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      */
     public boolean hasErrors() {
         for (WorksheetRow worksheetRow : worksheetRows.values()) {
-            boolean hasErrors = worksheetRow.hasErrors();
+            if (worksheetRow.hasError()) {
+                return true;
+            }
+
+            boolean hasErrors = worksheetRow.hasColumnErrors();
             if (hasErrors) {
                 return true;
             }
@@ -292,7 +297,9 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     }
 
     /**
-     * A convenience method to handle the worksheet iteration.
+     * A convenience method to handle the worksheet iteration. Be sure to clear any
+     * previous row and column errors that no longer exist so that the worksheet row
+     * is removed from the worksheet.
      *
      * @param handler The callback handler.
      */
@@ -301,6 +308,10 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
         while (iterator.hasNext()) {
             WorksheetRow worksheetRow = iterator.next();
             handler.process(worksheetRow);
+
+            if (worksheetRow.hasError()) {
+                continue;
+            }
 
             Iterator<WorksheetColumn> worksheetColumns = worksheetRow.getColumns().iterator();
             while (worksheetColumns.hasNext()) {

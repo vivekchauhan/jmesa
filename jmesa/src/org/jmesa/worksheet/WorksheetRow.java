@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.apache.commons.lang.StringUtils;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.jmesa.core.message.Messages;
@@ -45,6 +46,7 @@ public class WorksheetRow implements Serializable {
     private UniqueProperty uniqueProperty;
     private WorksheetRowStatus rowStatus;
     private Object item;
+    private String error;
 
     private Map<String, WorksheetColumn> worksheetColumns = new LinkedHashMap<String, WorksheetColumn>();
 
@@ -115,9 +117,61 @@ public class WorksheetRow implements Serializable {
     }
 
     /**
+     * Set the error for this row.
+     *
+     * @param error The text of what went wrong.
+     */
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    /**
+     * Set the error for this row.
+     *
+     * @param key The error key to find in the messages.
+     */
+    public void setErrorKey(String key) {
+        setError(getMessages().getMessage(key));
+    }
+
+    /**
+     * @return The text error.
+     */
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * @return Is true if an error is set on the row.
+     */
+    public boolean hasError() {
+        return StringUtils.isNotBlank(error);
+    }
+
+    /**
+     * Remove the error that was previously set.
+     */
+    public void removeError() {
+        this.error = null;
+    }
+
+    /**
+     * @return Is true if any of the row columns contain errors.
+     * @deprecated Use the hasColumnErrors() method now.
+     */
+    @Deprecated
+    public boolean hasErrors() {
+        return hasColumnErrors();
+    }
+
+    /**
+     * See if any of the columns contain errors. If you only want to
+     * see if there are errors on the row itself call the Row.hasError()
+     * method.
+     *
      * @return Is true if any of the row columns contain errors.
      */
-    public boolean hasErrors() {
+    public boolean hasColumnErrors() {
         for (WorksheetColumn worksheetColumn : worksheetColumns.values()) {
             boolean hasError = worksheetColumn.hasError();
             if (hasError) {

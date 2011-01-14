@@ -40,6 +40,7 @@ public class HtmlConstants {
     public static final String ROW_RENDERER_EVEN_CLASS = "html.row.renderer.evenClass";
     public static final String ROW_RENDERER_ODD_CLASS = "html.row.renderer.oddClass";
     public static final String ROW_RENDERER_REMOVED_CLASS = "html.row.renderer.removedClass";
+    public static final String ROW_RENDERER_ERROR_CLASS = "html.row.renderer.errorClass";
 
     // column
     public static final String SORT_ASC_IMAGE = "html.column.header.renderer.image.sortAsc";

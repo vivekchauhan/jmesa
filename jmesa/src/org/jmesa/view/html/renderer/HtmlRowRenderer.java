@@ -23,7 +23,10 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.event.MouseRowEvent;
 import org.jmesa.view.html.event.RowEvent;
 import org.jmesa.view.renderer.AbstractRowRenderer;
+import org.jmesa.worksheet.Worksheet;
 import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
+import static org.jmesa.worksheet.WorksheetUtils.hasRowError;
+import static org.jmesa.worksheet.WorksheetUtils.getRowError;
 
 /**
  * @since 2.0
@@ -138,21 +141,26 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
     }
 
     protected String getStyleClass(int rowcount) {
-        String sc = getRow().getStyleClass();
-        if (StringUtils.isNotBlank(sc)) {
-            return sc;
+        HtmlRow row = getRow();
+        String styleClass = row.getStyleClass();
+        if (StringUtils.isNotBlank(styleClass)) {
+            return styleClass;
         }
 
         if (ViewUtils.isRowEven(rowcount)) {
-            return getRow().getEvenClass();
+            return row.getEvenClass();
         }
 
-        return getRow().getOddClass();
+        return row.getOddClass();
     }
 
     protected String getStyleClass(Object item, int rowcount) {
-        if (isRowRemoved(getCoreContext().getWorksheet(), getRow(), item)) {
+        Worksheet worksheet = getCoreContext().getWorksheet();
+        HtmlRow row = getRow();
+        if (isRowRemoved(worksheet, row, item)) {
             return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_REMOVED_CLASS);
+        } else if (hasRowError(worksheet, row, item)) {
+            return getCoreContext().getPreference(HtmlConstants.ROW_RENDERER_ERROR_CLASS);
         } else {
             return getStyleClass(rowcount);
         }
@@ -166,18 +174,21 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
      * @return The row events.
      */
     protected String getRowEvents(Object item, int rowcount) {
-        if (isRowRemoved(getCoreContext().getWorksheet(), getRow(), item)) {
+        Worksheet worksheet = getCoreContext().getWorksheet();
+        HtmlRow row = getRow();
+        if (isRowRemoved(worksheet, row, item) ||
+                hasRowError(worksheet, row, item)) {
             return "";
         }
 
         HtmlBuilder html = new HtmlBuilder();
 
-        RowEvent onclick = getRow().getOnclick();
+        RowEvent onclick = row.getOnclick();
         if (onclick != null) {
             html.onclick(onclick.execute(item, rowcount));
         }
 
-        RowEvent onmouseover = getRow().getOnmouseover();
+        RowEvent onmouseover = row.getOnmouseover();
         if (onmouseover != null) {
             if (onmouseover instanceof MouseRowEvent) {
                 MouseRowEvent onmouseoverRowEvent = (MouseRowEvent) onmouseover;
@@ -187,7 +198,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
             html.onmouseover(onmouseover.execute(item, rowcount));
         }
 
-        RowEvent onmouseout = getRow().getOnmouseout();
+        RowEvent onmouseout = row.getOnmouseout();
         if (onmouseout != null) {
             if (onmouseout instanceof MouseRowEvent) {
                 MouseRowEvent onmouseoutRowEvent = (MouseRowEvent) onmouseout;
@@ -203,11 +214,18 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
     public Object render(Object item, int rowcount) {
         HtmlBuilder html = new HtmlBuilder();
         html.tr(1);
+
+        Worksheet worksheet = getCoreContext().getWorksheet();
+        HtmlRow row = getRow();
         html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
         html.style(getStyle());
         html.styleClass(getStyleClass(item, rowcount));
 
         html.append(getRowEvents(item, rowcount));
+
+        if (hasRowError(worksheet, row, item)) {
+            html.title(getRowError(worksheet, row, item));
+        }
 
         html.close();
 
