@@ -18,6 +18,7 @@ package org.jmesa.worksheet.editor;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.editor.AbstractCellEditor;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetColumn;
@@ -88,5 +89,30 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
         sb.append("var " + UNIQUE_PROPERTY + " = {};");
         sb.append(UNIQUE_PROPERTY + "['" + uniqueProperty.getName() + "']='" + uniqueProperty.getValue() + "';");
         return sb.toString();
+    }
+
+    protected String getStyleClass(WorksheetColumn worksheetColumn) {
+        HtmlBuilder html = new HtmlBuilder();
+
+        if (worksheetColumn != null) {
+        	String originalValue = worksheetColumn.getOriginalValue();
+            if (worksheetColumn.hasError()) {
+                html.styleClass("wsColumnError");
+                // use custom attributes for original value & error message
+                html.append("data-ov=\"" + originalValue + "\" ");
+                html.append("data-em=\"" + worksheetColumn.getError() + "\" ");
+            } else {
+            	if (originalValue.equals(worksheetColumn.getChangedValue())) {
+                    html.styleClass("wsColumn");
+                } else {
+            		html.styleClass("wsColumnChange");
+            		html.append("data-ov=\"" + originalValue + "\" ");
+                }
+            }
+        } else {
+            html.styleClass("wsColumn");
+        }
+
+        return html.toString();
     }
 }

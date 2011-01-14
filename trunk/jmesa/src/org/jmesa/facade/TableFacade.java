@@ -330,6 +330,7 @@ public class TableFacade {
                 }
             } else {
                 wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
+                wsRow.removeError();
 
                 boolean keepChangedValues = Boolean.parseBoolean(
                         getCoreContext().getPreference(HtmlConstants.REMOVE_ROW_KEEP_CHANGED_VALUES));

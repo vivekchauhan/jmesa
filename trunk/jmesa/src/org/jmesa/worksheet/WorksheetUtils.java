@@ -63,7 +63,25 @@ public class WorksheetUtils {
         return (worksheetRow.getRowStatus().equals(WorksheetRowStatus.REMOVE));
     }
 
-    private static WorksheetRow getWorksheetRow(Worksheet worksheet, Row row, Object item) {
+    public static boolean hasRowError(Worksheet worksheet, Row row, Object item) {
+        WorksheetRow worksheetRow = getWorksheetRow(worksheet, row, item);
+        if (worksheetRow == null) {
+            return false;
+        }
+
+        return worksheetRow.hasError();
+    }
+
+    public static String getRowError(Worksheet worksheet, Row row, Object item) {
+        WorksheetRow worksheetRow = getWorksheetRow(worksheet, row, item);
+        if (worksheetRow == null) {
+            return null;
+        }
+
+        return worksheetRow.getError();
+    }
+
+    public static WorksheetRow getWorksheetRow(Worksheet worksheet, Row row, Object item) {
         if (worksheet == null) {
             return null;
         }
