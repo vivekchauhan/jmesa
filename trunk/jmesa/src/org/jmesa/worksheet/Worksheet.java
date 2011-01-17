@@ -309,7 +309,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
             WorksheetRow worksheetRow = iterator.next();
             handler.process(worksheetRow);
 
-            if (worksheetRow.hasError()) {
+            if (worksheetRow.hasError() || worksheetRow.hasColumnErrors()) {
                 continue;
             }
 
