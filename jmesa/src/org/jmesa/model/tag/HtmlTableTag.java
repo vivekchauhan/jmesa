@@ -137,23 +137,24 @@ public class HtmlTableTag extends SimpleTagSupport {
     /**
      * The table to use. If the table does not exist then one will be created.
      */
-    private HtmlTable getTable(HtmlComponentFactory factory) {
-        HtmlTable table = factory.createTable();
-        table.setCaption(getCaption());
-        table.setCaptionKey(getCaptionKey());
-        table.setTheme(getTheme());
+    private HtmlTable getHtmlTable() {
+        HtmlTable htmlTable = new HtmlTable();
+        
+        htmlTable.setCaption(getCaption());
+        htmlTable.setCaptionKey(getCaptionKey());
+        htmlTable.setTheme(getTheme());
 
-        HtmlTableRenderer renderer = getTableTableRenderer(table, getTableRenderer());
-        table.setTableRenderer(renderer);
+        HtmlTableRenderer renderer = getTableTableRenderer(htmlTable, getTableRenderer());
+        htmlTable.setTableRenderer(renderer);
 
-        renderer.setWidth(getWidth());
-        renderer.setStyle(getStyle());
-        renderer.setStyleClass(getStyleClass());
-        renderer.setBorder(getBorder());
-        renderer.setCellpadding(getCellpadding());
-        renderer.setCellspacing(getCellspacing());
+        htmlTable.setWidth(getWidth());
+        htmlTable.setStyle(getStyle());
+        htmlTable.setStyleClass(getStyleClass());
+        htmlTable.setBorder(getBorder());
+        htmlTable.setCellpadding(getCellpadding());
+        htmlTable.setCellspacing(getCellspacing());
 
-        return table;
+        return htmlTable;
     }
 
     @Override
@@ -164,11 +165,10 @@ public class HtmlTableTag extends SimpleTagSupport {
         }
 
         TableModelTag facadeTag = (TableModelTag) findAncestorWithClass(this, TableModelTag.class);
-        HtmlTable table = facadeTag.getTable();
-        if (table == null) {
-            HtmlComponentFactory factory = facadeTag.getComponentFactory();
-            table = getTable(factory);
-            facadeTag.setTable(table);
+        HtmlTable htmlTable = facadeTag.getTable();
+        if (htmlTable == null) {
+            htmlTable = getHtmlTable();
+            facadeTag.setTable(htmlTable);
         }
 
         body.invoke(null);

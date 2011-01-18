@@ -30,7 +30,6 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.jmesa.util.ItemUtils;
-import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
@@ -228,27 +227,28 @@ public class HtmlRowTag extends SimpleTagSupport {
     /**
      * The row to use. If the row does not exist then one will be created.
      */
-    private HtmlRow getRow(HtmlComponentFactory factory) {
-        HtmlRow row = factory.createRow();
-        row.setUniqueProperty(getUniqueProperty());
-        row.setHighlighter(isHighlighter());
-        row.setSortable(isSortable());
-        row.setFilterable(isFilterable());
-        row.setOnclick(getRowOnclick(row, getOnclick()));
-        row.setOnmouseover(getRowOnmouseover(row, getOnmouseover()));
-        row.setOnmouseout(getRowOnmouseout(row, getOnmouseout()));
+    private HtmlRow getHtmlRow() {
+        HtmlRow htmlRow = new HtmlRow();
+        
+        htmlRow.setUniqueProperty(getUniqueProperty());
+        htmlRow.setHighlighter(isHighlighter());
+        htmlRow.setSortable(isSortable());
+        htmlRow.setFilterable(isFilterable());
+        htmlRow.setOnclick(getRowOnclick(htmlRow, getOnclick()));
+        htmlRow.setOnmouseover(getRowOnmouseover(htmlRow, getOnmouseover()));
+        htmlRow.setOnmouseout(getRowOnmouseout(htmlRow, getOnmouseout()));
 
-        HtmlRowRenderer renderer = getRowRowRenderer(row, getRowRenderer());
-        row.setRowRenderer(renderer);
+        HtmlRowRenderer renderer = getRowRowRenderer(htmlRow, getRowRenderer());
+        htmlRow.setRowRenderer(renderer);
 
-        renderer.setStyle(getStyle());
-        renderer.setStyleClass(getStyleClass());
-        renderer.setEvenClass(getEvenClass());
-        renderer.setOddClass(getOddClass());
-        renderer.setHighlightStyle(getHighlightStyle());
-        renderer.setHighlightClass(getHighlightClass());
+        htmlRow.setStyle(getStyle());
+        htmlRow.setStyleClass(getStyleClass());
+        htmlRow.setEvenClass(getEvenClass());
+        htmlRow.setOddClass(getOddClass());
+        htmlRow.setHighlightStyle(getHighlightStyle());
+        htmlRow.setHighlightClass(getHighlightClass());
 
-        return row;
+        return htmlRow;
     }
 
     /**
@@ -275,12 +275,11 @@ public class HtmlRowTag extends SimpleTagSupport {
         pageItem.put(var, bean);
         pageItem.put(ItemUtils.JMESA_ITEM, bean);
 
-        HtmlTable table = facadeTag.getTable();
-        HtmlRow row = table.getRow();
-        if (row == null) {
-            HtmlComponentFactory factory = facadeTag.getComponentFactory();
-            row = getRow(factory);
-            table.setRow(row);
+        HtmlTable htmlTable = facadeTag.getTable();
+        HtmlRow htmlRow = htmlTable.getRow();
+        if (htmlRow == null) {
+            htmlRow = getHtmlRow();
+            htmlTable.setRow(htmlRow);
         }
 
         body.invoke(null);
