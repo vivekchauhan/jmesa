@@ -15,8 +15,6 @@
  */
 package org.jmesa.core.message;
 
-import org.jmesa.core.preference.Preferences;
-import org.jmesa.core.preference.PreferencesFactory;
 import org.jmesa.web.WebContext;
 
 /**
@@ -35,8 +33,6 @@ public class MessagesFactory {
      */
     public static Messages getMessages(WebContext webContext) {
         String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
-        Preferences preferences = PreferencesFactory.getPreferences(webContext);
-
         return new ResourceBundleMessages(jmesaMessagesLocation, webContext);
     }
 }
