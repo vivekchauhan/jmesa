@@ -82,7 +82,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
         Row row = getColumn().getRow();
         UniqueProperty uniqueProperty = row.getUniqueProperty(item);
         if (uniqueProperty == null) {
-            return "";
+            throw new IllegalStateException("The row unique property value is null! You need to specify the uniqueProperty on the row.");
         }
 
         StringBuilder sb = new StringBuilder();
