@@ -30,8 +30,6 @@ import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Use the Flying Saucer API to generate Pdf documents.
@@ -40,8 +38,6 @@ import org.slf4j.LoggerFactory;
  * @author Paul Horn
  */
 public class PdfView extends AbstractExportView {
-    private static Logger logger = LoggerFactory.getLogger(PdfView.class);
-    
     private String cssLocation;
 
     /**

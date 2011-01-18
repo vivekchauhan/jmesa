@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.component;
 
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.TableRenderer;
 
