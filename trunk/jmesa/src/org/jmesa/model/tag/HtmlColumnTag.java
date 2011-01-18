@@ -407,61 +407,62 @@ public class HtmlColumnTag extends SimpleTagSupport {
     /**
      * The column to use. If the column does not exist then one will be created.
      */
-    private HtmlColumn getColumn() {
-        HtmlColumn column = new HtmlColumn(getProperty());
-        column.setTitle(getTitle());
-        column.setTitleKey(getTitleKey());
-        column.setSortable(isSortable());
-        column.setSortOrder(getColumnSortOrder(getSortOrder()));
-        column.setFilterable(isFilterable());
-        column.setEditable(isEditable());
-        column.setWidth(getWidth());
-        column.setStyle(getStyle());
-        column.setStyleClass(getStyleClass());
-        column.setFilterStyle(getFilterStyle());
-        column.setFilterClass(getFilterClass());
-        column.setHeaderStyle(getHeaderStyle());
-        column.setHeaderClass(getHeaderClass());
+    private HtmlColumn getHtmlColumn() {
+        HtmlColumn htmlColumn = new HtmlColumn(getProperty());
+        
+        htmlColumn.setTitle(getTitle());
+        htmlColumn.setTitleKey(getTitleKey());
+        htmlColumn.setSortable(isSortable());
+        htmlColumn.setSortOrder(getColumnSortOrder(getSortOrder()));
+        htmlColumn.setFilterable(isFilterable());
+        htmlColumn.setEditable(isEditable());
+        htmlColumn.setWidth(getWidth());
+        htmlColumn.setStyle(getStyle());
+        htmlColumn.setStyleClass(getStyleClass());
+        htmlColumn.setFilterStyle(getFilterStyle());
+        htmlColumn.setFilterClass(getFilterClass());
+        htmlColumn.setHeaderStyle(getHeaderStyle());
+        htmlColumn.setHeaderClass(getHeaderClass());
 
         // cell
         
-        HtmlCellRenderer cr = getColumnCellRenderer(column, getCellRenderer());
-        column.setCellRenderer(cr);
+        HtmlCellRenderer cr = getColumnCellRenderer(htmlColumn, getCellRenderer());
+        htmlColumn.setCellRenderer(cr);
 
-        CellEditor ce = getColumnCellEditor(column, getCellEditor(), getPattern(), getJspBody() != null);
-        column.setCellEditor(ce);
+        CellEditor ce = getColumnCellEditor(htmlColumn, getCellEditor(), getPattern(), getJspBody() != null);
+        htmlColumn.setCellEditor(ce);
 
         // filter
 
-        HtmlFilterRenderer fr = getColumnFilterRenderer(column, getFilterRenderer());
-        column.setFilterRenderer(fr);
+        HtmlFilterRenderer fr = getColumnFilterRenderer(htmlColumn, getFilterRenderer());
+        htmlColumn.setFilterRenderer(fr);
 
-        FilterEditor fe = getColumnFilterEditor(column, getFilterEditor());
-        column.setFilterEditor(fe);
+        FilterEditor fe = getColumnFilterEditor(htmlColumn, getFilterEditor());
+        htmlColumn.setFilterEditor(fe);
 
         // header
 
-        HtmlHeaderRenderer hr = getColumnHeaderRenderer(column, getHeaderRenderer());
-        column.setHeaderRenderer(hr);
+        HtmlHeaderRenderer hr = getColumnHeaderRenderer(htmlColumn, getHeaderRenderer());
+        htmlColumn.setHeaderRenderer(hr);
 
-        HeaderEditor he = getColumnHeaderEditor(column, getHeaderEditor());
-        column.setHeaderEditor(he);
+        HeaderEditor he = getColumnHeaderEditor(htmlColumn, getHeaderEditor());
+        htmlColumn.setHeaderEditor(he);
         
         // worksheet
 
-        WorksheetEditor we = getColumnWorksheetEditor(column, getWorksheetEditor());
-        column.setWorksheetEditor(we);
+        WorksheetEditor we = getColumnWorksheetEditor(htmlColumn, getWorksheetEditor());
+        htmlColumn.setWorksheetEditor(we);
 
-        for (WorksheetValidation wsv : getWorksheetValidations(column, getWorksheetValidation(), 
+        for (WorksheetValidation wsv : getWorksheetValidations(htmlColumn, getWorksheetValidation(),
                 getErrorMessageKey(), getErrorMessage(), false)) {
-            column.addWorksheetValidation(wsv);
+            htmlColumn.addWorksheetValidation(wsv);
         }
-        for (WorksheetValidation wsv : getWorksheetValidations(column, getCustomWorksheetValidation(),
+        for (WorksheetValidation wsv : getWorksheetValidations(htmlColumn, getCustomWorksheetValidation(),
                 getErrorMessageKey(), getErrorMessage(), true)) {
-            column.addWorksheetValidation(wsv);
+            htmlColumn.addWorksheetValidation(wsv);
         }
 
-        return column;
+        return htmlColumn;
     }
 
     /**
@@ -494,10 +495,10 @@ public class HtmlColumnTag extends SimpleTagSupport {
         TableModelTag facadeTag = (TableModelTag) findAncestorWithClass(this, TableModelTag.class);
         Collection<Map<String, Object>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {
-            HtmlRow row = facadeTag.getTable().getRow();
-            HtmlColumn column = getColumn();
+            HtmlRow htmlRow = facadeTag.getTable().getRow();
+            HtmlColumn htmlColumn = getHtmlColumn();
             TagUtils.validateColumn(this, getProperty());
-            row.addColumn(column);
+            htmlRow.addColumn(htmlColumn);
         }
 
         HtmlRowTag rowTag = (HtmlRowTag) findAncestorWithClass(this, HtmlRowTag.class);
