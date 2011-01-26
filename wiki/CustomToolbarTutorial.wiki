@@ -6,7 +6,7 @@ You can see the full example [http://code.google.com/p/jmesa/source/browse/trunk
 
 === Example ===
 
-First start by extending the !AbstractToolbar and implement the render() method. 
+First start by extending the !AbstractToolbar and override the render() method. 
 
 {{{
 public class CustomToolbar extends AbstractToolbar {
