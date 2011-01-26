@@ -80,7 +80,7 @@ However, as great as this is, it is still not perfect. Here is a list of the cha
 
 ===== Table Caption =====
 
-The first thing we will tackle is adding the table caption. To do that you simple set the caption on the table when you create it. _Note: if you want the caption to be Locale specific then use the setCaptionKey() method instead. Also, if you are not a fan of using fluent attributes there are corresponding setter methods._
+The first thing we will tackle is adding the table caption. To do that you simply set the caption on the table when you create it. _Note: if you want the caption to be Locale specific then use the setCaptionKey() method instead. Also, if you are not a fan of using fluent attributes there are corresponding setter methods._
 
 {{{
 HtmlTable htmlTable = new HtmlTable().caption("Presidents");
