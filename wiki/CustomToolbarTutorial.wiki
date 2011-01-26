@@ -85,7 +85,7 @@ addToolbarItem(item);
 
 ==== Plug into !TableFacade ====
 
-To use your custom toolbar you will need to plug it into your !TableModele.
+To use your custom toolbar you will need to plug it into your !TableModel.
 
 ===== API =====
 
