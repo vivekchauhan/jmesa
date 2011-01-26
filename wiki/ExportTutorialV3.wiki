@@ -42,7 +42,7 @@ tableModel.setTable(table);
 tableModel.render();
 }}}
 
-With exports we need to first define what types of exports we want. So lets step back a little, add the exports, but forget about rendering the table for a second.
+With exports we also need to define what types of exports we want. So lets step back a little, add the exports, but forget about rendering the table for a second.
 
 {{{
 TableModel tableModel = new TableModel(id, request, response);
