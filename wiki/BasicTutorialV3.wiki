@@ -88,7 +88,7 @@ HtmlTable htmlTable = new HtmlTable().caption("Presidents");
 
 ===== Table Width =====
 
-The width of a table is on the HtmlTable.
+The width of a table is on the !HtmlTable.
 
 {{{
 HtmlTable htmlTable = new HtmlTable().caption("Presidents").width("600px");
