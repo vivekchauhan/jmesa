@@ -44,7 +44,7 @@ public Object render() {
 }
 }}}
 
-In the above code the method to pay attention to is the totals() method. What that does is include the row with the totals. There really isn't anything to doing this. Just total up whatever you need, and then create the row. Granted this is a pretty arbitrary example because the only thing in the presidents that can be totaled is the database primary key, but you will still get the idea.
+In the above code the method to pay attention to is the totals() method call. What that does is include the row with the totals. There really isn't anything to doing this. Just total up whatever you need, and then create the row. Granted this is a pretty arbitrary example because the only thing in the presidents that can be totaled is the database primary key, but you will still get the idea.
 
 The thing you might not know is that the !CoreContext implements the [http://docs.jmesa.org/org/jmesa/core/Items.html Items] interface. That means you have access to all the items in every way you might need. This include items for the current page, the items after filtering, and all the items (before filtering).
 
