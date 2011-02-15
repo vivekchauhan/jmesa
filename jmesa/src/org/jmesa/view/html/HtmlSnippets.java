@@ -311,7 +311,7 @@ public class HtmlSnippets extends AbstractContextSupport {
         boolean useDocumentReady = HtmlUtils.useDocumentReadyToInitJavascriptLimit(coreContext);
 
         if (useDocumentReady) {
-            html.append("$(document).ready(function(){").newline();
+            html.append("jQuery(document).ready(function(){").newline();
         }
 
         html.tab().append("jQuery.jmesa.addTableFacade('" + limit.getId() + "')").semicolon().newline();
@@ -432,7 +432,7 @@ public class HtmlSnippets extends AbstractContextSupport {
     }
 
     private String getCustomWorksheetValidations() {
-        StringBuffer html = new StringBuffer();
+        StringBuilder html = new StringBuilder();
 
         for (Column column: table.getRow().getColumns()) {
             HtmlColumn htmlColumn = (HtmlColumn)column;
