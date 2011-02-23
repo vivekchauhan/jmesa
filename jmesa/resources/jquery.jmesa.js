@@ -32,6 +32,7 @@
         },
         setClearToWorksheet : function(id) {
             this.getTableFacade(id).worksheet.clear='true';
+            this.removeFilterFromWorksheet(id);
         },
         setAddRowToWorksheet : function(id) {
             this.getTableFacade(id).worksheet.addRow='true';
