@@ -323,7 +323,7 @@ public class TableFacade {
                 ws.removeRow(wsRow);
             } else if (wsRow.getRowStatus().equals(WorksheetRowStatus.REMOVE)) {
                 // undo - remove
-                if (wsRow.getColumns().size() == 0) {
+                if (wsRow.getColumns().isEmpty()) {
                     ws.removeRow(uniqueProperty);
                 } else {
                     wsRow.setRowStatus(WorksheetRowStatus.MODIFY);
