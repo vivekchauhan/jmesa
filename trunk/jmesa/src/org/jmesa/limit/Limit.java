@@ -61,6 +61,10 @@ public class Limit implements Serializable {
      * </p>
      */
     public FilterSet getFilterSet() {
+        if (filterSet == null) {
+            filterSet = new FilterSet();
+        }
+
         return filterSet;
     }
 
@@ -74,6 +78,10 @@ public class Limit implements Serializable {
      * </p>
      */
     public SortSet getSortSet() {
+        if (sortSet == null) {
+            sortSet = new SortSet();
+        }
+
         return sortSet;
     }
 
@@ -87,6 +95,10 @@ public class Limit implements Serializable {
      * </p>
      */
     public RowSelect getRowSelect() {
+        if (rowSelect == null) {
+            throw new IllegalStateException("The RowSelect object is null. You need to set a valid RowSelect on the Limit.");
+        }
+
         return rowSelect;
     }
 
