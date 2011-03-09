@@ -47,8 +47,9 @@ public class RowSelect implements Serializable {
     }
 
     /**
-     * @param page The page that should be displayed. Implementations are responsible for
-     *            recalculating the row information if a page is set.
+     * Set the page and recalculate the row information.
+     *
+     * @param page The page that should be displayed.
      */
     public void setPage(int page) {
         init(page);
@@ -76,10 +77,30 @@ public class RowSelect implements Serializable {
     }
 
     /**
+     * Set the max rows and recalculate the row information.
+     *
+     * @param maxRows The maxRows that should be displayed.
+     */
+    public void setMaxRows(int maxRows) {
+        this.maxRows = maxRows;
+        init(page);
+    }
+
+    /**
      * @return The total possible rows, including those that are paginated.
      */
     public int getTotalRows() {
         return totalRows;
+    }
+
+    /**
+     * Set the total rows and recalculate the row information.
+     *
+     * @param totalRows The totalRows that should be displayed.
+     */
+    public void setTotalRows(int totalRows) {
+        this.totalRows = totalRows;
+        init(page);
     }
 
     private void init(int page) {
