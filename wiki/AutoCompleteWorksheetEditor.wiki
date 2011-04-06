@@ -120,7 +120,7 @@ htmlColumn.setWorksheetEditor(new MultiValueWorksheetEditor("/autocomplete/multi
 
 The extra work that you need to do is create the custom !JavaScript so that you can pass the other values that you need to your controller. In this case I am including the firstVal parameter. Feel free to include this method in your jquery.jmesa.js file. Just remember that you have that in there so when you upgrade JMesa that you do not accidentally lose your work!
 
-_The "parent().parent().parent().prev().children" may not give me a lot of style points, but it was simple to do :)_
+_Note: the "parent().parent().parent().prev().children" may not give me a lot of style points, but it was simple to do :)_
 
 {{{
 createWsMultiValueAutoCompleteColumn : function(column, id, uniqueProperties, property, url) {
