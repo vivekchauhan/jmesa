@@ -1,0 +1,60 @@
+As of JMesa 3.0.4 there is support for integrating with the [http://docs.jquery.com/Plugins/autocomplete JQuery Autocomplete] plugin. There wasn't really anything to it, but I thought it would be nice to have an example right in the project.
+
+What I want to show you here is two examples. The first one is super simple in that it is an autocomplete on one value. The other is more complicated in that it needs a value from a different row column to work.
+
+_Be sure that you include the JQuery Autocomplete plugin in your project! You might also want to do a quick "Hello World" example outside of JMesa so that you understand how the plugin works._
+
+=== Simple Example ===
+
+The first thing you will need to do is create a !WorksheetEditor that extends the !WorksheetEditor. The only thing you have to define is the url to the controller that will return the list of values.
+
+{{{
+import org.jmesa.worksheet.editor.AutoCompleteWorksheetEditor;
+
+public class SingleValueWorksheetEditor extends WorksheetEditor {
+
+    @Override
+    protected String getUrl(Object item, String property) {
+
+        String contextPath = getWebContext().getContextPath();
+        return contextPath +  "/autocomplete/singlevalue.do";
+    }
+}
+}}}
+
+If you are using the tag library you need to give the fully qualified path to your custom editor.
+
+{{{
+<jmesa:htmlColumn worksheetEditor="com.mycompany.view.CharacteristicWorksheetEditor" />
+}}}
+
+If you are using the API, just set the value on the column:
+
+{{{
+
+htmlColumn.setWorksheetEditor(new AutoCompleteWorksheetEditor("/autocomplete/singlevalue.do"));
+}}}
+
+*Controller*
+
+To be complete, here is an example of what my controllers look like:
+
+{{{
+@RequestMapping
+public String singlevalue(@RequestParam(value = "q") String key, HttpServletResponse response) {
+
+    StringBuffer contents = new StringBuffer();
+
+    if (StringUtils.hasText(key)) {
+        List<String> values = autocompleteService.getBySearchKey(key.toUpperCase());
+        for (String value : values) {
+            contents.append(value).append("\n");
+        }
+    }
+
+    streamContents(contents, response);
+    return null;
+}
+}}}
+
+
