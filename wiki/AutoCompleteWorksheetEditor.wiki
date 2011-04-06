@@ -1,3 +1,6 @@
+*I believe this example uses the now deprecated [http://bassistance.de/jquery-plugins/jquery-plugin-autocomplete/ bassistance library]. I did my integration quite a while ago and when I went to go link to the site I see that the project is a part of JQuery UI. However, if you use the new autocomplete library then just update the jquery.jmesa.js file in the createWsAutoCompleteColumn() method if what I have is not backwards compatible. It should be a one line change.*
+
+
 As of JMesa 3.0.4 there is support for integrating with the [http://docs.jquery.com/Plugins/autocomplete JQuery Autocomplete] plugin. There wasn't really anything to it, but I thought it would be nice to have an example right in the project.
 
 What I want to show you here is two examples. The first one is super simple in that it is an autocomplete on one value. The other is more complicated in that it needs a value from a different row column to work.
@@ -177,5 +180,3 @@ As you can see this was quite a bit more work than the single value example. In 
 === Other Notes ===
 
 We do find that we have to hit the spacebar to get the autocomplete to come up, especially with the multi-column example. However, it has not been a problem in that our users expect this behavior now.
-
-
