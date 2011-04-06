@@ -6,7 +6,7 @@ _Be sure that you include the JQuery Autocomplete plugin in your project! You mi
 
 === Simple Example ===
 
-The first thing you will need to do is create a !WorksheetEditor that extends the !WorksheetEditor. The only thing you have to define is the url to the controller that will return the list of values.
+The first thing you will need to do is create a !WorksheetEditor that extends the !AutoCompleteWorksheetEditor. The only thing you have to define is the url to the controller that will return the list of values.
 
 {{{
 import org.jmesa.worksheet.editor.AutoCompleteWorksheetEditor;
@@ -25,10 +25,10 @@ public class SingleValueWorksheetEditor extends WorksheetEditor {
 If you are using the tag library you need to give the fully qualified path to your custom editor.
 
 {{{
-<jmesa:htmlColumn worksheetEditor="com.mycompany.view.CharacteristicWorksheetEditor" />
+<jmesa:htmlColumn worksheetEditor="com.mycompany.view.SingleValueWorksheetEditor" />
 }}}
 
-If you are using the API, just set the value on the column:
+If you are using the API you would not have to even extend the !AutoCompleteWorksheetEditor. Just give the url in the constructor and set the editor on the column:
 
 {{{
 
@@ -37,7 +37,7 @@ htmlColumn.setWorksheetEditor(new AutoCompleteWorksheetEditor("/autocomplete/sin
 
 *Controller*
 
-To be complete, here is an example of what my controllers look like:
+To be complete, here is an example of what my controller look like:
 
 {{{
 @RequestMapping
@@ -57,4 +57,118 @@ public String singlevalue(@RequestParam(value = "q") String key, HttpServletResp
 }
 }}}
 
+=== Slightly More Complicated Example ===
 
+In this example we want the autocomplete values to be based on the value of the previous column (in the same row).
+
+So, like the previous example the first thing you will need to do is create a !WorksheetEditor that extends the !AutoCompleteWorksheetEditor. Now however, you also need to define the getWsColumn() method. Really we might be able to abstract this out better too. It looks like the only thing that really changed was the name of the !JavaScript method to call. In this example that would be createWsMultiValueAutoCompleteColumn. But this will work for now, and takes all the mystery on how things work!
+
+{{{
+public class MultiValueWorksheetEditor extends AutoCompleteWorksheetEditor {
+
+    @Override
+    protected String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item, String property) {
+        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
+            if (value == null) {
+                return "";
+            }
+            return value.toString();
+        }
+
+        HtmlBuilder html = new HtmlBuilder();
+
+        Limit limit = getCoreContext().getLimit();
+
+        html.div();
+
+        html.append(getStyleClass(worksheetColumn));
+
+        html.onmouseover("$.jmesa.setTitle(this, event)");
+        html.onclick(getUniquePropertyJavaScript(item) + "$.jmesa.createWsMultiValueAutoCompleteColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'"
+            + getColumn().getProperty() + "','" + getUrl(item, property) + "')");
+        html.close();
+        html.append(value);
+        html.divEnd();
+
+        return html.toString();
+    }
+
+    @Override
+    protected String getUrl(Object item, String property) {
+
+        String contextPath = getWebContext().getContextPath();
+        return contextPath +  "/autocomplete/multivalue.do";
+    }
+}
+}}}
+
+If you are using the tag library you need to give the fully qualified path to your custom editor.
+
+{{{
+<jmesa:htmlColumn worksheetEditor="com.mycompany.view.MultiValueWorksheetEditor" />
+}}}
+
+If you are using the API, just set the value on the column:
+
+{{{
+
+htmlColumn.setWorksheetEditor(new MultiValueWorksheetEditor("/autocomplete/multivalue.do"));
+}}}
+
+The extra work that you need to do is to create the custom !JavaScript so that you can include the other values that you need. In this case I am including the firstVal parameter. Feel free to include this method in your jquery.jmesa.js file. Just remember that you have that in there so when you upgrade JMesa that you do not accidentally lose your work!
+
+_Not sure if the "parent().parent().parent().prev().children" gives me a lot of style points, but it was simple to do._
+
+{{{
+createWsMultiValueAutoCompleteColumn : function(column, id, uniqueProperties, property, url) {
+    if (wsColumn) {
+        return;
+    }
+
+    wsColumn = new classes.WsColumn(column, id, uniqueProperties, property);
+
+    var cell = $(column);
+    var width = cell.width();
+    var originalValue = cell.text();
+
+    /* Enforce the width with a style. */
+    cell.width(width);
+    cell.parent().width(width);
+    cell.css('overflow', 'visible');
+
+    cell.html('<div id="wsColumnDiv"><input id="wsColumnInput" name="' + property + '" style="width:' + (width + 3) + 'px" value=""/></div>');
+
+    $('input[name=' + property + ']').autocomplete(url,
+        { extraParams: {  
+                firstVal: function() { return $('input[name=' + property + ']').parent().parent().parent().prev().children(':first').text(); }
+            }, max:50
+        });
+
+    var input = $('#wsColumnInput');
+    input.val(originalValue);
+    input.focus();
+    if (jQuery.browser.msie) { /* IE need a second focus */
+        input.focus();
+    }
+
+    this.wsColumnKeyEvent(cell, input, originalValue);
+
+    $('#wsColumnInput').blur(function() {
+        $.jmesa.validateAndSubmitWsColumn(cell, input, originalValue);
+    });
+},
+}}}
+
+
+*Controller*
+
+Again, to be complete, here is an example of what my controller looks like (at least the signature).
+
+{{{
+@RequestMapping
+public String multiValue(@RequestParam(value = "q") String key, @RequestParam(value = "firstVal") String firstVal,
+            HttpServletResponse response) {
+    ...
+}
+
+}}}
