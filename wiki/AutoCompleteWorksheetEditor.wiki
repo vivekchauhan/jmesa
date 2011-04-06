@@ -6,7 +6,7 @@ _Be sure that you include the JQuery Autocomplete plugin in your project! You mi
 
 === Simple Example ===
 
-The first thing you will need to do is create a !WorksheetEditor that extends the !AutoCompleteWorksheetEditor. The only thing you have to define is the url to the controller that will return the list of values.
+The first thing you will need to do is create a !WorksheetEditor that extends the !AutoCompleteWorksheetEditor. The only thing you have to define is the url to the controller that will return the list of values (for the autocomplete).
 
 {{{
 import org.jmesa.worksheet.editor.AutoCompleteWorksheetEditor;
@@ -57,7 +57,7 @@ public String singlevalue(@RequestParam(value = "q") String key, HttpServletResp
 }
 }}}
 
-=== Slightly More Complicated Example ===
+=== More Complicated Example ===
 
 In this example we want the autocomplete values to be based on the value of the previous column (in the same row).
 
