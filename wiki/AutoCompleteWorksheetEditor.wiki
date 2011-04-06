@@ -115,9 +115,9 @@ If you are using the API, just set the value on the column:
 htmlColumn.setWorksheetEditor(new MultiValueWorksheetEditor("/autocomplete/multivalue.do"));
 }}}
 
-The extra work that you need to do is to create the custom !JavaScript so that you can include the other values that you need. In this case I am including the firstVal parameter. Feel free to include this method in your jquery.jmesa.js file. Just remember that you have that in there so when you upgrade JMesa that you do not accidentally lose your work!
+The extra work that you need to do is create the custom !JavaScript so that you can pass the other values that you need to your controller. In this case I am including the firstVal parameter. Feel free to include this method in your jquery.jmesa.js file. Just remember that you have that in there so when you upgrade JMesa that you do not accidentally lose your work!
 
-_Not sure if the "parent().parent().parent().prev().children" gives me a lot of style points, but it was simple to do._
+_The "parent().parent().parent().prev().children" may not give me a lot of style points, but it was simple to do :)_
 
 {{{
 createWsMultiValueAutoCompleteColumn : function(column, id, uniqueProperties, property, url) {
@@ -170,5 +170,12 @@ public String multiValue(@RequestParam(value = "q") String key, @RequestParam(va
             HttpServletResponse response) {
     ...
 }
-
 }}}
+
+As you can see this was quite a bit more work than the single value example. In the future we may be able to make this easier. One of the issues though would be creating something generic that would be useful for enough use cases.
+
+=== Other Notes ===
+
+We do find that we have to hit the spacebar to get the autocomplete to come up, especially with the multi-column example. However, it has not been a problem in that our users expect this behavior now.
+
+
