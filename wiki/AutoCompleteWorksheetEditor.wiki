@@ -1,4 +1,4 @@
-*Right now this example uses the now deprecated [http://bassistance.de/jquery-plugins/jquery-plugin-autocomplete/ bassistance library]. I did my integration quite a while ago and when I went to go link to the site I see that the project is a part of JQuery UI. I am currently testing the new autocomplete plugin and will get things updated for the next release.*
+*Right now this example uses the now deprecated [http://bassistance.de/jquery-plugins/jquery-plugin-autocomplete/ bassistance library]. I did my integration quite a while ago and when I went to go link to the site I see that the project is a part of JQuery UI. I am currently testing the new autocomplete plugin and will get things updated for the next release of JMesa.*
 
 
 As of JMesa 3.0.4 there is support for integrating with the [http://docs.jquery.com/Plugins/autocomplete JQuery Autocomplete] plugin. There wasn't really anything to it, but I thought it would be nice to have an example right in the project.
