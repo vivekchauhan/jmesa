@@ -94,18 +94,19 @@ public class TableModelUtils {
         return pageItems.getItems(limit);
     }
 
-    public static void saveWorksheet(String id, HttpServletRequest request, WorksheetSaver worksheetSaver) {
+    public static boolean saveWorksheet(String id, HttpServletRequest request, WorksheetSaver worksheetSaver) {
         TableFacade tableFacade = new TableFacade(id, request);
-        saveWorksheet(tableFacade, worksheetSaver);
+        return saveWorksheet(tableFacade, worksheetSaver);
     }
 
-    protected static void saveWorksheet(TableFacade tableFacade, WorksheetSaver worksheetSaver) {
+    protected static boolean saveWorksheet(TableFacade tableFacade, WorksheetSaver worksheetSaver) {
         tableFacade.setEditable(true);
         Worksheet worksheet = tableFacade.getWorksheet();
         if (worksheet.isSaving() && worksheet.hasChanges()) {
             worksheetSaver.saveWorksheet(worksheet);
             tableFacade.persistWorksheet(worksheet);
         }
+        return !worksheet.hasErrors();
     }
 
     public static Table createTable(String... columnProperties) {
