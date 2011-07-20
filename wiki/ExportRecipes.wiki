@@ -21,6 +21,14 @@ if (tableFacade.getLimit().getExportType() == PDF) {
 }
 }}}
 
+==== OK, but my PDF export still does not work? ====
+
+The flying saucer library (xhtmlrenderer) has this bad habit of trying to retrieve the CSS for the PDF by an URL connection. So this can produce many and funny different problems. I already fixed 2 and maybe found a third one soon:
+
+ # If the web application works with SSL, trying to get the css this way will fail because the application MAY NOT TRUST ITSELF. Solution: The SSL certificate (of Apache or Weblogic/Tomcat) has to be in the repository of the Java VM that runs the app server (in its cacerts, for example). This way the app can get files doing https requests to itself, trusting itself, crazy isn't?
+
+ # If some kind of http authentication is set in Apache (via .htaccess or httpd.conf) the app MAY NOT be able to retrieve the CSS by an URLconnection. Solution: I can't remember right now cause I don't have the code at this moment but it's some java instruction to tell the app to use http authentication in any URLConnection, if needed, with the user and password set in Apache
+
 ==== How can I plug in my own export view? ====
 You can create your own view (extending !AbstractExportView) and plug it in.
 
