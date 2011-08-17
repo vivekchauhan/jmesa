@@ -1,4 +1,4 @@
-The purpose of the Limit interface is to know how to limit the table results. The implemenation of the Limit knows how the user interacted with the table with regards to sorting, filtering, paging, max rows to display, and exporting. With this information you will be able to display the requested page filtered and sorted correctly in the most efficient manner possible.
+The purpose of the Limit class is to know how to limit the table results. The Limit knows how the user interacted with the table with regards to sorting, filtering, paging, max rows to display, and exporting. With this information you will be able to display the requested page filtered and sorted correctly in the most efficient manner possible. For more information see the [LimitTutorialV3 limit tutorial].
 
 For instance, the Limit object can tell you what was filtered by calling the !FilterSet:
 {{{
@@ -12,7 +12,7 @@ SortSet sortSet = limit.getSortSet();
 
 To find out if a table was exported call the boolean:
 {{{
-boolean exported = limit.isExported();
+boolean exported = limit.hasExport();
 }}}
 
 Some of the more interesting information can be found on the !RowSelect object:
@@ -31,64 +31,6 @@ int maxRows = rowSelect.getMaxRows();
 int totalRows = rowSelect.getTotalRows();
 
 int page = rowSelect.getPage();
-}}}
-
-This should be very self explanatory. Once you have a complete !RowSelect object you have all this information available. 
-
-There is only one thing to consider. If you pass in all the items then you do not need to do anything else. That should make sense. Because you are passing in all the items the API knows everything it needs to create the complete Limit object.
-
-{{{
-TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
-tableFacade.setItems(items);
-}}}
-
-However, if you want to return only one page of data to work the most efficiently with your data then you will need to not only use the Limit, but, in addition, you will need to help finish completing the Limit object by setting the totalRows. I will explain that next.
-
-=== Example ===
-For the purposes of this next example I am going to further explain how to work with the Limit using the [TableFacade] when you want to efficiently return only one page of data at a time. To see more details, and a complete example go to the [FacadeLimitExample limit example] page.
-
-First we start with a [TableFacade].
-{{{
-TableFacade tableFacade = TableFacadeFactory.createTableFacade(id, request);
-}}}
-
-Now get the Limit from the !TableFacade.
-{{{
-Limit limit = tableFacade.getLimit();
-}}}
-
-With this Limit object you know some basic information about how the user interacted with the table, including how they wish to filter, sort, and the page number. The only thing missing is the !RowSelect object, which knows the exact rows that the user is requesting. You will need to ensure this object is properly populated, by setting the total rows. Luckily, JMesa makes that very easy.
-
-Looking at the !TableFacade you will see there is a convenience method to set the totalRows:
-{{{
-public RowSelect setTotalRows(int totalRows);
-}}}
-
-As you can see, what we need is the totalRows. The totalRows is the tricky one because you will need to figure out that information first. And, when filtering is turned on, what it means to get the totalRows is the total results after the data has been filtered. How you do that is up to you. For one way to do it you can reference my [FacadeLimitExample example]. What the Limit buys you is the !FilterSet that contains the filter information.
-
-{{{
-FilterSet filterSet = limit.getFilterSet();
-}}}
-
-Assuming you used this information to get the totalRows you can now set it on the TableFacade:
-{{{
-tableFacade.setTotalRows(totalRows);
-}}}
-
-The next step is to sort the data, and then figure out which rows to grab:
-{{{
-SortSet sortSet = limit.getSortSet();
-int rowStart = limit.getRowSelect().getRowStart();
-int rowEnd = limit.getRowSelect().getRowEnd();
-}}}
-
-Again, how you use this information to get the rows selected is up to you. The Limit merely provides you with how the user wishes the table to be sorted, filtered, and paged.
-
-=== Example Using Tags ===
-If you are using the tag library there is no difference to how you use the Limit. However, once you have the Limit completed (along with your data), you can pass this information to your table defined in the tags:
-
-{{{
-<jmesa:tableFacade limit="${limit}">
 }}}
 
 === The Limit Exposed ===
