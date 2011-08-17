@@ -10,7 +10,7 @@ To find out how the user is trying to sort and filter, what page they are going 
 
 === Example ===
 
-Using the Limit to efficiently pull data from the database only requires you to implement the !PageItems interface. If you are using the API you would set this on the !TableModel. If you are using the tag library you would call the !TableModelUtils.getItems() method and pass it the !PageItems implementation.
+Using the Limit to efficiently pull data from the database only requires you to implement the !PageItems interface. If you are using the API you would set this on the !TableModel.
 
 {{{
 tableModel.setItems(new PageItems() {
@@ -33,5 +33,25 @@ tableModel.setItems(new PageItems() {
 The first thing you need to do is find out how the user interacted with the filters on the table. You will need to use this information to return the total row count. Notice how you only need the filter information, not the sort. The reason is because the sort does not effect the totals rows, but rather just how the table is displayed.
 
 The second thing you need to do is return the actual items that you will display on the table. To do this you need to know everything else. This includes what was filtered and sorted, as well as the specific rows.
+
+If you are using the tag library you would call the !TableModelUtils.getItems() method and pass it the !PageItems implementation.
+
+{{{
+Collection<?> items = TableModelUtils.getItems(id, request, new PageItems() {
+    public int getTotalRows(Limit limit) {
+        PresidentFilter presidentFilter = getPresidentFilter(limit);
+        return presidentService.getPresidentsCountWithFilter(presidentFilter);
+    }
+
+    public Collection<?> getItems(Limit limit) {
+        PresidentFilter presidentFilter = getPresidentFilter(limit);
+        PresidentSort presidentSort = getPresidentSort(limit);
+        int rowStart = limit.getRowSelect().getRowStart();
+        int rowEnd = limit.getRowSelect().getRowEnd();
+        return presidentService.getPresidentsWithFilterAndSort(presidentFilter, presidentSort, rowStart, rowEnd);
+    }
+});
+request.setAttribute("presidents", items);
+}}}
 
 _Note: I am taking the liberty to explain what you need to do, rather than show you the specific code approach that I took. The reason is there are many ways to approach this and I do not want you to get bogged down with my implementation. Plus if you are interested in exactly what I did you can just go through the [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/LimitPresidentController.java limit example] yourself._
