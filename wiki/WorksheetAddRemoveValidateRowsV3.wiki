@@ -6,7 +6,7 @@ Lets start with a visual! What we have here is a worksheet that has most of the 
 
 The following code is based on the worksheet [http://code.google.com/p/jmesa/source/browse/trunk/jmesaWeb/src/org/jmesaweb/controller/WorksheetPresidentController.java controller] in the examples war file. You should take a look at that to see how these code snippets fit in the overall template. If you need more information about working with the worksheet you should look at the [WorksheetTutorialV3 tutorial].
 
-=== Adding Rows ===
+=== Adding Blank Rows ===
 
 The only thing you need to do to turn on the add worksheet row feature is enable the button on the toolbar via the [Preferences preferences]. Then by using the !TableModel you automatically gain support for adding rows to the worksheet. To save a row that was added refer to the section (below) on saving the worksheet.
 
@@ -18,6 +18,22 @@ If you have a custom toolbar you will need to add the new proper toolbar type.
 
 {{{
 addToolbarItem(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM);
+}}}
+
+=== Adding Rows With Data ===
+
+If you want to add a row that contains data you also need to populate your item (bean) and set it on the !TableModel.
+
+==== API ====
+
+{{{
+tableModel.addRowObject();
+}}}
+
+==== JSP Tag ====
+
+{{{
+<jmesa:tableModel id="tag" items="${presidents}" addedRowObject="${presidentToAdd}"/>
 }}}
 
 === Removing Rows ===
