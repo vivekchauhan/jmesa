@@ -38,16 +38,16 @@ public class ProxyWorksheetView extends HtmlView {
         for (Column column : columns) {
             HtmlColumn htmlColumn = (HtmlColumn) column;
             if (htmlColumn.getProperty().equals("career")) {
-                htmlColumn.getCellRenderer().getCellEditor(); // creates and wraps worksheet editor
+                htmlColumn.getCellEditor(); // creates and wraps worksheet editor
                                                               // this should also be done when requesting worksheet editor
                                                               // and is a workaround for this example to work right now
                 
                 // get the worksheet editor
-                WorksheetEditor worksheetEditor = htmlColumn.getCellRenderer().getWorksheetEditor();
+                WorksheetEditor worksheetEditor = htmlColumn.getWorksheetEditor();
                 
                 // decorate the worksheet editor
                 ProxyWorksheetEditor proxyWorksheetEditor = new ProxyWorksheetEditor(worksheetEditor);
-                htmlColumn.getCellRenderer().setWorksheetEditor(proxyWorksheetEditor);
+                htmlColumn.setWorksheetEditor(proxyWorksheetEditor);
             }
         }
     }

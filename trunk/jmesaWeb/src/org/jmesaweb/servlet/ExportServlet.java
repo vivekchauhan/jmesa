@@ -18,9 +18,10 @@ package org.jmesaweb.servlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.ExportType;
+import org.jmesa.model.TableModel;
+import org.jmesa.model.TableModelUtils;
+import org.jmesa.view.component.Table;
 
 /**
  * A quick example to show how exports would work in a servlet.
@@ -33,11 +34,12 @@ public class ExportServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        TableFacade tableFacade = TableFacadeFactory.createTableFacade("basic", request);
-        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-        tableFacade.setItems(dao.getPresidents());
-        tableFacade.setExportTypes(response, ExportType.CSV, ExportType.EXCEL, ExportType.PDF);
-        tableFacade.render();
+        TableModel tableModel = new TableModel("basic", request, response);
+        Table table = TableModelUtils.createTable("name.firstName", "name.lastName", "term", "career", "born");
+        tableModel.setTable(table);
+        tableModel.setItems(dao.getPresidents());
+        tableModel.setExportTypes(ExportType.CSV, ExportType.EXCEL, ExportType.PDF);
+        tableModel.render();
     }
 
     @Override

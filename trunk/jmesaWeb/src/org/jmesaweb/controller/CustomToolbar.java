@@ -24,7 +24,6 @@ import org.jmesa.view.html.toolbar.AbstractItemRenderer;
 import org.jmesa.view.html.toolbar.MaxRowsItem;
 import org.jmesa.view.html.toolbar.AbstractToolbar;
 import org.jmesa.view.html.toolbar.ImageItem;
-import org.jmesa.view.html.toolbar.ImageItemImpl;
 import org.jmesa.view.html.toolbar.ToolbarItem;
 import org.jmesa.view.html.toolbar.ToolbarItemRenderer;
 import org.jmesa.view.html.toolbar.ToolbarItemType;
@@ -82,7 +81,7 @@ public class CustomToolbar extends AbstractToolbar {
     }
     
     private ImageItem createCustomItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode("custom-item");
         item.setTooltip("Hello World");
         item.setImage(getImage("custom.png", getWebContext(), getCoreContext()));
