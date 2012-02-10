@@ -50,6 +50,7 @@ import org.slf4j.LoggerFactory;
  * @author Ismail Seyfi
  */
 public class PdfPView extends AbstractExportView {
+		
     private Logger logger = LoggerFactory.getLogger(PdfPView.class);
 
     private Color evenCellBackgroundColor;
@@ -60,6 +61,7 @@ public class PdfPView extends AbstractExportView {
     private String captionAlignment;
 
     public PdfPView() {
+		
         this.evenCellBackgroundColor = new Color(227, 227, 227);
         this.oddCellBackgroundColor = new Color(255, 255, 255);
         this.headerBackgroundColor = new Color(114, 159, 207);
@@ -69,12 +71,14 @@ public class PdfPView extends AbstractExportView {
     }
 
     public Paragraph getTableCaption() throws Exception {
+		
         Paragraph p = new Paragraph(getTable().getCaption(), getFont(HELVETICA, 18, BOLD, getCaptionFontColor()));
         p.setAlignment(getCaptionAlignment());
         return p;
     }
 
     public PdfPTable render() {
+		
         PdfPTable pdfpTable = new PdfPTable(getTable().getRow().getColumns().size());
         pdfpTable.setSpacingBefore(3);
 
@@ -121,26 +125,32 @@ public class PdfPView extends AbstractExportView {
     }
 
     public String getCaptionAlignment() {
+		
         return captionAlignment;
     }
 
     public void setCaptionAlignment(String captionAlignment) {
+		
         this.captionAlignment = captionAlignment;
     }
 
     public Color getCaptionFontColor() {
+		
         return captionFontColor;
     }
 
     public void setCaptionFontColor(Color captionFontColor) {
+		
         this.captionFontColor = captionFontColor;
     }
 
     public Color getHeaderBackgroundColor() {
+		
         return headerBackgroundColor;
     }
 
     public void setHeaderBackgroundColor(Color headerBackgroundColor) {
+		
         this.headerBackgroundColor = headerBackgroundColor;
     }
 
@@ -156,14 +166,17 @@ public class PdfPView extends AbstractExportView {
      * </p>
      */
     public Font getHeaderCellFont() {
+		
         return getFontWithColor(getHeaderFontColor());
     }
 
     public Color getHeaderFontColor() {
+		
         return headerFontColor;
     }
 
     public void setHeaderFontColor(Color headerFontColor) {
+		
         this.headerFontColor = headerFontColor;
     }
 
@@ -178,26 +191,32 @@ public class PdfPView extends AbstractExportView {
      * </p>
      */
     public Font getCellFont() {
+		
         return getFontWithColor(null);
     }
 
     public Color getEvenCellBackgroundColor() {
+		
         return evenCellBackgroundColor;
     }
 
     public void setEvenCellBackgroundColor(Color evenCellBackgroundColor) {
+		
         this.evenCellBackgroundColor = evenCellBackgroundColor;
     }
 
     public Color getOddCellBackgroundColor() {
+		
         return oddCellBackgroundColor;
     }
 
     public void setOddCellBackgroundColor(Color oddCellBackgroundColor) {
+		
         this.oddCellBackgroundColor = oddCellBackgroundColor;
     }
 
     private Font getFontWithColor(Color color) {
+		
         String fontName = getCoreContext().getPreference(PDF_FONT_NAME);
         String fontEncoding = getCoreContext().getPreference(PDF_FONT_ENCODING);
         if (isNotBlank(fontName) && isNotBlank(fontEncoding)) {

@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class NumberCellEditor extends AbstractPatternCellEditor {
+		
     private Logger logger = LoggerFactory.getLogger(NumberCellEditor.class);
 
     public NumberCellEditor() {}
@@ -39,6 +40,7 @@ public class NumberCellEditor extends AbstractPatternCellEditor {
      * @param pattern The pattern to use.
      */
     public NumberCellEditor(String pattern) {
+		
         setPattern(pattern);
     }
 
@@ -46,6 +48,7 @@ public class NumberCellEditor extends AbstractPatternCellEditor {
      * Get the formatted number value based on the pattern set.
      */
     public Object getValue(Object item, String property, int rowcount) {
+		
         Object itemValue = null;
 
         try {

@@ -28,51 +28,63 @@ import javax.servlet.jsp.PageContext;
  * @author Jeff Johnston
  */
 public class JspPageWebContext implements WebContext {
+		
     private PageContext pageContext;
     private Map<?, ?> parameterMap;
     private Locale locale;
 
     public JspPageWebContext(PageContext pageContext) {
+		
         this.pageContext = pageContext;
     }
 
     protected PageContext getPageContext() {
+		
         return pageContext;
     }
 
     public Object getApplicationInitParameter(String name) {
+		
         return pageContext.getServletContext().getInitParameter(name);
     }
 
     public Object getApplicationAttribute(String name) {
+		
         return pageContext.getServletContext().getAttribute(name);
     }
 
     public void setApplicationAttribute(String name, Object value) {
+		
         pageContext.getServletContext().setAttribute(name, value);
     }
 
     public void removeApplicationAttribute(String name) {
+		
         pageContext.getServletContext().removeAttribute(name);
     }
 
     public Object getPageAttribute(String name) {
+		
         return pageContext.getAttribute(name);
     }
 
     public void setPageAttribute(String name, Object value) {
+		
         pageContext.setAttribute(name, value);
     }
 
     public void removePageAttribute(String name) {
+		
         pageContext.removeAttribute(name);
     }
 
     public String getParameter(String name) {
+		
         return pageContext.getRequest().getParameter(name);
     }
 
     public Map<?, ?> getParameterMap() {
+		
         if (parameterMap != null) {
             return parameterMap;
         }
@@ -81,38 +93,47 @@ public class JspPageWebContext implements WebContext {
     }
 
     public void setParameterMap(Map<?, ?> parameterMap) {
+		
         this.parameterMap = parameterMap;
     }
 
     public Object getRequestAttribute(String name) {
+		
         return pageContext.getRequest().getAttribute(name);
     }
 
     public void setRequestAttribute(String name, Object value) {
+		
         pageContext.getRequest().setAttribute(name, value);
     }
 
     public void removeRequestAttribute(String name) {
+		
         pageContext.getRequest().removeAttribute(name);
     }
 
     public Object getSessionAttribute(String name) {
+		
         return pageContext.getSession().getAttribute(name);
     }
 
     public void setSessionAttribute(String name, Object value) {
+		
         pageContext.getSession().setAttribute(name, value);
     }
 
     public void removeSessionAttribute(String name) {
+		
         pageContext.getSession().removeAttribute(name);
     }
 
     public Writer getWriter() {
+		
         return pageContext.getOut();
     }
 
     public Locale getLocale() {
+		
         if (locale != null) {
             return locale;
         }
@@ -121,12 +142,14 @@ public class JspPageWebContext implements WebContext {
     }
 
     public void setLocale(Locale locale) {
+		
         if (this.locale == null) {
             this.locale = locale;
         }
     }
 
     public String getContextPath() {
+		
         ServletRequest request = pageContext.getRequest();
         if (request instanceof HttpServletRequest) {
             return ((HttpServletRequest) request).getContextPath();
@@ -136,6 +159,7 @@ public class JspPageWebContext implements WebContext {
     }
 
     public String getRealPath(String path) {
+		
         if (pageContext.getRequest() instanceof HttpServletRequest) {
             return ((HttpServletRequest) pageContext.getRequest()).getSession().getServletContext().getRealPath(path);
         }
@@ -144,6 +168,7 @@ public class JspPageWebContext implements WebContext {
     }
 
     public PageContext getBackingObject() {
+		
         return pageContext;
     }
 }

@@ -56,10 +56,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public final class Filter implements Serializable {
+		
     private final String property;
     private final String value;
 
     public Filter(String property, String value) {
+		
         this.property = property;
         this.value = value;
     }
@@ -68,6 +70,7 @@ public final class Filter implements Serializable {
      * @return The Bean (Or Map) attribute used to reduce the results.
      */
     public String getProperty() {
+		
         return property;
     }
 
@@ -75,6 +78,7 @@ public final class Filter implements Serializable {
      * @return Will be used to reduce the results.
      */
     public String getValue() {
+		
         return value;
     }
 
@@ -84,6 +88,7 @@ public final class Filter implements Serializable {
      */
     @Override
     public boolean equals(Object o) {
+		
         if (o == this)
             return true;
 
@@ -97,6 +102,7 @@ public final class Filter implements Serializable {
 
     @Override
     public int hashCode() {
+		
         int result = 17;
         int prop = this.getProperty() == null ? 0 : this.getProperty().hashCode();
         result = result * 37 + prop;
@@ -105,6 +111,7 @@ public final class Filter implements Serializable {
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("property", property);
         builder.append("value", value);

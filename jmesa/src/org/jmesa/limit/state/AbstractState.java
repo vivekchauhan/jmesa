@@ -24,31 +24,38 @@ import org.jmesa.web.WebContextSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractState implements State, WebContextSupport, IdSupport, StateAttrSupport {
+		
     private String id;
     private String stateAttr;
     private WebContext webContext;
 
     public String getId() {
+		
         return id;
     }
 
     public void setId(String id) {
+		
         this.id = id;
     }
 
     public String getStateAttr() {
+		
         return stateAttr;
     }
 
     public void setStateAttr(String stateAttr) {
+		
         this.stateAttr = stateAttr;
     }
 
     public WebContext getWebContext() {
+		
         return webContext;
     }
 
     public void setWebContext(WebContext webContext) {
+		
         this.webContext = webContext;
     }
 }

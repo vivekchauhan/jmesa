@@ -39,26 +39,31 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class TableModelUtils {
+		
     public static String LIMIT_ATTR = "_LIMIT_ATTR";
 
     protected TableModelUtils(){}
 
     public static boolean isExporting(String id, HttpServletRequest request) {
+		
         return getExportType(id, request) != null;
     }
 
     public static ExportType getExportType(String id, HttpServletRequest request) {
+		
         LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
         return actionFactory.getExportType();
     }
 
     public static Limit getLimit(String id, HttpServletRequest request, Collection<?> items) {
+		
         TableFacade tableFacade = new TableFacade(id, request);
         tableFacade.setItems(items);
         return tableFacade.getLimit();
     }
 
     public static Limit getLimit(String id, String stateAttr, HttpServletRequest request, Collection<?> items) {
+		
         TableFacade tableFacade = new TableFacade(id, request);
         tableFacade.setItems(items);
         tableFacade.setStateAttr(stateAttr);
@@ -66,6 +71,7 @@ public class TableModelUtils {
     }
 
     public static Collection<?> getItems(String id, String stateAttr, HttpServletRequest request, PageItems pageItems) {
+		
         TableFacade tableFacade = new TableFacade(id, request);
         tableFacade.setStateAttr(stateAttr);
         Collection<?> items = getItems(tableFacade, pageItems);
@@ -74,6 +80,7 @@ public class TableModelUtils {
     }
 
     public static Collection<?> getItems(String id, HttpServletRequest request, PageItems pageItems) {
+		
         TableFacade tableFacade = new TableFacade(id, request);
         Collection<?> items = getItems(tableFacade, pageItems);
         request.setAttribute(tableFacade.getId() + LIMIT_ATTR, tableFacade.getLimit());
@@ -81,6 +88,7 @@ public class TableModelUtils {
     }
 
     protected static Collection<?> getItems(TableFacade tableFacade, PageItems pageItems) {
+		
         Limit limit = tableFacade.getLimit();
         int totalRows = pageItems.getTotalRows(limit);
         if (limit.hasRowSelect()) {
@@ -95,11 +103,13 @@ public class TableModelUtils {
     }
 
     public static boolean saveWorksheet(String id, HttpServletRequest request, WorksheetSaver worksheetSaver) {
+		
         TableFacade tableFacade = new TableFacade(id, request);
         return saveWorksheet(tableFacade, worksheetSaver);
     }
 
     protected static boolean saveWorksheet(TableFacade tableFacade, WorksheetSaver worksheetSaver) {
+		
         tableFacade.setEditable(true);
         Worksheet worksheet = tableFacade.getWorksheet();
         if (worksheet.isSaving() && worksheet.hasChanges()) {
@@ -110,6 +120,7 @@ public class TableModelUtils {
     }
 
     public static Table createTable(String... columnProperties) {
+		
         Table table = new Table();
 
         Row row = new Row();
@@ -125,6 +136,7 @@ public class TableModelUtils {
     }
 
     public static HtmlTable createHtmlTable(String... columnProperties) {
+		
         HtmlTable htmlTable = new HtmlTable();
 
         HtmlRow htmlRow = new HtmlRow();

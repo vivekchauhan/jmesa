@@ -19,7 +19,9 @@ import org.jmesa.view.editor.AbstractHeaderEditor;
 import org.jmesa.view.html.HtmlBuilder;
 
 public class WorksheetCheckboxHeaderEditor extends AbstractHeaderEditor {
+		
     public Object getValue() {
+		
         HtmlBuilder html = new HtmlBuilder();
         html.input().type("checkbox").id("selectAllChkBox").end();
         return html.toString();

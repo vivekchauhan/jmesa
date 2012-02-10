@@ -23,12 +23,15 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class PageNumberItemRenderer extends AbstractItemRenderer {
+		
     public PageNumberItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		
         setToolbarItem(item);
         setCoreContext(coreContext);
     }
 
     public String render() {
+		
         PageNumberItem item = (PageNumberItem) getToolbarItem();
         Limit limit = getCoreContext().getLimit();
         int currentPage = limit.getRowSelect().getPage();

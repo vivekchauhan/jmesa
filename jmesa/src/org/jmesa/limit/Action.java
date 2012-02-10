@@ -24,19 +24,23 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum Action {
+		
     FILTER("f_"), SORT("s_"), CLEAR("c_"), PAGE("p_"), MAX_ROWS("mr_"), EXPORT("e_");
 
     private final String param;
 
     private Action(String param) {
+		
         this.param = param;
     }
 
     public String toParam() {
+		
         return param;
     }
 
     public static Action valueOfParam(String param) {
+		
         for (Action action : Action.values()) {
             if (action.toParam().equals(param)) {
                 return action;

@@ -22,13 +22,16 @@ package org.jmesa.view.editor;
  * @author Jeff Johnston
  */
 public abstract class AbstractPatternCellEditor extends AbstractCellEditor implements PatternSupport {
+		
     private String pattern;
 
     public String getPattern() {
+		
         return pattern;
     }
 
     public void setPattern(String pattern) {
+		
         this.pattern = pattern;
     }
 }

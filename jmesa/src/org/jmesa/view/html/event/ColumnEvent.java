@@ -20,5 +20,6 @@ package org.jmesa.view.html.event;
  * @author Jeff Johnston
  */
 public interface ColumnEvent {
+		
     public String execute(Object item, String property, int rowcount);
 }

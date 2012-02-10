@@ -83,6 +83,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class LimitFactory {
+		
     private final LimitActionFactory limitActionFactory;
     private State state;
 
@@ -91,10 +92,12 @@ public class LimitFactory {
      * @param webContext The adapter for the servlet request.
      */
     public LimitFactory(String id, WebContext webContext) {
+		
         this.limitActionFactory = new LimitActionFactory(id, webContext.getParameterMap());
     }
 
     public void setState(State state) {
+		
         this.state = state;
     }
 
@@ -117,6 +120,7 @@ public class LimitFactory {
      * </p>
      */
     public Limit createLimit() {
+		
         Limit limit = getStateLimit();
 
         if (limit != null) {
@@ -158,6 +162,7 @@ public class LimitFactory {
      * @param totalRows The total rows across all the pages.
      */
     public RowSelect createRowSelect(int maxRows, int totalRows) {
+		
         int page = limitActionFactory.getPage();
 
         maxRows = getMaxRows(maxRows);
@@ -194,6 +199,7 @@ public class LimitFactory {
      * @return The created Limit that is populated with the RowSelect object.
      */
     public Limit createLimitAndRowSelect(int maxRows, int totalRows) {
+		
         Limit limit = createLimit();
 
         if (limit.hasRowSelect()) {
@@ -212,6 +218,7 @@ public class LimitFactory {
     }
 
     private int getMaxRows(int maxRows) {
+		
         Integer currentMaxRows = limitActionFactory.getMaxRows();
         if (currentMaxRows == null) {
             return maxRows;
@@ -221,6 +228,7 @@ public class LimitFactory {
     }
 
     private Limit getStateLimit() {
+		
         if (state != null) {
             Limit l = state.retrieveLimit();
             if (l != null) {

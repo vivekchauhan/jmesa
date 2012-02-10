@@ -23,36 +23,44 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jeff Johnston
  */
 public class ImageItem extends AbstractItem {
+		
     String image;
     String disabledImage;
     String alt;
 
     public String getDisabledImage() {
+		
         return disabledImage;
     }
 
     public void setDisabledImage(String disabledImage) {
+		
         this.disabledImage = disabledImage;
     }
 
     public String getImage() {
+		
         return image;
     }
 
     public void setImage(String image) {
+		
         this.image = image;
     }
 
     public String getAlt() {
+		
         return alt;
     }
 
     public void setAlt(String alt) {
+		
         this.alt = alt;
     }
 
     @Override
     public String disabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
         html.img().src(getDisabledImage()).styleClass(getStyleClass()).style(getStyle()).alt(getAlt()).end();
         return html.toString();
@@ -60,6 +68,7 @@ public class ImageItem extends AbstractItem {
 
     @Override
     public String enabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
         html.a().href();
         html.quote();

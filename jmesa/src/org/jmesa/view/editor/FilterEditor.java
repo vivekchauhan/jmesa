@@ -22,5 +22,6 @@ package org.jmesa.view.editor;
  * @author Jeff Johnston
  */
 public interface FilterEditor {
+		
     public Object getValue();
 }

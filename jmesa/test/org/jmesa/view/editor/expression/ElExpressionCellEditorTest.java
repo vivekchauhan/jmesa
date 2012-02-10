@@ -45,6 +45,7 @@ public class ElExpressionCellEditorTest extends AbstractTestCase {
 
     @Test
     public void testGetValue() {
+		
         Object item = getVariableContext();
 
         CellEditor editor = new ElExpressionCellEditor(new Expression(Language.EL, "item", "item.one + item.two"));
@@ -61,6 +62,7 @@ public class ElExpressionCellEditorTest extends AbstractTestCase {
     }
 
     protected Map<?, ?> getVariableContext() {
+		
         Integer one = new Integer(1);
         Integer two = new Integer(2);
         Map<String, Integer> item = new HashMap<String, Integer>();

@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class ItemUtils {
+		
     private static final Logger logger = LoggerFactory.getLogger(ItemUtils.class);
 
     public static final String JMESA_ITEM = "jmesa-item";
@@ -46,6 +47,7 @@ public class ItemUtils {
      * @return The value from the Bean or Map.
      */
     public static Object getItemValue(Object item, String property) {
+		
         Object itemValue = null;
 
         try {

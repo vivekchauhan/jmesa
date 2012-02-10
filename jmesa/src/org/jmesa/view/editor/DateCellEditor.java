@@ -31,9 +31,11 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class DateCellEditor extends AbstractPatternCellEditor {
+		
     private Logger logger = LoggerFactory.getLogger(DateCellEditor.class);
 
     public DateCellEditor() {
+		
         // default constructor
     }
 
@@ -41,6 +43,7 @@ public class DateCellEditor extends AbstractPatternCellEditor {
      * @param pattern The pattern to use.
      */
     public DateCellEditor(String pattern) {
+		
         setPattern(pattern);
     }
 
@@ -48,6 +51,7 @@ public class DateCellEditor extends AbstractPatternCellEditor {
      * Get the formatted date value based on the pattern set.
      */
     public Object getValue(Object item, String property, int rowcount) {
+		
         Object itemValue = null;
 
         try {

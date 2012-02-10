@@ -24,6 +24,7 @@ import java.util.Map;
  * @author Jeff Johnston
  */
 public interface WebContext {
+		
     public Object getApplicationInitParameter(String name);
 
     public Object getApplicationAttribute(String name);

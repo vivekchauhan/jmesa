@@ -27,8 +27,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class FilterSetTest {
+		
     @Test
     public void isFiltered() {
+		
         FilterSet filterSet = new FilterSet();
         boolean filterable = filterSet.isFiltered();
         assertFalse("default constructor", filterable);
@@ -40,6 +42,7 @@ public class FilterSetTest {
 
     @Test
     public void getFilterValue() {
+		
         FilterSet filterSet = getFilterSet();
         String nickname = filterSet.getFilterValue("nickname");
         assertNotNull(nickname);
@@ -48,6 +51,7 @@ public class FilterSetTest {
 
     @Test
     public void getFilter() {
+		
         FilterSet filterSet = getFilterSet();
         Filter filter = filterSet.getFilter("nickname");
         assertNotNull(filter);
@@ -55,6 +59,7 @@ public class FilterSetTest {
     }
 
     private FilterSet getFilterSet() {
+		
         FilterSet filters = new FilterSet();
         filters.addFilter(new Filter("fullName", "George Washington"));
         filters.addFilter(new Filter("nickname", "Father Of His Country"));

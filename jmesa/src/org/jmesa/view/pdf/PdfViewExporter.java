@@ -38,20 +38,24 @@ import org.xhtmlrenderer.resource.FSEntityResolver;
  * @author Paul Horn
  */
 public class PdfViewExporter extends AbstractViewExporter {
+		
     private static Logger logger = LoggerFactory.getLogger(PdfViewExporter.class);
     private HttpServletRequest request;
 
     public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
+		
         super(view, coreContext, response);
         this.request = request;
     }
 
     public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response, String fileName) {
+		
         super(view, coreContext, response, fileName);
         this.request = request;
     }
 
     public void export() throws Exception {
+		
         String string = (String) getView().render();
 
         byte[] contents = null;
@@ -98,6 +102,7 @@ public class PdfViewExporter extends AbstractViewExporter {
      * @return The base url to the web application.
      */
     private String getBaseUrl() {
+		
         if (request != null) {
             return request.getRequestURL().toString();
         }
@@ -105,10 +110,12 @@ public class PdfViewExporter extends AbstractViewExporter {
     }
 
     public String getContextType() {
+		
         return "application/pdf";
     }
 
     public String getExtensionName() {
+		
         return "pdf";
     }
 }

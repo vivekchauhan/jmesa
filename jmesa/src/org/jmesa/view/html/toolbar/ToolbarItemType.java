@@ -20,6 +20,7 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public enum ToolbarItemType {
+		
     PAGE_NUMBER_ITEMS("page_number"),
     FIRST_PAGE_ITEM("first_page"),
     PREV_PAGE_ITEM("prev_page"),
@@ -39,10 +40,12 @@ public enum ToolbarItemType {
     private final String code;
 
     private ToolbarItemType(String code) {
+		
         this.code = code;
     }
 
     public String toCode() {
+		
         return code;
     }
 }

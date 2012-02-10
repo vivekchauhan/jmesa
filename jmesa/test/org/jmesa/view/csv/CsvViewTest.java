@@ -37,8 +37,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class CsvViewTest extends AbstractTestCase {
+		
     @Test
     public void render() {
+		
         WebContext webContext = createWebContext();
         webContext.setParameterMap(getParameters());
         webContext.setLocale(Locale.US);
@@ -81,6 +83,7 @@ public class CsvViewTest extends AbstractTestCase {
     }
 
     private Map<?, ?> getParameters() {
+		
         HashMap<String, Object> results = new HashMap<String, Object>();
         ParametersAdapter parametersAdapter = new ParametersAdapter(results);
         createBuilder(parametersAdapter);
@@ -88,6 +91,7 @@ public class CsvViewTest extends AbstractTestCase {
     }
 
     private void createBuilder(Parameters parameters) {
+		
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExportType(ExportType.CSV);
     }

@@ -26,7 +26,9 @@ import org.jmesa.util.ItemUtils;
  * @author frode.reinertsen 
  */
 public class HtmlCellEditor extends AbstractCellEditor {
+		
     public Object getValue(Object item, String property, int rowcount) {
+		
         Object itemValue = ItemUtils.getItemValue(item, property);
         if (itemValue != null) {
             itemValue = escapeHtml(itemValue.toString());

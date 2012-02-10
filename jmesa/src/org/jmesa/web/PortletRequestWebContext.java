@@ -34,6 +34,7 @@ import javax.portlet.PortletSession;
  * @author bgould
  */
 public class PortletRequestWebContext implements WebContext {
+		
     private final PortletRequest request;
     private final PortletContext context;
     private int sessionScope;
@@ -47,6 +48,7 @@ public class PortletRequestWebContext implements WebContext {
      * constructor.</p>
      */
     public PortletRequestWebContext(PortletRequest request) {
+		
         this(request, request.getPortletSession().getPortletContext(), PortletSession.APPLICATION_SCOPE);
     }
 
@@ -55,40 +57,49 @@ public class PortletRequestWebContext implements WebContext {
      * allows a default session scope to be set.
      */
     public PortletRequestWebContext(PortletRequest request, PortletContext context, int sessionScope) {
+		
         this.request = request;
         this.context = context;
         this.sessionScope = sessionScope;
     }
 
     public Object getApplicationAttribute(String name) {
+		
         return this.getPortletContext().getAttribute(name);
     }
 
     public String getApplicationInitParameter(String name) {
+		
         return this.getPortletContext().getInitParameter(name);
     }
 
     public void removeApplicationAttribute(String name) {
+		
         this.getPortletContext().removeAttribute(name);
     }
 
     public void setApplicationAttribute(String name, Object value) {
+		
         this.getPortletContext().setAttribute(name, value);
     }
 
     public Object getPageAttribute(String name) {
+		
         return getBackingObject().getAttribute(name);
     }
 
     public void setPageAttribute(String name, Object value) {
+		
         getBackingObject().setAttribute(name, value);
     }
 
     public void removePageAttribute(String name) {
+		
         getBackingObject().removeAttribute(name);
     }
 
     public String getParameter(String name) {
+		
         if (parameterMap != null) {
             String[] values = WebContextUtils.getValueAsArray(parameterMap.get(name));
             if (values != null && values.length > 0) {
@@ -100,6 +111,7 @@ public class PortletRequestWebContext implements WebContext {
     }
 
     public Map<?, ?> getParameterMap() {
+		
         if (parameterMap != null) {
             return parameterMap;
         }
@@ -108,38 +120,47 @@ public class PortletRequestWebContext implements WebContext {
     }
 
     public void setParameterMap(Map<?, ?> parameterMap) {
+		
         this.parameterMap = parameterMap;
     }
 
     public Object getRequestAttribute(String name) {
+		
         return getBackingObject().getAttribute(name);
     }
 
     public void setRequestAttribute(String name, Object value) {
+		
         getBackingObject().setAttribute(name, value);
     }
 
     public void removeRequestAttribute(String name) {
+		
         getBackingObject().removeAttribute(name);
     }
 
     public Object getSessionAttribute(String name) {
+		
         return getBackingObject().getPortletSession().getAttribute(name, sessionScope);
     }
 
     public void setSessionAttribute(String name, Object value) {
+		
         getBackingObject().getPortletSession().setAttribute(name, value, sessionScope);
     }
 
     public void removeSessionAttribute(String name) {
+		
         getBackingObject().getPortletSession().removeAttribute(name, sessionScope);
     }
 
     public Writer getWriter() {
+		
         return new StringWriter();
     }
 
     public Locale getLocale() {
+		
         if (locale != null) {
             return locale;
         }
@@ -148,24 +169,29 @@ public class PortletRequestWebContext implements WebContext {
     }
 
     public void setLocale(Locale locale) {
+		
         if (this.locale == null) {
             this.locale = locale;
         }
     }
 
     public String getContextPath() {
+		
         return getBackingObject().getContextPath();
     }
 
     public String getRealPath(String path) {
+		
         return getPortletContext().getRealPath(path);
     }
 
     public PortletContext getPortletContext() {
+		
         return context;
     }
 
     public PortletRequest getBackingObject() {
+		
         return request;
     }
 }

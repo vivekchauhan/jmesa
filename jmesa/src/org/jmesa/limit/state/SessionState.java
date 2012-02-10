@@ -29,9 +29,11 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class SessionState extends AbstractState {
+		
     private Logger logger = LoggerFactory.getLogger(SessionState.class);
     
     public Limit retrieveLimit() {
+		
         String stateAttrValue = getWebContext().getParameter(getStateAttr());
         if ("true".equalsIgnoreCase(stateAttrValue)) {
             if (logger.isDebugEnabled()) {
@@ -52,6 +54,7 @@ public class SessionState extends AbstractState {
     }
 
     public void persistLimit(Limit limit) {
+		
         if (logger.isDebugEnabled()) {
             logger.debug("The Limit is being persisted on the users session.");
         }
@@ -60,6 +63,7 @@ public class SessionState extends AbstractState {
 
     @Override
     public void setId(String id) {
+		
         super.setId(id + "_LIMIT");
     }
 }

@@ -29,10 +29,12 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Jeff Johnston
  */
 public class SessionStateTest {
+		
     private static String ID = "pres";
 
     @Test
     public void retrieveLimitFromParameter() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
 
@@ -56,6 +58,7 @@ public class SessionStateTest {
 
     @Test
     public void retrieveLimitFromRequest() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
 

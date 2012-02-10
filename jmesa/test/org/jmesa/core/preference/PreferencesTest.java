@@ -17,8 +17,6 @@ package org.jmesa.core.preference;
 
 import static org.junit.Assert.*;
 
-import org.jmesa.core.preference.Preferences;
-import org.jmesa.core.preference.PropertiesPreferences;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
@@ -35,6 +33,7 @@ public class PreferencesTest extends AbstractTestCase {
     
     @Test
     public void getPreference() {
+		
         WebContext webContext = createWebContext();
         Preferences preferences = new PropertiesPreferences("/org/jmesa/core/preference/test.properties", webContext);
         String preference = preferences.getPreference("test.data");

@@ -49,6 +49,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class TableFacadeUtils {
+		
     private static final Logger logger = LoggerFactory.getLogger(TableFacadeUtils.class);
 
     public static final String TABLE_REFRESHING = "tr_";
@@ -62,6 +63,7 @@ public class TableFacadeUtils {
      * @return Is true if the user is requesting to clear all the worksheet changes.
      */
     static boolean isClearingWorksheet(String id, WebContext webContext) {
+		
         String clearingWorksheet = webContext.getParameter(id + "_" + CLEARING_WORKSHEET);
         if (StringUtils.isNotEmpty(clearingWorksheet) && clearingWorksheet.equals("true")) {
             return true;
@@ -78,6 +80,7 @@ public class TableFacadeUtils {
      * @return The filtered items.
      */
     static Collection<?> filterWorksheetItems(Collection<?> items, Worksheet worksheet) {
+		
         if (!worksheet.isFiltering()) {
             return items;
         }
@@ -114,6 +117,7 @@ public class TableFacadeUtils {
      * of a mini IOC implementation.
      */
     static void initTable(TableFacade tableFacade, Table table) {
+		
         WebContext webContext = tableFacade.getWebContext();
         CoreContext coreContext = tableFacade.getCoreContext();
 
@@ -191,6 +195,7 @@ public class TableFacadeUtils {
     }
 
     private static void init(Object obj, WebContext webContext, CoreContext coreContext) {
+		
         SupportUtils.setWebContext(obj, webContext);
         SupportUtils.setCoreContext(obj, coreContext);
     }

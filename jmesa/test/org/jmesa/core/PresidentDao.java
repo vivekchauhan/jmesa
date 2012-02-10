@@ -30,8 +30,10 @@ import java.util.Map;
  * @author Jeff Johnston
  */
 public class PresidentDao {
+		
 
     public static Collection<President> getPresidents() {
+		
         List<President> presidents = new ArrayList<President>();
 
         President president = new President();
@@ -591,6 +593,7 @@ public class PresidentDao {
     }
 
     public static Collection<Map<?, ?>> getPresidentsAsListOfMaps() {
+		
 
         List<Map<?, ?>> results = new ArrayList<Map<?, ?>>();
 
@@ -613,6 +616,7 @@ public class PresidentDao {
     }
 
     public static Date getDate(String date) {
+		
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
             Calendar calendar = Calendar.getInstance();

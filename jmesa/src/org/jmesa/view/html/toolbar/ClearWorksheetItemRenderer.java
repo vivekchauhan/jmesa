@@ -24,12 +24,15 @@ import org.jmesa.view.html.HtmlConstants;
  * @author Siddhant Agrawal
  */
 public class ClearWorksheetItemRenderer extends AbstractItemRenderer {
+		
     public ClearWorksheetItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		
         setToolbarItem(item);
         setCoreContext(coreContext);
     }
 
     public String render() {
+		
         Limit limit = getCoreContext().getLimit();
 
         ToolbarItem item = getToolbarItem();

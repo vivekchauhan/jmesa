@@ -22,6 +22,7 @@ import org.jmesa.view.editor.CellEditor;
  * @author bgould
  */
 public interface ExpressionCellEditorFactory {
+		
     /**
      * <p>Creates a cell editor capable of processing the given expression.</p>
      * @throws IllegalArgumentException if the language is not supported.

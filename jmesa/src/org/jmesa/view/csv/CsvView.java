@@ -27,19 +27,23 @@ import org.jmesa.view.renderer.CellRenderer;
  * @author Jeff Johnston
  */
 public class CsvView extends AbstractExportView {
+		
     private String delimiter;
 
     public CsvView() {}
 
     public CsvView(String delimiter) {
+		
         this.delimiter = delimiter;
     }
 
     protected String getDelimiter() {
+		
         return delimiter;
     }
 
     public Object render() {
+		
         StringBuilder data = new StringBuilder();
 
         List<Column> columns = getTable().getRow().getColumns();

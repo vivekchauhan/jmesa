@@ -77,36 +77,42 @@ public class TableModel {
     protected TableModel() {}
 
     public TableModel(String id, HttpServletRequest request) {
+		
         this.id = id;
         this.request = request;
         this.tableFacade = new TableFacade(id, request);
     }
 
     public TableModel(String id, HttpServletRequest request, HttpServletResponse response) {
+		
         this.id = id;
         this.request = request;
         this.tableFacade = new TableFacade(id, request, response);
     }
 
     public TableModel(String id, WebContext webContext) {
+		
         this.tableFacade = new TableFacade(id, null);
         tableFacade.setWebContext(webContext);
         setHttpServletRequest(tableFacade);
     }
 
     public TableModel(String id, WebContext webContext, HttpServletResponse response) {
+		
         this.tableFacade = new TableFacade(id, null, response);
         tableFacade.setWebContext(webContext);
         setHttpServletRequest(tableFacade);
     }
 
     protected void setTableFacade(TableFacade tableFacade) {
+		
         this.tableFacade = tableFacade;
         this.id = tableFacade.getId();
         setHttpServletRequest(tableFacade);
     }
 
     private void setHttpServletRequest(TableFacade tableFacade) {
+		
         Object backingObject = tableFacade.getWebContext().getBackingObject();
         if (backingObject instanceof HttpServletRequest) {
             request = (HttpServletRequest) backingObject;
@@ -119,6 +125,7 @@ public class TableModel {
      * with the AllItems interface.
      */
     public void setItems(Collection<?> items) {
+		
         this.items = items;
     }
 
@@ -126,6 +133,7 @@ public class TableModel {
      * Use to set one page of items.
      */
     public void setItems(PageItems pageItems) {
+		
         this.pageItems = pageItems;
     }
 
@@ -134,38 +142,47 @@ public class TableModel {
      * some other action, such as saving to a worksheet.
      */
     public void setItems(AllItems allItems) {
+		
         this.allItems = allItems;
     }
 
     public void setPreferences(Preferences preferences) {
+		
         this.preferences = preferences;
     }
 
     public void setMessages(Messages messages) {
+		
         this.messages = messages;
     }
 
     public void setExportTypes(ExportType... exportTypes) {
+		
         this.exportTypes = exportTypes;
     }
 
     public void setState(State state) {
+		
         this.state = state;
     }
 
     public void setStateAttr(String stateAttr) {
+		
         this.stateAttr = stateAttr;
     }
 
     public void setLimit(Limit limit) {
+		
         this.limit = limit;
     }
 
     public void autoFilterAndSort(boolean autoFilterAndSort) {
+		
         this.autoFilterAndSort = autoFilterAndSort;
     }
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
+		
         if (filterMatchers == null) {
             filterMatchers = new HashMap<MatcherKey, FilterMatcher>();
         }
@@ -173,54 +190,67 @@ public class TableModel {
     }
 
     public void addFilterMatcherMap(FilterMatcherMap filterMatcherMap) {
+		
         this.filterMatcherMap = filterMatcherMap;
     }
 
     public void setColumnSort(ColumnSort columnSort) {
+		
         this.columnSort = columnSort;
     }
 
     public void setRowFilter(RowFilter rowFilter) {
+		
         this.rowFilter = rowFilter;
     }
 
     public void setMaxRows(int maxRows) {
+		
         this.maxRows = maxRows;
     }
 
     public void setMaxRowsIncrements(int... maxRowsIncrements) {
+		
         this.maxRowsIncrements = maxRowsIncrements;
     }
 
     public void setToolbar(Toolbar toolbar) {
+		
         this.toolbar = toolbar;
     }
 
     public void setView(View view) {
+		
         this.view = view;
     }
 
     public void setTable(Table table) {
+		
         this.table = table;
     }
 
     public void setEditable(boolean editable) {
+		
         this.editable = editable;
     }
 
     public void addRowObject(Object addedRowObject) {
+		
         this.addedRowObject = addedRowObject;
     }
 
     public void saveWorksheet(WorksheetSaver worksheetSaver) {
+		
         this.worksheetSaver = worksheetSaver;
     }
 
     public boolean isExporting() {
+		
         return getExportType() != null;
     }
 
     public ExportType getExportType() {
+		
         LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
         return actionFactory.getExportType();
     }
@@ -232,6 +262,7 @@ public class TableModel {
      *         to the response and this method will return null.
      */
     public String render() {
+		
         tableFacade.setEditable(editable);
 
         if (worksheetSaver != null) {

@@ -31,12 +31,14 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public final class FilterPredicate implements Predicate {
+		
     private Logger logger = LoggerFactory.getLogger(FilterPredicate.class);
 
     private Map<Filter, FilterMatcher> filterMatchers;
     private FilterSet filterSet;
 
     public FilterPredicate(Map<Filter, FilterMatcher> filterMatchers, FilterSet filterSet) {
+		
         this.filterMatchers = filterMatchers;
         this.filterSet = filterSet;
     }
@@ -45,6 +47,7 @@ public final class FilterPredicate implements Predicate {
      * Use the filter parameters to filter out the table.
      */
     public boolean evaluate(Object item) {
+		
         boolean result = false;
 
         try {

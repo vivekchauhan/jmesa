@@ -25,6 +25,7 @@ import org.jmesa.view.component.TableSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractToolbar extends Toolbar implements TableSupport, ExportTypesSupport, MaxRowsIncrementsSupport {
+		
     private Table table;
     private ExportType[] exportTypes;
     private int[] maxRowsIncrements;
@@ -32,34 +33,42 @@ public abstract class AbstractToolbar extends Toolbar implements TableSupport, E
     protected boolean enablePageNumbers = false;
 
     public Table getTable() {
+		
         return table;
     }
 
     public void setTable(Table table) {
+		
         this.table = table;
     }
 
     public ExportType[] getExportTypes() {
+		
         return exportTypes;
     }
 
     public void setExportTypes(ExportType... exportTypes) {
+		
         this.exportTypes = exportTypes; 
     }
 
     public int[] getMaxRowsIncrements() {
+		
         return maxRowsIncrements;
     }
 
     public void setMaxRowsIncrements(int[] maxRowsIncrements) {
+		
         this.maxRowsIncrements = maxRowsIncrements;
     }
     
     public void enableSeparators(boolean isEnabled) {
+		
         this.enableSeparators = isEnabled;
     }
 
     public void enablePageNumbers(boolean isEnabled) {
+		
         this.enablePageNumbers = isEnabled;
     }
 }

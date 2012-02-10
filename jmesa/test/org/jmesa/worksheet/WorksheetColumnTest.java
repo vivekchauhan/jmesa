@@ -34,6 +34,7 @@ public class WorksheetColumnTest {
 
     @Test
     public void hasError() {
+		
         WorksheetColumn column = new WorksheetColumn("name.firstName", null);
         column.setError("Cannot be null value.");
         assertTrue("The column does not have an error.", column.hasError());
@@ -41,6 +42,7 @@ public class WorksheetColumnTest {
 
     @Test
     public void hasErrorByKey() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
         webContext.setLocale(Locale.US);

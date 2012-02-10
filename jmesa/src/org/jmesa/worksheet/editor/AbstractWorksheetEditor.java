@@ -31,6 +31,7 @@ import org.jmesa.worksheet.WorksheetRow;
  * @author Jeff Johnston
  */
 public abstract class AbstractWorksheetEditor extends AbstractCellEditor implements WorksheetEditor {
+		
     protected String UNIQUE_PROPERTY = "up";
 
     private CellEditor cellEditor;
@@ -39,6 +40,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
      * @return The wrapped CellEditor.
      */
     public CellEditor getCellEditor() {
+		
         return cellEditor;
     }
 
@@ -46,10 +48,12 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
      * @param cellEditor The CellEditor to wrap.
      */
     public void setCellEditor(CellEditor cellEditor) {
+		
         this.cellEditor = cellEditor;
     }
     
     public Object getValueForWorksheet(Object item, String property, int rowcount) {
+		
     	return getCellEditor().getValue(item, property, rowcount);
     }
 
@@ -59,6 +63,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
      * @return The WorksheetColumn for this column.
      */
     protected WorksheetColumn getWorksheetColumn(Object item, String property) {
+		
         Worksheet worksheet = getCoreContext().getWorksheet();
         if (worksheet == null) {
             return null;
@@ -79,6 +84,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
      * @return The JavaScript for the unique properties.
      */
     protected String getUniquePropertyJavaScript(Object item) {
+		
         Row row = getColumn().getRow();
         UniqueProperty uniqueProperty = row.getUniqueProperty(item);
         if (uniqueProperty == null) {
@@ -92,6 +98,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
     }
 
     protected String getStyleClass(WorksheetColumn worksheetColumn) {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         if (worksheetColumn != null) {

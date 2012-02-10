@@ -65,6 +65,7 @@ class TagUtils {
     private static Logger logger = LoggerFactory.getLogger(TagUtils.class);
 
     static Object createInstance(String className) {
+		
         if (StringUtils.isEmpty(className)) {
             return null;
         }
@@ -81,6 +82,7 @@ class TagUtils {
      * @return Is true is the validation passes
      */
     static boolean validateColumn(SimpleTagSupport simpleTagSupport, String property) {
+		
         if (property == null) {
             return true; // no coflicts
         }
@@ -108,6 +110,7 @@ class TagUtils {
      * @return Get the FilterMatcherMap object.
      */
     static FilterMatcherMap getTableFacadeFilterMatcherMap(String filterMatcherMap) {
+		
         return (FilterMatcherMap) createInstance(filterMatcherMap);
     }
 
@@ -115,6 +118,7 @@ class TagUtils {
      * @return Get the Messages object.
      */
     static Messages getTableFacadeMessages(String messages) {
+		
         return (Messages) createInstance(messages);
     }
 
@@ -122,6 +126,7 @@ class TagUtils {
      * @return Get the Preferences object.
      */
     static Preferences getTableFacadePreferences(String preferences) {
+		
         return (Preferences) createInstance(preferences);
     }
 
@@ -129,6 +134,7 @@ class TagUtils {
      * @return Get the RowFilter object.
      */
     static RowFilter getTableFacadeRowFilter(String rowFilter) {
+		
         return (RowFilter) createInstance(rowFilter);
     }
 
@@ -136,6 +142,7 @@ class TagUtils {
      * @return Get the ColumnSort object.
      */
     static ColumnSort getTableFacadeColumnSort(String columnSort) {
+		
         return (ColumnSort) createInstance(columnSort);
     }
 
@@ -145,6 +152,7 @@ class TagUtils {
      * @return Get the Toolbar object.
      */
     static Toolbar getTableFacadeToolbar(String toolbar) {
+		
         return (Toolbar) createInstance(toolbar);
     }
 
@@ -154,6 +162,7 @@ class TagUtils {
      * @return Get the max row increments.
      */
     public static int[] getTableFacadeMaxRowIncrements(String maxRowsIncrements) {
+		
         if (StringUtils.isEmpty(maxRowsIncrements)) {
             return null;
         }
@@ -175,6 +184,7 @@ class TagUtils {
      * @return Get the View object.
      */
     static View getTableFacadeView(String view) {
+		
         return (View) createInstance(view);
     }
 
@@ -184,6 +194,7 @@ class TagUtils {
      * @return Get the State object.
      */
     static State getTableFacadeState(String state) {
+		
         return (State) createInstance(state);
     }
 
@@ -193,6 +204,7 @@ class TagUtils {
      * @since 2.2
      */
     static HtmlTableRenderer getTableTableRenderer(HtmlTable table, String tableRenderer) {
+		
         if (StringUtils.isBlank(tableRenderer)) {
             return table.getTableRenderer();
         }
@@ -206,6 +218,7 @@ class TagUtils {
      * @since 2.2
      */
     static HtmlRowRenderer getRowRowRenderer(HtmlRow row, String rowRenderer) {
+		
         if (StringUtils.isBlank(rowRenderer)) {
             return row.getRowRenderer();
         }
@@ -217,6 +230,7 @@ class TagUtils {
      * Get the row Onclick RowEvent object.
      */
     static RowEvent getRowOnclick(HtmlRow row, String onclick) {
+		
         if (StringUtils.isBlank(onclick)) {
             return row.getOnclick();
         }
@@ -228,6 +242,7 @@ class TagUtils {
      * Get the row Onmouseover RowEvent object.
      */
     static RowEvent getRowOnmouseover(HtmlRow row, String onmouseover) {
+		
         if (StringUtils.isBlank(onmouseover)) {
             return row.getOnmouseover();
         }
@@ -239,6 +254,7 @@ class TagUtils {
      * Get the row Onmouseout RowEvent object.
      */
     static RowEvent getRowOnmouseout(HtmlRow row, String onmouseout) {
+		
         if (StringUtils.isBlank(onmouseout)) {
             return row.getOnmouseout();
         }
@@ -251,6 +267,7 @@ class TagUtils {
      * @return The column CellRenderer object.
      */
     static HtmlCellRenderer getColumnCellRenderer(HtmlColumn column, String cellRenderer) {
+		
         if (StringUtils.isBlank(cellRenderer)) {
             return column.getCellRenderer();
         }
@@ -271,6 +288,7 @@ class TagUtils {
      * @return The WorksheetEditor to use.
      */
     static WorksheetEditor getColumnWorksheetEditor(HtmlColumn column, String worksheetEditor) {
+		
         if (StringUtils.isEmpty(worksheetEditor)) {
             return null;
         }
@@ -292,6 +310,7 @@ class TagUtils {
      * @return The CellEditor to use.
      */
     static CellEditor getColumnCellEditor(HtmlColumn column, String cellEditor, String pattern, boolean hasBody) {
+		
         boolean cellEditorNotDefined = StringUtils.isEmpty(cellEditor);
         if (hasBody && cellEditorNotDefined) {
             return new BasicCellEditor();
@@ -310,6 +329,7 @@ class TagUtils {
      * @return The column FilterRenderer object.
      */
     static HtmlFilterRenderer getColumnFilterRenderer(HtmlColumn column, String filterRenderer) {
+		
         if (StringUtils.isBlank(filterRenderer)) {
             return column.getFilterRenderer();
         }
@@ -326,6 +346,7 @@ class TagUtils {
      * @return The FilterEditor to use.
      */
     static FilterEditor getColumnFilterEditor(HtmlColumn column, String filterEditor) {
+		
         if (StringUtils.isEmpty(filterEditor)) {
             return column.getFilterEditor();
         }
@@ -338,6 +359,7 @@ class TagUtils {
      * @return The column HeaderRenderer object.
      */
     static HtmlHeaderRenderer getColumnHeaderRenderer(HtmlColumn column, String headerRenderer) {
+		
         if (StringUtils.isBlank(headerRenderer)) {
             return column.getHeaderRenderer();
         }
@@ -354,6 +376,7 @@ class TagUtils {
      * @return The HeaderEditor to use.
      */
     static HeaderEditor getColumnHeaderEditor(HtmlColumn column, String headerEditor) {
+		
         if (StringUtils.isEmpty(headerEditor)) {
             return column.getHeaderEditor();
         }
@@ -367,6 +390,7 @@ class TagUtils {
      * </p>
      */
     static Map<String, String> getNameValueMap(String input, String errorMessage) {
+		
         if (StringUtils.isEmpty(input)) {
             return Collections.emptyMap();
         }
@@ -431,6 +455,7 @@ class TagUtils {
      * @return The sort order array for the column.
      */
     public static Order[] getColumnSortOrder(String sortOrder) {
+		
         if (StringUtils.isBlank(sortOrder)) {
             return null;
         }
@@ -452,6 +477,7 @@ class TagUtils {
     }
 
     public static ExportType[] getTableFacadeExportTypes(String exportTypes) {
+		
         if (StringUtils.isBlank(exportTypes)) {
             return null;
         }

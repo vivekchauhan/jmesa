@@ -20,6 +20,7 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarItem {
+		
     public String getCode();
     public String getAction();
     public void setAction(String action);

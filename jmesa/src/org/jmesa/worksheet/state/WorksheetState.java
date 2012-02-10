@@ -27,6 +27,7 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public interface WorksheetState {
+		
     public Worksheet retrieveWorksheet();
     public void persistWorksheet(Worksheet worksheet);
 }

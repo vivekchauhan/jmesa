@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class ResourceBundleMessages implements Messages {
+		
     private Logger logger = LoggerFactory.getLogger(ResourceBundleMessages.class);
 
     private static final String JMESA_RESOURCE_BUNDLE = "org/jmesa/core/message/resource/jmesaResourceBundle";
@@ -39,6 +40,7 @@ public class ResourceBundleMessages implements Messages {
     private Locale locale;
 
     public ResourceBundleMessages(String messagesLocation, WebContext webContext) {
+		
         this.locale = webContext.getLocale();
         try {
             defaultResourceBundle = getResourceBundle(JMESA_RESOURCE_BUNDLE);
@@ -58,10 +60,12 @@ public class ResourceBundleMessages implements Messages {
     }
 
     public String getMessage(String code) {
+		
         return getMessage(code, null);
     }
 
     public String getMessage(String code, Object[] args) {
+		
         String result = findResource(customResourceBundle, code);
 
         if (result == null) {
@@ -79,6 +83,7 @@ public class ResourceBundleMessages implements Messages {
     }
 
     private String findResource(ResourceBundle resourceBundle, String code) {
+		
         String result = null;
 
         if (resourceBundle == null) {

@@ -22,6 +22,7 @@ import org.jmesa.view.component.Column;
  * @author Jeff Johnston
  */
 public interface HeaderRenderer {
+		
     public Column getColumn();
 
     public void setColumn(Column column);

@@ -39,6 +39,7 @@ public class Items {
     private Collection<?> sortedItems;
 
     public Items(Collection<?> items, Limit limit, RowFilter rowFilter, ColumnSort columnSort) {
+		
         this.allItems = new ArrayList<Object>(items); // copy for thread safety
 
         this.filteredItems = rowFilter.filterItems(allItems, limit);
@@ -57,22 +58,27 @@ public class Items {
     }
 
     public Collection<?> getAllItems() {
+		
         return allItems;
     }
 
     public Collection<?> getFilteredItems() {
+		
         return filteredItems;
     }
 
     public Collection<?> getPageItems() {
+		
         return pageItems;
     }
 
     public void setPageItems(Collection<?> pageItems) {
+		
         this.pageItems = pageItems;
     }
 
     public Collection<?> getSortedItems() {
+		
         return sortedItems;
     }
 
@@ -84,6 +90,7 @@ public class Items {
      * @param limit
      */
     private void recalculateRowSelect(Collection<?> filteredItems, Limit limit) {
+		
         RowSelect rowSelect = limit.getRowSelect();
         int page = rowSelect.getPage();
         int maxRows = rowSelect.getMaxRows();
@@ -92,6 +99,7 @@ public class Items {
     }
 
     private Collection<?> getPageItems(Collection<?> items, Limit limit) {
+		
         int rowStart = limit.getRowSelect().getRowStart();
         int rowEnd = limit.getRowSelect().getRowEnd();
 

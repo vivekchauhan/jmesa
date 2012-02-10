@@ -36,6 +36,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class MatcherKey {
+		
     private final Class<?> type;
     private final String property;
 
@@ -45,6 +46,7 @@ public class MatcherKey {
      * @param type The class type to match against.
      */
     public MatcherKey(Class<?> type) {
+		
         this(type, null);
     }
 
@@ -55,6 +57,7 @@ public class MatcherKey {
      * @param property The column property to match against.
      */
     public MatcherKey(Class<?> type, String property) {
+		
         this.type = type;
         this.property = property;
     }
@@ -63,6 +66,7 @@ public class MatcherKey {
      * @return The class type to match against.
      */
     public String getProperty() {
+		
         return property;
     }
 
@@ -70,11 +74,13 @@ public class MatcherKey {
      * @return The column property to match against.
      */
     public Class<?> getType() {
+		
         return type;
     }
 
     @Override
     public boolean equals(Object o) {
+		
         if (o == this)
             return true;
 
@@ -88,11 +94,13 @@ public class MatcherKey {
 
     @Override
     public int hashCode() {
+		
         return new HashCodeBuilder(17, 37).append(getType()).append(getProperty()).toHashCode();
     }
 
     @Override
     public String toString() {
+		
         return new ToStringBuilder(this).append("type", getType()).append("property", getProperty()).toString();
     }
 

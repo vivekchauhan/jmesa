@@ -23,42 +23,51 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jeff Johnston
  */
 public class MaxRowsItem extends AbstractItem {
+		
     private int maxRows;
     private String text;
     private int[] increments = new int[0];
 
     public String getText() {
+		
         return text;
     }
 
     public void setText(String text) {
+		
         this.text = text;
     }
 
     public int getMaxRows() {
+		
         return maxRows;
     }
 
     public void setMaxRows(int maxRows) {
+		
         this.maxRows = maxRows;
     }
 
     public int[] getIncrements() {
+		
         return increments;
     }
 
     public void setIncrements(int[] increments) {
+		
         this.increments = increments;
     }
 
     @Override
     public String disabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
         return html.toString();
     }
 
     @Override
     public String enabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         if (StringUtils.isEmpty(text)) {

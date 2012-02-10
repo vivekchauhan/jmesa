@@ -23,19 +23,23 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class SessionWorksheetState implements WorksheetState {
+		
     private String id;
     private WebContext webContext;
 
     public SessionWorksheetState(String id, WebContext webContext) {
+		
         this.id = id + "_WORKSHEET";
         this.webContext = webContext;
     }
 
     public Worksheet retrieveWorksheet() {
+		
         return (Worksheet) webContext.getSessionAttribute(id);
     }
 
     public void persistWorksheet(Worksheet worksheet) {
+		
         webContext.setSessionAttribute(id, worksheet);
     }
 }

@@ -47,6 +47,7 @@ import org.jmesa.web.WebContextSupport;
  * @author Jeff Johnston
  */
 public class SupportUtils {
+		
     private SupportUtils() {}
 
     /**
@@ -56,6 +57,7 @@ public class SupportUtils {
      * @param webContext The object to be injected.
      */
     public static void setWebContext(Object obj, WebContext webContext) {
+		
         if ((obj instanceof WebContextSupport) && ((WebContextSupport) obj).getWebContext() == null) {
             ((WebContextSupport) obj).setWebContext(webContext);
         }
@@ -68,6 +70,7 @@ public class SupportUtils {
      * @param coreContext The object to be injected.
      */
     public static void setCoreContext(Object obj, CoreContext coreContext) {
+		
         if ((obj instanceof CoreContextSupport) && ((CoreContextSupport) obj).getCoreContext() == null) {
             ((CoreContextSupport) obj).setCoreContext(coreContext);
         }
@@ -80,6 +83,7 @@ public class SupportUtils {
      * @param messages The object to be injected.
      */
     public static void setMessages(Object obj, Messages messages) {
+		
         if ((obj instanceof MessagesSupport) && ((MessagesSupport) obj).getMessages() == null) {
             ((MessagesSupport) obj).setMessages(messages);
         }
@@ -92,6 +96,7 @@ public class SupportUtils {
      * @param pattern The object to be injected.
      */
     public static void setPattern(Object obj, String pattern) {
+		
         if (obj instanceof PatternSupport && ((PatternSupport) obj).getPattern() == null) {
             ((PatternSupport) obj).setPattern(pattern);
         }
@@ -104,6 +109,7 @@ public class SupportUtils {
      * @param table The object to be injected.
      */
     public static void setTable(Object obj, Table table) {
+		
         if ((obj instanceof TableSupport) && ((TableSupport) obj).getTable() == null) {
             ((TableSupport) obj).setTable(table);
         }
@@ -116,6 +122,7 @@ public class SupportUtils {
      * @param id The object to be injected.
      */
     public static void setId(Object obj, String id) {
+		
         if ((obj instanceof IdSupport) && ((IdSupport) obj).getId() == null) {
             ((IdSupport) obj).setId(id);
         }
@@ -128,6 +135,7 @@ public class SupportUtils {
      * @param stateAttr The object to be injected.
      */
     public static void setStateAttr(Object obj, String stateAttr) {
+		
         if ((obj instanceof StateAttrSupport) && ((StateAttrSupport) obj).getStateAttr() == null) {
             ((StateAttrSupport) obj).setStateAttr(stateAttr);
         }
@@ -140,6 +148,7 @@ public class SupportUtils {
      * @param row The object to be injected.
      */
     public static void setRow(Object obj, Row row) {
+		
         if (obj instanceof RowSupport && ((RowSupport) obj).getRow() == null) {
             ((RowSupport) obj).setRow(row);
         }
@@ -152,6 +161,7 @@ public class SupportUtils {
      * @param column The object to be injected.
      */
     public static void setColumn(Object obj, Column column) {
+		
         if (obj instanceof ColumnSupport && ((ColumnSupport) obj).getColumn() == null) {
             ((ColumnSupport) obj).setColumn(column);
         }
@@ -164,6 +174,7 @@ public class SupportUtils {
      * @param toolbar The object to be injected.
      */
     public static void setToolbar(Object obj, Toolbar toolbar) {
+		
         if ((obj instanceof ToolbarSupport) && ((ToolbarSupport) obj).getToolbar() == null) {
             ((ToolbarSupport) obj).setToolbar(toolbar);
         }
@@ -176,6 +187,7 @@ public class SupportUtils {
      * @param exportTypes The object to be injected.
      */
     public static void setExportTypes(Object obj, ExportType... exportTypes) {
+		
         if ((obj instanceof ExportTypesSupport) && ((ExportTypesSupport) obj).getExportTypes() == null) {
             ((ExportTypesSupport) obj).setExportTypes(exportTypes);
         }
@@ -188,6 +200,7 @@ public class SupportUtils {
      * @param maxRowsIncrements The object to be injected.
      */
     public static void setMaxRowsIncrements(Object obj, int[] maxRowsIncrements) {
+		
         if ((obj instanceof MaxRowsIncrementsSupport) && ((MaxRowsIncrementsSupport) obj).getMaxRowsIncrements() == null) {
             ((MaxRowsIncrementsSupport) obj).setMaxRowsIncrements(maxRowsIncrements);
         }
@@ -200,6 +213,7 @@ public class SupportUtils {
      * @param registry The object to be injected.
      */
     public static void setFilterMatcherRegistry(Object obj, FilterMatcherRegistry registry) {
+		
         if (obj instanceof FilterMatcherRegistrySupport && ((FilterMatcherRegistrySupport) obj).getFilterMatcherRegistry() == null) {
             ((FilterMatcherRegistrySupport) obj).setFilterMatcherRegistry(registry);
         }

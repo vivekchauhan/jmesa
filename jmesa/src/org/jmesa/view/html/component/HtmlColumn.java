@@ -45,6 +45,7 @@ import org.jmesa.worksheet.editor.WorksheetEditor;
  * @author Jeff Johnston
  */
 public class HtmlColumn extends Column {
+		
     private Boolean filterable;
     private Boolean sortable;
     private Boolean editable;
@@ -71,28 +72,33 @@ public class HtmlColumn extends Column {
     public HtmlColumn() {}
 
     public HtmlColumn(String property) {
+		
         setProperty(property);
     }
 
     @Override
     public HtmlColumn property(String property) {
+		
     	setProperty(property);
     	return this;
     }
 
     @Override
     public HtmlColumn title(String title) {
+		
     	setTitle(title);
     	return this;
     }
 
     @Override
     public HtmlColumn titleKey(String key) {
+		
     	setTitleKey(key);
     	return this;
     }
 
     public boolean isFilterable() {
+		
         if (filterable != null) {
             return filterable.booleanValue();
         }
@@ -106,15 +112,18 @@ public class HtmlColumn extends Column {
     }
 
     public void setFilterable(Boolean filterable) {
+		
         this.filterable = filterable;
     }
 
     public HtmlColumn filterable(Boolean filterable) {
+		
     	setFilterable(filterable);
     	return this;
     }
     
     public boolean isSortable() {
+		
         if (sortable != null) {
             return sortable.booleanValue();
         }
@@ -128,10 +137,12 @@ public class HtmlColumn extends Column {
     }
 
     public void setSortable(Boolean sortable) {
+		
         this.sortable = sortable;
     }
 
 	public HtmlColumn sortable(Boolean sortable) {
+		
 		setSortable(sortable);
 		return this;
 	}
@@ -141,6 +152,7 @@ public class HtmlColumn extends Column {
      * @since 2.3
      */
     public boolean isEditable() {
+		
         if (editable != null) {
             return editable.booleanValue();
         }
@@ -155,10 +167,12 @@ public class HtmlColumn extends Column {
      * @param editable Is true if the column is editable.
      */
     public void setEditable(Boolean editable) {
+		
         this.editable = editable;
     }
 
 	public HtmlColumn editable(Boolean editable) {
+		
 		setEditable(editable);
 		return this;
 	}
@@ -168,6 +182,7 @@ public class HtmlColumn extends Column {
      * @return The sort order for the column.
      */
     public Order[] getSortOrder() {
+		
         if (sortOrder == null) {
             sortOrder = new Order[] { Order.NONE, Order.ASC, Order.DESC };
         }
@@ -196,23 +211,28 @@ public class HtmlColumn extends Column {
      * @param sortOrder The order array.
      */
     public void setSortOrder(Order... sortOrder) {
+		
         this.sortOrder = sortOrder;
     }
 
 	public HtmlColumn sortOrder(Order... sortOrder) {
+		
 		setSortOrder(sortOrder);
 		return this;
 	}
 	
     public String getWidth() {
+		
         return width;
     }
 
     public void setWidth(String width) {
+		
         this.width = width;
     }
 
 	public HtmlColumn width(String width) {
+		
 		setWidth(width);
 		return this;
 	}
@@ -221,6 +241,7 @@ public class HtmlColumn extends Column {
      * @return Is true if generated on the fly through the api.
      */
     public boolean isGeneratedOnTheFly() {
+		
         return generatedOnTheFly;
     }
 
@@ -231,16 +252,19 @@ public class HtmlColumn extends Column {
      * @since 2.2.1
      */
     public void setGeneratedOnTheFly(boolean generatedOnTheFly) {
+		
         this.generatedOnTheFly = generatedOnTheFly;
     }
 
 	public HtmlColumn generatedOnTheFly(boolean generatedOnTheFly) {
+		
 		setGeneratedOnTheFly(generatedOnTheFly);
 		return this;
 	}
 
     @Override
     public HtmlCellRenderer getCellRenderer() {
+		
         if (cellRenderer == null) {
             HtmlCellRenderer htmlCellRenderer = new HtmlCellRenderer(this);
             setCellRenderer(htmlCellRenderer);
@@ -251,6 +275,7 @@ public class HtmlColumn extends Column {
 
     @Override
     public void setCellRenderer(CellRenderer cellRenderer) {
+		
         this.cellRenderer = cellRenderer;
         this.cellRenderer.setColumn(this);
     }
@@ -260,6 +285,7 @@ public class HtmlColumn extends Column {
      */
     @Override
     public CellEditor getCellEditor() {
+		
         if (cellEditor == null) {
             this.cellEditor = new HtmlCellEditor();
         }
@@ -282,12 +308,14 @@ public class HtmlColumn extends Column {
 
     @Override
     public HtmlColumn cellEditor(CellEditor editor) {
+		
     	setCellEditor(editor);
     	return this;
     }
 
     @Override
     public void setCellEditor(CellEditor cellEditor) {
+		
         this.cellEditor = cellEditor;
 
         /*
@@ -301,20 +329,24 @@ public class HtmlColumn extends Column {
     }
 
     public WorksheetEditor getWorksheetEditor() {
+		
         return worksheetEditor;
     }
 
     public void setWorksheetEditor(WorksheetEditor worksheetEditor) {
+		
         this.worksheetEditor = worksheetEditor;
     }
 
     public HtmlColumn worksheetEditor(WorksheetEditor editor){
+		
     	setWorksheetEditor(editor);
     	return this;
     }
 
     @Override
     public HtmlHeaderRenderer getHeaderRenderer() {
+		
         HeaderRenderer headerRenderer = super.getHeaderRenderer();
         if (headerRenderer == null) {
             HtmlHeaderRenderer htmlHeaderRenderer = new HtmlHeaderRenderer(this);
@@ -326,6 +358,7 @@ public class HtmlColumn extends Column {
 
     @Override
     public HeaderEditor getHeaderEditor() {
+		
         HeaderEditor headerEditor = super.getHeaderEditor();
         if (headerEditor == null) {
             HtmlHeaderEditor htmlHeaderEditor = new HtmlHeaderEditor();
@@ -337,6 +370,7 @@ public class HtmlColumn extends Column {
 
     @Override
     public HtmlFilterRenderer getFilterRenderer() {
+		
         FilterRenderer filterRenderer = super.getFilterRenderer();
         if (filterRenderer == null) {
             HtmlFilterRenderer htmlFilterRenderer = new HtmlFilterRenderer(this);
@@ -348,6 +382,7 @@ public class HtmlColumn extends Column {
 
     @Override
     public FilterEditor getFilterEditor() {
+		
         FilterEditor filterEditor = super.getFilterEditor();
         if (filterEditor == null) {
             HtmlFilterEditor htmlFilterEditor = new HtmlFilterEditor();
@@ -359,16 +394,19 @@ public class HtmlColumn extends Column {
 
     @Override
     public HtmlColumn filterEditor(FilterEditor filterEditor) {
+		
     	setFilterEditor(filterEditor);
     	return this;
     }
 
     @Override
     public HtmlRow getRow() {
+		
         return (HtmlRow) super.getRow();
     }
 
     public List<WorksheetValidation> getWorksheetValidations() {
+		
         if (validations == null) {
             return Collections.emptyList();
         }
@@ -377,6 +415,7 @@ public class HtmlColumn extends Column {
     }
 
     public HtmlColumn addWorksheetValidation(WorksheetValidation worksheetValidation) {
+		
         worksheetValidation.setCoreContext(getCoreContext());
         if (validations == null) {
              validations = new ArrayList<WorksheetValidation>();
@@ -386,6 +425,7 @@ public class HtmlColumn extends Column {
     }
     
     public HtmlColumn addCustomWorksheetValidation(WorksheetValidation worksheetValidation) {
+		
         worksheetValidation.setCoreContext(getCoreContext());
         worksheetValidation.setCustom(true);
         if (validations == null) {
@@ -396,14 +436,17 @@ public class HtmlColumn extends Column {
     }
 
 	public String getWorksheetValidationRules() {
+		
         return prepareJsonString("rule");
 	}
 
 	public String getWorksheetValidationMessages() {
+		
         return prepareJsonString("message");
 	}
 
     private String prepareJsonString(String type) {
+		
         if (validations == null) {
             return "";
         }
@@ -439,79 +482,97 @@ public class HtmlColumn extends Column {
     }
     
     public String getStyle() {
+		
         return style;
     }
 
     public void setStyle(String style) {
+		
     	this.style = style;
     }
     
     public HtmlColumn style(String style) {
+		
     	setStyle(style);
     	return this;
     }
     
     public String getStyleClass() {
+		
         return styleClass;
     }
 
     public void setStyleClass(String styleClass) {
+		
     	this.styleClass = styleClass;
     }
 
     public HtmlColumn styleClass(String styleClass) {
+		
     	setStyleClass(styleClass);
     	return this;
     }
 
     public String getHeaderStyle() {
+		
         return headerStyle;
     }
     
     public void setHeaderStyle(String headerStyle) {
+		
     	this.headerStyle = headerStyle;
     }
     
     public HtmlColumn headerStyle(String headerStyle) {
+		
     	setHeaderStyle(headerStyle);
     	return this;
     }
 
     public String getHeaderClass() {
+		
         return headerClass;
     }
     
     public void setHeaderClass(String headerClass) {
+		
     	this.headerClass = headerClass;
     }
     
     public HtmlColumn headerClass(String headerClass) {
+		
     	setHeaderClass(headerClass);
     	return this;
     }
 
     public String getFilterStyle() {
+		
         return filterStyle;
     }
 
     public void setFilterStyle(String filterStyle) {
+		
     	this.filterStyle = filterStyle;
     }
 
     public HtmlColumn filterStyle(String filterStyle) {
+		
     	setFilterStyle(filterStyle);
     	return this;
     }
 
     public String getFilterClass() {
+		
         return filterClass;
     }
 
     public void setFilterClass(String filterClass) {
+		
     	this.filterClass = filterClass;
     }
 
     public HtmlColumn filterClass(String filterClass) {
+		
     	setFilterClass(filterClass);
     	return this;
     }

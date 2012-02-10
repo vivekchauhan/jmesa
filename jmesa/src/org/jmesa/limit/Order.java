@@ -22,19 +22,23 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public enum Order {
+		
     ASC("asc"), DESC("desc"), NONE("none");
 
     private final String param;
 
     private Order(String param) {
+		
         this.param = param;
     }
 
     public String toParam() {
+		
         return param;
     }
 
     public static Order valueOfParam(String param) {
+		
         for (Order order : Order.values()) {
             if (order.toParam().equals(param)) {
                 return order;

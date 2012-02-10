@@ -20,5 +20,6 @@ package org.jmesa.view.editor.expression;
  * @author bgould
  */
 public enum Language {
+		
     EL, GROOVY, JAVASCRIPT, RUBY, JYTHON;
 }

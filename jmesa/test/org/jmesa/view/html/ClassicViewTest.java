@@ -19,7 +19,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.facade.TableFacadeUtils;
 import org.jmesa.limit.ExportType;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.html.component.HtmlColumn;
@@ -34,8 +33,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class ClassicViewTest extends AbstractTestCase {
+		
     @Test
     public void render() {
+		
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
@@ -70,6 +71,8 @@ public class ClassicViewTest extends AbstractTestCase {
 
         HtmlColumn careerColumn = new HtmlColumn("career");
         row.addColumn(careerColumn);
+        
+        tableFacade.setTable(table);
 
         // create the view
         HtmlToolbar toolbar = new HtmlToolbar();
@@ -82,8 +85,6 @@ public class ClassicViewTest extends AbstractTestCase {
         view.setTable(table);
         view.setToolbar(toolbar);
         view.setCoreContext(coreContext);
-
-        TableFacadeUtils.initTable(tableFacade, table);
 
         Object html = view.render();
 

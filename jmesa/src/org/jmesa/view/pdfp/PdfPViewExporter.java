@@ -34,19 +34,23 @@ import org.jmesa.view.View;
  * @author Ismail Seyfi
  */
 public class PdfPViewExporter extends AbstractViewExporter {
+		
     private HttpServletRequest request;
 
     public PdfPViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
+		
         super(view, coreContext, response);
         this.request = request;
     }
 
     public PdfPViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response, String fileName) {
+		
         super(view, coreContext, response, fileName);
         this.request = request;
     }
 
     public void export() throws Exception {
+		
         com.lowagie.text.Document document = new com.lowagie.text.Document();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -64,14 +68,17 @@ public class PdfPViewExporter extends AbstractViewExporter {
     }
 
     public String getContextType() {
+		
         return "application/pdf";
     }
 
     public String getExtensionName() {
+		
         return "pdf";
     }
     
     protected HttpServletRequest getRequest() {
+		
         return request;
     }
 }

@@ -18,20 +18,22 @@ package org.jmesa.view.renderer;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
-import org.jmesa.view.editor.FilterEditor;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
 public abstract class AbstractFilterRenderer extends AbstractContextSupport implements FilterRenderer, ColumnSupport {
+		
     private Column column;
 
     public Column getColumn() {
+		
         return column;
     }
 
     public void setColumn(Column column) {
+		
         this.column = column;
     }
 }

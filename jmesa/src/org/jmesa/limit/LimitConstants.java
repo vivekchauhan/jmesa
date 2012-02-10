@@ -22,6 +22,7 @@ package org.jmesa.limit;
  * @author Jeff Johnston
  */
 public class LimitConstants {
+    
     private LimitConstants() {}
     
     public static final String LIMIT_ROWSELECT_MAXROWS = "limit.rowSelect.maxRows";

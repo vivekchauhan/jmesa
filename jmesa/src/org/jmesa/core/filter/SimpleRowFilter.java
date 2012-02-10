@@ -34,11 +34,13 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport {
+		
     private Logger logger = LoggerFactory.getLogger(SimpleRowFilter.class);
 
     private FilterMatcherRegistry registry;
 
     public Collection<?> filterItems(Collection<?> items, Limit limit) {
+		
         FilterSet filterSet = limit.getFilterSet();
         boolean filtered = filterSet.isFiltered();
 
@@ -55,6 +57,7 @@ public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport 
     }
 
     protected Map<Filter, FilterMatcher> getFilterMatchers(Collection<?> items, FilterSet filterSet) {
+		
         Map<Filter, FilterMatcher> filterMatchers = new HashMap<Filter, FilterMatcher>();
 
         if (items == null || !items.iterator().hasNext()) {
@@ -77,14 +80,17 @@ public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport 
     }
 
     protected Predicate getPredicate(Map<Filter, FilterMatcher> filterMatchers, FilterSet filterSet) {
+		
         return new FilterPredicate(filterMatchers, filterSet);
     }
 
     public FilterMatcherRegistry getFilterMatcherRegistry() {
+		
         return registry;
     }
 
     public void setFilterMatcherRegistry(FilterMatcherRegistry registry) {
+		
         this.registry = registry;
     }
 }

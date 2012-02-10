@@ -20,6 +20,7 @@ package org.jmesa.core;
  * @author Jeff Johnston
  */
 public interface IdSupport {
+		
     public String getId();
     public void setId(String id);
 }

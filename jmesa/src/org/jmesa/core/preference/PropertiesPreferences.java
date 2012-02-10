@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public final class PropertiesPreferences implements Preferences {
+		
     private final Logger logger = LoggerFactory.getLogger(PropertiesPreferences.class);
 
     private static final String JMESA_PROPERTIES = "jmesa.properties";
@@ -38,6 +39,7 @@ public final class PropertiesPreferences implements Preferences {
     private Properties properties = new Properties();
 
     public PropertiesPreferences(String preferencesLocation, WebContext webContext) {
+		
         try {
             InputStream resourceAsStream = getInputStream(JMESA_PROPERTIES, webContext);
             try {
@@ -80,11 +82,13 @@ public final class PropertiesPreferences implements Preferences {
     }
 
     public String getPreference(String name) {
+		
         return (String) properties.get(name);
     }
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("properties", properties);
         return builder.toString();

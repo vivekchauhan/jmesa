@@ -23,6 +23,7 @@ import org.jmesa.limit.ExportType;
  * @author Jeff Johnston
  */
 public class ToolbarExport {
+		
     private ExportType exportType;
     private String text;
     private String tooltip;
@@ -30,10 +31,12 @@ public class ToolbarExport {
     private String action;
 
     public ToolbarExport(ExportType exportType) {
+		
         this.exportType = exportType;
     }
 
     public ToolbarExport(ExportType exportType, String image) {
+		
         this.exportType = exportType;
         this.image = image;
     }
@@ -45,6 +48,7 @@ public class ToolbarExport {
      * @return The text to display.
      */
     public String getText() {
+		
         if (StringUtils.isBlank(text)) {
             return exportType.toParam();
         }
@@ -53,34 +57,42 @@ public class ToolbarExport {
     }
 
     public ExportType getExportType() {
+		
         return exportType;
     }
 
     public void setText(String text) {
+		
         this.text = text;
     }
 
     public String getTooltip() {
+		
         return tooltip;
     }
 
     public void setTooltip(String tooltip) {
+		
         this.tooltip = tooltip;
     }
 
     public String getImage() {
+		
         return image;
     }
 
     public void setImage(String imageName) {
+		
         this.image = imageName;
     }
 
     public String getAction() {
+		
         return action;
     }
 
     public void setAction(String action) {
+		
         this.action = action;
     }
 }

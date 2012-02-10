@@ -31,8 +31,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class HtmlRowRendererTest extends AbstractTestCase {
+		
     @Test
     public void renderWithRowSelect() {
+		
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
@@ -40,7 +42,7 @@ public class HtmlRowRendererTest extends AbstractTestCase {
         row.setCoreContext(coreContext);
 
         row.setOnclick(new AbstractRowEvent() {
-            public String execute(Object item, int rowcount) {
+            public String execute(Object item, int rowcount) {		
                 President president = (President) item;
                 Integer id = president.getId();
                 return "document.location='jmesa.org?id=" + id + "'";

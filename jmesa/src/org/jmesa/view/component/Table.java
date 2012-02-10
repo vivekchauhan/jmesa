@@ -23,12 +23,14 @@ import org.jmesa.view.renderer.TableRenderer;
  * @author Jeff Johnston
  */
 public class Table extends AbstractContextSupport {
+		
     private Row row;
     private String caption;
     private String captionKey;
     private TableRenderer tableRenderer;
 
     public String getCaption() {
+		
         if (captionKey != null) {
             return getCoreContext().getMessage(captionKey);
         }
@@ -37,46 +39,56 @@ public class Table extends AbstractContextSupport {
     }
 
     public void setCaption(String caption) {
+		
         this.caption = caption;
     }
 
     public Table caption(String caption) {
+		
     	setCaption(caption);
     	return this;
     }
 
     public void setCaptionKey(String captionKey) {
+		
         this.captionKey = captionKey;
     }
 
     public Table captionKey(String captionKey) {
+		
     	setCaptionKey(captionKey);
     	return this;
     }
 
     public Row getRow() {
+		
         return row;
     }
 
     public void setRow(Row row) {
+		
         this.row = row;
     }
 
     public Table row(Row row) {
+		
     	setRow(row);
     	return this;
     }
 
     public TableRenderer getTableRenderer() {
+		
         return tableRenderer;
     }
 
     public void setTableRenderer(TableRenderer tableRenderer) {
+		
         this.tableRenderer = tableRenderer;
         this.tableRenderer.setTable(this);
     }
 
     public Table tableRenderer(TableRenderer tableRenderer) {
+		
     	setTableRenderer(tableRenderer);
     	return this;
     }

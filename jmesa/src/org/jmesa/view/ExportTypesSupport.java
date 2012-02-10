@@ -22,6 +22,7 @@ import org.jmesa.limit.ExportType;
  * @author Jeff Johnston
  */
 public interface ExportTypesSupport {
+		
     public ExportType[] getExportTypes();
 
     public void setExportTypes(ExportType... exportTypes);

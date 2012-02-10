@@ -24,5 +24,6 @@ import java.util.List;
  * @author Jeff Johnston
  */
 public interface HtmlColumnsGenerator {
+		
     public List<HtmlColumn> getColumns();
 }

@@ -22,17 +22,21 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jeff Johnston
  */
 public class PageNumberItem extends AbstractItem {
+		
     private int page;
 
     public PageNumberItem(int page) {
+		
         this.page = page;
     }
 
     public int getPage() {
+		
         return page;
     }
 
     public String disabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         html.span();
@@ -46,6 +50,7 @@ public class PageNumberItem extends AbstractItem {
     }
 
     public String enabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         html.span();

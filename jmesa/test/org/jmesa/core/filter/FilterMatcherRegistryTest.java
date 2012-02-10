@@ -29,8 +29,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class FilterMatcherRegistryTest extends AbstractTestCase {
+		
     @Test
     public void getMatchWithDateObject() {
+		
         FilterMatcherRegistry registry = new FilterMatcherRegistry();
         
         registry.addFilterMatcher(new MatcherKey(Object.class), new StringFilterMatcher());
@@ -45,6 +47,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
     @Test
     public void getMatchWithObject() {
+		
         FilterMatcherRegistry registry = new FilterMatcherRegistry();
         registry.addFilterMatcher(new MatcherKey(Object.class), new StringFilterMatcher());
         MatcherKey key = new MatcherKey(String.class, "name");
@@ -54,6 +57,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
     @Test
 	public void getMatchWithType() {
+		
 		FilterMatcherRegistry registry = new FilterMatcherRegistry();
 		registry.addFilterMatcher(new MatcherKey(String.class), new StringFilterMatcher());
 		MatcherKey key = new MatcherKey(String.class, "name");
@@ -63,6 +67,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
 	@Test
 	public void getMatchKeyWithProperty() {
+		
 		FilterMatcherRegistry registry = new FilterMatcherRegistry();
 		registry.addFilterMatcher(new MatcherKey(String.class, "name"), new StringFilterMatcher());
 		MatcherKey key = new MatcherKey(String.class, "name");
@@ -72,6 +77,7 @@ public class FilterMatcherRegistryTest extends AbstractTestCase {
 
 	@Test
 	public void getMatchKeyWithErrors() {
+		
 		FilterMatcherRegistry registry = new FilterMatcherRegistry();
 		registry.addFilterMatcher(new MatcherKey(Date.class), new StringFilterMatcher());
 		MatcherKey key = new MatcherKey(String.class);

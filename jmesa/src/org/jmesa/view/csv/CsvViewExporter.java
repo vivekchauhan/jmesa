@@ -27,11 +27,14 @@ import org.jmesa.view.View;
  * @author Jeff Johnston
  */
 public class CsvViewExporter extends AbstractViewExporter {
+		
     public CsvViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
+		
         super(view, coreContext, response, null);
     }
 
     public CsvViewExporter(View view, CoreContext coreContext, HttpServletResponse response, String fileName) {
+		
         super(view, coreContext, response, fileName);
     }
 
@@ -46,10 +49,12 @@ public class CsvViewExporter extends AbstractViewExporter {
     }
 
     public String getContextType() {
+		
         return "text/csv";
     }
 
     public String getExtensionName() {
+		
         return "txt";
     }
 }

@@ -22,6 +22,7 @@ package org.jmesa.core.filter;
  * @author Jeff Johnston
  */
 public interface FilterMatcherRegistrySupport {
+		
     public FilterMatcherRegistry getFilterMatcherRegistry();
     public void setFilterMatcherRegistry(FilterMatcherRegistry registry);
 }

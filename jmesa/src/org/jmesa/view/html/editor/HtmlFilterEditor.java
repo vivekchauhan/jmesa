@@ -29,12 +29,15 @@ import org.jmesa.view.html.component.HtmlColumn;
  * @author Jeff Johnston
  */
 public class HtmlFilterEditor extends AbstractFilterEditor {
+		
     @Override
     public HtmlColumn getColumn() {
+		
         return (HtmlColumn) super.getColumn();
     }
 
     public Object getValue() {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         Limit limit = getCoreContext().getLimit();

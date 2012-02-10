@@ -62,6 +62,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getRowRenderer() {
+		
         return rowRenderer;
     }
 
@@ -69,6 +70,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setRowRenderer(String rowRenderer) {
+		
         this.rowRenderer = rowRenderer;
     }
 
@@ -76,6 +78,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getStyle() {
+		
         return style;
     }
 
@@ -83,6 +86,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setStyle(String style) {
+		
         this.style = style;
     }
 
@@ -90,6 +94,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getStyleClass() {
+		
         return styleClass;
     }
 
@@ -97,6 +102,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setStyleClass(String styleClass) {
+		
         this.styleClass = styleClass;
     }
 
@@ -104,6 +110,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getEvenClass() {
+		
         return evenClass;
     }
 
@@ -111,6 +118,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setEvenClass(String evenClass) {
+		
         this.evenClass = evenClass;
     }
 
@@ -118,6 +126,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getOddClass() {
+		
         return oddClass;
     }
 
@@ -125,6 +134,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setOddClass(String oddClass) {
+		
         this.oddClass = oddClass;
     }
 
@@ -132,6 +142,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getHighlightStyle() {
+		
         return highlightStyle;
     }
 
@@ -139,6 +150,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setHighlightStyle(String highlightStyle) {
+		
         this.highlightStyle = highlightStyle;
     }
 
@@ -146,6 +158,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getHighlightClass() {
+		
         return highlightClass;
     }
 
@@ -153,14 +166,17 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setHighlightClass(String highlightClass) {
+		
         this.highlightClass = highlightClass;
     }
 
     public boolean isHighlighter() {
+		
         return highlighter;
     }
 
     public void setHighlighter(boolean highlighter) {
+		
         this.highlighter = highlighter;
     }
 
@@ -168,6 +184,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public Boolean isSortable() {
+		
         return sortable;
     }
 
@@ -175,6 +192,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setSortable(Boolean sortable) {
+		
         this.sortable = sortable;
     }
 
@@ -182,6 +200,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public Boolean isFilterable() {
+		
         return filterable;
     }
 
@@ -189,38 +208,47 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setFilterable(Boolean filterable) {
+		
         this.filterable = filterable;
     }
 
     public String getOnclick() {
+		
         return onclick;
     }
 
     public void setOnclick(String onclick) {
+		
         this.onclick = onclick;
     }
 
     public String getOnmouseover() {
+		
         return onmouseover;
     }
 
     public void setOnmouseover(String onmouseover) {
+		
         this.onmouseover = onmouseover;
     }
 
     public String getOnmouseout() {
+		
         return onmouseout;
     }
 
     public void setOnmouseout(String onmouseout) {
+		
         this.onmouseout = onmouseout;
     }
     
     public String getUniqueProperty() {
+		
         return uniqueProperty;
     }
 
     public void setUniqueProperty(String uniqueProperty) {
+		
         this.uniqueProperty = uniqueProperty;
     }
 
@@ -228,6 +256,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * The row to use. If the row does not exist then one will be created.
      */
     private HtmlRow getHtmlRow() {
+		
         HtmlRow htmlRow = new HtmlRow();
         
         htmlRow.setUniqueProperty(getUniqueProperty());
@@ -260,6 +289,7 @@ public class HtmlRowTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
+		
         JspFragment body = getJspBody();
         if (body == null) {
             throw new IllegalStateException("You need to wrap the columns in the row tag.");

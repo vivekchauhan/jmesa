@@ -15,9 +15,7 @@
  */
 package org.jmesa.core;
 
-
 import java.util.Collection;
-
 import java.util.HashMap;
 import java.util.Map;
 import org.jmesa.core.message.Messages;
@@ -35,6 +33,7 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class CoreContext {
+    
     private Items items;
     private Limit limit;
     private Preferences preferences;
@@ -43,6 +42,7 @@ public class CoreContext {
     private Map<? super Object,? super Object> attributes;
 
     public CoreContext(Items items, Limit limit, Worksheet worksheet, Preferences preferences, Messages messages) {
+        
         this.items = items;
         this.limit = limit;
         this.worksheet = worksheet;
@@ -51,46 +51,57 @@ public class CoreContext {
     }
 
     public Collection<?> getAllItems() {
+        
         return items.getAllItems();
     }
 
     public Collection<?> getFilteredItems() {
+        
         return items.getFilteredItems();
     }
 
     public Collection<?> getSortedItems() {
+        
         return items.getSortedItems();
     }
 
     public Collection<?> getPageItems() {
+        
         return items.getPageItems();
     }
 
     public void setPageItems(Collection<?> pageItems) {
+        
         this.items.setPageItems(pageItems);
     }
 
     public String getMessage(String code) {
+        
         return messages.getMessage(code);
     }
 
     public String getMessage(String code, Object[] args) {
+        
         return messages.getMessage(code, args);
     }
 
     public String getPreference(String code) {
+        
         return preferences.getPreference(code);
     }
 
     public Worksheet getWorksheet() {
+        
         return worksheet;
     }
 
     public Limit getLimit() {
+        
         return limit;
     }
 
     public Object getAttribute(Object key) {
+        
         if (attributes == null) {
             return null;
         }
@@ -99,6 +110,7 @@ public class CoreContext {
     }
 
     public void setAttribute(Object key, Object value) {
+        
         if (attributes == null) {
             attributes = new HashMap<Object, Object>();
         }

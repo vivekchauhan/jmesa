@@ -63,11 +63,13 @@ public class CoreContextFactory {
      * @param webContext The WebContext for the table.
      */
     public CoreContextFactory(boolean autoFilterAndSort, WebContext webContext) {
+		
         this.autoFilterAndSort = autoFilterAndSort;
         this.webContext = webContext;
     }
 
     protected FilterMatcherRegistry getFilterMatcherRegistry() {
+		
         if (registry == null) {
             registry = new FilterMatcherRegistry();
             StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();
@@ -84,11 +86,13 @@ public class CoreContextFactory {
      * @param matcher The FilterMatcher instance.
      */
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
+		
         SupportUtils.setWebContext(matcher, webContext);
         getFilterMatcherRegistry().addFilterMatcher(key, matcher);
     }
 
     protected RowFilter getRowFilter() {
+		
         if (rowFilter == null) {
             rowFilter = new SimpleRowFilter();
         }
@@ -103,10 +107,12 @@ public class CoreContextFactory {
      * @param rowFilter The RowFilter instance.
      */
     public void setRowFilter(RowFilter rowFilter) {
+		
         this.rowFilter = rowFilter;
     }
 
     protected ColumnSort getColumnSort() {
+		
         if (columnSort == null) {
             columnSort = new MultiColumnSort();
         }
@@ -120,10 +126,12 @@ public class CoreContextFactory {
      * @param columnSort The ColumnSort instance.
      */
     public void setColumnSort(ColumnSort columnSort) {
+		
         this.columnSort = columnSort;
     }
 
     protected Preferences getPreferences() {
+		
         if (preferences == null) {
             preferences = PreferencesFactory.getPreferences(webContext);
         }
@@ -137,10 +145,12 @@ public class CoreContextFactory {
      * @param preferences The Preferences instance.
      */
     public void setPreferences(Preferences preferences) {
+		
         this.preferences = preferences;
     }
 
     protected Messages getMessages() {
+		
         if (messages == null) {
             messages = MessagesFactory.getMessages(webContext);
         }
@@ -154,6 +164,7 @@ public class CoreContextFactory {
      * @param messages The Messages instance.
      */
     public void setMessages(Messages messages) {
+		
         this.messages = messages;
     }
 
@@ -165,6 +176,7 @@ public class CoreContextFactory {
      * @return The newly created CoreContext object.
      */
     public CoreContext createCoreContext(Collection<?> items, Limit limit, Worksheet worksheet) {
+		
         Items itemsImpl;
 
         if (autoFilterAndSort) {

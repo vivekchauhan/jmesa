@@ -27,8 +27,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class MaxRowsItemRendererTest extends AbstractTestCase {
+		
     @Test
     public void render() {
+		
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 

@@ -31,8 +31,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class DateFilterMatcherTest extends AbstractTestCase {
+		
     @Test
     public void evaluateTest() {
+		
         WebContext webContext = createWebContext();
         DateFilterMatcher matcher = new DateFilterMatcher("MM/dd/yyyy");
         matcher.setWebContext(webContext);

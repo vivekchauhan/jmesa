@@ -25,18 +25,22 @@ import org.jmesa.view.renderer.AbstractHeaderRenderer;
  * @author Jeff Johnston
  */
 public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
+		
     public HtmlHeaderRenderer() {}
 
     public HtmlHeaderRenderer(HtmlColumn column) {
+		
         setColumn(column);
     }
 
     @Override
     public HtmlColumn getColumn() {
+		
         return (HtmlColumn) super.getColumn();
     }
 
     public Object render() {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         String element = getCoreContext().getPreference(HtmlConstants.HEADER_RENDERER_ELEMENT);

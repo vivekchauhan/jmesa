@@ -21,16 +21,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
-
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.collections.comparators.NullComparator;
 import org.junit.Test;
 
 public class ComparatorTest {
+		
 	@SuppressWarnings("unchecked")
     @Test
 	public void go() {
+		
 		List<BeanComparator> sortFields = new ArrayList<BeanComparator>();
 		sortFields.add(new BeanComparator("name", new NullComparator()));
 		sortFields.add(new BeanComparator("zipCode", new NullComparator()));
@@ -52,26 +53,30 @@ public class ComparatorTest {
 	}
 
 	public class MyClass {
+		
 		protected String name;
 		protected int zipCode;
 
 		public MyClass(String name, int zipCode) {
+		
 			this.name = name;
 			this.zipCode = zipCode;
 		}
 
 		public String getName() {
+		
 			return name;
 		}
 
 		public int getZipCode() {
+		
 			return zipCode;
 		}
 
 		@Override
 		public String toString() {
+		
 			return name + ":" + zipCode;
 		}
-
 	}
 }

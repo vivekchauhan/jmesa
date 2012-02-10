@@ -36,15 +36,18 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Jeff Johnston
  */
 public abstract class AbstractTestCase {
+		
     protected static final String ID = "pres";
     protected static final int MAX_ROWS = 12;
     
     protected WebContext createWebContext() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         return new HttpServletRequestWebContext(request);
     }
     
     protected CoreContext createCoreContext(WebContext webContext) {
+		
         Collection<President> items = PresidentDao.getPresidents();
 
         LimitFactory limitFactory = new LimitFactory(ID, webContext);
@@ -71,6 +74,7 @@ public abstract class AbstractTestCase {
     }
     
     protected Worksheet getWorksheet() {
+		
         return null;
     }
 }

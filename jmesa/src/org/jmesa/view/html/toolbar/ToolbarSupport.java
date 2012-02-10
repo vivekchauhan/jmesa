@@ -22,6 +22,7 @@ package org.jmesa.view.html.toolbar;
  * @author Jeff Johnston
  */
 public interface ToolbarSupport {
+		
     public Toolbar getToolbar();
 
     public void setToolbar(Toolbar toolbar);

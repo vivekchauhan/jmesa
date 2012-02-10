@@ -22,7 +22,9 @@ package org.jmesa.view.html;
  * @author Jeff Johnston
  */
 public class HtmlView extends AbstractHtmlView {
+		
     public Object render() {
+		
         HtmlSnippets snippets = getHtmlSnippets();
 
         HtmlBuilder html = new HtmlBuilder();

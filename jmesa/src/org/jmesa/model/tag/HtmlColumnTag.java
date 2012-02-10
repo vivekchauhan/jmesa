@@ -53,6 +53,7 @@ import org.jmesa.worksheet.editor.WorksheetEditor;
  * @author jeff jie
  */
 public class HtmlColumnTag extends SimpleTagSupport {
+		
     private String property;
     private String title;
     private String titleKey;
@@ -81,34 +82,42 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String errorMessage;
 
     public String getProperty() {
+		
         return property;
     }
 
     public void setProperty(String property) {
+		
         this.property = property;
     }
 
     public String getTitle() {
+		
         return title;
     }
 
     public void setTitle(String title) {
+		
         this.title = title;
     }
 
     public String getTitleKey() {
+		
         return titleKey;
     }
 
     public void setTitleKey(String titleKey) {
+		
         this.titleKey = titleKey;
     }
 
     public Boolean isSortable() {
+		
         return sortable;
     }
 
     public void setSortable(Boolean sortable) {
+		
         this.sortable = sortable;
     }
 
@@ -117,6 +126,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @return The sort order for the column.
      */
     public String getSortOrder() {
+		
         return sortOrder;
     }
 
@@ -125,14 +135,17 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @param sortOrder The order array.
      */
     public void setSortOrder(String sortOrder) {
+		
         this.sortOrder = sortOrder;
     }
 
     public Boolean isFilterable() {
+		
         return filterable;
     }
 
     public void setFilterable(Boolean filterable) {
+		
         this.filterable = filterable;
     }
     
@@ -140,6 +153,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.3
      */
     public Boolean isEditable() {
+		
         return editable;
     }
 
@@ -147,22 +161,27 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.3
      */
     public void setEditable(Boolean editable) {
+		
         this.editable = editable;
     }
 
     public String getWorksheetEditor() {
+		
         return worksheetEditor;
     }
 
     public void setWorksheetEditor(String worksheetEditor) {
+		
         this.worksheetEditor = worksheetEditor;
     }
 
     public String getWidth() {
+		
         return width;
     }
 
     public void setWidth(String width) {
+		
         this.width = width;
     }
 
@@ -170,6 +189,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getCellRenderer() {
+		
         return cellRenderer;
     }
 
@@ -177,6 +197,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setCellRenderer(String cellRenderer) {
+		
         this.cellRenderer = cellRenderer;
     }
 
@@ -184,6 +205,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getFilterRenderer() {
+		
         return filterRenderer;
     }
 
@@ -191,6 +213,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setFilterRenderer(String filterRenderer) {
+		
         this.filterRenderer = filterRenderer;
     }
 
@@ -198,6 +221,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getHeaderRenderer() {
+		
         return headerRenderer;
     }
 
@@ -205,6 +229,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setHeaderRenderer(String headerRenderer) {
+		
         this.headerRenderer = headerRenderer;
     }
 
@@ -212,6 +237,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2.1
      */
     public String getStyle() {
+		
         return style;
     }
 
@@ -219,6 +245,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2.1
      */
     public void setStyle(String style) {
+		
         this.style = style;
     }
 
@@ -226,6 +253,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2.1
      */
     public String getStyleClass() {
+		
         return styleClass;
     }
 
@@ -233,6 +261,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2.1
      */
     public void setStyleClass(String styleClass) {
+		
         this.styleClass = styleClass;
     }
 
@@ -240,6 +269,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getFilterStyle() {
+		
         return filterStyle;
     }
 
@@ -247,6 +277,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setFilterStyle(String filterStyle) {
+		
         this.filterStyle = filterStyle;
     }
 
@@ -254,6 +285,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getFilterClass() {
+		
         return filterClass;
     }
 
@@ -261,6 +293,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setFilterClass(String filterClass) {
+		
         this.filterClass = filterClass;
     }
 
@@ -268,6 +301,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getHeaderStyle() {
+		
         return headerStyle;
     }
 
@@ -275,6 +309,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setHeaderStyle(String headerStyle) {
+		
         this.headerStyle = headerStyle;
     }
 
@@ -282,6 +317,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getHeaderClass() {
+		
         return headerClass;
     }
 
@@ -289,22 +325,27 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setHeaderClass(String headerClass) {
+		
         this.headerClass = headerClass;
     }
 
     public String getPattern() {
+		
         return pattern;
     }
 
     public void setPattern(String pattern) {
+		
         this.pattern = pattern;
     }
 
     public String getCellEditor() {
+		
         return cellEditor;
     }
 
     public void setCellEditor(String cellEditor) {
+		
         this.cellEditor = cellEditor;
     }
 
@@ -313,6 +354,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @return The header editor for the column.
      */
     public String getHeaderEditor() {
+		
         return headerEditor;
     }
 
@@ -321,6 +363,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @param headerEditor The header editor to use.
      */
     public void setHeaderEditor(String headerEditor) {
+		
         this.headerEditor = headerEditor;
     }
 
@@ -329,6 +372,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @return The filter editor for the column.
      */
     public String getFilterEditor() {
+		
         return filterEditor;
     }
 
@@ -337,6 +381,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @param filterEditor The filter editor to use.
      */
     public void setFilterEditor(String filterEditor) {
+		
         this.filterEditor = filterEditor;
     }
 
@@ -344,6 +389,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.6.7
      */
     public String getWorksheetValidation() {
+		
         return worksheetValidation;
     }
 
@@ -352,6 +398,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @param worksheetValidation The worksheet validation to use.
      */
     public void setWorksheetValidation(String worksheetValidation) {
+		
         this.worksheetValidation = worksheetValidation;
     }
 
@@ -359,6 +406,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @since 2.6.7
      */
     public String getCustomWorksheetValidation() {
+		
         return customWorksheetValidation;
     }
 
@@ -367,6 +415,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @param customWorksheetValidation The custom worksheet validation to use.
      */
     public void setCustomWorksheetValidation(String customWorksheetValidation) {
+		
         this.customWorksheetValidation = customWorksheetValidation;
     }
 
@@ -375,6 +424,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      */
 
     public String getErrorMessageKey() {
+		
         return errorMessageKey;
     }
 
@@ -384,6 +434,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      */
 
     public void setErrorMessageKey(String errorMessageKey) {
+		
         this.errorMessageKey = errorMessageKey;
     }
 
@@ -392,6 +443,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      */
 
     public String getErrorMessage() {
+		
         return errorMessage;
     }
 
@@ -401,6 +453,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      */
 
     public void setErrorMessage(String errorMessage) {
+		
         this.errorMessage = errorMessage;
     }
 
@@ -408,6 +461,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * The column to use. If the column does not exist then one will be created.
      */
     private HtmlColumn getHtmlColumn() {
+		
         HtmlColumn htmlColumn = new HtmlColumn(getProperty());
         
         htmlColumn.setTitle(getTitle());
@@ -472,6 +526,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
      * @return The item to use.
      */
     private Object getValue() throws JspException, IOException {
+		
         TableModelTag facadeTag = (TableModelTag) findAncestorWithClass(this, TableModelTag.class);
         String var = facadeTag.getVar();
         Object item = getJspContext().getAttribute(var);
@@ -492,6 +547,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
+		
         TableModelTag facadeTag = (TableModelTag) findAncestorWithClass(this, TableModelTag.class);
         Collection<Map<String, Object>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {

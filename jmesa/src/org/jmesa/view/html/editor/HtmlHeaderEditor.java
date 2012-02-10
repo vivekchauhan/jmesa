@@ -32,12 +32,15 @@ import org.jmesa.view.html.toolbar.ToolbarItemType;
  * @author Jeff Johnston
  */
 public class HtmlHeaderEditor extends AbstractHeaderEditor {
+		
     @Override
     public HtmlColumn getColumn() {
+		
         return (HtmlColumn) super.getColumn();
     }
 
     public Object getValue() {
+		
         HtmlBuilder html = new HtmlBuilder();
         
         html.div();
@@ -107,6 +110,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
     }
 
     protected String getTitle(HtmlColumn column) {
+		
         return column.getTitle();
     }
 
@@ -117,6 +121,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
      * @return The JavaScript to get the next Order when invoking the onlick command.
      */
     protected String onclick(Order currentOrder, HtmlColumn column, Limit limit) {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         int position = column.getRow().getColumns().indexOf(column);
@@ -144,6 +149,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
      * @return The next sort order in the array.
      */
     protected Order nextSortOrder(Order currentOrder, HtmlColumn column) {
+		
         Order[] sortOrder = column.getSortOrder();
 
         for (int i = 0; i < sortOrder.length; i++) {
@@ -161,6 +167,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
     }
     
     protected String getOnInvokeActionJavaScript(Limit limit) {
+		
         String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
         return onInvokeAction + "('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.toCode() + "')";
     }

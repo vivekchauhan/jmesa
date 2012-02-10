@@ -20,6 +20,7 @@ package org.jmesa.worksheet;
  * @author Siddhant Agrawal
  */
 public class WorksheetValidationType {
+		
     public static final String REQUIRED = "required";
     public static final String EMAIL = "email";
     public static final String URL = "url";

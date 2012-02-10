@@ -24,11 +24,14 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author Jeff Johnston
  */
 public class HttpServletRequestSpringWebContext extends HttpServletRequestWebContext implements SpringWebContext {
+		
     public HttpServletRequestSpringWebContext(HttpServletRequest request) {
+		
         super(request);
     }
 
     public ApplicationContext getApplicationContext() {
+		
         return WebApplicationContextUtils.getWebApplicationContext(getHttpServletRequest().getSession().getServletContext());
     }
 }

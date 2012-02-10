@@ -22,6 +22,7 @@ import java.io.Serializable;
  * @author Jeff Johnston
  */
 public interface Messages extends Serializable {
+		
     /**
      * Get the resource property.
      */

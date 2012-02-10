@@ -38,7 +38,9 @@ public class HtmlComponentFactoryTest extends AbstractTestCase {
     }
 
     private static class TestEditor implements CellEditor {
+		
         public Object getValue(Object item, String property, int rowcount) {
+		
             HtmlBuilder html = new HtmlBuilder();
             return html.toString();
         }

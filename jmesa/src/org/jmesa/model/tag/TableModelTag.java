@@ -54,6 +54,7 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class TableModelTag extends SimpleTagSupport {
+		
     // facade attributes
     private String id;
     @SuppressWarnings("unchecked")
@@ -83,6 +84,7 @@ public class TableModelTag extends SimpleTagSupport {
      * The id to use.
      */
     public String getId() {
+		
         return id;
     }
 
@@ -91,6 +93,7 @@ public class TableModelTag extends SimpleTagSupport {
      * sure that this value is unique.
      */
     public void setId(String id) {
+		
         this.id = id;
     }
 
@@ -99,6 +102,7 @@ public class TableModelTag extends SimpleTagSupport {
      */
     @SuppressWarnings("unchecked")
     public Collection getItems() {
+		
         return items;
     }
 
@@ -112,6 +116,7 @@ public class TableModelTag extends SimpleTagSupport {
      */
     @SuppressWarnings("unchecked")
     public void setItems(Collection items) {
+		
         this.items = items;
     }
 
@@ -119,6 +124,7 @@ public class TableModelTag extends SimpleTagSupport {
      * The bean to be added in the added row.
      */
     public Object getAddedRowObject() {
+		
     	return addedRowObject;
     }
 
@@ -126,6 +132,7 @@ public class TableModelTag extends SimpleTagSupport {
      * The bean to be added in the added row.
      */
     public void setAddedRowObject(Object addedRowObject) {
+		
     	this.addedRowObject = addedRowObject;
     }
 
@@ -133,6 +140,7 @@ public class TableModelTag extends SimpleTagSupport {
      * The max rows to display on a page.
      */
     public int getMaxRows() {
+		
         return maxRows;
     }
 
@@ -142,6 +150,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param maxRows The maxRows to use.
      */
     public void setMaxRows(int maxRows) {
+		
         this.maxRows = maxRows;
     }
 
@@ -149,6 +158,7 @@ public class TableModelTag extends SimpleTagSupport {
      * The max rows increments to use.
      */
     public String getMaxRowsIncrements() {
+		
         return maxRowsIncrements;
     }
 
@@ -159,6 +169,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param maxRowsIncrements The max rows increments to use.
      */
     public void setMaxRowsIncrements(String maxRowsIncrements) {
+		
         this.maxRowsIncrements = maxRowsIncrements;
     }
 
@@ -166,6 +177,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The State to use.
      */
     public String getState() {
+		
         return state;
     }
 
@@ -175,6 +187,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param state The State to use.
      */
     public void setState(String state) {
+		
         this.state = state;
     }
 
@@ -182,6 +195,7 @@ public class TableModelTag extends SimpleTagSupport {
      * The parameter that will be searched to see if the state should be used.
      */
     public String getStateAttr() {
+		
         return stateAttr;
     }
 
@@ -192,6 +206,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param stateAttr The parameter that will be searched to see if the state should be used.
      */
     public void setStateAttr(String stateAttr) {
+		
         this.stateAttr = stateAttr;
     }
 
@@ -199,6 +214,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return Is true if should sort and filter the Collection of Beans (or Maps).
      */
     public boolean isAutoFilterAndSort() {
+		
         return autoFilterAndSort;
     }
 
@@ -210,6 +226,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param autoFilterAndSort
      */
     public void setAutoFilterAndSort(boolean autoFilterAndSort) {
+		
         this.autoFilterAndSort = autoFilterAndSort;
     }
 
@@ -218,6 +235,7 @@ public class TableModelTag extends SimpleTagSupport {
      * TableFacadeImpl.CVS and TableFacadeImpl.EXCEL.
      */
     public String getExportTypes() {
+		
         return exportTypes;
     }
 
@@ -228,6 +246,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param exportTypes The exportTypes to use.
      */
     public void setExportTypes(String exportTypes) {
+		
         this.exportTypes = exportTypes;
     }
 
@@ -235,6 +254,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return Is true if the table should be editable.
      */
     public boolean isEditable() {
+		
         return editable;
     }
 
@@ -244,6 +264,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param editable Is true if the table should be editable.
      */
     public void setEditable(boolean editable) {
+		
         this.editable = editable;
     }
 
@@ -251,6 +272,7 @@ public class TableModelTag extends SimpleTagSupport {
      * The value to hold the current bean or map.
      */
     public String getVar() {
+		
         return var;
     }
 
@@ -260,6 +282,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param var The var to use.
      */
     public void setVar(String var) {
+		
         this.var = var;
     }
 
@@ -271,6 +294,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The Limit to use.
      */
     public Limit getLimit() {
+		
         Limit l = (Limit)getJspContext().getAttribute(getId() + LIMIT_ATTR, REQUEST_SCOPE);
         if (l != null) {
             return l;
@@ -284,6 +308,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param limit The Limit to use.
      */
     public void setLimit(Limit limit) {
+		
         this.limit = limit;
     }
 
@@ -293,6 +318,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The Messages to use.
      */
     public String getMessages() {
+		
         return messages;
     }
 
@@ -302,6 +328,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param messages The Messages to use.
      */
     public void setMessages(String messages) {
+		
         this.messages = messages;
     }
 
@@ -311,6 +338,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The Preferences to use.
      */
     public String getPreferences() {
+		
         return preferences;
     }
 
@@ -320,6 +348,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param preferences The Preferences to use.
      */
     public void setPreferences(String preferences) {
+		
         this.preferences = preferences;
     }
 
@@ -329,6 +358,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The RowFilter to use.
      */
     public String getRowFilter() {
+		
         return rowFilter;
     }
 
@@ -338,6 +368,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param rowFilter The RowFilter to use.
      */
     public void setRowFilter(String rowFilter) {
+		
         this.rowFilter = rowFilter;
     }
 
@@ -347,6 +378,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The ColumnSort to use.
      */
     public String getColumnSort() {
+		
         return columnSort;
     }
 
@@ -356,6 +388,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param columnSort The ColumnSort to use.
      */
     public void setColumnSort(String columnSort) {
+		
         this.columnSort = columnSort;
     }
 
@@ -363,6 +396,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The View to use.
      */
     public String getView() {
+		
         return view;
     }
 
@@ -372,6 +406,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param view The View to use.
      */
     public void setView(String view) {
+		
         this.view = view;
     }
 
@@ -381,6 +416,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return The Toolbar to use.
      */
     public String getToolbar() {
+		
         return toolbar;
     }
 
@@ -390,6 +426,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param toolbar The Toolbar to use.
      */
     public void setToolbar(String toolbar) {
+		
         this.toolbar = toolbar;
     }
 
@@ -397,6 +434,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @return Get all the FilterMatchers needed for the current table.
      */
     public String getFilterMatcherMap() {
+		
         return filterMatcherMap;
     }
 
@@ -406,6 +444,7 @@ public class TableModelTag extends SimpleTagSupport {
      * @param filterMatcherMap The Map of current FilterMatchers.
      */
     public void setFilterMatcherMap(String filterMatcherMap) {
+		
         this.filterMatcherMap = filterMatcherMap;
     }
 
@@ -451,6 +490,7 @@ public class TableModelTag extends SimpleTagSupport {
      */
     @Override
     public void doTag() throws JspException, IOException {
+		
         JspFragment body = getJspBody();
         if (body == null) {
             throw new IllegalStateException("You need to wrap the table in the facade tag.");
@@ -513,10 +553,12 @@ public class TableModelTag extends SimpleTagSupport {
     }
 
     protected WebContext getWebContext() {
+		
         return new JspPageWebContext((PageContext) getJspContext());
     }
 
     protected TableFacade createTableFacade() {
+		
         TableFacade facade = TableFacadeFactory.createTableFacade(getId(), getWebContext());
         facade.setMessages(getTableFacadeMessages(getMessages()));
         return facade;
