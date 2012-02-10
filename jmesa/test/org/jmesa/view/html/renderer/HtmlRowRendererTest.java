@@ -47,7 +47,7 @@ public class HtmlRowRendererTest extends AbstractTestCase {
             }
         });
 
-        HtmlRowRendererImpl renderer = new HtmlRowRendererImpl(row);
+        HtmlRowRenderer renderer = new HtmlRowRenderer(row);
         renderer.setCoreContext(coreContext);
 
         President item = new President();

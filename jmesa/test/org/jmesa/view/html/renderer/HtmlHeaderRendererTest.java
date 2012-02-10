@@ -35,7 +35,7 @@ public class HtmlHeaderRendererTest extends AbstractTestCase {
 		column.setWebContext(webContext);
 		column.setCoreContext(coreContext);
 		
-		HtmlHeaderRendererImpl headerRenderer = new HtmlHeaderRendererImpl(column);
+		HtmlHeaderRenderer headerRenderer = new HtmlHeaderRenderer(column);
 		headerRenderer.setWebContext(webContext);
 		headerRenderer.setCoreContext(coreContext);
 	}

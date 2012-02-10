@@ -16,7 +16,6 @@
 package org.jmesa.view.renderer;
 
 import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.HeaderEditor;
 
 /**
  * @since 2.0
@@ -27,17 +26,5 @@ public interface HeaderRenderer {
 
     public void setColumn(Column column);
     
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public HeaderEditor getHeaderEditor();
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public void setHeaderEditor(HeaderEditor headerEditor);
-
     public Object render();
 }

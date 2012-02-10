@@ -82,7 +82,7 @@ public class GroupCellEditor extends AbstractCellEditor {
 
         List<Column> columns = currentRow.getColumns();
         for (Column col : columns) {
-            if (col.getCellRenderer().getCellEditor() instanceof GroupCellEditor) {
+            if (col.getCellEditor() instanceof GroupCellEditor) {
                 firstColumn = col;
                 break;
             }

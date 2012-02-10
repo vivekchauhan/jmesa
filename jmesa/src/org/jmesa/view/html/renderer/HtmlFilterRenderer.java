@@ -35,48 +35,18 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
         return (HtmlColumn) super.getColumn();
     }
 
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public String getStyle() {
-        return getColumn().getFilterStyle();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public void setStyle(String style) {
-        getColumn().setFilterStyle(style);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public String getStyleClass() {
-        return getColumn().getFilterClass();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public void setStyleClass(String styleClass) {
-        getColumn().setFilterClass(styleClass);
-    }
-
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
+        
+        HtmlColumn column = getColumn();
 
         html.td(2);
         html.width(getColumn().getWidth());
-        html.style(getStyle());
-        html.styleClass(getStyleClass());
+        html.style(column.getStyle());
+        html.styleClass(column.getStyleClass());
         html.close();
 
-        html.append(getFilterEditor().getValue());
+        html.append(column.getFilterEditor().getValue());
 
         html.tdEnd();
 

@@ -36,38 +36,6 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
         return (HtmlColumn) super.getColumn();
     }
 
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public String getStyle() {
-        return getColumn().getHeaderStyle();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public void setStyle(String style) {
-        getColumn().setHeaderStyle(style);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public String getStyleClass() {
-        return getColumn().getHeaderClass();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlColumn.
-     */
-    @Deprecated
-    public void setStyleClass(String styleClass) {
-        getColumn().setHeaderClass(styleClass);
-    }
-
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
 
@@ -77,13 +45,15 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
         } else {
             html.th(2);
         }
+        
+        HtmlColumn column = getColumn();
 
         html.width(getColumn().getWidth());
-        html.style(getStyle());
-        html.styleClass(getStyleClass());
+        html.style(column.getStyle());
+        html.styleClass(column.getStyleClass());
         html.close();
 
-        html.append(getHeaderEditor().getValue());
+        html.append(column.getHeaderEditor().getValue());
 
         if (element.equalsIgnoreCase("td")) {
             html.tdEnd();

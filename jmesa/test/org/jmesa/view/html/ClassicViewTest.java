@@ -47,13 +47,13 @@ public class ClassicViewTest extends AbstractTestCase {
         HtmlTable table = new HtmlTable();
         table.setTheme("jmesa");
         table.setCaption("Presidents");
-        table.getTableRenderer().setWidth("500px");
-        table.getTableRenderer().setStyleClass("table");
+        table.setWidth("500px");
+        table.setStyleClass("table");
 
         // create the row
         HtmlRow row = new HtmlRow();
         row.setHighlighter(true);
-        row.getRowRenderer().setHighlightClass("highlight");
+        row.setHighlightClass("highlight");
         table.setRow(row);
 
         // create some reusable objects

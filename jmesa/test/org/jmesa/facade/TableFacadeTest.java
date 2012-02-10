@@ -36,7 +36,7 @@ import org.jmesa.test.SpringParametersAdapter;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
-import org.jmesa.view.html.HtmlSnippetsImpl;
+import org.jmesa.view.html.HtmlSnippets;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
@@ -337,7 +337,7 @@ public class TableFacadeTest extends AbstractTestCase {
         assertNotNull(view);
 
         HtmlView viewToSet = new HtmlView();
-        viewToSet.setHtmlSnippets(new HtmlSnippetsImpl((HtmlTable) facade.getTable(), facade.getToolbar(), facade.getCoreContext()));
+        viewToSet.setHtmlSnippets(new HtmlSnippets((HtmlTable) facade.getTable(), facade.getToolbar(), facade.getCoreContext()));
         facade.setView(viewToSet); // The view set should now be the one used.
         assertTrue("The view is not the same.", viewToSet == facade.getView());
     }

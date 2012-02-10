@@ -35,8 +35,8 @@ public class GroupColumnsHtmlView extends HtmlView {
     public Object render() {
         List<Column> columns = getTable().getRow().getColumns();
         for (Column column : columns) {
-            CellEditor decoratedCellEditor = column.getCellRenderer().getCellEditor();
-            column.getCellRenderer().setCellEditor(new GroupCellEditor(decoratedCellEditor));
+            CellEditor decoratedCellEditor = column.getCellEditor();
+            column.setCellEditor(new GroupCellEditor(decoratedCellEditor));
         }
 
         return super.render();
