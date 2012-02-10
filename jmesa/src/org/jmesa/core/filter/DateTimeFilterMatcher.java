@@ -62,7 +62,6 @@ public class DateTimeFilterMatcher extends DateFilterMatcher {
             return false;
         }
 
-
         Locale locale = null;
 
         WebContext webContext = getWebContext();

@@ -24,8 +24,6 @@ import org.jmesa.view.component.Row;
 public interface RowRenderer {
 		
     public Row getRow();
-
     public void setRow(Row row);
-
     public Object render(Object item, int rowcount);
 }

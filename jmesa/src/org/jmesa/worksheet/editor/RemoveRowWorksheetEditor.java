@@ -26,17 +26,19 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @author Jeff Johnston
  */
 public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
+		
     private final static String REMOVE_WORKSHEET_ROW_ITEM = "remove_worksheet_row";
     
     public Object getValue(Object item, String property, int rowcount) {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         html.div().close();
 
         html.img();
         String imagesPath = HtmlUtils.imagesPath(getWebContext(), getCoreContext());
-        String imageSrc = null;
-        String imageTitle = null;
+        String imageSrc;
+        String imageTitle;
         
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             imageSrc = getCoreContext().getPreference(HtmlConstants.IMAGE_UNDO_REMOVE_WORKSHEET_ROW);
@@ -63,6 +65,7 @@ public class RemoveRowWorksheetEditor extends AbstractWorksheetEditor {
 	}
 
     protected String getOnInvokeActionJavaScript(Limit limit) {
+		
         String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
         return onInvokeAction + "('" + limit.getId() + "', '" + REMOVE_WORKSHEET_ROW_ITEM + "')";
     }

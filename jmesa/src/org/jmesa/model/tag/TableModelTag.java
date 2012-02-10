@@ -515,7 +515,7 @@ public class TableModelTag extends SimpleTagSupport {
 
         Collection<?> pi = tableFacade.getCoreContext().getPageItems();
 
-        if (pi.size() == 0) {
+        if (pi.isEmpty()) {
             body.invoke(null);
             getPageItems().clear();
         } else {

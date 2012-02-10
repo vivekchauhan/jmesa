@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.jmesa.core.CoreContext;
-
 import org.jmesa.limit.Order;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.ViewUtils;
@@ -451,7 +450,7 @@ public class HtmlColumn extends Column {
             return "";
         }
 
-        StringBuffer json = new StringBuffer();
+        StringBuilder json = new StringBuilder();
 
         boolean firstOccurance = true;
         for (WorksheetValidation validation: validations) {

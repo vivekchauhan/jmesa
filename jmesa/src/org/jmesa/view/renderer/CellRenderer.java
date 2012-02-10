@@ -24,8 +24,6 @@ import org.jmesa.view.component.Column;
 public interface CellRenderer {
 		
     public Column getColumn();
-
     public void setColumn(Column column);
-
     public Object render(Object item, int rowcount);
 }

@@ -111,6 +111,5 @@ public abstract class AbstractItem implements ToolbarItem {
     }
 
     public abstract String disabled();
-
     public abstract String enabled();
 }

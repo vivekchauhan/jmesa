@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class Items {
+    
     private Logger logger = LoggerFactory.getLogger(Items.class);
 
     private Collection<?> allItems;

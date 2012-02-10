@@ -20,9 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.RowFilter;

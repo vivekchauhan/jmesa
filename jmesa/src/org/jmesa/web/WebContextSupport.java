@@ -24,6 +24,5 @@ package org.jmesa.web;
 public interface WebContextSupport {
 		
     public WebContext getWebContext();
-
     public void setWebContext(WebContext webContext);
 }

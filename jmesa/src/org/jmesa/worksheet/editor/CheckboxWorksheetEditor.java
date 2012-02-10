@@ -27,10 +27,12 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @author Jeff Johnston
  */
 public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
+    
     public static final String CHECKED = "checked";
     public static final String UNCHECKED = "unchecked";
     
     public Object getValue(Object item, String property, int rowcount) {
+        
         Object value = null;
         
         WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
@@ -52,6 +54,7 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
      */
     @Override
     public String getValueForWorksheet(Object item, String property, int rowcount) {
+        
         Object value = super.getValueForWorksheet(item, property, rowcount);
         
     	if (value == null) {
@@ -78,6 +81,7 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
     }
     
     protected String getWsColumn(Object value, Object item) {
+        
         HtmlBuilder html = new HtmlBuilder();
         
         Limit limit = getCoreContext().getLimit();

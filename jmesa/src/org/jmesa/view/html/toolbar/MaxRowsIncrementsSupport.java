@@ -21,7 +21,6 @@ package org.jmesa.view.html.toolbar;
  */
 public interface MaxRowsIncrementsSupport {
 		
-    public int[] getMaxRowsIncrements();
-    
+    public int[] getMaxRowsIncrements();    
     public void setMaxRowsIncrements(int[] maxRowsIncrements);
 }
