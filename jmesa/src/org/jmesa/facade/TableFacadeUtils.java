@@ -57,22 +57,6 @@ public class TableFacadeUtils {
     private TableFacadeUtils() {}
     
     /**
-     * There needs to be a way to tell if the table is refreshing, as opposed to being run for the first time.
-     * 
-     * @param id The table identifier.
-     * @param webContext The web context.
-     * @return Is true if the table is being refreshed.
-     */
-    static boolean isTableRefreshing(String id, WebContext webContext) {
-        String refreshing = webContext.getParameter(id + "_" + TABLE_REFRESHING);
-        if (StringUtils.isNotEmpty(refreshing) && refreshing.equals("true")) {
-            return true;
-        }
-        
-        return false;
-    }
-    
-    /**
      * @param id The table identifier.
      * @param webContext The web context.
      * @return Is true if the user is requesting to clear all the worksheet changes.
@@ -129,7 +113,7 @@ public class TableFacadeUtils {
      * Spin through the components and inject the proper support classes. This is kind
      * of a mini IOC implementation.
      */
-    public static void initTable(TableFacade tableFacade, Table table) {
+    static void initTable(TableFacade tableFacade, Table table) {
         WebContext webContext = tableFacade.getWebContext();
         CoreContext coreContext = tableFacade.getCoreContext();
 
