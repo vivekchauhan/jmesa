@@ -16,6 +16,7 @@
 package org.jmesa.facade;
 
 import java.util.Collection;
+import javax.servlet.http.HttpServletResponse;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.View;
@@ -45,6 +46,14 @@ final class TableFacadeExceptions {
         if (table != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the Table.");
+        }
+    }
+    
+    static void validateTableIsNotNull(Table table) {
+		
+        if (table == null) {
+            throw new IllegalStateException(
+                "The Table is null. You need to set the table on the facade.");
         }
     }
 
@@ -92,6 +101,14 @@ final class TableFacadeExceptions {
 		
         if (items == null) {
             throw new IllegalStateException("The items are null. You need to set the items on the facade (or model).");
+        }
+    }
+
+    static void validateResponseIsNotNull(HttpServletResponse response) {
+		
+        if (response == null) {
+            throw new IllegalStateException("The HttpServletResponse is null. You need to call the " +
+                    "TableFacade constructor (or factory) with the response object.");
         }
     }
 }
