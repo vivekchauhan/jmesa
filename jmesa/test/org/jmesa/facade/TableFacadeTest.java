@@ -19,12 +19,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
 import java.util.Collection;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
@@ -36,14 +33,12 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
-import org.jmesa.view.ExportComponentFactory;
 import org.jmesa.view.View;
-import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
-import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.HtmlView;
+import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.HtmlToolbar;
@@ -157,13 +152,13 @@ public class TableFacadeTest extends AbstractTestCase {
         facade.setStateAttr("restore");
         Limit limit = facade.getLimit();
         assertNotNull(limit);
-        assertTrue(limit.isComplete());
+        assertTrue(limit.hasRowSelect());
 
         // Test the baking in of the State feature.
         TableFacade facadeStateLimit = new TableFacadeImpl("pres", request);
         facadeStateLimit.setStateAttr("restore");
         Limit stateLimit = facadeStateLimit.getLimit();
-        assertTrue(stateLimit.isComplete());
+        assertTrue(stateLimit.hasRowSelect());
 
         LimitFactory limitFactory = new LimitFactory(ID, facade.getWebContext());
         Limit limitToSet = limitFactory.createLimit();
@@ -187,7 +182,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
-        assertTrue("The limit is not exportable.", limit.isExported());
+        assertTrue("The limit is not exportable.", limit.hasExport());
         assertTrue("The limit maxRows is not the same as the totalRows.", limit.getRowSelect().getMaxRows() == limit.getRowSelect().getTotalRows());
     }
 
@@ -203,7 +198,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
-        assertTrue("The limit is exportable.", !limit.isExported());
+        assertTrue("The limit is exportable.", !limit.hasExport());
         assertTrue("The limit maxRows is the same as the totalRows.", limit.getRowSelect().getMaxRows() != limit.getRowSelect().getTotalRows());
     }
 
@@ -249,7 +244,7 @@ public class TableFacadeTest extends AbstractTestCase {
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertNotNull(limit.getRowSelect());
-        assertTrue("The limit is not exportable.", limit.isExported());
+        assertTrue("The limit is not exportable.", limit.hasExport());
         assertTrue("The limit maxRows is not the same as the totalRows.", limit.getRowSelect().getMaxRows() == limit.getRowSelect().getTotalRows());
     }
 
@@ -386,14 +381,12 @@ public class TableFacadeTest extends AbstractTestCase {
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
 
-        HtmlComponentFactory factory = new HtmlComponentFactory(facade.getWebContext(), facade.getCoreContext());
-
-        HtmlTable table = factory.createTable();
-        HtmlRow row = factory.createRow();
-        row.addColumn(factory.createColumn("name.firstName"));
-        row.addColumn(factory.createColumn("name.lastName"));
-        row.addColumn(factory.createColumn("term"));
-        row.addColumn(factory.createColumn("career"));
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
         table.setRow(row);
 
         facade.setTable(table);
@@ -403,47 +396,6 @@ public class TableFacadeTest extends AbstractTestCase {
         assertTrue("Did not return any markup.", html.length() > 0);
     }
 
-    @Test
-    public void renderExportsWithFactory() {
-        Collection<President> items = PresidentDao.getPresidents();
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        assertTrue("The response is not empty.", response.getContentAsByteArray().length == 0);
-
-        SpringParametersAdapter parameters = new SpringParametersAdapter(request);
-        ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExportType(ExportType.EXCEL);
-
-        TableFacade facade = TableFacadeFactory.createTableFacade("pres", request, response);
-        facade.setItems(items);
-        facade.setExportTypes(ExportType.EXCEL);
-
-        Limit limit = facade.getLimit();
-        assertTrue("The limit is not exportable", limit.isExported());
-
-        if (limit.isExported()) {
-            assertTrue("The limit is not an Excel file.", limit.getExportType() == ExportType.EXCEL);
-
-            ExportComponentFactory factory = new ExportComponentFactory(facade.getWebContext(), facade.getCoreContext());
-
-            Table table = factory.createTable();
-            Row row = factory.createRow();
-            row.addColumn(factory.createColumn("name.firstName"));
-            row.addColumn(factory.createColumn("name.lastName"));
-            row.addColumn(factory.createColumn("term"));
-            row.addColumn(factory.createColumn("career"));
-            table.setRow(row);
-
-            facade.setTable(table);
-            assertNull(facade.render()); // exports do not render anything
-
-            assertTrue("There are no contents in the export.", response.getContentAsByteArray().length > 0);
-        }
-    }
-
-    @Test
     public void renderAndExportable() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);

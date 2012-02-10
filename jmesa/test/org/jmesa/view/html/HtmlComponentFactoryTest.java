@@ -17,12 +17,9 @@ package org.jmesa.view.html;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import org.jmesa.core.CoreContext;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.web.WebContext;
 import org.junit.Test;
 
 /**
@@ -33,12 +30,8 @@ public class HtmlComponentFactoryTest extends AbstractTestCase {
 
     @Test
     public void createColumnNoProperty() {
-        WebContext webContext = createWebContext();
-        CoreContext coreContext = createCoreContext(webContext);
-        HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
 
-        TestEditor editor = new TestEditor();
-        HtmlColumn column = factory.createColumn(editor);
+        HtmlColumn column = new HtmlColumn();
         column.setTitle("checkbox");
         assertNotNull(column);
         assertTrue(column.getTitle().equals("checkbox"));

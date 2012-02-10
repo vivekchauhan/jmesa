@@ -22,7 +22,6 @@ import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeUtils;
 import org.jmesa.limit.ExportType;
 import org.jmesa.test.AbstractTestCase;
-import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -44,36 +43,32 @@ public class ClassicViewTest extends AbstractTestCase {
         tableFacade.setWebContext(webContext);
         tableFacade.setCoreContext(coreContext);
 
-        HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
-
         // create the table
-        HtmlTable table = factory.createTable();
+        HtmlTable table = new HtmlTable();
         table.setTheme("jmesa");
         table.setCaption("Presidents");
         table.getTableRenderer().setWidth("500px");
         table.getTableRenderer().setStyleClass("table");
 
         // create the row
-        HtmlRow row = factory.createRow();
+        HtmlRow row = new HtmlRow();
         row.setHighlighter(true);
         row.getRowRenderer().setHighlightClass("highlight");
         table.setRow(row);
 
         // create some reusable objects
 
-        CellEditor editor = factory.createBasicCellEditor();
-
         // create the columns
-        HtmlColumn firstNameColumn = factory.createColumn("name.firstName", editor);
+        HtmlColumn firstNameColumn = new HtmlColumn("name.firstName");
         row.addColumn(firstNameColumn);
 
-        HtmlColumn lastNameColumn = factory.createColumn("name.lastName", editor);
+        HtmlColumn lastNameColumn = new HtmlColumn("name.lastName");
         row.addColumn(lastNameColumn);
 
-        HtmlColumn termColumn = factory.createColumn("term", editor);
+        HtmlColumn termColumn = new HtmlColumn("term");
         row.addColumn(termColumn);
 
-        HtmlColumn careerColumn = factory.createColumn("career", editor);
+        HtmlColumn careerColumn = new HtmlColumn("career");
         row.addColumn(careerColumn);
 
         // create the view

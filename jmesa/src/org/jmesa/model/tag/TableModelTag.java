@@ -25,26 +25,22 @@ import static org.jmesa.model.tag.TagUtils.getTableFacadeMaxRowIncrements;
 import static org.jmesa.model.tag.TagUtils.getTableFacadeView;
 import static org.jmesa.model.tag.TagUtils.getTableFacadeState;
 import static org.jmesa.model.tag.TagUtils.getTableFacadeExportTypes;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import static javax.servlet.jsp.PageContext.REQUEST_SCOPE;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.Limit;
 import static org.jmesa.model.TableModelUtils.LIMIT_ATTR;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewUtils;
-import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.HtmlUtils;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.web.JspPageWebContext;
@@ -80,7 +76,6 @@ public class TableModelTag extends SimpleTagSupport {
     private String var;    // core attributes
     private TableFacade tableFacade;
     private HtmlTable table;
-    private HtmlComponentFactory componentFactory;
     private Collection<Map<String, Object>> pageItems = new ArrayList<Map<String, Object>>();
     private Object addedRowObject;
 
@@ -438,19 +433,6 @@ public class TableModelTag extends SimpleTagSupport {
     }
 
     /**
-     * @return Get the HtmlComponentFactory.
-     */
-    HtmlComponentFactory getComponentFactory() {
-        if (componentFactory != null) {
-            return componentFactory;
-        }
-
-        this.componentFactory = new HtmlComponentFactory(null, null);
-
-        return componentFactory;
-    }
-
-    /**
      * These are the converted items. What happens is the regular items are passed to the columns,
      * but then the columns are resolved with the EL Expression Language. A new Map is swapped out
      * for each row Bean (or Map) and then used in place of the regular items. So in effect this is
@@ -535,7 +517,6 @@ public class TableModelTag extends SimpleTagSupport {
     }
 
     protected TableFacade createTableFacade() {
-
         TableFacade facade = TableFacadeFactory.createTableFacade(getId(), getWebContext());
         facade.setMessages(getTableFacadeMessages(getMessages()));
         return facade;

@@ -50,7 +50,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createFirstPageItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.FIRST_PAGE_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FIRST_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_FIRST_PAGE_DISABLED));
@@ -65,7 +65,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createPrevPageItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.PREV_PAGE_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_PREV_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_PREV_PAGE_DISABLED));
@@ -80,7 +80,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createNextPageItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.NEXT_PAGE_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_NEXT_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_NEXT_PAGE_DISABLED));
@@ -95,7 +95,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createLastPageItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.LAST_PAGE_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_LAST_PAGE));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_LAST_PAGE_DISABLED));
@@ -110,7 +110,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createFilterItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.FILTER_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_FILTER));
         item.setImage(getImage(TOOLBAR_IMAGE_FILTER));
@@ -124,7 +124,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createClearItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.CLEAR_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR));
         item.setImage(getImage(TOOLBAR_IMAGE_CLEAR));
@@ -138,7 +138,7 @@ public class ToolbarItemFactory {
     }
 
     public MaxRowsItem createMaxRowsItem() {
-        MaxRowsItemImpl item = new MaxRowsItemImpl();
+        MaxRowsItem item = new MaxRowsItem();
         item.setCode(ToolbarItemType.MAX_ROWS_ITEM.toCode());
         item.setText(coreContext.getMessage(HtmlConstants.TOOLBAR_TEXT_MAX_ROWS_DROPLIST));
 
@@ -150,7 +150,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createExportItem(ToolbarExport export) {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.EXPORT_ITEM.toCode());
 
         item.setTooltip(getExportTooltip(export));
@@ -166,7 +166,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createSeparatorItem() {
-        ImageItemImpl item = new SeparatorItem();
+        ImageItem item = new SeparatorItem();
 
         item.setImage(getImage(TOOLBAR_IMAGE_SEPARATOR));
         item.setAlt("Separator");
@@ -175,7 +175,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createSaveWorksheetItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.SAVE_WORKSHEET_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_SAVE_WORKSHEET));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_SAVE_WORKSHEET_DISABLED));
@@ -212,7 +212,7 @@ public class ToolbarItemFactory {
     }
 
     public ImageItem createClearWorksheetItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.CLEAR_WORKSHEET_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_CLEAR_WORKSHEET));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_CLEAR_WORKSHEET_DISABLED));
@@ -227,7 +227,7 @@ public class ToolbarItemFactory {
     }
     
     public ImageItem createAddWorksheetRowItem() {
-        ImageItemImpl item = new ImageItemImpl();
+        ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM.toCode());
         item.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP_ADD_WORKSHEET_ROW));
         item.setDisabledImage(getImage(TOOLBAR_IMAGE_ADD_WORKSHEET_ROW_DISABLED));

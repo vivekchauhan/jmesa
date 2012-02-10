@@ -15,27 +15,22 @@
  */
 package org.jmesa.facade;
 
-import static org.jmesa.facade.TableFacadeExceptions.validateColumnPropertiesIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateCoreContextIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateLimitIsNull;
-import static org.jmesa.facade.TableFacadeExceptions.validateRowSelectIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateTableIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateToolbarIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateViewIsNull;
 import static org.jmesa.facade.TableFacadeUtils.filterWorksheetItems;
 import static org.jmesa.facade.TableFacadeUtils.isClearingWorksheet;
 import static org.jmesa.limit.LimitConstants.LIMIT_ROWSELECT_MAXROWS;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.filter.FilterMatcher;
@@ -54,17 +49,13 @@ import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
 import org.jmesa.util.SupportUtils;
-import org.jmesa.view.ExportTableFactory;
-import org.jmesa.view.TableFactory;
 import org.jmesa.view.View;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.csv.CsvTableFactory;
 import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.csv.CsvViewExporter;
 import org.jmesa.view.excel.ExcelView;
 import org.jmesa.view.excel.ExcelViewExporter;
 import org.jmesa.view.html.HtmlConstants;
-import org.jmesa.view.html.HtmlTableFactory;
 import org.jmesa.view.html.HtmlView;
 import org.jmesa.view.html.toolbar.HtmlToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
@@ -682,50 +673,8 @@ public class TableFacade {
      * Get the Table. If the Table does not exist then one will be created.
      */
     public Table getTable() {
-        //TODO: the follow code should be removed when the 3.0 deprecated methods are removed.
-        if (table == null) {
-            validateColumnPropertiesIsNotNull(columnProperties);
-
-            Limit l = getLimit();
-
-            if (!l.isExported()) {
-                validateRowSelectIsNotNull(l);
-
-                HtmlTableFactory tableFactory = new HtmlTableFactory();
-                this.table = tableFactory.createTable(columnProperties);
-            } else {
-                this.table = getExportTable(l.getExportType());
-            }
-        }
-
         TableFacadeUtils.initTable(this, table);
-        
         return table;
-    }
-
-    protected Table getExportTable(ExportType exportType) {
-
-        //TODO: the follow code should be removed when the 3.0 deprecated methods are removed.
-        
-        TableFactory tableFactory = null;
-
-        if (exportType == ExportType.CSV) {
-            tableFactory = new CsvTableFactory();
-        } else if (exportType == ExportType.EXCEL) {
-            tableFactory = new ExportTableFactory();
-        } else if (exportType == ExportType.JEXCEL) {
-            tableFactory = new ExportTableFactory();
-        } else if (exportType == ExportType.PDF) {
-            tableFactory = new HtmlTableFactory();
-        } else if (exportType == ExportType.PDFP) {
-            tableFactory = new ExportTableFactory();
-        }
-
-        if (tableFactory != null) {
-            return tableFactory.createTable(columnProperties);
-        }
-
-        throw new IllegalStateException("Not able to handle the export of type: " + exportType);
     }
 
     /**
@@ -789,7 +738,7 @@ public class TableFacade {
 
         Limit l = getLimit();
 
-        if (!l.isExported()) {
+        if (!l.hasExport()) {
             setView(new HtmlView());
         } else {
             this.view = getExportView(l.getExportType());
@@ -845,7 +794,7 @@ public class TableFacade {
         Limit l = getLimit();
         View v = getView();
 
-        if (!l.isExported()) {
+        if (!l.hasExport()) {
             return v.render().toString();
         }
 

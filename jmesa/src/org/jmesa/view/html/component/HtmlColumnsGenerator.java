@@ -17,8 +17,6 @@ package org.jmesa.view.html.component;
 
 import java.util.List;
 
-import org.jmesa.view.html.HtmlComponentFactory;
-
 /**
  * Used to generate columns on the fly.
  * 
@@ -26,5 +24,5 @@ import org.jmesa.view.html.HtmlComponentFactory;
  * @author Jeff Johnston
  */
 public interface HtmlColumnsGenerator {
-    public List<HtmlColumn> getColumns(HtmlComponentFactory componentFactory);
+    public List<HtmlColumn> getColumns();
 }

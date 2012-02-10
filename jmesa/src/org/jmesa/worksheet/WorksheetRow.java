@@ -156,15 +156,6 @@ public class WorksheetRow implements Serializable {
     }
 
     /**
-     * @return Is true if any of the row columns contain errors.
-     * @deprecated Use the hasColumnErrors() method now.
-     */
-    @Deprecated
-    public boolean hasErrors() {
-        return hasColumnErrors();
-    }
-
-    /**
      * See if any of the columns contain errors. If you only want to
      * see if there are errors on the row itself call the Row.hasError()
      * method.
