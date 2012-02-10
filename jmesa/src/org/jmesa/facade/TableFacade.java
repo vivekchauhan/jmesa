@@ -117,7 +117,6 @@ public class TableFacade {
     private String id;
     private int maxRows;
     private Collection<?> items;
-    private String[] columnProperties;
     private ExportType[] exportTypes;
     private WebContext webContext;
     private CoreContext coreContext;
@@ -168,20 +167,6 @@ public class TableFacade {
 
     public String getId() {
         return id;
-    }
-
-    /**
-     * Set the comma separated list of export types. The currently supported types are
-     * ExportType.CVS, ExportType.EXCEL, ExportType.JEXCEL, and ExportType.PDF.
-     *
-     * @deprecated Use the setExportTypes() method that does not explicitly set the response.
-     */
-    @Deprecated
-    public void setExportTypes(HttpServletResponse response, ExportType... exportTypes) {
-        validateToolbarIsNull(toolbar, "exportTypes");
-
-        this.response = response;
-        this.exportTypes = exportTypes;
     }
 
     /**
@@ -467,7 +452,6 @@ public class TableFacade {
      * @param autoFilterAndSort True if should sort and filter the Collection of Beans (or Maps) automatically.
      */
     public void autoFilterAndSort(boolean autoFilterAndSort) {
-
         validateCoreContextIsNull(coreContext, "autoFilterAndSort");
 
         this.autoFilterAndSort = autoFilterAndSort;
@@ -615,20 +599,6 @@ public class TableFacade {
         validateCoreContextIsNull(coreContext, "maxRows");
 
         this.maxRows = maxRows;
-    }
-
-    /**
-     * Set the column properties used for the table.
-     *
-     * @param columnProperties The columns to be pulled from the items.
-     *
-     * @deprecated Use the new TableModel for building tables.
-     */
-    @Deprecated
-    public void setColumnProperties(String... columnProperties) {
-        validateTableIsNull(table, "columnProperties");
-
-        this.columnProperties = columnProperties;
     }
 
     /**

@@ -67,14 +67,6 @@ final class TableFacadeExceptions {
         }
     }
 
-    @Deprecated
-    static void validateColumnPropertiesIsNotNull(String[] columnProperties) {
-        if (columnProperties == null || columnProperties.length == 0) {
-            throw new IllegalStateException(
-                "The table is null. You need to set the table on the facade (or model).");
-        }
-    }
-
     static void validateRowSelectIsNotNull(Limit limit) {
         if (limit.getRowSelect() == null) {
             throw new IllegalStateException(

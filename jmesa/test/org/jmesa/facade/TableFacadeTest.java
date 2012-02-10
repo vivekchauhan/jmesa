@@ -34,7 +34,6 @@ import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
 import org.jmesa.view.View;
-import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.html.HtmlSnippets;
 import org.jmesa.view.html.HtmlView;
@@ -63,7 +62,16 @@ public class TableFacadeTest extends AbstractTestCase {
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+
         String html = facade.render();
         assertNotNull(html);
         assertTrue("There is no html rendered", html.length() > 0);
@@ -75,7 +83,15 @@ public class TableFacadeTest extends AbstractTestCase {
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         WebContext webContext = facade.getWebContext();
         assertNotNull(webContext);
@@ -90,7 +106,15 @@ public class TableFacadeTest extends AbstractTestCase {
     public void getCoreContextWithItemsNotSet() {
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         try {
             facade.getCoreContext();
@@ -106,13 +130,22 @@ public class TableFacadeTest extends AbstractTestCase {
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
-
+        
         CoreContext coreContext = facade.getCoreContext();
         assertNotNull(coreContext);
 
         CoreContext coreContextToSet = createCoreContext(facade.getWebContext());
         facade.setCoreContext(coreContextToSet); // The WebContext set should
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+        
         // now be the one used.
         assertTrue("The core context is not the same.", coreContextToSet == facade.getCoreContext());
     }
@@ -128,8 +161,17 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        row.addColumn(new HtmlColumn("born"));
+        table.setRow(row);
+        facade.setTable(table);
+        
         MatcherKey key = new MatcherKey(Date.class);
         DateFilterMatcher matcher = new DateFilterMatcher("yyyy/MM", facade.getWebContext());
         facade.addFilterMatcher(key, matcher);
@@ -148,14 +190,23 @@ public class TableFacadeTest extends AbstractTestCase {
         request.addParameter("restore", "true");
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+
         facade.setStateAttr("restore");
         Limit limit = facade.getLimit();
         assertNotNull(limit);
         assertTrue(limit.hasRowSelect());
 
         // Test the baking in of the State feature.
-        TableFacade facadeStateLimit = new TableFacadeImpl("pres", request);
+        TableFacade facadeStateLimit = new TableFacade("pres", request);
         facadeStateLimit.setStateAttr("restore");
         Limit stateLimit = facadeStateLimit.getLimit();
         assertTrue(stateLimit.hasRowSelect());
@@ -177,7 +228,15 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         Limit limit = facade.getLimit();
         assertNotNull(limit);
@@ -193,7 +252,15 @@ public class TableFacadeTest extends AbstractTestCase {
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         Limit limit = facade.getLimit();
         assertNotNull(limit);
@@ -209,7 +276,16 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+
         facade.setStateAttr("restore");
 
         Limit limit = facade.getLimit();
@@ -218,7 +294,6 @@ public class TableFacadeTest extends AbstractTestCase {
         assertNotNull(request.getSession().getAttribute("pres_LIMIT"));
 
         TableFacade facadeWithState = TableFacadeFactory.createTableFacade("pres", request);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
         
         facadeWithState.setStateAttr("restore");
         request.addParameter("restore", "true");
@@ -238,7 +313,16 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+
         facade.setTotalRows(items.size());
 
         Limit limit = facade.getLimit();
@@ -252,7 +336,15 @@ public class TableFacadeTest extends AbstractTestCase {
     public void getTableAndNoRowSelect() {
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         try {
             facade.getTable();
@@ -269,8 +361,16 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
-        Table table = facade.getTable();
+
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+
         assertNotNull(table);
     }
 
@@ -285,9 +385,17 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
-        Table table = facade.getTable();
-        assertNotNull(table);
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+        
+        assertNotNull(facade.getTable());
     }
 
     @Test
@@ -297,7 +405,15 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         Toolbar toolbar = facade.getToolbar();
         assertNotNull(toolbar);
@@ -317,7 +433,16 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+
         facade.setMaxRowsIncrements(15, 25, 50, 75);
 
         Toolbar toolbar = facade.getToolbar();
@@ -331,7 +456,15 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         View view = facade.getView();
         assertNotNull(view);
@@ -353,7 +486,16 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
+
         View view = facade.getView();
         assertNotNull(view);
         assertTrue(view instanceof CsvView);
@@ -366,7 +508,15 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         String html = facade.render();
         assertNotNull(html);
@@ -409,7 +559,15 @@ public class TableFacadeTest extends AbstractTestCase {
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request, response);
         facade.setItems(items);
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
+        
+        HtmlTable table = new HtmlTable();
+        HtmlRow row = new HtmlRow();
+        row.addColumn(new HtmlColumn("name.firstName"));
+        row.addColumn(new HtmlColumn("name.lastName"));
+        row.addColumn(new HtmlColumn("term"));
+        row.addColumn(new HtmlColumn("career"));
+        table.setRow(row);
+        facade.setTable(table);
 
         facade.setExportTypes(ExportType.CSV, ExportType.EXCEL);
 
@@ -421,7 +579,7 @@ public class TableFacadeTest extends AbstractTestCase {
     @Test
     public void getMaxRows() {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        TableFacadeImpl facade = new TableFacadeImpl(ID, request);
+        TableFacade facade = new TableFacade(ID, request);
 
         int maxRows = facade.getMaxRows();
         
