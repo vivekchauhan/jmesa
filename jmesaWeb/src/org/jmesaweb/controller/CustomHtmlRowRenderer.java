@@ -17,12 +17,12 @@ package org.jmesaweb.controller;
 
 import org.jmesa.util.ItemUtils;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.renderer.HtmlRowRendererImpl;
+import org.jmesa.view.html.renderer.HtmlRowRenderer;
 
 /**
  * @author Jeff Johnston
  */
-public class CustomHtmlRowRenderer extends HtmlRowRendererImpl {
+public class CustomHtmlRowRenderer extends HtmlRowRenderer {
 
     @Override
     public Object render(Object item, int rowcount) {
@@ -35,7 +35,7 @@ public class CustomHtmlRowRenderer extends HtmlRowRendererImpl {
         if (valueStr.contains("soldier")) {
             html.style("background-color:#c0dba7");
         } else {
-            html.style(getStyle());
+            html.style(getRow().getStyle());
         }
 
         html.styleClass(getStyleClass(rowcount));

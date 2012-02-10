@@ -1,16 +1,28 @@
+/*
+ * Copyright 2004 original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jmesaweb.portlet;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeFactory;
 import org.jmesa.limit.ExportType;
@@ -28,31 +40,33 @@ public class PortletTable {
         id = response.getNamespace() + "testTable";
         facade = TableFacadeFactory.createPortletTableFacade(id, request);
         facade.setItems(items);
-        init(null);
+        init();
     }
     
     public PortletTable(HttpServletRequest request, HttpServletResponse response, Collection items) {
         id = request.getParameter("id");
-        facade = TableFacadeFactory.createTableFacade(id, request);
+        facade = TableFacadeFactory.createTableFacade(id, request, response);
         facade.setItems(items);
-        init(response);
+        init();
     }
     
-    private void init(HttpServletResponse response) {
-        
-        facade.setColumnProperties("name.firstName", "name.lastName", "term", "career");
-        facade.setExportTypes(response, ExportType.CSV, ExportType.PDFP, ExportType.EXCEL);
-        
-        Table table = facade.getTable();
+    private void init() {        
+        Table table = new Table();
         table.setCaption("Presidents");
         
-        Row row = table.getRow();
+        Row row = new Row();
+        table.setRow(row);
         
         Column firstName = row.getColumn("name.firstName");
         firstName.setTitle("First Name");
+        row.addColumn(firstName);
 
         Column lastName = row.getColumn("name.lastName");
         lastName.setTitle("Last Name");
+        row.addColumn(lastName);
+        
+        facade.setTable(table);
+        facade.setExportTypes(ExportType.CSV, ExportType.PDFP, ExportType.EXCEL);
     }
     
     // This is very important if you're not using AJAX

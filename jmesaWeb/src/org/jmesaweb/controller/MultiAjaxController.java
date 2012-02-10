@@ -91,29 +91,31 @@ public class MultiAjaxController extends MultiActionController {
 
         tableFacade.addFilterMatcher(new MatcherKey(Date.class, "born"), new DateFilterMatcher("MM/yyyy"));
 
-        // set the column properties
-        tableFacade.setColumnProperties("name.firstName", "name.lastName", "term", "career", "born");
-
-        HtmlTable table = (HtmlTable) tableFacade.getTable();
+        HtmlTable table = new HtmlTable();
         table.setCaption("Presidents");
-        table.getTableRenderer().setWidth("600px");
+        table.setWidth("600px");
 
         HtmlRow row = table.getRow();
+        table.setRow(row);
 
-        HtmlColumn firstName = row.getColumn("name.firstName");
+        HtmlColumn firstName = new HtmlColumn("name.firstName");
         firstName.setTitle("First Name");
+        row.addColumn(firstName);
 
-        HtmlColumn lastName = row.getColumn("name.lastName");
+        HtmlColumn lastName = new HtmlColumn("name.lastName");
         lastName.setTitle("Last Name");
+        row.addColumn(lastName);
 
-        HtmlColumn career = row.getColumn("career");
-        career.getFilterRenderer().setFilterEditor(new DroplistFilterEditor());
+        HtmlColumn term = new HtmlColumn("term");
+        row.addColumn(firstName);
 
-        Column born = row.getColumn("born");
-        born.getCellRenderer().setCellEditor(new DateCellEditor("MM/yyyy"));
+        HtmlColumn career = new HtmlColumn("career");
+        career.setFilterEditor(new DroplistFilterEditor());
+        row.addColumn(career);
 
-        // Using an anonymous class to implement a custom editor.
-        firstName.getCellRenderer().setCellEditor(new CellEditor() {
+        Column born = new HtmlColumn("born");
+        born.setCellEditor(new DateCellEditor("MM/yyyy"));
+        firstName.setCellEditor(new CellEditor() {
 
             public Object getValue(Object item, String property, int rowcount) {
                 Object value = new BasicCellEditor().getValue(item, property, rowcount);
@@ -124,6 +126,9 @@ public class MultiAjaxController extends MultiActionController {
                 return html.toString();
             }
         });
+        row.addColumn(born);
+        
+        tableFacade.setTable(table);
 
         return tableFacade.render(); // Return the Html.
     }
