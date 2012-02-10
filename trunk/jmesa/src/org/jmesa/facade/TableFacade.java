@@ -20,7 +20,9 @@ import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateLimitIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateTableIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateTableIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateToolbarIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateResponseIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateViewIsNull;
 import static org.jmesa.facade.TableFacadeUtils.filterWorksheetItems;
 import static org.jmesa.facade.TableFacadeUtils.isClearingWorksheet;
@@ -113,9 +115,9 @@ public class TableFacade {
 		
     private Logger logger = LoggerFactory.getLogger(TableFacade.class);
 
+    private final String id;
     private HttpServletRequest request;
     private HttpServletResponse response;
-    private String id;
     private int maxRows;
     private Collection<?> items;
     private ExportType[] exportTypes;
@@ -275,7 +277,7 @@ public class TableFacade {
     /**
      * Get the WorksheetState.
      */
-    private WorksheetState getWorksheetState() {
+    protected WorksheetState getWorksheetState() {
 		
     	if (worksheetState == null) {
     		return new SessionWorksheetState(id, getWebContext());
@@ -421,7 +423,7 @@ public class TableFacade {
         return rowSelect;
     }
 
-    public State getState() {
+    protected State getState() {
 		
         if (state != null) {
             return state;
@@ -481,7 +483,7 @@ public class TableFacade {
     /**
      * Get the Messages. If the Messages does not exist then one will be created.
      */
-    public Messages getMessages() {
+    protected Messages getMessages() {
 		
         if (messages != null) {
             return messages;
@@ -505,7 +507,7 @@ public class TableFacade {
     /**
      * Get the Preferences. If the Preferences does not exist then one will be created.
      */
-    public Preferences getPreferences() {
+    protected Preferences getPreferences() {
 		
         if (preferences != null) {
             return preferences;
@@ -611,7 +613,7 @@ public class TableFacade {
         }
     }
 
-    public int getMaxRows() {
+    protected int getMaxRows() {
 		
         if (maxRows == 0) {
             Preferences pref = getPreferences();
@@ -676,9 +678,10 @@ public class TableFacade {
     /**
      * Get the Table. If the Table does not exist then one will be created.
      */
-    public Table getTable() {
+    protected Table getTable() {
 		
-        TableFacadeUtils.initTable(this, table);
+        validateTableIsNotNull(table);
+        
         return table;
     }
 
@@ -688,14 +691,15 @@ public class TableFacade {
     public void setTable(Table table) {
 		
         validateViewIsNull(view, "Table");
-
+        
+        TableFacadeUtils.initTable(this, table);
         this.table = table;
     }
 
     /**
      * Get the Toolbar. If the Toolbar does not exist then one will be created.
      */
-    public Toolbar getToolbar() {
+    protected Toolbar getToolbar() {
 		
         if (toolbar != null) {
             return toolbar;
@@ -819,11 +823,7 @@ public class TableFacade {
 
     protected void renderExport(ExportType exportType, View view) {
 		
-        if (response == null) {
-                throw new IllegalStateException(
-                    "The HttpServletResponse is null. You need to call the " +
-                    "TableFacadeImpl constructor (or factory) with the response object.");
-        }
+        validateResponseIsNotNull(response);
 
         try {
             CoreContext cc = getCoreContext();
