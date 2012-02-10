@@ -19,16 +19,13 @@ import static org.jmesa.model.tag.TagUtils.getRowRowRenderer;
 import static org.jmesa.model.tag.TagUtils.getRowOnclick;
 import static org.jmesa.model.tag.TagUtils.getRowOnmouseover;
 import static org.jmesa.model.tag.TagUtils.getRowOnmouseout;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-
 import org.jmesa.util.ItemUtils;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -284,6 +281,7 @@ public class HtmlRowTag extends SimpleTagSupport {
      * @return The current page item.
      */
     Map<String, Object> getPageItem() {
+        
         return pageItem;
     }
 

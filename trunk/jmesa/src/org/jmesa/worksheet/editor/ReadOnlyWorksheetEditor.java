@@ -15,8 +15,6 @@
  */
  package org.jmesa.worksheet.editor;
 
-import org.jmesa.worksheet.editor.AbstractWorksheetEditor;
-
 /**
  * @since 4.0
  * @author Jeff Johnston

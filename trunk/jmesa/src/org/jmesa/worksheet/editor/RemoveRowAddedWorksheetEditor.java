@@ -20,11 +20,13 @@ package org.jmesa.worksheet.editor;
  * @author Siddhant Agrawal
  */
 public class RemoveRowAddedWorksheetEditor extends RemoveRowWorksheetEditor {
+		
     /**
      * Display the icon as the column will be present only in added rows.
      */
     @Override
     public Object getValue(Object item, String property, int rowcount) {
+		
         if (getWorksheetColumn(item, property) == null) {
             return "";
         }

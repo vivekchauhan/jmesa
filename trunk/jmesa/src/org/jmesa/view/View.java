@@ -24,8 +24,6 @@ import org.jmesa.view.component.Table;
 public interface View {
 		
     public Table getTable();
-
     public void setTable(Table table);
-
     public Object render();
 }

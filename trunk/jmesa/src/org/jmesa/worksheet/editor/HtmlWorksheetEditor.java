@@ -48,6 +48,7 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
     }
 
     protected String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item) {
+		
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             if (value == null) {
                 return "";

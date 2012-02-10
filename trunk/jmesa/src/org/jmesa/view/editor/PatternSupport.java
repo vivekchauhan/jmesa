@@ -23,7 +23,6 @@ package org.jmesa.view.editor;
  */
 public interface PatternSupport {
 		
-    public String getPattern();
-    
+    public String getPattern();    
     public void setPattern(String pattern);
 }

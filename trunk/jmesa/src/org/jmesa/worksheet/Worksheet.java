@@ -343,7 +343,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
                 }
             }
 
-            if (worksheetRow.getColumns().size() == 0) {
+            if (worksheetRow.getColumns().isEmpty()) {
                 iterator.remove();
             }
         }

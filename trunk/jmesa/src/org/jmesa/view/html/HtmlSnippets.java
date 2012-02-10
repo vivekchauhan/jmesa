@@ -16,7 +16,6 @@
 package org.jmesa.view.html;
 
 import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Filter;
@@ -33,7 +32,6 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.worksheet.Worksheet;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;

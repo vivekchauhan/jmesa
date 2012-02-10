@@ -30,6 +30,7 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
     private boolean isFirstLabelEmpty = true;
 
     public DroplistWorksheetEditor(Set<String> options) {
+		
         this.options = options;
         if (options == null) {
         	throw new RuntimeException("List of options can not be null for DroplistWorksheetEditor");
@@ -37,11 +38,13 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
     }
 
     public DroplistWorksheetEditor(Set<String> options, boolean isFirstLabelEmpty) {
+		
     	this(options);
     	this.isFirstLabelEmpty = isFirstLabelEmpty;
     }
     
     public Object getValue(Object item, String property, int rowcount) {
+		
         Object value = null;
         WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
         if (worksheetColumn != null) {
@@ -54,6 +57,7 @@ public class DroplistWorksheetEditor extends AbstractWorksheetEditor {
     }
 
     private String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item) {
+		
         HtmlBuilder html = new HtmlBuilder();
         Limit limit = getCoreContext().getLimit();
         String firstLabel = null;

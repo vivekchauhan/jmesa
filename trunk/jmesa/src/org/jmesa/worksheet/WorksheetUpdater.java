@@ -161,7 +161,7 @@ public class WorksheetUpdater {
             if (!row.getRowStatus().equals(WorksheetRowStatus.ADD)) {
                 row.removeColumn(column);
 
-                if (row.getColumns().size() == 0) {
+                if (row.getColumns().isEmpty()) {
                     worksheet.removeRow(row);
                 }
             }

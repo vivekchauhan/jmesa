@@ -45,6 +45,7 @@ public class JExcelViewExporter extends AbstractViewExporter {
 
     public void export()
             throws Exception {
+        
         HttpServletResponse response = getResponse();
         JExcelView view = (JExcelView) getView();
         view.setOutputStream(response.getOutputStream());

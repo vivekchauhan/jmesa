@@ -40,6 +40,7 @@ public class CsvViewExporter extends AbstractViewExporter {
 
     public void export()
             throws Exception {
+        
         responseHeaders(getResponse());
         String viewData = (String) getView().render();
         byte[] contents = (viewData).getBytes();

@@ -34,7 +34,7 @@ public class WorksheetUtils {
      */
     public static String getUniquePropertyName(Worksheet worksheet) {
 		
-        if (worksheet.getRows() == null || worksheet.getRows().size() == 0) {
+        if (worksheet.getRows() == null || worksheet.getRows().isEmpty()) {
             return null;
         }
         

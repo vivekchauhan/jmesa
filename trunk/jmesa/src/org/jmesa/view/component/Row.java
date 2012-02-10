@@ -17,7 +17,6 @@ package org.jmesa.view.component;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jmesa.util.ItemUtils;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.renderer.RowRenderer;

@@ -89,6 +89,5 @@ public abstract class AbstractViewExporter implements ViewExporter, CoreContextS
     }
 
     public abstract String getContextType();
-
     public abstract String getExtensionName();
 }

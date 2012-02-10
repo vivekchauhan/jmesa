@@ -43,6 +43,7 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class CoreContextFactory {
+    
     private WebContext webContext;
     private FilterMatcherRegistry registry;
     private RowFilter rowFilter;

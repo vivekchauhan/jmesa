@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 public class StringFilterMatcher implements FilterMatcher {
 		
     public boolean evaluate(Object itemValue, String filterValue) {
+        
         String item = StringUtils.lowerCase(String.valueOf(itemValue));
         String filter = StringUtils.lowerCase(String.valueOf(filterValue));
         if (StringUtils.contains(item, filter)) {

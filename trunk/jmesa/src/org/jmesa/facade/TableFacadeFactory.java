@@ -17,7 +17,6 @@ package org.jmesa.facade;
 
 import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
-
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.message.SpringMessages;

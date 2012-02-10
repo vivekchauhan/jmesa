@@ -22,12 +22,8 @@ package org.jmesa.view.html.toolbar;
 public interface ToolbarItemRenderer {
 		
     public String getOnInvokeAction();
-
     public void setOnInvokeAction(String onInvokeAction);
-
     public ToolbarItem getToolbarItem();
-
     public void setToolbarItem(ToolbarItem toolbarItem);
-
     public String render();
 }

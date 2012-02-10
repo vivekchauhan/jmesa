@@ -135,7 +135,6 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
      */
     protected Collection<Option> getOptions() {
 		
-
         List<Option> opts;
 
         if (this.options == null) {
