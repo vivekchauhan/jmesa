@@ -63,7 +63,7 @@ public abstract class AbstractHtmlView extends AbstractContextSupport implements
      */
     public HtmlSnippets getHtmlSnippets() {
         if (snippets == null) {
-            this.snippets = new HtmlSnippetsImpl(getTable(), getToolbar(), getCoreContext());
+            this.snippets = new HtmlSnippets(getTable(), getToolbar(), getCoreContext());
         }
         SupportUtils.setWebContext(this.snippets, getWebContext());
         return snippets;

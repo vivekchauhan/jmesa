@@ -16,7 +16,6 @@
 package org.jmesa.view.renderer;
 
 import org.jmesa.view.component.Column;
-import org.jmesa.view.editor.CellEditor;
 
 /**
  * @since 2.0
@@ -26,18 +25,6 @@ public interface CellRenderer {
     public Column getColumn();
 
     public void setColumn(Column column);
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public CellEditor getCellEditor();
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public void setCellEditor(CellEditor editor);
 
     public Object render(Object item, int rowcount);
 }

@@ -103,7 +103,7 @@ public class PdfPView extends AbstractExportView {
                 Column column = iter.next();
 
                 String property = column.getProperty();
-                Object value = column.getCellRenderer().getCellEditor().getValue(item, property, rowcount);
+                Object value = column.getCellEditor().getValue(item, property, rowcount);
                 PdfPCell cell = new PdfPCell(new Paragraph(value == null ? "" : String.valueOf(value), getCellFont()));
                 cell.setPadding(3.0f);
 

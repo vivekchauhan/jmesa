@@ -44,102 +44,6 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
         return (HtmlRow) super.getRow();
     }
 
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getStyle() {
-        return getRow().getStyle();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setStyle(String style) {
-        getRow().setStyle(style);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getStyleClass() {
-        return getRow().getStyleClass();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getEvenClass() {
-        return getRow().getEvenClass();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setEvenClass(String evenClass) {
-        getRow().setEvenClass(evenClass);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getOddClass() {
-        return getRow().getOddClass();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setOddClass(String oddClass) {
-        getRow().setOddClass(oddClass);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setStyleClass(String styleClass) {
-        getRow().setStyleClass(styleClass);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getHighlightClass() {
-        return getRow().getHighlightClass();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setHighlightClass(String highlightClass) {
-        getRow().setHighlightClass(highlightClass);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getHighlightStyle() {
-        return getRow().getHighlightStyle();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setHighlightStyle(String highlightStyle) {
-        getRow().setHighlightStyle(highlightStyle);
-    }
-
     protected String getStyleClass(int rowcount) {
         HtmlRow row = getRow();
         String styleClass = row.getStyleClass();
@@ -192,7 +96,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
         if (onmouseover != null) {
             if (onmouseover instanceof MouseRowEvent) {
                 MouseRowEvent onmouseoverRowEvent = (MouseRowEvent) onmouseover;
-                onmouseoverRowEvent.setStyleClass(getHighlightClass());
+                onmouseoverRowEvent.setStyleClass(getRow().getHighlightClass());
             }
 
             html.onmouseover(onmouseover.execute(item, rowcount));
@@ -218,7 +122,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
         Worksheet worksheet = getCoreContext().getWorksheet();
         HtmlRow row = getRow();
         html.id(getCoreContext().getLimit().getId() + "_row" + rowcount);
-        html.style(getStyle());
+        html.style(getRow().getStyle());
         html.styleClass(getStyleClass(item, rowcount));
 
         html.append(getRowEvents(item, rowcount));

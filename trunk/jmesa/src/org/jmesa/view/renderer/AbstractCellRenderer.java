@@ -18,7 +18,6 @@ package org.jmesa.view.renderer;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.ColumnSupport;
-import org.jmesa.view.editor.CellEditor;
 
 /**
  * @since 2.0
@@ -33,21 +32,5 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
 
     public void setColumn(Column column) {
         this.column = column;
-    }
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public CellEditor getCellEditor() {
-        return getColumn().getCellEditor();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public void setCellEditor(CellEditor cellEditor) {
-        getColumn().setCellEditor(cellEditor);
     }
 }

@@ -22,7 +22,6 @@ import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.web.WebContext;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -48,11 +47,8 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         row.setUniqueProperty("id");
         row.addColumn(column); // add column for back reference
 
-        // get the renderer to work with
-        CellRenderer cellRenderer = column.getCellRenderer();
-
         Object item = coreContext.getAllItems().iterator().next();
-        Object value = cellRenderer.getCellEditor().getValue(item, column.getProperty(), 1);
+        Object value = column.getCellEditor().getValue(item, column.getProperty(), 1);
 
         assertNotNull(value);
     }

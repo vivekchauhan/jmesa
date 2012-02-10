@@ -34,20 +34,4 @@ public abstract class AbstractFilterRenderer extends AbstractContextSupport impl
     public void setColumn(Column column) {
         this.column = column;
     }
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public FilterEditor getFilterEditor() {
-        return getColumn().getFilterEditor();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the Column.
-     */
-    @Deprecated
-    public void setFilterEditor(FilterEditor filterEditor) {
-        getColumn().setFilterEditor(filterEditor);
-    }
 }

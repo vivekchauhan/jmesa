@@ -25,11 +25,9 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.view.html.HtmlSnippets;
-import org.jmesa.view.html.HtmlSnippetsImpl;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.renderer.HtmlCellRenderer;
 
 /**
  * Use the Flying Saucer API to generate Pdf documents.
@@ -82,7 +80,7 @@ public class PdfView extends AbstractExportView {
 
         html.body().close();
 
-        HtmlSnippets snippets = new HtmlSnippetsImpl((HtmlTable)getTable(), null, getCoreContext());
+        HtmlSnippets snippets = new HtmlSnippets((HtmlTable)getTable(), null, getCoreContext());
         SupportUtils.setWebContext(snippets, getWebContext());
 
         html.append(snippets.themeStart());
@@ -127,13 +125,12 @@ public class PdfView extends AbstractExportView {
         List<Column> columns = row.getColumns();
         for (Iterator<Column> iter = columns.iterator(); iter.hasNext();) {
             HtmlColumn column = (HtmlColumn) iter.next();
-            HtmlCellRenderer cellRenderer = column.getCellRenderer();
-            CellEditor cellEditor = cellRenderer.getCellEditor();
+            CellEditor cellEditor = column.getCellEditor();
 
             // decorate the cell editors
             EscapeXmlCellEditor escapeXmlCellEditor = new EscapeXmlCellEditor();
             escapeXmlCellEditor.setCellEditor(cellEditor);
-            cellRenderer.setCellEditor(escapeXmlCellEditor);
+            column.setCellEditor(escapeXmlCellEditor);
         }
     }
 

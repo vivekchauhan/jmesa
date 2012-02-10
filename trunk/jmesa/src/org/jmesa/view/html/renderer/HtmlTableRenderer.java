@@ -32,111 +32,18 @@ public class HtmlTableRenderer extends AbstractTableRenderer {
         return (HtmlTable) super.getTable();
     }
 
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getStyle() {
-        return getTable().getStyle();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setStyle(String style) {
-        getTable().setStyle(style);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getStyleClass() {
-        return getTable().getStyleClass();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setStyleClass(String styleClass) {
-        getTable().setStyleClass(styleClass);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getBorder() {
-        return getTable().getBorder();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setBorder(String border) {
-        getTable().setBorder(border);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getCellpadding() {
-        return getTable().getCellpadding();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setCellpadding(String cellpadding) {
-        getTable().setCellpadding(cellpadding);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getCellspacing() {
-        return getTable().getCellspacing();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setCellspacing(String cellspacing) {
-        getTable().setCellspacing(cellspacing);
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public String getWidth() {
-        return getTable().getWidth();
-    }
-
-    /**
-     * @deprecated Should get/set the value on the HtmlTable.
-     */
-    @Deprecated
-    public void setWidth(String width) {
-        getTable().setWidth(width);
-    }
-
     public Object render() {
         HtmlBuilder html = new HtmlBuilder();
+        
+        HtmlTable table = getTable();
+        
         html.table(0);
         String id = getCoreContext().getLimit().getId();
         html.id(id);
-        html.border(getBorder()).cellpadding(getCellpadding()).cellspacing(getCellspacing());
-        html.style(getStyle());
-        html.styleClass(getStyleClass());
-        html.width(getWidth());
+        html.border(table.getBorder()).cellpadding(table.getCellpadding()).cellspacing(table.getCellspacing());
+        html.style(table.getStyle());
+        html.styleClass(table.getStyleClass());
+        html.width(table.getWidth());
         html.close();
 
         if (StringUtils.isNotBlank(getTable().getCaption())) {
