@@ -18,15 +18,9 @@ package org.jmesa.facade;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Limit;
-import org.jmesa.limit.state.SessionState;
-import org.jmesa.limit.state.State;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
@@ -41,7 +35,6 @@ import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 import org.jmesa.view.renderer.RowRenderer;
 import org.jmesa.view.renderer.TableRenderer;
-import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
 import org.jmesa.worksheet.WorksheetRow;
@@ -130,26 +123,6 @@ public class TableFacadeUtils {
         }
 
         return results;
-    }
-
-    /**
-     * Retrieve the Limit from the State implemenation.
-     * 
-     * @param id The table identifier.
-     * @param stateAttr The attribute used to retrieve the Limit.
-     * @param request The servlet request.
-     * @return The Limit stored by the State implementation.
-     * 
-     * @deprecated This method is not used in the core api and will be removed.
-     */
-    @Deprecated
-    public static Limit retrieveLimit(String id, String stateAttr, HttpServletRequest request) {
-        WebContext webContext = new HttpServletRequestWebContext(request);
-        State state = new SessionState();
-        SupportUtils.setId(state, id);
-        SupportUtils.setStateAttr(state, stateAttr);
-        SupportUtils.setWebContext(state, webContext);
-        return state.retrieveLimit();
     }
 
     /**
