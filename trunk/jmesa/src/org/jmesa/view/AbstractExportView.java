@@ -32,12 +32,4 @@ public abstract class AbstractExportView extends AbstractContextSupport implemen
     public void setTable(Table table) {
         this.table = table;
     }
-
-    /**
-     * @deprecated This method has not turned out to be very useful and will be returned in a future release.
-     */
-    @Deprecated
-    public byte[] getBytes() {
-        throw new UnsupportedOperationException("By default this does nothing.");
-    }
 }

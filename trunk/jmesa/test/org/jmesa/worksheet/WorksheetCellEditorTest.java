@@ -20,7 +20,6 @@ import static org.junit.Assert.assertNotNull;
 import org.jmesa.core.CoreContext;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.component.Row;
-import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.renderer.CellRenderer;
@@ -40,8 +39,7 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
         CoreContext coreContext = createCoreContext(webContext);
 
         // get the column
-        HtmlComponentFactory factory = new HtmlComponentFactory(webContext, coreContext);
-        HtmlColumn column = factory.createColumn("name.firstName");
+        HtmlColumn column = new HtmlColumn("name.firstName");
 
         column.setCoreContext(coreContext);
 

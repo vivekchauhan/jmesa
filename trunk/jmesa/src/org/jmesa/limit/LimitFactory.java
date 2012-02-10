@@ -15,10 +15,7 @@
  */
 package org.jmesa.limit;
 
-import org.apache.commons.lang.StringUtils;
-import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
-import org.jmesa.util.SupportUtils;
 import org.jmesa.web.WebContext;
 
 /**
@@ -87,8 +84,6 @@ import org.jmesa.web.WebContext;
  */
 public class LimitFactory {
     private final LimitActionFactory limitActionFactory;
-    private final String id;
-    private final WebContext webContext;
     private State state;
 
     /**
@@ -96,32 +91,11 @@ public class LimitFactory {
      * @param webContext The adapter for the servlet request.
      */
     public LimitFactory(String id, WebContext webContext) {
-        this.id = id;
-        this.webContext = webContext;
         this.limitActionFactory = new LimitActionFactory(id, webContext.getParameterMap());
     }
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    /**
-     * Utilize the State interface to persist the Limit in the users HttpSession. Will persist the
-     * Limit by the id.
-     *
-     * @param stateAttr The parameter that will be searched to see if the state should be used.
-     * 
-     * @deprecated The State should be set directly on the Limit. This really should not be a part of the interface because
-     *             it is an implementation detail.
-     */
-    @Deprecated
-    public void setStateAttr(String stateAttr) {
-        if (StringUtils.isNotEmpty(stateAttr)) {
-            this.state = new SessionState();
-            SupportUtils.setId(state, id);
-            SupportUtils.setStateAttr(state, stateAttr);
-            SupportUtils.setWebContext(state, webContext);
-        }
     }
 
     /**
@@ -189,16 +163,6 @@ public class LimitFactory {
         maxRows = getMaxRows(maxRows);
 
         return new RowSelect(page, maxRows, totalRows);
-    }
-
-    /**
-     * @deprecated Because the Limit is injected this is not a very good factory method.
-     */
-    @Deprecated
-    public RowSelect createRowSelect(int maxRows, int totalRows, Limit limit) {
-        RowSelect rowSelect = createRowSelect(maxRows, totalRows);
-        limit.setRowSelect(rowSelect);
-        return rowSelect;
     }
 
     /**

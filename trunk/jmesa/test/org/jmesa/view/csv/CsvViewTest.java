@@ -17,11 +17,9 @@ package org.jmesa.view.csv;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.ExportType;
 import org.jmesa.test.AbstractTestCase;
@@ -31,7 +29,6 @@ import org.jmesa.test.ParametersBuilder;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
-import org.jmesa.view.editor.CellEditor;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
 
@@ -48,33 +45,29 @@ public class CsvViewTest extends AbstractTestCase {
 
         CoreContext coreContext = createCoreContext(webContext);
 
-        assertTrue(coreContext.getLimit().isExported());
+        assertTrue(coreContext.getLimit().hasExport());
         assertTrue(coreContext.getLimit().getExportType() == ExportType.CSV);
 
-        CsvComponentFactory factory = new CsvComponentFactory(webContext, coreContext);
-
         // create the table
-        Table table = factory.createTable();
+        Table table = new Table();
 
         // create the row
-        Row row = factory.createRow();
+        Row row = new Row();
         table.setRow(row);
 
         // create some reusable objects
 
-        CellEditor editor = factory.createBasicCellEditor();
-
         // create the columns
-        Column firstNameColumn = factory.createColumn("name.firstName", editor);
+        Column firstNameColumn = new Column("name.firstName");
         row.addColumn(firstNameColumn);
 
-        Column lastNameColumn = factory.createColumn("name.lastName", editor);
+        Column lastNameColumn = new Column("name.lastName");
         row.addColumn(lastNameColumn);
 
-        Column termColumn = factory.createColumn("term", editor);
+        Column termColumn = new Column("term");
         row.addColumn(termColumn);
 
-        Column careerColumn = factory.createColumn("career", editor);
+        Column careerColumn = new Column("career");
         row.addColumn(careerColumn);
 
         // create the view

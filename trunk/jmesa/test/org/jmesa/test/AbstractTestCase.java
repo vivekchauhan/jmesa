@@ -50,7 +50,7 @@ public abstract class AbstractTestCase {
         LimitFactory limitFactory = new LimitFactory(ID, webContext);
         Limit limit = limitFactory.createLimit();
         
-        if (limit.isExported()) {
+        if (limit.hasExport()) {
             RowSelect rowSelect = limitFactory.createRowSelect(items.size(), items.size());
             limit.setRowSelect(rowSelect);
             

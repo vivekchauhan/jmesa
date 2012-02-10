@@ -16,14 +16,10 @@
 package org.jmesa.model.tag;
 
 import static org.jmesa.model.tag.TagUtils.getTableTableRenderer;
-
 import java.io.IOException;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-
-import org.jmesa.view.html.HtmlComponentFactory;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 

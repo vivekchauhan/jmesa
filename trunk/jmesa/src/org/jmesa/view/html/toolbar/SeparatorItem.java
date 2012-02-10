@@ -24,7 +24,7 @@ import org.jmesa.view.html.HtmlBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SeparatorItem extends ImageItemImpl {
+public class SeparatorItem extends ImageItem {
     @Override
     public String disabled() {
         return null;

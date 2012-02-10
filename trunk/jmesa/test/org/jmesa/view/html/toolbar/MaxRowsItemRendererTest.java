@@ -32,7 +32,7 @@ public class MaxRowsItemRendererTest extends AbstractTestCase {
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
-        MaxRowsItemImpl item = new MaxRowsItemImpl();
+        MaxRowsItem item = new MaxRowsItem();
 
         MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
         renderer.setOnInvokeAction("onInvokeAction");
