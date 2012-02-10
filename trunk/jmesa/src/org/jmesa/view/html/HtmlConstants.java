@@ -20,6 +20,7 @@ package org.jmesa.view.html;
  * @author Jeff Johnston
  */
 public class HtmlConstants {
+		
     private HtmlConstants() {}
 
     public static final String IMAGES_PATH = "html.imagesPath";

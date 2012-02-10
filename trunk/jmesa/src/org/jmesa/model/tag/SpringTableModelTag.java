@@ -31,11 +31,13 @@ public class SpringTableModelTag extends TableModelTag {
 
     @Override
     protected SpringWebContext getWebContext() {
+		
         return new JspPageSpringWebContext((PageContext) getJspContext());
     }
 
     @Override
     protected TableFacade createTableFacade() {
+		
         return createSpringTableFacade(getId(), getWebContext());
     }
 }

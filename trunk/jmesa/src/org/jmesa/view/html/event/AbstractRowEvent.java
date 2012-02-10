@@ -26,13 +26,16 @@ import org.jmesa.view.component.RowSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractRowEvent extends AbstractContextSupport implements RowEvent, RowSupport {
+		
     private Row row;
 
     public Row getRow() {
+		
         return row;
     }
 
     public void setRow(Row row) {
+		
         this.row = row;
     }
 }

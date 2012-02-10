@@ -26,17 +26,21 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class MaxRowsItemRenderer extends AbstractItemRenderer {
+		
     public MaxRowsItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		
         setToolbarItem(item);
         setCoreContext(coreContext);
     }
 
     @Override
     public MaxRowsItem getToolbarItem() {
+		
         return (MaxRowsItem) super.getToolbarItem();
     }
 
     public String render() {
+		
         MaxRowsItem item = getToolbarItem();
 
         if (item.getIncrements().length == 0) {
@@ -65,7 +69,7 @@ public class MaxRowsItemRenderer extends AbstractItemRenderer {
     }
 
     private boolean incrementsContainsMaxRows(MaxRowsItem item, int maxRows) {
-
+		
         boolean found = false;
 
         int[] increments = item.getIncrements();

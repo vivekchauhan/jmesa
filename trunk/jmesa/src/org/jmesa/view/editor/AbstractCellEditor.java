@@ -26,13 +26,16 @@ import org.jmesa.view.component.ColumnSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractCellEditor extends AbstractContextSupport implements CellEditor, ColumnSupport {
+		
     private Column column;
 
     public Column getColumn() {
+		
         return column;
     }
 
     public void setColumn(Column column) {
+		
         this.column = column;
     }
 }

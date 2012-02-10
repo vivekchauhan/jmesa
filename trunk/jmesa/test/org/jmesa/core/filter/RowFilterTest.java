@@ -38,8 +38,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class RowFilterTest extends AbstractTestCase {
+		
     @Test
     public void filterItems() {
+		
         FilterMatcherRegistry registry = new FilterMatcherRegistry();
         MatcherKey key = new MatcherKey(String.class);
         FilterMatcher match = new StringFilterMatcher();
@@ -68,6 +70,7 @@ public class RowFilterTest extends AbstractTestCase {
     @SuppressWarnings("unchecked")
     @Test
     public void filterNullItems() {
+		
         FilterMatcherRegistry registry = new FilterMatcherRegistry();
         MatcherKey key = new MatcherKey(String.class);
         FilterMatcher match = new StringFilterMatcher();

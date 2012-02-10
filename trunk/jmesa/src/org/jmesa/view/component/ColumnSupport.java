@@ -22,6 +22,7 @@ package org.jmesa.view.component;
  * @author Jeff Johnston
  */
 public interface ColumnSupport {
+		
     public Column getColumn();
 
     public void setColumn(Column column);

@@ -25,19 +25,23 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class UniqueProperty implements Serializable {
+		
     private final String name;
     private final String value;
 
     public UniqueProperty(String name, String value) {
+		
         this.name = name;
         this.value = value;
     }
 
     public String getName() {
+		
         return name;
     }
 
     public String getValue() {
+		
         return value;
     }
     
@@ -47,6 +51,7 @@ public class UniqueProperty implements Serializable {
      */
     @Override
     public boolean equals(Object o) {
+		
         if (o == this)
             return true;
 
@@ -60,6 +65,7 @@ public class UniqueProperty implements Serializable {
 
     @Override
     public int hashCode() {
+		
         int result = 17;
         int val = this.getValue() == null ? 0 : this.getValue().hashCode();
         result = result * 37 + val;
@@ -68,6 +74,7 @@ public class UniqueProperty implements Serializable {
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("name", name);
         builder.append("value", value);

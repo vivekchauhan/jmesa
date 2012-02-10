@@ -29,9 +29,11 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class SortSetTest {
+		
 
     @Test
     public void isSorted() {
+		
         SortSet sortSet = new SortSet();
         boolean sorted = sortSet.isSorted();
         assertFalse("default constructor", sorted);
@@ -43,6 +45,7 @@ public class SortSetTest {
 
     @Test
     public void getSortOrder() {
+		
         SortSet sortSet = getSortSet();
         Order order = sortSet.getSortOrder("nickname");
         assertNotNull(order);
@@ -52,6 +55,7 @@ public class SortSetTest {
 
     @Test
     public void getSort() {
+		
         SortSet sortSet = getSortSet();
         Sort sort = sortSet.getSort("nickname");
         assertNotNull(sort);
@@ -60,6 +64,7 @@ public class SortSetTest {
     }
 
     private SortSet getSortSet() {
+		
         SortSet sortSet = new SortSet();
 
         sortSet.addSort(new Sort(2, "nickname", Order.DESC));

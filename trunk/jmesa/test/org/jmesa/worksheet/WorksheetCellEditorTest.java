@@ -32,8 +32,10 @@ import org.junit.Test;
  */
 @Ignore
 public class WorksheetCellEditorTest extends AbstractTestCase {
+		
     @Test
     public void getEditedValue() {
+		
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
@@ -55,6 +57,7 @@ public class WorksheetCellEditorTest extends AbstractTestCase {
 
     @Override
     protected Worksheet getWorksheet() {
+		
         UniqueProperty firstRowMap = new UniqueProperty("id", "1");
         WorksheetRow firstRow = new WorksheetRow(firstRowMap);
         firstRow.setRowStatus(WorksheetRowStatus.MODIFY);

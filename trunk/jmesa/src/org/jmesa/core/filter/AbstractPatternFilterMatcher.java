@@ -26,22 +26,27 @@ import org.jmesa.web.WebContextSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractPatternFilterMatcher implements FilterMatcher, PatternSupport, WebContextSupport {
+		
     private String pattern;
     private WebContext webContext;
 
     public String getPattern() {
+		
         return pattern;
     }
 
     public void setPattern(String pattern) {
+		
         this.pattern = pattern;
     }
 
     public WebContext getWebContext() {
+		
         return webContext;
     }
 
     public void setWebContext(WebContext webContext) {
+		
         this.webContext = webContext;
     }
 }

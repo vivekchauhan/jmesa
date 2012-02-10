@@ -21,18 +21,22 @@ import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.renderer.AbstractTableRenderer;
 
 public class HtmlTableRenderer extends AbstractTableRenderer {
+		
     public HtmlTableRenderer() {}
 
     public HtmlTableRenderer(HtmlTable table) {
+		
         setTable(table);
     }
 
     @Override
     public HtmlTable getTable() {
+		
         return (HtmlTable) super.getTable();
     }
 
     public Object render() {
+		
         HtmlBuilder html = new HtmlBuilder();
         
         HtmlTable table = getTable();

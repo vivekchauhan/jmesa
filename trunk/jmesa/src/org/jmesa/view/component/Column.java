@@ -33,6 +33,7 @@ import org.jmesa.view.renderer.HeaderRenderer;
  * @author Jeff Johnston
  */
 public class Column extends AbstractContextSupport {
+		
     private String property;
     private String title;
     private String titleKey;
@@ -51,23 +52,28 @@ public class Column extends AbstractContextSupport {
     public Column() {}
 
     public Column(String property) {
+		
         this.property = property;
     }
 
     public String getProperty() {
+		
         return property;
     }
 
     public void setProperty(String property) {
+		
         this.property = property;
     }
 
     public Column property(String property) {
+		
     	setProperty(property);
     	return this;
     }
     
     public String getTitle() {
+		
         if (titleKey != null) {
             return getCoreContext().getMessage(titleKey);
         }
@@ -80,24 +86,29 @@ public class Column extends AbstractContextSupport {
     }
 
     public void setTitle(String title) {
+		
         this.title = title;
     }
 
     public Column title(String title) {
+		
     	setTitle(title);
     	return this;
     }
     
     public void setTitleKey(String titleKey) {
+		
         this.titleKey = titleKey;
     }
 
     public Column titleKey(String titleKey) {
+		
     	setTitleKey(titleKey);
     	return this;
     }
     
     public CellRenderer getCellRenderer() {
+		
         if (cellRenderer == null) {
             this.cellRenderer = new BasicCellRenderer(this);
         }
@@ -105,16 +116,19 @@ public class Column extends AbstractContextSupport {
     }
 
     public void setCellRenderer(CellRenderer cellRenderer) {
+		
         this.cellRenderer = cellRenderer;
         this.cellRenderer.setColumn(this);
     }
 
     public Column cellRenderer(CellRenderer cellRenderer) {
+		
     	setCellRenderer(cellRenderer);
     	return this;
     }
 
     public CellEditor getCellEditor() {
+		
         if (cellEditor == null) {
             this.cellEditor = new BasicCellEditor();
         }
@@ -122,6 +136,7 @@ public class Column extends AbstractContextSupport {
     }
 
     public void setCellEditor(CellEditor cellEditor) {
+		
         this.cellEditor = cellEditor;
 
         /*
@@ -135,73 +150,89 @@ public class Column extends AbstractContextSupport {
     }
 
     public Column cellEditor(CellEditor editor) {
+		
     	setCellEditor(editor);
     	return this;
     }
 
     public HeaderRenderer getHeaderRenderer() {
+		
         return headerRenderer;
     }
 
     public void setHeaderRenderer(HeaderRenderer headerRenderer) {
+		
         this.headerRenderer = headerRenderer;
         this.headerRenderer.setColumn(this);
     }
 
     public Column headerRenderer(HeaderRenderer headerRenderer) {
+		
     	setHeaderRenderer(headerRenderer);
     	return this;
     }
 
     public HeaderEditor getHeaderEditor() {
+		
         return headerEditor;
     }
 
     public void setHeaderEditor(HeaderEditor headerEditor) {
+		
         this.headerEditor = headerEditor;
     }
 
     public Column headerEditor(HeaderEditor headerEditor) {
+		
     	setHeaderEditor(headerEditor);
     	return this;
     }
 
     public FilterRenderer getFilterRenderer() {
+		
         return filterRenderer;
     }
 
     public void setFilterRenderer(FilterRenderer filterRenderer) {
+		
         this.filterRenderer = filterRenderer;
         this.filterRenderer.setColumn(this);
     }
 
     public Column filterRenderer(FilterRenderer filterRenderer) {
+		
     	setFilterRenderer(filterRenderer);
     	return this;
     }
 
     public FilterEditor getFilterEditor() {
+		
         return filterEditor;
     }
 
     public void setFilterEditor(FilterEditor filterEditor) {
+		
         this.filterEditor = filterEditor;
     }
 
     public Column filterEditor(FilterEditor filterEditor) {
+		
     	setFilterEditor(filterEditor);
     	return this;
     }
 
     public Row getRow() {
+		
         return row;
     }
 
     public void setRow(Row row) {
+		
         this.row = row;
     }
 
     public Column row(Row row) {
+		
     	setRow(row);
     	return this;
     }

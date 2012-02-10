@@ -36,6 +36,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class WorksheetColumn implements Serializable {
+		
     private WorksheetRow worksheetRow;
     private String property;
     private String error;
@@ -43,11 +44,13 @@ public class WorksheetColumn implements Serializable {
     private String changedValue;
 
     public WorksheetColumn(String property, String originalValue) {
+		
         this.property = property;
         this.originalValue = originalValue;
     }
 
     public void setRow(WorksheetRow worksheetRow) {
+		
         this.worksheetRow = worksheetRow;
     }
 
@@ -55,6 +58,7 @@ public class WorksheetColumn implements Serializable {
      * @return The column property.
      */
     public String getProperty() {
+		
         return property;
     }
 
@@ -62,6 +66,7 @@ public class WorksheetColumn implements Serializable {
      * @return The original column value before editing it.
      */
     public String getOriginalValue() {
+		
         return originalValue;
     }
 
@@ -69,6 +74,7 @@ public class WorksheetColumn implements Serializable {
      * @return The value of the column after it was edited.
      */
     public String getChangedValue() {
+		
         return changedValue;
     }
 
@@ -78,6 +84,7 @@ public class WorksheetColumn implements Serializable {
      * @param changedValue The edited column value.
      */
     public void setChangedValue(String changedValue) {
+		
         this.changedValue = changedValue;
     }
 
@@ -87,6 +94,7 @@ public class WorksheetColumn implements Serializable {
      * @param error The text of what went wrong.
      */
     public void setError(String error) {
+		
         this.error = error;
     }
 
@@ -96,6 +104,7 @@ public class WorksheetColumn implements Serializable {
      * @param key The error key to find in the messages.
      */
     public void setErrorKey(String key) {
+		
         setError(worksheetRow.getMessages().getMessage(key));
     }
 
@@ -103,6 +112,7 @@ public class WorksheetColumn implements Serializable {
      * @return The text error.
      */
     public String getError() {
+		
         return error;
     }
 
@@ -110,6 +120,7 @@ public class WorksheetColumn implements Serializable {
      * @return Is true if an error is set.
      */
     public boolean hasError() {
+		
         return StringUtils.isNotBlank(error);
     }
 
@@ -117,6 +128,7 @@ public class WorksheetColumn implements Serializable {
      * Remove the error that was previously set.
      */
     public void removeError() {
+		
         this.error = null;
     }
 
@@ -126,6 +138,7 @@ public class WorksheetColumn implements Serializable {
      */
     @Override
     public boolean equals(Object o) {
+		
         if (o == this)
             return true;
 
@@ -139,6 +152,7 @@ public class WorksheetColumn implements Serializable {
 
     @Override
     public int hashCode() {
+		
         int result = 17;
         int prop = this.getProperty() == null ? 0 : this.getProperty().hashCode();
         result = result * 37 + prop;
@@ -147,6 +161,7 @@ public class WorksheetColumn implements Serializable {
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("property", this.getProperty());
         builder.append("originalValue", this.getOriginalValue());

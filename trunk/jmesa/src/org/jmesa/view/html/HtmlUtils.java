@@ -23,9 +23,11 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class HtmlUtils {
+		
     private HtmlUtils() {}
 
     public static boolean isFirstPageEnabled(int page) {
+		
         if (page == 1) {
             return false;
         }
@@ -34,6 +36,7 @@ public class HtmlUtils {
     }
 
     public static boolean isPrevPageEnabled(int page) {
+		
         if (page - 1 < 1) {
             return false;
         }
@@ -42,6 +45,7 @@ public class HtmlUtils {
     }
 
     public static boolean isNextPageEnabled(int page, int totalPages) {
+		
         if (page + 1 > totalPages) {
             return false;
         }
@@ -50,6 +54,7 @@ public class HtmlUtils {
     }
 
     public static boolean isLastPageEnabled(int page, int totalPages) {
+		
         if (page == totalPages || totalPages == 0) {
             return false;
         }
@@ -58,6 +63,7 @@ public class HtmlUtils {
     }
 
     public static int totalPages(CoreContext coreContext) {
+		
         int maxRows = coreContext.getLimit().getRowSelect().getMaxRows();
 
         if (maxRows == 0) {
@@ -85,6 +91,7 @@ public class HtmlUtils {
      * that corresponds with the current page.
      */
     public static int startingRowcount(CoreContext coreContext) {
+		
         int rowcount = 0;
 
         boolean rowcountIncludePagination = Boolean.valueOf(coreContext.getPreference(HtmlConstants.ROWCOUNT_INCLUDE_PAGINATION));
@@ -104,11 +111,13 @@ public class HtmlUtils {
      * @return Is true if including the document.ready script to initialize limit.
      */
     public static boolean useDocumentReadyToInitJavascriptLimit(CoreContext coreContext) {
+		
         String useDocumentReady = coreContext.getPreference(HtmlConstants.SNIPPETS_INIT_JAVASCRIPT_LIMIT_USE_DOCUMENT_READY);
         return useDocumentReady.equals("true");
     }
 
     public static String imagesPath(WebContext webContext, CoreContext coreContext) {
+		
         String imagesUrl = coreContext.getMessage(HtmlConstants.IMAGES_URL);
         if (imagesUrl == null) {
             imagesUrl = coreContext.getPreference(HtmlConstants.IMAGES_URL);

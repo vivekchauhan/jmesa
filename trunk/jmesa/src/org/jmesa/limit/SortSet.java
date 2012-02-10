@@ -36,13 +36,16 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class SortSet implements Serializable {
+		
     private List<Sort> sorts;
 
     public SortSet() {
+		
         sorts = new ArrayList<Sort>();
     }
 
     public boolean isSortable() {
+		
         return isSorted();
     }
 
@@ -50,6 +53,7 @@ public class SortSet implements Serializable {
      * @return Is true if there are any columns that need to be sorted.
      */
     public boolean isSorted() {
+		
         return sorts != null && !sorts.isEmpty();
     }
 
@@ -57,6 +61,7 @@ public class SortSet implements Serializable {
      * @return The set of Sort objects.
      */
     public Collection<Sort> getSorts() {
+		
         return sorts;
     }
 
@@ -69,6 +74,7 @@ public class SortSet implements Serializable {
      * @return The Sort object.
      */
     public Sort getSort(String property) {
+		
         for (Iterator<Sort> iter = sorts.iterator(); iter.hasNext();) {
             Sort sort = iter.next();
             if (sort.getProperty().equals(property)) {
@@ -86,6 +92,7 @@ public class SortSet implements Serializable {
      * @return The Sort Order.
      */
     public Order getSortOrder(String property) {
+		
         return getSort(property).getOrder();
     }
 
@@ -99,6 +106,7 @@ public class SortSet implements Serializable {
      * @param order The Order to sort the column.
      */
     public void addSort(int position, String property, Order order) {
+		
         addSort(new Sort(position, property, order));
     }
 
@@ -117,6 +125,7 @@ public class SortSet implements Serializable {
      * @param order The Order to sort the column.
      */
     public void addSort(String property, Order order) {
+		
         addSort(new Sort(sorts.size(), property, order));
     }
 
@@ -124,6 +133,7 @@ public class SortSet implements Serializable {
      * @param sort The Sort to add to the set.
      */
     public void addSort(Sort sort) {
+		
         if (sorts.contains(sort)) {
             sorts.remove(sort);
         }
@@ -134,6 +144,7 @@ public class SortSet implements Serializable {
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
 
         if (sorts != null) {

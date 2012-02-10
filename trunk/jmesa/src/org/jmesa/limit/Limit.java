@@ -35,6 +35,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public class Limit implements Serializable {
+		
     private final String id;
     private RowSelect rowSelect;
     private FilterSet filterSet;
@@ -45,6 +46,7 @@ public class Limit implements Serializable {
      * @param id The code to uniquely identify the table.
      */
     public Limit(String id) {
+		
         this.id = id;
     }
 
@@ -52,6 +54,7 @@ public class Limit implements Serializable {
      * @return The code to uniquely identify the table.
      */
     public String getId() {
+		
         return id;
     }
 
@@ -61,6 +64,7 @@ public class Limit implements Serializable {
      * </p>
      */
     public FilterSet getFilterSet() {
+		
         if (filterSet == null) {
             filterSet = new FilterSet();
         }
@@ -69,6 +73,7 @@ public class Limit implements Serializable {
     }
 
     public void setFilterSet(FilterSet filterSet) {
+		
         this.filterSet = filterSet;
     }
 
@@ -78,6 +83,7 @@ public class Limit implements Serializable {
      * </p>
      */
     public SortSet getSortSet() {
+		
         if (sortSet == null) {
             sortSet = new SortSet();
         }
@@ -86,6 +92,7 @@ public class Limit implements Serializable {
     }
 
     public void setSortSet(SortSet sortSet) {
+		
         this.sortSet = sortSet;
     }
 
@@ -95,6 +102,7 @@ public class Limit implements Serializable {
      * </p>
      */
     public RowSelect getRowSelect() {
+		
         if (rowSelect == null) {
             throw new IllegalStateException("The RowSelect object is null. You need to set a valid RowSelect on the Limit.");
         }
@@ -116,6 +124,7 @@ public class Limit implements Serializable {
      * @param rowSelect The RowSelect to use for this Limit.
      */
     public void setRowSelect(RowSelect rowSelect) {
+		
         this.rowSelect = rowSelect;
     }
 
@@ -127,6 +136,7 @@ public class Limit implements Serializable {
      * @return Is true if the user invoked an export.
      */
     public boolean hasExport() {
+		
         return getExportType() != null;
     }
 
@@ -136,19 +146,23 @@ public class Limit implements Serializable {
      * </p>
      */
     public ExportType getExportType() {
+		
         return exportType;
     }
 
     public void setExportType(ExportType exportType) {
+		
         this.exportType = exportType;
     }
 
     public boolean hasRowSelect() {
+		
         return rowSelect != null;
     }
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("id", getId());
         builder.append("export", getExportType());

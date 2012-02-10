@@ -26,8 +26,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class WorksheetRowTest {
+		
     @Test
     public void removeColumn() {
+		
         WorksheetColumn firstName = new WorksheetColumn("name.firstName", null);
         WorksheetColumn born = new WorksheetColumn("born", null);
         WorksheetColumn lastName = new WorksheetColumn("name.lastName", null);

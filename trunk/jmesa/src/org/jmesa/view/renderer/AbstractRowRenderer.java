@@ -23,13 +23,16 @@ import org.jmesa.view.component.Row;
  * @author Jeff Johnston
  */
 public abstract class AbstractRowRenderer extends AbstractContextSupport implements RowRenderer {
+		
     private Row row;
 
     public Row getRow() {
+		
         return row;
     }
 
     public void setRow(Row row) {
+		
         this.row = row;
     }
 }

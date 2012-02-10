@@ -33,26 +33,31 @@ import org.jmesa.limit.Order;
  * @author Jeff Johnston
  */
 public class ParametersBuilder {
+		
     private final String prefixId;
     private final Parameters parameters;
     private int sortCount;
 
     public ParametersBuilder(String id, Parameters parameters) {
+		
         this.prefixId = id + "_";
         this.parameters = parameters;
     }
 
     public void setPage(int page) {
+		
         String key = prefixId + Action.PAGE.toParam();
         parameters.addParameter(key, new Integer[] { page });
     }
 
     public void setMaxRows(int maxRows) {
+		
         String key = prefixId + Action.MAX_ROWS.toParam();
         parameters.addParameter(key, maxRows);
     }
 
     public void addFilter(String property, String value) {
+		
         String key = prefixId + Action.FILTER.toParam() + property;
         List<String> filterList = new ArrayList<String>();
         filterList.add(value);
@@ -65,25 +70,30 @@ public class ParametersBuilder {
      * method that takes a position.
      */
     public void addSort(String property, Order order) {
+		
         addSort(++sortCount, property, order);
     }
     
     public void addSort(int position, String property, Order order) {
+		
         String key = prefixId + Action.SORT.toParam() + position + "_" + property;
         parameters.addParameter(key, new String[] { order.toParam() });
     }
 
     public void setExportType(ExportType exportType) {
+		
         String key = prefixId + Action.EXPORT.toParam();
         parameters.addParameter(key, exportType.toParam());
     }
     
     public void setFilterWorksheet() {
+		
         String key = prefixId + FILTER_WORKSHEET;
         parameters.addParameter(key, "true");
     }
 
     public void setSaveWorksheet() {
+		
         String key = prefixId + SAVE_WORKSHEET;
         parameters.addParameter(key, "true");
         

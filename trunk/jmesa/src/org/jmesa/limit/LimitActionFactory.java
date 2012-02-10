@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class LimitActionFactory {
+		
     private Logger logger = LoggerFactory.getLogger(LimitActionFactory.class);
     
     private final Map<?, ?> parameters;
@@ -36,12 +37,14 @@ public class LimitActionFactory {
     private final String prefixId;
 
     public LimitActionFactory(String id, Map<?, ?> parameters) {
+		
         this.id = id;
         this.parameters = parameters;
         this.prefixId = id + "_";
     }
 
     public String getId() {
+		
         return id;
     }
 
@@ -50,6 +53,7 @@ public class LimitActionFactory {
      *         must be used.
      */
     public Integer getMaxRows() {
+		
         String maxRows = LimitUtils.getValue(parameters.get(prefixId + Action.MAX_ROWS.toParam()));
         if (StringUtils.isNotBlank(maxRows)) {
             if (logger.isDebugEnabled()) {
@@ -66,6 +70,7 @@ public class LimitActionFactory {
      *         page.
      */
     public int getPage() {
+		
         String page = LimitUtils.getValue(parameters.get(prefixId + Action.PAGE.toParam()));
         if (StringUtils.isNotBlank(page)) {
             if (logger.isDebugEnabled()) {
@@ -82,6 +87,7 @@ public class LimitActionFactory {
     }
 
     public FilterSet getFilterSet() {
+		
         FilterSet filterSet = new FilterSet();
 
         String clear = LimitUtils.getValue(parameters.get(prefixId + Action.CLEAR.toParam()));
@@ -108,6 +114,7 @@ public class LimitActionFactory {
     }
 
     public SortSet getSortSet() {
+		
         SortSet sortSet = new SortSet();
 
         for (Object param : parameters.keySet()) {
@@ -131,6 +138,7 @@ public class LimitActionFactory {
      * @return The current export type based on what the user selected.
      */
     public ExportType getExportType() {
+		
         String exportType = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
         if (StringUtils.isNotBlank(exportType)) {
             if (logger.isDebugEnabled()) {
@@ -149,6 +157,7 @@ public class LimitActionFactory {
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("id", id);
         builder.append("prefixId", prefixId);

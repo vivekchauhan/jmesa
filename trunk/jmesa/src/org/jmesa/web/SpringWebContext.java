@@ -22,5 +22,6 @@ import org.springframework.context.ApplicationContext;
  * @author Jeff Johnston
  */
 public interface SpringWebContext extends WebContext {
+		
     public ApplicationContext getApplicationContext();
 }

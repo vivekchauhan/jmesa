@@ -28,6 +28,7 @@ public class Struts2TableModelTag extends TableModelTag {
 
     @Override
     protected TableFacade createTableFacade() {
+		
         return createStruts2TableFacade(getId(), getWebContext());
     }
 }

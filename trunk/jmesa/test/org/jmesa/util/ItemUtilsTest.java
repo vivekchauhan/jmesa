@@ -35,6 +35,7 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueBean() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         President president = items.iterator().next();
         Object value = ItemUtils.getItemValue(president, "term");
@@ -43,6 +44,7 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueMap() {
+		
         Map<String, Serializable> president = getMap();
         Object value = ItemUtils.getItemValue(president, "term");
         assertNotNull("Cannot retrieve a map value.", value);
@@ -50,6 +52,7 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueBeanMap() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         President bean = items.iterator().next();        
         
@@ -62,6 +65,7 @@ public class ItemUtilsTest extends AbstractTestCase {
 
     @Test
     public void getItemValueBeanMapWithNullValue() {
+		
         Map<String, Serializable> president = getMap();
         Object value = ItemUtils.getItemValue(president, "career");
         
@@ -69,6 +73,7 @@ public class ItemUtilsTest extends AbstractTestCase {
     }
     
     private Map<String, Serializable> getMap() {
+		
         Map<String, Serializable> result = new HashMap<String, Serializable>();
         result.put("id", 1);
         result.put("term", "1789-1797");

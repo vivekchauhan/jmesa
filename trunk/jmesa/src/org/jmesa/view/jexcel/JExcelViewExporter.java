@@ -32,11 +32,14 @@ import org.jmesa.view.View;
  * @author Paul Horn
  */
 public class JExcelViewExporter extends AbstractViewExporter {
+		
     public JExcelViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
+		
         super(view, coreContext, response);
     }
 
     public JExcelViewExporter(View view, CoreContext coreContext, HttpServletResponse response, String fileName) {
+		
         super(view, coreContext, response, fileName);
     }
 
@@ -53,10 +56,12 @@ public class JExcelViewExporter extends AbstractViewExporter {
     }
 
     public String getContextType() {
+		
         return "application/vnd.ms-excel;charset=UTF-8";
     }
 
     public String getExtensionName() {
+		
         return "xls";
     }
 }

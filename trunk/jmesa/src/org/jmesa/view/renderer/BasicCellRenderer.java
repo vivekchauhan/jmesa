@@ -22,11 +22,14 @@ import org.jmesa.view.component.Column;
  * @author Jeff Johnston
  */
 public class BasicCellRenderer extends AbstractCellRenderer {
+		
     public BasicCellRenderer(Column column) {
+		
         setColumn(column);
     }
 
     public Object render(Object item, int rowcount) {
+		
         return getColumn().getCellEditor().getValue(item, getColumn().getProperty(), rowcount);
     }
 }

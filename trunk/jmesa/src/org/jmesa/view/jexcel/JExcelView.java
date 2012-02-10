@@ -46,13 +46,16 @@ import org.jmesa.view.component.Table;
  * @author Paul Horn
  */
 public class JExcelView extends AbstractExportView {
+		
     private OutputStream outputStream;
 
     public void setOutputStream(OutputStream outputStream) {
+		
         this.outputStream = outputStream;
     }
 
     public Object render() {
+		
         try {
             Table table = getTable();
             WritableWorkbook workbook = Workbook.createWorkbook(outputStream);

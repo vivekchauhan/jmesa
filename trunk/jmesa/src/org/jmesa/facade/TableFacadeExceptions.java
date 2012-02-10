@@ -33,6 +33,7 @@ final class TableFacadeExceptions {
     private TableFacadeExceptions() {}
 
     static void validateCoreContextIsNull(CoreContext coreContext, String object) {
+		
         if (coreContext != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the CoreContext.");
@@ -40,6 +41,7 @@ final class TableFacadeExceptions {
     }
 
     static void validateTableIsNull(Table table, String object) {
+		
         if (table != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the Table.");
@@ -47,6 +49,7 @@ final class TableFacadeExceptions {
     }
 
     static void validateViewIsNull(View view, String object) {
+		
         if (view != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the View.");
@@ -54,6 +57,7 @@ final class TableFacadeExceptions {
     }
 
     static void validateToolbarIsNull(Toolbar toolbar, String object) {
+		
         if (toolbar != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the Toolbar.");
@@ -61,6 +65,7 @@ final class TableFacadeExceptions {
     }
 
     static void validateLimitIsNull(Limit limit, String object) {
+		
         if (limit != null) {
             throw new IllegalStateException(
                 "It is too late to set the " + object + ". You need to set the " + object + " before using the Limit.");
@@ -68,6 +73,7 @@ final class TableFacadeExceptions {
     }
 
     static void validateRowSelectIsNotNull(Limit limit) {
+		
         if (limit.getRowSelect() == null) {
             throw new IllegalStateException(
                 "The RowSelect is null. You need to set the totalRows on the facade.");
@@ -75,6 +81,7 @@ final class TableFacadeExceptions {
     }
 
     static void validateItemsIsNull(Collection<?> items) {
+		
         if (items != null) {
             throw new IllegalStateException(
                 "It is too late to set editable. You need to set editable before using the Limit.");
@@ -82,6 +89,7 @@ final class TableFacadeExceptions {
     }
 
     static void validateItemsIsNotNull(Collection<?> items) {
+		
         if (items == null) {
             throw new IllegalStateException("The items are null. You need to set the items on the facade (or model).");
         }

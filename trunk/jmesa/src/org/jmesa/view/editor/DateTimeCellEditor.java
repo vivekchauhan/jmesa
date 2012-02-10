@@ -29,9 +29,11 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class DateTimeCellEditor extends DateCellEditor {
+		
     private final Logger logger = LoggerFactory.getLogger(DateTimeCellEditor.class);
 
     public DateTimeCellEditor() {
+		
         // default constructor
     }
 
@@ -39,6 +41,7 @@ public class DateTimeCellEditor extends DateCellEditor {
      * @param pattern The pattern to use.
      */
     public DateTimeCellEditor(String pattern) {
+		
         setPattern(pattern);
     }
 
@@ -47,6 +50,7 @@ public class DateTimeCellEditor extends DateCellEditor {
      */
     @Override
     public Object getValue(Object item, String property, int rowcount) {
+		
         Object itemValue = null;
 
         try {

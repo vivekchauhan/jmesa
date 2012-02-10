@@ -22,6 +22,7 @@ import java.util.List;
  * @author Jeff Johnston
  */
 public class WebContextUtils {
+		
     /**
      * The value needs to be a String[]. A String, Null, or List will be
      * converted to a String[]. In addition it will attempt to do a String
@@ -32,6 +33,7 @@ public class WebContextUtils {
      * @return A String[] value.
      */
     public static String[] getValueAsArray(Object value) {
+		
         if (value == null) {
             return new String[] {}; // put in a placeholder
         }

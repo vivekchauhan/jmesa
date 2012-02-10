@@ -28,6 +28,7 @@ import org.springframework.context.NoSuchMessageException;
  * @author Oscar Perez
  */
 public class SpringMessages implements Messages {
+		
     private static Logger logger = LoggerFactory.getLogger(SpringMessages.class);
 
     private Messages defaultMessages;
@@ -35,7 +36,7 @@ public class SpringMessages implements Messages {
     private MessageSource messageSource;
 
     public SpringMessages(Messages defaultMessages, SpringWebContext springWebContext) {
-
+		
         this.defaultMessages = defaultMessages;
         this.springWebContext = springWebContext;
         this.messageSource = springWebContext.getApplicationContext();
@@ -45,6 +46,7 @@ public class SpringMessages implements Messages {
      * Try to get the messages from Spring first or else retrieve from the default messages.
      */
     public String getMessage(String code) {
+		
         return getMessage(code, null);
     }
 
@@ -52,6 +54,7 @@ public class SpringMessages implements Messages {
      * Try to get the messages from Spring first or else retrieve from the default messages.
      */
     public String getMessage(String code, Object[] args) {
+		
         if (messageSource == null) {
             logger.warn("There is no Spring MessageSource defined. Will get the default messages instead.");
             return defaultMessages.getMessage(code, args);

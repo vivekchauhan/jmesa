@@ -25,22 +25,27 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public abstract class AbstractContextSupport implements ContextSupport {
+		
     private CoreContext coreContext;
     private WebContext webContext;
 
     public CoreContext getCoreContext() {
+		
         return coreContext;
     }
 
     public void setCoreContext(CoreContext coreContext) {
+		
         this.coreContext = coreContext;
     }
 
     public WebContext getWebContext() {
+		
         return webContext;
     }
 
     public void setWebContext(WebContext webContext) {
+		
         this.webContext = webContext;
     }
 }

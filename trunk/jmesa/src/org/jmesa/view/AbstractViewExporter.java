@@ -27,16 +27,19 @@ import static org.jmesa.view.ExportConstants.ENCODING;
  * @author Jeff Johnston
  */
 public abstract class AbstractViewExporter implements ViewExporter, CoreContextSupport {
+		
     private View view;
     private CoreContext coreContext;
     private HttpServletResponse response;
     private String fileName;
 
     public AbstractViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
+		
         this(view, coreContext, response, null);
     }
 
     public AbstractViewExporter(View view, CoreContext coreContext, HttpServletResponse response, String fileName) {
+		
         this.view = view;
         this.coreContext = coreContext;
         this.response = response;
@@ -61,24 +64,27 @@ public abstract class AbstractViewExporter implements ViewExporter, CoreContextS
     }
 
     public View getView() {
+		
         return view;
     }
 
     public void setView(View view) {
+		
         this.view = view;
     }
 
     public CoreContext getCoreContext() {
-
+		
         return coreContext;
     }
 
     public void setCoreContext(CoreContext coreContext) {
-
+		
         this.coreContext = coreContext;
     }
 
     protected HttpServletResponse getResponse() {
+		
         return response;
     }
 

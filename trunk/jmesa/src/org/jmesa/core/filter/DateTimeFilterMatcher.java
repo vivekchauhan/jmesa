@@ -29,22 +29,27 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class DateTimeFilterMatcher extends DateFilterMatcher {
+		
     private Logger logger = LoggerFactory.getLogger(DateTimeFilterMatcher.class);
 
     public DateTimeFilterMatcher() {
+		
     	// default constructor
     }
 
     public DateTimeFilterMatcher(String pattern) {
+		
         super(pattern);
     }
 
     public DateTimeFilterMatcher(String pattern, WebContext webContext) {
+		
         super(pattern, webContext);
     }
 
     @Override
     public boolean evaluate(Object itemValue, String filterValue) {
+		
         if (itemValue == null) {
             return false;
         }

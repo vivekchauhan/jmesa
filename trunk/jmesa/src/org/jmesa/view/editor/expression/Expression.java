@@ -22,11 +22,13 @@ import static org.jmesa.util.AssertUtils.notNull;
  * @author bgould
  */
 public class Expression {
+		
     private final Language language;
     private final String var;
     private final Object template;
 
     public Expression(Language language, String var, Object template) {
+		
         notNull("The language is required.", language);
         this.language = language;
 
@@ -38,14 +40,17 @@ public class Expression {
     }
 
     public Language getLanguage() {
+		
         return language;
     }
 
     public Object getTemplate() {
+		
         return template;
     }
 
     public String getVar() {
+		
         return var;
     }
 }

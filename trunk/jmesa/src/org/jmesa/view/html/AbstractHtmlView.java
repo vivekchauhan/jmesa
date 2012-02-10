@@ -31,27 +31,33 @@ import org.jmesa.view.html.toolbar.ToolbarSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractHtmlView extends AbstractContextSupport implements View, ToolbarSupport, TableSupport {
+		
     private HtmlTable table;
     private Toolbar toolbar;
     private HtmlSnippets snippets;
 
     public HtmlTable getTable() {
+		
         return table;
     }
 
     public void setTable(Table table) {
+		
         this.table = (HtmlTable) table;
     }
 
     public Toolbar getToolbar() {
+		
         return toolbar;
     }
 
     public void setToolbar(Toolbar toolbar) {
+		
         this.toolbar = toolbar;
     }
 
     public byte[] getBytes() {
+		
         String render = (String) render();
         return render.getBytes();
     }
@@ -62,6 +68,7 @@ public abstract class AbstractHtmlView extends AbstractContextSupport implements
      * @return The HtmlSnippets object.
      */
     public HtmlSnippets getHtmlSnippets() {
+		
         if (snippets == null) {
             this.snippets = new HtmlSnippets(getTable(), getToolbar(), getCoreContext());
         }
@@ -70,6 +77,7 @@ public abstract class AbstractHtmlView extends AbstractContextSupport implements
     }
 
     public void setHtmlSnippets(HtmlSnippets snippets) {
+		
         this.snippets = snippets;
     }
 }

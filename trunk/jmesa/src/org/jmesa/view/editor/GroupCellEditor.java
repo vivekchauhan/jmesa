@@ -24,6 +24,7 @@ import org.jmesa.view.component.Row;
  * @author Jeff Johnston
  */
 public class GroupCellEditor extends AbstractCellEditor {
+		
     private static final String LAST_GROUPED_COLUMN = "LAST_GROUPED_COLUMN";
 
     private Row currentRow;
@@ -31,10 +32,12 @@ public class GroupCellEditor extends AbstractCellEditor {
     private CellEditor decoratedCellEditor;
 
     public GroupCellEditor(CellEditor decoratedCellEditor) {
+		
         this.decoratedCellEditor = decoratedCellEditor;
     }
 
     public Object getValue(Object item, String property, int rowcount) {
+		
         this.currentRow = getColumn().getRow();
 
         Object columnValue = decoratedCellEditor.getValue(item, property, rowcount);
@@ -61,10 +64,12 @@ public class GroupCellEditor extends AbstractCellEditor {
     }
 
     private boolean isRepeating(Object columnValue) {
+		
         return String.valueOf(columnValue).equals(String.valueOf(lastColumnValue));
     }
 
     private boolean isPreviousColumnGrouped(Column column) {
+		
         Column lastGroupedColumn = getLastGroupedColumn();
         if (lastGroupedColumn == null) {
             return false;
@@ -78,6 +83,7 @@ public class GroupCellEditor extends AbstractCellEditor {
     }
 
     private boolean isFirstColumn(Column column) {
+		
         Column firstColumn = null;
 
         List<Column> columns = currentRow.getColumns();
@@ -92,10 +98,12 @@ public class GroupCellEditor extends AbstractCellEditor {
     }
 
     private Column getLastGroupedColumn() {
+		
         return (Column) getCoreContext().getAttribute(LAST_GROUPED_COLUMN);
     }
 
     private void setLastGroupedColumn(Column column) {
+		
         getCoreContext().setAttribute(LAST_GROUPED_COLUMN, column);
     }
 }

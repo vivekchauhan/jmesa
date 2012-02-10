@@ -40,6 +40,7 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
 
     @Test
     public void filterWorksheetItems() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         Worksheet worksheet = getWorksheet();
 
@@ -50,6 +51,7 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
 
     @Override
     protected Worksheet getWorksheet() {
+		
         UniqueProperty firstRowMap = new UniqueProperty("id", "1");
         WorksheetRow firstRow = new WorksheetRow(firstRowMap);
 
@@ -73,6 +75,7 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
     }
 
     private HttpServletRequest getSpringRequest() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter springParametersAdapter = new SpringParametersAdapter(request);
         createBuilder(springParametersAdapter);
@@ -80,6 +83,7 @@ public class TableFacadeUtilsTest extends AbstractTestCase {
     }
 
     private void createBuilder(Parameters parameters) {
+		
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setFilterWorksheet();
     }

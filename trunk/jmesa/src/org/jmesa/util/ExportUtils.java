@@ -27,6 +27,7 @@ import org.jmesa.view.View;
  * @author Jeff Johnston
  */
 public class ExportUtils {
+		
     /**
      * Use the view caption for the export. If the caption is not defined then use a default.
      * 
@@ -35,6 +36,7 @@ public class ExportUtils {
      * @return The file name of export.
      */
     public static String exportFileName(View view, String exportType) {
+		
         String caption = view.getTable().getCaption();
         if (StringUtils.isNotBlank(caption)) {
             StringUtils.replace(caption, " ", "_");

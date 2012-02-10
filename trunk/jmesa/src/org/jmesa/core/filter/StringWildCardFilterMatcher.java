@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Oscar Perez
  */
 public class StringWildCardFilterMatcher implements FilterMatcher {
+		
     private static final String ANYCHAR = "?";
     private static final String ANYSTRING = "*";
     private static final String ANYCHARREGEXP = ".";
@@ -37,6 +38,7 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
      * Ignores cases by default
      */
     public StringWildCardFilterMatcher() {
+		
         ignoreCases = true;
     }
 
@@ -44,6 +46,7 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
      * {@inheritDoc}
      */
     public boolean evaluate(Object itemValue, String filterValue) {
+		
         if (ignoreCases) {
             itemValue = StringUtils.lowerCase(String.valueOf(itemValue));
         }
@@ -64,7 +67,7 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
      * @return the pattern to be filtered against
      */
     private Pattern createFilterPattern(String filterStr) {
-
+		
         if (filterStr == null) {
             return null;
         }

@@ -48,6 +48,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jeff Johnston
  */
 public class TableFacadeFilter implements Filter {
+		
     public void init(FilterConfig config) throws ServletException {}
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -68,6 +69,7 @@ public class TableFacadeFilter implements Filter {
         private static ThreadLocal<FilterValue> tLocal = new ThreadLocal<FilterValue>();
 
         static void set(HttpServletRequest request, HttpServletResponse response) {
+		
             if (request == null && response == null) {
                 tLocal.set(null);
                 return;
@@ -77,30 +79,35 @@ public class TableFacadeFilter implements Filter {
         }
 
         public static HttpServletRequest getHttpServletRequest() {
+		
             FilterValue filterValue = (FilterValue) tLocal.get();
             return filterValue.getRequest();
         }
         
         public static HttpServletResponse getHttpServletResponse() {
+		
             FilterValue filterValue = (FilterValue) tLocal.get();
             return filterValue.getResponse();
         }
 
         private static class FilterValue {
-
+		
             private final HttpServletRequest request;
             private final HttpServletResponse response;
 
             public FilterValue(HttpServletRequest request, HttpServletResponse response) {
+		
                 this.request = request;
                 this.response = response;
             }
 
             public HttpServletRequest getRequest() {
+		
                 return request;
             }
 
             public HttpServletResponse getResponse() {
+		
                 return response;
             }
         }

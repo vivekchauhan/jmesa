@@ -40,6 +40,7 @@ public class DroplistFilterEditorTest extends AbstractTestCase {
 
     @Test
     public void getOptions() {
+		
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
@@ -60,6 +61,7 @@ public class DroplistFilterEditorTest extends AbstractTestCase {
     
     @Test
     public void getPresetOption() {
+		
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
@@ -84,6 +86,7 @@ public class DroplistFilterEditorTest extends AbstractTestCase {
     
     @Test
     public void getPresetOptions() {
+		
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 

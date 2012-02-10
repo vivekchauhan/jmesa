@@ -24,18 +24,22 @@ import org.jmesa.view.renderer.AbstractFilterRenderer;
  * @author Jeff Johnston
  */
 public class HtmlFilterRenderer extends AbstractFilterRenderer {
+		
     public HtmlFilterRenderer() {}
 
     public HtmlFilterRenderer(HtmlColumn column) {
+		
         setColumn(column);
     }
 
     @Override
     public HtmlColumn getColumn() {
+		
         return (HtmlColumn) super.getColumn();
     }
 
     public Object render() {
+		
         HtmlBuilder html = new HtmlBuilder();
         
         HtmlColumn column = getColumn();

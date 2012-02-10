@@ -32,10 +32,12 @@ import static org.jmesa.view.html.HtmlUtils.totalPages;
  * @author Jeff Johnston
  */
 public abstract class Toolbar extends AbstractContextSupport {
+		
     private ToolbarItemFactory toolbarItemFactory;
     private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
 
     private ToolbarItemFactory getToolbarItemFactory() {
+		
         if (toolbarItemFactory == null) {
             this.toolbarItemFactory = new ToolbarItemFactory(getWebContext(), getCoreContext());
         }
@@ -44,18 +46,22 @@ public abstract class Toolbar extends AbstractContextSupport {
     }
 
     protected boolean hasToolbarItems() {
+		
         return toolbarItems != null && toolbarItems.size() > 0;
     }
 
     public List<ToolbarItem> getToolbarItems() {
+		
         return toolbarItems;
     }
 
     public void addToolbarItem(ToolbarItem item) {
+		
         toolbarItems.add(item);
     }
 
     public ToolbarItem addToolbarItem(ToolbarItemType type) {
+		
         ToolbarItem item = null;
 
         ToolbarItemFactory factory = getToolbarItemFactory();
@@ -110,6 +116,7 @@ public abstract class Toolbar extends AbstractContextSupport {
     }
 
     public List<ToolbarItem> addExportToolbarItems(ExportType... exportTypes) {
+		
         List<ToolbarItem> items = new ArrayList<ToolbarItem>();
 
         if (exportTypes == null || exportTypes.length == 0) {
@@ -125,6 +132,7 @@ public abstract class Toolbar extends AbstractContextSupport {
     }
 
     public ToolbarItem addExportToolbarItem(ExportType exportType) {
+		
         ToolbarExport export = new ToolbarExport(exportType);
         ToolbarItemFactory factory = getToolbarItemFactory();
         ToolbarItem item = factory.createExportItem(export);
@@ -133,6 +141,7 @@ public abstract class Toolbar extends AbstractContextSupport {
     }
 
     private void addPageNumberItems() {
+		
         ToolbarItemFactory factory = getToolbarItemFactory();
 
         Limit limit = getCoreContext().getLimit();
@@ -171,6 +180,7 @@ public abstract class Toolbar extends AbstractContextSupport {
     }
 
     public String render() {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         html.table(2).border("0").cellpadding("0").cellspacing("1").close();

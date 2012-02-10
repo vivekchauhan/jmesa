@@ -25,7 +25,7 @@ package org.jmesa.core.filter;
  * </p>
  * 
  * <pre>
- * public boolean evaluate(Object itemValue, String matchValue) {
+ * public boolean evaluate(Object itemValue, String matchValue) {		
  *     String value = StringUtils.lowerCase((String) itemValue);
  *     if (StringUtils.contains(value, matchValue)) {
  *         return true;
@@ -39,6 +39,7 @@ package org.jmesa.core.filter;
  * @author Jeff Johnston
  */
 public interface FilterMatcher {
+		
     /**
      * <p>
      * Take the current item value and evaluate whether or not it is the same as

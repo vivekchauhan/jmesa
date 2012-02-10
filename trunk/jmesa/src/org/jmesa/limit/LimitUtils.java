@@ -22,6 +22,7 @@ import java.util.List;
  * @author Jeff Johnston
  */
 public class LimitUtils {
+		
     /**
      * Convert the input value to a String. A String[] or List will be converted
      * to a String by using the value in the first position. In addition will
@@ -33,6 +34,7 @@ public class LimitUtils {
      * @return The converted value.
      */
     public static String getValue(Object value) {
+		
         if (value instanceof Object[]) {
             if (((Object[]) value).length > 0) {
                 return String.valueOf(((Object[]) value)[0]);

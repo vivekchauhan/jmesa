@@ -58,6 +58,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void createHtmlTableFacade() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -79,6 +80,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getWebContext() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -104,6 +106,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getCoreContextWithItemsNotSet() {
+		
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         
@@ -126,6 +129,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getCoreContext() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
@@ -152,6 +156,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void addFilterMatcher() {
+		
         Collection<President> items = PresidentDao.getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -185,6 +190,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimit() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("restore", "true");
@@ -219,6 +225,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitAndExportable() {
+		
         Collection<President> items = PresidentDao.getPresidents();
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -247,6 +254,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitAndNotExportable() {
+		
         Collection<President> items = PresidentDao.getPresidents();
 
         HttpServletRequest request = new MockHttpServletRequest();
@@ -271,6 +279,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getLimitWithState() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         MockHttpServletRequest request = new MockHttpServletRequest();
 
@@ -304,6 +313,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void setRowSelectAndExportable() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
@@ -334,6 +344,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getTableAndNoRowSelect() {
+		
         HttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
 
@@ -356,6 +367,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getTableAndNotExportable() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
@@ -376,6 +388,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getTableAndExportable() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
@@ -400,6 +413,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getToolbar() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
@@ -428,6 +442,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getToolbarMaxRowsIncrements() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
@@ -451,6 +466,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getView() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
@@ -477,6 +493,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getViewAndExportable() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
@@ -503,6 +520,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void render() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
@@ -525,6 +543,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void renderWithFactory() {
+		
         Collection<President> items = PresidentDao.getPresidents();
         HttpServletRequest request = new MockHttpServletRequest();
 
@@ -547,6 +566,7 @@ public class TableFacadeTest extends AbstractTestCase {
     }
 
     public void renderAndExportable() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
@@ -578,6 +598,7 @@ public class TableFacadeTest extends AbstractTestCase {
 
     @Test
     public void getMaxRows() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         TableFacade facade = new TableFacade(ID, request);
 

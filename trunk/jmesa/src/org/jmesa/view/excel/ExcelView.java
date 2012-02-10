@@ -34,7 +34,9 @@ import org.jmesa.view.component.Table;
  * @author jeff jie
  */
 public class ExcelView extends AbstractExportView {
+		
     public Object render() {
+		
         HSSFWorkbook workbook = new HSSFWorkbook();
         Table table = this.getTable();
         String caption = table.getCaption();

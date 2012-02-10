@@ -37,6 +37,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Jeff Johnston
  */
 public class LimitFactoryTest {
+		
 	private static final String ID = "pres";
 	private static final int MAX_ROWS = 20;
 	private static final int TOTAL_ROWS = 60;
@@ -44,6 +45,7 @@ public class LimitFactoryTest {
 
 	@Test
 	public void createLimitAndRowSelect() {
+		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
@@ -53,6 +55,7 @@ public class LimitFactoryTest {
 	
 	@Test
 	public void createLimitAndRowSelectWithSpringParameters() {
+		
 		HttpServletRequest request = getSpringRequest();
 		WebContext context = new HttpServletRequestWebContext(request);
 		LimitFactory limitFactory = new LimitFactory(ID, context);
@@ -60,6 +63,7 @@ public class LimitFactoryTest {
 	}
 	
 	private void checkAssertions(LimitFactory limitFactory) {
+		
 		Limit limit = limitFactory.createLimit();
 
 		assertNotNull(limit);
@@ -78,6 +82,7 @@ public class LimitFactoryTest {
 	}
 
 	private Map<?, ?> getParameters() {
+		
 		HashMap<String, Object> results = new HashMap<String, Object>();
 		ParametersAdapter parametersAdapter = new ParametersAdapter(results);
 		createBuilder(parametersAdapter);
@@ -85,6 +90,7 @@ public class LimitFactoryTest {
 	}
 	
 	private HttpServletRequest getSpringRequest() {
+		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		SpringParametersAdapter springParametersAdapter = new SpringParametersAdapter(request);
 		createBuilder(springParametersAdapter);
@@ -92,6 +98,7 @@ public class LimitFactoryTest {
 	}	
 	
 	private void createBuilder(Parameters parameters) {
+		
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
 		builder.setMaxRows(MAX_ROWS);
 		builder.setPage(PAGE);

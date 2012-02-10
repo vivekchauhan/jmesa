@@ -35,6 +35,7 @@ import org.jmesa.worksheet.state.WorksheetState;
  * @author Jeff Johnston
  */
 public class WorksheetUpdater {
+		
     protected static String UNIQUE_PROPERTIES = "up_";
     protected static String COLUMN_PROPERTY = "cp_";
     protected static String ORIGINAL_VALUE = "ov_";
@@ -49,6 +50,7 @@ public class WorksheetUpdater {
     protected WorksheetState worksheetState;
 
     public String update(Messages messages, WebContext webContext) {
+		
         Worksheet worksheet = getWorksheet(messages, webContext);
         WorksheetRow worksheetRow = getWorksheetRow(worksheet, webContext);
 
@@ -62,6 +64,7 @@ public class WorksheetUpdater {
     }
 
     protected Worksheet getWorksheet(Messages messages, WebContext webContext) {
+		
         worksheetState = getWorksheetState(webContext);
         Worksheet worksheet = worksheetState.retrieveWorksheet();
         if (worksheet == null) {
@@ -76,6 +79,7 @@ public class WorksheetUpdater {
     }
 
     protected WorksheetState getWorksheetState(WebContext webContext) {
+		
     	if (worksheetState == null) {
     		String id = webContext.getParameter("id");
     		return new SessionWorksheetState(id, webContext);
@@ -85,6 +89,7 @@ public class WorksheetUpdater {
     }
 
     protected WorksheetRow getWorksheetRow(Worksheet worksheet, WebContext webContext) {
+		
         Map<?, ?> parameters = webContext.getParameterMap();
         for (Object param : parameters.keySet()) {
             String parameter = (String) param;
@@ -108,6 +113,7 @@ public class WorksheetUpdater {
     }
 
     protected WorksheetColumn getWorksheetColumn(WorksheetRow worksheetRow, WebContext webContext) {
+		
         String property = webContext.getParameter(COLUMN_PROPERTY);
         WorksheetColumn worksheetColumn = worksheetRow.getColumn(property);
         if (worksheetColumn == null) {
@@ -137,6 +143,7 @@ public class WorksheetUpdater {
      * then remove the column from the row.
      */
     protected String validateWorksheet(Worksheet worksheet, WorksheetRow row, WorksheetColumn column, String errorMessage) {
+		
         String columnStatus = COLUMN_UPDATED;
 
         if (StringUtils.isNotEmpty(errorMessage)) {

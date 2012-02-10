@@ -31,8 +31,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Jeff Johnston
  */
 public class MessagesTest {
+		
 	@Test
 	public void getPreference() {
+		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setLocale(Locale.US);

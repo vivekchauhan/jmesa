@@ -23,26 +23,32 @@ import org.jmesa.view.AbstractContextSupport;
  * @author Jeff Johnston
  */
 public abstract class AbstractItemRenderer extends AbstractContextSupport implements ToolbarItemRenderer {
+		
     private String onInvokeAction;
     private ToolbarItem toolbarItem;
 
     public String getOnInvokeAction() {
+		
         return onInvokeAction;
     }
 
     public void setOnInvokeAction(String onInvokeAction) {
+		
         this.onInvokeAction = onInvokeAction;
     }
 
     public String getOnInvokeActionJavaScript(Limit limit, ToolbarItem toolbarItem) {
+		
         return getOnInvokeAction() + "('" + limit.getId() + "','" + toolbarItem.getCode() + "')";
     }
 
     public ToolbarItem getToolbarItem() {
+		
         return toolbarItem;
     }
 
     public void setToolbarItem(ToolbarItem toolbarItem) {
+		
         this.toolbarItem = toolbarItem;
     }
 }

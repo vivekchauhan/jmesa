@@ -33,6 +33,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Jeff Johnston
  */
 public class LimitActionFactoryTest {
+		
     private static final String ID = "pres";
     private static final int MAX_ROWS = 20;
     private static final int PAGE = 3;
@@ -41,6 +42,7 @@ public class LimitActionFactoryTest {
 
     @Before
     public void setUp() {
+		
         MockHttpServletRequest request = new MockHttpServletRequest();
         WebContext webContext = new HttpServletRequestWebContext(request);
         webContext.setParameterMap(getParameters());
@@ -49,18 +51,21 @@ public class LimitActionFactoryTest {
 
     @Test
     public void getMaxRows() {
+		
         int maxRows = limitActionFactory.getMaxRows();
         assertTrue(maxRows == MAX_ROWS);
     }
 
     @Test
     public void getPage() {
+		
         int page = limitActionFactory.getPage();
         assertTrue(page == PAGE);
     }
 
     @Test
     public void getFilterSet() {
+		
         FilterSet filterSet = limitActionFactory.getFilterSet();
         assertNotNull(filterSet);
         assertTrue(filterSet.getFilters().size() == 2);
@@ -68,12 +73,14 @@ public class LimitActionFactoryTest {
 
     @Test
     public void getSortSet() {
+		
         SortSet sortSet = limitActionFactory.getSortSet();
         assertNotNull(sortSet);
         assertTrue(sortSet.getSorts().size() == 2);
     }
 
     private Map<String, ?> getParameters() {
+		
         HashMap<String, Object> results = new HashMap<String, Object>();
         ParametersBuilder builder = new ParametersBuilder(ID, new ParametersAdapter(results));
 

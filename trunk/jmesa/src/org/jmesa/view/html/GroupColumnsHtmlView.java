@@ -28,11 +28,13 @@ import org.jmesa.view.editor.GroupCellEditor;
  * @author Jeff Johnston
  */
 public class GroupColumnsHtmlView extends HtmlView {
+		
     /**
      * Go through and decorate all the column cell editors.
      */
     @Override
     public Object render() {
+		
         List<Column> columns = getTable().getRow().getColumns();
         for (Column column : columns) {
             CellEditor decoratedCellEditor = column.getCellEditor();

@@ -22,6 +22,7 @@ import java.io.Serializable;
  * @author Jeff Johnston
  */
 public interface Preferences extends Serializable {
+		
     /**
      * Get the property.
      */

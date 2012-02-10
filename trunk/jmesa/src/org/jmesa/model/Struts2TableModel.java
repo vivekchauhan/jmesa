@@ -26,22 +26,27 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class Struts2TableModel extends TableModel {
+		
     public Struts2TableModel(String id, HttpServletRequest request) {
+		
         TableFacade tableFacade = TableFacadeFactory.createStruts2TableFacade(id, request);
         super.setTableFacade(tableFacade);
     }
 
     public Struts2TableModel(String id, HttpServletRequest request, HttpServletResponse response) {
+		
         TableFacade tableFacade = TableFacadeFactory.createStruts2TableFacade(id, request, response);
         super.setTableFacade(tableFacade);
     }
 
     public Struts2TableModel(String id, WebContext webContext) {
+		
         TableFacade tableFacade = TableFacadeFactory.createStruts2TableFacade(id, webContext);
         super.setTableFacade(tableFacade);
     }
 
     public Struts2TableModel(String id, WebContext webContext, HttpServletResponse response) {
+		
         TableFacade tableFacade = TableFacadeFactory.createStruts2TableFacade(id, webContext, response);
         super.setTableFacade(tableFacade);
     }

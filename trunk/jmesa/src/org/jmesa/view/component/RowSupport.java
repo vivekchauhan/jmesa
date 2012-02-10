@@ -22,6 +22,7 @@ package org.jmesa.view.component;
  * @author Jeff Johnston
  */
 public interface RowSupport {
+		
     public Row getRow();
     
     public void setRow(Row row);

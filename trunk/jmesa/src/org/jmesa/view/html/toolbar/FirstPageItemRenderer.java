@@ -24,12 +24,15 @@ import org.jmesa.view.html.HtmlUtils;
  * @author Jeff Johnston
  */
 public class FirstPageItemRenderer extends AbstractItemRenderer {
+		
     public FirstPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		
         setToolbarItem(item);
         setCoreContext(coreContext);
     }
 
     public String render() {
+		
         Limit limit = getCoreContext().getLimit();
         int page = limit.getRowSelect().getPage();
 

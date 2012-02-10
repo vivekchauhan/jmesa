@@ -26,22 +26,27 @@ import org.jmesa.web.SpringWebContext;
  * @author Jeff Johnston
  */
 public class SpringTableModel extends TableModel {
+		
     public SpringTableModel(String id, HttpServletRequest request) {
+		
         TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, request);
         super.setTableFacade(tableFacade);
     }
 
     public SpringTableModel(String id, HttpServletRequest request, HttpServletResponse response) {
+		
         TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, request, response);
         super.setTableFacade(tableFacade);
     }
     
     public SpringTableModel(String id, SpringWebContext springWebContext) {
+		
         TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, springWebContext);
         super.setTableFacade(tableFacade);
     }
 
     public SpringTableModel(String id, SpringWebContext springWebContext, HttpServletResponse response) {
+		
         TableFacade tableFacade = TableFacadeFactory.createSpringTableFacade(id, springWebContext, response);
         super.setTableFacade(tableFacade);
     }

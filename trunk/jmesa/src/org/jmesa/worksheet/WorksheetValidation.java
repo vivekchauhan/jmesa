@@ -23,6 +23,7 @@ import org.jmesa.view.AbstractContextSupport;
  * @author Siddhant Agrawal
  */
 public class WorksheetValidation extends AbstractContextSupport {
+		
     public static final String TRUE = "true";
 
     private final String validationType;
@@ -46,7 +47,7 @@ public class WorksheetValidation extends AbstractContextSupport {
      * @since 2.4.7
      */
     public WorksheetValidation(String validationType, String value) {
-
+		
         if (StringUtils.isEmpty(value)) {
             throw new IllegalArgumentException("Value is required for worksheet validation: " + validationType);
         }
@@ -56,40 +57,49 @@ public class WorksheetValidation extends AbstractContextSupport {
     }
 
     public boolean isCustom() {
+		
         return custom;
     }
 
     public void setCustom(boolean custom) {
+		
         this.custom = custom;
     }
 
     public String getValidationType() {
+		
         return validationType;
     }
 
     public void setErrorMessage(String errorMessage) {
+		
         this.errorMessage = errorMessage;
     }
 
     public void setErrorMessageKey(String errorMessageKey) {
+		
         this.errorMessageKey = errorMessageKey;
     }
     
     public WorksheetValidation errorMessage(String errorMessage) {
+		
         setErrorMessage(errorMessage);
         return this;
     }
 
     public WorksheetValidation errorMessageKey(String errorMessageKey) {
+		
         setErrorMessageKey(errorMessageKey);
         return this;
     }
     
     public String getRule() {
+		
         return this.validationType + ": " + this.value;
     }
     
     public String getMessage() {
+		
 
         String msg = errorMessage;
         if (errorMessageKey != null) {
@@ -104,6 +114,7 @@ public class WorksheetValidation extends AbstractContextSupport {
     }
     
     public String getCustomWorksheetValidation() {
+		
     	if (!custom) {
     		return "";
     	}

@@ -34,5 +34,6 @@ import org.jmesa.web.WebContextSupport;
  * @author Jeff Johnston
  */
 public interface ContextSupport extends WebContextSupport, CoreContextSupport {
+		
     // There are no methods specific to just ContextSupport.
 }

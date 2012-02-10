@@ -40,14 +40,17 @@ public class HtmlColumnsTag extends SimpleTagSupport {
     private String htmlColumnsGenerator;
 
     public String getHtmlColumnsGenerator() {
+		
         return htmlColumnsGenerator;
     }
 
     public void setHtmlColumnsGenerator(String htmlColumnsGenerator) {
+		
         this.htmlColumnsGenerator = htmlColumnsGenerator;
     }
 
     private Object getValue(String property, String var) {
+		
         Object item = getJspContext().getAttribute(var);
 
         if (item == null) {
@@ -61,6 +64,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
      * @return The list of columns generated on the fly.
      */
     private List<HtmlColumn> getColumns(WebContext webContext, CoreContext coreContext) {
+		
         HtmlColumnsGenerator columnsGenerator = (HtmlColumnsGenerator) createInstance(getHtmlColumnsGenerator());
         SupportUtils.setWebContext(columnsGenerator, webContext);
         SupportUtils.setCoreContext(columnsGenerator, coreContext);
@@ -73,6 +77,7 @@ public class HtmlColumnsTag extends SimpleTagSupport {
      */
     @Override
     public void doTag() {
+		
         TableModelTag facadeTag = (TableModelTag) findAncestorWithClass(this, TableModelTag.class);
         Collection<Map<String, Object>> pageItems = facadeTag.getPageItems();
         if (pageItems.size() == 1) {

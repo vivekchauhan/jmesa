@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
  * @author bgould
  */
 public class ElExpressionCellEditor extends AbstractCellEditor {
+		
     private Logger logger = LoggerFactory.getLogger(ElExpressionCellEditor.class);
     private org.apache.commons.el.Logger pLogger = new org.apache.commons.el.Logger(System.err);
 
@@ -45,10 +46,12 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
     private Object template;
 
     public ElExpressionCellEditor(Expression expression) {
+		
         this(expression.getVar(), expression.getTemplate());
     }
 
     public ElExpressionCellEditor(String var, Object template) {
+		
         notNull("The var is required.", var);
         this.var = var;
 
@@ -64,6 +67,7 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
     }
 
     public Object getValue(Object item, String property, int rowcount) {
+		
         Object result = null;
 
         try {
@@ -94,6 +98,7 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
      * @param item The row's backing bean.
      */
     protected VariableResolver getVariableResolver(Object item) {
+		
         Map<String, Object> context = new HashMap<String, Object>();
         context.put(var, item);
         return new VariableResolverMap(context);
@@ -103,6 +108,7 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
      * Override this method to make EL functions available to your expressions.
      */
     protected FunctionMapper getFunctionMapper() {
+		
         return null;
     }
 
@@ -110,14 +116,17 @@ public class ElExpressionCellEditor extends AbstractCellEditor {
      * VariableResolver that resolves implicit objects based on a Map.
      */
     public static class VariableResolverMap implements VariableResolver {
+		
 
         private final Map<?, ?> context;
 
         public VariableResolverMap(Map<?, ?> context) {
+		
             this.context = context;
         }
 
         public Object resolveVariable(String var) {
+		
             return context.get(var);
         }
     }

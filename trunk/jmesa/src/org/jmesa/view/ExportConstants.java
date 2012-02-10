@@ -19,6 +19,7 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public class ExportConstants {
+		
     private ExportConstants() {}
 
     public static final String PDF_FONT_NAME = "export.pdf.fontName";

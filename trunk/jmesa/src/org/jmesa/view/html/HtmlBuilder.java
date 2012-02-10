@@ -33,6 +33,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Jeff Johnston
  */
 public class HtmlBuilder {
+		
     private StringBuilder builder;
 
     /**
@@ -40,6 +41,7 @@ public class HtmlBuilder {
      * StringBuilder.
      */
     public HtmlBuilder() {
+		
         this.builder = new StringBuilder();
     }
 
@@ -47,6 +49,7 @@ public class HtmlBuilder {
      * Write out the content to the internal writer.
      */
     public HtmlBuilder append(Object text) {
+		
         if (text != null) {
             builder.append(text);
         }
@@ -58,6 +61,7 @@ public class HtmlBuilder {
      * The length of the internal Writer.
      */
     public int length() {
+		
         return builder.toString().length();
     }
 
@@ -72,6 +76,7 @@ public class HtmlBuilder {
      *            The number of newlines \n to put in.
      */
     public HtmlBuilder format(int tabs, int newlines) {
+		
         tabs(tabs);
         newlines(newlines);
 
@@ -87,6 +92,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tabs(int tabs) {
+		
         for (int i = 0; i < tabs; i++) {
             tab();
         }
@@ -103,6 +109,7 @@ public class HtmlBuilder {
      *            The number of newlines \n to put in.
      */
     public HtmlBuilder newlines(int newlines) {
+		
         for (int i = 0; i < newlines; i++) {
             newline();
         }
@@ -116,6 +123,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder tab() {
+		
         append("\t");
 
         return this;
@@ -127,6 +135,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder newline() {
+		
         append("\n");
 
         return this;
@@ -138,6 +147,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder close() {
+		
         append(">");
 
         return this;
@@ -149,6 +159,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder end() {
+		
         append("/>");
 
         return this;
@@ -168,6 +179,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder table(int tabs) {
+		
         newline();
         tabs(tabs);
         append("<table");
@@ -189,6 +201,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tableEnd(int tabs) {
+		
         newline();
         tabs(tabs);
         append("</table>");
@@ -202,6 +215,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder button() {
+		
         append("<button");
         return this;
     }
@@ -212,6 +226,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder buttonEnd() {
+		
         append("</button>");
 
         return this;
@@ -231,6 +246,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tr(int tabs) {
+		
         newline();
         tabs(tabs);
         append("<tr");
@@ -252,6 +268,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder trEnd(int tabs) {
+		
         newline();
         tabs(tabs);
         append("</tr>");
@@ -273,6 +290,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder th(int tabs) {
+		
         newline();
         tabs(tabs);
         append("<th");
@@ -286,6 +304,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder thEnd() {
+		
         append("</th>");
 
         return this;
@@ -305,6 +324,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder td(int tabs) {
+		
         newline();
         tabs(tabs);
         append("<td");
@@ -318,6 +338,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder tdEnd() {
+		
         append("</td>");
 
         return this;
@@ -329,6 +350,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder input() {
+		
         append("<input");
 
         return this;
@@ -340,6 +362,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder type(String type) {
+		
         if (StringUtils.isNotBlank(type)) {
             append(" type=\"").append(type).append("\" ");
         }
@@ -348,12 +371,14 @@ public class HtmlBuilder {
     }
 
     public HtmlBuilder link() {
+		
         append("<link");
 
         return this;
     }
 
     public HtmlBuilder rel(String rel) {
+		
         if (StringUtils.isNotBlank(rel)) {
             append(" rel=\"").append(rel).append("\" ");
         }
@@ -362,6 +387,7 @@ public class HtmlBuilder {
     }
 
     public HtmlBuilder media(String media) {
+		
         if (StringUtils.isNotBlank(media)) {
             append(" media=\"").append(media).append("\" ");
         }
@@ -375,6 +401,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder name(String name) {
+		
         if (StringUtils.isNotBlank(name)) {
             append(" name=\"").append(name).append("\" ");
         }
@@ -393,6 +420,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder value(String value) {
+		
         if (StringUtils.isNotBlank(value)) {
             append(" value=\"").append(value).append("\" ");
         } else {
@@ -408,6 +436,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder select() {
+		
         append("<select");
 
         return this;
@@ -419,6 +448,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder selectEnd() {
+		
         append("</select>");
 
         return this;
@@ -430,6 +460,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder option() {
+		
         append("<option");
 
         return this;
@@ -441,6 +472,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder optionEnd() {
+		
         append("</option>");
 
         return this;
@@ -456,6 +488,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder form() {
+		
         newline();
         append("<form");
 
@@ -472,6 +505,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder formEnd() {
+		
         newline();
         append("</form>");
 
@@ -484,6 +518,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder title(String title) {
+		
         if (StringUtils.isNotBlank(title)) {
             append(" title=\"").append(title).append("\" ");
         }
@@ -497,6 +532,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder action(String action) {
+		
         append(" action=\"");
         if (StringUtils.isNotBlank(action)) {
             append(action);
@@ -512,6 +548,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder method(String method) {
+		
         if (StringUtils.isNotBlank(method)) {
             append(" method=\"").append(method).append("\" ");
         }
@@ -525,6 +562,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder enctype(String enctype) {
+		
         if (StringUtils.isNotBlank(enctype)) {
             append(" enctype=\"").append(enctype).append("\" ");
         }
@@ -538,6 +576,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder onchange(String onchange) {
+		
         if (StringUtils.isNotBlank(onchange)) {
             append(" onchange=\"").append(onchange).append("\" ");
         }
@@ -551,6 +590,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder onsubmit(String onsubmit) {
+		
         if (StringUtils.isNotBlank(onsubmit)) {
             append(" onsubmit=\"").append(onsubmit).append("\" ");
         }
@@ -564,6 +604,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder onclick(String onclick) {
+		
         if (StringUtils.isNotBlank(onclick)) {
             append(" onclick=\"").append(onclick).append("\" ");
         }
@@ -577,6 +618,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder onmouseover(String onmouseover) {
+		
         if (StringUtils.isNotBlank(onmouseover)) {
             append(" onmouseover=\"").append(onmouseover).append("\" ");
         }
@@ -590,6 +632,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder onmouseout(String onmouseout) {
+		
         if (StringUtils.isNotBlank(onmouseout)) {
             append(" onmouseout=\"").append(onmouseout).append("\" ");
         }
@@ -603,6 +646,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder onkeypress(String onkeypress) {
+		
         if (StringUtils.isNotBlank(onkeypress)) {
             append(" onkeypress=\"").append(onkeypress).append("\" ");
         }
@@ -616,6 +660,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder onkeyup(String onkeyup) {
+		
         if (StringUtils.isNotBlank(onkeyup)) {
             append(" onkeyup=\"").append(onkeyup).append("\" ");
         }
@@ -629,6 +674,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder id(String id) {
+		
         if (StringUtils.isNotBlank(id)) {
             append(" id=\"").append(id).append("\" ");
         }
@@ -642,6 +688,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder styleClass(String styleClass) {
+		
         if (StringUtils.isNotBlank(styleClass)) {
             append(" class=\"").append(styleClass).append("\" ");
         }
@@ -655,6 +702,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder style(String style) {
+		
         if (StringUtils.isNotBlank(style)) {
             append(" style=\"").append(style).append("\" ");
         }
@@ -668,6 +716,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder width(String width) {
+		
         if (StringUtils.isNotBlank(width)) {
             append(" width=\"").append(width).append("\" ");
         }
@@ -681,6 +730,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder align(String align) {
+		
         if (StringUtils.isNotBlank(align)) {
             append(" align=\"").append(align).append("\" ");
         }
@@ -694,6 +744,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder valign(String valign) {
+		
         if (StringUtils.isNotBlank(valign)) {
             append(" valign=\"").append(valign).append("\" ");
         }
@@ -707,6 +758,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder border(String border) {
+		
         if (StringUtils.isNotBlank(border)) {
             append(" border=\"").append(border).append("\" ");
         }
@@ -720,6 +772,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder cellpadding(String cellPadding) {
+		
         if (StringUtils.isNotBlank(cellPadding)) {
             append(" cellpadding=\"").append(cellPadding).append("\" ");
         }
@@ -733,6 +786,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder cellspacing(String cellSpacing) {
+		
         if (StringUtils.isNotBlank(cellSpacing)) {
             append(" cellspacing=\"").append(cellSpacing).append("\" ");
         }
@@ -746,6 +800,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder colspan(String colspan) {
+		
         if (StringUtils.isNotBlank(colspan)) {
             append(" colspan=\"").append(colspan).append("\" ");
         }
@@ -759,6 +814,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder rowspan(String rowspan) {
+		
         if (StringUtils.isNotBlank(rowspan)) {
             append(" rowspan=\"").append(rowspan).append("\" ");
         }
@@ -785,6 +841,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder span() {
+		
         append("<span");
 
         return this;
@@ -796,6 +853,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder spanEnd() {
+		
         append("</span>");
 
         return this;
@@ -807,6 +865,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder div() {
+		
         append("<div");
 
         return this;
@@ -818,6 +877,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder divEnd() {
+		
         append("</div>");
 
         return this;
@@ -829,6 +889,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder param(String name, String value) {
+		
         append(name);
         equals();
         append(value);
@@ -842,6 +903,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder a() {
+		
         append("<a");
 
         return this;
@@ -856,6 +918,7 @@ public class HtmlBuilder {
      * @param displayText The text to display for the url.
      */
     public HtmlBuilder ahref(String url, String displayText) {
+		
         return ahref(url, displayText, null);
     }
 
@@ -868,6 +931,7 @@ public class HtmlBuilder {
      * @param params A Map of name/value pair of parameters.
      */
     public HtmlBuilder ahref(String url, String displayText, Map<String, String> params) {
+		
         StringBuilder urlBuilder = new StringBuilder(url);
         if (params != null && params.size() > 0) {
             boolean firstRow = true;
@@ -894,6 +958,7 @@ public class HtmlBuilder {
     }
 
     public HtmlBuilder href(String href) {
+		
         if (StringUtils.isNotBlank(href)) {
             append(" href=\"").append(href).append("\" ");
         }
@@ -908,6 +973,7 @@ public class HtmlBuilder {
      *  
      */
     public HtmlBuilder href() {
+		
         append(" href=");
 
         return this;
@@ -919,6 +985,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder aEnd() {
+		
         append("</a>");
 
         return this;
@@ -930,6 +997,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder bold() {
+		
         append("<b>");
 
         return this;
@@ -941,6 +1009,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder boldEnd() {
+		
         append("</b>");
 
         return this;
@@ -952,6 +1021,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder quote() {
+		
         append("\"");
 
         return this;
@@ -963,6 +1033,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder question() {
+		
         append("?");
 
         return this;
@@ -974,6 +1045,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder equals() {
+		
         append("=");
 
         return this;
@@ -985,6 +1057,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder ampersand() {
+		
         append("&");
 
         return this;
@@ -996,6 +1069,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder img() {
+		
         append("<img");
 
         return this;
@@ -1007,6 +1081,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder src(String src) {
+		
         if (StringUtils.isNotBlank(src)) {
             append(" src=\"").append(src).append("\" ");
         }
@@ -1020,6 +1095,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder alt(String alt) {
+		
         if (StringUtils.isNotBlank(alt)) {
             append(" alt=\"").append(alt).append("\" ");
         }
@@ -1033,6 +1109,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder textarea() {
+		
         append("<textarea");
 
         return this;
@@ -1044,6 +1121,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder textareaEnd() {
+		
         append("</textarea>");
 
         return this;
@@ -1055,6 +1133,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder cols(String cols) {
+		
         if (StringUtils.isNotBlank(cols)) {
             append(" cols=\"").append(cols).append("\" ");
         }
@@ -1068,6 +1147,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder rows(String rows) {
+		
         if (StringUtils.isNotBlank(rows)) {
             append(" rows=\"").append(rows).append("\" ");
         }
@@ -1081,6 +1161,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder checked() {
+		
         append(" checked=\"checked\"");
 
         return this;
@@ -1092,6 +1173,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder selected() {
+		
         append(" selected=\"selected\"");
 
         return this;
@@ -1103,6 +1185,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder readonly() {
+		
         append(" readonly=\"readonly\"");
 
         return this;
@@ -1114,6 +1197,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder nbsp() {
+		
         append("&#160;");
 
         return this;
@@ -1125,6 +1209,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder comment(String comment) {
+		
         if (StringUtils.isNotBlank(comment)) {
             append(" <!-- ").append(comment).append(" -->");
         }
@@ -1139,6 +1224,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder ul() {
+		
         append("<ul");
 
         return this;
@@ -1151,6 +1237,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder ulEnd() {
+		
         append("</ul>");
 
         return this;
@@ -1163,6 +1250,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder li() {
+		
         append("<li");
 
         return this;
@@ -1175,6 +1263,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder liEnd() {
+		
         append("</li>");
 
         return this;
@@ -1186,6 +1275,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder br() {
+		
         append("<br/>");
 
         return this;
@@ -1197,6 +1287,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder disabled() {
+		
         append(" disabled=\"disabled\" ");
 
         return this;
@@ -1208,6 +1299,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder nowrap() {
+		
         append(" nowrap=\"nowrap\" ");
 
         return this;
@@ -1219,6 +1311,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder maxlength(String maxlength) {
+		
         if (StringUtils.isNotBlank(maxlength)) {
             append(" maxlength=\"").append(maxlength).append("\" ");
         }
@@ -1232,6 +1325,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder tbody(int tabs) {
+		
         newline();
         tabs(tabs);
         append("<tbody");
@@ -1253,6 +1347,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder tbodyEnd(int tabs) {
+		
         newline();
         tabs(tabs);
         append("</tbody>");
@@ -1266,6 +1361,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder thead(int tabs) {
+		
         newline();
         tabs(tabs);
         append("<thead");
@@ -1287,6 +1383,7 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder theadEnd(int tabs) {
+		
         newline();
         tabs(tabs);
         append("</thead>");
@@ -1300,6 +1397,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder p() {
+		
         append("<p");
 
         return this;
@@ -1312,6 +1410,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder pEnd() {
+		
         append("</p>");
 
         return this;
@@ -1323,6 +1422,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h1() {
+		
         append("<h1");
 
         return this;
@@ -1334,6 +1434,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h1End() {
+		
         append("</h1>");
 
         return this;
@@ -1345,6 +1446,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h2() {
+		
         append("<h2");
 
         return this;
@@ -1356,6 +1458,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h2End() {
+		
         append("</h2>");
 
         return this;
@@ -1367,6 +1470,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h3() {
+		
         append("<h3");
 
         return this;
@@ -1378,6 +1482,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h3End() {
+		
         append("</h3>");
 
         return this;
@@ -1389,6 +1494,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h4() {
+		
         append("<h4");
 
         return this;
@@ -1400,6 +1506,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h4End() {
+		
         append("</h4>");
 
         return this;
@@ -1411,6 +1518,7 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h5() {
+		
         append("<h5");
 
         return this;
@@ -1422,138 +1530,161 @@ public class HtmlBuilder {
      * </p>
      */
     public HtmlBuilder h5End() {
+		
         append("</h5>");
 
         return this;
     }
 
     public HtmlBuilder script() {
+		
         append("<script");
 
         return this;
     }
 
     public HtmlBuilder scriptEnd() {
+		
         append("</script>");
 
         return this;
     }
 
     public HtmlBuilder semicolon() {
+		
         append(";");
 
         return this;
     }
 
     public HtmlBuilder caption() {
+		
         append("<caption");
 
         return this;
     }
 
     public HtmlBuilder captionEnd() {
+		
         append("</caption>");
 
         return this;
     }
 
     public HtmlBuilder html() {
+		
         append("<html");
 
         return this;
     }
 
     public HtmlBuilder htmlEnd() {
+		
         append("</html>");
 
         return this;
     }
 
     public HtmlBuilder body() {
+		
         append("<body");
 
         return this;
     }
 
     public HtmlBuilder bodyEnd() {
+		
         append("</body>");
 
         return this;
     }
 
     public HtmlBuilder head() {
+		
         append("<head");
 
         return this;
     }
 
     public HtmlBuilder headEnd() {
+		
         append("</head>");
 
         return this;
     }
 
     public HtmlBuilder style() {
+		
         append("<style");
 
         return this;
     }
 
     public HtmlBuilder styleEnd() {
+		
         append("</style>");
 
         return this;
     }
     
     public HtmlBuilder dl() {
+		
         append("<dl");
         
         return this;
     }
     
     public HtmlBuilder dlEnd() {
+		
         append("</dl>");
         
         return this;
     }
 
     public HtmlBuilder dd() {
+		
         append("<dd");
         
         return this;
     }
     
     public HtmlBuilder ddEnd() {
+		
         append("</dd>");
         
         return this;
     }
     
     public HtmlBuilder dt() {
+		
         append("<dt");
         
         return this;
     }
     
     public HtmlBuilder dtEnd() {
+		
         append("</dt>");
         
         return this;
     }
     
     public HtmlBuilder label() {
+		
         append("<label");
         
         return this;
     }
     
     public HtmlBuilder labelEnd() {
+		
         append("</label>");
         
         return this;
     }
     
     public HtmlBuilder forAttr(String forAttr) {
+		
         if (StringUtils.isNotBlank(forAttr)) {
             append(" for=\"").append(forAttr).append("\" ");
         }
@@ -1563,6 +1694,7 @@ public class HtmlBuilder {
     
     @Override
     public String toString() {
+		
         return builder.toString();
     }
 }

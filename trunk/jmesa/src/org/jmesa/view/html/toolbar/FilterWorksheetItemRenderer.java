@@ -24,13 +24,15 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class FilterWorksheetItemRenderer extends AbstractItemRenderer {
+		
     public FilterWorksheetItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		
         setToolbarItem(item);
         setCoreContext(coreContext);
     }
 
     public String render() {
-
+		
         Worksheet worksheet = getCoreContext().getWorksheet();
 
         if (worksheet != null && worksheet.hasChanges()) {

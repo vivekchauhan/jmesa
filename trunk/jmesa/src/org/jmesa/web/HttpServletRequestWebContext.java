@@ -28,54 +28,66 @@ import javax.servlet.ServletContext;
  * @author Jeff Johnston
  */
 public class HttpServletRequestWebContext implements WebContext {
+		
     private final HttpServletRequest request;
 	private final ServletContext ctx;
     private Map<?,?> parameterMap;
     private Locale locale;
 
 	public HttpServletRequestWebContext(HttpServletRequest request, ServletContext ctx) {
+		
 		this.request = request;
 		this.ctx = ctx;
 	}
 	
     public HttpServletRequestWebContext(HttpServletRequest request) {
+		
         this.request = request;
 		this.ctx = request.getSession().getServletContext();
     }
 
     protected HttpServletRequest getHttpServletRequest() {
+		
         return request;
     }
 
     public Object getApplicationInitParameter(String name) {
+		
         return ctx.getInitParameter(name);
     }
 
     public Object getApplicationAttribute(String name) {
+		
         return ctx.getAttribute(name);
     }
 
     public void setApplicationAttribute(String name, Object value) {
+		
         ctx.setAttribute(name, value);
     }
 
     public void removeApplicationAttribute(String name) {
+		
         ctx.removeAttribute(name);
     }
 
     public Object getPageAttribute(String name) {
+		
         return request.getAttribute(name);
     }
 
     public void setPageAttribute(String name, Object value) {
+		
         request.setAttribute(name, value);
     }
 
     public void removePageAttribute(String name) {
+		
         request.removeAttribute(name);
     }
 
     public String getParameter(String name) {
+		
         if (parameterMap != null) {
             String[] values = WebContextUtils.getValueAsArray(parameterMap.get(name));
             if (values != null && values.length > 0) {
@@ -87,6 +99,7 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public Map<?,?> getParameterMap() {
+		
         if (parameterMap != null) {
             return parameterMap;
         }
@@ -95,38 +108,47 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public void setParameterMap(Map<?,?> parameterMap) {
+		
         this.parameterMap = parameterMap;
     }
 
     public Object getRequestAttribute(String name) {
+		
         return request.getAttribute(name);
     }
 
     public void setRequestAttribute(String name, Object value) {
+		
         request.setAttribute(name, value);
     }
 
     public void removeRequestAttribute(String name) {
+		
         request.removeAttribute(name);
     }
 
     public Object getSessionAttribute(String name) {
+		
         return request.getSession().getAttribute(name);
     }
 
     public void setSessionAttribute(String name, Object value) {
+		
         request.getSession().setAttribute(name, value);
     }
 
     public void removeSessionAttribute(String name) {
+		
         request.getSession().removeAttribute(name);
     }
 
     public Writer getWriter() {
+		
         return new StringWriter();
     }
 
     public Locale getLocale() {
+		
         if (locale != null) {
             return locale;
         }
@@ -135,20 +157,24 @@ public class HttpServletRequestWebContext implements WebContext {
     }
 
     public void setLocale(Locale locale) {
+		
         if (this.locale == null) {
             this.locale = locale;
         }
     }
 
     public String getContextPath() {
+		
         return request.getContextPath();
     }
 
     public String getRealPath(String path) {
+		
         return ctx.getRealPath(path);
     }
     
     public HttpServletRequest getBackingObject() {
+		
         return request;
     }
 }

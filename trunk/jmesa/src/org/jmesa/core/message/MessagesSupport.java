@@ -20,6 +20,7 @@ package org.jmesa.core.message;
  * @author Jeff Johnston
  */
 public interface MessagesSupport {
+		
     public Messages getMessages();
     public void setMessages(Messages messages);
 }

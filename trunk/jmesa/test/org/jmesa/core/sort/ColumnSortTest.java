@@ -40,8 +40,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class ColumnSortTest extends AbstractTestCase {
+		
 	@Test
 	public void sortItems() {
+		
 		WebContext webContext = createWebContext();
         
         HashMap<String, Object> results = new HashMap<String, Object>();
@@ -73,6 +75,7 @@ public class ColumnSortTest extends AbstractTestCase {
     @SuppressWarnings("unchecked")
     @Test
     public void sortNullComposedItems() {
+		
         WebContext webContext = createWebContext();
         
         HashMap<String, Object> results = new HashMap<String, Object>();
@@ -120,6 +123,7 @@ public class ColumnSortTest extends AbstractTestCase {
     @SuppressWarnings("unchecked")
     @Test
     public void sortEmptyComposedItems() {
+		
         WebContext webContext = createWebContext();
         
         HashMap<String, Object> results = new HashMap<String, Object>();
@@ -167,6 +171,7 @@ public class ColumnSortTest extends AbstractTestCase {
     @SuppressWarnings("unchecked")
     @Test
     public void sortNullItems() {
+		
         WebContext webContext = createWebContext();
         
         HashMap<String, Object> results = new HashMap<String, Object>();
@@ -216,6 +221,7 @@ public class ColumnSortTest extends AbstractTestCase {
     @SuppressWarnings("unchecked")
     @Test
     public void sortEmptyItems() {
+		
         WebContext webContext = createWebContext();
         
         HashMap<String, Object> results = new HashMap<String, Object>();

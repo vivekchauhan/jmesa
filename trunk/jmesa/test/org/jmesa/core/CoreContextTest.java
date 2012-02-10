@@ -44,12 +44,14 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 public class CoreContextTest {
+		
 	private static final String ID = "pres";
 	private static final int MAX_ROWS = 20;
 	private static final int TOTAL_ROWS = 60;
 	
 	@Test
 	public void createCoreContext() {
+		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		WebContext webContext = new HttpServletRequestWebContext(request);
 		webContext.setParameterMap(getParameters());
@@ -76,6 +78,7 @@ public class CoreContextTest {
 	}
 	
 	private Map<?, ?> getParameters() {
+		
 		HashMap<String, Object> results = new HashMap<String, Object>();
 		ParametersAdapter parametersAdapter = new ParametersAdapter(results);
 		createBuilder(parametersAdapter);
@@ -83,6 +86,7 @@ public class CoreContextTest {
 	}
 	
 	private void createBuilder(Parameters parameters) {
+		
 		ParametersBuilder builder = new ParametersBuilder(ID, parameters);
 		builder.addSort("firstName", Order.ASC);
 		builder.addSort("lastName", Order.DESC);

@@ -31,9 +31,11 @@ import org.slf4j.LoggerFactory;
  * @author Jeff Johnston
  */
 public class DateFilterMatcher extends AbstractPatternFilterMatcher {
+		
     private Logger logger = LoggerFactory.getLogger(DateFilterMatcher.class);
 
     public DateFilterMatcher() {
+		
         // default constructor
     }
 
@@ -41,15 +43,18 @@ public class DateFilterMatcher extends AbstractPatternFilterMatcher {
      * @param pattern The pattern to use.
      */
     public DateFilterMatcher(String pattern) {
+		
         setPattern(pattern);
     }
 
     public DateFilterMatcher(String pattern, WebContext webContext) {
+		
         setPattern(pattern);
         setWebContext(webContext);
     }
 
     public boolean evaluate(Object itemValue, String filterValue) {
+		
         if (itemValue == null) {
             return false;
         }

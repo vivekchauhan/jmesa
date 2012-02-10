@@ -24,6 +24,7 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class MessagesFactory {
+		
     private static final String JMESA_MESSAGES_LOCATION = "jmesaMessagesLocation";
 
     private MessagesFactory() {}
@@ -32,6 +33,7 @@ public class MessagesFactory {
      * @return The default messages.
      */
     public static Messages getMessages(WebContext webContext) {
+		
         String jmesaMessagesLocation = (String) webContext.getApplicationInitParameter(JMESA_MESSAGES_LOCATION);
         return new ResourceBundleMessages(jmesaMessagesLocation, webContext);
     }

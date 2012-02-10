@@ -24,7 +24,9 @@ import org.jmesa.web.PortletRequestSpringWebContext;
  * @author Jeff Johnston
  */
 public class SpringPortletTableModel extends TableModel {
+		
     public SpringPortletTableModel(String id, PortletRequest request) {
+		
         TableFacade tableFacade = new TableFacade(id, null);
         tableFacade.setWebContext(new PortletRequestSpringWebContext(request));
         super.setTableFacade(tableFacade);

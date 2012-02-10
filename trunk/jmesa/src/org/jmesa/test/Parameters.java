@@ -23,5 +23,6 @@ package org.jmesa.test;
  * @author Jeff Johnston
  */
 public interface Parameters {
+		
     public void addParameter(String parameter, Object value);
 }

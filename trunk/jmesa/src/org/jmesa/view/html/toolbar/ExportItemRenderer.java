@@ -23,15 +23,18 @@ import org.jmesa.limit.Limit;
  * @author Jeff Johnston
  */
 public class ExportItemRenderer extends AbstractItemRenderer {
+		
     private ToolbarExport export;
 
     public ExportItemRenderer(ToolbarItem item, ToolbarExport export, CoreContext coreContext) {
+		
         setToolbarItem(item);
         this.export = export;
         setCoreContext(coreContext);
     }
 
     public String render() {
+		
         Limit limit = getCoreContext().getLimit();
         ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.setExportToLimit('" + limit.getId() + "','" + export.getExportType().toParam() + "');"

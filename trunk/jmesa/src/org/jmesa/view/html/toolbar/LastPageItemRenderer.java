@@ -24,12 +24,15 @@ import org.jmesa.view.html.HtmlUtils;
  * @author Jeff Johnston
  */
 public class LastPageItemRenderer extends AbstractItemRenderer {
+		
     public LastPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
+		
         setToolbarItem(item);
         setCoreContext(coreContext);
     }
 
     public String render() {
+		
         Limit limit = getCoreContext().getLimit();
         int page = limit.getRowSelect().getPage();
         int totalPages = HtmlUtils.totalPages(getCoreContext());

@@ -29,7 +29,9 @@ import org.jmesa.web.WebContext;
  * @author Jeff Johnston
  */
 public class NumberFilterMatcher extends AbstractPatternFilterMatcher {
+		
     public NumberFilterMatcher() {
+		
     	// default constructor
     }
 
@@ -37,15 +39,18 @@ public class NumberFilterMatcher extends AbstractPatternFilterMatcher {
      * @param pattern The pattern to use.
      */
     public NumberFilterMatcher(String pattern) {
+		
         setPattern(pattern);
     }
 
     public NumberFilterMatcher(String pattern, WebContext webContext) {
+		
         setPattern(pattern);
         setWebContext(webContext);
     }
 
     public boolean evaluate(Object itemValue, String filterValue) {
+		
         if (itemValue == null) {
             return false;
         }

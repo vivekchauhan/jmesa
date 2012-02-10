@@ -22,6 +22,7 @@ import org.jmesa.view.component.Row;
  * @author Jeff Johnston
  */
 public interface RowRenderer {
+		
     public Row getRow();
 
     public void setRow(Row row);

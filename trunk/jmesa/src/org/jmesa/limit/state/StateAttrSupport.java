@@ -20,6 +20,7 @@ package org.jmesa.limit.state;
  * @author Jeff Johnston
  */
 public interface StateAttrSupport {
+		
     public String getStateAttr();
     public void setStateAttr(String id);
 }

@@ -22,32 +22,39 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Siddhant Agrawal
  */
 public class TextItem extends AbstractItem {
+		
     String text;
     String alt;
 
     public String getText() {
+		
         return text;
     }
 
     public void setText(String text) {
+		
         this.text = text;
     }
 
     public String getAlt() {
+		
         return alt;
     }
 
     public void setAlt(String alt) {
+		
         this.alt = alt;
     }
 
     @Override
     public String disabled() {
+		
         return "";
     }
 
     @Override
     public String enabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
 
         String action = getAction();

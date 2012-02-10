@@ -26,8 +26,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class HtmlHeaderRendererTest extends AbstractTestCase {
+		
 	@Test
 	public void getStyleClass() {
+		
 		WebContext webContext = createWebContext();
 		CoreContext coreContext = createCoreContext(webContext);
 		

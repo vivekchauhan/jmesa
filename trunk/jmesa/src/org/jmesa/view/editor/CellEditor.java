@@ -24,5 +24,6 @@ package org.jmesa.view.editor;
  * @author Jeff Johnston
  */
 public interface CellEditor {
+		
     public Object getValue(Object item, String property, int rowcount);
 }

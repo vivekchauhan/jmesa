@@ -29,6 +29,7 @@ public class BsfExpressionCellEditorTest extends AbstractTestCase {
 
     @Test
     public void testSetItemVariableName() {
+		
         CoreContext ctx = createCoreContext(createWebContext());
 
         // First just test a basic expression
@@ -42,6 +43,7 @@ public class BsfExpressionCellEditorTest extends AbstractTestCase {
 
     @Test
     public void testGetValue() {
+		
         CoreContext ctx = createCoreContext(createWebContext());
 
         // First just test a basic expression

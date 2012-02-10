@@ -26,13 +26,16 @@ import java.util.Map;
  * @author Jeff Johnston
  */
 public class FilterMatcherRegistry {
+		
     private Map<MatcherKey, FilterMatcher> matchers = new HashMap<MatcherKey, FilterMatcher>();
 
     public void addFilterMatcher(MatcherKey key, FilterMatcher matcher) {
+		
         matchers.put(key, matcher);
     }
 
     public FilterMatcher getFilterMatcher(MatcherKey key) {
+		
         FilterMatcher matcher = getFilterMatcherByProperty(key.getProperty());
 
         if (matcher != null) {
@@ -63,6 +66,7 @@ public class FilterMatcherRegistry {
      * @return The FilterMatcher object that will do the comparison.
      */
     private FilterMatcher getFilterMatcherByProperty(String property) {
+		
         if (property == null) {
             return null;
         }
@@ -86,6 +90,7 @@ public class FilterMatcherRegistry {
      * @return The FilterMatcher object that will do the comparison.
      */
     private FilterMatcher getFilterMatcherByType(Class<?> type) {
+		
         for (MatcherKey key : matchers.keySet()) {
             String prop = key.getProperty();
             if (prop != null) { //do not use matcher that is using property match
@@ -111,6 +116,7 @@ public class FilterMatcherRegistry {
      * @return The FilterMatcher object that will do the comparison.
      */
     private FilterMatcher getFilterMatcherByObject(Class<?> type) {
+		
         FilterMatcher result = null;
 
         for (MatcherKey key : matchers.keySet()) {

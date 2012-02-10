@@ -56,11 +56,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Jeff Johnston
  */
 public final class Sort implements Serializable, Comparable<Sort> {
+		
     private final int position;
     private final String property;
     private final Order order;
 
     public Sort(int position, String property, Order order) {
+		
         this.position = position;
         this.property = property;
         this.order = order;
@@ -70,6 +72,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
      * @return The Bean (Or Map) attribute used to reduce the results.
      */
     public String getProperty() {
+		
         return property;
     }
 
@@ -77,6 +80,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
      * @return Will be used to sort the results.
      */
     public Order getOrder() {
+		
         return order;
     }
 
@@ -84,6 +88,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
      * @return The placement of the Sort within the SortSet.
      */
     public int getPosition() {
+		
         return position;
     }
 
@@ -96,6 +101,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
      * property.
      */
     public int compareTo(Sort sort) {
+		
         if (this.getPosition() < sort.getPosition()) {
             return -1;
         }
@@ -113,6 +119,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
      */
     @Override
     public boolean equals(Object o) {
+		
         if (o == this)
             return true;
 
@@ -126,6 +133,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
 
     @Override
     public int hashCode() {
+		
         int result = 17;
         int prop = this.getProperty() == null ? 0 : this.getProperty().hashCode();
         result = result * 37 + prop;
@@ -134,6 +142,7 @@ public final class Sort implements Serializable, Comparable<Sort> {
 
     @Override
     public String toString() {
+		
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("position", position);
         builder.append("property", property);

@@ -22,6 +22,7 @@ package org.jmesa.view.component;
  * @author Jeff Johnston
  */
 public interface TableSupport {
+		
     public Table getTable();
     
     public void setTable(Table table);

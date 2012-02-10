@@ -25,5 +25,6 @@ import java.util.Collection;
  * @author Jeff Johnston
  */
 public interface AllItems {
+		
     public Collection<?> getItems();
 }

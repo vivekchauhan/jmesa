@@ -22,5 +22,6 @@ package org.jmesa.view.html.event;
  * @author Jeff Johnston
  */
 public interface RowEvent {
+		
     public String execute(Object item, int rowcount);
 }

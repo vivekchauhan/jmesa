@@ -35,6 +35,7 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
     public AutoCompleteWorksheetEditor() {}
     
     public AutoCompleteWorksheetEditor(String url) {
+		
         this.url = url;
     }
 
@@ -42,6 +43,7 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */
     public Object getValue(Object item, String property, int rowcount) {
+		
         Object value = null;
 
         WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
@@ -55,6 +57,7 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
     }
 
     protected String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item, String property) {
+		
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             if (value == null) {
                 return "";
@@ -86,14 +89,17 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
     }
 
     protected String getUrl(Object item, String property) {
+		
         return url;
     }
 
     public void setUrl(String url) {
+		
         this.url = url;
     }
 
     protected String getOptions(Object item, String property) {
+		
         if (options == null) {
             return "{max:50}";
         }
@@ -101,6 +107,7 @@ public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEdito
     }
 
     public void setOptions(String options) {
+		
         this.options = options;
     }
 }

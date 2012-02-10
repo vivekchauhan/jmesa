@@ -33,18 +33,22 @@ import static org.jmesa.worksheet.WorksheetUtils.getRowError;
  * @author Jeff Johnston
  */
 public class HtmlRowRenderer extends AbstractRowRenderer {
+		
     public HtmlRowRenderer() {}
 
     public HtmlRowRenderer(HtmlRow row) {
+		
         setRow(row);
     }
 
     @Override
     public HtmlRow getRow() {
+		
         return (HtmlRow) super.getRow();
     }
 
     protected String getStyleClass(int rowcount) {
+		
         HtmlRow row = getRow();
         String styleClass = row.getStyleClass();
         if (StringUtils.isNotBlank(styleClass)) {
@@ -59,6 +63,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
     }
 
     protected String getStyleClass(Object item, int rowcount) {
+		
         Worksheet worksheet = getCoreContext().getWorksheet();
         HtmlRow row = getRow();
         if (isRowRemoved(worksheet, row, item)) {
@@ -78,6 +83,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
      * @return The row events.
      */
     protected String getRowEvents(Object item, int rowcount) {
+		
         Worksheet worksheet = getCoreContext().getWorksheet();
         HtmlRow row = getRow();
         if (isRowRemoved(worksheet, row, item) ||
@@ -116,6 +122,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
     }
 
     public Object render(Object item, int rowcount) {
+		
         HtmlBuilder html = new HtmlBuilder();
         html.tr(1);
 

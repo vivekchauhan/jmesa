@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
  * @author wliu
  */
 public class BeanUtils {
+		
     private static final Logger logger = Logger.getLogger(BeanUtils.class);
     
     /**
@@ -40,6 +41,7 @@ public class BeanUtils {
      * @return The type of the property. If the property doesn't exists in the object, returns null.
      */
     public static Class getPropertyType(Object object, String property) {
+		
         if (object == null) {
             throw new IllegalArgumentException("Object cannot be null.");
         }
@@ -54,6 +56,7 @@ public class BeanUtils {
      * @return The type of the property. If the property doesn't exists in the clazz, returns null.
      */
     public static Class getPropertyType(Class clazz, String property) {
+		
         if (clazz == null) {
             throw new IllegalArgumentException("Clazz cannot be null.");
         }
@@ -94,8 +97,9 @@ public class BeanUtils {
      *          the property, returns null.
      */
     public static Method getReadMethod(Class clazz, String property) {
+		
         // Capitalize the property 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(property.substring(0, 1).toUpperCase());
         if (property.length() > 1) {
             buf.append(property.substring(1));

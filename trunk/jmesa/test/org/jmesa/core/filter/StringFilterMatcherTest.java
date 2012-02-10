@@ -25,8 +25,10 @@ import org.junit.Test;
  * @author Jeff Johnston
  */
 public class StringFilterMatcherTest {
+		
 	@Test
 	public void evaluateTest() {
+		
 		StringFilterMatcher match = new StringFilterMatcher();
 
 		boolean evaluate = match.evaluate(null, "geo");

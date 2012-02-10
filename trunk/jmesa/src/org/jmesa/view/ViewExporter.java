@@ -20,6 +20,7 @@ package org.jmesa.view;
  * @author Jeff Johnston
  */
 public interface ViewExporter {
+		
     public View getView();
 
     public void setView(View view);

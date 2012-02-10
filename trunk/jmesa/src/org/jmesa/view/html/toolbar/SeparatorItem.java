@@ -25,13 +25,16 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jeff Johnston
  */
 public class SeparatorItem extends ImageItem {
+		
     @Override
     public String disabled() {
+		
         return null;
     }
 
     @Override
     public String enabled() {
+		
         HtmlBuilder html = new HtmlBuilder();
         html.img();
         html.src(getImage());
@@ -43,15 +46,19 @@ public class SeparatorItem extends ImageItem {
 
     @Override
     public ToolbarItemRenderer getToolbarItemRenderer() {
+		
         return new SeparatorRenderer(this);
     }
 
     private static class SeparatorRenderer extends AbstractItemRenderer {
+		
         public SeparatorRenderer(SeparatorItem item) {
+		
             setToolbarItem(item);
         }
 
         public String render() {
+		
             return getToolbarItem().enabled();
         }
     }

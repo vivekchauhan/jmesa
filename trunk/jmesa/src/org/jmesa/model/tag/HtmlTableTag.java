@@ -30,6 +30,7 @@ import org.jmesa.view.html.renderer.HtmlTableRenderer;
  * @author jeff jie
  */
 public class HtmlTableTag extends SimpleTagSupport {
+		
     // core attributes
     private String caption;
     private String captionKey;
@@ -45,26 +46,32 @@ public class HtmlTableTag extends SimpleTagSupport {
     private String cellspacing;
 
     public String getCaption() {
+		
         return caption;
     }
 
     public void setCaption(String caption) {
+		
         this.caption = caption;
     }
 
     public String getCaptionKey() {
+		
         return captionKey;
     }
 
     public void setCaptionKey(String captionKey) {
+		
         this.captionKey = captionKey;
     }
 
     public String getTheme() {
+		
         return theme;
     }
 
     public void setTheme(String theme) {
+		
         this.theme = theme;
     }
 
@@ -72,6 +79,7 @@ public class HtmlTableTag extends SimpleTagSupport {
      * @since 2.2
      */
     public String getTableRenderer() {
+		
         return tableRenderer;
     }
 
@@ -79,54 +87,67 @@ public class HtmlTableTag extends SimpleTagSupport {
      * @since 2.2
      */
     public void setTableRenderer(String tableRenderer) {
+		
         this.tableRenderer = tableRenderer;
     }
 
     public String getStyle() {
+		
         return style;
     }
 
     public void setStyle(String style) {
+		
         this.style = style;
     }
 
     public String getStyleClass() {
+		
         return styleClass;
     }
 
     public void setStyleClass(String styleClass) {
+		
         this.styleClass = styleClass;
     }
 
     public String getWidth() {
+		
         return width;
     }
 
     public void setWidth(String width) {
+		
         this.width = width;
     }
 
     public String getBorder() {
+		
         return border;
     }
 
     public void setBorder(String border) {
+		
         this.border = border;
     }
 
     public String getCellpadding() {
+		
         return cellpadding;
     }
 
     public void setCellpadding(String cellpadding) {
+		
         this.cellpadding = cellpadding;
     }
 
     public String getCellspacing() {
+		
         return cellspacing;
     }
 
     public void setCellspacing(String cellspacing) {
+		
         this.cellspacing = cellspacing;
     }
 
@@ -134,6 +155,7 @@ public class HtmlTableTag extends SimpleTagSupport {
      * The table to use. If the table does not exist then one will be created.
      */
     private HtmlTable getHtmlTable() {
+		
         HtmlTable htmlTable = new HtmlTable();
         
         htmlTable.setCaption(getCaption());
@@ -155,6 +177,7 @@ public class HtmlTableTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
+		
         JspFragment body = getJspBody();
         if (body == null) {
             throw new IllegalStateException("You need to wrap the table in the facade tag.");

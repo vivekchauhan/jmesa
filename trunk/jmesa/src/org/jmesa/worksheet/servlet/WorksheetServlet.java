@@ -35,8 +35,10 @@ import org.jmesa.worksheet.WorksheetUpdater;
  * @author Jeff Johnston
  */
 public class WorksheetServlet extends HttpServlet {
+		
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
         WebContext webContext = new HttpServletRequestWebContext(request);
         Messages messages = getMessages(webContext);
         WorksheetUpdater worksheetUpdater = new WorksheetUpdater();
@@ -51,6 +53,7 @@ public class WorksheetServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
+		
         doGet(request, response);
     }
 }
