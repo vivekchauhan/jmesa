@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
-import org.jmesa.view.csv.renderer.CsvCellRenderer;
 import org.jmesa.view.renderer.CellRenderer;
 
 /**
@@ -52,13 +51,9 @@ public class CsvView extends AbstractExportView {
 
             for (Column column : columns) {
                 CellRenderer cellRenderer = column.getCellRenderer();
-                if (cellRenderer instanceof CsvCellRenderer) {
-                    data.append(column.getCellRenderer().render(item, rowcount));
-                } else {
-                    Object value = cellRenderer.render(item, rowcount);
-                    data.append("\"").append(value).append("\"");
-                    data.append(getDelimiter());
-                }
+                Object value = cellRenderer.render(item, rowcount);
+                data.append("\"").append(value).append("\"");
+                data.append(getDelimiter());
             }
 
             data.append("\r\n");
