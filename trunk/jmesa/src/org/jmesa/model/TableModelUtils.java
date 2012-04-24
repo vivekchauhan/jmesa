@@ -18,7 +18,6 @@ package org.jmesa.model;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitActionFactory;
 import org.jmesa.limit.RowSelect;
@@ -49,7 +48,7 @@ public class TableModelUtils {
         return getExportType(id, request) != null;
     }
 
-    public static ExportType getExportType(String id, HttpServletRequest request) {
+    public static String getExportType(String id, HttpServletRequest request) {
 		
         LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
         return actionFactory.getExportType();

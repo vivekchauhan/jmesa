@@ -27,7 +27,6 @@ import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
-import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
 import org.jmesa.limit.state.State;
 import org.jmesa.util.SupportUtils;
@@ -474,19 +473,12 @@ class TagUtils {
         return results;
     }
 
-    public static ExportType[] getTableFacadeExportTypes(String exportTypes) {
+    public static String[] getTableFacadeExportTypes(String exportTypes) {
 		
         if (StringUtils.isBlank(exportTypes)) {
             return null;
         }
 
-        String[] types = StringUtils.split(exportTypes, ",");
-
-        ExportType[] et = new ExportType[types.length];
-        for (int i = 0; i < types.length; i++) {
-            et[i] = ExportType.valueOfParam(types[i]);
-        }
-
-        return et;
+        return StringUtils.split(exportTypes, ",");
     }
 }

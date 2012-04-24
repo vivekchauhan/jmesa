@@ -135,7 +135,7 @@ public class LimitFactory {
         SortSet sortSet = limitActionFactory.getSortSet();
         limit.setSortSet(sortSet);
 
-        ExportType exportType = limitActionFactory.getExportType();
+        String exportType = limitActionFactory.getExportType();
         limit.setExportType(exportType);
 
         if (state != null && !limit.hasExport()) {

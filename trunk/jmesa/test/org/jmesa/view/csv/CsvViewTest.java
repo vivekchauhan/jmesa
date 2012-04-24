@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.ExportType;
+import org.jmesa.model.TableModel;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.Parameters;
 import org.jmesa.test.ParametersAdapter;
@@ -48,7 +48,7 @@ public class CsvViewTest extends AbstractTestCase {
         CoreContext coreContext = createCoreContext(webContext);
 
         assertTrue(coreContext.getLimit().hasExport());
-        assertTrue(coreContext.getLimit().getExportType() == ExportType.CSV);
+        assertTrue(coreContext.getLimit().getExportType().equals(TableModel.CSV));
 
         // create the table
         Table table = new Table();
@@ -93,6 +93,6 @@ public class CsvViewTest extends AbstractTestCase {
     private void createBuilder(Parameters parameters) {
 		
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExportType(ExportType.CSV);
+        builder.setExportType(TableModel.CSV);
     }
 }

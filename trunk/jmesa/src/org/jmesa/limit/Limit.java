@@ -40,7 +40,7 @@ public class Limit implements Serializable {
     private RowSelect rowSelect;
     private FilterSet filterSet;
     private SortSet sortSet;
-    private ExportType exportType;
+    private String exportType;
 
     /**
      * @param id The code to uniquely identify the table.
@@ -142,17 +142,23 @@ public class Limit implements Serializable {
 
     /**
      * <p>
-     * The ExportType represents the export that the user invoked.
+     * The export type represents the export that the user invoked.
      * </p>
      */
-    public ExportType getExportType() {
+    public String getExportType() {
 		
         return exportType;
     }
 
-    public void setExportType(ExportType exportType) {
+    public void setExportType(String exportType) {
 		
         this.exportType = exportType;
+    }
+
+    @Deprecated
+    public void setExportType(ExportType exportType) {
+
+        this.exportType = exportType.toParam();
     }
 
     public boolean hasRowSelect() {

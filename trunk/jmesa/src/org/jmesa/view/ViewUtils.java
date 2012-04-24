@@ -18,7 +18,6 @@ package org.jmesa.view;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.limit.ExportType;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.worksheet.Worksheet;
 
@@ -102,7 +101,7 @@ public class ViewUtils {
      * @param exportTypes The array of export types to check.
      * @return Is true if there is an export to do.
      */
-    public static boolean isExportable(ExportType... exportTypes) {
+    public static boolean isExportable(String... exportTypes) {
 		
         return  exportTypes != null && exportTypes.length > 0;
     }

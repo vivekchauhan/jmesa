@@ -269,7 +269,7 @@ public class ToolbarItemFactory {
             return image;
         }
 
-        image = coreContext.getPreference(TOOLBAR_IMAGE + export.getExportType().toParam());
+        image = coreContext.getPreference(TOOLBAR_IMAGE + export.getExportType());
 
         return image;
     }
@@ -281,7 +281,7 @@ public class ToolbarItemFactory {
             return tooltip;
         }
 
-        tooltip = coreContext.getMessage(TOOLBAR_TOOLTIP + export.getExportType().toParam());
+        tooltip = coreContext.getMessage(TOOLBAR_TOOLTIP + export.getExportType());
 
         return tooltip;
     }

@@ -137,22 +137,15 @@ public class LimitActionFactory {
     /**
      * @return The current export type based on what the user selected.
      */
-    public ExportType getExportType() {
+    public String getExportType() {
 		
         String exportType = LimitUtils.getValue(parameters.get(prefixId + Action.EXPORT.toParam()));
-        if (StringUtils.isNotBlank(exportType)) {
-            if (logger.isDebugEnabled()) {
-                logger.debug("ExportType: " + exportType);
-            }
-            ExportType et = ExportType.valueOfParam(exportType);
-            if (et != null) {
-                return et;
-            }
 
-            throw new IllegalStateException("Not able to handle the export of type: " + exportType);
+        if (logger.isDebugEnabled()) {
+            logger.debug("Export Type: " + exportType == null ? "" : exportType);
         }
 
-        return null;
+        return exportType;
     }
 
     @Override
