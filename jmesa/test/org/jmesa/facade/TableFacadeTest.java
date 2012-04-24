@@ -27,9 +27,9 @@ import org.jmesa.core.President;
 import org.jmesa.core.PresidentDao;
 import org.jmesa.core.filter.DateFilterMatcher;
 import org.jmesa.core.filter.MatcherKey;
-import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
+import org.jmesa.model.TableModel;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.test.ParametersBuilder;
 import org.jmesa.test.SpringParametersAdapter;
@@ -231,7 +231,7 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExportType(ExportType.CSV);
+        builder.setExportType(TableModel.CSV);
 
         TableFacade facade = TableFacadeFactory.createTableFacade("pres", request);
         facade.setItems(items);
@@ -317,7 +317,7 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExportType(ExportType.CSV);
+        builder.setExportType(TableModel.CSV);
 
         Collection<President> items = PresidentDao.getPresidents();
 
@@ -392,7 +392,7 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExportType(ExportType.CSV);
+        builder.setExportType(TableModel.CSV);
 
         Collection<President> items = PresidentDao.getPresidents();
 
@@ -497,7 +497,7 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExportType(ExportType.CSV);
+        builder.setExportType(TableModel.CSV);
 
         Collection<President> items = PresidentDao.getPresidents();
 
@@ -570,7 +570,7 @@ public class TableFacadeTest extends AbstractTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SpringParametersAdapter parameters = new SpringParametersAdapter(request);
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
-        builder.setExportType(ExportType.CSV);
+        builder.setExportType(TableModel.CSV);
 
         Collection<President> items = PresidentDao.getPresidents();
 
@@ -589,7 +589,7 @@ public class TableFacadeTest extends AbstractTestCase {
         table.setRow(row);
         facade.setTable(table);
 
-        facade.setExportTypes(ExportType.CSV, ExportType.EXCEL);
+        facade.setExportTypes(TableModel.CSV, TableModel.EXCEL);
 
         String markup = facade.render();
         assertNull(markup);

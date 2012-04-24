@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.facade.TableFacade;
-import org.jmesa.limit.ExportType;
+import org.jmesa.model.TableModel;
 import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
@@ -80,7 +80,7 @@ public class ClassicViewTest extends AbstractTestCase {
         toolbar.setTable(table);
         toolbar.setWebContext(webContext);
         toolbar.setCoreContext(coreContext);
-        toolbar.setExportTypes(ExportType.CSV);
+        toolbar.setExportTypes(TableModel.CSV);
         HtmlView view = new HtmlView();
         view.setTable(table);
         view.setToolbar(toolbar);

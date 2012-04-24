@@ -44,12 +44,12 @@ import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PreferencesFactory;
 import org.jmesa.core.sort.ColumnSort;
-import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
+import org.jmesa.model.TableModel;
 import org.jmesa.util.ExportUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
@@ -122,7 +122,7 @@ public class TableFacade {
     private HttpServletResponse response;
     private int maxRows;
     private Collection<?> items;
-    private ExportType[] exportTypes;
+    private String[] exportTypes;
     private String exportFileName;
     private WebContext webContext;
     private CoreContext coreContext;
@@ -183,7 +183,7 @@ public class TableFacade {
      * Set the comma separated list of export types. The currently supported types are
      * ExportType.CVS, ExportType.EXCEL, ExportType.JEXCEL, and ExportType.PDF.
      */
-    public void setExportTypes(ExportType... exportTypes) {
+    public void setExportTypes(String... exportTypes) {
 		
         validateToolbarIsNull(toolbar, "exportTypes");
 
@@ -775,20 +775,26 @@ public class TableFacade {
         return view;
     }
 
-    protected View getExportView(ExportType exportType) {
+    protected View getExportView(String exportType) {
 		
         View exportView = null;
 
-        if (exportType == ExportType.CSV) {
+        if (exportType == null) {
+            throw new IllegalStateException("The export type is null.");
+        }
+
+        if (exportType.equals(TableModel.CSV)) {
             exportView = new CsvView(",");
-        } else if (exportType == ExportType.EXCEL) {
+        } else if (exportType.equals(TableModel.EXCEL)) {
             exportView = new ExcelView();
-        } else if (exportType == ExportType.JEXCEL) {
+        } else if (exportType.equals(TableModel.JEXCEL)) {
             exportView = new JExcelView();
-        } else if (exportType == ExportType.PDF) {
+        } else if (exportType.equals(TableModel.PDF)) {
             exportView = new PdfView();
-        } else if (exportType == ExportType.PDFP) {
+        } else if (exportType.equals(TableModel.PDFP)) {
             exportView= new PdfPView();
+        } else {
+            throw new IllegalStateException("Not a valid export type.");
         }
 
         if (exportView != null) {
@@ -836,13 +842,13 @@ public class TableFacade {
             return v.render().toString();
         }
 
-        ExportType exportType = l.getExportType();
+        String exportType = l.getExportType();
         renderExport(exportType, v);
 
         return null;
     }
 
-    protected void renderExport(ExportType exportType, View view) {
+    protected void renderExport(String exportType, View view) {
 		
         validateResponseIsNotNull(response);
 
@@ -851,16 +857,22 @@ public class TableFacade {
 
             if (ve == null) {
 
-                if (exportType == ExportType.CSV) {
+                if (exportType == null) {
+                    throw new IllegalStateException("The export type is null.");
+                }
+
+                if (exportType.equals(TableModel.CSV)) {
                     ve = new CsvViewExporter();
-                } else if (exportType == ExportType.EXCEL) {
+                } else if (exportType.equals(TableModel.EXCEL)) {
                     ve = new ExcelViewExporter();
-                } else if (exportType == ExportType.JEXCEL) {
+                } else if (exportType.equals(TableModel.JEXCEL)) {
                     ve = new JExcelViewExporter();
-                } else if (exportType == ExportType.PDF) {
+                } else if (exportType.equals(TableModel.PDF)) {
                     ve = new PdfViewExporter();
-                } else if (exportType == ExportType.PDFP) {
+                } else if (exportType.equals(TableModel.PDFP)) {
                     ve = new PdfPViewExporter();
+                } else {
+                    throw new IllegalStateException("Not a valid export type.");
                 }
             }
 
@@ -874,10 +886,6 @@ public class TableFacade {
 
                 if (exportFileName == null) {
                     exportFileName = ExportUtils.exportFileName(getView());
-                }
-
-                if (!exportFileName.endsWith(exportType.toExt())) {
-                    exportFileName += "." + exportType.toExt();
                 }
 
                 ve.setFileName(exportFileName);

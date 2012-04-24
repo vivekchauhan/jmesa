@@ -22,7 +22,6 @@ import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.FilterMatcherRegistrySupport;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesSupport;
-import org.jmesa.limit.ExportType;
 import org.jmesa.limit.state.StateAttrSupport;
 import org.jmesa.view.ExportTypesSupport;
 import org.jmesa.view.component.Column;
@@ -215,7 +214,7 @@ public class SupportUtils {
      * @param obj The object being inspected.
      * @param exportTypes The object to be injected.
      */
-    public static void setExportTypes(Object obj, ExportType... exportTypes) {
+    public static void setExportTypes(Object obj, String... exportTypes) {
 		
         if ((obj instanceof ExportTypesSupport) && ((ExportTypesSupport) obj).getExportTypes() == null) {
             ((ExportTypesSupport) obj).setExportTypes(exportTypes);

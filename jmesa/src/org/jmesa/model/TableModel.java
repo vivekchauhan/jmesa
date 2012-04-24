@@ -46,6 +46,12 @@ import org.jmesa.worksheet.Worksheet;
  */
 public class TableModel {
 
+    public static final String CSV = "csv";
+    public static final String EXCEL = "excel";
+    public static final String JEXCEL = "jexcel";
+    public static final String PDF = "pdf";
+    public static final String PDFP = "pdfp";
+
     private String id;
     private HttpServletRequest request;
     private Collection<?> items;
@@ -53,7 +59,7 @@ public class TableModel {
     private AllItems allItems;
     private Preferences preferences;
     private Messages messages;
-    private ExportType[] exportTypes;
+    private String[] exportTypes;
     private String exportFileName;
     private State state;
     private String stateAttr;
@@ -157,9 +163,22 @@ public class TableModel {
         this.messages = messages;
     }
 
-    public void setExportTypes(ExportType... exportTypes) {
+    @Deprecated
+    public void setExportTypes(String... exportTypes) {
 		
         this.exportTypes = exportTypes;
+    }
+
+    public void setExportTypes(ExportType... exportTypes) {
+
+        String[] result = new String[exportTypes.length];
+
+        int i = 0;
+        for (ExportType exportType: exportTypes) {
+            result[i++] = exportType.name();
+        }
+
+        this.exportTypes = result;
     }
 
     public void setExportFileName(String exportFileName) {
@@ -255,7 +274,7 @@ public class TableModel {
         return getExportType() != null;
     }
 
-    public ExportType getExportType() {
+    public String getExportType() {
 		
         LimitActionFactory actionFactory = new LimitActionFactory(id, request.getParameterMap());
         return actionFactory.getExportType();

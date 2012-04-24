@@ -80,12 +80,19 @@ public class ParametersBuilder {
         parameters.addParameter(key, new String[] { order.toParam() });
     }
 
+    public void setExportType(String exportType) {
+
+        String key = prefixId + Action.EXPORT.toParam();
+        parameters.addParameter(key, exportType);
+    }
+
+    @Deprecated
     public void setExportType(ExportType exportType) {
-		
+
         String key = prefixId + Action.EXPORT.toParam();
         parameters.addParameter(key, exportType.toParam());
     }
-    
+
     public void setFilterWorksheet() {
 		
         String key = prefixId + FILTER_WORKSHEET;

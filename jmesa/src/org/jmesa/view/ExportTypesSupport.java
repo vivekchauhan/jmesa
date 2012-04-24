@@ -15,15 +15,13 @@
  */
 package org.jmesa.view;
 
-import org.jmesa.limit.ExportType;
-
 /**
  * @since 2.2
  * @author Jeff Johnston
  */
 public interface ExportTypesSupport {
 		
-    public ExportType[] getExportTypes();
+    public String[] getExportTypes();
 
-    public void setExportTypes(ExportType... exportTypes);
+    public void setExportTypes(String... exportTypes);
 }

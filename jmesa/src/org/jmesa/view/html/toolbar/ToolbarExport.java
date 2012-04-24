@@ -16,7 +16,6 @@
 package org.jmesa.view.html.toolbar;
 
 import org.apache.commons.lang.StringUtils;
-import org.jmesa.limit.ExportType;
 
 /**
  * @since 2.0
@@ -24,18 +23,18 @@ import org.jmesa.limit.ExportType;
  */
 public class ToolbarExport {
 		
-    private ExportType exportType;
+    private String exportType;
     private String text;
     private String tooltip;
     private String image;
     private String action;
 
-    public ToolbarExport(ExportType exportType) {
+    public ToolbarExport(String exportType) {
 		
         this.exportType = exportType;
     }
 
-    public ToolbarExport(ExportType exportType, String image) {
+    public ToolbarExport(String exportType, String image) {
 		
         this.exportType = exportType;
         this.image = image;
@@ -49,14 +48,10 @@ public class ToolbarExport {
      */
     public String getText() {
 		
-        if (StringUtils.isBlank(text)) {
-            return exportType.toParam();
-        }
-
         return text;
     }
 
-    public ExportType getExportType() {
+    public String getExportType() {
 		
         return exportType;
     }
