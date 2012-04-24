@@ -16,11 +16,7 @@
 package org.jmesa.view.csv;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractViewExporter;
-import org.jmesa.view.View;
 
 /**
  * @since 2.0
@@ -28,23 +24,13 @@ import org.jmesa.view.View;
  */
 public class CsvViewExporter extends AbstractViewExporter {
 		
-    public CsvViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
-		
-        super(view, coreContext, response, null);
-    }
-
-    public CsvViewExporter(View view, CoreContext coreContext, HttpServletResponse response, String fileName) {
-		
-        super(view, coreContext, response, fileName);
-    }
-
     public void export()
             throws Exception {
         
-        responseHeaders(getResponse());
+        responseHeaders();
         String viewData = (String) getView().render();
         byte[] contents = (viewData).getBytes();
-        ServletOutputStream outputStream = getResponse().getOutputStream();
+        ServletOutputStream outputStream = getHttpServletResponse().getOutputStream();
         outputStream.write(contents);
         outputStream.flush();
     }
@@ -52,10 +38,5 @@ public class CsvViewExporter extends AbstractViewExporter {
     public String getContextType() {
 		
         return "text/csv";
-    }
-
-    public String getExtensionName() {
-		
-        return "txt";
     }
 }

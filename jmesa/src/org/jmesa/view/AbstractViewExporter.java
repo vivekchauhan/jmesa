@@ -15,48 +15,30 @@
  */
 package org.jmesa.view;
 
+import org.jmesa.core.CoreContextSupport;
+import org.jmesa.web.HttpServletResponseSupport;
 import java.nio.charset.Charset;
 import javax.servlet.http.HttpServletResponse;
 import org.jmesa.core.CoreContext;
-import org.jmesa.core.CoreContextSupport;
-import org.jmesa.util.ExportUtils;
 import static org.jmesa.view.ExportConstants.ENCODING;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractViewExporter implements ViewExporter, CoreContextSupport {
+public abstract class AbstractViewExporter implements ViewExporter, CoreContextSupport, HttpServletResponseSupport {
 		
     private View view;
+    private String fileName;
     private CoreContext coreContext;
     private HttpServletResponse response;
-    private String fileName;
 
-    public AbstractViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
-		
-        this(view, coreContext, response, null);
-    }
-
-    public AbstractViewExporter(View view, CoreContext coreContext, HttpServletResponse response, String fileName) {
-		
-        this.view = view;
-        this.coreContext = coreContext;
-        this.response = response;
-        this.fileName = fileName;
-        if (fileName == null) {
-            this.fileName = ExportUtils.exportFileName(view, getExtensionName());
-        }
-    }
-
-    public void responseHeaders(HttpServletResponse response)
+    public void responseHeaders()
             throws Exception {
+
         response.setContentType(getContextType());
-        String encoding = coreContext.getPreference(ENCODING);
-        if (encoding == null) {
-            encoding = Charset.defaultCharset().name();
-        }
-        String fn = new String(fileName.getBytes(encoding), encoding);
+        String encoding = getEncoding();
+        String fn = new String(getFileName().getBytes(encoding), encoding);
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fn + "\"");
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         response.setHeader("Pragma", "public");
@@ -73,21 +55,44 @@ public abstract class AbstractViewExporter implements ViewExporter, CoreContextS
         this.view = view;
     }
 
+    public String getFileName() {
+
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+
+        this.fileName = fileName;
+    }
+
     public CoreContext getCoreContext() {
-		
+
         return coreContext;
     }
 
     public void setCoreContext(CoreContext coreContext) {
-		
+
         this.coreContext = coreContext;
     }
 
-    protected HttpServletResponse getResponse() {
+    public HttpServletResponse getHttpServletResponse() {
 		
         return response;
     }
 
-    public abstract String getContextType();
-    public abstract String getExtensionName();
+    public void setHttpServletResponse(HttpServletResponse response) {
+
+        this.response = response;
+    }
+
+    protected String getEncoding() {
+
+        String encoding = coreContext.getPreference(ENCODING);
+        if (encoding == null) {
+            encoding = Charset.defaultCharset().name();
+        }
+        return encoding;
+    }
+
+    protected abstract String getContextType();
 }

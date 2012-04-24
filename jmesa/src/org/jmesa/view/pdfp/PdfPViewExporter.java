@@ -16,16 +16,10 @@
 package org.jmesa.view.pdfp;
 
 import java.io.ByteArrayOutputStream;
-
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.jmesa.view.AbstractViewExporter;
-
 import com.lowagie.text.pdf.PdfWriter;
-import org.jmesa.core.CoreContext;
-import org.jmesa.view.View;
 
 /**
  * A PDF view that uses the iText PdfPTable.
@@ -35,20 +29,6 @@ import org.jmesa.view.View;
  */
 public class PdfPViewExporter extends AbstractViewExporter {
 		
-    private HttpServletRequest request;
-
-    public PdfPViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
-		
-        super(view, coreContext, response);
-        this.request = request;
-    }
-
-    public PdfPViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response, String fileName) {
-		
-        super(view, coreContext, response, fileName);
-        this.request = request;
-    }
-
     public void export() throws Exception {
 		
         com.lowagie.text.Document document = new com.lowagie.text.Document();
@@ -60,8 +40,8 @@ public class PdfPViewExporter extends AbstractViewExporter {
         document.add(pdfView.getTableCaption());
         document.add(pdfView.render());
         document.close();
-        HttpServletResponse response = getResponse();
-        responseHeaders(response);
+        responseHeaders();
+        HttpServletResponse response = getHttpServletResponse();
         ServletOutputStream out = response.getOutputStream();
         baos.writeTo(out);
         out.flush();
@@ -70,15 +50,5 @@ public class PdfPViewExporter extends AbstractViewExporter {
     public String getContextType() {
 		
         return "application/pdf";
-    }
-
-    public String getExtensionName() {
-		
-        return "pdf";
-    }
-    
-    protected HttpServletRequest getRequest() {
-		
-        return request;
     }
 }
