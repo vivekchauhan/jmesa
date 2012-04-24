@@ -23,9 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractViewExporter;
-import org.jmesa.view.View;
+import org.jmesa.web.HttpServletRequestSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -37,22 +36,11 @@ import org.xhtmlrenderer.resource.FSEntityResolver;
  * @since 2.2
  * @author Paul Horn
  */
-public class PdfViewExporter extends AbstractViewExporter {
+public class PdfViewExporter extends AbstractViewExporter implements HttpServletRequestSupport {
 		
     private static Logger logger = LoggerFactory.getLogger(PdfViewExporter.class);
+    
     private HttpServletRequest request;
-
-    public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response) {
-		
-        super(view, coreContext, response);
-        this.request = request;
-    }
-
-    public PdfViewExporter(View view, CoreContext coreContext, HttpServletRequest request, HttpServletResponse response, String fileName) {
-		
-        super(view, coreContext, response, fileName);
-        this.request = request;
-    }
 
     public void export() throws Exception {
 		
@@ -65,8 +53,7 @@ public class PdfViewExporter extends AbstractViewExporter {
             logger.info("Not able to process the PDF file using the UTF-8 encoding.");
         }
 
-        HttpServletResponse response = getResponse();
-        responseHeaders(response);
+        responseHeaders();
 
         System.setProperty("xr.util-logging.loggingEnabled", "false");
         System.setProperty("xr.util-logging.java.util.logging.ConsoleHandler.level", "WARN");
@@ -95,6 +82,7 @@ public class PdfViewExporter extends AbstractViewExporter {
 
         renderer.setDocument(doc, getBaseUrl());
         renderer.layout();
+        HttpServletResponse response = getHttpServletResponse();
         renderer.createPDF(response.getOutputStream());
     }
 
@@ -109,13 +97,18 @@ public class PdfViewExporter extends AbstractViewExporter {
         return null;
     }
 
+    public HttpServletRequest getHttpServletRequest() {
+
+        return request;
+    }
+
+    public void setHttpServletRequest(HttpServletRequest request) {
+
+        this.request = request;
+    }
+
     public String getContextType() {
 		
         return "application/pdf";
-    }
-
-    public String getExtensionName() {
-		
-        return "pdf";
     }
 }

@@ -16,12 +16,8 @@
 package org.jmesa.view.jexcel;
 
 import javax.servlet.http.HttpServletResponse;
-
 import jxl.write.WritableWorkbook;
-
-import org.jmesa.core.CoreContext;
 import org.jmesa.view.AbstractViewExporter;
-import org.jmesa.view.View;
 
 /**
  * <p>
@@ -33,24 +29,14 @@ import org.jmesa.view.View;
  */
 public class JExcelViewExporter extends AbstractViewExporter {
 		
-    public JExcelViewExporter(View view, CoreContext coreContext, HttpServletResponse response) {
-		
-        super(view, coreContext, response);
-    }
-
-    public JExcelViewExporter(View view, CoreContext coreContext, HttpServletResponse response, String fileName) {
-		
-        super(view, coreContext, response, fileName);
-    }
-
     public void export()
             throws Exception {
         
-        HttpServletResponse response = getResponse();
+        HttpServletResponse response = getHttpServletResponse();
         JExcelView view = (JExcelView) getView();
         view.setOutputStream(response.getOutputStream());
         WritableWorkbook workbook = (WritableWorkbook) view.render();
-        responseHeaders(response);
+        responseHeaders();
         workbook.write();
         response.getOutputStream().flush();
         workbook.close();
@@ -59,10 +45,5 @@ public class JExcelViewExporter extends AbstractViewExporter {
     public String getContextType() {
 		
         return "application/vnd.ms-excel;charset=UTF-8";
-    }
-
-    public String getExtensionName() {
-		
-        return "xls";
     }
 }

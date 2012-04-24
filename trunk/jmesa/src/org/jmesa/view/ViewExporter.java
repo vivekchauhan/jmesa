@@ -23,5 +23,7 @@ public interface ViewExporter {
 		
     public View getView();
     public void setView(View view);
+    public String getFileName();
+    public void setFileName(String fileName);
     public void export() throws Exception;
 }

@@ -50,8 +50,10 @@ import org.jmesa.limit.LimitFactory;
 import org.jmesa.limit.RowSelect;
 import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
+import org.jmesa.util.ExportUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
+import org.jmesa.view.ViewExporter;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.csv.CsvViewExporter;
@@ -121,6 +123,7 @@ public class TableFacade {
     private int maxRows;
     private Collection<?> items;
     private ExportType[] exportTypes;
+    private String exportFileName;
     private WebContext webContext;
     private CoreContext coreContext;
     private Messages messages;
@@ -135,6 +138,7 @@ public class TableFacade {
     private Toolbar toolbar;
     private int[] maxRowsIncrements;
     private View view;
+    private ViewExporter viewExporter;
     private boolean autoFilterAndSort = true;
     private boolean editable;
     private Worksheet worksheet;
@@ -184,6 +188,16 @@ public class TableFacade {
         validateToolbarIsNull(toolbar, "exportTypes");
 
         this.exportTypes = exportTypes;
+    }
+
+    /**
+     * Set the export file name. This is a name without the extension.
+     */
+    public void setExportFileName(String exportFileName) {
+
+        validateToolbarIsNull(toolbar, "exportFileName");
+
+        this.exportFileName = exportFileName;
     }
 
     /**
@@ -763,7 +777,6 @@ public class TableFacade {
 
     protected View getExportView(ExportType exportType) {
 		
-
         View exportView = null;
 
         if (exportType == ExportType.CSV) {
@@ -801,6 +814,14 @@ public class TableFacade {
     }
 
     /**
+     * Set the View on the facade. This will override the View if it was previously set.
+     */
+    public void setViewExporter(ViewExporter viewExporter) {
+
+        this.viewExporter = viewExporter;
+    }
+
+    /**
      * Generate the view.
      *
      * @return An html generated table will return the String markup. An export will be written out
@@ -826,18 +847,42 @@ public class TableFacade {
         validateResponseIsNotNull(response);
 
         try {
-            CoreContext cc = getCoreContext();
+            ViewExporter ve = viewExporter;
 
-            if (exportType == ExportType.CSV) {
-                new CsvViewExporter(view, cc, response).export();
-            } else if (exportType == ExportType.EXCEL) {
-                new ExcelViewExporter(view, cc, response).export();
-            } else if (exportType == ExportType.JEXCEL) {
-                new JExcelViewExporter(view, cc, response).export();
-            } else if (exportType == ExportType.PDF) {
-                new PdfViewExporter(view, cc, request, response).export();
-            } else if (exportType == ExportType.PDFP) {
-                new PdfPViewExporter(view, cc, request, response).export();
+            if (ve == null) {
+
+                if (exportType == ExportType.CSV) {
+                    ve = new CsvViewExporter();
+                } else if (exportType == ExportType.EXCEL) {
+                    ve = new ExcelViewExporter();
+                } else if (exportType == ExportType.JEXCEL) {
+                    ve = new JExcelViewExporter();
+                } else if (exportType == ExportType.PDF) {
+                    ve = new PdfViewExporter();
+                } else if (exportType == ExportType.PDFP) {
+                    ve = new PdfPViewExporter();
+                }
+            }
+
+            if (ve != null) {
+                ve.setView(view);
+
+                SupportUtils.setWebContext(ve, getWebContext());
+                SupportUtils.setCoreContext(ve, getCoreContext());
+                SupportUtils.setHttpServletRequest(ve, request);
+                SupportUtils.setHttpServletResponse(ve, response);
+
+                if (exportFileName == null) {
+                    exportFileName = ExportUtils.exportFileName(getView());
+                }
+
+                if (!exportFileName.endsWith(exportType.toExt())) {
+                    exportFileName += "." + exportType.toExt();
+                }
+
+                ve.setFileName(exportFileName);
+
+                ve.export();
             }
         } catch (Exception e) {
             logger.error("Not able to perform the " + exportType + " export.", e);

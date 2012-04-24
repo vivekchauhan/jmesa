@@ -37,7 +37,10 @@ import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.html.toolbar.ToolbarSupport;
 import org.jmesa.web.WebContext;
 import org.jmesa.web.WebContextSupport;
-
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import org.jmesa.web.HttpServletRequestSupport;
+import org.jmesa.web.HttpServletResponseSupport;
 /**
  * Utility to first check to see if the object being inspected is an instance of the support class.
  * If it is then will do a check to see if the object to be injected is already set. If it is not
@@ -51,13 +54,39 @@ public class SupportUtils {
     private SupportUtils() {}
 
     /**
+     * Set the HttpServletRequest on the object being inspected if it is not already set.
+     *
+     * @param obj The object being inspected.
+     * @param request The object to be injected.
+     */
+    public static void setHttpServletRequest(Object obj, HttpServletRequest request) {
+
+        if ((obj instanceof HttpServletRequestSupport) && ((HttpServletRequestSupport) obj).getHttpServletRequest() == null) {
+            ((HttpServletRequestSupport) obj).setHttpServletRequest(request);
+        }
+    }
+
+    /**
+     * Set the HttpServletResponse on the object being inspected if it is not already set.
+     *
+     * @param obj The object being inspected.
+     * @param response The object to be injected.
+     */
+    public static void setHttpServletResponse(Object obj, HttpServletResponse response) {
+
+        if ((obj instanceof HttpServletResponseSupport) && ((HttpServletResponseSupport) obj).getHttpServletResponse() == null) {
+            ((HttpServletResponseSupport) obj).setHttpServletResponse(response);
+        }
+    }
+
+    /**
      * Set the WebContext on the object being inspected if it is not already set.
-     * 
+     *
      * @param obj The object being inspected.
      * @param webContext The object to be injected.
      */
     public static void setWebContext(Object obj, WebContext webContext) {
-		
+
         if ((obj instanceof WebContextSupport) && ((WebContextSupport) obj).getWebContext() == null) {
             ((WebContextSupport) obj).setWebContext(webContext);
         }

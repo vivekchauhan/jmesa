@@ -54,6 +54,7 @@ public class TableModel {
     private Preferences preferences;
     private Messages messages;
     private ExportType[] exportTypes;
+    private String exportFileName;
     private State state;
     private String stateAttr;
     private Limit limit;
@@ -159,6 +160,11 @@ public class TableModel {
     public void setExportTypes(ExportType... exportTypes) {
 		
         this.exportTypes = exportTypes;
+    }
+
+    public void setExportFileName(String exportFileName) {
+
+        this.exportFileName = exportFileName;
     }
 
     public void setState(State state) {
@@ -279,6 +285,10 @@ public class TableModel {
 
         if (exportTypes != null) {
             tableFacade.setExportTypes(exportTypes);
+        }
+
+        if (exportFileName != null) {
+            tableFacade.setExportFileName(exportFileName);
         }
 
         if (stateAttr != null) {

@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view.excel;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.jmesa.view.AbstractViewExporter;
+package org.jmesa.web;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * @since 2.1
- * @author jeff jie
+ * Support to handle the HttpServletResponse.
+ * 
+ * @since 2.0
+ * @author Jeff Johnston
  */
-public class ExcelViewExporter extends AbstractViewExporter {
+public interface HttpServletResponseSupport {
 		
-    public void export()
-            throws Exception {
-
-        HSSFWorkbook workbook = (HSSFWorkbook) this.getView().render();
-        responseHeaders();
-        workbook.write(getHttpServletResponse().getOutputStream());
-    }
-
-    public String getContextType() {
-		
-        return "application/vnd.ms-excel;charset=UTF-8";
-    }
+    public HttpServletResponse getHttpServletResponse();
+    public void setHttpServletResponse(HttpServletResponse response);
 }

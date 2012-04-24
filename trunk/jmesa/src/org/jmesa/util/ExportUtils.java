@@ -32,17 +32,16 @@ public class ExportUtils {
      * Use the view caption for the export. If the caption is not defined then use a default.
      * 
      * @param view The view to export.
-     * @param exportType The type of view to export.
      * @return The file name of export.
      */
-    public static String exportFileName(View view, String exportType) {
+    public static String exportFileName(View view) {
 		
         String caption = view.getTable().getCaption();
         if (StringUtils.isNotBlank(caption)) {
             StringUtils.replace(caption, " ", "_");
-            return caption.toLowerCase() + "." + exportType;
+            return caption.toLowerCase() + ".";
         } 
         
-        return "table-data." + exportType;
+        return "table-data";
     }
 }
