@@ -23,29 +23,25 @@ package org.jmesa.limit;
  * @since 2.0
  * @author Jeff Johnston
  */
+@Deprecated
 public enum ExportType {
 		
-    CSV("csv", "txt"), EXCEL("excel", "xls"), JEXCEL("jexcel", "xls"), PDF("pdf", "pdf"), PDFP("pdfp", "pdf");
+    CSV("csv"), EXCEL("excel"), JEXCEL("jexcel"), PDF("pdf"), PDFP("pdfp");
 
     private final String param;
-    private final String ext;
 
-    private ExportType(String param, String ext) {
+    private ExportType(String param) {
 		
         this.param = param;
-        this.ext = ext;
     }
     
+    @Deprecated
     public String toParam() {
 		
         return param;
     }
 
-    public String toExt() {
-
-        return ext;
-    }
-
+    @Deprecated
     public static ExportType valueOfParam(String param) {
 		
         for (ExportType exportType : ExportType.values()) {

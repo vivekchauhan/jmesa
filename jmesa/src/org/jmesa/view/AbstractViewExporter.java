@@ -38,7 +38,8 @@ public abstract class AbstractViewExporter implements ViewExporter, CoreContextS
 
         response.setContentType(getContextType());
         String encoding = getEncoding();
-        String fn = new String(getFileName().getBytes(encoding), encoding);
+        String fn = getFileName() + "." + getExtensionName();
+        fn = new String(fn.getBytes(encoding), encoding);
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fn + "\"");
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         response.setHeader("Pragma", "public");
@@ -95,4 +96,5 @@ public abstract class AbstractViewExporter implements ViewExporter, CoreContextS
     }
 
     protected abstract String getContextType();
+    protected abstract String getExtensionName();
 }

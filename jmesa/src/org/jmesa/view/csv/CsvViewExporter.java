@@ -35,8 +35,13 @@ public class CsvViewExporter extends AbstractViewExporter {
         outputStream.flush();
     }
 
-    public String getContextType() {
+    protected String getContextType() {
 		
         return "text/csv";
+    }
+
+    protected String getExtensionName() {
+
+        return "txt";
     }
 }

@@ -47,8 +47,13 @@ public class PdfPViewExporter extends AbstractViewExporter {
         out.flush();
     }
 
-    public String getContextType() {
+    protected String getContextType() {
 		
         return "application/pdf";
+    }
+
+    protected String getExtensionName() {
+
+        return "pdf";
     }
 }

@@ -32,8 +32,13 @@ public class ExcelViewExporter extends AbstractViewExporter {
         workbook.write(getHttpServletResponse().getOutputStream());
     }
 
-    public String getContextType() {
+    protected String getContextType() {
 		
         return "application/vnd.ms-excel;charset=UTF-8";
+    }
+
+    protected String getExtensionName() {
+
+        return "xls";
     }
 }

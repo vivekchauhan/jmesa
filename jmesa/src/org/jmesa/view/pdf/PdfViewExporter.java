@@ -107,8 +107,13 @@ public class PdfViewExporter extends AbstractViewExporter implements HttpServlet
         this.request = request;
     }
 
-    public String getContextType() {
+    protected String getContextType() {
 		
         return "application/pdf";
+    }
+
+    protected String getExtensionName() {
+
+        return "pdf";
     }
 }
