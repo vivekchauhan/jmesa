@@ -137,7 +137,7 @@ public class Limit implements Serializable {
      */
     public boolean hasExport() {
 		
-        return getExportType() != null;
+        return getExportType() != null && getExportType().trim().length() > 0;
     }
 
     /**
