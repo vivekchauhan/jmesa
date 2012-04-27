@@ -15,8 +15,6 @@
  */
 package org.jmesa.view.html.toolbar;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * @since 2.0
  * @author Jeff Johnston

@@ -139,8 +139,10 @@ public abstract class Toolbar extends AbstractContextSupport {
         return item;
     }
 
-    private void addPageNumberItems() {
-		
+    public List<ToolbarItem> addPageNumberItems() {
+
+        List<ToolbarItem> items = new ArrayList<ToolbarItem>();
+
         ToolbarItemFactory factory = getToolbarItemFactory();
 
         Limit limit = getCoreContext().getLimit();
@@ -169,13 +171,20 @@ public abstract class Toolbar extends AbstractContextSupport {
             }
 
             for (int i = start; i <= end; i++) {
-                addToolbarItem(factory.createPageNumberItem(i));
+                PageNumberItem pageNumberItem = factory.createPageNumberItem(i);
+                addToolbarItem(pageNumberItem);
+                items.add(pageNumberItem);
             }
         } else {
             for (int i = 1; i <= totalPages; i++) {
                 addToolbarItem(factory.createPageNumberItem(i));
+                PageNumberItem pageNumberItem = factory.createPageNumberItem(i);
+                addToolbarItem(pageNumberItem);
+                items.add(pageNumberItem);
             }
         }
+
+        return items;
     }
 
     public String render() {
