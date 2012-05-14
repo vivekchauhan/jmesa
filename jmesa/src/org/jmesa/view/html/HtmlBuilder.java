@@ -873,11 +873,39 @@ public class HtmlBuilder {
 
     /**
      * <p>
+     * The start of the div element [<div].
+     * </p>
+     */
+    public HtmlBuilder div(int tabs) {
+
+        newline();
+        tabs(tabs);
+        append("<div");
+
+        return this;
+    }
+
+    /**
+     * <p>
      * The close tag of the div element [</div>].
      * </p>
      */
     public HtmlBuilder divEnd() {
 		
+        append("</div>");
+
+        return this;
+    }
+
+    /**
+     * <p>
+     * The close tag of the div element [</div>].
+     * </p>
+     */
+    public HtmlBuilder divEnd(int tabs) {
+
+        newline();
+        tabs(tabs);
         append("</div>");
 
         return this;
