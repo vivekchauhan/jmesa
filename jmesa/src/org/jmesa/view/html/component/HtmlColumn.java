@@ -15,9 +15,13 @@
  */
 package org.jmesa.view.html.component;
 
+import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_RENDERER;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Order;
 import org.jmesa.util.PreferencesUtils;
@@ -27,13 +31,10 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_RENDERER;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_RENDERER;
 import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.editor.HtmlFilterEditor;
 import org.jmesa.view.html.editor.HtmlHeaderEditor;
 import org.jmesa.view.html.renderer.HtmlCellRenderer;
-import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
@@ -371,15 +372,15 @@ public class HtmlColumn extends Column {
     }
 
     @Override
-    public HtmlFilterRenderer getFilterRenderer() {
+    public FilterRenderer getFilterRenderer() {
 		
         FilterRenderer filterRenderer = super.getFilterRenderer();
         if (filterRenderer == null) {
-            HtmlFilterRenderer htmlFilterRenderer = PreferencesUtils.<HtmlFilterRenderer>createClassFromPreferences(getCoreContext(), COLUMN_FILTER_RENDERER);
-            super.setFilterRenderer(htmlFilterRenderer);
-            return htmlFilterRenderer;
+            filterRenderer = PreferencesUtils.<FilterRenderer>createClassFromPreferences(getCoreContext(), COLUMN_FILTER_RENDERER);
+            super.setFilterRenderer(filterRenderer);
+            return filterRenderer;
         }
-        return (HtmlFilterRenderer) filterRenderer;
+        return filterRenderer;
     }
 
     @Override
