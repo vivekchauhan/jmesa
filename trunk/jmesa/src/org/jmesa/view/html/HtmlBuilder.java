@@ -314,6 +314,19 @@ public class HtmlBuilder {
      * <p>
      * The start of the td element [<td].
      * </p>
+     */
+    public HtmlBuilder td() {
+		
+        newline();
+        append("<td");
+
+        return this;
+    }
+    
+    /**
+     * <p>
+     * The start of the td element [<td].
+     * </p>
      * 
      * <p>
      * Also appends a newline [\n] and the specified number of tabs [\t] before
@@ -324,11 +337,11 @@ public class HtmlBuilder {
      *            The number of tab spaces [\t] to put in.
      */
     public HtmlBuilder td(int tabs) {
-		
+        
         newline();
         tabs(tabs);
         append("<td");
-
+        
         return this;
     }
 
@@ -1003,6 +1016,19 @@ public class HtmlBuilder {
     public HtmlBuilder href() {
 		
         append(" href=");
+
+        return this;
+    }
+    
+    /**
+     * <p>
+     * The hr attribute [ hr ].
+     * </p>
+     *  
+     */
+    public HtmlBuilder hr() {
+        
+        append("<hr");
 
         return this;
     }
