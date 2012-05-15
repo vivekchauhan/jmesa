@@ -26,13 +26,6 @@ import org.jmesa.view.renderer.AbstractHeaderRenderer;
  */
 public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
 		
-    public HtmlHeaderRenderer() {}
-
-    public HtmlHeaderRenderer(HtmlColumn column) {
-		
-        setColumn(column);
-    }
-
     @Override
     public HtmlColumn getColumn() {
 		

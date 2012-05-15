@@ -122,4 +122,8 @@ public class HtmlConstants {
     public static final String IMAGE_REMOVE_WORKSHEET_ROW = "html.worksheet.image.removeWorksheetRow";
     public static final String IMAGE_UNDO_REMOVE_WORKSHEET_ROW = "html.worksheet.image.undoRemoveWorksheetRow";
     public static final String REMOVE_ROW_KEEP_CHANGED_VALUES = "html.worksheet.text.removeWorksheetRow.keepChangedValues";
+    
+    // classes
+    public static final String COLUMN_HEADER_RENDERER = "html.column.header.renderer";
+    public static final String COLUMN_FILTER_RENDERER = "html.column.filter.renderer";
 }

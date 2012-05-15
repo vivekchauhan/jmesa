@@ -25,13 +25,6 @@ import org.jmesa.view.renderer.AbstractFilterRenderer;
  */
 public class HtmlFilterRenderer extends AbstractFilterRenderer {
 		
-    public HtmlFilterRenderer() {}
-
-    public HtmlFilterRenderer(HtmlColumn column) {
-		
-        setColumn(column);
-    }
-
     @Override
     public HtmlColumn getColumn() {
 		

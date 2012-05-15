@@ -26,14 +26,6 @@ import org.jmesa.view.renderer.AbstractCellRenderer;
  */
 public class HtmlCellRenderer extends AbstractCellRenderer {
 		
-
-    public HtmlCellRenderer() {}
-
-    public HtmlCellRenderer(HtmlColumn column) {
-		
-        setColumn(column);
-    }
-
     @Override
     public HtmlColumn getColumn() {
 		

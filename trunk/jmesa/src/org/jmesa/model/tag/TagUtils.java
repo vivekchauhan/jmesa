@@ -328,7 +328,7 @@ class TagUtils {
     static HtmlFilterRenderer getColumnFilterRenderer(HtmlColumn column, String filterRenderer) {
 		
         if (StringUtils.isBlank(filterRenderer)) {
-            return column.getFilterRenderer();
+            return null;
         }
 
         return (HtmlFilterRenderer) createInstance(filterRenderer);
@@ -358,7 +358,7 @@ class TagUtils {
     static HtmlHeaderRenderer getColumnHeaderRenderer(HtmlColumn column, String headerRenderer) {
 		
         if (StringUtils.isBlank(headerRenderer)) {
-            return column.getHeaderRenderer();
+            return null;
         }
 
         return (HtmlHeaderRenderer) createInstance(headerRenderer);

@@ -249,7 +249,8 @@ public class HtmlRow extends Row {
 		
         RowRenderer rowRenderer = super.getRowRenderer();
         if (rowRenderer == null) {
-            HtmlRowRenderer htmlRowRenderer = new HtmlRowRenderer(this);
+            HtmlRowRenderer htmlRowRenderer = new HtmlRowRenderer();
+            htmlRowRenderer.setRow(this);
             super.setRowRenderer(htmlRowRenderer);
             return htmlRowRenderer;
         }
