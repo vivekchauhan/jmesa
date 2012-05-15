@@ -32,10 +32,10 @@ import static org.jmesa.view.html.HtmlUtils.totalPages;
  */
 public abstract class Toolbar extends AbstractContextSupport {
 		
-    private ToolbarItemFactory toolbarItemFactory;
+    protected ToolbarItemFactory toolbarItemFactory;
     private List<ToolbarItem> toolbarItems = new ArrayList<ToolbarItem>();
 
-    private ToolbarItemFactory getToolbarItemFactory() {
+    protected ToolbarItemFactory getToolbarItemFactory() {
 		
         if (toolbarItemFactory == null) {
             this.toolbarItemFactory = new ToolbarItemFactory(getWebContext(), getCoreContext());
