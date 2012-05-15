@@ -50,11 +50,10 @@ public class HtmlFilterEditor extends AbstractFilterEditor {
             filterValue = filter.getValue();
         }
 
-        html.div().styleClass("dynFilter");
-        html.onclick("jQuery.jmesa.createDynFilter(this, '" + limit.getId() + "','" + column.getProperty() + "')");
-        html.close();
+        html.input().type("text");
+        html.name(getCoreContext().getLimit().getId() + "_f_" + property);
         html.append(escapeHtml(filterValue));
-        html.divEnd();
+        html.end();
 
         return html.toString();
     }
