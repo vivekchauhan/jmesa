@@ -1,4 +1,5 @@
 /* The JMesa build. Works best with Groovy 1.1. */
+
 class Build {
     def ant = new AntBuilder()
     def ivy = new AntLibHelper(ant:ant, namespace:'fr.jayasoft.ivy.ant')
