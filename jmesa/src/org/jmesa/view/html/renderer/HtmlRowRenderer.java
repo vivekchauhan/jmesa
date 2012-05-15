@@ -34,13 +34,6 @@ import static org.jmesa.worksheet.WorksheetUtils.getRowError;
  */
 public class HtmlRowRenderer extends AbstractRowRenderer {
 		
-    public HtmlRowRenderer() {}
-
-    public HtmlRowRenderer(HtmlRow row) {
-		
-        setRow(row);
-    }
-
     @Override
     public HtmlRow getRow() {
 		

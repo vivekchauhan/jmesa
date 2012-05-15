@@ -192,7 +192,8 @@ public class HtmlTable extends Table {
 		
         TableRenderer tableRenderer = super.getTableRenderer();
         if (tableRenderer == null) {
-            HtmlTableRenderer htmlTableRenderer = new HtmlTableRenderer(this);
+            HtmlTableRenderer htmlTableRenderer = new HtmlTableRenderer();
+            htmlTableRenderer.setTable(this);
             super.setTableRenderer(htmlTableRenderer);
             return htmlTableRenderer;
         }

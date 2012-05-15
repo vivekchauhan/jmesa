@@ -22,13 +22,6 @@ import org.jmesa.view.renderer.AbstractTableRenderer;
 
 public class HtmlTableRenderer extends AbstractTableRenderer {
 		
-    public HtmlTableRenderer() {}
-
-    public HtmlTableRenderer(HtmlTable table) {
-		
-        setTable(table);
-    }
-
     @Override
     public HtmlTable getTable() {
 		

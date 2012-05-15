@@ -49,13 +49,14 @@ public class HtmlRowRendererTest extends AbstractTestCase {
             }
         });
 
-        HtmlRowRenderer renderer = new HtmlRowRenderer(row);
-        renderer.setCoreContext(coreContext);
+        HtmlRowRenderer rowRenderer = new HtmlRowRenderer();
+        rowRenderer.setRow(row);
+        rowRenderer.setCoreContext(coreContext);
 
         President item = new President();
         item.setId(new Integer(4));
 
-        String html = (String) renderer.render(item, 1);
+        String html = (String) rowRenderer.render(item, 1);
         assertNotNull(html);
         assertTrue(html.contains("onclick"));
         assertTrue(html.contains("document.location='jmesa.org?id=4'"));

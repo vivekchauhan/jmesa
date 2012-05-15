@@ -486,7 +486,9 @@ public class HtmlColumnTag extends SimpleTagSupport {
         // filter
 
         HtmlFilterRenderer fr = getColumnFilterRenderer(htmlColumn, getFilterRenderer());
-        htmlColumn.setFilterRenderer(fr);
+        if (fr != null) {
+            htmlColumn.setFilterRenderer(fr);
+        }
 
         FilterEditor fe = getColumnFilterEditor(htmlColumn, getFilterEditor());
         htmlColumn.setFilterEditor(fe);
@@ -494,7 +496,9 @@ public class HtmlColumnTag extends SimpleTagSupport {
         // header
 
         HtmlHeaderRenderer hr = getColumnHeaderRenderer(htmlColumn, getHeaderRenderer());
-        htmlColumn.setHeaderRenderer(hr);
+        if (hr != null) {
+            htmlColumn.setHeaderRenderer(hr);            
+        }
 
         HeaderEditor he = getColumnHeaderEditor(htmlColumn, getHeaderEditor());
         htmlColumn.setHeaderEditor(he);

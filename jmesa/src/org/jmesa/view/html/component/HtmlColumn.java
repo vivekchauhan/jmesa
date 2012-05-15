@@ -20,12 +20,15 @@ import java.util.Collections;
 import java.util.List;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Order;
+import org.jmesa.util.PreferencesUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_RENDERER;
 import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.editor.HtmlFilterEditor;
 import org.jmesa.view.html.editor.HtmlHeaderEditor;
@@ -265,7 +268,7 @@ public class HtmlColumn extends Column {
     public HtmlCellRenderer getCellRenderer() {
 		
         if (cellRenderer == null) {
-            HtmlCellRenderer htmlCellRenderer = new HtmlCellRenderer(this);
+            HtmlCellRenderer htmlCellRenderer = new HtmlCellRenderer();
             setCellRenderer(htmlCellRenderer);
             return htmlCellRenderer;
         }
@@ -348,7 +351,7 @@ public class HtmlColumn extends Column {
 		
         HeaderRenderer headerRenderer = super.getHeaderRenderer();
         if (headerRenderer == null) {
-            HtmlHeaderRenderer htmlHeaderRenderer = new HtmlHeaderRenderer(this);
+            HtmlHeaderRenderer htmlHeaderRenderer = PreferencesUtils.<HtmlHeaderRenderer>createClassFromPreferences(getCoreContext(), COLUMN_HEADER_RENDERER);
             super.setHeaderRenderer(htmlHeaderRenderer);
             return htmlHeaderRenderer;
         }
@@ -372,7 +375,7 @@ public class HtmlColumn extends Column {
 		
         FilterRenderer filterRenderer = super.getFilterRenderer();
         if (filterRenderer == null) {
-            HtmlFilterRenderer htmlFilterRenderer = new HtmlFilterRenderer(this);
+            HtmlFilterRenderer htmlFilterRenderer = PreferencesUtils.<HtmlFilterRenderer>createClassFromPreferences(getCoreContext(), COLUMN_FILTER_RENDERER);
             super.setFilterRenderer(htmlFilterRenderer);
             return htmlFilterRenderer;
         }
