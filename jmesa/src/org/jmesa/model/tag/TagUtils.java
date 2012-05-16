@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.CoreContext;
 import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.RowFilter;
 import org.jmesa.core.message.Messages;
@@ -29,23 +30,25 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.limit.Order;
 import org.jmesa.limit.state.State;
+import org.jmesa.util.PreferencesUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_EDITOR;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.html.event.RowEvent;
-import org.jmesa.view.html.renderer.HtmlCellRenderer;
-import org.jmesa.view.html.renderer.HtmlFilterRenderer;
 import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
 import org.jmesa.view.html.renderer.HtmlRowRenderer;
 import org.jmesa.view.html.renderer.HtmlTableRenderer;
 import org.jmesa.view.html.toolbar.Toolbar;
+import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.view.renderer.HeaderRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 import org.slf4j.Logger;
@@ -263,13 +266,13 @@ class TagUtils {
      * @since 2.2
      * @return The column CellRenderer object.
      */
-    static HtmlCellRenderer getColumnCellRenderer(HtmlColumn column, String cellRenderer) {
+    static CellRenderer getColumnCellRenderer(HtmlColumn column, String cellRenderer) {
 		
         if (StringUtils.isBlank(cellRenderer)) {
-            return column.getCellRenderer();
+            return null;
         }
 
-        return (HtmlCellRenderer) createInstance(cellRenderer);
+        return (CellRenderer) createInstance(cellRenderer);
     }
 
     /**
@@ -306,13 +309,13 @@ class TagUtils {
      * 
      * @return The CellEditor to use.
      */
-    static CellEditor getColumnCellEditor(HtmlColumn column, String cellEditor, String pattern, boolean hasBody) {
+    static CellEditor getColumnCellEditor(HtmlColumn column, String cellEditor, String pattern, boolean hasBody, CoreContext coreContext) {
 		
         boolean cellEditorNotDefined = StringUtils.isEmpty(cellEditor);
         if (hasBody && cellEditorNotDefined) {
             return new BasicCellEditor();
         } else if (cellEditorNotDefined) {
-            return new HtmlCellEditor();
+            return PreferencesUtils.<CellEditor>createClassFromPreferences(coreContext, COLUMN_CELL_EDITOR);
         }
 
         CellEditor result = (CellEditor) createInstance(cellEditor);
@@ -325,13 +328,13 @@ class TagUtils {
      * @since 2.2
      * @return The column FilterRenderer object.
      */
-    static HtmlFilterRenderer getColumnFilterRenderer(HtmlColumn column, String filterRenderer) {
+    static FilterRenderer getColumnFilterRenderer(HtmlColumn column, String filterRenderer) {
 		
         if (StringUtils.isBlank(filterRenderer)) {
             return null;
         }
 
-        return (HtmlFilterRenderer) createInstance(filterRenderer);
+        return (FilterRenderer) createInstance(filterRenderer);
     }
 
     /**
@@ -345,7 +348,7 @@ class TagUtils {
     static FilterEditor getColumnFilterEditor(HtmlColumn column, String filterEditor) {
 		
         if (StringUtils.isEmpty(filterEditor)) {
-            return column.getFilterEditor();
+            return null;
         }
 
         return (FilterEditor) createInstance(filterEditor);
@@ -355,7 +358,7 @@ class TagUtils {
      * @since 2.2
      * @return The column HeaderRenderer object.
      */
-    static HtmlHeaderRenderer getColumnHeaderRenderer(HtmlColumn column, String headerRenderer) {
+    static HeaderRenderer getColumnHeaderRenderer(HtmlColumn column, String headerRenderer) {
 		
         if (StringUtils.isBlank(headerRenderer)) {
             return null;
@@ -375,7 +378,7 @@ class TagUtils {
     static HeaderEditor getColumnHeaderEditor(HtmlColumn column, String headerEditor) {
 		
         if (StringUtils.isEmpty(headerEditor)) {
-            return column.getHeaderEditor();
+            return null;
         }
 
         return (HeaderEditor) createInstance(headerEditor);

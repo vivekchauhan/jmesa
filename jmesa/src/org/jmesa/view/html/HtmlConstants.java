@@ -126,4 +126,10 @@ public class HtmlConstants {
     // classes
     public static final String COLUMN_HEADER_RENDERER = "html.column.header.renderer";
     public static final String COLUMN_FILTER_RENDERER = "html.column.filter.renderer";
+    public static final String COLUMN_CELL_RENDERER = "html.column.cell.renderer";
+
+    public static final String COLUMN_HEADER_EDITOR = "html.column.header.editor";
+    public static final String COLUMN_FILTER_EDITOR = "html.column.filter.editor";
+    public static final String COLUMN_CELL_EDITOR = "html.column.cell.editor";
+    public static final String COLUMN_WORKSHEET_EDITOR = "html.column.worksheet.editor";
 }

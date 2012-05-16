@@ -31,15 +31,16 @@ import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+import org.jmesa.core.CoreContext;
 import org.jmesa.util.ItemUtils;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
-import org.jmesa.view.html.renderer.HtmlCellRenderer;
-import org.jmesa.view.html.renderer.HtmlFilterRenderer;
-import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
+import org.jmesa.view.renderer.CellRenderer;
+import org.jmesa.view.renderer.FilterRenderer;
+import org.jmesa.view.renderer.HeaderRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 
@@ -477,36 +478,48 @@ public class HtmlColumnTag extends SimpleTagSupport {
 
         // cell
         
-        HtmlCellRenderer cr = getColumnCellRenderer(htmlColumn, getCellRenderer());
-        htmlColumn.setCellRenderer(cr);
+        CellRenderer cr = getColumnCellRenderer(htmlColumn, getCellRenderer());
+        if (cr != null) {
+            htmlColumn.setCellRenderer(cr);            
+        }
 
-        CellEditor ce = getColumnCellEditor(htmlColumn, getCellEditor(), getPattern(), getJspBody() != null);
+        TableModelTag facadeTag = (TableModelTag) findAncestorWithClass(this, TableModelTag.class);
+        boolean hasBody = getJspBody() != null;
+        CoreContext coreContext = facadeTag.getTableFacade().getCoreContext();
+        
+        CellEditor ce = getColumnCellEditor(htmlColumn, getCellEditor(), getPattern(), hasBody, coreContext);
         htmlColumn.setCellEditor(ce);
 
         // filter
 
-        HtmlFilterRenderer fr = getColumnFilterRenderer(htmlColumn, getFilterRenderer());
+        FilterRenderer fr = getColumnFilterRenderer(htmlColumn, getFilterRenderer());
         if (fr != null) {
             htmlColumn.setFilterRenderer(fr);
         }
 
         FilterEditor fe = getColumnFilterEditor(htmlColumn, getFilterEditor());
-        htmlColumn.setFilterEditor(fe);
+        if (fe != null) {
+            htmlColumn.setFilterEditor(fe);            
+        }
 
         // header
 
-        HtmlHeaderRenderer hr = getColumnHeaderRenderer(htmlColumn, getHeaderRenderer());
+        HeaderRenderer hr = getColumnHeaderRenderer(htmlColumn, getHeaderRenderer());
         if (hr != null) {
             htmlColumn.setHeaderRenderer(hr);            
         }
 
         HeaderEditor he = getColumnHeaderEditor(htmlColumn, getHeaderEditor());
-        htmlColumn.setHeaderEditor(he);
+        if (he != null) {
+            htmlColumn.setHeaderEditor(he);            
+        }
         
         // worksheet
 
         WorksheetEditor we = getColumnWorksheetEditor(htmlColumn, getWorksheetEditor());
-        htmlColumn.setWorksheetEditor(we);
+        if (we != null) {
+            htmlColumn.setWorksheetEditor(we);            
+        }
 
         for (WorksheetValidation wsv : getWorksheetValidations(htmlColumn, getWorksheetValidation(),
                 getErrorMessageKey(), getErrorMessage(), false)) {
