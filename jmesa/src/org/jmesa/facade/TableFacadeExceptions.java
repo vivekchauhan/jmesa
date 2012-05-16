@@ -41,6 +41,14 @@ final class TableFacadeExceptions {
         }
     }
 
+    static void validateCoreContextIsNotNull(CoreContext coreContext) {
+		
+        if (coreContext == null) {
+            throw new IllegalStateException(
+                "The CoreContext is null. You need to set the coreContext on the facade.");
+        }
+    }
+
     static void validateTableIsNull(Table table, String object) {
 		
         if (table != null) {
