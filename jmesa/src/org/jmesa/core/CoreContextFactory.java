@@ -22,7 +22,6 @@ import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
-import org.jmesa.core.filter.SimpleRowFilter;
 import org.jmesa.core.filter.StringFilterMatcher;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesFactory;
@@ -30,8 +29,8 @@ import org.jmesa.core.preference.Preferences;
 import org.jmesa.core.preference.PreferencesFactory;
 import org.jmesa.core.sort.ColumnSort;
 import org.jmesa.core.sort.DefaultColumnSort;
-import org.jmesa.core.sort.MultiColumnSort;
 import org.jmesa.limit.Limit;
+import org.jmesa.util.PreferencesUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.Worksheet;
@@ -43,6 +42,9 @@ import org.jmesa.worksheet.Worksheet;
  * @author Jeff Johnston
  */
 public class CoreContextFactory {
+    
+    private final static String COLUMN_SORT = "columnSort";
+    private final static String ROW_FILTER = "rowFilter";
     
     private WebContext webContext;
     private FilterMatcherRegistry registry;
@@ -95,7 +97,7 @@ public class CoreContextFactory {
     protected RowFilter getRowFilter() {
 		
         if (rowFilter == null) {
-            rowFilter = new SimpleRowFilter();
+            rowFilter = PreferencesUtils.<RowFilter>createClassFromPreferences(getPreferences(), ROW_FILTER);
         }
         SupportUtils.setFilterMatcherRegistry(rowFilter, getFilterMatcherRegistry());
 
@@ -115,7 +117,7 @@ public class CoreContextFactory {
     protected ColumnSort getColumnSort() {
 		
         if (columnSort == null) {
-            columnSort = new MultiColumnSort();
+            columnSort = PreferencesUtils.<ColumnSort>createClassFromPreferences(getPreferences(), COLUMN_SORT);
         }
 
         return columnSort;

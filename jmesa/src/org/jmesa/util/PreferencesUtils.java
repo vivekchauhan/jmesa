@@ -16,6 +16,7 @@
 package org.jmesa.util;
 
 import org.jmesa.core.CoreContext;
+import org.jmesa.core.preference.Preferences;
 
 /**
  * @since 4.0
@@ -26,6 +27,17 @@ public class PreferencesUtils {
     public static <T> T createClassFromPreferences(CoreContext coreContext, String property) {
         
         String className = coreContext.getPreference(property);
+        try {
+            Class<?> clazz = Class.forName(className);
+            return (T)clazz.newInstance();
+        } catch (Exception ex) {
+            throw new IllegalStateException("The class " + className + " does not exist");
+        }
+    }
+
+    public static <T> T createClassFromPreferences(Preferences preferences, String property) {
+        
+        String className = preferences.getPreference(property);
         try {
             Class<?> clazz = Class.forName(className);
             return (T)clazz.newInstance();
