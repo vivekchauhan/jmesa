@@ -16,6 +16,7 @@
 package org.jmesa.facade;
 
 import static org.jmesa.facade.TableFacadeExceptions.validateCoreContextIsNull;
+import static org.jmesa.facade.TableFacadeExceptions.validateCoreContextIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNotNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateItemsIsNull;
 import static org.jmesa.facade.TableFacadeExceptions.validateLimitIsNull;
@@ -51,6 +52,7 @@ import org.jmesa.limit.state.SessionState;
 import org.jmesa.limit.state.State;
 import org.jmesa.model.TableModel;
 import org.jmesa.util.ExportUtils;
+import org.jmesa.util.PreferencesUtils;
 import org.jmesa.util.SupportUtils;
 import org.jmesa.view.View;
 import org.jmesa.view.ViewExporter;
@@ -69,6 +71,7 @@ import org.jmesa.view.pdf.PdfView;
 import org.jmesa.view.pdf.PdfViewExporter;
 import org.jmesa.view.pdfp.PdfPView;
 import org.jmesa.view.pdfp.PdfPViewExporter;
+import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
 import org.jmesa.worksheet.UniqueProperty;
@@ -718,8 +721,10 @@ public class TableFacade {
         if (toolbar != null) {
             return toolbar;
         }
+        
+        validateCoreContextIsNotNull(coreContext);
 
-        this.toolbar = new HtmlToolbar();
+        this.toolbar = PreferencesUtils.<Toolbar>createClassFromPreferences(getCoreContext(), HtmlConstants.TOOLBAR);
         SupportUtils.setTable(toolbar, getTable());
         SupportUtils.setCoreContext(toolbar, getCoreContext());
         SupportUtils.setWebContext(toolbar, getWebContext());

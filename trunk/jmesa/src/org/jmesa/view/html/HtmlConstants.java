@@ -63,6 +63,9 @@ public class HtmlConstants {
     public static final String STATUS_BAR_CLASS = "html.statusBarClass";
     public static final String ROWCOUNT_INCLUDE_PAGINATION = "html.rowcount.includePagination";
 
+    // toolbar
+    public static final String TOOLBAR = "html.toolbar";
+
     // toolbar image names
     public static final String TOOLBAR_IMAGE = "html.toolbar.image.";
     public static final String TOOLBAR_IMAGE_CLEAR = "html.toolbar.image.clear";
