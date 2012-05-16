@@ -15,9 +15,6 @@
  */
 package org.jmesa.view.html.component;
 
-import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_RENDERER;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_RENDERER;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,16 +28,17 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
-import org.jmesa.view.html.editor.HtmlCellEditor;
-import org.jmesa.view.html.editor.HtmlFilterEditor;
-import org.jmesa.view.html.editor.HtmlHeaderEditor;
-import org.jmesa.view.html.renderer.HtmlCellRenderer;
-import org.jmesa.view.html.renderer.HtmlHeaderRenderer;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_EDITOR;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_EDITOR;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_EDITOR;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_WORKSHEET_EDITOR;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
 import org.jmesa.worksheet.WorksheetValidation;
-import org.jmesa.worksheet.editor.HtmlWorksheetEditor;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
@@ -266,14 +264,14 @@ public class HtmlColumn extends Column {
 	}
 
     @Override
-    public HtmlCellRenderer getCellRenderer() {
+    public CellRenderer getCellRenderer() {
 		
         if (cellRenderer == null) {
-            HtmlCellRenderer htmlCellRenderer = new HtmlCellRenderer();
-            setCellRenderer(htmlCellRenderer);
-            return htmlCellRenderer;
+            CellRenderer cr = PreferencesUtils.<CellRenderer>createClassFromPreferences(getCoreContext(), COLUMN_CELL_RENDERER);
+            setCellRenderer(cr);
+            return cr;
         }
-        return (HtmlCellRenderer) cellRenderer;
+        return cellRenderer;
     }
 
     @Override
@@ -290,13 +288,13 @@ public class HtmlColumn extends Column {
     public CellEditor getCellEditor() {
 		
         if (cellEditor == null) {
-            this.cellEditor = new HtmlCellEditor();
+            this.cellEditor = PreferencesUtils.<CellEditor>createClassFromPreferences(getCoreContext(), COLUMN_CELL_EDITOR);
         }
 
         CoreContext coreContext = getCoreContext();
         if (coreContext != null && (ViewUtils.isEditable(coreContext.getWorksheet()) && isEditable())) {
             if (worksheetEditor == null) {
-                this.worksheetEditor = new HtmlWorksheetEditor();
+                this.worksheetEditor = PreferencesUtils.<WorksheetEditor>createClassFromPreferences(getCoreContext(), COLUMN_WORKSHEET_EDITOR);
             }
 
             if (worksheetEditor.getCellEditor() == null) {
@@ -348,15 +346,15 @@ public class HtmlColumn extends Column {
     }
 
     @Override
-    public HtmlHeaderRenderer getHeaderRenderer() {
+    public HeaderRenderer getHeaderRenderer() {
 		
         HeaderRenderer headerRenderer = super.getHeaderRenderer();
         if (headerRenderer == null) {
-            HtmlHeaderRenderer htmlHeaderRenderer = PreferencesUtils.<HtmlHeaderRenderer>createClassFromPreferences(getCoreContext(), COLUMN_HEADER_RENDERER);
-            super.setHeaderRenderer(htmlHeaderRenderer);
-            return htmlHeaderRenderer;
+            HeaderRenderer hr = PreferencesUtils.<HeaderRenderer>createClassFromPreferences(getCoreContext(), COLUMN_HEADER_RENDERER);
+            super.setHeaderRenderer(hr);
+            return hr;
         }
-        return (HtmlHeaderRenderer) headerRenderer;
+        return headerRenderer;
     }
 
     @Override
@@ -364,9 +362,9 @@ public class HtmlColumn extends Column {
 		
         HeaderEditor headerEditor = super.getHeaderEditor();
         if (headerEditor == null) {
-            HtmlHeaderEditor htmlHeaderEditor = new HtmlHeaderEditor();
-            super.setHeaderEditor(htmlHeaderEditor);
-            return htmlHeaderEditor;
+            HeaderEditor he = PreferencesUtils.<HeaderEditor>createClassFromPreferences(getCoreContext(), COLUMN_HEADER_EDITOR);
+            super.setHeaderEditor(he);
+            return he;
         }
         return headerEditor;
     }
@@ -376,9 +374,9 @@ public class HtmlColumn extends Column {
 		
         FilterRenderer filterRenderer = super.getFilterRenderer();
         if (filterRenderer == null) {
-            filterRenderer = PreferencesUtils.<FilterRenderer>createClassFromPreferences(getCoreContext(), COLUMN_FILTER_RENDERER);
-            super.setFilterRenderer(filterRenderer);
-            return filterRenderer;
+            FilterRenderer fr = PreferencesUtils.<FilterRenderer>createClassFromPreferences(getCoreContext(), COLUMN_FILTER_RENDERER);
+            super.setFilterRenderer(fr);
+            return fr;
         }
         return filterRenderer;
     }
@@ -388,9 +386,9 @@ public class HtmlColumn extends Column {
 		
         FilterEditor filterEditor = super.getFilterEditor();
         if (filterEditor == null) {
-            HtmlFilterEditor htmlFilterEditor = new HtmlFilterEditor();
-            super.setFilterEditor(htmlFilterEditor);
-            return htmlFilterEditor;
+            FilterEditor fe = PreferencesUtils.<FilterEditor>createClassFromPreferences(getCoreContext(), COLUMN_FILTER_EDITOR);
+            super.setFilterEditor(fe);
+            return fe;
         }
         return filterEditor;
     }
