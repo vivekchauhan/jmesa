@@ -171,14 +171,14 @@ public abstract class Toolbar extends AbstractContextSupport {
             }
 
             for (int i = start; i <= end; i++) {
-                PageNumberItem pageNumberItem = factory.createPageNumberItem(i);
+                ToolbarItem pageNumberItem = factory.createPageNumberItem(i);
                 addToolbarItem(pageNumberItem);
                 items.add(pageNumberItem);
             }
         } else {
             for (int i = 1; i <= totalPages; i++) {
                 addToolbarItem(factory.createPageNumberItem(i));
-                PageNumberItem pageNumberItem = factory.createPageNumberItem(i);
+                ToolbarItem pageNumberItem = factory.createPageNumberItem(i);
                 addToolbarItem(pageNumberItem);
                 items.add(pageNumberItem);
             }
