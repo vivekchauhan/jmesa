@@ -725,18 +725,32 @@ public class HtmlBuilder {
 
     /**
      * <p>
-     * The width attribute [width=].
+     * The height attribute [height=].
      * </p>
      */
-    public HtmlBuilder width(String width) {
+    public HtmlBuilder height(String height) {
 		
-        if (StringUtils.isNotBlank(width)) {
-            append(" width=\"").append(width).append("\" ");
+        if (StringUtils.isNotBlank(height)) {
+            append(" height=\"").append(height).append("\" ");
         }
 
         return this;
     }
 
+    /**
+     * <p>
+     * The width attribute [width=].
+     * </p>
+     */
+    public HtmlBuilder width(String width) {
+        
+        if (StringUtils.isNotBlank(width)) {
+            append(" width=\"").append(width).append("\" ");
+        }
+        
+        return this;
+    }
+    
     /**
      * <p>
      * The align attribute [align=].
