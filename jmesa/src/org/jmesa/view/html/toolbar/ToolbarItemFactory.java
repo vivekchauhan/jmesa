@@ -39,7 +39,7 @@ public class ToolbarItemFactory {
         this.coreContext = coreContext;
     }
 
-    public PageNumberItem createPageNumberItem(int page) {
+    public ToolbarItem createPageNumberItem(int page) {
 		
         PageNumberItem item = new PageNumberItem(page);
         item.setStyleClass(coreContext.getPreference(TOOLBAR_PAGE_NUMBER_CLASS));
@@ -52,7 +52,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createFirstPageItem() {
+    public ToolbarItem createFirstPageItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.FIRST_PAGE_ITEM.toCode());
@@ -68,7 +68,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createPrevPageItem() {
+    public ToolbarItem createPrevPageItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.PREV_PAGE_ITEM.toCode());
@@ -84,7 +84,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createNextPageItem() {
+    public ToolbarItem createNextPageItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.NEXT_PAGE_ITEM.toCode());
@@ -100,7 +100,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createLastPageItem() {
+    public ToolbarItem createLastPageItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.LAST_PAGE_ITEM.toCode());
@@ -116,7 +116,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createFilterItem() {
+    public ToolbarItem createFilterItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.FILTER_ITEM.toCode());
@@ -131,7 +131,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createClearItem() {
+    public ToolbarItem createClearItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.CLEAR_ITEM.toCode());
@@ -159,7 +159,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createExportItem(ToolbarExport export) {
+    public ToolbarItem createExportItem(ToolbarExport export) {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.EXPORT_ITEM.toCode());
@@ -176,7 +176,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createSeparatorItem() {
+    public ToolbarItem createSeparatorItem() {
 		
         ImageItem item = new SeparatorItem();
 
@@ -186,7 +186,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createSaveWorksheetItem() {
+    public ToolbarItem createSaveWorksheetItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.SAVE_WORKSHEET_ITEM.toCode());
@@ -225,7 +225,7 @@ public class ToolbarItemFactory {
         return item;
     }
 
-    public ImageItem createClearWorksheetItem() {
+    public ToolbarItem createClearWorksheetItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.CLEAR_WORKSHEET_ITEM.toCode());
@@ -241,7 +241,7 @@ public class ToolbarItemFactory {
         return item;
     }
     
-    public ImageItem createAddWorksheetRowItem() {
+    public ToolbarItem createAddWorksheetRowItem() {
 		
         ImageItem item = new ImageItem();
         item.setCode(ToolbarItemType.ADD_WORKSHEET_ROW_ITEM.toCode());
