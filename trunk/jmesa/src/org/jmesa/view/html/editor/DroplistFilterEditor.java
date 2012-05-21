@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -41,11 +40,11 @@ import org.jmesa.view.html.component.HtmlColumn;
  * @author Jeff Johnston
  */
 public class DroplistFilterEditor extends AbstractFilterEditor {
-		
+        
     private Set<Option> options;
     
     public Object getValue() {
-		
+        
         HtmlBuilder html = new HtmlBuilder();
 
         Limit limit = getCoreContext().getLimit();
@@ -58,51 +57,35 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
             filterValue = filter.getValue();
         }
 
-        String filterLabel = "";
-
-        StringBuilder array = new StringBuilder();
-        array.append("{");
-
-        Collection<Option> opts = getOptions();
-        for (Iterator<Option> it = opts.iterator(); it.hasNext();) {
-            Option option = it.next();
-
-            String value = option.getValue();
-            String label = option.getLabel();
-
-            if (value.equalsIgnoreCase(filterValue)){
-                filterLabel = label;
-            }
-
-            value = escapeJavaScript(escapeHtml(value));
-            label = escapeJavaScript(escapeHtml(label));
-
-            array.append("'").append(value).append("':'").append(label).append("'");
-            if (it.hasNext()) {
-                array.append(",");
-            }
-        }
-
-        array.append("}");
-
-        html.div().styleClass("dynFilter");
-        html.onclick("jQuery.jmesa.createDroplistDynFilter(this,'" + limit.getId() + "','" + column.getProperty() + "'," + array + ")");
+        html.select();
+        html.name(getCoreContext().getLimit().getId() + "_f_" + property);
         html.close();
-        html.append(escapeHtml(filterLabel));
-        html.divEnd();
+
+        for (Option option : getOptions()) {
+            String value = escapeJavaScript(escapeHtml(option.getValue()));
+            String label = escapeJavaScript(escapeHtml(option.getLabel()));
+
+            html.option().value(value);
+            if (value.equalsIgnoreCase(filterValue)){
+                html.selected();
+            }
+            html.close().append(label).optionEnd();
+
+        }
+        html.selectEnd();
 
         return html.toString();
     }
     
     public void addOptions(Collection<?> beans, String valueProperty, String labelProperty) {
-		
+        
         for (Object bean : beans) {
             addOption(bean, valueProperty, labelProperty);
         }
     }
 
     public void addOption(Object bean, String valueProperty, String labelProperty) {
-		
+        
         Object value = ItemUtils.getItemValue(bean, valueProperty);
         Object label = ItemUtils.getItemValue(bean, labelProperty);
         addOption(
@@ -112,7 +95,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
     }
     
     public void addOption(String value, String label) {
-		
+        
         if (value == null || value.length() == 0) {
             return;
         }
@@ -123,7 +106,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
     }
     
     protected void addOption(Option option) {
-		
+        
         if (options == null) {
             options = new HashSet<Option>();
         }
@@ -134,7 +117,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
      * @return The unique list of options for the droplist values.
      */
     protected Collection<Option> getOptions() {
-		
+        
         List<Option> opts;
 
         if (this.options == null) {
@@ -169,28 +152,28 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
      * Represents an Html Select Option.
      */
     protected static class Option implements Comparable<Option> {
-		
+        
         private final String value;
         private final String label;
 
         public Option(String value, String label) {
-		
+        
             this.value = value;
             this.label = label;
         }
 
         public String getValue() {
-		
+        
             return value;
         }
 
         public String getLabel() {
-		
+        
             return label;
         }
 
         public int compareTo(Option option) {
-		
+        
             return this.getLabel().compareToIgnoreCase(option.getLabel());
         }
 
@@ -200,7 +183,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
          */
         @Override
         public boolean equals(Object o) {
-		
+        
             if (o == this) {
                 return true;
             }
@@ -216,7 +199,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         @Override
         public int hashCode() {
-		
+        
             int result = 17;
             int property = this.getLabel() == null ? 0 : this.getLabel().hashCode();
             result = result * 37 + property;
@@ -225,7 +208,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         @Override
         public String toString() {
-		
+        
             ToStringBuilder builder = new ToStringBuilder(this);
             builder.append("value", getValue());
             builder.append("label", getLabel());
