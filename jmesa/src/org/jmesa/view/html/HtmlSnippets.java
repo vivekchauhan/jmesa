@@ -318,6 +318,12 @@ public class HtmlSnippets extends AbstractContextSupport {
         html.newline().input().type("hidden").name(limit.getId() + "_mr_").value(String.valueOf(limit.getRowSelect().getMaxRows())).end();
         html.newline().input().type("hidden").name(limit.getId() + "_p_").value(String.valueOf(limit.getRowSelect().getPage())).end();
         
+        /* worksheet */
+        html.newline().input().type("hidden").name(limit.getId() + "_sw_").end();
+        html.newline().input().type("hidden").name(limit.getId() + "_fw_").end();
+        html.newline().input().type("hidden").name(limit.getId() + "_awr_").end();
+        html.newline().input().type("hidden").name(limit.getId() + "_rwr_").end();
+        
         return html.toString();
     }
 

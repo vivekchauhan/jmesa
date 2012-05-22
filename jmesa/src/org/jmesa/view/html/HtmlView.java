@@ -57,6 +57,8 @@ public class HtmlView extends AbstractHtmlView {
 
         html.append(snippets.themeEnd());
 
+        html.append(snippets.hiddenFields());
+
         html.append(snippets.initJavascriptLimit());
 
         return html.toString();

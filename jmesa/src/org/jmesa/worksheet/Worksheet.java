@@ -250,8 +250,8 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      */
     public boolean isSaving() {
 		
-        String save = webContext.getParameter(getId()  + "_" + SAVE_WORKSHEET);
-        return StringUtils.isNotEmpty(save);
+        String value = webContext.getParameter(getId()  + "_" + SAVE_WORKSHEET);
+        return StringUtils.isNotEmpty(value) && "true".equals(value);
     }
 
     /**
@@ -259,8 +259,8 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      */
     public boolean isAddingRow() {
 		
-        String add = webContext.getParameter(getId()  + "_" + ADD_WORKSHEET_ROW);
-        return StringUtils.isNotEmpty(add);
+        String value = webContext.getParameter(getId()  + "_" + ADD_WORKSHEET_ROW);
+        return StringUtils.isNotEmpty(value) && "true".equals(value);
     }
 
     /**
@@ -268,8 +268,8 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      */
     public boolean isRemovingRow() {
 		
-        String remove = webContext.getParameter(getId()  + "_" + REMOVE_WORKSHEET_ROW);
-        return StringUtils.isNotEmpty(remove);
+        String value = webContext.getParameter(getId()  + "_" + REMOVE_WORKSHEET_ROW);
+        return StringUtils.isNotEmpty(value) && "true".equals(value);
     }
 
     /**
@@ -277,8 +277,8 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
      */
     public boolean isFiltering() {
 		
-        String filter = webContext.getParameter(getId()  + "_" + FILTER_WORKSHEET);
-        return StringUtils.isNotEmpty(filter);
+        String value = webContext.getParameter(getId()  + "_" + FILTER_WORKSHEET);
+        return StringUtils.isNotEmpty(value) && "true".equals(value);
     }
 
     /**
