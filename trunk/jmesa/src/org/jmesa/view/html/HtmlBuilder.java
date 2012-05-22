@@ -627,6 +627,20 @@ public class HtmlBuilder {
 
     /**
      * <p>
+     * The onblur attribute [onblur=].
+     * </p>
+     */
+    public HtmlBuilder onblur(String onblur) {
+		
+        if (StringUtils.isNotBlank(onblur)) {
+            append(" onblur=\"").append(onblur).append("\" ");
+        }
+
+        return this;
+    }
+
+    /**
+     * <p>
      * The onmouseover attribute [onmouseover=].
      * </p>
      */

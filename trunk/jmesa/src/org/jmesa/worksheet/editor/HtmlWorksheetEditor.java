@@ -18,6 +18,7 @@ package org.jmesa.worksheet.editor;
 import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.WorksheetColumn;
 import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
@@ -30,46 +31,48 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @author Jeff Johnston
  */
 public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
+    
     /**
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */
     public Object getValue(Object item, String property, int rowcount) {
         
-        Object value = null;
+        Object changedValue = null;
         
         WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
         if (worksheetColumn != null) {
-            value = escapeHtml(worksheetColumn.getChangedValue());
-        } else {
-            value = getValueForWorksheet(item, property, rowcount);
+            changedValue = escapeHtml(worksheetColumn.getChangedValue());
         }
-
-        return getWsColumn(worksheetColumn, value, item);
-    }
-
-    protected String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item) {
-		
+        
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
-            if (value == null) {
+            if (changedValue == null) {
                 return "";
             }
-            return value.toString();
+            return changedValue.toString();
         }
-    	
+        
+        Limit limit = getCoreContext().getLimit();
+        String id = limit.getId();
+        UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
+        Object originalValue = getOriginalValue(item, property, rowcount);
+
+        return getWsColumn(id, property, uniqueProperty, originalValue, changedValue);
+    }
+
+    protected String getWsColumn(String id, String property, UniqueProperty uniqueProperty , Object originalValue, Object changedValue) {
+		
         HtmlBuilder html = new HtmlBuilder();
 
-        Limit limit = getCoreContext().getLimit();
-
-        html.div();
-
-        html.append(getStyleClass(worksheetColumn));
+        html.input().type("text");
         
-        html.onmouseover("$.jmesa.setTitle(this, event)");
-        html.onclick(getUniquePropertyJavaScript(item) + "$.jmesa.createWsColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'" 
-            + getColumn().getProperty() + "')");
-        html.close();
-        html.append(value);
-        html.divEnd();
+        if (changedValue == null) {
+            html.value(String.valueOf(originalValue));
+        } else {
+            html.value(String.valueOf(changedValue));
+        }
+        
+        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty.getName() + "','" + uniqueProperty.getValue() + "','" + originalValue + "');");
+        html.end();
 
         return html.toString();
     }
