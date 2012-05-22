@@ -345,12 +345,12 @@ public class HtmlSnippets extends AbstractContextSupport {
             html.append("jQuery(document).ready(function(){").newline();
         }
 
-        html.tab().append("jQuery.jmesa.addTableFacade('" + limit.getId() + "')").semicolon().newline();
+        //html.tab().append("jQuery.jmesa.addTableFacade('" + limit.getId() + "')").semicolon().newline();
 
-        Worksheet worksheet = coreContext.getWorksheet();
-        if (worksheet != null && worksheet.isFiltering()) {
-            html.tab().append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
-        }
+//        Worksheet worksheet = coreContext.getWorksheet();
+//        if (worksheet != null && worksheet.isFiltering()) {
+//            html.tab().append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
+//        }
 
         // I'm allowing getWebContext() to be null for backwards compatibility
         if (getWebContext() != null) {
