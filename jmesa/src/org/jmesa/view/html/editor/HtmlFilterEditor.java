@@ -15,12 +15,13 @@
  */
 package org.jmesa.view.html.editor;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.editor.AbstractFilterEditor;
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlColumn;
+import org.jmesa.view.html.toolbar.ToolbarItemType;
 
 /**
  * The default editor for the column filter.
@@ -53,6 +54,10 @@ public class HtmlFilterEditor extends AbstractFilterEditor {
         html.input().type("text");
         html.name(getCoreContext().getLimit().getId() + "_f_" + property);
         html.value(filterValue);
+        
+        //html.onkeypress("jQuery.jmesa.filterKeypress('" + limit.getId() + "');");
+
+        
         html.end();
 
         return html.toString();
