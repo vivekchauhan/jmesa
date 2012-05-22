@@ -15,10 +15,8 @@
  */
 package org.jmesa.model.tag;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.lang.StringUtils;
@@ -49,7 +47,6 @@ import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
-import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -406,45 +403,6 @@ class TagUtils {
         }
         
         return nameValueMap;
-    }
-
-    /**
-     * <p>
-     * Get the validations on the column.
-     * </p>
-     */
-    static List<WorksheetValidation> getWorksheetValidations(HtmlColumn column, String worksheetValidation, 
-            String errorMessageKey, String errorMessage, boolean custom) {
-        
-        if (StringUtils.isEmpty(worksheetValidation)) {
-            return Collections.emptyList();
-        }
-
-        List<WorksheetValidation> results = new ArrayList<WorksheetValidation>();
-
-        Map<String, String> errorMessageKeys = getNameValueMap(errorMessageKey,
-                "Required format of errorMessageKey is \"validationType:error message key;[second pair]\"");
-        
-        Map<String, String> errorMessages = getNameValueMap(errorMessage,
-                "Required format of errorMessage is \"validationType:error message;[second pair]\"");
-        
-        Map<String, String> worksheetValidations = getNameValueMap(worksheetValidation,
-                "Required format of worksheetValidation / customWorksheetValidation is \"validationType:value;[second pair]\"");
-        
-        for (Map.Entry<String, String> validation: worksheetValidations.entrySet()) {
-            String validationType = validation.getKey();
-            String value = validation.getValue();
-
-            WorksheetValidation result = new WorksheetValidation(validationType, value);
-            
-            result.setErrorMessage(errorMessages.get(validationType));
-            result.setErrorMessageKey(errorMessageKeys.get(validationType));
-
-            result.setCustom(custom);
-            results.add(result);
-        }
-
-        return results;
     }
 
     /**

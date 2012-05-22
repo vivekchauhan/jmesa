@@ -23,7 +23,6 @@ import static org.jmesa.model.tag.TagUtils.getColumnHeaderEditor;
 import static org.jmesa.model.tag.TagUtils.getColumnHeaderRenderer;
 import static org.jmesa.model.tag.TagUtils.getColumnSortOrder;
 import static org.jmesa.model.tag.TagUtils.getColumnWorksheetEditor;
-import static org.jmesa.model.tag.TagUtils.getWorksheetValidations;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -41,7 +40,6 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
-import org.jmesa.worksheet.WorksheetValidation;
 import org.jmesa.worksheet.editor.WorksheetEditor;
 
 /**
@@ -519,15 +517,6 @@ public class HtmlColumnTag extends SimpleTagSupport {
         WorksheetEditor we = getColumnWorksheetEditor(htmlColumn, getWorksheetEditor());
         if (we != null) {
             htmlColumn.setWorksheetEditor(we);            
-        }
-
-        for (WorksheetValidation wsv : getWorksheetValidations(htmlColumn, getWorksheetValidation(),
-                getErrorMessageKey(), getErrorMessage(), false)) {
-            htmlColumn.addWorksheetValidation(wsv);
-        }
-        for (WorksheetValidation wsv : getWorksheetValidations(htmlColumn, getCustomWorksheetValidation(),
-                getErrorMessageKey(), getErrorMessage(), true)) {
-            htmlColumn.addWorksheetValidation(wsv);
         }
 
         return htmlColumn;
