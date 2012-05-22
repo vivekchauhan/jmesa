@@ -54,10 +54,7 @@ public class HtmlFilterEditor extends AbstractFilterEditor {
         html.input().type("text");
         html.name(getCoreContext().getLimit().getId() + "_f_" + property);
         html.value(filterValue);
-        
-        //html.onkeypress("jQuery.jmesa.filterKeypress('" + limit.getId() + "');");
-
-        
+        html.onkeypress("jQuery.jmesa.filterKeypress('" + limit.getId() + "', event);");
         html.end();
 
         return html.toString();
