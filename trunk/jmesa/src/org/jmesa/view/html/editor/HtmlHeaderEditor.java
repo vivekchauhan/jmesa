@@ -133,12 +133,12 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
 		
         HtmlBuilder html = new HtmlBuilder();
 
+        int position = column.getRow().getColumns().indexOf(column);
+        
         if (currentOrder == Order.NONE) {
-            String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
-            html.onclick("jQuery('[name=" + getInputName(column, limit) + "]').val('');" + onInvokeAction + "('" + limit.getId() + "')");
+            html.onclick("jQuery.jmesa.setSort('" + limit.getId() + "','" + column.getProperty() + "','" + position + "');" + getOnInvokeActionJavaScript(limit));
         } else {
-
-            html.onclick("jQuery('[name=" + getInputName(column, limit) + "]').val('" + currentOrder.toParam() + "');" + getOnInvokeActionJavaScript(limit));
+            html.onclick("jQuery.jmesa.setSort('" + limit.getId() + "','" + column.getProperty() + "','" + position + "','" + currentOrder.toParam() + "');" + getOnInvokeActionJavaScript(limit));
         }
 
         return html.toString();
