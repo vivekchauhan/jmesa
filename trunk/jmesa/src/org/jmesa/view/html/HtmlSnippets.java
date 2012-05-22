@@ -15,18 +15,13 @@
  */
 package org.jmesa.view.html;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
-import org.jmesa.limit.Sort;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_ACTION;
-import static org.jmesa.view.html.HtmlConstants.ON_INVOKE_EXPORT_ACTION;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -310,6 +305,22 @@ public class HtmlSnippets extends AbstractContextSupport {
 
         return html.toString();
     }
+    
+    public String hiddenFields() {
+        
+        HtmlBuilder html = new HtmlBuilder();
+        
+        Limit limit = getCoreContext().getLimit();
+        
+        /* tip the API off that in the loop of working with the table */
+        html.newline().input().type("hidden").name(limit.getId() + "_tr_").value("true").end();
+        
+        /* the current page */
+        html.newline().input().type("hidden").name(limit.getId() + "_mr_").value(String.valueOf(limit.getRowSelect().getMaxRows())).end();
+        html.newline().input().type("hidden").name(limit.getId() + "_p_").value(String.valueOf(limit.getRowSelect().getPage())).end();
+        
+        return html.toString();
+    }
 
     /**
      * Create a Limit implementation in JavaScript. Will be invoked when the page is loaded.
@@ -336,29 +347,10 @@ public class HtmlSnippets extends AbstractContextSupport {
 
         html.tab().append("jQuery.jmesa.addTableFacade('" + limit.getId() + "')").semicolon().newline();
 
-        html.tab().append("jQuery.jmesa.setMaxRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getMaxRows() + "')").semicolon().newline();
-        html.tab().append("jQuery.jmesa.setTotalRowsToLimit('" + limit.getId() + "','" + limit.getRowSelect().getTotalRows() + "')").semicolon().newline();
-
-        for (Sort sort : limit.getSortSet().getSorts()) {
-            html.tab().append(
-                    "jQuery.jmesa.addSortToLimit('" + limit.getId() + "','" + sort.getPosition() + "','" + sort.getProperty() + "','" + sort.getOrder().toParam()
-                    + "')").semicolon().newline();
-        }
-
-        for (Filter filter : limit.getFilterSet().getFilters()) {
-            String value = escapeJavaScript(filter.getValue());
-            html.tab().append("jQuery.jmesa.addFilterToLimit('" + limit.getId() + "','" + filter.getProperty() + "','" + value + "')").semicolon().newline();
-        }
-
         Worksheet worksheet = coreContext.getWorksheet();
         if (worksheet != null && worksheet.isFiltering()) {
             html.tab().append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
         }
-
-        html.tab().append("jQuery.jmesa.setPageToLimit('" + limit.getId() + "','" + limit.getRowSelect().getPage() + "')").semicolon().newline();
-
-        html.tab().append("jQuery.jmesa.setOnInvokeAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_ACTION) + "')").semicolon().newline();
-        html.tab().append("jQuery.jmesa.setOnInvokeExportAction('" + limit.getId() + "','" + coreContext.getPreference(ON_INVOKE_EXPORT_ACTION) + "')").semicolon().newline();
 
         // I'm allowing getWebContext() to be null for backwards compatibility
         if (getWebContext() != null) {

@@ -39,7 +39,7 @@ public class LastPageItemRenderer extends AbstractItemRenderer {
 
         ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
-        action.append("jQuery.jmesa.setPageToLimit('" + limit.getId() + "','" + totalPages + "');" + getOnInvokeActionJavaScript(limit, item));
+        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + totalPages + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 
         if (!HtmlUtils.isLastPageEnabled(page, totalPages)) {

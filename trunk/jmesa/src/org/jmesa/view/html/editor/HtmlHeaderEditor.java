@@ -106,6 +106,15 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
         
         html.divEnd();
 
+        if (column.isSortable()) {
+            html.input().type("hidden").name(getInputName(column, limit));
+            Sort sort = limit.getSortSet().getSort(column.getProperty());
+            if (sort != null) {
+                html.value(sort.getOrder().toParam());
+            }
+            html.end();            
+        }
+        
         return html.toString();
     }
 
@@ -124,20 +133,12 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
 		
         HtmlBuilder html = new HtmlBuilder();
 
-        int position = column.getRow().getColumns().indexOf(column);
-
         if (currentOrder == Order.NONE) {
             String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
-            html.onclick(
-                "jQuery.jmesa.removeSortFromLimit('" + limit.getId() + "','" + 
-                column.getProperty() + "');" + onInvokeAction + "('" + limit.getId() + "')"
-            );
+            html.onclick("jQuery('[name=" + getInputName(column, limit) + "]').val('');" + onInvokeAction + "('" + limit.getId() + "')");
         } else {
-            html.onclick(
-                "jQuery.jmesa.addSortToLimit('" + limit.getId() + "','" + 
-                position + "','" + column.getProperty() + "','" + 
-                currentOrder.toParam() + "');" + getOnInvokeActionJavaScript(limit)
-            );
+
+            html.onclick("jQuery('[name=" + getInputName(column, limit) + "]').val('" + currentOrder.toParam() + "');" + getOnInvokeActionJavaScript(limit));
         }
 
         return html.toString();
@@ -170,5 +171,13 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
 		
         String onInvokeAction = getCoreContext().getPreference(HtmlConstants.ON_INVOKE_ACTION);
         return onInvokeAction + "('" + limit.getId() + "', '" + ToolbarItemType.SORT_ITEM.toCode() + "')";
+    }
+    
+    protected String getInputName(HtmlColumn column, Limit limit) {
+        
+        int position = column.getRow().getColumns().indexOf(column);
+        StringBuilder name = new StringBuilder();
+        name.append(limit.getId()).append("_s_").append(position).append("_").append(column.getProperty());
+        return name.toString();
     }
 }

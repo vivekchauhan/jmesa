@@ -42,7 +42,7 @@ public class PageNumberItemRenderer extends AbstractItemRenderer {
         }
 
         StringBuilder action = new StringBuilder("javascript:");
-        action.append("jQuery.jmesa.setPageToLimit('" + limit.getId() + "','" + page + "');" + getOnInvokeActionJavaScript(limit, item));
+        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + page + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
         return item.enabled();
     }
