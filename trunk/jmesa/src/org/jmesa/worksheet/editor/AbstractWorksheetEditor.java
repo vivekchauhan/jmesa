@@ -51,13 +51,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
         this.cellEditor = cellEditor;
     }
     
-    @Deprecated
     public Object getValueForWorksheet(Object item, String property, int rowcount) {
-		
-    	return getCellEditor().getValue(item, property, rowcount);
-    }
-
-    public Object getOriginalCellEditorValue(Object item, String property, int rowcount) {
 		
     	return getCellEditor().getValue(item, property, rowcount);
     }

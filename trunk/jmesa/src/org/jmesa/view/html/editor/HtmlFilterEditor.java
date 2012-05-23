@@ -19,9 +19,7 @@ import org.jmesa.limit.Filter;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.editor.AbstractFilterEditor;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.component.HtmlColumn;
-import org.jmesa.view.html.toolbar.ToolbarItemType;
 
 /**
  * The default editor for the column filter.

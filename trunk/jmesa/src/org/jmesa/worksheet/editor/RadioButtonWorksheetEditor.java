@@ -32,7 +32,7 @@ public class RadioButtonWorksheetEditor extends InputWorksheetEditor {
     @Override
     public String getValueForWorksheet(Object item, String property, int rowcount) {
 
-        Object value = super.getOriginalCellEditorValue(item, property, rowcount);
+        Object value = super.getValueForWorksheet(item, property, rowcount);
         return value == null ? Boolean.FALSE.toString() : String.valueOf(value);
     }
     

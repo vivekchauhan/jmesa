@@ -59,6 +59,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
 
         html.select();
         html.name(getCoreContext().getLimit().getId() + "_f_" + property);
+        html.onchange("jQuery.jmesa.submitTableForm('" + limit.getId() + "', event);");
         html.close();
 
         for (Option option : getOptions()) {

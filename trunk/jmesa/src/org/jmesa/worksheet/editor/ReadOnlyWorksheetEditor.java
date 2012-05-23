@@ -23,6 +23,6 @@ public class ReadOnlyWorksheetEditor extends AbstractWorksheetEditor {
 
     public Object getValue(Object item, String property, int rowcount) {
 
-       return getOriginalCellEditorValue(item, property, rowcount);
+       return getValueForWorksheet(item, property, rowcount);
     }
 }
