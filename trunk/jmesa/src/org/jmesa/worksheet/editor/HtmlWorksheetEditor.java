@@ -56,11 +56,11 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
         UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
         Object originalValue = getOriginalValue(item, property, rowcount);
 
-        return getWsColumn(id, property, uniqueProperty.getName(), uniqueProperty.getValue(), originalValue, changedValue);
+        return getWsColumn(item, id, property, uniqueProperty.getName(), uniqueProperty.getValue(), originalValue, changedValue);
     }
 
-    protected String getWsColumn(String id, String property, String uniqueProperty, String uniqueValue , Object originalValue, Object changedValue) {
-		
+    protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
+        
         HtmlBuilder html = new HtmlBuilder();
 
         html.input().type("text");
