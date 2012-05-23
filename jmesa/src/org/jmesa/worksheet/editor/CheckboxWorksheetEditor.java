@@ -41,7 +41,7 @@ public class CheckboxWorksheetEditor extends InputWorksheetEditor {
     @Override
     public String getValueForWorksheet(Object item, String property, int rowcount) {
         
-        Object value = super.getOriginalCellEditorValue(item, property, rowcount);
+        Object value = super.getValueForWorksheet(item, property, rowcount);
         
     	if (value == null) {
             return UNCHECKED;

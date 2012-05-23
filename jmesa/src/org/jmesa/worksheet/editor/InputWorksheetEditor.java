@@ -44,16 +44,8 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
             changedValue = escapeHtml(worksheetColumn.getChangedValue());
         }
         
-        Object originalValue = getOriginalCellEditorValue(item, property, rowcount);
+        Object originalValue = getValueForWorksheet(item, property, rowcount);
 
-        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
-            Object value = super.getOriginalCellEditorValue(item, property, rowcount);
-            if (value == null) {
-                return "";
-            }
-            return value.toString();
-        }
-        
         Limit limit = getCoreContext().getLimit();
         String id = limit.getId();
         UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
@@ -62,6 +54,13 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
     }
 
     protected String getWsColumn(WorksheetColumn worksheetColumn, Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
+        
+        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
+            if (originalValue == null) {
+                return "";
+            }
+            return originalValue.toString();
+        }
         
         HtmlBuilder html = new HtmlBuilder();
 
