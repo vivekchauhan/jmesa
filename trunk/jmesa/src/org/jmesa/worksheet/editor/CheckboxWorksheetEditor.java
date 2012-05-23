@@ -15,10 +15,9 @@
  */
 package org.jmesa.worksheet.editor;
 
-import org.jmesa.limit.Limit;
-import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.worksheet.WorksheetColumn;
 import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
+
+import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * Defines a checkbox for the worksheet editor.
@@ -26,24 +25,10 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
+public class CheckboxWorksheetEditor extends HtmlWorksheetEditor {
     
     public static final String CHECKED = "checked";
     public static final String UNCHECKED = "unchecked";
-    
-    public Object getValue(Object item, String property, int rowcount) {
-        
-        Object value = null;
-        
-        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
-        if (worksheetColumn != null) {
-            value = worksheetColumn.getChangedValue();
-        } else {
-            value = getValueForWorksheet(item, property, rowcount);
-        }
-
-        return getWsColumn(value, item);
-    }
     
     /**
      * Interpret the value of the column to be checked or unchecked. The acceptable 
@@ -55,7 +40,7 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
     @Override
     public String getValueForWorksheet(Object item, String property, int rowcount) {
         
-        Object value = super.getValueForWorksheet(item, property, rowcount);
+        Object value = super.getOriginalValue(item, property, rowcount);
         
     	if (value == null) {
             return UNCHECKED;
@@ -76,28 +61,26 @@ public class CheckboxWorksheetEditor extends AbstractWorksheetEditor {
             valueToConvert.equals("0")) {
             return UNCHECKED;
         }
-
+        
         throw new IllegalStateException("Not able to convert the value for the checkbox.");
     }
     
-    protected String getWsColumn(Object value, Object item) {
+    @Override
+    protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
         
         HtmlBuilder html = new HtmlBuilder();
         
-        Limit limit = getCoreContext().getLimit();
-        
         html.input().type("checkbox");
         
-        if (value != null && value.equals(CHECKED)) {
+        if (originalValue != null && originalValue.equals(CHECKED)) {
             html.checked();
         }
 
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             html.disabled();
         } else {
-            html.onclick(getUniquePropertyJavaScript(item) + "jQuery.jmesa.submitWsCheckboxColumn(this,'" + 
-                    limit.getId() + "'," + UNIQUE_PROPERTY + ",'" +
-                    getColumn().getProperty() + "')");
+            html.onclick("jQuery.jmesa.submitWsCheckableColumn(this.checked, '" + id + "','" + property + "','"
+                    + uniqueProperty + "','" + uniqueValue + "')");
         }
         
         html.end();
