@@ -26,12 +26,12 @@ import org.jmesa.view.html.HtmlBuilder;
  * @author Jason Ward
  */
 
-public class RadioButtonWorksheetEditor extends HtmlWorksheetEditor {
+public class RadioButtonWorksheetEditor extends InputWorksheetEditor {
     
     @Override
     public String getValueForWorksheet(Object item, String property, int rowcount) {
 
-        Object value = super.getOriginalValue(item, property, rowcount);
+        Object value = super.getOriginalCellEditorValue(item, property, rowcount);
         return value == null ? Boolean.FALSE.toString() : String.valueOf(value);
     }
     
@@ -50,7 +50,7 @@ public class RadioButtonWorksheetEditor extends HtmlWorksheetEditor {
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             html.disabled();
         } else {
-            html.onclick("jQuery.jmesa.submitWsCheckableColumn(this.checked, '" + id + "','" + property + "','"
+            html.onclick("jQuery.jmesa.submitWorksheetCheckableColumn(this.checked, '" + id + "','" + property + "','"
                     + uniqueProperty + "','" + uniqueValue + "');" + unCheckFunction);
         }
 
@@ -60,7 +60,7 @@ public class RadioButtonWorksheetEditor extends HtmlWorksheetEditor {
             html.br();
             html.script().type("text/javascript").close();
             html.append(" function " + unCheckFunction + " {");
-            html.append("jQuery.jmesa.submitWsCheckableColumn(false, '" + id + "','" + property + "','"
+            html.append("jQuery.jmesa.submitWorksheetCheckableColumn(false, '" + id + "','" + property + "','"
                     + uniqueProperty + "','" + uniqueValue + "')};");
             html.scriptEnd();
             html.br();

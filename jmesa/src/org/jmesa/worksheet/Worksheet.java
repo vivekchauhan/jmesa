@@ -269,7 +269,7 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     public boolean isRemovingRow() {
 		
         String value = webContext.getParameter(getId()  + "_" + REMOVE_WORKSHEET_ROW);
-        return StringUtils.isNotEmpty(value) && "true".equals(value);
+        return StringUtils.isNotEmpty(value);
     }
 
     /**

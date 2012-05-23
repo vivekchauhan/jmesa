@@ -25,7 +25,7 @@ import org.jmesa.view.html.HtmlBuilder;
  * @since 2.3
  * @author Jeff Johnston
  */
-public class CheckboxWorksheetEditor extends HtmlWorksheetEditor {
+public class CheckboxWorksheetEditor extends InputWorksheetEditor {
     
     public static final String CHECKED = "checked";
     public static final String UNCHECKED = "unchecked";
@@ -40,7 +40,7 @@ public class CheckboxWorksheetEditor extends HtmlWorksheetEditor {
     @Override
     public String getValueForWorksheet(Object item, String property, int rowcount) {
         
-        Object value = super.getOriginalValue(item, property, rowcount);
+        Object value = super.getOriginalCellEditorValue(item, property, rowcount);
         
     	if (value == null) {
             return UNCHECKED;
@@ -79,7 +79,7 @@ public class CheckboxWorksheetEditor extends HtmlWorksheetEditor {
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             html.disabled();
         } else {
-            html.onclick("jQuery.jmesa.submitWsCheckableColumn(this.checked, '" + id + "','" + property + "','"
+            html.onclick("jQuery.jmesa.submitWorksheetCheckableColumn(this.checked, '" + id + "','" + property + "','"
                     + uniqueProperty + "','" + uniqueValue + "')");
         }
         

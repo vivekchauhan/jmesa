@@ -36,7 +36,7 @@ public class AddWorksheetRowItemRenderer extends AbstractItemRenderer {
 
         ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
-        action.append("jQuery.jmesa.addRowToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
+        action.append("jQuery.jmesa.setAddRowToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
         item.setAction(action.toString());
 
         return item.enabled();

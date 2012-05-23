@@ -58,7 +58,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
     	return getCellEditor().getValue(item, property, rowcount);
     }
 
-    public Object getOriginalValue(Object item, String property, int rowcount) {
+    public Object getOriginalCellEditorValue(Object item, String property, int rowcount) {
 		
     	return getCellEditor().getValue(item, property, rowcount);
     }
