@@ -697,6 +697,20 @@ public class HtmlBuilder {
 
     /**
      * <p>
+     * The onfocus attribute [onfocus=].
+     * </p>
+     */
+    public HtmlBuilder onfocus(String onfocus) {
+		
+        if (StringUtils.isNotBlank(onfocus)) {
+            append(" onfocus=\"").append(onfocus).append("\" ");
+        }
+
+        return this;
+    }
+
+    /**
+     * <p>
      * The id attribute [id=].
      * </p>
      */

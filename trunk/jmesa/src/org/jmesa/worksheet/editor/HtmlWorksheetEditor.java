@@ -29,12 +29,15 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * 
  * @since 2.3
  * @author Jeff Johnston
+ * @deprecated You should use the InputWorksheetEditor
  */
+@Deprecated
 public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
     
     /**
      * Return either the edited worksheet value, or the value of the underlying CellEditor.
      */
+    @Deprecated
     public Object getValue(Object item, String property, int rowcount) {
         
         Object changedValue = null;
@@ -54,11 +57,12 @@ public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
         Limit limit = getCoreContext().getLimit();
         String id = limit.getId();
         UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
-        Object originalValue = getOriginalValue(item, property, rowcount);
+        Object originalValue = getOriginalCellEditorValue(item, property, rowcount);
 
         return getWsColumn(item, id, property, uniqueProperty.getName(), uniqueProperty.getValue(), originalValue, changedValue);
     }
 
+    @Deprecated
     protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
         
         HtmlBuilder html = new HtmlBuilder();

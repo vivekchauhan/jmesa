@@ -320,6 +320,7 @@ public class HtmlSnippets extends AbstractContextSupport {
         
         /* worksheet */
         html.newline().input().type("hidden").name(limit.getId() + "_sw_").end();
+        html.newline().input().type("hidden").name(limit.getId() + "_cw_").end();
         html.newline().input().type("hidden").name(limit.getId() + "_fw_").end();
         html.newline().input().type("hidden").name(limit.getId() + "_awr_").end();
         html.newline().input().type("hidden").name(limit.getId() + "_rwr_").end();

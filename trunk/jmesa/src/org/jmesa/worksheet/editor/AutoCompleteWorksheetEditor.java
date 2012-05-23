@@ -15,11 +15,7 @@
  */
 package org.jmesa.worksheet.editor;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
-import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.worksheet.WorksheetColumn;
-import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
 /**
  * Defines autocomplete functionality for the worksheet editor.
@@ -27,88 +23,26 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @since 3.0.4
  * @author Jeff Johnston
  */
-public abstract class AutoCompleteWorksheetEditor extends AbstractWorksheetEditor {
+public class AutoCompleteWorksheetEditor extends InputWorksheetEditor {
 
-    private String url;
-    private String options;
-
-    public AutoCompleteWorksheetEditor() {}
-    
-    public AutoCompleteWorksheetEditor(String url) {
-		
-        this.url = url;
-    }
-
-    /**
-     * Return either the edited worksheet value, or the value of the underlying CellEditor.
-     */
-    public Object getValue(Object item, String property, int rowcount) {
-		
-        Object value = null;
-
-        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
-        if (worksheetColumn != null) {
-            value = escapeHtml(worksheetColumn.getChangedValue());
-        } else {
-            value = getValueForWorksheet(item, property, rowcount);
-        }
-
-        return getWsColumn(worksheetColumn, value, item, property);
-    }
-
-    protected String getWsColumn(WorksheetColumn worksheetColumn, Object value, Object item, String property) {
-		
-        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
-            if (value == null) {
-                return "";
-            }
-            return value.toString();
-        }
-
+    @Override
+    protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
+        
         HtmlBuilder html = new HtmlBuilder();
 
-        Limit limit = getCoreContext().getLimit();
-
-        html.div();
-
-        html.append(getStyleClass(worksheetColumn));
-
-        String urlValue = getUrl(item, property);
-        if (urlValue == null) {
-            throw new IllegalStateException("You need to set the url when using the AutoCompleteWorksheetEditor.");
+        html.input().type("text");
+        html.name("autocomplete_" + property);
+        
+        if (changedValue == null) {
+            html.value(String.valueOf(originalValue));
+        } else {
+            html.value(String.valueOf(changedValue));
         }
-
-        html.onmouseover("$.jmesa.setTitle(this, event)");
-        html.onclick(getUniquePropertyJavaScript(item) + "$.jmesa.createWsAutoCompleteColumn(this, '" + limit.getId() + "'," + UNIQUE_PROPERTY + ",'"
-            + getColumn().getProperty() + "','" + urlValue + "','" + getOptions(item, property) + "')");
-        html.close();
-        html.append(value);
-        html.divEnd();
+        
+        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalValue + "');");
+        html.end();
 
         return html.toString();
-    }
-
-    protected String getUrl(Object item, String property) {
-		
-        return url;
-    }
-
-    public void setUrl(String url) {
-		
-        this.url = url;
-    }
-
-    protected String getOptions(Object item, String property) {
-		
-        if (options == null) {
-            return "{max:50}";
-        }
-        return options;
-    }
-
-    public void setOptions(String options) {
-		
-        this.options = options;
     }
 }
 
