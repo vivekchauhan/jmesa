@@ -44,25 +44,29 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
             changedValue = escapeHtml(worksheetColumn.getChangedValue());
         }
         
+        Object originalValue = getOriginalCellEditorValue(item, property, rowcount);
+
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
-            if (changedValue == null) {
+            Object value = super.getOriginalCellEditorValue(item, property, rowcount);
+            if (value == null) {
                 return "";
             }
-            return changedValue.toString();
+            return value.toString();
         }
         
         Limit limit = getCoreContext().getLimit();
         String id = limit.getId();
         UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
-        Object originalValue = getOriginalCellEditorValue(item, property, rowcount);
 
-        return getWsColumn(item, id, property, uniqueProperty.getName(), uniqueProperty.getValue(), originalValue, changedValue);
+        return getWsColumn(worksheetColumn, item, id, property, uniqueProperty.getName(), uniqueProperty.getValue(), originalValue, changedValue);
     }
 
-    protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
+    protected String getWsColumn(WorksheetColumn worksheetColumn, Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
         
         HtmlBuilder html = new HtmlBuilder();
 
+        html.div().styleClass(getStyleClass(worksheetColumn)).close();
+        
         html.input().type("text");
         
         if (changedValue == null) {
@@ -73,6 +77,8 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
         
         html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalValue + "');");
         html.end();
+        
+        html.divEnd();
 
         return html.toString();
     }

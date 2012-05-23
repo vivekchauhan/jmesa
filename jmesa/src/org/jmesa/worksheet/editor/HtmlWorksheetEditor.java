@@ -15,13 +15,6 @@
  */
 package org.jmesa.worksheet.editor;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
-import org.jmesa.limit.Limit;
-import org.jmesa.view.html.HtmlBuilder;
-import org.jmesa.worksheet.UniqueProperty;
-import org.jmesa.worksheet.WorksheetColumn;
-import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
-
 /**
  * Deals with CellEditors when the the table is being used as an editable worksheet. Wraps an
  * existing CellEditor. If the cell was edited then will return the edited value, otherwise return
@@ -32,52 +25,5 @@ import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
  * @deprecated You should use the InputWorksheetEditor
  */
 @Deprecated
-public class HtmlWorksheetEditor extends AbstractWorksheetEditor {
-    
-    /**
-     * Return either the edited worksheet value, or the value of the underlying CellEditor.
-     */
-    @Deprecated
-    public Object getValue(Object item, String property, int rowcount) {
-        
-        Object changedValue = null;
-        
-        WorksheetColumn worksheetColumn = getWorksheetColumn(item, property);
-        if (worksheetColumn != null) {
-            changedValue = escapeHtml(worksheetColumn.getChangedValue());
-        }
-        
-        if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
-            if (changedValue == null) {
-                return "";
-            }
-            return changedValue.toString();
-        }
-        
-        Limit limit = getCoreContext().getLimit();
-        String id = limit.getId();
-        UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
-        Object originalValue = getOriginalCellEditorValue(item, property, rowcount);
-
-        return getWsColumn(item, id, property, uniqueProperty.getName(), uniqueProperty.getValue(), originalValue, changedValue);
-    }
-
-    @Deprecated
-    protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
-        
-        HtmlBuilder html = new HtmlBuilder();
-
-        html.input().type("text");
-        
-        if (changedValue == null) {
-            html.value(String.valueOf(originalValue));
-        } else {
-            html.value(String.valueOf(changedValue));
-        }
-        
-        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalValue + "');");
-        html.end();
-
-        return html.toString();
-    }
+public class HtmlWorksheetEditor extends InputWorksheetEditor {
 }

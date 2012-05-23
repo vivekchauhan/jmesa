@@ -18,6 +18,7 @@ package org.jmesa.worksheet.editor;
 import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.worksheet.WorksheetColumn;
 
 /**
  * Defines a radio button for the worksheet editor.
@@ -36,9 +37,12 @@ public class RadioButtonWorksheetEditor extends InputWorksheetEditor {
     }
     
     @Override
-    protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
+    protected String getWsColumn(WorksheetColumn worksheetColumn, Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
 
         HtmlBuilder html = new HtmlBuilder();
+        
+        html.div().styleClass(getStyleClass(worksheetColumn)).close();
+        
         html.input().type("radio").name(property);
 
         boolean isChecked = originalValue != null && Boolean.parseBoolean(originalValue.toString());
@@ -65,6 +69,8 @@ public class RadioButtonWorksheetEditor extends InputWorksheetEditor {
             html.scriptEnd();
             html.br();
         }
+        
+        html.divEnd();
         
         return html.toString();
     }

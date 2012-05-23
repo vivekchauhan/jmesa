@@ -59,8 +59,6 @@ public class HtmlView extends AbstractHtmlView {
 
         html.append(snippets.hiddenFields());
 
-        html.append(snippets.initJavascriptLimit());
-
         return html.toString();
     }
 }
