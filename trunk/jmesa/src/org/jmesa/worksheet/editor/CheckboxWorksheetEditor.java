@@ -18,6 +18,7 @@ package org.jmesa.worksheet.editor;
 import static org.jmesa.worksheet.WorksheetUtils.isRowRemoved;
 
 import org.jmesa.view.html.HtmlBuilder;
+import org.jmesa.worksheet.WorksheetColumn;
 
 /**
  * Defines a checkbox for the worksheet editor.
@@ -66,9 +67,11 @@ public class CheckboxWorksheetEditor extends InputWorksheetEditor {
     }
     
     @Override
-    protected String getWsColumn(Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
+    protected String getWsColumn(WorksheetColumn worksheetColumn, Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
         
         HtmlBuilder html = new HtmlBuilder();
+        
+        html.div().styleClass(getStyleClass(worksheetColumn)).close();
         
         html.input().type("checkbox");
         
@@ -84,6 +87,8 @@ public class CheckboxWorksheetEditor extends InputWorksheetEditor {
         }
         
         html.end();
+        
+        html.divEnd();
         
         return html.toString();
     }

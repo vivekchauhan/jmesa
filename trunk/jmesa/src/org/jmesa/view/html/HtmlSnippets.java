@@ -15,7 +15,6 @@
  */
 package org.jmesa.view.html;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
@@ -314,16 +313,22 @@ public class HtmlSnippets extends AbstractContextSupport {
         /* tip the API off that in the loop of working with the table */
         html.newline().input().type("hidden").name(limit.getId() + "_tr_").value("true").end();
         
-        /* the current page */
+        /* limit fields */
         html.newline().input().type("hidden").name(limit.getId() + "_mr_").value(String.valueOf(limit.getRowSelect().getMaxRows())).end();
         html.newline().input().type("hidden").name(limit.getId() + "_p_").value(String.valueOf(limit.getRowSelect().getPage())).end();
         
-        /* worksheet */
+        /* export fields */
+        html.newline().input().type("hidden").name(limit.getId() + "_e_").end();
+
+        /* worksheet fields */
         html.newline().input().type("hidden").name(limit.getId() + "_sw_").end();
         html.newline().input().type("hidden").name(limit.getId() + "_cw_").end();
         html.newline().input().type("hidden").name(limit.getId() + "_fw_").end();
         html.newline().input().type("hidden").name(limit.getId() + "_awr_").end();
         html.newline().input().type("hidden").name(limit.getId() + "_rwr_").end();
+
+        /* context fields */
+        html.newline().input().type("hidden").name(limit.getId() + "_ctx_").value(getWebContext().getContextPath()).end();
         
         return html.toString();
     }
@@ -332,43 +337,11 @@ public class HtmlSnippets extends AbstractContextSupport {
      * Create a Limit implementation in JavaScript. Will be invoked when the page is loaded.
      *
      * @return The JavaScript Limit.
+     * @deprecated Use the hiddenFields() method instead, which is the new way to capture the table state.
      */
+    @Deprecated
     public String initJavascriptLimit() {
-		
-        HtmlBuilder html = new HtmlBuilder();
 
-        html.newline();
-        html.script().type("text/javascript").close();
-
-        html.newline();
-
-        CoreContext coreContext = getCoreContext();
-        Limit limit = coreContext.getLimit();
-
-        boolean useDocumentReady = HtmlUtils.useDocumentReadyToInitJavascriptLimit(coreContext);
-
-        if (useDocumentReady) {
-            html.append("jQuery(document).ready(function(){").newline();
-        }
-
-        //html.tab().append("jQuery.jmesa.addTableFacade('" + limit.getId() + "')").semicolon().newline();
-
-//        Worksheet worksheet = coreContext.getWorksheet();
-//        if (worksheet != null && worksheet.isFiltering()) {
-//            html.tab().append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "')").semicolon().newline();
-//        }
-
-        // I'm allowing getWebContext() to be null for backwards compatibility
-        if (getWebContext() != null) {
-            html.tab().append("jQuery.jmesa.setContextPath('" + limit.getId() + "','" + StringEscapeUtils.escapeJavaScript(getWebContext().getContextPath()) + "')").semicolon().newline();
-        }
-
-        if (useDocumentReady) {
-            html.append("});").newline();
-        }
-
-        html.scriptEnd();
-
-        return html.toString();
+        return hiddenFields();
     }
 }
