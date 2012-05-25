@@ -35,6 +35,7 @@ import org.jmesa.limit.LimitActionFactory;
 import static org.jmesa.model.TableModelUtils.getItems;
 import org.jmesa.limit.state.State;
 import org.jmesa.view.View;
+import org.jmesa.view.ViewExporter;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.WebContext;
@@ -61,6 +62,7 @@ public class TableModel {
     private Messages messages;
     private String[] exportTypes;
     private String exportFileName;
+    private ViewExporter viewExporter;
     private State state;
     private String stateAttr;
     private Limit limit;
@@ -163,12 +165,16 @@ public class TableModel {
         this.messages = messages;
     }
 
-    @Deprecated
     public void setExportTypes(String... exportTypes) {
 		
         this.exportTypes = exportTypes;
     }
 
+    /**
+     * @deprecated Use the ExportTypes method that takes a list of Strings. For convenience 
+     *             the TableModel contains a list of static export types.
+     */
+    @Deprecated
     public void setExportTypes(ExportType... exportTypes) {
 
         String[] result = new String[exportTypes.length];
@@ -184,6 +190,11 @@ public class TableModel {
     public void setExportFileName(String exportFileName) {
 
         this.exportFileName = exportFileName;
+    }
+    
+    public void setViewExporter(ViewExporter viewExporter) {
+        
+        this.viewExporter = viewExporter;
     }
 
     public void setState(State state) {
@@ -308,6 +319,10 @@ public class TableModel {
 
         if (exportFileName != null) {
             tableFacade.setExportFileName(exportFileName);
+        }
+        
+        if (viewExporter != null) {
+            tableFacade.setViewExporter(viewExporter);
         }
 
         if (stateAttr != null) {
