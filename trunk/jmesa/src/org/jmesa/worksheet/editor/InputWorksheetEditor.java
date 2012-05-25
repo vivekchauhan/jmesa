@@ -68,11 +68,8 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
         
         html.input().type("text");
         
-        if (changedValue == null) {
-            html.value(String.valueOf(originalValue));
-        } else {
-            html.value(String.valueOf(changedValue));
-        }
+        Object value = changedValue == null ? originalValue : changedValue;
+        html.value(value == null ? "" : String.valueOf(value));
         
         html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalValue + "');");
         html.end();
