@@ -24,17 +24,44 @@ import org.jmesa.view.html.HtmlBuilder;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class SeparatorItem extends ImageItem {
-		
-    @Override
-    public String disabled() {
-		
-        return null;
+public class SeparatorToolbarItem implements ToolbarItem {
+
+    private String image;
+    private String style;
+    private String alt;
+
+    public String getAlt() {
+        
+        return alt;
     }
 
-    @Override
-    public String enabled() {
-		
+    public void setAlt(String alt) {
+        
+        this.alt = alt;
+    }
+
+    public String getImage() {
+        
+        return image;
+    }
+
+    public void setImage(String image) {
+     
+        this.image = image;
+    }
+
+    public String getStyle() {
+        
+        return style;
+    }
+
+    public void setStyle(String style) {
+     
+        this.style = style;
+    }
+    
+    public String render() {
+
         HtmlBuilder html = new HtmlBuilder();
         html.img();
         html.src(getImage());
@@ -42,24 +69,5 @@ public class SeparatorItem extends ImageItem {
         html.alt(getAlt());
         html.end();
         return html.toString();
-    }
-
-    @Override
-    public ToolbarItemRenderer getToolbarItemRenderer() {
-		
-        return new SeparatorRenderer(this);
-    }
-
-    private static class SeparatorRenderer extends AbstractItemRenderer {
-		
-        public SeparatorRenderer(SeparatorItem item) {
-		
-            setToolbarItem(item);
-        }
-
-        public String render() {
-		
-            return getToolbarItem().enabled();
-        }
     }
 }

@@ -17,31 +17,23 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
-import org.jmesa.view.html.HtmlConstants;
 
 /**
- * @since 3.0
- * @author Siddhant Agrawal
+ * @since 2.0
+ * @author Jeff Johnston
  */
-public class ClearWorksheetItemRenderer extends AbstractItemRenderer {
+public class AddWorksheetRowToolbarItem extends AbstractImageToolbarItem {
 		
-    public ClearWorksheetItemRenderer(ToolbarItem item, CoreContext coreContext) {
-		
-        setToolbarItem(item);
-        setCoreContext(coreContext);
+    public AddWorksheetRowToolbarItem(CoreContext coreContext) {
+
+        super(coreContext);
     }
 
     public String render() {
 		
         Limit limit = getCoreContext().getLimit();
-
-        ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
-        String alertText = getCoreContext().getMessage(HtmlConstants.ALERT_CLEAR_WORKSHEET);
-        action.append("if (confirm('" + alertText + "')) {");
-        action.append("jQuery.jmesa.setClearToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item) + "}");
-        item.setAction(action.toString());
-
-        return item.enabled();
+        action.append("jQuery.jmesa.setAddRowToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript());
+        return enabled(action.toString());
     }
 }

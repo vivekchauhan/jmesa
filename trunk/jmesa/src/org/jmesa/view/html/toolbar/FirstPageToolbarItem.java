@@ -17,25 +17,31 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
+import org.jmesa.view.html.HtmlUtils;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ClearItemRenderer extends AbstractItemRenderer {
-		
-    public ClearItemRenderer(ToolbarItem item, CoreContext coreContext) {
-		
-        setToolbarItem(item);
-        setCoreContext(coreContext);
-    }
+public class FirstPageToolbarItem extends AbstractImageToolbarItem {
 
+    public FirstPageToolbarItem(CoreContext coreContext) {
+     
+        super(coreContext);
+    }
+		
     public String render() {
 		
         Limit limit = getCoreContext().getLimit();
-        ToolbarItem item = getToolbarItem();
-        StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.removeAllFilters('" + limit.getId() + "');" + getOnInvokeActionJavaScript(limit, item));
-        item.setAction(action.toString());
-        return item.enabled();
+        int page = limit.getRowSelect().getPage();
+
+        StringBuilder action = new StringBuilder("javascript:");
+        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + 1 + "');" + getOnInvokeActionJavaScript());
+
+        if (!HtmlUtils.isFirstPageEnabled(page)) {
+            return disabled();
+        }
+
+        return enabled(action.toString());
     }
 }

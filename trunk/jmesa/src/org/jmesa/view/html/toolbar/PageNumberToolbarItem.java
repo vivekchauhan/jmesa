@@ -15,27 +15,39 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.core.CoreContext;
+import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * @since 2.3.2
  * @author Jeff Johnston
  */
-public class PageNumberItem extends AbstractItem {
+public class PageNumberToolbarItem extends AbstractToolbarItem {
 		
     private int page;
 
-    public PageNumberItem(int page) {
+    public PageNumberToolbarItem(CoreContext coreContext, int page) {
 		
+        super(coreContext);
         this.page = page;
     }
 
-    public int getPage() {
+    public String render() {
 		
-        return page;
-    }
+        Limit limit = getCoreContext().getLimit();
+        int currentPage = limit.getRowSelect().getPage();
 
-    public String disabled() {
+        if (currentPage == page) {
+            return disabled();
+        }
+
+        StringBuilder action = new StringBuilder("javascript:");
+        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + page + "');" + getOnInvokeActionJavaScript());
+        return enabled(action.toString());
+    }    
+    
+    private String disabled() {
 		
         HtmlBuilder html = new HtmlBuilder();
 
@@ -49,7 +61,7 @@ public class PageNumberItem extends AbstractItem {
         return html.toString();
     }
 
-    public String enabled() {
+    private String enabled(String action) {
 		
         HtmlBuilder html = new HtmlBuilder();
 
@@ -60,7 +72,7 @@ public class PageNumberItem extends AbstractItem {
 
         html.a().href();
         html.quote();
-        html.append(getAction());
+        html.append(action);
         html.quote().close();
         html.append(String.valueOf(page));
         html.aEnd();

@@ -63,7 +63,7 @@ import org.jmesa.view.excel.ExcelView;
 import org.jmesa.view.excel.ExcelViewExporter;
 import org.jmesa.view.html.HtmlConstants;
 import org.jmesa.view.html.HtmlView;
-import org.jmesa.view.html.toolbar.HtmlToolbar;
+import org.jmesa.view.html.toolbar.SimpleToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.view.jexcel.JExcelView;
 import org.jmesa.view.jexcel.JExcelViewExporter;

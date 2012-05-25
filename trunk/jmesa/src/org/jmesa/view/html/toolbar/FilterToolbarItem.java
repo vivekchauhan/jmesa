@@ -15,15 +15,22 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.core.CoreContext;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public interface ToolbarItemRenderer {
+public class FilterToolbarItem extends AbstractImageToolbarItem {
 		
-    public String getOnInvokeAction();
-    public void setOnInvokeAction(String onInvokeAction);
-    public ToolbarItem getToolbarItem();
-    public void setToolbarItem(ToolbarItem toolbarItem);
-    public String render();
+    public FilterToolbarItem(CoreContext coreContext) {
+		
+        super(coreContext);
+    }
+
+    public String render() {
+		
+        StringBuilder action = new StringBuilder("javascript:" + getOnInvokeActionJavaScript());
+        return enabled(action.toString());
+    }
 }

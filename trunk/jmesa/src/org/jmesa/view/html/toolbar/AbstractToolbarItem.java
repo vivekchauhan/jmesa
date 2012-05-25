@@ -15,20 +15,29 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.core.CoreContext;
+import static org.jmesa.view.html.HtmlConstants.*;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractItem implements ToolbarItem {
+public abstract class AbstractToolbarItem implements ToolbarItem {
 		
+    private final CoreContext coreContext;
+
     private String code;
-    private String action;
     private String onmouseover;
     private String onmouseout;
     private String styleClass;
     private String style;
     private String tooltip;
-    private ToolbarItemRenderer renderer;
+    private String onInvokeAction;
+
+    public AbstractToolbarItem(CoreContext coreContext) {
+     
+        this.coreContext = coreContext;
+    }
 
     public String getCode() {
 		
@@ -38,16 +47,6 @@ public abstract class AbstractItem implements ToolbarItem {
     public void setCode(String code) {
 		
         this.code = code;
-    }
-
-    public String getAction() {
-		
-        return action;
-    }
-
-    public void setAction(String action) {
-		
-        this.action = action;
     }
 
     public String getTooltip() {
@@ -100,16 +99,32 @@ public abstract class AbstractItem implements ToolbarItem {
         this.styleClass = styleClass;
     }
 
-    public ToolbarItemRenderer getToolbarItemRenderer() {
-		
-        return renderer;
+    public CoreContext getCoreContext() {
+        
+        return coreContext;
     }
 
-    public void setToolbarItemRenderer(ToolbarItemRenderer renderer) {
+    public String getOnInvokeAction() {
+        
+        if (onInvokeAction == null) {
+            onInvokeAction = coreContext.getPreference(ON_INVOKE_ACTION);
+        }
 		
-        this.renderer = renderer;
+        return onInvokeAction;
     }
 
-    public abstract String disabled();
-    public abstract String enabled();
+    public void setOnInvokeAction(String onInvokeAction) {
+		
+        this.onInvokeAction = onInvokeAction;
+    }
+
+    public String getOnInvokeActionJavaScript() {
+        
+        return getOnInvokeAction() + "('" + coreContext.getLimit().getId() + "','" + getCode() + "')";
+    }
+    
+    public String getOnInvokeExportAction() {
+		
+        return coreContext.getPreference(ON_INVOKE_EXPORT_ACTION);
+    }
 }

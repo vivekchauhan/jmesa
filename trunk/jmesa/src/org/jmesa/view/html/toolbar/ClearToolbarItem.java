@@ -16,30 +16,21 @@
 package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
-import org.jmesa.limit.Limit;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ExportItemRenderer extends AbstractItemRenderer {
-		
-    private ToolbarExport export;
+public class ClearToolbarItem extends AbstractImageToolbarItem {
 
-    public ExportItemRenderer(ToolbarItem item, ToolbarExport export, CoreContext coreContext) {
-		
-        setToolbarItem(item);
-        this.export = export;
-        setCoreContext(coreContext);
+    public ClearToolbarItem(CoreContext coreContext) {
+     
+        super(coreContext);
     }
 
     public String render() {
-		
-        Limit limit = getCoreContext().getLimit();
-        ToolbarItem item = getToolbarItem();
-        StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.setExport('" + limit.getId() + "','" + export.getExportType() + "');"
-                + getOnInvokeActionJavaScript(limit, item));
-        item.setAction(action.toString());
-        return item.enabled();
+        
+        StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.removeAllFilters('" + getCoreContext().getLimit().getId() + "');" + getOnInvokeActionJavaScript());
+        return enabled(action.toString());
     }
 }

@@ -21,21 +21,5 @@ package org.jmesa.view.html.toolbar;
  */
 public interface ToolbarItem {
 		
-    public String getCode();
-    public String getAction();
-    public void setAction(String action);
-    public String getTooltip();
-    public void setTooltip(String tooltip);
-    public String getOnmouseout();
-    public void setOnmouseout(String onmouseout);
-    public String getOnmouseover();
-    public void setOnmouseover(String onmouseover);
-    public String getStyle();
-    public void setStyle(String style);
-    public String getStyleClass();
-    public void setStyleClass(String styleClass);
-    public String disabled();
-    public String enabled();
-    public ToolbarItemRenderer getToolbarItemRenderer();
-    public void setToolbarItemRenderer(ToolbarItemRenderer renderer);
+    public String render();
 }

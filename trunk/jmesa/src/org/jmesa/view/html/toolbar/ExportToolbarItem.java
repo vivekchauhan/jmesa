@@ -15,27 +15,24 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.core.CoreContext;
+import org.jmesa.limit.Limit;
+
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ToolbarExport {
+public class ExportToolbarItem extends AbstractImageToolbarItem {
 		
     private String exportType;
+    private String image;
     private String text;
     private String tooltip;
-    private String image;
     private String action;
 
-    public ToolbarExport(String exportType) {
+    public ExportToolbarItem(CoreContext coreContext) {
 		
-        this.exportType = exportType;
-    }
-
-    public ToolbarExport(String exportType, String image) {
-		
-        this.exportType = exportType;
-        this.image = image;
+        super(coreContext);
     }
 
     /**
@@ -49,14 +46,19 @@ public class ToolbarExport {
         return text;
     }
 
+    public void setText(String text) {
+		
+        this.text = text;
+    }
+
     public String getExportType() {
 		
         return exportType;
     }
 
-    public void setText(String text) {
-		
-        this.text = text;
+    public void setExportType(String exportType) {
+
+        this.exportType = exportType;
     }
 
     public String getTooltip() {
@@ -74,11 +76,6 @@ public class ToolbarExport {
         return image;
     }
 
-    public void setImage(String imageName) {
-		
-        this.image = imageName;
-    }
-
     public String getAction() {
 		
         return action;
@@ -87,5 +84,13 @@ public class ToolbarExport {
     public void setAction(String action) {
 		
         this.action = action;
+    }
+
+    public String render() {
+		
+        Limit limit = getCoreContext().getLimit();
+        StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.setExport('" + limit.getId() + "','" + getExportType() + "');"
+                + getOnInvokeActionJavaScript());
+        return enabled(action.toString());
     }
 }
