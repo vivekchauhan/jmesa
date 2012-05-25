@@ -17,33 +17,30 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
+import org.jmesa.worksheet.Worksheet;
 
 /**
- * @since 2.3.2
+ * @since 2.0
  * @author Jeff Johnston
  */
-public class PageNumberItemRenderer extends AbstractItemRenderer {
+public class FilterWorksheetToolbarItem extends AbstractTextToolbarItem {
 		
-    public PageNumberItemRenderer(ToolbarItem item, CoreContext coreContext) {
+    public FilterWorksheetToolbarItem(CoreContext coreContext) {
 		
-        setToolbarItem(item);
-        setCoreContext(coreContext);
+        super(coreContext);
     }
 
     public String render() {
 		
-        PageNumberItem item = (PageNumberItem) getToolbarItem();
-        Limit limit = getCoreContext().getLimit();
-        int currentPage = limit.getRowSelect().getPage();
-        int page = item.getPage();
+        Worksheet worksheet = getCoreContext().getWorksheet();
 
-        if (currentPage == page) {
-            return item.disabled();
+        if (worksheet != null && worksheet.hasChanges()) {
+            Limit limit = getCoreContext().getLimit();
+            StringBuilder action = new StringBuilder("javascript:");
+            action.append("jQuery.jmesa.setFilterToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript());
+            return enabled(action.toString());
+        } else {
+            return disabled();
         }
-
-        StringBuilder action = new StringBuilder("javascript:");
-        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + page + "');" + getOnInvokeActionJavaScript(limit, item));
-        item.setAction(action.toString());
-        return item.enabled();
     }
 }

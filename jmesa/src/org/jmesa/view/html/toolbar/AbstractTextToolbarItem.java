@@ -15,16 +15,22 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.core.CoreContext;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * @since 3.0
  * @author Siddhant Agrawal
  */
-public class TextItem extends AbstractItem {
+public abstract class AbstractTextToolbarItem extends AbstractToolbarItem {
 		
     String text;
     String alt;
+
+    public AbstractTextToolbarItem(CoreContext coreContext) {
+     
+        super(coreContext);
+    }
 
     public String getText() {
 		
@@ -46,24 +52,20 @@ public class TextItem extends AbstractItem {
         this.alt = alt;
     }
 
-    @Override
     public String disabled() {
 		
         return "";
     }
 
-    @Override
-    public String enabled() {
+    public String enabled(String action) {
 		
         HtmlBuilder html = new HtmlBuilder();
-
-        String action = getAction();
 
         if (action != null) {
             html.span().styleClass(getStyleClass()).style(getStyle()).title(getTooltip()).alt(getAlt()).close();
             html.a().href();
             html.quote();
-            html.append(getAction());
+            html.append(action);
             html.quote().close();
             html.append(String.valueOf(getText()));
             html.aEnd();

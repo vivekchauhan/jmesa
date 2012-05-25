@@ -17,34 +17,23 @@ package org.jmesa.view.html.toolbar;
 
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
-import org.jmesa.view.html.HtmlUtils;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class FirstPageItemRenderer extends AbstractItemRenderer {
+public class SaveWorksheetToolbarItem extends AbstractImageToolbarItem {
 		
-    public FirstPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
-		
-        setToolbarItem(item);
-        setCoreContext(coreContext);
+    public SaveWorksheetToolbarItem(CoreContext coreContext) {
+
+        super(coreContext);
     }
 
     public String render() {
 		
         Limit limit = getCoreContext().getLimit();
-        int page = limit.getRowSelect().getPage();
-
-        ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
-        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + 1 + "');" + getOnInvokeActionJavaScript(limit, item));
-        item.setAction(action.toString());
-
-        if (!HtmlUtils.isFirstPageEnabled(page)) {
-            return item.disabled();
-        }
-
-        return item.enabled();
+        action.append("jQuery.jmesa.setSaveToWorksheet('" + limit.getId() + "');" + getOnInvokeActionJavaScript());
+        return enabled(action.toString());
     }
 }

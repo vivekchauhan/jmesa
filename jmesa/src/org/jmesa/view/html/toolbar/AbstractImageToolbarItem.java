@@ -16,17 +16,23 @@
 package org.jmesa.view.html.toolbar;
 
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.CoreContext;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class ImageItem extends AbstractItem {
+public abstract class AbstractImageToolbarItem extends AbstractToolbarItem {
 		
-    String image;
-    String disabledImage;
-    String alt;
+    private String image;
+    private String disabledImage;
+    private String alt;
+
+    public AbstractImageToolbarItem(CoreContext coreContext) {
+     
+        super(coreContext);
+    }
 
     public String getDisabledImage() {
 		
@@ -58,7 +64,6 @@ public class ImageItem extends AbstractItem {
         this.alt = alt;
     }
 
-    @Override
     public String disabled() {
 		
         HtmlBuilder html = new HtmlBuilder();
@@ -66,14 +71,15 @@ public class ImageItem extends AbstractItem {
         return html.toString();
     }
 
-    @Override
-    public String enabled() {
+    public String enabled(String action) {
 		
         HtmlBuilder html = new HtmlBuilder();
         html.a().href();
         html.quote();
-        html.append(getAction());
-        html.quote().close();
+        html.append(action);
+        html.quote();
+        html.styleClass(getStyleClass());
+        html.close();
 
         if (StringUtils.isNotBlank(getTooltip())) {
             html.img().src(getImage()).styleClass(getStyleClass()).style(getStyle()).title(getTooltip())

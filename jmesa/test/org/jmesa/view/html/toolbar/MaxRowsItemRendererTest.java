@@ -34,17 +34,14 @@ public class MaxRowsItemRendererTest extends AbstractTestCase {
         WebContext webContext = createWebContext();
         CoreContext coreContext = createCoreContext(webContext);
 
-        MaxRowsItem item = new MaxRowsItem();
-
-        MaxRowsItemRenderer renderer = new MaxRowsItemRenderer(item, coreContext);
-        renderer.setOnInvokeAction("onInvokeAction");
-        item.setToolbarItemRenderer(renderer);
+        MaxRowsToolbarItem toolbarItem = new MaxRowsToolbarItem(coreContext);
+        toolbarItem.setOnInvokeAction("onInvokeAction");
 
         // render will set everything.
-        renderer.render();
+        toolbarItem.render();
 
-        int[] increments = item.getIncrements();
-        int maxRows = item.getMaxRows();
+        int[] increments = toolbarItem.getIncrements();
+        int maxRows = toolbarItem.getMaxRows();
 
         // the defaults
         assertTrue(increments[0] == 12);

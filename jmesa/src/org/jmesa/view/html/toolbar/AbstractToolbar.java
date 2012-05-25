@@ -15,6 +15,7 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ExportTypesSupport;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.component.TableSupport;
@@ -23,7 +24,7 @@ import org.jmesa.view.component.TableSupport;
  * @since 2.0
  * @author Jeff Johnston
  */
-public abstract class AbstractToolbar extends Toolbar implements TableSupport, ExportTypesSupport, MaxRowsIncrementsSupport {
+public abstract class AbstractToolbar extends AbstractContextSupport implements Toolbar, TableSupport, ExportTypesSupport, MaxRowsIncrementsSupport  {
 		
     private Table table;
     private String[] exportTypes;

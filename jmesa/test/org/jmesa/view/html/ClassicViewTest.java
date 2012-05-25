@@ -24,7 +24,7 @@ import org.jmesa.test.AbstractTestCase;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
-import org.jmesa.view.html.toolbar.HtmlToolbar;
+import org.jmesa.view.html.toolbar.SimpleToolbar;
 import org.jmesa.web.WebContext;
 import org.junit.Test;
 
@@ -75,7 +75,7 @@ public class ClassicViewTest extends AbstractTestCase {
         tableFacade.setTable(table);
 
         // create the view
-        HtmlToolbar toolbar = new HtmlToolbar();
+        SimpleToolbar toolbar = new SimpleToolbar();
         toolbar.setMaxRowsIncrements(new int[]{12,24,36});
         toolbar.setTable(table);
         toolbar.setWebContext(webContext);

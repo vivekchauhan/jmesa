@@ -15,14 +15,18 @@
  */
 package org.jmesa.view.html.toolbar;
 
+import static org.jmesa.view.html.HtmlConstants.TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS;
+
 import org.apache.commons.lang.StringUtils;
+import org.jmesa.core.CoreContext;
+import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 
 /**
  * @since 2.0
  * @author Jeff Johnston
  */
-public class MaxRowsItem extends AbstractItem {
+public class MaxRowsToolbarItem extends AbstractToolbarItem {
 		
     private int maxRows;
     private String text;
@@ -58,15 +62,51 @@ public class MaxRowsItem extends AbstractItem {
         this.increments = increments;
     }
 
-    @Override
-    public String disabled() {
+    public MaxRowsToolbarItem(CoreContext coreContext) {
 		
-        HtmlBuilder html = new HtmlBuilder();
-        return html.toString();
+        super(coreContext);
     }
 
-    @Override
-    public String enabled() {
+    public String render() {
+		
+        if (getIncrements().length == 0) {
+            String increments[] = StringUtils.split(getCoreContext().getPreference(TOOLBAR_MAX_ROWS_DROPLIST_INCREMENTS), ",");
+            int[] values = new int[increments.length];
+            for (int i = 0; i < increments.length; i++) {
+                values[i] = Integer.valueOf(increments[i]);
+            }
+            setIncrements(values);
+        }
+
+        Limit limit = getCoreContext().getLimit();
+        int maxRows = limit.getRowSelect().getMaxRows();
+        setMaxRows(maxRows);
+
+        if (!incrementsContainsMaxRows(maxRows)) {
+            throw new IllegalStateException("The maxRowIncrements does not contain the maxRows.");
+        }
+
+        StringBuilder action = new StringBuilder("jQuery.jmesa.setMaxRows('"
+                + limit.getId() + "', this.options[this.selectedIndex].value);"
+                + getOnInvokeActionJavaScript());
+
+        return enabled(action.toString());
+    }
+
+    private boolean incrementsContainsMaxRows(int maxRows) {
+		
+        boolean found = false;
+
+        for (int increment : increments) {
+            if (increment == maxRows) {
+                found = true;
+            }
+        }
+
+        return found;
+    }
+    
+    private String enabled(String action) {
 		
         HtmlBuilder html = new HtmlBuilder();
 
@@ -75,7 +115,7 @@ public class MaxRowsItem extends AbstractItem {
         }
 
         html.select().name("maxRows");
-        html.onchange(getAction());
+        html.onchange(action);
         html.close();
 
         html.newline();
@@ -98,5 +138,5 @@ public class MaxRowsItem extends AbstractItem {
         html.selectEnd();
 
         return html.toString();
-    }
+    }    
 }

@@ -23,12 +23,11 @@ import org.jmesa.view.html.HtmlUtils;
  * @since 2.0
  * @author Jeff Johnston
  */
-public class NextPageItemRenderer extends AbstractItemRenderer {
+public class PrevPageToolbarItem extends AbstractImageToolbarItem {
 		
-    public NextPageItemRenderer(ToolbarItem item, CoreContext coreContext) {
-		
-        setToolbarItem(item);
-        setCoreContext(coreContext);
+    public PrevPageToolbarItem(CoreContext coreContext) {
+        
+        super(coreContext);
     }
 
     public String render() {
@@ -36,16 +35,13 @@ public class NextPageItemRenderer extends AbstractItemRenderer {
         Limit limit = getCoreContext().getLimit();
         int page = limit.getRowSelect().getPage();
 
-        ToolbarItem item = getToolbarItem();
         StringBuilder action = new StringBuilder("javascript:");
-        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + (page + 1) + "');" + getOnInvokeActionJavaScript(limit, item));
-        item.setAction(action.toString());
+        action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + (page - 1) + "');" + getOnInvokeActionJavaScript());
 
-        int totalPages = HtmlUtils.totalPages(getCoreContext());
-        if (!HtmlUtils.isNextPageEnabled(page, totalPages)) {
-            return item.disabled();
+        if (!HtmlUtils.isPrevPageEnabled(page)) {
+            return disabled();
         }
 
-        return item.enabled();
+        return enabled(action.toString());
     }
 }
