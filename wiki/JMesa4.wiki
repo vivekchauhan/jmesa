@@ -1,0 +1,11 @@
+Here is a quick list of changes in JMesa 4.0.
+
+ * The !ViewExporter can be set on the !TableModel
+ * The export file name can be set on the !TableModel
+ * The filter and worksheet columns are now simple HTML input tags
+  * The reason we had the dynamic div/input tags is years ago some browsers (IE6) had a difficult time rendering input tags well in a `<td>` element. That does not seem to be the case anymore so we are finally going to regular HTML tags 
+ * The JMesa JQuery file has been greatly simplified
+  * This is in part as a result of not having to use the input/div tags. In addition JMesa is embracing being a form component even more and no longer carrying a domain model in !JavaScript. Now all state attributes are hidden input fields
+ * Refactored back the Toolbar/!ToolbarItem implementations to just have a simple render() method.
+  * The exisiting implementation of the toolbar was completely overbaked and just had to be redone. This is a breaking change but it needed to be done to clean things up
+ * Removed all previous deprecated methods
