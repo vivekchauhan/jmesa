@@ -9,3 +9,10 @@ Here is a quick list of changes in JMesa 4.0.
  * The !ViewExporter can be set on the !TableModel
  * The export file name can be set on the !TableModel
  * Removed all previous deprecated methods
+
+
+==== Things To Consider ====
+
+I dropped the worksheet client side validation as we currently know it. It was just too difficult to work with and error prone. What I want to put in its place is some sort of server side plugable validation framework. That way we do not have to carry the complexity in a specific !JavaScript plugin like we have now. From the users perspective nothing will change as we will still need to communicate errors to the client, but it would be validated on the server and work with a JQuery callback.
+
+In general the worksheet needs to give better feedback as the user is working. Right now you only get feedback if some action is performed and the table is refreshed.
