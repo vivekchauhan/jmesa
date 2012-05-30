@@ -26,6 +26,7 @@ import org.jmesa.view.html.HtmlBuilder;
 public abstract class AbstractImageToolbarItem extends AbstractToolbarItem {
 		
     private String image;
+    private String imageStyleClass;
     private String disabledImage;
     private String alt;
 
@@ -63,6 +64,16 @@ public abstract class AbstractImageToolbarItem extends AbstractToolbarItem {
 		
         this.alt = alt;
     }
+    
+    public String getImageStyleClass() {
+    
+        return imageStyleClass;
+    }
+
+    public void setImageStyleClass(String imageStyleClass) {
+    
+        this.imageStyleClass = imageStyleClass;
+    }
 
     public String disabled() {
 		
@@ -82,10 +93,10 @@ public abstract class AbstractImageToolbarItem extends AbstractToolbarItem {
         html.close();
 
         if (StringUtils.isNotBlank(getTooltip())) {
-            html.img().src(getImage()).styleClass(getStyleClass()).style(getStyle()).title(getTooltip())
+            html.img().src(getImage()).styleClass(getImageStyleClass()).style(getStyle()).title(getTooltip())
                     .onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
         } else {
-            html.img().src(getImage()).styleClass(getStyleClass()).style(getStyle())
+            html.img().src(getImage()).styleClass(getImageStyleClass()).style(getStyle())
                     .onmouseover(getOnmouseover()).onmouseout(getOnmouseout()).alt(getAlt()).end();
         }
 
