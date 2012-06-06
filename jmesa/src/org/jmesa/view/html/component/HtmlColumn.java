@@ -15,6 +15,14 @@
  */
 package org.jmesa.view.html.component;
 
+import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_EDITOR;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_EDITOR;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_EDITOR;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_RENDERER;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_WORKSHEET_EDITOR;
+
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Order;
 import org.jmesa.util.PreferencesUtils;
@@ -24,13 +32,7 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_RENDERER;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_RENDERER;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_RENDERER;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_HEADER_EDITOR;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_FILTER_EDITOR;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_EDITOR;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_WORKSHEET_EDITOR;
+import org.jmesa.view.html.editor.HtmlCellEditor;
 import org.jmesa.view.renderer.CellRenderer;
 import org.jmesa.view.renderer.FilterRenderer;
 import org.jmesa.view.renderer.HeaderRenderer;
@@ -281,14 +283,14 @@ public class HtmlColumn extends Column {
     @Override
     public CellEditor getCellEditor() {
 		
-        if (cellEditor == null) {
-            this.cellEditor = PreferencesUtils.<CellEditor>createClassFromPreferences(getCoreContext(), COLUMN_CELL_EDITOR);
+        CoreContext coreContext = getCoreContext();
+        if (cellEditor == null && coreContext != null) {
+            this.cellEditor = PreferencesUtils.<CellEditor>createClassFromPreferences(coreContext, COLUMN_CELL_EDITOR);
         }
 
-        CoreContext coreContext = getCoreContext();
         if (coreContext != null && (ViewUtils.isEditable(coreContext.getWorksheet()) && isEditable())) {
             if (worksheetEditor == null) {
-                this.worksheetEditor = PreferencesUtils.<WorksheetEditor>createClassFromPreferences(getCoreContext(), COLUMN_WORKSHEET_EDITOR);
+                this.worksheetEditor = PreferencesUtils.<WorksheetEditor>createClassFromPreferences(coreContext, COLUMN_WORKSHEET_EDITOR);
             }
 
             if (worksheetEditor.getCellEditor() == null) {
@@ -296,6 +298,10 @@ public class HtmlColumn extends Column {
             }
 
             return worksheetEditor;
+        }
+        
+        if (cellEditor == null) {
+            cellEditor = new HtmlCellEditor();
         }
 
         return cellEditor;
