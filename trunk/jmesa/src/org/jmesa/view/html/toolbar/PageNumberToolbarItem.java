@@ -39,15 +39,15 @@ public class PageNumberToolbarItem extends AbstractToolbarItem {
         int currentPage = limit.getRowSelect().getPage();
 
         if (currentPage == page) {
-            return disabled();
+            return disabled(page);
         }
 
         StringBuilder action = new StringBuilder("javascript:");
         action.append("jQuery.jmesa.setPage('" + limit.getId() + "','" + page + "');" + getOnInvokeActionJavaScript());
-        return enabled(action.toString());
+        return enabled(action.toString(), page);
     }    
     
-    private String disabled() {
+    protected String disabled(int page) {
 		
         HtmlBuilder html = new HtmlBuilder();
 
@@ -61,7 +61,7 @@ public class PageNumberToolbarItem extends AbstractToolbarItem {
         return html.toString();
     }
 
-    private String enabled(String action) {
+    protected String enabled(String action, int page) {
 		
         HtmlBuilder html = new HtmlBuilder();
 
