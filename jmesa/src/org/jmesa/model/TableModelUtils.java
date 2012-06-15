@@ -118,6 +118,14 @@ public class TableModelUtils {
         return !worksheet.hasErrors();
     }
 
+    public static void clearWorksheet(String id, HttpServletRequest request) {
+		
+        TableFacade tableFacade = new TableFacade(id, request);
+        tableFacade.setEditable(true);
+        Worksheet worksheet = tableFacade.getWorksheet();
+        worksheet.removeAllChanges();
+    }
+
     public static Table createTable(String... columnProperties) {
 		
         Table table = new Table();
