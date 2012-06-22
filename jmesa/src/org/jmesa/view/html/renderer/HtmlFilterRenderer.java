@@ -39,8 +39,8 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
 
         html.td(2);
         html.width(getColumn().getWidth());
-        html.style(column.getStyle());
-        html.styleClass(column.getStyleClass());
+        html.style(column.getFilterStyle());
+        html.styleClass(column.getFilterClass());
         html.close();
 
         html.append(column.getFilterEditor().getValue());
