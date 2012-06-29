@@ -73,6 +73,7 @@ public class TableModelUtils {
 		
         TableFacade tableFacade = new TableFacade(id, request);
         tableFacade.setStateAttr(stateAttr);
+        tableFacade.autoFilterAndSort(false);
         Collection<?> items = getItems(tableFacade, pageItems);
         request.setAttribute(tableFacade.getId() + LIMIT_ATTR, tableFacade.getLimit());
         return items;
@@ -81,6 +82,7 @@ public class TableModelUtils {
     public static Collection<?> getItems(String id, HttpServletRequest request, PageItems pageItems) {
 		
         TableFacade tableFacade = new TableFacade(id, request);
+        tableFacade.autoFilterAndSort(false);
         Collection<?> items = getItems(tableFacade, pageItems);
         request.setAttribute(tableFacade.getId() + LIMIT_ATTR, tableFacade.getLimit());
         return items;
