@@ -46,8 +46,8 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
         HtmlColumn column = getColumn();
 
         html.width(getColumn().getWidth());
-        html.style(column.getStyle());
-        html.styleClass(column.getStyleClass());
+        html.style(column.getHeaderStyle());
+        html.styleClass(column.getHeaderClass());
         html.close();
 
         html.append(column.getHeaderEditor().getValue());
