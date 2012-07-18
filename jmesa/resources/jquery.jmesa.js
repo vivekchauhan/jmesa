@@ -66,7 +66,7 @@
             }
             
             if (keynum == 13) { // enter key pressed
-                 $(this.getForm(id)).submit();
+            	window.onInvokeAction(id, 'filter');
             }
         },
         setExport : function(id, exportType) {
@@ -139,9 +139,6 @@
             
             var url = '';
 
-            /* tip the API off that in the loop of working with the table */
-            url += '&' + id + '_tr_=true';
-            
             /* export fields */
             
             var exportType = $(this.getForm(id)).find('input[name=' + id + '_e_]').val();

@@ -122,6 +122,9 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         List<Option> opts;
 
         if (this.options == null) {
+            opts = new ArrayList<Option>();
+            opts.add(new Option("", ""));
+            
             Set<String> values = new HashSet<String>();
             String property = getColumn().getProperty();
             for (Object item : getCoreContext().getAllItems()) {
@@ -135,7 +138,6 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
                 }
                 values.add(valueStr);
             }
-            opts = new ArrayList<Option>();
             for (String value : values) {
                 Option option = new Option(value, value);
                 opts.add(option);

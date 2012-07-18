@@ -125,6 +125,21 @@ public abstract class AbstractToolbarItem implements ToolbarItem {
     
     public String getOnInvokeExportAction() {
 		
-        return coreContext.getPreference(ON_INVOKE_EXPORT_ACTION);
+        if (onInvokeAction == null) {
+            onInvokeAction = coreContext.getPreference(ON_INVOKE_EXPORT_ACTION);
+        }
+		
+        return onInvokeAction;
     }
+
+    public void setOnInvokeExportAction(String onInvokeExportAction) {
+		
+        this.onInvokeAction = onInvokeExportAction;
+    }
+
+    public String getOnInvokeExportActionJavaScript() {
+        
+        return getOnInvokeExportAction() + "('" + coreContext.getLimit().getId() + "','" + getCode() + "')";
+    }
+    
 }

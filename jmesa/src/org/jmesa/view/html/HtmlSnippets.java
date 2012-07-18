@@ -310,9 +310,6 @@ public class HtmlSnippets extends AbstractContextSupport {
         
         Limit limit = getCoreContext().getLimit();
         
-        /* tip the API off that in the loop of working with the table */
-        html.newline().input().type("hidden").name(limit.getId() + "_tr_").value("true").end();
-        
         /* limit fields */
         html.newline().input().type("hidden").name(limit.getId() + "_mr_").value(String.valueOf(limit.getRowSelect().getMaxRows())).end();
         html.newline().input().type("hidden").name(limit.getId() + "_p_").value(String.valueOf(limit.getRowSelect().getPage())).end();
