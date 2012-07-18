@@ -52,7 +52,6 @@ public class TableFacadeUtils {
 		
     private static final Logger logger = LoggerFactory.getLogger(TableFacadeUtils.class);
 
-    public static final String TABLE_REFRESHING = "tr_";
     public static final String CLEARING_WORKSHEET = "cw_";
     
     private TableFacadeUtils() {}

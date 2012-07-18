@@ -281,8 +281,9 @@ public class TableModel {
     }
 
     public boolean isExporting() {
-		
-        return getExportType() != null;
+        
+        String exportType = getExportType();		
+        return exportType != null && !exportType.trim().isEmpty();
     }
 
     public String getExportType() {

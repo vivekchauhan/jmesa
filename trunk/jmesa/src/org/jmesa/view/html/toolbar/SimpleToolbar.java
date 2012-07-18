@@ -86,7 +86,7 @@ public class SimpleToolbar extends AbstractToolbar {
         }
         
         if (exportable) {
-            toolbarItemFactory.createExportToolbarItems(getExportTypes());
+            toolbarItems.addAll(toolbarItemFactory.createExportToolbarItems(getExportTypes()));
         }
         
         Row row = getTable().getRow();

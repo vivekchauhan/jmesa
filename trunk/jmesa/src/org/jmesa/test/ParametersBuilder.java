@@ -21,7 +21,6 @@ import static org.jmesa.worksheet.Worksheet.SAVE_WORKSHEET;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.jmesa.facade.TableFacadeUtils.TABLE_REFRESHING;
 import org.jmesa.limit.Action;
 import org.jmesa.limit.ExportType;
 import org.jmesa.limit.Order;
@@ -103,8 +102,5 @@ public class ParametersBuilder {
 		
         String key = prefixId + SAVE_WORKSHEET;
         parameters.addParameter(key, "true");
-        
-        String refreshKey = prefixId + TABLE_REFRESHING;
-        parameters.addParameter(refreshKey, "true");
     }
 }

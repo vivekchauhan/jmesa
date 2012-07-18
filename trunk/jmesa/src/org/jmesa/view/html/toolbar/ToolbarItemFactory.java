@@ -126,9 +126,10 @@ public class ToolbarItemFactory {
     public ToolbarItem createExportToolbarItem(String exportType) {
 		
         ExportToolbarItem toolbarItem = new ExportToolbarItem(coreContext);
+        toolbarItem.setExportType(exportType);
         toolbarItem.setCode(ToolbarItemType.EXPORT_ITEM.toCode());
         toolbarItem.setTooltip(coreContext.getMessage(TOOLBAR_TOOLTIP + exportType));
-        toolbarItem.setImage(getImage(coreContext.getPreference(TOOLBAR_IMAGE + exportType)));
+        toolbarItem.setImage(getImage(TOOLBAR_IMAGE + exportType));
         toolbarItem.setAlt(exportType);
         return toolbarItem;
     }
@@ -245,7 +246,7 @@ public class ToolbarItemFactory {
 
         for (int i = 0; i < exportTypes.length; i++) {
             String exportType = exportTypes[i];
-            ToolbarItem toolbarItem = createExportToolbarItem(exportType);
+            ToolbarItem toolbarItem = createExportToolbarItem(exportType.toLowerCase());
             items.add(toolbarItem);
         }
 

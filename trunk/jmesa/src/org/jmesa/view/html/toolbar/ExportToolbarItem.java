@@ -25,7 +25,6 @@ import org.jmesa.limit.Limit;
 public class ExportToolbarItem extends AbstractImageToolbarItem {
 		
     private String exportType;
-    private String image;
     private String text;
     private String tooltip;
     private String action;
@@ -71,11 +70,6 @@ public class ExportToolbarItem extends AbstractImageToolbarItem {
         this.tooltip = tooltip;
     }
 
-    public String getImage() {
-		
-        return image;
-    }
-
     public String getAction() {
 		
         return action;
@@ -90,7 +84,7 @@ public class ExportToolbarItem extends AbstractImageToolbarItem {
 		
         Limit limit = getCoreContext().getLimit();
         StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.setExport('" + limit.getId() + "','" + getExportType() + "');"
-                + getOnInvokeActionJavaScript());
+                + getOnInvokeExportActionJavaScript());
         return enabled(action.toString());
     }
 }
