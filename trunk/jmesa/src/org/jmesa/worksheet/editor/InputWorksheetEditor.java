@@ -55,11 +55,10 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
 
     protected String getWsColumn(WorksheetColumn worksheetColumn, Object item, String id, String property, String uniqueProperty, String uniqueValue, Object originalValue, Object changedValue) {
         
+        String originalStringValue = (originalValue == null ? "" : originalValue.toString().trim());
+        
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
-            if (originalValue == null) {
-                return "";
-            }
-            return originalValue.toString();
+            return originalStringValue;
         }
         
         HtmlBuilder html = new HtmlBuilder();
@@ -68,10 +67,10 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
         
         html.input().type("text");
         
-        Object value = changedValue == null ? originalValue : changedValue;
+        Object value = changedValue == null ? originalStringValue : changedValue;
         html.value(value == null ? "" : String.valueOf(value));
         
-        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalValue + "');");
+        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalStringValue + "');");
         html.end();
         
         html.divEnd();
