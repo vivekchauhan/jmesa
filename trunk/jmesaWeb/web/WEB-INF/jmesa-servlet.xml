@@ -23,9 +23,6 @@
 				<entry key="limit.run">
 					<ref bean="limit"/>
 				</entry>
-				<entry key="groovy.run">
-					<ref bean="groovy"/>
-				</entry>
 				<entry key="tag.run">
 					<ref bean="tag"/>
 				</entry>
@@ -65,18 +62,6 @@
 		<property name="presidentService" ref="presidentService"/>
 		<property name="id" value="tag"/>
 	</bean>
-
-	<bean id="groovy" class="org.jmesaweb.controller.GroovyPresidentController">
-		<property name="successView" value="jsp/groovy.jsp"/>
-		<property name="presidentService" ref="presidentService"/>
-		<property name="htmlTableTemplate" ref="groovyPresident"/>
-	</bean>
-
-	<lang:groovy id="groovyPresident" 
-				refresh-check-delay="5000"
-				script-source="WEB-INF/groovy/GroovyPresident.groovy">
-        <lang:property name="id" value="groovy"/> 
-    </lang:groovy>
 
     <bean id="paramResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
         <property name="paramName" value="method"/>

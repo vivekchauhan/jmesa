@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeFactory;
-import org.jmesa.limit.ExportType;
+import org.jmesa.model.TableModel;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
@@ -66,7 +66,7 @@ public class PortletTable {
         row.addColumn(lastName);
         
         facade.setTable(table);
-        facade.setExportTypes(ExportType.CSV, ExportType.PDFP, ExportType.EXCEL);
+        facade.setExportTypes(TableModel.CSV, TableModel.PDFP, TableModel.EXCEL);
     }
     
     // This is very important if you're not using AJAX
