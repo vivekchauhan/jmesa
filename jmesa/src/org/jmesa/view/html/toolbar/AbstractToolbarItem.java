@@ -33,6 +33,7 @@ public abstract class AbstractToolbarItem implements ToolbarItem {
     private String style;
     private String tooltip;
     private String onInvokeAction;
+    private String onInvokeExportAction;
 
     public AbstractToolbarItem(CoreContext coreContext) {
      
@@ -125,16 +126,16 @@ public abstract class AbstractToolbarItem implements ToolbarItem {
     
     public String getOnInvokeExportAction() {
 		
-        if (onInvokeAction == null) {
-            onInvokeAction = coreContext.getPreference(ON_INVOKE_EXPORT_ACTION);
+        if (onInvokeExportAction == null) {
+            onInvokeExportAction = coreContext.getPreference(ON_INVOKE_EXPORT_ACTION);
         }
 		
-        return onInvokeAction;
+        return onInvokeExportAction;
     }
 
     public void setOnInvokeExportAction(String onInvokeExportAction) {
 		
-        this.onInvokeAction = onInvokeExportAction;
+        this.onInvokeExportAction = onInvokeExportAction;
     }
 
     public String getOnInvokeExportActionJavaScript() {
