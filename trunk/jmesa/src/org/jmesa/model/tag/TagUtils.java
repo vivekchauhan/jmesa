@@ -15,6 +15,10 @@
  */
 package org.jmesa.model.tag;
 
+import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_EDITOR;
+import static org.jmesa.view.html.HtmlConstants.COLUMN_EXPORT_EDITOR;
+
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +39,6 @@ import org.jmesa.view.editor.BasicCellEditor;
 import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.editor.FilterEditor;
 import org.jmesa.view.editor.HeaderEditor;
-import static org.jmesa.view.html.HtmlConstants.COLUMN_CELL_EDITOR;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -321,6 +324,35 @@ class TagUtils {
         return result;
     }
 
+    /**
+     * @since 4.0
+     * <p>
+     * If the exportEditor is not defined then create a BasicCellEditor.
+     * </p>
+     * 
+     * <p>
+     * If it is defined and it extends ContextSupport then set the WebContext and CoreContext on the
+     * editor. If a setPattern() method is defined on your editor and you have defined the column
+     * pattern attribute on the tag it will be set on your CellEditor automatically.
+     * </p>
+     * 
+     * @return The CellEditor to use.
+     */
+    static CellEditor getColumnExportEditor(HtmlColumn column, String exportEditor, String pattern, boolean hasBody, CoreContext coreContext) {
+        
+        boolean cellEditorNotDefined = StringUtils.isEmpty(exportEditor);
+        if (hasBody && cellEditorNotDefined) {
+            return new BasicCellEditor();
+        } else if (cellEditorNotDefined) {
+            return PreferencesUtils.<CellEditor>createClassFromPreferences(coreContext, COLUMN_EXPORT_EDITOR);
+        }
+        
+        CellEditor result = (CellEditor) createInstance(exportEditor);
+        SupportUtils.setPattern(result, pattern);
+        
+        return result;
+    }
+    
     /**
      * @since 2.2
      * @return The column FilterRenderer object.

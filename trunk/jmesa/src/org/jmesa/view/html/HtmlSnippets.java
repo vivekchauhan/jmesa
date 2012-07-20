@@ -15,6 +15,14 @@
  */
 package org.jmesa.view.html;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringEscapeUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.RowSelect;
@@ -26,11 +34,10 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.worksheet.Worksheet;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import org.jmesa.worksheet.WorksheetRow;
 import org.jmesa.worksheet.WorksheetRowStatus;
+
+import com.google.gson.Gson;
 
 /**
  * @since 2.0
@@ -38,6 +45,7 @@ import org.jmesa.worksheet.WorksheetRowStatus;
  */
 public class HtmlSnippets extends AbstractContextSupport {
 		
+    private static final Gson GSON = new Gson();
     private HtmlTable table;
     private Toolbar toolbar;
 
@@ -341,4 +349,30 @@ public class HtmlSnippets extends AbstractContextSupport {
 
         return hiddenFields();
     }
+    
+    public String createExportField() {
+
+        Map<String,  Map<String,String>> columnInfo = new LinkedHashMap<String,  Map<String,String>>();
+        for (Column column : table.getRow().getColumns()) {
+            if (!column.isExportable()) {
+                continue;
+            }
+            Map<String,String> info = new HashMap<String,String>();
+            info.put("title", column.getTitle());
+            info.put("cellEditor", column.getExportEditor().getClass().getName());
+            columnInfo.put(column.getProperty(), info);
+        }
+        
+        HtmlBuilder html = new HtmlBuilder();
+        Limit limit = getCoreContext().getLimit();
+        String name = limit.getId() + "_exp_";
+        html.newline().input().type("hidden");
+        html.name(name);
+        html.value(StringEscapeUtils.escapeHtml(GSON.toJson(columnInfo)));
+        html.end();
+
+        return html.toString();
+    }
+    
+
 }

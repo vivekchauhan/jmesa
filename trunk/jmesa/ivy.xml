@@ -18,6 +18,7 @@
         <dependency org="commons-collections" name="commons-collections" rev="3.2" conf="compile->default" />
         <dependency org="commons-lang" name="commons-lang" rev="2.2" conf="compile->default" />
         <dependency org="commons-el" name="commons-el" rev="1.0" conf="compile->default" />
+        <dependency org="gson" name="gson" rev="1.7.1" conf="compile->default" />
         <dependency org="javax.servlet" name="jsp-api" rev="2.0" conf="compile->default" />
         <dependency org="javax.servlet" name="servlet-api" rev="2.4" conf="compile->default" />
         <dependency org="javax.portlet" name="portlet-api" rev="2.0" conf="compile->default" />
