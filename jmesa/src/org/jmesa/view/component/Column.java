@@ -47,6 +47,9 @@ public class Column extends AbstractContextSupport {
     private FilterRenderer filterRenderer;
     private FilterEditor filterEditor;
 
+    private CellEditor exportEditor;
+    private Boolean exportable;
+    
     private Row row;
 
     public Column() {}
@@ -148,6 +151,53 @@ public class Column extends AbstractContextSupport {
         SupportUtils.setCoreContext(cellEditor, getCoreContext());
         SupportUtils.setColumn(cellEditor, this);
     }
+    
+    public CellEditor getExportEditor() {
+    
+        if (exportEditor == null) {
+            this.exportEditor = getCellEditor();
+        }
+        return exportEditor;
+    }
+
+    public void setExportEditor(CellEditor exportEditor) {
+    
+        this.exportEditor = exportEditor;
+        
+        /*
+         * This is useful for editors that are decorated at
+         * runtime. Most of the support classes are handled
+         * in the TableFacadeUtils.init() method though.
+         */
+        SupportUtils.setWebContext(cellEditor, getWebContext());
+        SupportUtils.setCoreContext(cellEditor, getCoreContext());
+        SupportUtils.setColumn(cellEditor, this);
+    }
+    
+    /**
+     * @return Is true if the column is exportable.
+     * @since 4.0
+     */
+    public boolean isExportable() {
+        
+        if (exportable != null) {
+            return exportable.booleanValue();
+        }
+        
+        return true;
+    }
+
+    /**
+     * Set if column is exportable.
+     * 
+     * @since 4.0
+     * @param editable Is true if the column is exportable.
+     */
+    public void setExportable(Boolean exportable) {
+        
+        this.exportable = exportable;
+    }
+
 
     public Column cellEditor(CellEditor editor) {
 		

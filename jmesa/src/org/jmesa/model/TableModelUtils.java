@@ -15,8 +15,13 @@
  */
 package org.jmesa.model;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.jmesa.facade.TableFacade;
 import org.jmesa.limit.Limit;
 import org.jmesa.limit.LimitActionFactory;
@@ -24,10 +29,14 @@ import org.jmesa.limit.RowSelect;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
+import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.worksheet.Worksheet;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * A series of utilities that complements the TableModel object. Especially useful
@@ -40,6 +49,7 @@ import org.jmesa.worksheet.Worksheet;
 public class TableModelUtils {
 		
     public static String LIMIT_ATTR = "_LIMIT_ATTR";
+    private static final Gson GSON = new Gson();
 
     protected TableModelUtils(){}
 
@@ -158,5 +168,44 @@ public class TableModelUtils {
         }
 
         return htmlTable;
+    }
+
+    public static Table createExportTable(String columnInfoJson) {
+        
+        Table table = new Table();
+        Row row = new Row();
+
+        Type columnMap = new TypeToken<Map<String, Map<String, String>>>(){}.getType();
+        Map<String, Map<String, String>> columnProperties = GSON.fromJson(columnInfoJson, columnMap);
+
+        String cellEditorClass = null;
+        @SuppressWarnings("rawtypes")
+        Class cellEditor;
+        for (Entry<String, Map<String, String>> entry : columnProperties.entrySet()) {
+            String title = null;
+            try {
+                Map<String, String> properties = entry.getValue();
+                title = properties.get("title");
+                
+                cellEditorClass = properties.get("cellEditor");
+                cellEditor = Class.forName(cellEditorClass);
+            
+                Column column = new Column(entry.getKey());
+                column.title(title);
+                column.cellEditor((CellEditor)cellEditor.newInstance());
+                
+                row.addColumn(column);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException("Cannot create instance of " + cellEditorClass + " for column " + title, e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException("Failed to create instance of " + cellEditorClass + " for column " + title, e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Cannot create instance of " + cellEditorClass + " for column " + title, e);
+            }
+            
+        }
+        table.setRow(row);   
+        
+        return table;
     }
 }

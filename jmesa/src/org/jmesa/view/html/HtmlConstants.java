@@ -134,5 +134,6 @@ public class HtmlConstants {
     public static final String COLUMN_HEADER_EDITOR = "html.column.header.editor";
     public static final String COLUMN_FILTER_EDITOR = "html.column.filter.editor";
     public static final String COLUMN_CELL_EDITOR = "html.column.cell.editor";
+    public static final String COLUMN_EXPORT_EDITOR = "html.column.export.editor";
     public static final String COLUMN_WORKSHEET_EDITOR = "html.column.worksheet.editor";
 }

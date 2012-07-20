@@ -23,6 +23,7 @@ import static org.jmesa.model.tag.TagUtils.getColumnHeaderEditor;
 import static org.jmesa.model.tag.TagUtils.getColumnHeaderRenderer;
 import static org.jmesa.model.tag.TagUtils.getColumnSortOrder;
 import static org.jmesa.model.tag.TagUtils.getColumnWorksheetEditor;
+import static org.jmesa.model.tag.TagUtils.getColumnExportEditor;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -76,6 +77,8 @@ public class HtmlColumnTag extends SimpleTagSupport {
     private String customWorksheetValidation;
     private String errorMessageKey;
     private String errorMessage;
+    private Boolean exportable;
+    private String exportEditor;
 
     public String getProperty() {
 		
@@ -453,6 +456,40 @@ public class HtmlColumnTag extends SimpleTagSupport {
         this.errorMessage = errorMessage;
     }
 
+    
+    /**
+     * @since 4.0
+     */
+    public String getExportEditor() {
+    
+        return exportEditor;
+    }
+
+    /**
+     * @since 4.0
+     */
+    public void setExportEditor(String exportEditor) {
+    
+        this.exportEditor = exportEditor;
+    }
+
+    /**
+     * @since 4.0
+     */
+    public Boolean isExportable() {
+        
+        return exportable;
+    }
+    
+    /**
+     * @since 4.0
+     */
+    public void setExportable(Boolean exportable) {
+        
+        this.exportable = exportable;
+    }
+
+    
     /**
      * The column to use. If the column does not exist then one will be created.
      */
@@ -466,6 +503,7 @@ public class HtmlColumnTag extends SimpleTagSupport {
         htmlColumn.setSortOrder(getColumnSortOrder(getSortOrder()));
         htmlColumn.setFilterable(isFilterable());
         htmlColumn.setEditable(isEditable());
+        htmlColumn.setExportable(isExportable());
         htmlColumn.setWidth(getWidth());
         htmlColumn.setStyle(getStyle());
         htmlColumn.setStyleClass(getStyleClass());
@@ -488,6 +526,9 @@ public class HtmlColumnTag extends SimpleTagSupport {
         CellEditor ce = getColumnCellEditor(htmlColumn, getCellEditor(), getPattern(), hasBody, coreContext);
         htmlColumn.setCellEditor(ce);
 
+        CellEditor ee = getColumnExportEditor(htmlColumn, getExportEditor(), getPattern(), hasBody, coreContext);
+        htmlColumn.setExportEditor(ee);
+        
         // filter
 
         FilterRenderer fr = getColumnFilterRenderer(htmlColumn, getFilterRenderer());
