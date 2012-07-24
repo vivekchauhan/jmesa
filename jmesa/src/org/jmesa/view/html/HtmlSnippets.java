@@ -29,6 +29,8 @@ import org.jmesa.limit.RowSelect;
 import org.jmesa.view.AbstractContextSupport;
 import org.jmesa.view.ViewUtils;
 import org.jmesa.view.component.Column;
+import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.PatternSupport;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -359,8 +361,13 @@ public class HtmlSnippets extends AbstractContextSupport {
             }
             Map<String,String> info = new HashMap<String,String>();
             info.put("title", column.getTitle());
-            info.put("cellEditor", column.getExportEditor().getClass().getName());
+            CellEditor exportEditor = column.getExportEditor();
+            info.put("cellEditor", exportEditor.getClass().getName());
+            if (exportEditor instanceof PatternSupport) {
+                info.put("pattern", ((PatternSupport)exportEditor).getPattern());
+            }
             columnInfo.put(column.getProperty(), info);
+            
         }
         
         HtmlBuilder html = new HtmlBuilder();

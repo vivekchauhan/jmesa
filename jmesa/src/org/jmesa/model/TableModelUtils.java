@@ -30,6 +30,7 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.editor.CellEditor;
+import org.jmesa.view.editor.PatternSupport;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
@@ -178,29 +179,34 @@ public class TableModelUtils {
         Type columnMap = new TypeToken<Map<String, Map<String, String>>>(){}.getType();
         Map<String, Map<String, String>> columnProperties = GSON.fromJson(columnInfoJson, columnMap);
 
-        String cellEditorClass = null;
+        String cellEditorFQN = null;
         @SuppressWarnings("rawtypes")
-        Class cellEditor;
+        Class cellEditorClass;
         for (Entry<String, Map<String, String>> entry : columnProperties.entrySet()) {
             String title = null;
             try {
                 Map<String, String> properties = entry.getValue();
                 title = properties.get("title");
                 
-                cellEditorClass = properties.get("cellEditor");
-                cellEditor = Class.forName(cellEditorClass);
-            
+                cellEditorFQN = properties.get("cellEditor");
+                cellEditorClass = Class.forName(cellEditorFQN);
+                
                 Column column = new Column(entry.getKey());
                 column.title(title);
-                column.cellEditor((CellEditor)cellEditor.newInstance());
-                
+                CellEditor cellEditor = (CellEditor)cellEditorClass.newInstance();
+                column.cellEditor(cellEditor);
+
+                if (properties.containsKey("pattern") && cellEditor instanceof PatternSupport) {
+                    ((PatternSupport)cellEditor).setPattern(properties.get("pattern"));
+                }
+
                 row.addColumn(column);
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException("Cannot create instance of " + cellEditorClass + " for column " + title, e);
+                throw new RuntimeException("Cannot create instance of " + cellEditorFQN + " for column " + title, e);
             } catch (InstantiationException e) {
-                throw new RuntimeException("Failed to create instance of " + cellEditorClass + " for column " + title, e);
+                throw new RuntimeException("Failed to create instance of " + cellEditorFQN + " for column " + title, e);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("Cannot create instance of " + cellEditorClass + " for column " + title, e);
+                throw new RuntimeException("Cannot create instance of " + cellEditorFQN + " for column " + title, e);
             }
             
         }
