@@ -16,6 +16,7 @@
 package org.jmesa.core.filter;
 
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -27,10 +28,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringWildCardFilterMatcher implements FilterMatcher {
 		
-    private static final String ANYCHAR = "?";
-    private static final String ANYSTRING = "*";
     private static final String ANYCHARREGEXP = ".";
-    private static final String ANYSTRINGREGEXP = ".*";
+    private static final String ANYSTRINGREGEXP = ".*?";
     private static final String IGNORECASESFLAG = "(?i)";
     protected boolean ignoreCases;
 
@@ -75,8 +74,9 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
         if (ignoreCases) {
             filterStr = filterStr.toLowerCase();
         }
-
-        String regFilter = (filterStr.replace(ANYCHAR, ANYCHARREGEXP)).replace(ANYSTRING, ANYSTRINGREGEXP);
+        
+//        String regFilter = (filterStr.replace(ANYCHAR, ANYCHARREGEXP)).replace(ANYSTRING, ANYSTRINGREGEXP);
+        String regFilter = replaceAsterisk(filterStr);
 
         //for usability reasons, automatic wildcard to end of the word. The user can just filter
         //by beginning letters of the word without worrying about the wildcard
@@ -86,6 +86,37 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
             regFilter = IGNORECASESFLAG + regFilter;
         }
 
-        return Pattern.compile(regFilter);
+        Pattern result = null; 
+        try {
+            result = Pattern.compile(regFilter);
+        } catch (PatternSyntaxException pse) {
+            // Do nothing. We've encountered some bad string we can't compile.
+        }
+        
+        return result; 
+    }
+    
+    private String replaceAsterisk(String filterString) {
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(String s : filterString.split("\\*")) {
+            sb.append(replaceQuestionMark(s));
+            sb.append(ANYSTRINGREGEXP);
+        }
+        
+        return sb.toString();
+    }
+
+    private String replaceQuestionMark(String filterString) {
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(String s : filterString.split("\\?")) {
+            sb.append(Pattern.quote(s));
+            sb.append(ANYCHARREGEXP);
+        }
+        
+        return sb.toString();
     }
 }
