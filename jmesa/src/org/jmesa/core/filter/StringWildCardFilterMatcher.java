@@ -18,8 +18,6 @@ package org.jmesa.core.filter;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * Will do a string match based on wildcards.
  * 
@@ -28,9 +26,10 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringWildCardFilterMatcher implements FilterMatcher {
 		
+    private static final String ASTERISK = "*";
+    private static final String QUESTION_MARK = "?";
     private static final String ANYCHARREGEXP = ".";
     private static final String ANYSTRINGREGEXP = ".*?";
-    private static final String IGNORECASESFLAG = "(?i)";
     protected boolean ignoreCases;
 
     /**
@@ -45,12 +44,20 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
      * {@inheritDoc}
      */
     public boolean evaluate(Object itemValue, String filterValue) {
+        
+        if (filterValue == null) {
+            return false;
+        }
 		
+        String itemValueString = String.valueOf(itemValue);
+
         if (ignoreCases) {
-            itemValue = StringUtils.lowerCase(String.valueOf(itemValue));
+            itemValueString = itemValueString.toLowerCase();
+            filterValue = filterValue.toLowerCase();
         }
 
         Pattern filterPattern = createFilterPattern(filterValue);
+        
         if (filterPattern == null) {
             return false;
         }
@@ -67,28 +74,15 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
      */
     private Pattern createFilterPattern(String filterStr) {
 		
-        if (filterStr == null) {
-            return null;
-        }
-
-        if (ignoreCases) {
-            filterStr = filterStr.toLowerCase();
-        }
-        
-//        String regFilter = (filterStr.replace(ANYCHAR, ANYCHARREGEXP)).replace(ANYSTRING, ANYSTRINGREGEXP);
         String regFilter = replaceAsterisk(filterStr);
 
         //for usability reasons, automatic wildcard to end of the word. The user can just filter
         //by beginning letters of the word without worrying about the wildcard
         regFilter += ANYSTRINGREGEXP;
 
-        if (ignoreCases) {
-            regFilter = IGNORECASESFLAG + regFilter;
-        }
-
         Pattern result = null; 
         try {
-            result = Pattern.compile(regFilter);
+            result = ignoreCases ? Pattern.compile(regFilter, Pattern.CASE_INSENSITIVE) : Pattern.compile(regFilter);
         } catch (PatternSyntaxException pse) {
             // Do nothing. We've encountered some bad string we can't compile.
         }
@@ -96,25 +90,71 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
         return result; 
     }
     
+    /**
+     * Replace "*" with the regex equivalent.
+     * 
+     * @param filterString
+     * @return
+     */
     private String replaceAsterisk(String filterString) {
         
         StringBuilder sb = new StringBuilder();
-        
-        for(String s : filterString.split("\\*")) {
-            sb.append(replaceQuestionMark(s));
-            sb.append(ANYSTRINGREGEXP);
+
+        if (filterString.contains(ASTERISK)) {
+            int i = 0; 
+            int index = filterString.indexOf(ASTERISK, i);
+            String subStr = null;
+            while (index > -1) {
+                subStr = filterString.substring(i, index);
+                
+                subStr = replaceQuestionMark(subStr);
+                sb.append(subStr);
+                sb.append(ANYSTRINGREGEXP);
+                
+                i = index+1;
+                index = filterString.indexOf(ASTERISK, i); 
+            } 
+            if (i < filterString.length()) {
+                subStr = filterString.substring(i);
+                subStr = replaceQuestionMark(subStr);
+                sb.append(subStr);
+                sb.append(ANYSTRINGREGEXP);
+            }
+        } else {
+            sb.append(replaceQuestionMark(filterString));
         }
         
         return sb.toString();
     }
 
+    /**
+     * Replace "?" with the regex equivalent.
+     * 
+     * @param filterString
+     * @return
+     */
     private String replaceQuestionMark(String filterString) {
         
         StringBuilder sb = new StringBuilder();
-        
-        for(String s : filterString.split("\\?")) {
-            sb.append(Pattern.quote(s));
-            sb.append(ANYCHARREGEXP);
+
+        if (filterString.contains(QUESTION_MARK)) {
+            int i = 0; 
+            int index = filterString.indexOf(QUESTION_MARK, i);
+            String subStr = null;
+            while (index > -1) {
+                index = filterString.indexOf(QUESTION_MARK, i);
+                subStr = filterString.substring(i, index);
+                sb.append(Pattern.quote(subStr));
+                sb.append(ANYCHARREGEXP);
+                i = index+1;
+                index = filterString.indexOf(QUESTION_MARK, i);
+            }
+            if (i < filterString.length()) {
+                subStr = filterString.substring(i);
+                sb.append(Pattern.quote(subStr));
+            }
+        } else {
+            sb.append(Pattern.quote(filterString));
         }
         
         return sb.toString();

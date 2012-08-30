@@ -26,34 +26,112 @@ import org.junit.Test;
  */
 /**
  * @author jward
- *
+ * 
  */
 public class StringWildCardFilterMatcherTest {
-		
-	@Test
-	public void evaluateTest() {
-		
-		StringWildCardFilterMatcher match = new StringWildCardFilterMatcher();
 
-		boolean evaluate = match.evaluate(null, "geo");
-		assertFalse(evaluate);
+    @Test
+    public void evaluateTest() {
 
-		evaluate = match.evaluate("george", null);
-		assertFalse(evaluate);
+        StringWildCardFilterMatcher match = new StringWildCardFilterMatcher();
 
-		evaluate = match.evaluate("george", "geo");
-		assertTrue(evaluate);
+        boolean evaluate = match.evaluate(null, "geo");
+        assertFalse(evaluate);
 
-		evaluate = match.evaluate("george", "g*");
-		assertTrue(evaluate);
+        evaluate = match.evaluate("george", null);
+        assertFalse(evaluate);
 
-		evaluate = match.evaluate("washington", "g*");
-		assertFalse(evaluate);
-		
-		evaluate = match.evaluate("george", "g(");
-		assertFalse(evaluate);
-		
-		evaluate = match.evaluate("George", "Geo");
-		assertTrue(evaluate);
-	}
+        evaluate = match.evaluate("george", "geo");
+        assertTrue(evaluate);
+
+        evaluate = match.evaluate("george", "g*");
+        assertTrue(evaluate);
+
+        evaluate = match.evaluate("washington", "g*");
+        assertFalse(evaluate);
+
+        evaluate = match.evaluate("george", "g(");
+        assertFalse(evaluate);
+
+        evaluate = match.evaluate("George", "Geo");
+        assertTrue(evaluate);
+    }
+
+    @Test
+    public void testCaseInsensitivity() {
+
+        StringWildCardFilterMatcher match = new StringWildCardFilterMatcher();
+
+        boolean evaluate = false;
+
+        evaluate = match.evaluate("george", "george");
+        assertTrue(evaluate);
+
+        evaluate = match.evaluate("george", "GEORGE");
+        assertTrue(evaluate);
+
+        evaluate = match.evaluate("GEORGE", "george");
+        assertTrue(evaluate);
+
+    }
+
+    @Test
+    public void testRegExChars() {
+
+        StringWildCardFilterMatcher match = new StringWildCardFilterMatcher();
+
+        boolean evaluate = false;
+
+        evaluate = match.evaluate("george)", "g");
+        assertTrue(evaluate);
+
+        evaluate = match.evaluate("george)", "george");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("george)", "george)");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("george)", "GEORGE)");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("ge)", "GE*)");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("ge)", "GE*");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("george", "GE*RGE");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("GEORGE", "ge?rge");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("GEORGE", "ge?r*e");
+        assertTrue(evaluate);
+
+        evaluate = match.evaluate("WASHINGTON", "w*s?i*g?on");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("WASHINGTON", "w*s?i*t?n");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("WASHINGTON", "w*s?i*g?n");
+        assertFalse(evaluate);
+        
+        evaluate = match.evaluate("WASHING", "w*s?i*g?");
+        assertFalse(evaluate);
+        
+        evaluate = match.evaluate("WASHINGTON", "w*s?i*g?");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("WASHINGTON", "w*h?n*o?");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("WASHINGTON", "w*h?n*o?*");
+        assertTrue(evaluate);
+        
+        evaluate = match.evaluate("GEORGE", "ge)rge");
+        assertFalse(evaluate);
+        
+    }
 }
