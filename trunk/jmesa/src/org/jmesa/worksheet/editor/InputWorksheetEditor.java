@@ -16,6 +16,7 @@
 package org.jmesa.worksheet.editor;
 
 import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
 import org.jmesa.limit.Limit;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.UniqueProperty;
@@ -70,7 +71,7 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
         Object value = changedValue == null ? originalStringValue : changedValue;
         html.value(value == null ? "" : String.valueOf(value));
         
-        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalStringValue + "');");
+        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + escapeJavaScript(originalStringValue) + "');");
         html.end();
         
         html.divEnd();
