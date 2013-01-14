@@ -50,6 +50,10 @@ public class InputWorksheetEditor extends AbstractWorksheetEditor {
         Limit limit = getCoreContext().getLimit();
         String id = limit.getId();
         UniqueProperty uniqueProperty = getColumn().getRow().getUniqueProperty(item);
+        
+        if (uniqueProperty == null) {
+            throw new IllegalStateException("The unique property does not exist.");
+        }
 
         return getWsColumn(worksheetColumn, item, id, property, uniqueProperty.getName(), uniqueProperty.getValue(), originalValue, changedValue);
     }
