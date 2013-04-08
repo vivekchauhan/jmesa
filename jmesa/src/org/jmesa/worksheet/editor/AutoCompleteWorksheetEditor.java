@@ -15,6 +15,7 @@
  */
 package org.jmesa.worksheet.editor;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
 import org.jmesa.view.html.HtmlBuilder;
 import org.jmesa.worksheet.WorksheetColumn;
 
@@ -42,7 +43,7 @@ public class AutoCompleteWorksheetEditor extends InputWorksheetEditor {
             html.value(String.valueOf(changedValue));
         }
         
-        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue + "','" + originalValue + "');");
+        html.onblur("jQuery.jmesa.submitWorksheetColumn(this, '" + id + "','" + property + "','" + uniqueProperty + "','" + uniqueValue  + "','" + escapeJavaScript(originalValue == null ? "" : originalValue.toString()) + "','" + escapeJavaScript(changedValue == null ? "" : changedValue.toString()) + "');");
         html.end();
         
         html.divEnd();
