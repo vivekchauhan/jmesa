@@ -23,11 +23,9 @@
             
             $(this.getForm(id)).find('input[name="' + id + '_awr_"]').val('true');
         },
-        setRemoveRowToWorksheet : function(id, uniqueProperty) {
+        setRemoveRowToWorksheet : function(id) {
             
-            $.each(uniqueProperty, function(key, value) {
-                $("#"+id).parents('form').find('input[name="' + id + '_rwr_"]').val(value);
-            });
+            $(this.getForm(id)).find('input[name="' + id + '_rwr_"]').val('true');
         },
         removeFilterFromWorksheet : function(id) {
             
