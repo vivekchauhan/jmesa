@@ -23,10 +23,6 @@
             
             $(this.getForm(id)).find('input[name="' + id + '_awr_"]').val('true');
         },
-        setRemoveRowToWorksheet : function(id) {
-            
-            $(this.getForm(id)).find('input[name="' + id + '_rwr_"]').val('true');
-        },
         removeFilterFromWorksheet : function(id) {
             
             this.removeAllFilters(id);
@@ -75,20 +71,11 @@
             
             $(this.getForm(id)).find('input[name="' + id + '_e_"]').val(exportType);
         },
-        submitWorksheetColumn : function(column, id, property, uniqueProperty, uniqueValue, originalValue, worksheetValue) {
+        submitWorksheetColumn : function(column, id, property, uniqueProperty, uniqueValue, originalValue) {
 
             var changedValue = $(column).val();
-            var lastValue = $(column).data('lastValue');
-
-            if (!lastValue && worksheetValue) {
-                lastValue = worksheetValue;
-                $(column).data('lastValue', worksheetValue);
-            } else if (!lastValue && originalValue) {
-                lastValue = originalValue;
-                $(column).data('lastValue', originalValue);
-            }
-
-            if (lastValue == changedValue) { return; }
+            
+            if (originalValue == changedValue) { return; }
 
             var data = '{ "id" : "' + id + '"';
             data += ', "cp_" : "' + property + '"';
@@ -103,8 +90,7 @@
             }
 
             $.post(contextPath + 'jmesa.wrk', jQuery.parseJSON(data), function(columnStatus) {
-                $(column).data('lastValue', changedValue);
-                //jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
+               //jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
             });
         },
         submitWorksheetCheckableColumn : function(checked, id, property, uniqueProperty, uniqueValue) {
@@ -193,11 +179,6 @@
             var worksheetAddRow = $(this.getForm(id)).find('input[name="' + id + '_awr_"]').val();
             if (worksheetAddRow == 'true') {
                 url += '&' + id + '_awr_=true';
-            }
-
-            var worksheetRemoveRow = $(this.getForm(id)).find('input[name="' + id + '_rwr_"]').val();
-            if (worksheetRemoveRow != null && worksheetRemoveRow != '') {
-                url += '&' + id + '_rwr_=' + worksheetRemoveRow;
             }
 
             return url;            

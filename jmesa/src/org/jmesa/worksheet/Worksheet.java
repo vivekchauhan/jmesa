@@ -77,7 +77,6 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
     public static final String SAVE_WORKSHEET = "sw_";
     public static final String FILTER_WORKSHEET = "fw_";
     public static final String ADD_WORKSHEET_ROW = "awr_";
-    public static final String REMOVE_WORKSHEET_ROW = "rwr_";
 
     private String id;
     private transient WebContext webContext;
@@ -261,15 +260,6 @@ public class Worksheet implements WebContextSupport, MessagesSupport, Serializab
 		
         String value = webContext.getParameter(getId()  + "_" + ADD_WORKSHEET_ROW);
         return StringUtils.isNotEmpty(value) && "true".equals(value);
-    }
-
-    /**
-     * @return Is true if the user is requesting to remove a row from worksheet.
-     */
-    public boolean isRemovingRow() {
-		
-        String value = webContext.getParameter(getId()  + "_" + REMOVE_WORKSHEET_ROW);
-        return StringUtils.isNotEmpty(value);
     }
 
     /**

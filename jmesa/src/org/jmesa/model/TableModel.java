@@ -394,10 +394,6 @@ public class TableModel {
         	}
         }
 
-        if (editable && worksheet.isRemovingRow()) {
-            tableFacade.removeWorksheetRow();
-        }
-
         return tableFacade.render();
     }
 }

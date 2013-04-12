@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.filter.FilterMatcher;
@@ -309,50 +310,6 @@ public class TableFacade {
     public void persistWorksheet(Worksheet worksheet) {
 		
     	getWorksheetState().persistWorksheet(worksheet);
-    }
-
-    /**
-     * Remove a worksheet row.
-     */
-    public void removeWorksheetRow() {
-		
-        String up = getLimit().getId() + "_" +  Worksheet.REMOVE_WORKSHEET_ROW;
-        String name = getTable().getRow().getUniqueProperty();
-        String value = getWebContext().getParameter(up);
-        UniqueProperty uniqueProperty = new UniqueProperty(name, value);
-
-        Worksheet ws = getWorksheet();
-        WorksheetRow wsRow = ws.getRow(uniqueProperty);
-
-        if (wsRow != null) {
-            if (wsRow.getRowStatus().equals(WorksheetRowStatus.ADD)) {
-                // remove row if ADDED in worksheet
-                ws.removeRow(wsRow);
-            } else if (wsRow.getRowStatus().equals(WorksheetRowStatus.REMOVE)) {
-                // undo - remove
-                if (wsRow.getColumns().isEmpty()) {
-                    ws.removeRow(uniqueProperty);
-                } else {
-                    wsRow.setRowStatus(WorksheetRowStatus.MODIFY);
-                }
-            } else {
-                wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
-                wsRow.removeError();
-
-                boolean keepChangedValues = Boolean.parseBoolean(
-                        getCoreContext().getPreference(HtmlConstants.REMOVE_ROW_KEEP_CHANGED_VALUES));
-                if (!keepChangedValues) {
-                    wsRow.getColumns().clear();
-                }
-            }
-        } else {
-            // add a new REMOVED row in worksheet
-            wsRow = new WorksheetRow(uniqueProperty);
-            wsRow.setRowStatus(WorksheetRowStatus.REMOVE);
-            ws.addRow(wsRow);
-        }
-        // for distributed deployment (e.g. GAE)
-        persistWorksheet(ws);
     }
 
     /**

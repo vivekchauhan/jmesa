@@ -75,9 +75,10 @@ public class CheckboxWorksheetEditor extends InputWorksheetEditor {
         
         html.input().type("checkbox");
         
-        if (originalValue != null && originalValue.equals(CHECKED)) {
+        if ((originalValue != null && originalValue.equals(CHECKED)) || 
+                (changedValue != null && changedValue.equals(CHECKED))) {
             html.checked();
-        }
+        }        
 
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             html.disabled();
