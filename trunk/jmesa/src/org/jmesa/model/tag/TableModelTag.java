@@ -541,10 +541,6 @@ public class TableModelTag extends SimpleTagSupport {
         	if (worksheet.isAddingRow()) {
         		tableFacade.addWorksheetRow(getAddedRowObject());
         	}
-        	
-        	if (worksheet.isRemovingRow()) {
-        		tableFacade.removeWorksheetRow();
-        	}
         }
 
         View v = tableFacade.getView();
