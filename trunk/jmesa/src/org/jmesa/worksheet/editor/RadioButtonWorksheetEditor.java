@@ -49,8 +49,8 @@ public class RadioButtonWorksheetEditor extends InputWorksheetEditor {
         if (isChecked) {
             html.checked();
         }
-
-        String unCheckFunction = "unCheckRadio_" + property + "()";
+        
+        String unCheckFunction = "unCheckRadio_" + property.replace(".", "_") + "()";
         if (isRowRemoved(getCoreContext().getWorksheet(), getColumn().getRow(), item)) {
             html.disabled();
         } else {
