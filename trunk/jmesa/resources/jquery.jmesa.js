@@ -71,11 +71,20 @@
             
             $(this.getForm(id)).find('input[name="' + id + '_e_"]').val(exportType);
         },
-        submitWorksheetColumn : function(column, id, property, uniqueProperty, uniqueValue, originalValue) {
+        submitWorksheetColumn : function(column, id, property, uniqueProperty, uniqueValue, originalValue, worksheetValue) {
 
             var changedValue = $(column).val();
-            
-            if (originalValue == changedValue) { return; }
+            var lastValue = $(column).data('lastValue');
+
+            if (!lastValue && worksheetValue) {
+                lastValue = worksheetValue;
+                $(column).data('lastValue', worksheetValue);
+            } else if (!lastValue && originalValue) {
+                lastValue = originalValue;
+                $(column).data('lastValue', originalValue);
+            }
+
+            if (lastValue == changedValue) { return; }
 
             var data = '{ "id" : "' + id + '"';
             data += ', "cp_" : "' + property + '"';
@@ -90,7 +99,8 @@
             }
 
             $.post(contextPath + 'jmesa.wrk', jQuery.parseJSON(data), function(columnStatus) {
-               //jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
+                $(column).data('lastValue', changedValue);
+                //jQuery.jmesa.updateCssClass(columnStatus, cell, errorMessage);
             });
         },
         submitWorksheetCheckableColumn : function(checked, id, property, uniqueProperty, uniqueValue) {
