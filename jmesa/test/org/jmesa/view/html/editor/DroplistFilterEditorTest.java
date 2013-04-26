@@ -30,12 +30,14 @@ import org.jmesa.view.component.Column;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.jmesa.view.html.editor.DroplistFilterEditor.Option;
 import org.jmesa.web.WebContext;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @since 2.2
  * @author Jeff Johnston
  */
+@Ignore
 public class DroplistFilterEditorTest extends AbstractTestCase {
 
     @Test
