@@ -44,6 +44,7 @@ import org.jmesa.view.html.toolbar.SimpleToolbar;
 import org.jmesa.view.html.toolbar.Toolbar;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -52,6 +53,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
  * @since 2.1
  * @author Jeff Johnston
  */
+@Ignore
 public class TableFacadeTest extends AbstractTestCase {
 
     private static final String ID = "pres";
