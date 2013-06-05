@@ -168,6 +168,13 @@
                         url += '&' + child.name + '=' + child.value;                        
                     }
                 });
+            
+            $(this.getForm(id)).find('input[name^="' + id + '_s_"]').each(
+                function(i, child) {
+                    if (child.value != null && child.value != '') {
+                        url += '&' + child.name + '=' + child.value;                        
+                    }
+                });
 
             /* worksheet fields */
 
