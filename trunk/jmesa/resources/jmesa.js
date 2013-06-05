@@ -50,7 +50,7 @@ function removeFilterFromLimit(id, property) {
 }
 
 function removeAllFiltersFromLimit(id) {
-    jQuery.jmesa.removeAllFiltersFromLimit(id);
+    jQuery.jmesa.removeFilterFromWorksheet(id);
 }
 
 function getFilterFromLimit(id, property) {
