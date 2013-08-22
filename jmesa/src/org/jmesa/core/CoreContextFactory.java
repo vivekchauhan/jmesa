@@ -22,7 +22,6 @@ import org.jmesa.core.filter.FilterMatcher;
 import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
-import org.jmesa.core.filter.StringFilterMatcher;
 import org.jmesa.core.message.Messages;
 import org.jmesa.core.message.MessagesFactory;
 import org.jmesa.core.preference.Preferences;
@@ -45,6 +44,7 @@ public class CoreContextFactory {
     
     private final static String COLUMN_SORT = "columnSort";
     private final static String ROW_FILTER = "rowFilter";
+    private final static String FILTER_MATCHER = "filterMatcher";
     
     private WebContext webContext;
     private FilterMatcherRegistry registry;
@@ -75,8 +75,8 @@ public class CoreContextFactory {
 		
         if (registry == null) {
             registry = new FilterMatcherRegistry();
-            StringFilterMatcher stringFilterMatcher = new StringFilterMatcher();
-            registry.addFilterMatcher(new MatcherKey(Object.class), stringFilterMatcher);
+            FilterMatcher defaultFilterMatcher = PreferencesUtils.<FilterMatcher>createClassFromPreferences(getPreferences(), FILTER_MATCHER);
+            registry.addFilterMatcher(new MatcherKey(Object.class), defaultFilterMatcher);
         }
 
         return registry;
