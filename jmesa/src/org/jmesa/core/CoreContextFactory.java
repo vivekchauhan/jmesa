@@ -16,9 +16,11 @@
 package org.jmesa.core;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.jmesa.core.filter.DefaultRowFilter;
 import org.jmesa.core.filter.FilterMatcher;
+import org.jmesa.core.filter.FilterMatcherMap;
 import org.jmesa.core.filter.FilterMatcherRegistry;
 import org.jmesa.core.filter.MatcherKey;
 import org.jmesa.core.filter.RowFilter;
@@ -44,7 +46,7 @@ public class CoreContextFactory {
     
     private final static String COLUMN_SORT = "columnSort";
     private final static String ROW_FILTER = "rowFilter";
-    private final static String FILTER_MATCHER = "filterMatcher";
+    private final static String FILTER_MATCHER_MAP = "filterMatcherMap";
     
     private WebContext webContext;
     private FilterMatcherRegistry registry;
@@ -73,10 +75,15 @@ public class CoreContextFactory {
 
     protected FilterMatcherRegistry getFilterMatcherRegistry() {
 		
-        if (registry == null) {
+        if (registry == null) {        	
             registry = new FilterMatcherRegistry();
-            FilterMatcher defaultFilterMatcher = PreferencesUtils.<FilterMatcher>createClassFromPreferences(getPreferences(), FILTER_MATCHER);
-            registry.addFilterMatcher(new MatcherKey(Object.class), defaultFilterMatcher);
+            
+            FilterMatcherMap filterMatcherMap = PreferencesUtils.<FilterMatcherMap>createClassFromPreferences(getPreferences(), FILTER_MATCHER_MAP);
+            Map<MatcherKey, FilterMatcher> filterMatchersMap = filterMatcherMap.getFilterMatchers();
+            
+            for (Map.Entry<MatcherKey, FilterMatcher> entry : filterMatchersMap.entrySet()) {
+            	registry.addFilterMatcher(entry.getKey(), entry.getValue());
+            }
         }
 
         return registry;
