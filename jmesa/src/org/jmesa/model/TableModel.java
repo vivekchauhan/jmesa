@@ -49,6 +49,7 @@ public class TableModel {
 
     public static final String CSV = "csv";
     public static final String EXCEL = "excel";
+    public static final String EXCEL_2007 = "excel2007";
     public static final String JEXCEL = "jexcel";
     public static final String PDF = "pdf";
     public static final String PDFP = "pdfp";
