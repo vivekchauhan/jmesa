@@ -17,54 +17,54 @@ package org.jmesa.view.excel;
 
 import java.util.Collection;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jmesa.view.AbstractExportView;
 import org.jmesa.view.component.Column;
 import org.jmesa.view.component.Row;
 import org.jmesa.view.component.Table;
+import org.springframework.util.StringUtils;
 
 /**
- * @since 2.1
- * @author jeff jie
+ * @since 4.0.3
+ * @author Jeff Johnston
  */
-public class ExcelView extends AbstractExportView {
+public class Excel2007View extends AbstractExportView {
 		
     @Override
     public Object render() {
 		
-        HSSFWorkbook workbook = new HSSFWorkbook();
+        XSSFWorkbook workbook = new XSSFWorkbook();
         Table table = this.getTable();
         String caption = table.getCaption();
-        if (StringUtils.isEmpty(caption)) {
+        if (!StringUtils.hasText(caption)) {
             caption = "JMesa Export";
         }
-        HSSFSheet sheet = workbook.createSheet(caption);
+        XSSFSheet sheet = workbook.createSheet(caption);
 
         Row row = table.getRow();
         row.getRowRenderer();
         List<Column> columns = table.getRow().getColumns();
 
         // renderer header
-        HSSFRow hssfRow = sheet.createRow(0);
+        XSSFRow hssfRow = sheet.createRow(0);
         int columncount = 0;
         for (Column col : columns) {
-            HSSFCell cell = hssfRow.createCell(columncount++);
-            cell.setCellValue(new HSSFRichTextString(col.getTitle()));
+            XSSFCell cell = hssfRow.createCell(columncount++);
+            cell.setCellValue(new XSSFRichTextString(col.getTitle()));
         }
 
         // renderer body
         Collection<?> items = getCoreContext().getPageItems();
         int rowcount = 1;
         for (Object item : items) {
-            HSSFRow r = sheet.createRow(rowcount++);
+            XSSFRow r = sheet.createRow(rowcount++);
             columncount = 0;
             for (Column col : columns) {
-                HSSFCell cell = r.createCell(columncount++);
+                XSSFCell cell = r.createCell(columncount++);
                 Object value = col.getCellRenderer().render(item, rowcount);
                 if (value == null) {
                     value = "";
@@ -74,7 +74,7 @@ public class ExcelView extends AbstractExportView {
                     Double number = Double.valueOf(value.toString());
                     cell.setCellValue(number);
                 } else {
-                    cell.setCellValue(new HSSFRichTextString(value.toString()));
+                    cell.setCellValue(new XSSFRichTextString(value.toString()));
                 }
             }
         }

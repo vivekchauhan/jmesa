@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang.StringUtils;
 import org.jmesa.core.CoreContext;
 import org.jmesa.core.CoreContextFactory;
 import org.jmesa.core.filter.FilterMatcher;
@@ -60,6 +59,8 @@ import org.jmesa.view.ViewExporter;
 import org.jmesa.view.component.Table;
 import org.jmesa.view.csv.CsvView;
 import org.jmesa.view.csv.CsvViewExporter;
+import org.jmesa.view.excel.Excel2007View;
+import org.jmesa.view.excel.Excel2007ViewExporter;
 import org.jmesa.view.excel.ExcelView;
 import org.jmesa.view.excel.ExcelViewExporter;
 import org.jmesa.view.html.HtmlConstants;
@@ -73,10 +74,7 @@ import org.jmesa.view.pdfp.PdfPView;
 import org.jmesa.view.pdfp.PdfPViewExporter;
 import org.jmesa.web.HttpServletRequestWebContext;
 import org.jmesa.web.WebContext;
-import org.jmesa.worksheet.UniqueProperty;
 import org.jmesa.worksheet.Worksheet;
-import org.jmesa.worksheet.WorksheetRow;
-import org.jmesa.worksheet.WorksheetRowStatus;
 import org.jmesa.worksheet.state.SessionWorksheetState;
 import org.jmesa.worksheet.state.WorksheetState;
 import org.slf4j.Logger;
@@ -747,6 +745,8 @@ public class TableFacade {
             exportView = new CsvView(",");
         } else if (exportType.equals(TableModel.EXCEL)) {
             exportView = new ExcelView();
+        } else if (exportType.equals(TableModel.EXCEL_2007)) {
+            exportView = new Excel2007View();
         } else if (exportType.equals(TableModel.JEXCEL)) {
             exportView = new JExcelView();
         } else if (exportType.equals(TableModel.PDF)) {
@@ -825,6 +825,8 @@ public class TableFacade {
                     ve = new CsvViewExporter();
                 } else if (exportType.equals(TableModel.EXCEL)) {
                     ve = new ExcelViewExporter();
+                } else if (exportType.equals(TableModel.EXCEL_2007)) {
+                    ve = new Excel2007ViewExporter();
                 } else if (exportType.equals(TableModel.JEXCEL)) {
                     ve = new JExcelViewExporter();
                 } else if (exportType.equals(TableModel.PDF)) {

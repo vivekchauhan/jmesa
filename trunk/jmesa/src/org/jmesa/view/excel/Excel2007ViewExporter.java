@@ -13,28 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jmesa.view;
+package org.jmesa.view.excel;
 
-import org.jmesa.view.component.Table;
-import org.jmesa.view.component.TableSupport;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jmesa.view.AbstractViewExporter;
 
-/**
- * @since 2.4.2
- * @author qxodream
- */
-public abstract class AbstractExportView extends AbstractContextSupport implements TableSupport, View {
-		
-    private Table table;
+public class Excel2007ViewExporter extends AbstractViewExporter {
 
     @Override
-    public Table getTable() {
-		
-        return table;
+    public void export()
+            throws Exception {
+
+        XSSFWorkbook workbook = (XSSFWorkbook) this.getView().render();
+        responseHeaders();
+        workbook.write(getHttpServletResponse().getOutputStream());
     }
 
     @Override
-    public void setTable(Table table) {
+    protected String getContextType() {
 		
-        this.table = table;
+        return "application/vnd.ms-excel;charset=UTF-8";
     }
+
+    @Override
+    protected String getExtensionName() {
+
+        return "xls";
+    }    
 }
