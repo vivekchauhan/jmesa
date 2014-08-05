@@ -24,6 +24,7 @@ import org.jmesa.view.AbstractViewExporter;
  */
 public class CsvViewExporter extends AbstractViewExporter {
 		
+    @Override
     public void export()
             throws Exception {
         
@@ -35,13 +36,15 @@ public class CsvViewExporter extends AbstractViewExporter {
         outputStream.flush();
     }
 
+    @Override
     protected String getContextType() {
 		
         return "text/csv";
     }
 
+    @Override
     protected String getExtensionName() {
 
-        return "txt";
+        return "csv";
     }
 }

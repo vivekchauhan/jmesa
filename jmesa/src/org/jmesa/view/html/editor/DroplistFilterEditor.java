@@ -43,6 +43,7 @@ public class DroplistFilterEditor extends AbstractFilterEditor {
         
     private Set<Option> options;
     
+    @Override
     public Object getValue() {
         
         HtmlBuilder html = new HtmlBuilder();

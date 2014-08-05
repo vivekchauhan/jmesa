@@ -47,6 +47,7 @@ public class NumberCellEditor extends AbstractPatternCellEditor {
     /**
      * Get the formatted number value based on the pattern set.
      */
+    @Override
     public Object getValue(Object item, String property, int rowcount) {
 		
         Object itemValue = null;

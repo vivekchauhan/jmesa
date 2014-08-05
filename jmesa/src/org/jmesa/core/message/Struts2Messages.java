@@ -35,11 +35,13 @@ public class Struts2Messages implements Messages {
         this.webContext = webContext;
     }
 
+    @Override
     public String getMessage(String code) {
 		
         return this.getMessage(code, null);
     }
 
+    @Override
     public String getMessage(String code, Object[] args) {
 		
         String message = LocalizedTextUtil.findDefaultText(code, webContext.getLocale(), args);

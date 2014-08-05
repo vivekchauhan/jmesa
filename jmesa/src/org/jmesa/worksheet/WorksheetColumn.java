@@ -139,11 +139,13 @@ public class WorksheetColumn implements Serializable {
     @Override
     public boolean equals(Object o) {
 		
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (!(o instanceof WorksheetColumn))
+        if (!(o instanceof WorksheetColumn)) {
             return false;
+        }
 
         WorksheetColumn that = (WorksheetColumn) o;
 

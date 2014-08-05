@@ -36,6 +36,7 @@ public class GroupCellEditor extends AbstractCellEditor {
         this.decoratedCellEditor = decoratedCellEditor;
     }
 
+    @Override
     public Object getValue(Object item, String property, int rowcount) {
 		
         this.currentRow = getColumn().getRow();

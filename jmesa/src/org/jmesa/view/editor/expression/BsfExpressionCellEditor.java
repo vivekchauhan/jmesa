@@ -58,6 +58,7 @@ public class BsfExpressionCellEditor extends AbstractCellEditor {
         this.template = template;
     }
 
+    @Override
     public Object getValue(Object item, String property, int rowcount) {
 		
         Object result = null;

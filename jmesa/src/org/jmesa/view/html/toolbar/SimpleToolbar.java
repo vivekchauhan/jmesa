@@ -28,6 +28,7 @@ import org.jmesa.view.html.HtmlConstants;
  */
 public class SimpleToolbar extends AbstractToolbar {
 		
+    @Override
     public String render() {
         
         HtmlBuilder html = new HtmlBuilder();

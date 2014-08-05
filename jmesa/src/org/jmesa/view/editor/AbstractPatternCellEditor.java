@@ -25,11 +25,13 @@ public abstract class AbstractPatternCellEditor extends AbstractCellEditor imple
 		
     private String pattern;
 
+    @Override
     public String getPattern() {
 		
         return pattern;
     }
 
+    @Override
     public void setPattern(String pattern) {
 		
         this.pattern = pattern;

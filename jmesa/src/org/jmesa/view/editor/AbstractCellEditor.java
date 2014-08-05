@@ -29,11 +29,13 @@ public abstract class AbstractCellEditor extends AbstractContextSupport implemen
 		
     private Column column;
 
+    @Override
     public Column getColumn() {
 		
         return column;
     }
 
+    @Override
     public void setColumn(Column column) {
 		
         this.column = column;

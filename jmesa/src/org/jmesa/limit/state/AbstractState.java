@@ -29,31 +29,37 @@ public abstract class AbstractState implements State, WebContextSupport, IdSuppo
     private String stateAttr;
     private WebContext webContext;
 
+    @Override
     public String getId() {
 		
         return id;
     }
 
+    @Override
     public void setId(String id) {
 		
         this.id = id;
     }
 
+    @Override
     public String getStateAttr() {
 		
         return stateAttr;
     }
 
+    @Override
     public void setStateAttr(String stateAttr) {
 		
         this.stateAttr = stateAttr;
     }
 
+    @Override
     public WebContext getWebContext() {
 		
         return webContext;
     }
 
+    @Override
     public void setWebContext(WebContext webContext) {
 		
         this.webContext = webContext;

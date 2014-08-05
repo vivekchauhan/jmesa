@@ -30,6 +30,7 @@ public class LastPageToolbarItem extends AbstractImageToolbarItem {
         super(coreContext);
     }
 
+    @Override
     public String render() {
 		
         Limit limit = getCoreContext().getLimit();

@@ -32,6 +32,7 @@ public class SessionState extends AbstractState {
 		
     private Logger logger = LoggerFactory.getLogger(SessionState.class);
     
+    @Override
     public Limit retrieveLimit() {
 		
         String stateAttrValue = getWebContext().getParameter(getStateAttr());
@@ -53,6 +54,7 @@ public class SessionState extends AbstractState {
         return null;
     }
 
+    @Override
     public void persistLimit(Limit limit) {
 		
         if (logger.isDebugEnabled()) {

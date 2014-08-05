@@ -30,6 +30,7 @@ public class ParametersAdapter implements Parameters {
         this.parameters = parameters;
     }
 
+    @Override
     public void addParameter(String parameter, Object value) {
 		
         parameters.put(parameter, value);

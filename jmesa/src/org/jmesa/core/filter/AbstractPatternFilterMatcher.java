@@ -30,21 +30,25 @@ public abstract class AbstractPatternFilterMatcher implements FilterMatcher, Pat
     private String pattern;
     private WebContext webContext;
 
+    @Override
     public String getPattern() {
 		
         return pattern;
     }
 
+    @Override
     public void setPattern(String pattern) {
 		
         this.pattern = pattern;
     }
 
+    @Override
     public WebContext getWebContext() {
 		
         return webContext;
     }
 
+    @Override
     public void setWebContext(WebContext webContext) {
 		
         this.webContext = webContext;

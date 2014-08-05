@@ -60,6 +60,7 @@ public class SeparatorToolbarItem implements ToolbarItem {
         this.style = style;
     }
     
+    @Override
     public String render() {
 
         HtmlBuilder html = new HtmlBuilder();

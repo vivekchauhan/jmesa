@@ -48,6 +48,7 @@ public class NumberFilterMatcher extends AbstractPatternFilterMatcher {
         setWebContext(webContext);
     }
 
+    @Override
     public boolean evaluate(Object itemValue, String filterValue) {
 		
         if (itemValue == null) {

@@ -59,11 +59,13 @@ public class ResourceBundleMessages implements Messages {
         return ResourceBundle.getBundle(messagesLocation, locale, getClass().getClassLoader());
     }
 
+    @Override
     public String getMessage(String code) {
 		
         return getMessage(code, null);
     }
 
+    @Override
     public String getMessage(String code, Object[] args) {
 		
         String result = findResource(customResourceBundle, code);

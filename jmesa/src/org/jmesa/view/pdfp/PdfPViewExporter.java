@@ -29,6 +29,7 @@ import com.lowagie.text.pdf.PdfWriter;
  */
 public class PdfPViewExporter extends AbstractViewExporter {
 		
+    @Override
     public void export() throws Exception {
 		
         com.lowagie.text.Document document = new com.lowagie.text.Document();
@@ -47,11 +48,13 @@ public class PdfPViewExporter extends AbstractViewExporter {
         out.flush();
     }
 
+    @Override
     protected String getContextType() {
 		
         return "application/pdf";
     }
 
+    @Override
     protected String getExtensionName() {
 
         return "pdf";

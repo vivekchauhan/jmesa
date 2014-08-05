@@ -67,6 +67,7 @@ public class MaxRowsToolbarItem extends AbstractToolbarItem {
         super(coreContext);
     }
 
+    @Override
     public String render() {
 		
         if (getIncrements().length == 0) {

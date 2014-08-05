@@ -46,41 +46,49 @@ public abstract class AbstractViewExporter implements ViewExporter, CoreContextS
         response.setDateHeader("Expires", (System.currentTimeMillis() + 1000));
     }
 
+    @Override
     public View getView() {
 		
         return view;
     }
 
+    @Override
     public void setView(View view) {
 		
         this.view = view;
     }
 
+    @Override
     public String getFileName() {
 
         return fileName;
     }
 
+    @Override
     public void setFileName(String fileName) {
 
         this.fileName = fileName;
     }
 
+    @Override
     public CoreContext getCoreContext() {
 
         return coreContext;
     }
 
+    @Override
     public void setCoreContext(CoreContext coreContext) {
 
         this.coreContext = coreContext;
     }
 
+    @Override
     public HttpServletResponse getHttpServletResponse() {
 		
         return response;
     }
 
+    @Override
     public void setHttpServletResponse(HttpServletResponse response) {
 
         this.response = response;

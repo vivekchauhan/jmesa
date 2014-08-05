@@ -42,6 +42,7 @@ public class HtmlRowRendererTest extends AbstractTestCase {
         row.setCoreContext(coreContext);
 
         row.setOnclick(new AbstractRowEvent() {
+            @Override
             public String execute(Object item, int rowcount) {		
                 President president = (President) item;
                 Integer id = president.getId();

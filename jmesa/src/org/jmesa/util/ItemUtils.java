@@ -102,7 +102,7 @@ public class ItemUtils {
             }
         }
 
-        Class<?> type = null;
+        Class<?> type;
         try {
             type = PropertyUtils.getPropertyType(item, property);
         } catch (Exception e) {

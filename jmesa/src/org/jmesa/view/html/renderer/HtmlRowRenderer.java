@@ -114,6 +114,7 @@ public class HtmlRowRenderer extends AbstractRowRenderer {
         return html.toString();
     }
 
+    @Override
     public Object render(Object item, int rowcount) {
 		
         HtmlBuilder html = new HtmlBuilder();

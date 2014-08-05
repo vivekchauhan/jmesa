@@ -40,19 +40,14 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
         ignoreCases = true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean evaluate(Object itemValue, String filterValue) {
         
         if (filterValue == null) {
             return false;
         }
 		
-        String itemValueString = String.valueOf(itemValue);
-
         if (ignoreCases) {
-            itemValueString = itemValueString.toLowerCase();
             filterValue = filterValue.toLowerCase();
         }
 
@@ -103,7 +98,7 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
         if (filterString.contains(ASTERISK)) {
             int i = 0; 
             int index = filterString.indexOf(ASTERISK, i);
-            String subStr = null;
+            String subStr;
             while (index > -1) {
                 subStr = filterString.substring(i, index);
                 
@@ -140,7 +135,7 @@ public class StringWildCardFilterMatcher implements FilterMatcher {
         if (filterString.contains(QUESTION_MARK)) {
             int i = 0; 
             int index = filterString.indexOf(QUESTION_MARK, i);
-            String subStr = null;
+            String subStr;
             while (index > -1) {
                 index = filterString.indexOf(QUESTION_MARK, i);
                 subStr = filterString.substring(i, index);

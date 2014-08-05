@@ -27,11 +27,13 @@ public abstract class AbstractCellRenderer extends AbstractContextSupport implem
 		
     private Column column;
 
+    @Override
     public Column getColumn() {
 		
         return column;
     }
 
+    @Override
     public void setColumn(Column column) {
 		
         this.column = column;

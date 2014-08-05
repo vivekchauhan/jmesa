@@ -63,41 +63,49 @@ public class PortletRequestWebContext implements WebContext {
         this.sessionScope = sessionScope;
     }
 
+    @Override
     public Object getApplicationAttribute(String name) {
 		
         return this.getPortletContext().getAttribute(name);
     }
 
+    @Override
     public String getApplicationInitParameter(String name) {
 		
         return this.getPortletContext().getInitParameter(name);
     }
 
+    @Override
     public void removeApplicationAttribute(String name) {
 		
         this.getPortletContext().removeAttribute(name);
     }
 
+    @Override
     public void setApplicationAttribute(String name, Object value) {
 		
         this.getPortletContext().setAttribute(name, value);
     }
 
+    @Override
     public Object getPageAttribute(String name) {
 		
         return getBackingObject().getAttribute(name);
     }
 
+    @Override
     public void setPageAttribute(String name, Object value) {
 		
         getBackingObject().setAttribute(name, value);
     }
 
+    @Override
     public void removePageAttribute(String name) {
 		
         getBackingObject().removeAttribute(name);
     }
 
+    @Override
     public String getParameter(String name) {
 		
         if (parameterMap != null) {
@@ -110,6 +118,7 @@ public class PortletRequestWebContext implements WebContext {
         return getBackingObject().getParameter(name);
     }
 
+    @Override
     public Map<?, ?> getParameterMap() {
 		
         if (parameterMap != null) {
@@ -119,46 +128,55 @@ public class PortletRequestWebContext implements WebContext {
         return getBackingObject().getParameterMap();
     }
 
+    @Override
     public void setParameterMap(Map<?, ?> parameterMap) {
 		
         this.parameterMap = parameterMap;
     }
 
+    @Override
     public Object getRequestAttribute(String name) {
 		
         return getBackingObject().getAttribute(name);
     }
 
+    @Override
     public void setRequestAttribute(String name, Object value) {
 		
         getBackingObject().setAttribute(name, value);
     }
 
+    @Override
     public void removeRequestAttribute(String name) {
 		
         getBackingObject().removeAttribute(name);
     }
 
+    @Override
     public Object getSessionAttribute(String name) {
 		
         return getBackingObject().getPortletSession().getAttribute(name, sessionScope);
     }
 
+    @Override
     public void setSessionAttribute(String name, Object value) {
 		
         getBackingObject().getPortletSession().setAttribute(name, value, sessionScope);
     }
 
+    @Override
     public void removeSessionAttribute(String name) {
 		
         getBackingObject().getPortletSession().removeAttribute(name, sessionScope);
     }
 
+    @Override
     public Writer getWriter() {
 		
         return new StringWriter();
     }
 
+    @Override
     public Locale getLocale() {
 		
         if (locale != null) {
@@ -168,6 +186,7 @@ public class PortletRequestWebContext implements WebContext {
         return getBackingObject().getLocale();
     }
 
+    @Override
     public void setLocale(Locale locale) {
 		
         if (this.locale == null) {
@@ -175,11 +194,13 @@ public class PortletRequestWebContext implements WebContext {
         }
     }
 
+    @Override
     public String getContextPath() {
 		
         return getBackingObject().getContextPath();
     }
 
+    @Override
     public String getRealPath(String path) {
 		
         return getPortletContext().getRealPath(path);
@@ -190,6 +211,7 @@ public class PortletRequestWebContext implements WebContext {
         return context;
     }
 
+    @Override
     public PortletRequest getBackingObject() {
 		
         return request;

@@ -16,6 +16,7 @@
 package org.jmesa.view.csv;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jmesa.view.AbstractExportView;
@@ -42,27 +43,53 @@ public class CsvView extends AbstractExportView {
         return delimiter;
     }
 
+    @Override
     public Object render() {
 		
-        StringBuilder data = new StringBuilder();
+        StringBuilder results = new StringBuilder();
 
         List<Column> columns = getTable().getRow().getColumns();
-
+        
+        Iterator<Column> headerIterator = columns.iterator();
+        while (headerIterator.hasNext()) {
+            Column column = headerIterator.next();
+            String title = column.getTitle();
+            results.append("\"").append(escapeValue(title)).append("\"");
+            
+            if (headerIterator.hasNext()) {
+                results.append(getDelimiter());                
+            }
+        }
+        results.append("\r\n");
+        
         int rowcount = 0;
-        Collection<?> items = getCoreContext().getPageItems();
-        for (Object item : items) {
+        for (Object item : getCoreContext().getPageItems()) {
             rowcount++;
 
-            for (Column column : columns) {
+            Iterator<Column> bodyIterator = columns.iterator();
+            while (bodyIterator.hasNext()) {
+                Column column = bodyIterator.next();
                 CellRenderer cellRenderer = column.getCellRenderer();
                 Object value = cellRenderer.render(item, rowcount);
-                data.append("\"").append(value).append("\"");
-                data.append(getDelimiter());
+                results.append("\"").append(escapeValue(value)).append("\"");
+                
+                if (bodyIterator.hasNext()) {
+                    results.append(getDelimiter());                    
+                }
             }
-
-            data.append("\r\n");
+            results.append("\r\n");
         }
 
-        return data.toString();
+        return results.toString();
+    }
+    
+    String escapeValue(Object value) {
+        
+        if (value == null) {
+            return "";
+        }
+        
+        String stringval = String.valueOf(value);
+        return stringval.replaceAll("\"", "\"\"");
     }
 }

@@ -31,6 +31,7 @@ public class HtmlFilterRenderer extends AbstractFilterRenderer {
         return (HtmlColumn) super.getColumn();
     }
 
+    @Override
     public Object render() {
 		
         HtmlBuilder html = new HtmlBuilder();

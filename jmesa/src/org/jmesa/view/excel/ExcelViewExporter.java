@@ -24,6 +24,7 @@ import org.jmesa.view.AbstractViewExporter;
  */
 public class ExcelViewExporter extends AbstractViewExporter {
 		
+    @Override
     public void export()
             throws Exception {
 
@@ -32,11 +33,13 @@ public class ExcelViewExporter extends AbstractViewExporter {
         workbook.write(getHttpServletResponse().getOutputStream());
     }
 
+    @Override
     protected String getContextType() {
 		
         return "application/vnd.ms-excel;charset=UTF-8";
     }
 
+    @Override
     protected String getExtensionName() {
 
         return "xls";

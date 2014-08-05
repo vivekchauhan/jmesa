@@ -51,41 +51,49 @@ public class HttpServletRequestWebContext implements WebContext {
         return request;
     }
 
+    @Override
     public Object getApplicationInitParameter(String name) {
 		
         return ctx.getInitParameter(name);
     }
 
+    @Override
     public Object getApplicationAttribute(String name) {
 		
         return ctx.getAttribute(name);
     }
 
+    @Override
     public void setApplicationAttribute(String name, Object value) {
 		
         ctx.setAttribute(name, value);
     }
 
+    @Override
     public void removeApplicationAttribute(String name) {
 		
         ctx.removeAttribute(name);
     }
 
+    @Override
     public Object getPageAttribute(String name) {
 		
         return request.getAttribute(name);
     }
 
+    @Override
     public void setPageAttribute(String name, Object value) {
 		
         request.setAttribute(name, value);
     }
 
+    @Override
     public void removePageAttribute(String name) {
 		
         request.removeAttribute(name);
     }
 
+    @Override
     public String getParameter(String name) {
 		
         if (parameterMap != null) {
@@ -98,6 +106,7 @@ public class HttpServletRequestWebContext implements WebContext {
         return request.getParameter(name);
     }
 
+    @Override
     public Map<?,?> getParameterMap() {
 		
         if (parameterMap != null) {
@@ -107,46 +116,55 @@ public class HttpServletRequestWebContext implements WebContext {
         return request.getParameterMap();
     }
 
+    @Override
     public void setParameterMap(Map<?,?> parameterMap) {
 		
         this.parameterMap = parameterMap;
     }
 
+    @Override
     public Object getRequestAttribute(String name) {
 		
         return request.getAttribute(name);
     }
 
+    @Override
     public void setRequestAttribute(String name, Object value) {
 		
         request.setAttribute(name, value);
     }
 
+    @Override
     public void removeRequestAttribute(String name) {
 		
         request.removeAttribute(name);
     }
 
+    @Override
     public Object getSessionAttribute(String name) {
 		
         return request.getSession().getAttribute(name);
     }
 
+    @Override
     public void setSessionAttribute(String name, Object value) {
 		
         request.getSession().setAttribute(name, value);
     }
 
+    @Override
     public void removeSessionAttribute(String name) {
 		
         request.getSession().removeAttribute(name);
     }
 
+    @Override
     public Writer getWriter() {
 		
         return new StringWriter();
     }
 
+    @Override
     public Locale getLocale() {
 		
         if (locale != null) {
@@ -156,6 +174,7 @@ public class HttpServletRequestWebContext implements WebContext {
         return request.getLocale();
     }
 
+    @Override
     public void setLocale(Locale locale) {
 		
         if (this.locale == null) {
@@ -163,16 +182,19 @@ public class HttpServletRequestWebContext implements WebContext {
         }
     }
 
+    @Override
     public String getContextPath() {
 		
         return request.getContextPath();
     }
 
+    @Override
     public String getRealPath(String path) {
 		
         return ctx.getRealPath(path);
     }
     
+    @Override
     public HttpServletRequest getBackingObject() {
 		
         return request;

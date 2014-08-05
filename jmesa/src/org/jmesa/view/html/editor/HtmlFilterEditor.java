@@ -35,6 +35,7 @@ public class HtmlFilterEditor extends AbstractFilterEditor {
         return (HtmlColumn) super.getColumn();
     }
 
+    @Override
     public Object getValue() {
 		
         HtmlBuilder html = new HtmlBuilder();

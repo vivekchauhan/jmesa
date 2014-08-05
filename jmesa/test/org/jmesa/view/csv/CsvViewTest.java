@@ -17,6 +17,7 @@ package org.jmesa.view.csv;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -84,7 +85,7 @@ public class CsvViewTest extends AbstractTestCase {
 
     private Map<?, ?> getParameters() {
 		
-        HashMap<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results = new HashMap<String, Object>();
         ParametersAdapter parametersAdapter = new ParametersAdapter(results);
         createBuilder(parametersAdapter);
         return results;
@@ -94,5 +95,17 @@ public class CsvViewTest extends AbstractTestCase {
 		
         ParametersBuilder builder = new ParametersBuilder(ID, parameters);
         builder.setExportType(TableModel.CSV);
+    }
+    
+    @Test
+    public void testEscapeValue() {
+        
+        String value = "I have a \"quote\"";
+        
+        CsvView csvView = new CsvView();
+        
+        String result = csvView.escapeValue(value);
+        
+        assertTrue(result.equals("I have a \"\"quote\"\""));
     }
 }

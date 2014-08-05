@@ -37,6 +37,7 @@ public class PortletRequestSpringWebContext extends PortletRequestWebContext imp
         super(request, context, sessionScope);
     }
 
+    @Override
     public ApplicationContext getApplicationContext() {
 		
         return PortletApplicationContextUtils.getWebApplicationContext(getPortletContext());

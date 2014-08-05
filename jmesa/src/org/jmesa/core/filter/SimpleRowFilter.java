@@ -38,6 +38,7 @@ public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport 
 
     private FilterMatcherRegistry registry;
 
+    @Override
     public Collection<?> filterItems(Collection<?> items, Limit limit) {
 		
         FilterSet filterSet = limit.getFilterSet();
@@ -83,11 +84,13 @@ public class SimpleRowFilter implements RowFilter, FilterMatcherRegistrySupport 
         return new FilterPredicate(filterMatchers, filterSet);
     }
 
+    @Override
     public FilterMatcherRegistry getFilterMatcherRegistry() {
 		
         return registry;
     }
 
+    @Override
     public void setFilterMatcherRegistry(FilterMatcherRegistry registry) {
 		
         this.registry = registry;

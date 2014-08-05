@@ -33,6 +33,7 @@ public class PageNumberToolbarItem extends AbstractToolbarItem {
         this.page = page;
     }
 
+    @Override
     public String render() {
 		
         Limit limit = getCoreContext().getLimit();
