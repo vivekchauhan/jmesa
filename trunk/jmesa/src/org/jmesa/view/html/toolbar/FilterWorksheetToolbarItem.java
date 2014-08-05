@@ -30,6 +30,7 @@ public class FilterWorksheetToolbarItem extends AbstractTextToolbarItem {
         super(coreContext);
     }
 
+    @Override
     public String render() {
 		
         Worksheet worksheet = getCoreContext().getWorksheet();

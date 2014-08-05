@@ -52,11 +52,13 @@ public class UniqueProperty implements Serializable {
     @Override
     public boolean equals(Object o) {
 		
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (!(o instanceof UniqueProperty))
+        if (!(o instanceof UniqueProperty)) {
             return false;
+        }
 
         UniqueProperty that = (UniqueProperty) o;
 

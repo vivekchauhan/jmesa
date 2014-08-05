@@ -41,111 +41,133 @@ public class WebContextWrapper implements WebContext {
         return webContext;
     }
 
+    @Override
     public Object getApplicationAttribute(String name) {
 		
         return getWebContext().getApplicationAttribute(name);
     }
 
+    @Override
     public Object getApplicationInitParameter(String name) {
 		
         return getWebContext().getApplicationInitParameter(name);
     }
 
+    @Override
     public Object getBackingObject() {
 		
         return getWebContext().getBackingObject();
     }
 
+    @Override
     public String getContextPath() {
 		
         return getWebContext().getContextPath();
     }
 
+    @Override
     public Locale getLocale() {
 		
         return getWebContext().getLocale();
     }
 
+    @Override
     public Object getPageAttribute(String name) {
 		
         return getWebContext().getPageAttribute(name);
     }
 
+    @Override
     public String getParameter(String name) {
 		
         return getWebContext().getParameter(name);
     }
 
+    @Override
     public Map<?, ?> getParameterMap() {
 		
         return getWebContext().getParameterMap();
     }
 
+    @Override
     public String getRealPath(String path) {
 		
         return getWebContext().getRealPath(path);
     }
 
+    @Override
     public Object getRequestAttribute(String name) {
 		
         return getWebContext().getRequestAttribute(name);
     }
 
+    @Override
     public Object getSessionAttribute(String name) {
 		
         return getWebContext().getSessionAttribute(name);
     }
 
+    @Override
     public Writer getWriter() {
 		
         return getWebContext().getWriter();
     }
 
+    @Override
     public void removeApplicationAttribute(String name) {
 		
         getWebContext().removeApplicationAttribute(name);
     }
 
+    @Override
     public void removePageAttribute(String name) {
 		
         getWebContext().removePageAttribute(name);
     }
 
+    @Override
     public void removeRequestAttribute(String name) {
 		
         getWebContext().removeRequestAttribute(name);
     }
 
+    @Override
     public void removeSessionAttribute(String name) {
 		
         getWebContext().removeSessionAttribute(name);
     }
 
+    @Override
     public void setApplicationAttribute(String name, Object value) {
 		
         getWebContext().setApplicationAttribute(name, value);
     }
 
+    @Override
     public void setLocale(Locale locale) {
 		
         getWebContext().setLocale(locale);
     }
 
+    @Override
     public void setPageAttribute(String name, Object value) {
 		
         getWebContext().setPageAttribute(name, value);
     }
 
+    @Override
     public void setParameterMap(Map<?, ?> parameterMap) {
 		
         getWebContext().setParameterMap(parameterMap);
     }
 
+    @Override
     public void setRequestAttribute(String name, Object value) {
 		
         getWebContext().setRequestAttribute(name, value);
     }
 
+    @Override
     public void setSessionAttribute(String name, Object value) {
 		
         getWebContext().setSessionAttribute(name, value);

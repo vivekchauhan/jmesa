@@ -43,46 +43,55 @@ public class JspPageWebContext implements WebContext {
         return pageContext;
     }
 
+    @Override
     public Object getApplicationInitParameter(String name) {
 		
         return pageContext.getServletContext().getInitParameter(name);
     }
 
+    @Override
     public Object getApplicationAttribute(String name) {
 		
         return pageContext.getServletContext().getAttribute(name);
     }
 
+    @Override
     public void setApplicationAttribute(String name, Object value) {
 		
         pageContext.getServletContext().setAttribute(name, value);
     }
 
+    @Override
     public void removeApplicationAttribute(String name) {
 		
         pageContext.getServletContext().removeAttribute(name);
     }
 
+    @Override
     public Object getPageAttribute(String name) {
 		
         return pageContext.getAttribute(name);
     }
 
+    @Override
     public void setPageAttribute(String name, Object value) {
 		
         pageContext.setAttribute(name, value);
     }
 
+    @Override
     public void removePageAttribute(String name) {
 		
         pageContext.removeAttribute(name);
     }
 
+    @Override
     public String getParameter(String name) {
 		
         return pageContext.getRequest().getParameter(name);
     }
 
+    @Override
     public Map<?, ?> getParameterMap() {
 		
         if (parameterMap != null) {
@@ -92,46 +101,55 @@ public class JspPageWebContext implements WebContext {
         return pageContext.getRequest().getParameterMap();
     }
 
+    @Override
     public void setParameterMap(Map<?, ?> parameterMap) {
 		
         this.parameterMap = parameterMap;
     }
 
+    @Override
     public Object getRequestAttribute(String name) {
 		
         return pageContext.getRequest().getAttribute(name);
     }
 
+    @Override
     public void setRequestAttribute(String name, Object value) {
 		
         pageContext.getRequest().setAttribute(name, value);
     }
 
+    @Override
     public void removeRequestAttribute(String name) {
 		
         pageContext.getRequest().removeAttribute(name);
     }
 
+    @Override
     public Object getSessionAttribute(String name) {
 		
         return pageContext.getSession().getAttribute(name);
     }
 
+    @Override
     public void setSessionAttribute(String name, Object value) {
 		
         pageContext.getSession().setAttribute(name, value);
     }
 
+    @Override
     public void removeSessionAttribute(String name) {
 		
         pageContext.getSession().removeAttribute(name);
     }
 
+    @Override
     public Writer getWriter() {
 		
         return pageContext.getOut();
     }
 
+    @Override
     public Locale getLocale() {
 		
         if (locale != null) {
@@ -141,6 +159,7 @@ public class JspPageWebContext implements WebContext {
         return pageContext.getRequest().getLocale();
     }
 
+    @Override
     public void setLocale(Locale locale) {
 		
         if (this.locale == null) {
@@ -148,6 +167,7 @@ public class JspPageWebContext implements WebContext {
         }
     }
 
+    @Override
     public String getContextPath() {
 		
         ServletRequest request = pageContext.getRequest();
@@ -158,6 +178,7 @@ public class JspPageWebContext implements WebContext {
         throw new UnsupportedOperationException("There is no context path associated with the request.");
     }
 
+    @Override
     public String getRealPath(String path) {
 		
         if (pageContext.getRequest() instanceof HttpServletRequest) {
@@ -167,6 +188,7 @@ public class JspPageWebContext implements WebContext {
         throw new UnsupportedOperationException("There is no real path associated with the request.");
     }
 
+    @Override
     public PageContext getBackingObject() {
 		
         return pageContext;

@@ -30,6 +30,7 @@ public class HttpServletRequestSpringWebContext extends HttpServletRequestWebCon
         super(request);
     }
 
+    @Override
     public ApplicationContext getApplicationContext() {
 		
         return WebApplicationContextUtils.getWebApplicationContext(getHttpServletRequest().getSession().getServletContext());

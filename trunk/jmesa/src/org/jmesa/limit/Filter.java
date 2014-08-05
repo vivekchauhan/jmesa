@@ -89,11 +89,13 @@ public final class Filter implements Serializable {
     @Override
     public boolean equals(Object o) {
 		
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (!(o instanceof Filter))
+        if (!(o instanceof Filter)) {
             return false;
+        }
 
         Filter that = (Filter) o;
 

@@ -39,6 +39,7 @@ public class HtmlHeaderEditor extends AbstractHeaderEditor {
         return (HtmlColumn) super.getColumn();
     }
 
+    @Override
     public Object getValue() {
 		
         HtmlBuilder html = new HtmlBuilder();

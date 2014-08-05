@@ -26,11 +26,13 @@ public abstract class AbstractRowRenderer extends AbstractContextSupport impleme
 		
     private Row row;
 
+    @Override
     public Row getRow() {
 		
         return row;
     }
 
+    @Override
     public void setRow(Row row) {
 		
         this.row = row;

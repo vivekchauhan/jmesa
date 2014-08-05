@@ -36,21 +36,25 @@ public abstract class AbstractHtmlView extends AbstractContextSupport implements
     private Toolbar toolbar;
     private HtmlSnippets snippets;
 
+    @Override
     public HtmlTable getTable() {
 		
         return table;
     }
 
+    @Override
     public void setTable(Table table) {
 		
         this.table = (HtmlTable) table;
     }
 
+    @Override
     public Toolbar getToolbar() {
 		
         return toolbar;
     }
 
+    @Override
     public void setToolbar(Toolbar toolbar) {
 		
         this.toolbar = toolbar;

@@ -27,6 +27,7 @@ import org.jmesa.util.ItemUtils;
  */
 public class HtmlCellEditor extends AbstractCellEditor {
 		
+    @Override
     public Object getValue(Object item, String property, int rowcount) {
 		
         Object itemValue = ItemUtils.getItemValue(item, property);

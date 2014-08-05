@@ -18,7 +18,6 @@ package org.jmesa.view.html;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.jmesa.test.AbstractTestCase;
-import org.jmesa.view.editor.CellEditor;
 import org.jmesa.view.html.component.HtmlColumn;
 import org.junit.Test;
 
@@ -35,14 +34,5 @@ public class HtmlComponentFactoryTest extends AbstractTestCase {
         column.setTitle("checkbox");
         assertNotNull(column);
         assertTrue(column.getTitle().equals("checkbox"));
-    }
-
-    private static class TestEditor implements CellEditor {
-		
-        public Object getValue(Object item, String property, int rowcount) {
-		
-            HtmlBuilder html = new HtmlBuilder();
-            return html.toString();
-        }
     }
 }

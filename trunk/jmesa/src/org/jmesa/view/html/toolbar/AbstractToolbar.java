@@ -32,31 +32,37 @@ public abstract class AbstractToolbar extends AbstractContextSupport implements 
     protected boolean enableSeparators = true;
     protected boolean enablePageNumbers = false;
 
+    @Override
     public Table getTable() {
 		
         return table;
     }
 
+    @Override
     public void setTable(Table table) {
 		
         this.table = table;
     }
 
+    @Override
     public String[] getExportTypes() {
 		
         return exportTypes;
     }
 
+    @Override
     public void setExportTypes(String... exportTypes) {
 		
         this.exportTypes = exportTypes; 
     }
 
+    @Override
     public int[] getMaxRowsIncrements() {
 		
         return maxRowsIncrements;
     }
 
+    @Override
     public void setMaxRowsIncrements(int[] maxRowsIncrements) {
 		
         this.maxRowsIncrements = maxRowsIncrements;

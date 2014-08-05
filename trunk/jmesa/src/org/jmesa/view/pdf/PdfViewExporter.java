@@ -42,6 +42,7 @@ public class PdfViewExporter extends AbstractViewExporter implements HttpServlet
     
     private HttpServletRequest request;
 
+    @Override
     public void export() throws Exception {
 		
         String string = (String) getView().render();
@@ -97,21 +98,25 @@ public class PdfViewExporter extends AbstractViewExporter implements HttpServlet
         return null;
     }
 
+    @Override
     public HttpServletRequest getHttpServletRequest() {
 
         return request;
     }
 
+    @Override
     public void setHttpServletRequest(HttpServletRequest request) {
 
         this.request = request;
     }
 
+    @Override
     protected String getContextType() {
 		
         return "application/pdf";
     }
 
+    @Override
     protected String getExtensionName() {
 
         return "pdf";

@@ -45,6 +45,7 @@ public class SpringMessages implements Messages {
     /**
      * Try to get the messages from Spring first or else retrieve from the default messages.
      */
+    @Override
     public String getMessage(String code) {
 		
         return getMessage(code, null);
@@ -53,6 +54,7 @@ public class SpringMessages implements Messages {
     /**
      * Try to get the messages from Spring first or else retrieve from the default messages.
      */
+    @Override
     public String getMessage(String code, Object[] args) {
 		
         if (messageSource == null) {
@@ -60,7 +62,7 @@ public class SpringMessages implements Messages {
             return defaultMessages.getMessage(code, args);
         }
 
-        String message = null;
+        String message;
 
         try {
             message = messageSource.getMessage(code, args, springWebContext.getLocale());

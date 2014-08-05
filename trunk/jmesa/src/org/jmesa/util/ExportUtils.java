@@ -39,7 +39,7 @@ public class ExportUtils {
         String caption = view.getTable().getCaption();
         if (StringUtils.isNotBlank(caption)) {
             StringUtils.replace(caption, " ", "_");
-            return caption.toLowerCase() + ".";
+            return caption.toLowerCase();
         } 
         
         return "table-data";

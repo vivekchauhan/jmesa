@@ -29,21 +29,25 @@ public abstract class AbstractContextSupport implements ContextSupport {
     private CoreContext coreContext;
     private WebContext webContext;
 
+    @Override
     public CoreContext getCoreContext() {
 		
         return coreContext;
     }
 
+    @Override
     public void setCoreContext(CoreContext coreContext) {
 		
         this.coreContext = coreContext;
     }
 
+    @Override
     public WebContext getWebContext() {
 		
         return webContext;
     }
 
+    @Override
     public void setWebContext(WebContext webContext) {
 		
         this.webContext = webContext;

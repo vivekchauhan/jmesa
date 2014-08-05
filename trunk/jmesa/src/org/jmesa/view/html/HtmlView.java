@@ -23,6 +23,7 @@ package org.jmesa.view.html;
  */
 public class HtmlView extends AbstractHtmlView {
 		
+    @Override
     public Object render() {
 		
         HtmlSnippets snippets = getHtmlSnippets();

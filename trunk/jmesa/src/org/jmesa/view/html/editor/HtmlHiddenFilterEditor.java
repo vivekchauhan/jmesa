@@ -24,6 +24,7 @@ package org.jmesa.view.html.editor;
  */
 public class HtmlHiddenFilterEditor extends HtmlFilterEditor {
 		
+    @Override
     public Object getValue() {
 		
         return null;

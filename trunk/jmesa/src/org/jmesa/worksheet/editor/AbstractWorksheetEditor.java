@@ -38,6 +38,7 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
     /**
      * @return The wrapped CellEditor.
      */
+    @Override
     public CellEditor getCellEditor() {
 		
         return cellEditor;
@@ -46,11 +47,13 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
     /**
      * @param cellEditor The CellEditor to wrap.
      */
+    @Override
     public void setCellEditor(CellEditor cellEditor) {
 		
         this.cellEditor = cellEditor;
     }
     
+    @Override
     public Object getValueForWorksheet(Object item, String property, int rowcount) {
 		
     	return getCellEditor().getValue(item, property, rowcount);
@@ -91,8 +94,8 @@ public abstract class AbstractWorksheetEditor extends AbstractCellEditor impleme
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("var " + UNIQUE_PROPERTY + " = {};");
-        sb.append(UNIQUE_PROPERTY + "['" + uniqueProperty.getName() + "']='" + uniqueProperty.getValue() + "';");
+        sb.append("var ").append(UNIQUE_PROPERTY).append(" = {};");
+        sb.append(UNIQUE_PROPERTY).append("['").append(uniqueProperty.getName()).append("']='").append(uniqueProperty.getValue()).append("';");
         return sb.toString();
     }
 

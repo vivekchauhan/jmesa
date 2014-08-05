@@ -38,6 +38,6 @@ public class Excel2007ViewExporter extends AbstractViewExporter {
     @Override
     protected String getExtensionName() {
 
-        return "xls";
+        return "xlsx";
     }    
 }

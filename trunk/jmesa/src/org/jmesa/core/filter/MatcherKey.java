@@ -81,11 +81,13 @@ public class MatcherKey {
     @Override
     public boolean equals(Object o) {
 		
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (!(o instanceof MatcherKey))
+        if (!(o instanceof MatcherKey)) {
             return false;
+        }
 
         MatcherKey that = (MatcherKey) o;
 

@@ -32,6 +32,7 @@ public class HtmlHeaderRenderer extends AbstractHeaderRenderer {
         return (HtmlColumn) super.getColumn();
     }
 
+    @Override
     public Object render() {
 		
         HtmlBuilder html = new HtmlBuilder();

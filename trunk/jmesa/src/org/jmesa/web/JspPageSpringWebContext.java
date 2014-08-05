@@ -30,6 +30,7 @@ public class JspPageSpringWebContext extends JspPageWebContext implements Spring
         super(pageContext);
     }
 
+    @Override
     public ApplicationContext getApplicationContext() {
 		
         return WebApplicationContextUtils.getWebApplicationContext(getPageContext().getServletContext());

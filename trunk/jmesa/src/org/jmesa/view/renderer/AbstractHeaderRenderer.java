@@ -27,11 +27,13 @@ public abstract class AbstractHeaderRenderer extends AbstractContextSupport impl
 		
     private Column column;
 
+    @Override
     public Column getColumn() {
 		
         return column;
     }
 
+    @Override
     public void setColumn(Column column) {
 		
         this.column = column;

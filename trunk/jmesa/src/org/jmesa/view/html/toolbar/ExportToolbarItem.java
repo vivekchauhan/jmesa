@@ -60,11 +60,13 @@ public class ExportToolbarItem extends AbstractImageToolbarItem {
         this.exportType = exportType;
     }
 
+    @Override
     public String getTooltip() {
 		
         return tooltip;
     }
 
+    @Override
     public void setTooltip(String tooltip) {
 		
         this.tooltip = tooltip;
@@ -80,6 +82,7 @@ public class ExportToolbarItem extends AbstractImageToolbarItem {
         this.action = action;
     }
 
+    @Override
     public String render() {
 		
         Limit limit = getCoreContext().getLimit();

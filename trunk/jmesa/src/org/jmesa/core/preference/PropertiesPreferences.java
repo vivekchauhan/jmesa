@@ -81,6 +81,7 @@ public final class PropertiesPreferences implements Preferences {
         return this.getClass().getResourceAsStream(preferencesLocation);
     }
 
+    @Override
     public String getPreference(String name) {
 		
         return (String) properties.get(name);

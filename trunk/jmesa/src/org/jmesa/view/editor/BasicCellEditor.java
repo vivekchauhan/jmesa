@@ -23,6 +23,7 @@ import org.jmesa.util.ItemUtils;
  */
 public class BasicCellEditor extends AbstractCellEditor {
 		
+    @Override
     public Object getValue(Object item, String property, int rowcount) {
 		
         return ItemUtils.getItemValue(item, property);

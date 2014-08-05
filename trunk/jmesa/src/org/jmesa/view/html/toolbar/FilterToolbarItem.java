@@ -28,6 +28,7 @@ public class FilterToolbarItem extends AbstractImageToolbarItem {
         super(coreContext);
     }
 
+    @Override
     public String render() {
 		
         StringBuilder action = new StringBuilder("javascript:" + getOnInvokeActionJavaScript());

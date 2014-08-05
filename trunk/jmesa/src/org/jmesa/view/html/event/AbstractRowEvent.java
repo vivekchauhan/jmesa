@@ -29,11 +29,13 @@ public abstract class AbstractRowEvent extends AbstractContextSupport implements
 		
     private Row row;
 
+    @Override
     public Row getRow() {
 		
         return row;
     }
 
+    @Override
     public void setRow(Row row) {
 		
         this.row = row;

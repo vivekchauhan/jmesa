@@ -53,6 +53,7 @@ public class DateFilterMatcher extends AbstractPatternFilterMatcher {
         setWebContext(webContext);
     }
 
+    @Override
     public boolean evaluate(Object itemValue, String filterValue) {
 		
         if (itemValue == null) {

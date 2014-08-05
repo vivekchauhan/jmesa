@@ -28,6 +28,7 @@ public class ClearToolbarItem extends AbstractImageToolbarItem {
         super(coreContext);
     }
 
+    @Override
     public String render() {
         
         StringBuilder action = new StringBuilder("javascript:jQuery.jmesa.removeAllFilters('" + getCoreContext().getLimit().getId() + "');" + getOnInvokeActionJavaScript());

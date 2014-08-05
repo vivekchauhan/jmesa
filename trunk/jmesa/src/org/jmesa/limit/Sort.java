@@ -120,11 +120,13 @@ public final class Sort implements Serializable, Comparable<Sort> {
     @Override
     public boolean equals(Object o) {
 		
-        if (o == this)
+        if (o == this) {
             return true;
+        }
 
-        if (!(o instanceof Sort))
+        if (!(o instanceof Sort)) {
             return false;
+        }
 
         Sort that = (Sort) o;
 

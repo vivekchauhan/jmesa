@@ -46,6 +46,7 @@ public class MouseRowEvent extends AbstractRowEvent {
         this.styleClass = styleClass;
     }
 
+    @Override
     public String execute(Object item, int rowcount) {
 		
         if (isHighlighter()) {
