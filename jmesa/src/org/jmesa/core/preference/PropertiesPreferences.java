@@ -15,6 +15,7 @@
  */
 package org.jmesa.core.preference;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,9 +74,10 @@ public final class PropertiesPreferences implements Preferences {
     private InputStream getInputStream(String preferencesLocation, WebContext webContext)
             throws IOException {
         if (preferencesLocation.startsWith("WEB-INF")) {
-            String path = webContext.getRealPath("WEB-INF");
+            String path = webContext.getRealPath("/WEB-INF");
             String name = StringUtils.substringAfter(preferencesLocation, "WEB-INF/");
-            return new FileInputStream(path + "/" + name);
+            File file = new File(path, name);
+            return new FileInputStream(file);
         }
 
         return this.getClass().getResourceAsStream(preferencesLocation);
